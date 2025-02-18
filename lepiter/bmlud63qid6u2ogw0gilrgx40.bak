@@ -216,15 +216,123 @@
 					"uidString" : "KN9y7M3qDQCSq3nUAvIjXQ=="
 				},
 				"code" : "canvas := (BlElement new)\n\tsize: 200 @ 200;\n\tbackground: Color veryLightGray.\ncanvas\n\taddChild:\n\t\t((BlElement new)\r\t\t\tborder: (BlBorder \r\t\t\t\tpaint: Color black \r\t\t\t\twidth: 0.5\r\t\t\t);\n\t\t\tbackground: Color white;\n\t\t\tsize: 100 @ 100;\n\t\t\trelocate: 50 @ 50);\r\tasScalableElement",
-				"elementHeight" : 268,
-				"codeHeight" : 70,
+				"elementHeight" : 274,
+				"codeHeight" : 264,
 				"codeVisible" : true
 			},
 			{
 				"__type" : "textSnippet",
 				"children" : {
 					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-02-18T17:32:30.452+01:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-02-18T17:33:13.027+01:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "4F4S7M7qDQCY0iM2AvIjXQ=="
+				},
+				"paragraphStyle" : {
+					"__type" : "textStyle"
+				},
+				"string" : "Actual rendering happens through {{gtClass:ProcessingCanvas}} in the [[Output (live)]] view."
+			},
+			{
+				"__type" : "textSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-02-18T16:22:22.984+01:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-02-18T16:22:26.171+01:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "QAvK8c3qDQCamojPAvIjXQ=="
+				},
+				"paragraphStyle" : {
+					"__type" : "textStyle"
+				},
+				"string" : "## Views"
+			},
+			{
+				"__type" : "textSnippet",
+				"children" : {
+					"__type" : "snippets",
 					"items" : [
+						{
+							"__type" : "pharoSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-02-18T17:36:07.484+01:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-02-18T17:52:27.639+01:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "YI6C+c7qDQCwTc4OAvIjXQ=="
+							},
+							"code" : "toc := (thisSnippet page database)\r\ttableOfContentsNodes at: 1.\r(toc children at: 2) page title.\r\"TODO: select?\"\rthisTocNode := toc children at: (toc children findFirst: [ :node | (node page title) = 'Processing Source' ]).\rthisTocNode children"
+						},
 						{
 							"__type" : "textSnippet",
 							"children" : {

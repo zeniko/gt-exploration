@@ -29,7 +29,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T16:43:56.703+01:00"
+						"dateAndTimeString" : "2025-02-18T17:13:54.13+01:00"
 					}
 				},
 				"uid" : {
@@ -39,7 +39,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "Processing has many [output primitives](https://processing.org/reference/) which expect to render onto a canvas. The {{gtClass:ProcessingCanvas}} class provides the API required for the Processing interpreter:"
+				"string" : "Processing has many [output primitives](https://processing.org/reference/) which expect to render onto a canvas. The {{gtClass:ProcessingCanvas}} class provides the stateful API required for the Processing interpreter:"
 			},
 			{
 				"__type" : "elementSnippet",
@@ -66,16 +66,16 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T17:09:37.897+01:00"
+						"dateAndTimeString" : "2025-02-18T17:31:13.668+01:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
 					"uidString" : "gDMtP87qDQCtcv2IAvIjXQ=="
 				},
-				"code" : "canvas := ProcessingCanvas new.\rcanvas\r\tsize: 200 by: 200;\r\trect: 100 by: 100 at: 50 @ 50.\rcanvas render\r",
-				"elementHeight" : 232,
-				"codeHeight" : 190,
+				"code" : "canvas := ProcessingCanvas new.\rcanvas\r\tsize: 200 by: 200;\r\trect: 100 by: 100 at: 50 @ 50;\r\tfill: Color red;\r\trect: 100 by: 100/3 at: 50 @ (50 + (100 / 3)).\rcanvas render\r",
+				"elementHeight" : 342,
+				"codeHeight" : 140,
 				"codeVisible" : true
 			},
 			{
@@ -92,7 +92,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T16:53:45.235+01:00"
+						"dateAndTimeString" : "2025-02-18T17:19:14.291+01:00"
 					}
 				},
 				"editEmail" : {
@@ -103,14 +103,14 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T16:57:06.029+01:00"
+						"dateAndTimeString" : "2025-02-18T17:29:35.579+01:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "OOr6Yc7qDQCm5ll9AvIjXQ=="
+					"uidString" : "OHUevc7qDQCLkCkFAvIjXQ=="
 				},
-				"code" : "canvas := (BlElement new)\n\tsize: 200 @ 200;\n\tbackground: Color veryLightGray.\ncanvas\n\taddChild:\n\t\t((BlElement new)\r\t\t\tborder: (BlBorder \r\t\t\t\tpaint: Color black \r\t\t\t\twidth: 0.5\r\t\t\t);\n\t\t\tbackground: Color white;\n\t\t\tsize: 100 @ 100;\n\t\t\trelocate: 50 @ 50);\r\tasScalableElement"
+				"code" : ""
 			}
 		]
 	},
