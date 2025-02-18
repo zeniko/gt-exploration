@@ -150,6 +150,77 @@
 				"__type" : "textSnippet",
 				"children" : {
 					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-02-18T10:44:15.628+01:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-02-18T11:03:12.512+01:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "EIeROMnqDQCJv1CUDbV8/A=="
+				},
+				"paragraphStyle" : {
+					"__type" : "textStyle"
+				},
+				"string" : "This should produce something akin of the following (adjusted from {{gtPage:Creating the Ludo Board view|db=2j9m7db2i4oz116bexd7wbdxo}}):"
+			},
+			{
+				"__type" : "pharoSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-02-18T10:44:29.76+01:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-02-18T11:03:48.509+01:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "ADJpOcnqDQCKfvg+DbV8/A=="
+				},
+				"code" : "canvas := (BlElement new)\n\tsize: 200 @ 200;\n\tbackground: Color veryLightGray.\ncanvas\n\taddChild:\n\t\t((BlElement new)\r\t\t\tborder: (BlBorder \r\t\t\t\tpaint: Color black \r\t\t\t\twidth: 0.5\r\t\t\t);\n\t\t\tbackground: Color white;\n\t\t\tsize: 100 @ 100;\n\t\t\trelocate: 50 @ 50);\r\tasScalableElement."
+			},
+			{
+				"__type" : "textSnippet",
+				"children" : {
+					"__type" : "snippets",
 					"items" : [
 						{
 							"__type" : "textSnippet",
@@ -464,7 +535,7 @@
 		"__type" : "time",
 		"time" : {
 			"__type" : "dateAndTime",
-			"dateAndTimeString" : "2025-02-18T09:55:51.275+01:00"
+			"dateAndTimeString" : "2025-02-18T10:33:17.307+01:00"
 		}
 	},
 	"pageType" : {
