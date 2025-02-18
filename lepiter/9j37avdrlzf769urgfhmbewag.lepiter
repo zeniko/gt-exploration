@@ -42,6 +42,40 @@
 				"string" : "Since we're targetting Processing's Python mode, we can use GT's builtin {{gtClass:PythonParser}} for parsing source code:"
 			},
 			{
+				"__type" : "pythonSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-02-18T23:13:22.892+01:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-02-18T23:13:23.949+01:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "4GCir9PqDQCVIr4sBzT6oA=="
+				},
+				"code" : "# output canvas dimensions\rsize(200, 200)\r# draw an orange 100x100 square at (50; 50)\rfill(240, 128, 0)\r\nrect(50, 50, 100, 100)"
+			},
+			{
 				"__type" : "pharoSnippet",
 				"children" : {
 					"__type" : "snippets",
@@ -66,14 +100,14 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T20:07:48.823+01:00"
+						"dateAndTimeString" : "2025-02-18T23:14:12.118+01:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
 					"uidString" : "aMc4xc/qDQCW5fqjBzT6oA=="
 				},
-				"code" : "source := ProcessingSource new fromFile: FileLocator home / 'Documents' / 'Processing' / 'sample' / 'sample.pyde'.\rast := ProcessingParser parse: source asString"
+				"code" : "source := ProcessingSource new fromString: thisSnippet previousSibling code.\r\"source := ProcessingSource new fromFile: FileLocator home / 'Documents' / 'Processing' / 'sample' / 'sample.pyde'.\"\rast := ProcessingParser parse: source asString"
 			},
 			{
 				"__type" : "textSnippet",
@@ -145,43 +179,6 @@
 					"uidString" : "yMQFF9HqDQCag+1VBzT6oA=="
 				},
 				"code" : "canvas := ProcessingCanvas new.\r(ProcessingInterpreter new) interpret: ast onto: canvas.\rcanvas render"
-			},
-			{
-				"__type" : "textSnippet",
-				"children" : {
-					"__type" : "snippets",
-					"items" : [ ]
-				},
-				"createEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"createTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T20:43:28.441+01:00"
-					}
-				},
-				"editEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"editTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T20:43:28.441+01:00"
-					}
-				},
-				"uid" : {
-					"__type" : "uid",
-					"uidString" : "qPKFl9HqDQC0vFkQBzT6oA=="
-				},
-				"paragraphStyle" : {
-					"__type" : "textStyle"
-				},
-				"string" : ""
 			}
 		]
 	},

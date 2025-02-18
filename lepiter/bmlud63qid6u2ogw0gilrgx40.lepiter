@@ -89,7 +89,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-17T22:41:00.996+01:00"
+						"dateAndTimeString" : "2025-02-18T22:36:37.719+01:00"
 					}
 				},
 				"editEmail" : {
@@ -100,7 +100,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-17T23:26:49.56+01:00"
+						"dateAndTimeString" : "2025-02-18T22:37:28.952+01:00"
 					}
 				},
 				"uid" : {
@@ -110,7 +110,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "{{gtTodo:label=Demo path unavailable on other machines (adjust)|completed=}}"
+				"string" : "This file could contain the following code (which is loaded in the snippet right afterwards): "
 			},
 			{
 				"__type" : "pythonSnippet",
@@ -137,17 +137,17 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T09:40:52.584+01:00"
+						"dateAndTimeString" : "2025-02-18T22:52:51.642+01:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
 					"uidString" : "6Gc8U8jqDQC51sjOCZ6mgg=="
 				},
-				"code" : "# output canvas dimensions\rsize(200, 200)\r# draw a 100x100 rectangle at (50; 50)\r\nrect(50, 50, 100, 100)"
+				"code" : "# output canvas dimensions\rsize(200, 200)\r# draw an orange 100x100 square at (50; 50)\rfill(240, 128, 0)\r\nrect(50, 50, 100, 100)"
 			},
 			{
-				"__type" : "textSnippet",
+				"__type" : "pharoSnippet",
 				"children" : {
 					"__type" : "snippets",
 					"items" : [ ]
@@ -160,7 +160,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T10:44:15.628+01:00"
+						"dateAndTimeString" : "2025-02-18T22:22:39.16+01:00"
 					}
 				},
 				"editEmail" : {
@@ -171,54 +171,14 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T11:03:12.512+01:00"
+						"dateAndTimeString" : "2025-02-18T22:26:00.551+01:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "EIeROMnqDQCJv1CUDbV8/A=="
+					"uidString" : "wLY2+tLqDQCNMcPmBzT6oA=="
 				},
-				"paragraphStyle" : {
-					"__type" : "textStyle"
-				},
-				"string" : "This should produce something akin of the following (adjusted from {{gtPage:Creating the Ludo Board view|db=2j9m7db2i4oz116bexd7wbdxo}}):"
-			},
-			{
-				"__type" : "elementSnippet",
-				"children" : {
-					"__type" : "snippets",
-					"items" : [ ]
-				},
-				"createEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"createTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T16:20:53.385+01:00"
-					}
-				},
-				"editEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"editTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T16:21:08.776+01:00"
-					}
-				},
-				"uid" : {
-					"__type" : "uid",
-					"uidString" : "KN9y7M3qDQCSq3nUAvIjXQ=="
-				},
-				"code" : "canvas := (BlElement new)\n\tsize: 200 @ 200;\n\tbackground: Color veryLightGray.\ncanvas\n\taddChild:\n\t\t((BlElement new)\r\t\t\tborder: (BlBorder \r\t\t\t\tpaint: Color black \r\t\t\t\twidth: 0.5\r\t\t\t);\n\t\t\tbackground: Color white;\n\t\t\tsize: 100 @ 100;\n\t\t\trelocate: 50 @ 50);\r\tasScalableElement",
-				"elementHeight" : 274,
-				"codeHeight" : 264,
-				"codeVisible" : true
+				"code" : "ProcessingSource new fromString: thisSnippet previousSibling code"
 			},
 			{
 				"__type" : "textSnippet",
@@ -245,7 +205,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T17:33:13.027+01:00"
+						"dateAndTimeString" : "2025-02-18T22:39:59.656+01:00"
 					}
 				},
 				"uid" : {
@@ -324,7 +284,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-02-18T09:53:39.089+01:00"
+									"dateAndTimeString" : "2025-02-18T22:21:27.446+01:00"
 								}
 							},
 							"uid" : {
@@ -334,7 +294,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "[[Contents]]"
+							"string" : "[[Contents]] (demo)"
 						},
 						{
 							"__type" : "textSnippet",
@@ -361,7 +321,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-02-18T09:53:42.777+01:00"
+									"dateAndTimeString" : "2025-02-18T22:20:49.022+01:00"
 								}
 							},
 							"uid" : {
@@ -371,7 +331,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "[[Java-ized]]"
+							"string" : "[[Java-ized]] (not implemented)"
 						},
 						{
 							"__type" : "textSnippet",
@@ -398,7 +358,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-02-18T10:03:25.657+01:00"
+									"dateAndTimeString" : "2025-02-18T22:21:00.464+01:00"
 								}
 							},
 							"uid" : {
@@ -408,7 +368,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "[[Assembly]]"
+							"string" : "[[Assembly]] (not implemented)"
 						},
 						{
 							"__type" : "textSnippet",
@@ -435,7 +395,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-02-18T10:03:30.463+01:00"
+									"dateAndTimeString" : "2025-02-18T22:21:05.713+01:00"
 								}
 							},
 							"uid" : {
@@ -445,7 +405,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "[[Optimized]]"
+							"string" : "[[Optimized]] (not implemented)"
 						},
 						{
 							"__type" : "textSnippet",
@@ -472,7 +432,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-02-18T10:03:37.109+01:00"
+									"dateAndTimeString" : "2025-02-18T22:21:08.582+01:00"
 								}
 							},
 							"uid" : {
@@ -482,7 +442,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "[[Bytecode]]"
+							"string" : "[[Bytecode]] (not implemented)"
 						},
 						{
 							"__type" : "textSnippet",
@@ -509,7 +469,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-02-18T10:12:14.556+01:00"
+									"dateAndTimeString" : "2025-02-18T22:21:31.984+01:00"
 								}
 							},
 							"uid" : {
@@ -519,7 +479,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "[[Output (live)]]"
+							"string" : "[[Output (live)]] (demo)"
 						},
 						{
 							"__type" : "textSnippet",
@@ -546,7 +506,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-02-18T16:00:15.366+01:00"
+									"dateAndTimeString" : "2025-02-18T22:21:42.517+01:00"
 								}
 							},
 							"uid" : {
@@ -556,7 +516,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "[[Human Language (German)]]"
+							"string" : "[[Human Language (German)]] (not implemented)"
 						}
 					]
 				},
