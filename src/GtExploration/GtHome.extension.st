@@ -4,10 +4,10 @@ Extension { #name : #GtHome }
 GtHome >> gtZenikoExplorationSection [
 	<gtHomeSection>
 	^ GtHomeStartPageSection new 
-		title: 'GT Exploration';
-		description: 'Zeniko''s GT experimentations';
+		title: 'Individual Project';
+		description: 'zeniko''s GT explorations';
 		databaseName: 'zeniko\gt-exploration\lepiter';
-		startPageName: 'Processing Source (class)';
+		startPageName: 'Individual Project';
 		priority: 10
 		
 ]

@@ -184,7 +184,7 @@
 				"string" : "This should produce something akin of the following (adjusted from {{gtPage:Creating the Ludo Board view|db=2j9m7db2i4oz116bexd7wbdxo}}):"
 			},
 			{
-				"__type" : "pharoSnippet",
+				"__type" : "elementSnippet",
 				"children" : {
 					"__type" : "snippets",
 					"items" : [ ]
@@ -197,7 +197,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T10:44:29.76+01:00"
+						"dateAndTimeString" : "2025-02-18T16:20:53.385+01:00"
 					}
 				},
 				"editEmail" : {
@@ -208,14 +208,17 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T11:03:42.909+01:00"
+						"dateAndTimeString" : "2025-02-18T16:21:08.776+01:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "ADJpOcnqDQCKfvg+DbV8/A=="
+					"uidString" : "KN9y7M3qDQCSq3nUAvIjXQ=="
 				},
-				"code" : "canvas := (BlElement new)\n\tsize: 200 @ 200;\n\tbackground: Color veryLightGray.\ncontainer\n\taddChild:\n\t\t((BlElement new)\r\t\t\tborder: (BlBorder \r\t\t\t\tpaint: Color black \r\t\t\t\twidth: 0.5\r\t\t\t);\n\t\t\tbackground: Color white;\n\t\t\tsize: 100 @ 100;\n\t\t\trelocate: 50 @ 50);\r\tasScalableElement."
+				"code" : "canvas := (BlElement new)\n\tsize: 200 @ 200;\n\tbackground: Color veryLightGray.\ncanvas\n\taddChild:\n\t\t((BlElement new)\r\t\t\tborder: (BlBorder \r\t\t\t\tpaint: Color black \r\t\t\t\twidth: 0.5\r\t\t\t);\n\t\t\tbackground: Color white;\n\t\t\tsize: 100 @ 100;\n\t\t\trelocate: 50 @ 50);\r\tasScalableElement",
+				"elementHeight" : 268,
+				"codeHeight" : 70,
+				"codeVisible" : true
 			},
 			{
 				"__type" : "textSnippet",
@@ -443,6 +446,43 @@
 								"__type" : "textStyle"
 							},
 							"string" : "[[Output (live)]]"
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-02-18T15:58:24.479+01:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-02-18T16:00:15.366+01:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "GDMMnM3qDQCt6qQlAvIjXQ=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "[[Human Language (German)]]"
 						}
 					]
 				},
@@ -465,7 +505,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-17T22:39:49.147+01:00"
+						"dateAndTimeString" : "2025-02-18T15:59:09.889+01:00"
 					}
 				},
 				"uid" : {
@@ -475,7 +515,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "The ProcessingSource gets multiple views:"
+				"string" : "The ProcessingSource should get multiple views such as:"
 			},
 			{
 				"__type" : "textSnippet",
@@ -535,12 +575,12 @@
 		"__type" : "time",
 		"time" : {
 			"__type" : "dateAndTime",
-			"dateAndTimeString" : "2025-02-18T10:33:17.307+01:00"
+			"dateAndTimeString" : "2025-02-18T16:19:11.768+01:00"
 		}
 	},
 	"pageType" : {
 		"__type" : "namedPage",
-		"title" : "Processing Source (class)"
+		"title" : "Processing Source"
 	},
 	"uid" : {
 		"__type" : "uuid",
