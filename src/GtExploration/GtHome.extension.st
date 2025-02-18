@@ -7,7 +7,7 @@ GtHome >> gtZenikoExplorationSection [
 		title: 'GT Exploration';
 		description: 'Zeniko''s GT experimentations';
 		databaseName: 'zeniko\gt-exploration\lepiter';
-		startPageName: 'Processing';
+		startPageName: 'Processing Source (class)';
 		priority: 10
 		
 ]

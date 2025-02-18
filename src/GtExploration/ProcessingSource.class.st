@@ -14,6 +14,7 @@ ProcessingSource >> fromFile: locator [
 
 { #category : #'as yet unclassified' }
 ProcessingSource >> gtContentsFor: aView [
+	"copy/paste from FileLocator > AbstractFileReference > #gtContentsFor"
 	<gtView>
 	| eventLoop |
 	source isFile ifFalse: [ ^ aView empty ].

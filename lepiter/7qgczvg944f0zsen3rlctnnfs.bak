@@ -1,0 +1,110 @@
+{
+	"__schema" : "4.1",
+	"__type" : "page",
+	"children" : {
+		"__type" : "snippets",
+		"items" : [
+			{
+				"__type" : "textSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-02-18T10:06:24.94+01:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-02-18T10:10:27.935+01:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "4Js5scjqDQCSbT7RCZ6mgg=="
+				},
+				"paragraphStyle" : {
+					"__type" : "textStyle"
+				},
+				"string" : "The following is an incomplete, underdocumented Smalltalk parser written in an unpublished language using parser combinators as a demo ([try it out]):"
+			},
+			{
+				"__type" : "pythonSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-02-18T10:08:37.799+01:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-02-18T10:08:39.292+01:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "WOAkucjqDQC3E5wZCZ6mgg=="
+				},
+				"code" : "# https://rosettacode.org/wiki/Category:Smalltalk\r\n\r\nsmalltalk_parser = fn() {\r\n\t# parsec is a parser combinator library providing \r\n\t#   s()        match a string\r\n\t#   rx()       match an extended regex (syntax similar to ECMAScript)\r\n\t#   neg()      fail to match\r\n\t#   opt()      match zero or one\r\n\t#   any()      match zero, one or more\r\n\t#   seq()      match all parts in sequence\r\n\t#   alt()      match one of its alternate options (left to right)\r\n\t#   skip()     exclude from parse tree\r\n\t#   between()  match must lie between given part(s)\r\n\t#   any1()     match one or more\r\n\t#   defer()    required for recursive definitions: prepares a reference (in a box = single-item list) for a definition which will only later become available\r\n\t#   map()      transform the match\r\n\t#   end()      match the end\r\n\timport parsec for *\r\n\t\r\n\tspaces = rx(`\\s*`).skip()\r\n\t\r\n\tanyChar = rx(`(?s).`)\r\n\tdigit = rx(`\\d`)\r\n\tletter = rx(`[a-zA-Z_]`)\r\n\tbinOps = rx(`[+\\-*/~|,<>=&@?\\\\%]{1,2}`)\r\n\t\r\n\tradix = rx(`\\d|[1-2]\\d|3[0-6]`)\r\n\tsign = s(\"-\").opt()\r\n\tintegerConst = radix.seq(s(\"r\")).opt().seq(sign, digit.any1()).map(fn(*a) { { integer: a.join(\"\") } })\r\n\texp = s(\"e\").seq(sign, digit.any1())\r\n\tfloatConst = sign.seq(digit.any1(), s(\".\").seq(digit.any1(), exp.opt()).alt(exp)).map(fn(*a) { { float: a.join(\"\") } })\r\n\tnumber = floatConst.alt(integerConst)\r\n\t\r\n\tvariable = letter.seq(letter.alt(digit).any(), s(\":\").neg()).between(spaces).map(fn(*a) { a.join(\"\") })\r\n\tkeyword = letter.seq(letter.alt(digit).any(), s(\":\")).map(fn(*a) { a.join(\"\") })\r\n\t\r\n\tstringConst = s(\"''\").alt(s(\"'\").neg().seq(anyChar)).any().between(s(\"'\").skip()).map(fn(*a) { { string: a.join(\"\").replace(\"''\", \"'\") } })\r\n\tcharacterConst = s(\"$\").seq(anyChar).map(fn(*a) { { character: a.1 } })\r\n\t\r\n\tselector = keyword.alt(binOps, variable).between(spaces)\r\n\tsymbolConst = s(\"#\").skip().seq(stringConst.alt(selector)).map(a -> { const: a })\r\n\tarrayListBox = [none]\r\n\tarrayList = defer(arrayListBox)\r\n\tarrayConst = s(\"#\").skip().seq(arrayList)\r\n\t\r\n\tliteral = number.alt(stringConst, characterConst, symbolConst, arrayConst)\r\n\t\r\n\tarrayListBox.0 = literal.alt(arrayList).between(spaces).any().between(s(\"(\"), s(\")\")).map(fn(*a) { { array: a } })\r\n\t\r\n\texpressionBox = [none]\r\n\texpression = defer(expressionBox)\r\n\tassignment = variable.seq(s(\":=\").skip()).any1().seq(expression).map(fn(*a) { { assign: [a[:-1], a[-1]] } })\r\n\t\r\n\tblockBox = [none]\r\n\tblock = defer(blockBox)\r\n\tprimary = variable.alt(literal, block, expression.between(s(\"(\"), s(\")\"))).between(spaces)\r\n\t\r\n\tunarySelExpr = variable\r\n\tunaryExpression = primary.seq(unarySelExpr.any()).map(fn nest_unary(*a) { if a.size() == 1 { a.0 } else { nest_unary({ unary: a[:2] }, *a[2:]) } })\r\n\tbinarySelExpr = binOps.seq(unaryExpression)\r\n\tbinaryExpression = unaryExpression.seq(binarySelExpr.any()).map(fn nest_binary(*a) { if a.size() == 1 { a.0 } else { nest_binary({ binary: a[:3] }, *a[3:]) } })\r\n\tkeywordSelExpr = keyword.seq(binaryExpression)\r\n\tkeywordExpression = binaryExpression.seq(keywordSelExpr.any()).map(fn(*a) { if a.size() == 1 { a.0 } else { a } })\r\n\tmessageSend = keywordExpression.seq(s(\";\").between(spaces).seq(keywordSelExpr.alt(binarySelExpr, unarySelExpr).any()).any())\r\n\t\r\n\texpressionBox.0 = assignment.alt(messageSend)\r\n\t\r\n\tlocalVarDecl = variable.any().between(s(\"|\")).map(fn(*a) { { variables: a } })\r\n\t\r\n\tstatements = localVarDecl.opt().seq(expression.seq(s(\".\").skip()).any(), s(\"^\").between(spaces).opt().seq(expression).alt(s(\".\").skip()).opt())\r\n\tblockBox.0 = s(\":\").seq(variable).any().seq(s(\"|\")).opt().seq(statements).between(spaces).between(s(\"[\"), s(\"]\")).map(fn(*a) { { block: a } })\r\n\t\r\n\tmethodSpec = keyword.seq(variable).any1().alt(binOps.seq(variable), variable)\r\n\tpragma = keywordExpression.between(s(\"<\"), s(\">\")).map(fn(*a) { { pragma: a } })\r\n\tmethod = methodSpec.seq(pragma.opt(), statements).between(spaces)\r\n\t\r\n\tmethod.end()\r\n}()\r\n\r\ntest_blocks = [\r\n\t\"1234\",\r\n\t\"1234.\",\r\n\t\"1234.56\",\r\n\t\" 1234 \",\r\n\t\"'string'\",\r\n\t\"1234 print\",\r\n\t\"1234 size print\",\r\n\t\"1 + 2 - 3 / 4\",\r\n\t\"1 + 2 - (3 / 4)\",\r\n\t\"1234 print. 1 + 2 print.\",\r\n\t\"1234 print. 1 + (2 - 3 / 4)\",\r\n\t\"^returned\", \"^ returned\",\r\n\t\"2 raisedTo: 3\",\r\n\t\"Transcript show: 'Hello, World!'.\",\r\n\t\"1234 between: 10 and: 12\",\r\n\t\"a := b := 1 + 2\",\r\n\t\"((1 + 2))\",\r\n\t\" myvar at: (2 + 3) put: (4)\",\r\n\t\" (myvar at: (2 + 3) put: (4))\",\r\n\t\"5 raisedTo: 7 - 2 squared\",\r\n\t\" ^ 2 / 4 roundup \",\r\n\t\"mybool ifTrue: [ ^ 2 / 4 roundup ]\",\r\n\t\"display drawFromX: 1 fromY: 1 toX: 50 toY: 100.\",\r\n\t\"true & false not & (nil isNil) ifFalse: [self halt].\",\r\n\t\"| y | y := self size + super size.\",\r\n\t\"#(1 (2 3))\",\r\n\t\"#($a #a 'a' 1 1.0)\",\r\n\t\"1 squared; rooted\",\r\n\t\"Transcript show: 1; show: 2\",\r\n\t\"1 do: [ :each | 1 ].\",\r\n\t\"thing do: 1 and: 2; do: 3 and: 4\",\r\n]\r\ntest_methods = [\r\n\t\"\"\"\r\n\tname ^ 1\r\n\t\"\"\",\r\n\t\"\"\"\r\n\tname\r\n\t\t1 + 2.\r\n\t\"\"\",\r\n\t\"\"\"\r\n\tdoSomethingWith: argumentObject\r\n\t\tself size > 4 ifTrue: [^argumentObject sizeRelatingTo: self].\r\n\t\"\"\",\r\n\t\"\"\"\r\n\tmax: aNumber\r\n\t\t^self < aNumber ifTrue: [aNumber] ifFalse: [self]\r\n\t\"\"\",\r\n\t\"\"\"\r\n\tfibonacci\r\n\t\tself > 1 ifTrue: [^ (self - 1) fibonacci + (self - 2) fibonacci].\r\n\t\t^ self\r\n\t\"\"\",\r\n\t\"\"\"\r\n\texampleWithNumber: x\r\n\t\t| y |\r\n\t\ttrue & false not & (nil isNil) ifFalse: [self halt].\r\n\t\ty := self size + super size.\r\n\t\t#($a #a 'a' 1 1.0)\r\n\t\t\tdo: [ :each |\r\n\t\t\t\tTranscript show: (each class name);\r\n\t\t\t\t\t\t   show: ' '].\r\n\t\t^x < y\r\n\t\"\"\",\r\n\t\"\"\"\r\n\tname\r\n\t\t<pragma>\r\n\t\t^ return\r\n\t\"\"\",\r\n\t\"\"\"\r\n\tgtViewContactsOn: aView\r\n\t\t<gtView>\r\n\t\t^ aView columnedList\r\n\t\t\ttitle: 'Contacts with details' translated;\r\n\t\t\tpriority: 5;\r\n\t\t\titems: [ self contacts ];\r\n\t\t\tcolumn: 'Avatar' \r\n\t\t\t\ticon: [ :aContact | aContact avatar asElement asScalableElement size: 32 @ 32 ]\r\n\t\t\t\twidth: 75;\r\n\t\t\tcolumn: 'Name' text: [ :aContact | aContact fullName ];\r\n\t\t\tcolumn: 'Phone' text: [ :aContact | aContact telephone ]\r\n\t\"\"\",\r\n]\r\nimport string for [pretty]\r\nfor code in test_blocks {\r\n\t(\"_ \" + code).smalltalk_parser().assert().pretty().print()\r\n}\r\nfor code in test_methods {\r\n\tcode.smalltalk_parser().assert().pretty().print()\r\n}\r\n"
+			}
+		]
+	},
+	"createEmail" : {
+		"__type" : "email",
+		"emailString" : "<unknown>"
+	},
+	"createTime" : {
+		"__type" : "time",
+		"time" : {
+			"__type" : "dateAndTime",
+			"dateAndTimeString" : "2025-02-18T10:06:33.291+01:00"
+		}
+	},
+	"editEmail" : {
+		"__type" : "email",
+		"emailString" : "<unknown>"
+	},
+	"editTime" : {
+		"__type" : "time",
+		"time" : {
+			"__type" : "dateAndTime",
+			"dateAndTimeString" : "2025-02-18T10:06:33.291+01:00"
+		}
+	},
+	"pageType" : {
+		"__type" : "namedPage",
+		"title" : "Parser demo"
+	},
+	"uid" : {
+		"__type" : "uuid",
+		"uuid" : "68d333b1-c8ea-0d00-9210-ed18099ea682"
+	}
+}
