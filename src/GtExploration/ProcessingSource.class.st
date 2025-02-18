@@ -7,6 +7,11 @@ Class {
 	#category : #GtExploration
 }
 
+{ #category : #'as yet unclassified' }
+ProcessingSource >> asString [
+	^ source contents
+]
+
 { #category : #accessing }
 ProcessingSource >> fromFile: locator [
 	source:=locator
