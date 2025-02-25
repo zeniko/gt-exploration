@@ -1,0 +1,218 @@
+{
+	"__schema" : "4.1",
+	"__type" : "page",
+	"children" : {
+		"__type" : "snippets",
+		"items" : [
+			{
+				"__type" : "textSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-02-25T22:40:16.993+01:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-02-25T22:40:49.615+01:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "6JYnCmDrDQCZwiRuC7gYPg=="
+				},
+				"paragraphStyle" : {
+					"__type" : "textStyle"
+				},
+				"string" : "This example finally demonstrates animated code:"
+			},
+			{
+				"__type" : "pythonSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-02-25T22:40:55.317+01:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-02-25T22:42:06.485+01:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "CF5wDGDrDQC7TDsaC7gYPg=="
+				},
+				"code" : "def setup():\r\tsize(200, 200)\r\rx = 0\r\rdef draw():\r\tglobal x\r\tbackground(192, 192, 192)\r\trect(x, 50, 100, 100)\r\tx = x + 1\r\tif x == 100:\r\t\tx = 0"
+			},
+			{
+				"__type" : "textSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-02-25T22:42:10.547+01:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-02-25T22:42:16.093+01:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "OEnsEGDrDQCUSjGyC7gYPg=="
+				},
+				"paragraphStyle" : {
+					"__type" : "textStyle"
+				},
+				"string" : "## Intel x86"
+			},
+			{
+				"__type" : "blockQuoteSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-02-25T22:42:21.303+01:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-02-25T22:45:52.625+01:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "2GiQEWDrDQCe7qH7C7gYPg=="
+				},
+				"string" : "main:\r\n\tpush    rbp\r\n\tmov     rbp, rsp\r\n\tmov     eax, 0\r\n\tcall    setup\r\n.L9:\r\n\tmov     eax, 0\r\n\tcall    draw\r\n\tmov     eax, 0\r\n\tcall    update\r\n\tjmp     .L9\r\n\r\nx:\r\n\t.zero   4\r\n\r\nsetup:\r\n\tpush    rbp\r\n\tmov     rbp, rsp\r\n\tmov     esi, 200\r\n\tmov     edi, 200\r\n\tcall    size\r\n\tnop\r\n\tpop     rbp\r\n\tret\r\n\r\ndraw:\r\n\tpush    rbp\r\n\tmov     rbp, rsp\r\n\tmov     edx, 192\r\n\tmov     esi, 192\r\n\tmov     edi, 192\r\n\tcall    background\r\n\tmov     eax, DWORD PTR x[rip]\r\n\tmov     ecx, 100\r\n\tmov     edx, 100\r\n\tmov     esi, 50\r\n\tmov     edi, eax\r\n\tcall    rect\r\n\tmov     eax, DWORD PTR x[rip]\r\n\tadd     eax, 1\r\n\tmov     DWORD PTR x[rip], eax\r\n\tmov     eax, DWORD PTR x[rip]\r\n\tcmp     eax, 100\r\n\tjne     .L7\r\n\tmov     DWORD PTR x[rip], 0\r\n.L7:\r\n\tnop\r\n\tpop     rbp\r\n\tret"
+			},
+			{
+				"__type" : "textSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-02-25T22:42:17.783+01:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-02-25T22:42:17.783+01:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "2LJaEWDrDQCeC3CeC7gYPg=="
+				},
+				"paragraphStyle" : {
+					"__type" : "textStyle"
+				},
+				"string" : ""
+			}
+		]
+	},
+	"createEmail" : {
+		"__type" : "email",
+		"emailString" : "<unknown>"
+	},
+	"createTime" : {
+		"__type" : "time",
+		"time" : {
+			"__type" : "dateAndTime",
+			"dateAndTimeString" : "2025-02-25T22:40:21.781+01:00"
+		}
+	},
+	"editEmail" : {
+		"__type" : "email",
+		"emailString" : "<unknown>"
+	},
+	"editTime" : {
+		"__type" : "time",
+		"time" : {
+			"__type" : "dateAndTime",
+			"dateAndTimeString" : "2025-02-25T22:40:21.781+01:00"
+		}
+	},
+	"pageType" : {
+		"__type" : "namedPage",
+		"title" : "Example 4"
+	},
+	"uid" : {
+		"__type" : "uuid",
+		"uuid" : "a812230a-60eb-0d00-98ef-4a910bb8183e"
+	}
+}

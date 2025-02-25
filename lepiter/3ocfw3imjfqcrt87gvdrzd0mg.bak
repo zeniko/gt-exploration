@@ -203,6 +203,43 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-02-25T22:38:51.019+01:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-02-25T22:40:07.577+01:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "+LoHBWDrDQCxswUZC7gYPg=="
+				},
+				"paragraphStyle" : {
+					"__type" : "textStyle"
+				},
+				"string" : "(Intel x86 examples have been created with the help of Matt Godbolt's  [Compiler Explorer](https://godbolt.org/).)"
+			},
+			{
+				"__type" : "textSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
 						"dateAndTimeString" : "2025-02-25T22:12:43.637+01:00"
 					}
 				},
@@ -499,6 +536,43 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-02-25T22:27:54.858+01:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-02-25T22:27:54.858+01:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "EILr3V/rDQCzlEa7C7gYPg=="
+				},
+				"paragraphStyle" : {
+					"__type" : "textStyle"
+				},
+				"string" : "A non-minimal option would be to allow for multiple compiler back-ends so that multiple of the above Assembly variants could be output, depending on the need."
+			},
+			{
+				"__type" : "textSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
 						"dateAndTimeString" : "2025-02-25T22:26:27.866+01:00"
 					}
 				},
@@ -510,7 +584,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-25T22:27:43.815+01:00"
+						"dateAndTimeString" : "2025-02-25T22:28:04.805+01:00"
 					}
 				},
 				"uid" : {
@@ -520,7 +594,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "A non-minimal option would be to allow for multiple compiler back-ends so that multiple of the above Assembly variants could be output, depending on the need. Minimally, at least the option for multiple b"
+				"string" : "Minimally, at least the option for multiple back-ends could be implemented, so that further work could be done at a later point in time."
 			}
 		]
 	},
