@@ -18,7 +18,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T16:00:23.522+01:00"
+						"dateAndTimeString" : "2025-02-25T21:59:46.63+01:00"
 					}
 				},
 				"editEmail" : {
@@ -29,17 +29,17 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T16:01:52.132+01:00"
+						"dateAndTimeString" : "2025-02-25T22:02:10.579+01:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "0KYko83qDQCFX1LeAvIjXQ=="
+					"uidString" : "cDFLeV/rDQC3IWEjC7gYPg=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "Shows a colloquial description of the input commands, the output or an intermediary interpretation of the program (derived through a LLM)."
+				"string" : "Shows a colloquial description of the input commands, the output or an intermediary interpretation of the program (derived through a LLM, provided by {{gtClass:name=gt}}."
 			},
 			{
 				"__type" : "textSnippet",

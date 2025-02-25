@@ -6,7 +6,7 @@ GtHome >> gtZenikoExplorationSection [
 	^ GtHomeStartPageSection new 
 		title: 'Individual Project';
 		description: 'zeniko''s GT explorations';
-		databaseName: 'zeniko\gt-exploration\lepiter';
+		databaseName: 'zeniko:gt-exploration';
 		startPageName: 'Individual Project';
 		priority: 10
 		

@@ -51,13 +51,18 @@ ProcessingSource >> gtOutputFor: aView [
 		title: 'Output (Live)';
 		priority: 20;
 		stencil: [
-			| ast canvas |
-			"TODO: handle syntax errors"
-			ast := ProcessingParser parse: self asString.
-			canvas := ProcessingCanvas new.
-			(ProcessingInterpreter new) interpret: ast onto: canvas.
 			GtInspectorElementLiveViewContainer new
-				element: canvas render;
+				element: self render;
 				clipChildren: false
 		]
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingSource >> render [
+	| ast canvas |
+	"TODO: handle syntax errors"
+	ast := ProcessingParser parse: self asString.
+	canvas := ProcessingCanvas new.
+	(ProcessingInterpreter new) interpret: ast onto: canvas.
+	^ canvas render
 ]

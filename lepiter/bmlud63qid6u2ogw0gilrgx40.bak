@@ -66,14 +66,14 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-17T22:48:12.572+01:00"
+						"dateAndTimeString" : "2025-02-25T20:27:06.038+01:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
 					"uidString" : "cIVU5b7qDQC62R3QBQppxA=="
 				},
-				"code" : "ProcessingSource new fromFile: FileLocator home / 'Documents' / 'Processing' / 'sample' / 'sample.pyde'"
+				"code" : "ProcessingSource new fromFile: FileLocator gtResource / 'zeniko/gt-exploration/data/sample/sample.pyde'"
 			},
 			{
 				"__type" : "textSnippet",
@@ -100,7 +100,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T22:37:28.952+01:00"
+						"dateAndTimeString" : "2025-02-25T20:27:40.744+01:00"
 					}
 				},
 				"uid" : {
@@ -110,7 +110,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "This file could contain the following code (which is loaded in the snippet right afterwards): "
+				"string" : "This file contains the following code (which is loaded in the snippet right afterwards): "
 			},
 			{
 				"__type" : "pythonSnippet",
@@ -137,14 +137,14 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T22:52:17.169+01:00"
+						"dateAndTimeString" : "2025-02-18T22:52:51.642+01:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
 					"uidString" : "6Gc8U8jqDQC51sjOCZ6mgg=="
 				},
-				"code" : "# output canvas dimensions\rsize(200, 200)\r# draw an orange 100x100 rectangle at (50; 50)\rfill(255, 128, 0)\r\nrect(50, 50, 100, 100)"
+				"code" : "# output canvas dimensions\rsize(200, 200)\r# draw an orange 100x100 square at (50; 50)\rfill(240, 128, 0)\r\nrect(50, 50, 100, 100)"
 			},
 			{
 				"__type" : "pharoSnippet",
@@ -255,6 +255,40 @@
 				"string" : "## Views"
 			},
 			{
+				"__type" : "pharoSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-02-19T10:40:23.901+01:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-02-19T10:44:57.058+01:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "SA+ZSN3qDQCwKcqKCLG8/w=="
+				},
+				"code" : "thisSnippet database tableOfContents asContentUIModel"
+			},
+			{
 				"__type" : "textSnippet",
 				"children" : {
 					"__type" : "snippets",
@@ -310,7 +344,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-02-18T09:53:39.59+01:00"
+									"dateAndTimeString" : "2025-02-25T20:24:45.992+01:00"
 								}
 							},
 							"editEmail" : {
@@ -321,17 +355,17 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-02-18T22:20:49.022+01:00"
+									"dateAndTimeString" : "2025-02-25T20:24:52.904+01:00"
 								}
 							},
 							"uid" : {
 								"__type" : "uid",
-								"uidString" : "cEubg8jqDQCtKwkuCZ6mgg=="
+								"uidString" : "uF1AJV7rDQCmrABIC7gYPg=="
 							},
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "[[Java-ized]] (not implemented)"
+							"string" : "[[Abstract Syntax Tree]] (not implemented)"
 						},
 						{
 							"__type" : "textSnippet",
@@ -369,80 +403,6 @@
 								"__type" : "textStyle"
 							},
 							"string" : "[[Assembly]] (not implemented)"
-						},
-						{
-							"__type" : "textSnippet",
-							"children" : {
-								"__type" : "snippets",
-								"items" : [ ]
-							},
-							"createEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"createTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-02-18T10:03:26.762+01:00"
-								}
-							},
-							"editEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"editTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-02-18T22:21:05.713+01:00"
-								}
-							},
-							"uid" : {
-								"__type" : "uid",
-								"uidString" : "ENSapsjqDQCALURdCZ6mgg=="
-							},
-							"paragraphStyle" : {
-								"__type" : "textStyle"
-							},
-							"string" : "[[Optimized]] (not implemented)"
-						},
-						{
-							"__type" : "textSnippet",
-							"children" : {
-								"__type" : "snippets",
-								"items" : [ ]
-							},
-							"createEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"createTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-02-18T10:03:33.52+01:00"
-								}
-							},
-							"editEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"editTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-02-18T22:21:08.582+01:00"
-								}
-							},
-							"uid" : {
-								"__type" : "uid",
-								"uidString" : "gPIBp8jqDQCD/bY+CZ6mgg=="
-							},
-							"paragraphStyle" : {
-								"__type" : "textStyle"
-							},
-							"string" : "[[Bytecode]] (not implemented)"
 						},
 						{
 							"__type" : "textSnippet",
@@ -506,7 +466,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-02-18T22:21:42.517+01:00"
+									"dateAndTimeString" : "2025-02-25T20:24:40.306+01:00"
 								}
 							},
 							"uid" : {
@@ -516,7 +476,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "[[Human Language (German)]] (not implemented)"
+							"string" : "[[Human Language (German)]] (optional; not implemented)"
 						}
 					]
 				},

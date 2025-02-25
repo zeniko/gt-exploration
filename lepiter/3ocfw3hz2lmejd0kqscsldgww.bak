@@ -18,7 +18,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T09:59:46.231+01:00"
+						"dateAndTimeString" : "2025-02-25T21:42:41.186+01:00"
 					}
 				},
 				"editEmail" : {
@@ -29,17 +29,51 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-25T20:22:56.157+01:00"
+						"dateAndTimeString" : "2025-02-25T21:51:19.698+01:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "2Mp1mcjqDQClGcPWCZ6mgg=="
+					"uidString" : "0CgsPF/rDQCCrElqC7gYPg=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "Shows the translation into a minimal (IA64-subset/WASM/...?) assembly language without optimizations and binary opcodes (in hexadecimal or decimal notation)."
+				"string" : "This example draws three squares using a variable and a loop."
+			},
+			{
+				"__type" : "pythonSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-02-25T21:51:27.67+01:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-02-25T21:51:34.629+01:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "8KqNW1/rDQCks/dvC7gYPg=="
+				},
+				"code" : "size(200, 200)\r\na = 50\r\nwhile a < 200:\r\n\trect(a, a, 50, 50)\r\n\ta = a + 50"
 			},
 			{
 				"__type" : "textSnippet",
@@ -55,7 +89,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T10:04:09.789+01:00"
+						"dateAndTimeString" : "2025-02-25T21:42:38.249+01:00"
 					}
 				},
 				"editEmail" : {
@@ -66,17 +100,51 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T10:04:13.142+01:00"
+						"dateAndTimeString" : "2025-02-25T21:51:42.239+01:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "SF4rqcjqDQCObD53CZ6mgg=="
+					"uidString" : "KFj/O1/rDQC+5zrzC7gYPg=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "## Demonstrates"
+				"string" : "## Intel x86"
+			},
+			{
+				"__type" : "blockQuoteSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-02-25T21:51:58.51+01:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-02-25T21:52:04.395+01:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "sD9kXV/rDQCBX2nWC7gYPg=="
+				},
+				"string" : "mov esi, 200\r\nmov edi, 200\r\ncall size\r\nmov DWORD PTR[rbp-4], 50\r\n.L0:\r\ncmp DWORD PTR[rbp-4], 200\r\njnl L1\r\nmov ecx, 50\r\nmov edx, 50\r\nmov esi, DWORD PTR[rbp-4]\r\nmov edi, DWORD PTR[rbp-4]\r\ncall rect\r\nadd DWORD PTR[rbp-4], 50\r\njmp L0\r\n.L1:"
 			},
 			{
 				"__type" : "textSnippet",
@@ -92,7 +160,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T10:04:12.889+01:00"
+						"dateAndTimeString" : "2025-02-25T21:51:46.923+01:00"
 					}
 				},
 				"editEmail" : {
@@ -103,17 +171,51 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T10:35:27.399+01:00"
+						"dateAndTimeString" : "2025-02-25T21:51:51.106+01:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "qKtaqcjqDQCQ9zVMCZ6mgg=="
+					"uidString" : "+HGzXF/rDQCzgu3SC7gYPg=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "Translation from high-level, structured language to a low-level language closer to actual hardware (tie into processor design)."
+				"string" : "## SMA"
+			},
+			{
+				"__type" : "blockQuoteSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-02-25T21:52:21.474+01:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-02-25T21:52:22.858+01:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "0KbCXl/rDQCFpMH4C7gYPg=="
+				},
+				"string" : "push 200\r\npush 200\r\ncall size\r\npush 50\r\nstore 0\r\nL0:\r\nload 0\r\npush 200\r\njge L1\r\nload 0\r\nload 0\r\npush 50\r\npush 50\r\ncall rect\r\nload 0\r\npush 50\r\nadd\r\nstore 0\r\njmp L0\r\nL1:"
 			},
 			{
 				"__type" : "textSnippet",
@@ -129,7 +231,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T10:20:38.392+01:00"
+						"dateAndTimeString" : "2025-02-25T21:51:52.184+01:00"
 					}
 				},
 				"editEmail" : {
@@ -140,20 +242,20 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T10:20:55.095+01:00"
+						"dateAndTimeString" : "2025-02-25T21:51:55.356+01:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "UCkY5MjqDQC8KvmHCZ6mgg=="
+					"uidString" : "wLgDXV/rDQC56ErpC7gYPg=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "Translation back into high-level language might not be possible."
+				"string" : "## WASM"
 			},
 			{
-				"__type" : "textSnippet",
+				"__type" : "blockQuoteSnippet",
 				"children" : {
 					"__type" : "snippets",
 					"items" : [ ]
@@ -166,7 +268,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-25T20:23:33.998+01:00"
+						"dateAndTimeString" : "2025-02-25T21:52:28.755+01:00"
 					}
 				},
 				"editEmail" : {
@@ -177,165 +279,14 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-25T20:23:34.929+01:00"
+						"dateAndTimeString" : "2025-02-25T21:52:36.432+01:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "WLY3IV7rDQCQW09wC7gYPg=="
+					"uidString" : "OMAxX1/rDQCI6bXeC7gYPg=="
 				},
-				"paragraphStyle" : {
-					"__type" : "textStyle"
-				},
-				"string" : "Compiler tradeoffs (speed, size, time)"
-			},
-			{
-				"__type" : "textSnippet",
-				"children" : {
-					"__type" : "snippets",
-					"items" : [ ]
-				},
-				"createEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"createTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-25T20:23:08.687+01:00"
-					}
-				},
-				"editEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"editTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-25T20:23:18.479+01:00"
-					}
-				},
-				"uid" : {
-					"__type" : "uid",
-					"uidString" : "mJq1H17rDQCJB3EsC7gYPg=="
-				},
-				"paragraphStyle" : {
-					"__type" : "textStyle"
-				},
-				"string" : "{{gtTodo:label=Optimize for size, for speed (with loop unrolling) or both?}}"
-			},
-			{
-				"__type" : "textSnippet",
-				"children" : {
-					"__type" : "snippets",
-					"items" : [ ]
-				},
-				"createEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"createTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-25T20:23:43.35+01:00"
-					}
-				},
-				"editEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"editTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-25T20:23:43.35+01:00"
-					}
-				},
-				"uid" : {
-					"__type" : "uid",
-					"uidString" : "IH3GIV7rDQCRtSA8C7gYPg=="
-				},
-				"paragraphStyle" : {
-					"__type" : "textStyle"
-				},
-				"string" : ""
-			},
-			{
-				"__type" : "textSnippet",
-				"children" : {
-					"__type" : "snippets",
-					"items" : [ ]
-				},
-				"createEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"createTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T10:21:02.183+01:00"
-					}
-				},
-				"editEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"editTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T10:21:02.183+01:00"
-					}
-				},
-				"uid" : {
-					"__type" : "uid",
-					"uidString" : "YBuD5cjqDQCJLpoPCZ6mgg=="
-				},
-				"paragraphStyle" : {
-					"__type" : "textStyle"
-				},
-				"string" : ""
-			},
-			{
-				"__type" : "textSnippet",
-				"children" : {
-					"__type" : "snippets",
-					"items" : [ ]
-				},
-				"createEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"createTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T10:19:20.125+01:00"
-					}
-				},
-				"editEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"editTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T10:19:20.125+01:00"
-					}
-				},
-				"uid" : {
-					"__type" : "uid",
-					"uidString" : "SP5t38jqDQC7QySLCZ6mgg=="
-				},
-				"paragraphStyle" : {
-					"__type" : "textStyle"
-				},
-				"string" : ""
+				"string" : "i32.const 200\r\ni32.const 200\r\ncall $size\r\ni32.const 0\r\ni32.const 50\r\ni32.store\r\nblock $while1\r\n\ti32.const 0\r\n\ti32.load\r\n\ti32.const 200\r\n\ti32.ge_i\r\n\tbr_if $while1\r\n\ti32.const 0\r\n\ti32.load\r\n\ti32.const 0\r\n\ti32.load\r\n\ti32.const 50\r\n\ti32.const 50\r\n\tcall $rect\r\nend"
 			}
 		]
 	},
@@ -347,7 +298,7 @@
 		"__type" : "time",
 		"time" : {
 			"__type" : "dateAndTime",
-			"dateAndTimeString" : "2025-02-18T10:00:09.068+01:00"
+			"dateAndTimeString" : "2025-02-25T21:42:40.695+01:00"
 		}
 	},
 	"editEmail" : {
@@ -358,15 +309,15 @@
 		"__type" : "time",
 		"time" : {
 			"__type" : "dateAndTime",
-			"dateAndTimeString" : "2025-02-18T10:00:09.068+01:00"
+			"dateAndTimeString" : "2025-02-25T21:42:40.695+01:00"
 		}
 	},
 	"pageType" : {
 		"__type" : "namedPage",
-		"title" : "Assembly"
+		"title" : "Example 2"
 	},
 	"uid" : {
 		"__type" : "uuid",
-		"uuid" : "e0c36f99-c8ea-0d00-a4dc-d132099ea682"
+		"uuid" : "e07bfb3b-5feb-0d00-bdf8-af200bb8183e"
 	}
 }

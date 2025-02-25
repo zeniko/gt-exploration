@@ -18,7 +18,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T10:00:54.081+01:00"
+						"dateAndTimeString" : "2025-02-25T20:19:48.242+01:00"
 					}
 				},
 				"editEmail" : {
@@ -29,17 +29,17 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T10:26:24.995+01:00"
+						"dateAndTimeString" : "2025-02-25T20:20:05.644+01:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "6BmBncjqDQCtRYrqCZ6mgg=="
+					"uidString" : "mALDE17rDQCikjj8C7gYPg=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "Shows the conversion of the (optimized) Assembly instructions into (IA64/RISC/?) bytecode."
+				"string" : "Shows a tree structure of the parsed Processing source code."
 			},
 			{
 				"__type" : "textSnippet",
@@ -55,7 +55,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T10:26:28.587+01:00"
+						"dateAndTimeString" : "2025-02-25T20:18:51.791+01:00"
 					}
 				},
 				"editEmail" : {
@@ -66,12 +66,12 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T10:26:32.065+01:00"
+						"dateAndTimeString" : "2025-02-25T20:19:45.327+01:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "+M33+MjqDQCpPjmzCZ6mgg=="
+					"uidString" : "mK5lEF7rDQCaTd/HC7gYPg=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
@@ -92,7 +92,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T10:26:32.515+01:00"
+						"dateAndTimeString" : "2025-02-25T20:19:45.655+01:00"
 					}
 				},
 				"editEmail" : {
@@ -103,17 +103,17 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T10:27:20.698+01:00"
+						"dateAndTimeString" : "2025-02-25T20:19:46.245+01:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "6LUz+cjqDQCsxYHVCZ6mgg=="
+					"uidString" : "2JSbE17rDQChhPooC7gYPg=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "Everything is numbers (bit sequences)."
+				"string" : "Conversion of implicit to explicit types (Hindley-Milner?)"
 			},
 			{
 				"__type" : "textSnippet",
@@ -129,7 +129,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T10:00:49.803+01:00"
+						"dateAndTimeString" : "2025-02-25T20:18:46.097+01:00"
 					}
 				},
 				"editEmail" : {
@@ -140,17 +140,54 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T10:00:49.803+01:00"
+						"dateAndTimeString" : "2025-02-25T20:20:47.384+01:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "+NI/ncjqDQCsPupMCZ6mgg=="
+					"uidString" : "aMwOEF7rDQCY9tnUC7gYPg=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : ""
+				"string" : "Syntactical units and the role of separators."
+			},
+			{
+				"__type" : "textSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-02-25T20:21:00.258+01:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-02-25T20:21:10.311+01:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "0O4NGF7rDQCLMxCWC7gYPg=="
+				},
+				"paragraphStyle" : {
+					"__type" : "textStyle"
+				},
+				"string" : "Abstraction of syntactical differences "
 			}
 		]
 	},
@@ -162,7 +199,7 @@
 		"__type" : "time",
 		"time" : {
 			"__type" : "dateAndTime",
-			"dateAndTimeString" : "2025-02-18T10:00:53.414+01:00"
+			"dateAndTimeString" : "2025-02-25T20:18:51.393+01:00"
 		}
 	},
 	"editEmail" : {
@@ -173,15 +210,15 @@
 		"__type" : "time",
 		"time" : {
 			"__type" : "dateAndTime",
-			"dateAndTimeString" : "2025-02-18T10:00:53.414+01:00"
+			"dateAndTimeString" : "2025-02-25T20:18:51.393+01:00"
 		}
 	},
 	"pageType" : {
 		"__type" : "namedPage",
-		"title" : "Bytecode"
+		"title" : "Abstract Syntax Tree"
 	},
 	"uid" : {
 		"__type" : "uuid",
-		"uuid" : "38163a9d-c8ea-0d00-abfd-bcd8099ea682"
+		"uuid" : "009c0b10-5eeb-0d00-9883-7ea80bb8183e"
 	}
 }
