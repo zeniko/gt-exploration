@@ -103,7 +103,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-03-04T23:33:52.734+01:00"
+						"dateAndTimeString" : "2025-03-12T09:09:34.182+01:00"
 					}
 				},
 				"uid" : {
@@ -113,7 +113,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "Before this venue is further pursued however, the [[p5py]] approach will be investigated first."
+				"string" : "Before this venue is further pursued however, the [[Processing in Python (p5py)]] approach will be investigated first."
 			}
 		]
 	},

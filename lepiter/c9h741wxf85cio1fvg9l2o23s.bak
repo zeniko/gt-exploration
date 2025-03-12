@@ -289,7 +289,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-03-04T22:52:37.513+01:00"
+						"dateAndTimeString" : "2025-03-04T22:53:03.289+01:00"
 					}
 				},
 				"uid" : {
@@ -299,7 +299,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "(The current and slightly confusing state of Python and Processing implementations is occasionally "
+				"string" : "(The current and slightly confusing state of Python and Processing implementations is occasionally reason for debate, most recently in [this Reddit thread](https://old.reddit.com/r/processing/comments/1hrz7ha/is_there_a_strongreliable_python_version_of/).)"
 			}
 		]
 	},

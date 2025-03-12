@@ -137,14 +137,14 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-03-11T23:55:45.398+01:00"
+						"dateAndTimeString" : "2025-03-11T23:55:48.751+01:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
 					"uidString" : "sN09JHrsDQCrvRGMBcghnw=="
 				},
-				"code" : "\"Setting up Processing on the GT side\"\rcanvas := ProcessingCanvas new.\r(runner := ProcessingExecTest1 new) c\rrunner canvas: canvas."
+				"code" : "\"Setting up Processing on the GT side\"\rcanvas := ProcessingCanvas new.\r(runner := ProcessingExecTest1 new) canvas: canvas."
 			},
 			{
 				"__type" : "textSnippet",
@@ -491,6 +491,43 @@
 				"elementHeight" : 200,
 				"codeHeight" : 41,
 				"codeVisible" : true
+			},
+			{
+				"__type" : "textSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-03-12T09:13:45.923+01:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-03-12T09:13:58.793+01:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "4D7zhILsDQCZgvO0BYrteA=="
+				},
+				"paragraphStyle" : {
+					"__type" : "textStyle"
+				},
+				"string" : "This stepping approach should also be automatable"
 			}
 		]
 	},

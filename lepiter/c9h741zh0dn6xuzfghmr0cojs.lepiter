@@ -312,6 +312,43 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-03-12T09:10:54.552+01:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-03-12T09:12:03.725+01:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "2Cc6e4LsDQCS2KrdBYrteA=="
+				},
+				"paragraphStyle" : {
+					"__type" : "textStyle"
+				},
+				"string" : "Tracing (cf. [[Tracing Python]]) reveals that calling run with one of the default renderers never leads to `setup` and `draw` being called. This is likely an incompatibility of the event loop with the PythonBridge."
+			},
+			{
+				"__type" : "textSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
 						"dateAndTimeString" : "2025-03-04T23:06:22.411+01:00"
 					}
 				},
@@ -356,12 +393,12 @@
 		"__type" : "time",
 		"time" : {
 			"__type" : "dateAndTime",
-			"dateAndTimeString" : "2025-03-04T22:35:04.19+01:00"
+			"dateAndTimeString" : "2025-03-12T09:09:34.172+01:00"
 		}
 	},
 	"pageType" : {
 		"__type" : "namedPage",
-		"title" : "p5py"
+		"title" : "Processing in Python (p5py)"
 	},
 	"uid" : {
 		"__type" : "uuid",

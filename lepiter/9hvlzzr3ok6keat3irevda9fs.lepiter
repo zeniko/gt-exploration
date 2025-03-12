@@ -66,7 +66,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-03-11T17:27:05.523+01:00"
+						"dateAndTimeString" : "2025-03-12T09:09:34.179+01:00"
 					}
 				},
 				"uid" : {
@@ -76,7 +76,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "The following is the same example from [[p5py]] with added telemetry reporting which should produce a signal for every line of code and every function call:"
+				"string" : "The following is the same example from [[Processing in Python (p5py)]] with added telemetry reporting which should produce a signal for every line of code and every function call:"
 			},
 			{
 				"__type" : "pythonSnippet",
@@ -137,7 +137,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-03-11T18:08:21.701+01:00"
+						"dateAndTimeString" : "2025-03-12T09:12:45.354+01:00"
 					}
 				},
 				"uid" : {
@@ -147,7 +147,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "This results in a list of `TelemetrySignal`s which however are just in form of strings. I.e. all the relevant information would have to be serialized and after execution deserialized."
+				"string" : "This results in a list of `TelemetrySignal`s which however are just in form of strings. I.e. all the relevant information would have to be serialized and after execution deserialized. As a consequence, this approach won't be followed further."
 			}
 		]
 	},
