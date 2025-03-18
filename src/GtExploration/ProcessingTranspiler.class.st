@@ -1,6 +1,11 @@
 Class {
 	#name : #ProcessingTranspiler,
 	#superclass : #Object,
+	#instVars : [
+		'lines',
+		'variables',
+		'indentation'
+	],
 	#category : #GtExploration
 }
 
@@ -9,16 +14,27 @@ ProcessingTranspiler >> acceptNodes: nodes [
 	^ nodes collect: [ :each | each acceptVisitor: self ]
 ]
 
+{ #category : #'as yet unclassified' }
+ProcessingTranspiler >> appendLine: line [
+	lines add: (String new: indentation withAll:(Character tab)) , line
+]
+
 { #category : #accessing }
 ProcessingTranspiler >> compile: ast [
 	| class source nl |
 	"Turn the AST into a Smalltalk source string"
 	nl := String with: (Character cr).
-	source := 'drawOnto: canvas' , nl , (nl join: (ast acceptVisitor: self)).
+	variables := Set new.
+	lines := OrderedCollection new.
+	indentation := 0.
+	self appendLine: 'drawOnto: canvas'.
+	indentation := indentation + 1.
+	ast acceptVisitor: self.
+	source := nl join: lines.
 	"TODO: temporary names?"
 	ProcessingCodeBase
 		subclass: #ProcessingCode01
-		instanceVariableNames: ''
+		instanceVariableNames: (' ' join: variables)
 		classVariableNames: ''
 		category: (self class category).
 	class := Smalltalk at: #ProcessingCode01.
@@ -42,18 +58,35 @@ ProcessingTranspiler >> emitSize: args [
 ]
 
 { #category : #'as yet unclassified' }
+ProcessingTranspiler >> visitAssignmentStatement: expr [
+	| name |
+	name := expr lhs nameToken value.
+	variables add: name.
+	self appendLine: name , ' := ' , (expr tos first acceptVisitor: self) , '.'
+]
+
+{ #category : #'as yet unclassified' }
 ProcessingTranspiler >> visitBinaryExpression: expr [
 	^ '(' ,(expr left acceptVisitor: self) , expr operator value , (expr right acceptVisitor: self) , ')'
 ]
 
 { #category : #'as yet unclassified' }
+ProcessingTranspiler >> visitComparisonExpression: expr [
+	^ self visitBinaryExpression: expr
+]
+
+{ #category : #'as yet unclassified' }
 ProcessingTranspiler >> visitExpressionStatement: stmt [
-	^ (self visitSmaCCParseNode: stmt) first
+	(self acceptNodes: stmt children) do: [ :res |
+		(res isKindOf: ProcessingTranspiler) ifFalse: [
+			self appendLine: res.
+		]
+	]
 ]
 
 { #category : #'as yet unclassified' }
 ProcessingTranspiler >> visitFile: file [
-	^ self visitSmaCCParseNode: file
+	self visitExpressionStatement: file
 ]
 
 { #category : #'as yet unclassified' }
@@ -67,16 +100,41 @@ ProcessingTranspiler >> visitFunctionCallExpression: fnCall [
 ]
 
 { #category : #'as yet unclassified' }
+ProcessingTranspiler >> visitIfStatement: expr [
+	self appendLine: (expr condition acceptVisitor: self) , ' ifTrue: [ '.
+	indentation := indentation + 1.
+	expr statements do: [ :stmt |
+		| res |
+		res := stmt acceptVisitor: self.
+		(res isKindOf: ProcessingTranspiler) ifFalse: [
+			self appendLine: res
+		].
+	].
+	indentation := indentation - 1.
+	self appendLine: '].'
+]
+
+{ #category : #'as yet unclassified' }
 ProcessingTranspiler >> visitNumber: num [
 	^ num numberToken value
 ]
 
 { #category : #'as yet unclassified' }
-ProcessingTranspiler >> visitSmaCCParseNode: aSmaCCParseNode [
-	^ self acceptNodes: aSmaCCParseNode children
+ProcessingTranspiler >> visitVariableExpression: var [
+	^ var nameToken value
 ]
 
 { #category : #'as yet unclassified' }
-ProcessingTranspiler >> visitVariableExpression: var [
-	^ self visitSmaCCParseNode: var
+ProcessingTranspiler >> visitWhileStatement: expr [
+	self appendLine: '[ ' , (expr condition acceptVisitor: self) , ' ] whileTrue: [ '.
+	indentation := indentation + 1.
+	expr statements do: [ :stmt |
+		| res |
+		res := stmt acceptVisitor: self.
+		(res isKindOf: ProcessingTranspiler) ifFalse: [
+			self appendLine: res.
+		].
+	].
+	indentation := indentation - 1.
+	self appendLine: '].'
 ]

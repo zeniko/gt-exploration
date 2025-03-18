@@ -219,6 +219,111 @@
 					"__type" : "textStyle"
 				},
 				"string" : "{{gtTodo:label=ProcessingTranspiler could also be implemented as a SmaCCTransformation|completed=}} cf. {{gtPage:Transforming Delphi code into C# (at syntax level)|db=2j9m7db2i4oz116bexd7wbdxo}}"
+			},
+			{
+				"__type" : "textSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-03-18T22:05:54.763+01:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-03-18T22:06:34.069+01:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "EFHnAQbtDQCbChMACprFvw=="
+				},
+				"paragraphStyle" : {
+					"__type" : "textStyle"
+				},
+				"string" : "The following example contains slightly more complex code:"
+			},
+			{
+				"__type" : "pythonSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-03-18T22:06:37.728+01:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-03-18T22:06:41.363+01:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "GOl2BAbtDQCdDqZ/CprFvw=="
+				},
+				"code" : "size(200, 200)\r\na = 0\rwhile a < 200:\r\tfill(a, 128, 0)\r\trect(a, a, 100, 100)\r\ta = a + 50\rif a >= 200:\r\trect(0, 0, 20, 20)"
+			},
+			{
+				"__type" : "pharoSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-03-18T22:06:44.459+01:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-03-18T22:36:05.592+01:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "EJ7dBAbtDQCdGJMXCprFvw=="
+				},
+				"code" : "source := ProcessingSource new fromString: thisSnippet previousSibling code.\rast := ProcessingParser parse: source asString.\rprogram := (ProcessingTranspiler new) compile: ast"
 			}
 		]
 	},
