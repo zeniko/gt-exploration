@@ -272,7 +272,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-03-18T18:03:05.825+01:00"
+						"dateAndTimeString" : "2025-03-18T20:47:35.568+01:00"
 					}
 				},
 				"editEmail" : {
@@ -283,7 +283,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-03-18T18:03:05.825+01:00"
+						"dateAndTimeString" : "2025-03-18T20:49:42.918+01:00"
 					}
 				},
 				"uid" : {
@@ -293,7 +293,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : ""
+				"string" : "{{gtClass:ProcessingCompiler}} takes (the usual very limited Processing subset) and compiles it directly into IR. As it turns out {{gtClass:IRBuilder}} also performs various optimizations. So if control over all optimizations is desired, an even lower level approach would be necessary."
 			},
 			{
 				"__type" : "pythonSnippet",
@@ -354,14 +354,48 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-03-18T18:03:28.003+01:00"
+						"dateAndTimeString" : "2025-03-18T20:46:58.547+01:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
 					"uidString" : "2PH+nQLtDQCvXTRzCPNJlQ=="
 				},
-				"code" : "source := ProcessingSource new fromString: thisSnippet previousSibling code.\rast := ProcessingParser parse: source asString.\rprogram := (ProcessingCompiler new) compile: ast"
+				"code" : "source := ProcessingSource new fromString: thisSnippet previousSibling code.\rast := ProcessingParser parse: source asString.\rmethod := (ProcessingCompiler new) compile: ast"
+			},
+			{
+				"__type" : "pharoSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-03-18T20:45:23.436+01:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-03-18T20:46:25.29+01:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "4CHv4QTtDQC7UoghBdZACw=="
+				},
+				"code" : "(method valueWithReceiver: (ProcessingCanvas new) arguments: #()) render"
 			}
 		]
 	},
