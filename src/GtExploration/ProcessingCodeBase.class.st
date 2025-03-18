@@ -1,6 +1,9 @@
 Class {
 	#name : #ProcessingCodeBase,
 	#superclass : #Object,
+	#instVars : [
+		'ast'
+	],
 	#category : #GtExploration
 }
 
@@ -43,6 +46,12 @@ ProcessingCodeBase >> gtSourceCodeFor: aView [
 ]
 
 { #category : #'as yet unclassified' }
+ProcessingCodeBase >> gtTreeFor: aView [
+	<gtView>
+	^ ast gtTreeFor: aView
+]
+
+{ #category : #'as yet unclassified' }
 ProcessingCodeBase >> gtViewIntermediaryRepresentationFor: aView [
 	<gtView>
 	^ aView text
@@ -52,4 +61,9 @@ ProcessingCodeBase >> gtViewIntermediaryRepresentationFor: aView [
 			string := (self class >> #drawOnto:) ast ir longPrintString.
 			string copyFrom: 2 to: string size
 		]
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingCodeBase >> setAst: _ast [
+	ast := _ast.
 ]

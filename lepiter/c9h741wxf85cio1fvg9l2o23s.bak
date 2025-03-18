@@ -219,7 +219,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-03-04T22:50:14.492+01:00"
+									"dateAndTimeString" : "2025-03-12T09:09:34.178+01:00"
 								}
 							},
 							"uid" : {
@@ -229,7 +229,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "[[p5py]] (pure Python module)"
+							"string" : "[[Processing in Python (p5py)]] (pure Python module)"
 						}
 					]
 				},

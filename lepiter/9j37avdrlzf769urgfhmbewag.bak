@@ -100,14 +100,14 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T23:13:44.481+01:00"
+						"dateAndTimeString" : "2025-02-18T23:14:12.118+01:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
 					"uidString" : "aMc4xc/qDQCW5fqjBzT6oA=="
 				},
-				"code" : "\"source := ProcessingSource new fromFile: FileLocator home / 'Documents' / 'Processing' / 'sample' / 'sample.pyde'.\"\rsource := ProcessingSource new fromString: thisSnippet previousSibling code.\rast := ProcessingParser parse: source asString"
+				"code" : "source := ProcessingSource new fromString: thisSnippet previousSibling code.\r\"source := ProcessingSource new fromFile: FileLocator home / 'Documents' / 'Processing' / 'sample' / 'sample.pyde'.\"\rast := ProcessingParser parse: source asString"
 			},
 			{
 				"__type" : "textSnippet",
@@ -201,12 +201,12 @@
 		"__type" : "time",
 		"time" : {
 			"__type" : "dateAndTime",
-			"dateAndTimeString" : "2025-02-18T20:04:20.518+01:00"
+			"dateAndTimeString" : "2025-03-18T17:09:03.501+01:00"
 		}
 	},
 	"pageType" : {
 		"__type" : "namedPage",
-		"title" : "Processing Interpreter"
+		"title" : "Interpreting "
 	},
 	"uid" : {
 		"__type" : "uuid",

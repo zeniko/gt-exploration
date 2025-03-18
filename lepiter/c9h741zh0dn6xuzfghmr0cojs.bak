@@ -323,7 +323,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-03-12T09:11:59.538+01:00"
+						"dateAndTimeString" : "2025-03-12T09:12:03.725+01:00"
 					}
 				},
 				"uid" : {
@@ -333,7 +333,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "Tracing (cf. [[Tracing Python]]) reveals that calling run with one of the default renderers never leads to `setup` and `draw` being called. This is likely an incompatibility of the event loop with the PythonBr"
+				"string" : "Tracing (cf. [[Tracing Python]]) reveals that calling run with one of the default renderers never leads to `setup` and `draw` being called. This is likely an incompatibility of the event loop with the PythonBridge."
 			},
 			{
 				"__type" : "textSnippet",
@@ -371,6 +371,117 @@
 					"__type" : "textStyle"
 				},
 				"string" : "{{gtTodo:label=Investigate further}}"
+			},
+			{
+				"__type" : "textSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-03-18T17:19:13.109+01:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-03-18T17:19:16.841+01:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "wPnz/wHtDQCWZ/5gCPNJlQ=="
+				},
+				"paragraphStyle" : {
+					"__type" : "textStyle"
+				},
+				"string" : "## p5py API"
+			},
+			{
+				"__type" : "textSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-03-18T17:19:17.193+01:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-03-18T17:19:34.418+01:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "KD3ZAALtDQCW8/OyCPNJlQ=="
+				},
+				"paragraphStyle" : {
+					"__type" : "textStyle"
+				},
+				"string" : "For reference, implementing the p5 API would encompass all of the following:"
+			},
+			{
+				"__type" : "textSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-03-18T17:19:46.653+01:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-03-18T17:20:23.665+01:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "YL+aAgLtDQCYmPhnCPNJlQ=="
+				},
+				"paragraphStyle" : {
+					"__type" : "textStyle"
+				},
+				"string" : "```\r\np5.renderer._restore_surface_state()\r\np5.renderer._store_surface_state()\r\np5.renderer.add_ambient_light()\r\np5.renderer.add_directional_light()\r\np5.renderer.add_point_light()\r\np5.renderer.apply_matrix()\r\np5.renderer.arc()\r\np5.renderer.background()\r\np5.renderer.bezier()\r\np5.renderer.camera()\r\np5.renderer.camera_pos\r\np5.renderer.circle()\r\np5.renderer.clear()\r\np5.renderer.create_font()\r\np5.renderer.create_graphics()\r\np5.renderer.create_image()\r\np5.renderer.curr_constant_falloff\r\np5.renderer.curr_linear_falloff\r\np5.renderer.curr_quadratic_falloff\r\np5.renderer.curve()\r\np5.renderer.curve_tightness\r\np5.renderer.draw_loop()\r\np5.renderer.ellipse()\r\np5.renderer.end_shape()\r\np5.renderer.fbuffer.read()\r\np5.renderer.fill_image_enabled\r\np5.renderer.flush_geometry()\r\np5.renderer.image()\r\np5.renderer.initialize_renderer()\r\np5.renderer.light_specular\r\np5.renderer.line()\r\np5.renderer.load_font()\r\np5.renderer.load_image()\r\np5.renderer.load_pixels()\r\np5.renderer.lookat_matrix\r\np5.renderer.ortho()\r\np5.renderer.perspective()\r\np5.renderer.point()\r\np5.renderer.pop_matrix()\r\np5.renderer.print_matrix()\r\np5.renderer.push_matrix()\r\np5.renderer.quad()\r\np5.renderer.rect()\r\np5.renderer.render()\r\np5.renderer.reset()\r\np5.renderer.reset_matrix()\r\np5.renderer.reset_transforms()\r\np5.renderer.reset_view()\r\np5.renderer.rotate()\r\np5.renderer.rotate_x()\r\np5.renderer.rotate_y()\r\np5.renderer.rotate_z()\r\np5.renderer.save_canvas()\r\np5.renderer.scale()\r\np5.renderer.shape()\r\np5.renderer.shear_x()\r\np5.renderer.shear_y()\r\np5.renderer.style\r\np5.renderer.style.ambient\r\np5.renderer.style.background_color\r\np5.renderer.style.color_parse_mode\r\np5.renderer.style.color_range\r\np5.renderer.style.diffuse\r\np5.renderer.style.ellipse_mode\r\np5.renderer.style.fill_color\r\np5.renderer.style.fill_enabled\r\np5.renderer.style.image_mode\r\np5.renderer.style.material\r\np5.renderer.style.rect_mode\r\np5.renderer.style.set_stroke_cap()\r\np5.renderer.style.set_stroke_join()\r\np5.renderer.style.shininess\r\np5.renderer.style.specular\r\np5.renderer.style.stroke_cap\r\np5.renderer.style.stroke_color\r\np5.renderer.style.stroke_enabled\r\np5.renderer.style.stroke_join\r\np5.renderer.style.stroke_set\r\np5.renderer.style.stroke_weight\r\np5.renderer.style.text_align_x\r\np5.renderer.style.text_align_y\r\np5.renderer.style.text_leading\r\np5.renderer.style.tint_color\r\np5.renderer.style.tint_enabled\r\np5.renderer.style_stack\r\np5.renderer.style_stack.append()\r\np5.renderer.style_stack.pop()\r\np5.renderer.text()\r\np5.renderer.text_ascent()\r\np5.renderer.text_descent()\r\np5.renderer.text_font()\r\np5.renderer.text_size()\r\np5.renderer.text_style()\r\np5.renderer.text_width()\r\np5.renderer.text_wrap()\r\np5.renderer.transform_matrix.dot()\r\np5.renderer.translate()\r\np5.renderer.triangle()\r\np5.renderer.update_pixels()\r\n```"
 			}
 		]
 	},
