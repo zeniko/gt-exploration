@@ -5,18 +5,19 @@ Class {
 }
 
 { #category : #accessing }
-ProcessingTranspiler >> compile: ast [ 
-	| program visitor source |
+ProcessingTranspiler >> compile: ast [
+	| program visitor source nl |
 	"Turn the AST into a Smalltalk source string"
+	nl := String with: (Character cr).
 	visitor := ProcessingTranspilingVisitor new.
-	source := 'drawOnto: canvas ' , (' ' join: (ast acceptVisitor: visitor)).
+	source := 'drawOnto: canvas' , nl , (nl join: (ast acceptVisitor: visitor)).
 	"TODO: temporary names?"
-	Object
+	ProcessingCodeBase
 		subclass: #ProcessingCode01
 		instanceVariableNames: ''
 		classVariableNames: ''
-		category: 'GtExploration'.
-	program := (Smalltalk at: #ProcessingCode01).
+		category: (self class category).
+	program := Smalltalk at: #ProcessingCode01.
 	program compile: source.
 	^ program perform: #new
 ]
