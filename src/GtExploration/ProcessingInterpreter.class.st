@@ -4,6 +4,21 @@ Class {
 	#category : #GtExploration
 }
 
+{ #category : #'as yet unclassified' }
+ProcessingInterpreter >> execFill: args onto: canvas [
+	canvas fill: (Color fromRgbTriplet: (args collect: [ :v | v / 255.0 ]))
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingInterpreter >> execRect: args onto: canvas [
+	canvas rect: (args at: 3) by: (args at: 4) at: (args at: 1) @ (args at: 2)
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingInterpreter >> execSize: args onto: canvas [
+	canvas size: (args at: 1) by: (args at: 2)
+]
+
 { #category : #accessing }
 ProcessingInterpreter >> interpret: ast onto: canvas [
 	"TODO: turn into tree walker?"
@@ -13,18 +28,9 @@ ProcessingInterpreter >> interpret: ast onto: canvas [
 		name := node expression receiver nameToken value.
 		args := node expression arguments collect: [ :arg | arg numberToken value asNumber ].
 		({
-			'size' -> [ canvas
-				size: (args at: 1)
-				by: (args at: 2)
-			] .
-			'rect' -> [ canvas
-				rect: (args at: 3)
-				by: (args at: 4)
-				at: (args at: 1) @ (args at: 2)
-			] .
-			'fill' -> [ canvas
-				fill: (Color fromRgbTriplet: (args collect: [ :v | v / 255.0 ]))
-			]
+			'size' -> [ self execSize: args onto: canvas ] .
+			'rect' -> [ self execRect: args onto: canvas ] .
+			'fill' -> [ self execFill: args onto: canvas ] .
 		} asDictionary at: name) value.
 	]
 ]
