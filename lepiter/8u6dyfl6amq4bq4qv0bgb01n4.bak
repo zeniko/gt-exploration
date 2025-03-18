@@ -215,14 +215,14 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-03-18T17:58:30.393+01:00"
+						"dateAndTimeString" : "2025-03-18T17:57:25.229+01:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
 					"uidString" : "aBSjiALtDQCsvn9KCPNJlQ=="
 				},
-				"code" : "canvas := ProcessingCanvas new.\rirMethod := IRBuilder new\r\tnumArgs: 1;\r\taddTemps: #(canvas);\r\tpushTemp: #canvas;\r\tpushLiteral: 200;\r\tpushLiteral: 200;\r\tsend: #size:by:;\r\tpopTop;\r\tpushTemp: #canvas;\r\tpushLiteral: 100;\r\tpushLiteral: 100;\r\tpushLiteral: 50;\r\tpushLiteral: 50;\r\tsend: #@;\r\tsend: #rect:by:at:;\r\tpopTop;\r\tpushReceiver;\r\treturnTop;\r\tir.\r := irMethod compiledMethod"
+				"code" : "canvas := ProcessingCanvas new.\rirMethod := IRBuilder new\r\tnumArgs: 1;\r\taddTemps: #(canvas);\r\tpushTemp: #canvas;\r\tpushLiteral: 200;\r\tpushLiteral: 200;\r\tsend: #size:by:;\r\tpopTop;\r\tpushTemp: #canvas;\r\tpushLiteral: 100;\r\tpushLiteral: 100;\r\tpushLiteral: 50;\r\tpushLiteral: 50;\r\tsend: #@;\r\tsend: #rect:by:at:;\r\tpopTop;\r\tpushReceiver;\r\treturnTop;\r\tir.\rmethod := irMethod compiledMethod"
 			},
 			{
 				"__type" : "pharoSnippet",
