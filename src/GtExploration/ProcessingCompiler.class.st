@@ -14,11 +14,11 @@ ProcessingCompiler >> acceptNodes: nodes [
 
 { #category : #accessing }
 ProcessingCompiler >> compile: ast [
-	| class source nl |
 	builder := IRBuilder new.
-	builder numArgs: 1; addTemps: #(canvas).
+	builder numArgs: 0.
 	ast acceptVisitor: self.
-	^ builder
+	builder pushReceiver; returnTop.
+	^ builder ir compiledMethod
 ]
 
 { #category : #'as yet unclassified' }
@@ -30,14 +30,12 @@ ProcessingCompiler >> emitBinaryOp: op lhs: left rhs: right [
 
 { #category : #'as yet unclassified' }
 ProcessingCompiler >> emitFill: args [
-	builder pushTemp: #canvas; pushLiteralVariable: Color.
+	builder pushReceiver; pushDup.
+	"TODO: instead of using #colorWithR:g:b: it should be possible to use pushLiteralVariable: Color; send: #r:g:b:"
 	(args at: 1) acceptVisitor: self.
-	builder pushLiteral: 255.0; send: #/.
 	(args at: 2) acceptVisitor: self.
-	builder pushLiteral: 255.0; send: #/.
 	(args at: 3) acceptVisitor: self.
-	builder pushLiteral: 255.0; send: #/.
-	builder send: #r:g:b:; send: #fill; popTop.
+	builder send: #colorWithR:g:b:; send: #fill:; popTop.
 ]
 
 { #category : #'as yet unclassified' }
@@ -47,7 +45,7 @@ ProcessingCompiler >> emitNumber: num [
 
 { #category : #'as yet unclassified' }
 ProcessingCompiler >> emitRect: args [
-	builder pushTemp: #canvas.
+	builder pushReceiver.
 	(args at: 3) acceptVisitor: self.
 	(args at: 4) acceptVisitor: self.
 	(args at: 1) acceptVisitor: self.
@@ -57,7 +55,7 @@ ProcessingCompiler >> emitRect: args [
 
 { #category : #'as yet unclassified' }
 ProcessingCompiler >> emitSize: args [
-	builder pushTemp: #canvas.
+	builder pushReceiver.
 	(args at: 1) acceptVisitor: self.
 	(args at: 2) acceptVisitor: self.
 	builder send: #size:by:; popTop.

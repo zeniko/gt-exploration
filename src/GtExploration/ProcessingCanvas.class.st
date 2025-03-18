@@ -9,6 +9,11 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
+ProcessingCanvas >> colorWithR: r g: g b: b [
+	^ Color fromRgbTriplet: { r / 255.0 . g / 255.0 . b / 255.0 }
+]
+
+{ #category : #'as yet unclassified' }
 ProcessingCanvas >> fill: color [
 	fillColor:=color.
 ]
