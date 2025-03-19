@@ -2,11 +2,16 @@ Class {
 	#name : #ProcessingCanvas,
 	#superclass : #Object,
 	#instVars : [
-		'output',
-		'fillColor'
+		'fillColor',
+		'canvasElement'
 	],
-	#category : #GtExploration
+	#category : #'GtExploration-Processing'
 }
+
+{ #category : #accessing }
+ProcessingCanvas >> canvasElement [
+	^ canvasElement
+]
 
 { #category : #'as yet unclassified' }
 ProcessingCanvas >> colorWithR: r g: g b: b [
@@ -18,11 +23,25 @@ ProcessingCanvas >> fill: color [
 	fillColor:=color.
 ]
 
+{ #category : #accessing }
+ProcessingCanvas >> fillColor [
+	^ fillColor
+]
+
+{ #category : #views }
+ProcessingCanvas >> gtViewFor: aView [
+	<gtView>
+	^ aView forward
+		title: 'Live';
+		object: [ self render ];
+		view: #gtLiveFor:
+]
+
 { #category : #'as yet unclassified' }
 ProcessingCanvas >> initialize [
-	output := BlElement new.
-	output background: Color veryLightGray.
-	output size: 100 @ 100.
+	canvasElement := BlElement new.
+	canvasElement background: Color veryLightGray.
+	canvasElement size: 100 @ 100.
 	fillColor := Color white.
 ]
 
@@ -34,15 +53,15 @@ ProcessingCanvas >> rect: width by: height at: xy [
 	shape size: (Point x: width y: height).
 	shape relocate: xy.
 	shape border: (BlBorder paint: Color black width: 0.5).
-	output addChild: shape
+	canvasElement addChild: shape
 ]
 
 { #category : #'as yet unclassified' }
 ProcessingCanvas >> render [
-	^ output asScalableElement
+	^ canvasElement asScalableElement
 ]
 
 { #category : #'as yet unclassified' }
 ProcessingCanvas >> size: width by: height [
-	output size: (Point x: width y: height).
+	canvasElement size: (Point x: width y: height).
 ]

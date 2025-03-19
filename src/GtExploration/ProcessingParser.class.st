@@ -1,5 +1,5 @@
 Class {
 	#name : #ProcessingParser,
 	#superclass : #PythonParser,
-	#category : #GtExploration
+	#category : #'GtExploration-Transpiler'
 }

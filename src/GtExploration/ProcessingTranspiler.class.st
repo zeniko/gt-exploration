@@ -6,7 +6,7 @@ Class {
 		'variables',
 		'indentation'
 	],
-	#category : #GtExploration
+	#category : #'GtExploration-Transpiler'
 }
 
 { #category : #'as yet unclassified' }
