@@ -22,7 +22,7 @@ GtExplorationHomeSection >> projectCard [
 	<gtSectionCard>
 	<gtExample>
 	^ GtHomeCard page
-		title: 'Individual Project';
+		title: 'Processing Project';
 		description: 'zeniko''s GT explorations';
 		setPriority;
 		databaseName: 'zeniko:gt-exploration';
