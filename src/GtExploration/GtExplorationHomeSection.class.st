@@ -6,32 +6,35 @@ Class {
 
 { #category : #initialization }
 GtExplorationHomeSection >> cardPriorities [
-	<gtExample>
 	^ #(
 		projectCard
+		projectCard2
 	)
-]
-
-{ #category : #initialization }
-GtExplorationHomeSection >> defaultPriority [
-	^ 10
 ]
 
 { #category : #card }
 GtExplorationHomeSection >> projectCard [
 	<gtSectionCard>
-	<gtExample>
 	^ GtHomeCard page
-		title: 'Processing Project';
-		description: 'zeniko''s GT explorations';
-		setPriority;
+		title: 'Implementation and Tests';
+		description: 'Technical details (not for students)';
+		priority: 10;
 		databaseName: 'zeniko:gt-exploration';
 		pageName: 'Individual Project';
 		assertInvariant;
 		yourself
 ]
 
+{ #category : #'as yet unclassified' }
+GtExplorationHomeSection >> projectCard2 [
+	<gtSectionCard>
+	^ ProcessingAbstractionsHomeSection new projectCard
+		priority: 20;
+		yourself
+
+]
+
 { #category : #initialization }
 GtExplorationHomeSection >> sectionTitle [
-	^ 'Zeniko project'
+	^ 'Processing Abstractions (zeniko)'
 ]
