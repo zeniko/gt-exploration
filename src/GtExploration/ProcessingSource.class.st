@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'source'
 	],
-	#category : #'GtExploration-Transpiler'
+	#category : #'GtExploration-Processing'
 }
 
 { #category : #'as yet unclassified' }

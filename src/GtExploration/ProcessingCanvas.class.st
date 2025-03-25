@@ -15,7 +15,13 @@ ProcessingCanvas >> canvasElement [
 
 { #category : #'as yet unclassified' }
 ProcessingCanvas >> colorWithR: r g: g b: b [
-	^ Color fromRgbTriplet: { r / 255.0 . g / 255.0 . b / 255.0 }
+	"Map 64 to 0.25, 128 to 0.5, 192 to 0.75 but 255 to 1.0 exactly."
+	^ Color fromRgbTriplet: {
+		((r / 255.5) roundTo: 0.005) .
+		((g / 255.5) roundTo: 0.005) .
+		((b / 255.5) roundTo: 0.005)
+	}
+
 ]
 
 { #category : #'as yet unclassified' }

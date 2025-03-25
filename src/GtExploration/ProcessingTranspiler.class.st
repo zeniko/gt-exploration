@@ -6,7 +6,7 @@ Class {
 		'variables',
 		'indentation'
 	],
-	#category : #'GtExploration-Transpiler'
+	#category : #'GtExploration-Processing'
 }
 
 { #category : #'as yet unclassified' }
@@ -21,16 +21,8 @@ ProcessingTranspiler >> appendLine: line [
 
 { #category : #accessing }
 ProcessingTranspiler >> compile: ast [
-	| class source nl |
-	"Turn the AST into a Smalltalk source string"
-	nl := String with: (Character cr).
-	variables := Set new.
-	lines := OrderedCollection new.
-	indentation := 0.
-	self appendLine: 'drawOnto: canvas'.
-	indentation := indentation + 1.
-	ast acceptVisitor: self.
-	source := nl join: lines.
+	| class source |
+	source := self transpile: ast.
 	"TODO: temporary names?"
 	ProcessingCodeBase
 		subclass: #ProcessingCode01
@@ -55,6 +47,25 @@ ProcessingTranspiler >> emitRect: args [
 { #category : #'as yet unclassified' }
 ProcessingTranspiler >> emitSize: args [
 	^ 'canvas size: ' , (args at: 1) , ' by: ' , (args at: 2) , '.'
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingTranspiler >> transpile: ast [
+	"Turn the AST into a Smalltalk source string"
+	| nl |
+	nl := String with: (Character cr).
+	variables := Set new.
+	lines := OrderedCollection new.
+	indentation := 0.
+	self appendLine: 'drawOnto: canvas'.
+	indentation := indentation + 1.
+	ast acceptVisitor: self.
+	^ nl join: lines.
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingTranspiler >> variables [
+	^ variables
 ]
 
 { #category : #'as yet unclassified' }
