@@ -282,14 +282,14 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-03-18T22:06:41.363+01:00"
+						"dateAndTimeString" : "2025-03-25T23:48:28.222+01:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
 					"uidString" : "GOl2BAbtDQCdDqZ/CprFvw=="
 				},
-				"code" : "size(200, 200)\r\na = 0\rwhile a < 200:\r\tfill(a, 128, 0)\r\trect(a, a, 100, 100)\r\ta = a + 50\rif a >= 200:\r\trect(0, 0, 20, 20)"
+				"code" : "size(200, 200)\r\na = 0\rwhile a < 200:\r\tfill(a, 128, 0)\r\trect(a, a, 100, 100)\r\ta = a + 50\rif a >= 200:\r\tellipse(10, 10, 20, 20)"
 			},
 			{
 				"__type" : "pharoSnippet",

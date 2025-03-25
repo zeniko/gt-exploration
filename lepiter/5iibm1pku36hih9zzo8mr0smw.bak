@@ -79,7 +79,7 @@
 				"codeVisible" : true
 			},
 			{
-				"__type" : "pharoSnippet",
+				"__type" : "elementSnippet",
 				"children" : {
 					"__type" : "snippets",
 					"items" : [ ]
@@ -92,7 +92,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T17:19:14.291+01:00"
+						"dateAndTimeString" : "2025-03-25T23:37:35.28+01:00"
 					}
 				},
 				"editEmail" : {
@@ -103,14 +103,17 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T17:29:35.579+01:00"
+						"dateAndTimeString" : "2025-03-25T23:37:52.43+01:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "OHUevc7qDQCLkCkFAvIjXQ=="
+					"uidString" : "gC+mGpTtDQC19My1BbBRww=="
 				},
-				"code" : ""
+				"code" : "canvas := ProcessingCanvas new.\rcanvas\r\tsize: 200 by: 200;\r\tellipse: 100 by: 100 at: 50 @ 50.\rcanvas render\r",
+				"elementHeight" : 100,
+				"codeHeight" : 50,
+				"codeVisible" : true
 			}
 		]
 	},

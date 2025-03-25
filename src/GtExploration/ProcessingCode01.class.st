@@ -17,6 +17,6 @@ ProcessingCode01 >> drawOnto: canvas [
 		a := (a+50).
 	].
 	(a>=200) ifTrue: [ 
-		canvas rect: 20 by: 20 at: 0 @ 0.
+		canvas ellipse: 20 by: 20 at: 10 @ 10.
 	].
 ]

@@ -180,7 +180,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-03-25T23:08:42.306+01:00"
+						"dateAndTimeString" : "2025-03-25T23:09:06.412+01:00"
 					}
 				},
 				"uid" : {
@@ -190,7 +190,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "The parsed code is then transpiled into Smalltalk using {{gtClass:ProcessingTranspiler}} (and the Smalltalk code is compile"
+				"string" : "The parsed code is then transpiled into Smalltalk using {{gtClass:ProcessingTranspiler}} (which can be compiled, run and inspected):"
 			},
 			{
 				"__type" : "exampleSnippet",

@@ -35,6 +35,11 @@ ProcessingTranspiler >> compile: ast [
 ]
 
 { #category : #'as yet unclassified' }
+ProcessingTranspiler >> emitEllipse: args [
+	^ 'canvas ellipse: ' , (args at: 3) , ' by: ' , (args at: 4) , ' at: ' , (args at: 1) , ' @ ' , (args at: 2) , '.'
+]
+
+{ #category : #'as yet unclassified' }
 ProcessingTranspiler >> emitFill: args [
 	^ 'canvas fill: (Color r: ' , (args at: 1) , ' / 255.0 g: ' , (args at: 2) , ' / 255.0 b: ' , (args at: 3) , ' / 255.0).'
 ]
@@ -108,6 +113,7 @@ ProcessingTranspiler >> visitFunctionCallExpression: fnCall [
 	name = 'size' ifTrue: [ ^ self emitSize: args ].
 	name = 'fill' ifTrue: [ ^ self emitFill: args ].
 	name = 'rect' ifTrue: [ ^ self emitRect: args ].
+	name = 'ellipse' ifTrue: [ ^ self emitEllipse: args ].
 ]
 
 { #category : #'as yet unclassified' }

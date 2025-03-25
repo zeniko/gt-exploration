@@ -64,12 +64,29 @@ ProcessingCanvasExamples >> fillColor [
 ]
 
 { #category : #'as yet unclassified' }
+ProcessingCanvasExamples >> singleCircle [
+	<gtExample>
+	| canvas child |
+	canvas := self container.
+	canvas ellipse: 100 by: 100 at: 50 @ 50.
+	child := canvas canvasElement children last.
+	self assert: child class equals: BlEllipseElement.
+	self assert: child measuredBounds position equals: 0 @ 0.
+	self assert: child background paint color equals: Color white.
+	self assert: child border paint color equals: Color black.
+	self assert: child border width equals: 0.5.
+	^ canvas
+
+]
+
+{ #category : #'as yet unclassified' }
 ProcessingCanvasExamples >> singleSquare [
 	<gtExample>
 	| canvas child |
 	canvas := self container.
 	canvas rect: 100 by: 100 at: 50 @ 50.
 	child := canvas canvasElement children last.
+	self assert: (child isKindOf: BlElement).
 	self assert: child measuredBounds position equals: 50 @ 50.
 	self assert: child background paint color equals: Color white.
 	self assert: child border paint color equals: Color black.

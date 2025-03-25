@@ -25,6 +25,18 @@ ProcessingCanvas >> colorWithR: r g: g b: b [
 ]
 
 { #category : #'as yet unclassified' }
+ProcessingCanvas >> ellipse: dx by: dy at: xy [
+	| shape |
+	shape := BlEllipseElement new.
+	shape background: fillColor.
+	shape majorRadius: dx / 2.
+	shape minorRadius: dy / 2.
+	shape centerAnchor: (BlAbsolutePositionAnchor new position: xy).
+	shape border: (BlBorder paint: Color black width: 0.5).
+	canvasElement addChild: shape
+]
+
+{ #category : #'as yet unclassified' }
 ProcessingCanvas >> fill: color [
 	fillColor:=color.
 ]

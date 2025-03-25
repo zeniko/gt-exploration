@@ -30,7 +30,7 @@ while a < 200:
 	rect(a, a, 100, 100)
 	a = a + 50
 if a >= 200:
-	rect(0, 0, 20, 20)'.
+	ellipse(10, 10, 20, 20)'.
 	self assert: ast statements size equals: 4.
 	^ ast
 ]

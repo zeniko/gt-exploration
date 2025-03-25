@@ -282,14 +282,14 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-03-18T22:06:41.363+01:00"
+						"dateAndTimeString" : "2025-03-25T23:48:08.537+01:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
 					"uidString" : "GOl2BAbtDQCdDqZ/CprFvw=="
 				},
-				"code" : "size(200, 200)\r\na = 0\rwhile a < 200:\r\tfill(a, 128, 0)\r\trect(a, a, 100, 100)\r\ta = a + 50\rif a >= 200:\r\trect(0, 0, 20, 20)"
+				"code" : "size(200, 200)\r\na = 0\rwhile a < 200:\r\tfill(a, 128, 0)\r\trect(a, a, 100, 100)\r\ta = a + 50\rif a >= 200:\r\tellipse(0, 0, 20, 20)"
 			},
 			{
 				"__type" : "pharoSnippet",
@@ -316,7 +316,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-03-18T22:06:49.992+01:00"
+						"dateAndTimeString" : "2025-03-18T22:36:05.592+01:00"
 					}
 				},
 				"uid" : {
@@ -324,40 +324,6 @@
 					"uidString" : "EJ7dBAbtDQCdGJMXCprFvw=="
 				},
 				"code" : "source := ProcessingSource new fromString: thisSnippet previousSibling code.\rast := ProcessingParser parse: source asString.\rprogram := (ProcessingTranspiler new) compile: ast"
-			},
-			{
-				"__type" : "pharoSnippet",
-				"children" : {
-					"__type" : "snippets",
-					"items" : [ ]
-				},
-				"createEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"createTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-03-18T22:35:41.903+01:00"
-					}
-				},
-				"editEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"editTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-03-18T22:35:59.105+01:00"
-					}
-				},
-				"uid" : {
-					"__type" : "uid",
-					"uidString" : "mOxsbAbtDQCdNOodCprFvw=="
-				},
-				"code" : "String new:10 withAll:(Character tab)"
 			}
 		]
 	},
