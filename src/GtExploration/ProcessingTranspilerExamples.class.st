@@ -46,6 +46,7 @@ ProcessingTranspilerExamples >> transpileExample02 [
 	].'.
 	self assert: transpiler variables size equals: 1.
 	self assert: (' ' join: transpiler variables) equals: 'a'.
+	^ transpiler compile: ast
 ]
 
 { #category : #'as yet unclassified' }

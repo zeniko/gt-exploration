@@ -321,7 +321,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-02-25T20:24:52.904+01:00"
+									"dateAndTimeString" : "2025-03-25T23:13:39.056+01:00"
 								}
 							},
 							"uid" : {
@@ -331,7 +331,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "[[Abstract Syntax Tree]] (not implemented)"
+							"string" : "[[Abstract Syntax Tree]] (demo)"
 						},
 						{
 							"__type" : "textSnippet",
@@ -358,7 +358,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-02-18T22:21:00.464+01:00"
+									"dateAndTimeString" : "2025-03-25T23:13:35.954+01:00"
 								}
 							},
 							"uid" : {
@@ -368,7 +368,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "[[Assembly]] (not implemented)"
+							"string" : "[[Assembly]] (demo)"
 						},
 						{
 							"__type" : "textSnippet",

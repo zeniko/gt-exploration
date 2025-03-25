@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'ast'
 	],
-	#category : #GtExploration
+	#category : #'GtExploration-Processing'
 }
 
 { #category : #'as yet unclassified' }

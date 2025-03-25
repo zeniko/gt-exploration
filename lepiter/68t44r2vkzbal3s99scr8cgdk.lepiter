@@ -18,7 +18,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-25T20:19:48.242+01:00"
+						"dateAndTimeString" : "2025-03-25T22:17:07.585+01:00"
 					}
 				},
 				"editEmail" : {
@@ -29,17 +29,17 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-03-25T23:26:01.4+01:00"
+						"dateAndTimeString" : "2025-03-25T22:18:11.301+01:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "mALDE17rDQCikjj8C7gYPg=="
+					"uidString" : "eFd29JLtDQCf3OamCvN6aQ=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "Shows a tree structure of the parsed Processing source code ({{gtMethod:ProcessingSource>>#gtTreeFor:}])."
+				"string" : "After considering the various potential ways of running Python/Processing code in [[Running Python/Processing]], the best path forward seems to be to transpile Processing code into Smalltalk as described in [[Transpiling Processing]]."
 			},
 			{
 				"__type" : "textSnippet",
@@ -55,7 +55,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-25T20:18:51.791+01:00"
+						"dateAndTimeString" : "2025-03-25T22:18:11.876+01:00"
 					}
 				},
 				"editEmail" : {
@@ -66,17 +66,17 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-25T20:19:45.327+01:00"
+						"dateAndTimeString" : "2025-03-25T23:01:25.603+01:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "mK5lEF7rDQCaTd/HC7gYPg=="
+					"uidString" : "oGi6/pLtDQClg1mmCvN6aQ=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "## Demonstrates"
+				"string" : "The transpiler currently supports only a few statement types such as [[Processing API]] calls,  `if`-conditionals, `while`-loops and variable assignment. All may contain expressions with  variables and basic arithmetic (including comparisons for conditions)."
 			},
 			{
 				"__type" : "textSnippet",
@@ -92,7 +92,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-25T20:19:45.655+01:00"
+						"dateAndTimeString" : "2025-03-25T23:01:41.984+01:00"
 					}
 				},
 				"editEmail" : {
@@ -103,17 +103,57 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-25T20:19:46.245+01:00"
+						"dateAndTimeString" : "2025-03-25T23:02:48.839+01:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "2JSbE17rDQChhPooC7gYPg=="
+					"uidString" : "mHDxmZPtDQCdhOv+BbBRww=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "Conversion of implicit to explicit types (Hindley-Milner?)"
+				"string" : "Code is parsed using {{gtClass:ProcessingParser}} (which at the moment is essentially an empty subclass of  {{gtClass:PythonParser}}):"
+			},
+			{
+				"__type" : "exampleSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-03-25T22:18:30.119+01:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-03-25T22:18:30.119+01:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "WMbQ/5LtDQClnGPsCvN6aQ=="
+				},
+				"exampleSelector" : "parseExample02",
+				"previewHeight" : 200,
+				"previewShowSelector" : "gtViewsFor:",
+				"exampleBehaviorName" : "ProcessingParserExamples",
+				"codeExpanded" : true,
+				"previewExpanded" : false,
+				"noCode" : false
 			},
 			{
 				"__type" : "textSnippet",
@@ -129,7 +169,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-25T20:18:46.097+01:00"
+						"dateAndTimeString" : "2025-03-25T23:02:53.212+01:00"
 					}
 				},
 				"editEmail" : {
@@ -140,20 +180,20 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-25T20:20:47.384+01:00"
+						"dateAndTimeString" : "2025-03-25T23:09:06.412+01:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "aMwOEF7rDQCY9tnUC7gYPg=="
+					"uidString" : "YFmMnpPtDQCgm6uxBbBRww=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "Syntactical units and the role of separators."
+				"string" : "The parsed code is then transpiled into Smalltalk using {{gtClass:ProcessingTranspiler}} (which can be compiled, run and inspected):"
 			},
 			{
-				"__type" : "textSnippet",
+				"__type" : "exampleSnippet",
 				"children" : {
 					"__type" : "snippets",
 					"items" : [ ]
@@ -166,7 +206,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-25T20:21:00.258+01:00"
+						"dateAndTimeString" : "2025-03-25T23:05:30.82+01:00"
 					}
 				},
 				"editEmail" : {
@@ -177,17 +217,20 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-25T20:21:23.25+01:00"
+						"dateAndTimeString" : "2025-03-25T23:05:30.82+01:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "0O4NGF7rDQCLMxCWC7gYPg=="
+					"uidString" : "uD3xp5PtDQCiqe+NBbBRww=="
 				},
-				"paragraphStyle" : {
-					"__type" : "textStyle"
-				},
-				"string" : "Abstraction of syntactical differences between different languages (compared to e.g. Java)."
+				"exampleSelector" : "transpileExample02",
+				"previewHeight" : 200,
+				"previewShowSelector" : "gtOutputFor:",
+				"exampleBehaviorName" : "ProcessingTranspilerExamples",
+				"codeExpanded" : true,
+				"previewExpanded" : true,
+				"noCode" : false
 			}
 		]
 	},
@@ -199,7 +242,7 @@
 		"__type" : "time",
 		"time" : {
 			"__type" : "dateAndTime",
-			"dateAndTimeString" : "2025-02-25T20:18:51.393+01:00"
+			"dateAndTimeString" : "2025-03-25T22:15:27.053+01:00"
 		}
 	},
 	"editEmail" : {
@@ -210,15 +253,15 @@
 		"__type" : "time",
 		"time" : {
 			"__type" : "dateAndTime",
-			"dateAndTimeString" : "2025-02-25T20:18:51.393+01:00"
+			"dateAndTimeString" : "2025-03-25T22:15:27.053+01:00"
 		}
 	},
 	"pageType" : {
 		"__type" : "namedPage",
-		"title" : "Abstract Syntax Tree"
+		"title" : "Processing Transpiler"
 	},
 	"uid" : {
 		"__type" : "uuid",
-		"uuid" : "009c0b10-5eeb-0d00-9883-7ea80bb8183e"
+		"uuid" : "e8f175f4-92ed-0d00-9fdb-172a0af37a69"
 	}
 }

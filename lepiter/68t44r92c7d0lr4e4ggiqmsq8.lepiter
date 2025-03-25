@@ -18,7 +18,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T09:59:46.231+01:00"
+						"dateAndTimeString" : "2025-03-25T22:19:50.988+01:00"
 					}
 				},
 				"editEmail" : {
@@ -29,17 +29,17 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-25T20:22:56.157+01:00"
+						"dateAndTimeString" : "2025-03-25T22:20:40.205+01:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "2Mp1mcjqDQClGcPWCZ6mgg=="
+					"uidString" : "4LyiBJPtDQCoaynACvN6aQ=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "Shows the translation into a minimal (IA64-subset/WASM/...?) assembly language without optimizations and binary opcodes (in hexadecimal or decimal notation)."
+				"string" : "This is the API which is currently supported by GtProcessing:"
 			},
 			{
 				"__type" : "textSnippet",
@@ -55,7 +55,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-03-25T23:26:43.798+01:00"
+						"dateAndTimeString" : "2025-03-25T22:21:04.278+01:00"
 					}
 				},
 				"editEmail" : {
@@ -66,17 +66,17 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-03-25T23:27:02.772+01:00"
+						"dateAndTimeString" : "2025-03-25T22:21:15.834+01:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "8FvR85PtDQCwS/cvBbBRww=="
+					"uidString" : "8A0BCZPtDQCqy8fgCvN6aQ=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "Currently implemented as {{gtMethod:ProcessingSource>>#gtBytecodeFor:}}."
+				"string" : "`size(width, height)`"
 			},
 			{
 				"__type" : "textSnippet",
@@ -92,7 +92,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T10:04:09.789+01:00"
+						"dateAndTimeString" : "2025-03-25T22:21:16.215+01:00"
 					}
 				},
 				"editEmail" : {
@@ -103,17 +103,17 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T10:04:13.142+01:00"
+						"dateAndTimeString" : "2025-03-25T22:22:11.454+01:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "SF4rqcjqDQCObD53CZ6mgg=="
+					"uidString" : "2DK3CZPtDQCrSLO+CvN6aQ=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "## Demonstrates"
+				"string" : "Prepares an output canvas of the given dimensions. This command must always be called first (for animations: first command in `def setup`)."
 			},
 			{
 				"__type" : "textSnippet",
@@ -129,7 +129,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T10:04:12.889+01:00"
+						"dateAndTimeString" : "2025-03-25T22:22:12.007+01:00"
 					}
 				},
 				"editEmail" : {
@@ -140,17 +140,17 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T10:35:27.399+01:00"
+						"dateAndTimeString" : "2025-03-25T22:22:20.759+01:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "qKtaqcjqDQCQ9zVMCZ6mgg=="
+					"uidString" : "WIQKDZPtDQCun99hCvN6aQ=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "Translation from high-level, structured language to a low-level language closer to actual hardware (tie into processor design)."
+				"string" : "`rect(x, y, width, height)`"
 			},
 			{
 				"__type" : "textSnippet",
@@ -166,7 +166,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T10:20:38.392+01:00"
+						"dateAndTimeString" : "2025-03-25T22:22:21.407+01:00"
 					}
 				},
 				"editEmail" : {
@@ -177,17 +177,17 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T10:20:55.095+01:00"
+						"dateAndTimeString" : "2025-03-25T22:23:14.156+01:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "UCkY5MjqDQC8KvmHCZ6mgg=="
+					"uidString" : "MO+ZDZPtDQCvK1TWCvN6aQ=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "Translation back into high-level language might not be possible."
+				"string" : "Draws a rectangle of the given width and height, parallel to the coordinate axes with its top left corner at `(x; y)`."
 			},
 			{
 				"__type" : "textSnippet",
@@ -203,7 +203,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-25T20:23:33.998+01:00"
+						"dateAndTimeString" : "2025-03-25T22:23:16.145+01:00"
 					}
 				},
 				"editEmail" : {
@@ -214,17 +214,17 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-25T20:23:34.929+01:00"
+						"dateAndTimeString" : "2025-03-25T22:23:22.817+01:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "WLY3IV7rDQCQW09wC7gYPg=="
+					"uidString" : "aC/dEJPtDQCx5xaxCvN6aQ=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "Compiler tradeoffs (speed, size, time)"
+				"string" : "`fill(r, g, b)`"
 			},
 			{
 				"__type" : "textSnippet",
@@ -240,7 +240,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-25T20:23:08.687+01:00"
+						"dateAndTimeString" : "2025-03-25T22:23:27.218+01:00"
 					}
 				},
 				"editEmail" : {
@@ -251,17 +251,17 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-25T20:23:18.479+01:00"
+						"dateAndTimeString" : "2025-03-25T22:24:24.481+01:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "mJq1H17rDQCJB3EsC7gYPg=="
+					"uidString" : "CBxLEZPtDQCyNw0cCvN6aQ=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "{{gtTodo:label=Optimize for size, for speed (with loop unrolling) or both?}}"
+				"string" : "Selects the color to use for filling rendered shapes. The color is given as three values in the range of 0 to 255 (red, green and blue respectively)."
 			},
 			{
 				"__type" : "textSnippet",
@@ -277,7 +277,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-25T20:23:43.35+01:00"
+						"dateAndTimeString" : "2025-03-25T22:19:46.302+01:00"
 					}
 				},
 				"editEmail" : {
@@ -288,86 +288,12 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-25T20:24:08.492+01:00"
+						"dateAndTimeString" : "2025-03-25T22:19:46.302+01:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "IH3GIV7rDQCRtSA8C7gYPg=="
-				},
-				"paragraphStyle" : {
-					"__type" : "textStyle"
-				},
-				"string" : "Potential for comparison with advanced challenges of [Human Resource Machine](https://tomorrowcorporation.com/humanresourcemachine)."
-			},
-			{
-				"__type" : "textSnippet",
-				"children" : {
-					"__type" : "snippets",
-					"items" : [ ]
-				},
-				"createEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"createTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T10:21:02.183+01:00"
-					}
-				},
-				"editEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"editTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T10:21:02.183+01:00"
-					}
-				},
-				"uid" : {
-					"__type" : "uid",
-					"uidString" : "YBuD5cjqDQCJLpoPCZ6mgg=="
-				},
-				"paragraphStyle" : {
-					"__type" : "textStyle"
-				},
-				"string" : ""
-			},
-			{
-				"__type" : "textSnippet",
-				"children" : {
-					"__type" : "snippets",
-					"items" : [ ]
-				},
-				"createEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"createTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T10:19:20.125+01:00"
-					}
-				},
-				"editEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"editTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T10:19:20.125+01:00"
-					}
-				},
-				"uid" : {
-					"__type" : "uid",
-					"uidString" : "SP5t38jqDQC7QySLCZ6mgg=="
+					"uidString" : "MDxbBJPtDQCoagIyCvN6aQ=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
@@ -384,7 +310,7 @@
 		"__type" : "time",
 		"time" : {
 			"__type" : "dateAndTime",
-			"dateAndTimeString" : "2025-02-18T10:00:09.068+01:00"
+			"dateAndTimeString" : "2025-03-25T22:19:50.985+01:00"
 		}
 	},
 	"editEmail" : {
@@ -395,15 +321,15 @@
 		"__type" : "time",
 		"time" : {
 			"__type" : "dateAndTime",
-			"dateAndTimeString" : "2025-02-18T10:00:09.068+01:00"
+			"dateAndTimeString" : "2025-03-25T22:19:50.985+01:00"
 		}
 	},
 	"pageType" : {
 		"__type" : "namedPage",
-		"title" : "Assembly"
+		"title" : "Processing API"
 	},
 	"uid" : {
 		"__type" : "uuid",
-		"uuid" : "e0c36f99-c8ea-0d00-a4dc-d132099ea682"
+		"uuid" : "f01c5b04-93ed-0d00-a869-50f80af37a69"
 	}
 }

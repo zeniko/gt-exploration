@@ -12,6 +12,11 @@ ProcessingSource >> asString [
 	^ source contents
 ]
 
+{ #category : #'as yet unclassified' }
+ProcessingSource >> compile [
+	^ ProcessingTranspiler new compile: (ProcessingParser parse: self asString)
+]
+
 { #category : #accessing }
 ProcessingSource >> fromFile: locator [
 	source := locator
@@ -21,6 +26,12 @@ ProcessingSource >> fromFile: locator [
 ProcessingSource >> fromString: code [
 	"TODO: this file does not seem to be modifyable (in #gtContentsFor)"
 	source := (FileSystem memory workingDirectory / 'sample.pyde') writeStreamDo: [ :stream | stream nextPutAll: code ]; yourself
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingSource >> gtBytecodeFor: aView [
+	<gtView>
+	^ self compile gtBytecodeFor: aView
 ]
 
 { #category : #'as yet unclassified' }
@@ -38,31 +49,39 @@ ProcessingSource >> gtContentsFor: aView [
 
 	^ aView explicit
 		title: 'Contents';
-		priority: 10;
+		priority: 1;
 		updateWhen: GtFileWatcherModificationAnnouncement in: eventLoop announcer;
 		stencil: [ source gtEditorView ]
 ]
 
 { #category : #'as yet unclassified' }
 ProcessingSource >> gtOutputFor: aView [
-	"copy/paste from BlElement > #gtLiveFor:"
 	<gtView>
-	^ aView explicit
-		title: 'Output (Live)';
-		priority: 20;
-		stencil: [
-			GtInspectorElementLiveViewContainer new
-				element: self render;
-				clipChildren: false
-		]
+	^ self compile gtOutputFor: aView
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingSource >> gtSourceCodeFor: aView [
+	<gtView>
+	^ self compile gtSourceCodeFor: aView
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingSource >> gtTreeFor: aView [
+	<gtView>
+	^ self compile gtTreeFor: aView
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingSource >> gtViewIntermediaryRepresentationFor: aView [
+	<gtView>
+	^ self compile gtViewIntermediaryRepresentationFor: aView
 ]
 
 { #category : #'as yet unclassified' }
 ProcessingSource >> render [
-	| ast canvas |
-	"TODO: handle syntax errors"
-	ast := ProcessingParser parse: self asString.
+	| canvas |
 	canvas := ProcessingCanvas new.
-	(ProcessingInterpreter new) interpret: ast onto: canvas.
+	self compile drawOnto: canvas.
 	^ canvas render
 ]
