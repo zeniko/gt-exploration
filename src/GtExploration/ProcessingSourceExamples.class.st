@@ -5,6 +5,16 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
+ProcessingSourceExamples >> render [
+	<gtExample>
+	| source element |
+	source := self sourceExample02.
+	element := source render.
+	self assert: (element isKindOf: BlElement).
+	^ element
+]
+
+{ #category : #'as yet unclassified' }
 ProcessingSourceExamples >> sourceAlpinerWanderweg [
 	<gtExample>
 	| source |
