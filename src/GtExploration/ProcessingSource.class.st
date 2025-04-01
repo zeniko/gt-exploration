@@ -2,8 +2,7 @@ Class {
 	#name : #ProcessingSource,
 	#superclass : #Object,
 	#instVars : [
-		'source',
-		'program'
+		'source'
 	],
 	#category : #'GtExploration-Processing'
 }
@@ -16,20 +15,18 @@ ProcessingSource >> asString [
 { #category : #accessing }
 ProcessingSource >> fromFile: locator [
 	source := locator.
-	program := ProcessingProgram new source: source asString.
 ]
 
 { #category : #'as yet unclassified' }
 ProcessingSource >> fromString: code [
 	"TODO: this file does not seem to be modifyable (in #gtContentsFor)"
 	source := (FileSystem memory workingDirectory / 'sample.pyde') writeStreamDo: [ :stream | stream nextPutAll: code ]; yourself.
-	program := ProcessingProgram new source: source asString.
 ]
 
 { #category : #'as yet unclassified' }
 ProcessingSource >> gtBytecodeFor: aView [
 	<gtView>
-	^ program gtBytecodeFor: aView
+	^ self program gtBytecodeFor: aView
 ]
 
 { #category : #'as yet unclassified' }
@@ -55,28 +52,33 @@ ProcessingSource >> gtContentsFor: aView [
 { #category : #'as yet unclassified' }
 ProcessingSource >> gtOutputFor: aView [
 	<gtView>
-	^ program gtOutputFor: aView
+	^ self program gtOutputFor: aView
 ]
 
 { #category : #'as yet unclassified' }
 ProcessingSource >> gtSourceCodeFor: aView [
 	<gtView>
-	^ program gtSourceCodeFor: aView
+	^ self program gtSourceCodeFor: aView
 ]
 
 { #category : #'as yet unclassified' }
 ProcessingSource >> gtTreeFor: aView [
 	<gtView>
-	^ program gtTreeFor: aView
+	^ self program gtTreeFor: aView
 ]
 
 { #category : #'as yet unclassified' }
 ProcessingSource >> gtViewIntermediaryRepresentationFor: aView [
 	<gtView>
-	^ program gtViewIntermediaryRepresentationFor: aView
+	^ self program gtViewIntermediaryRepresentationFor: aView
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingSource >> program [
+	^ ProcessingProgram new source: self asString
 ]
 
 { #category : #'as yet unclassified' }
 ProcessingSource >> render [
-	^ program run render
+	^ self program run render
 ]

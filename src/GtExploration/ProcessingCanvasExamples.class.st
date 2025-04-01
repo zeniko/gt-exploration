@@ -7,11 +7,9 @@ Class {
 { #category : #example }
 ProcessingCanvasExamples >> alpinerWanderweg [
 	<gtExample>
-	| canvas program child |
-	canvas := ProcessingCanvas new.
-	program := ProcessingTranspilerExamples new transpileAlpinerWanderweg.
-	program drawOnto: canvas.
-	
+	| canvas child |
+	canvas := ProcessingProgramExamples new programAlpinerWanderweg canvas.
+
 	self assert: canvas fillColor equals: Color red.
 	
 	child := canvas canvasElement children last.
@@ -52,11 +50,9 @@ ProcessingCanvasExamples >> createColor [
 { #category : #'as yet unclassified' }
 ProcessingCanvasExamples >> example02 [
 	<gtExample>
-	| canvas program |
-	canvas := ProcessingCanvas new.
-	program := ProcessingTranspilerExamples new transpileExample02.
-	program drawOnto: canvas.
-	^ program
+	| canvas |
+	canvas := ProcessingProgramExamples new programExample02 canvas.
+	^ canvas
 ]
 
 { #category : #'as yet unclassified' }

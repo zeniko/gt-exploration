@@ -147,7 +147,7 @@
 					"__type" : "uid",
 					"uidString" : "WMbQ/5LtDQClnGPsCvN6aQ=="
 				},
-				"exampleSelector" : "parseExample02",
+				"exampleSelector" : "parseMinimal",
 				"previewHeight" : 200,
 				"previewShowSelector" : "gtViewsFor:",
 				"exampleBehaviorName" : "ProcessingParserExamples",
