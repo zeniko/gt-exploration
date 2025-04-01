@@ -50,6 +50,16 @@ ProcessingCanvasExamples >> createColor [
 ]
 
 { #category : #'as yet unclassified' }
+ProcessingCanvasExamples >> example02 [
+	<gtExample>
+	| canvas program |
+	canvas := ProcessingCanvas new.
+	program := ProcessingTranspilerExamples new transpileExample02.
+	program drawOnto: canvas.
+	^ program
+]
+
+{ #category : #'as yet unclassified' }
 ProcessingCanvasExamples >> fillColor [
 	<gtExample>
 	| canvas |

@@ -23,13 +23,8 @@ ProcessingTranspiler >> appendLine: line [
 ProcessingTranspiler >> compile: ast [
 	| class source |
 	source := self transpile: ast.
-	"TODO: temporary names?"
-	ProcessingCodeBase
-		subclass: #ProcessingCode01
-		instanceVariableNames: (' ' join: variables)
-		classVariableNames: ''
-		category: (self class category).
-	class := Smalltalk at: #ProcessingCode01.
+	class := ProcessingCodeBase newAnonymousSubclass.
+	variables do: [ :name | class addSlot: name ].
 	class compile: source.
 	^ (class perform: #new) setAst: ast
 ]
