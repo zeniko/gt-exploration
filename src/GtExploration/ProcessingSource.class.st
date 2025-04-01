@@ -2,7 +2,8 @@ Class {
 	#name : #ProcessingSource,
 	#superclass : #Object,
 	#instVars : [
-		'source'
+		'source',
+		'program'
 	],
 	#category : #'GtExploration-Processing'
 }
@@ -12,26 +13,23 @@ ProcessingSource >> asString [
 	^ source contents
 ]
 
-{ #category : #'as yet unclassified' }
-ProcessingSource >> compile [
-	^ ProcessingTranspiler new compile: (ProcessingParser parse: self asString)
-]
-
 { #category : #accessing }
 ProcessingSource >> fromFile: locator [
-	source := locator
+	source := locator.
+	program := ProcessingProgram new source: source asString.
 ]
 
 { #category : #'as yet unclassified' }
 ProcessingSource >> fromString: code [
 	"TODO: this file does not seem to be modifyable (in #gtContentsFor)"
-	source := (FileSystem memory workingDirectory / 'sample.pyde') writeStreamDo: [ :stream | stream nextPutAll: code ]; yourself
+	source := (FileSystem memory workingDirectory / 'sample.pyde') writeStreamDo: [ :stream | stream nextPutAll: code ]; yourself.
+	program := ProcessingProgram new source: source asString.
 ]
 
 { #category : #'as yet unclassified' }
 ProcessingSource >> gtBytecodeFor: aView [
 	<gtView>
-	^ self compile gtBytecodeFor: aView
+	^ program gtBytecodeFor: aView
 ]
 
 { #category : #'as yet unclassified' }
@@ -57,31 +55,28 @@ ProcessingSource >> gtContentsFor: aView [
 { #category : #'as yet unclassified' }
 ProcessingSource >> gtOutputFor: aView [
 	<gtView>
-	^ self compile gtOutputFor: aView
+	^ program gtOutputFor: aView
 ]
 
 { #category : #'as yet unclassified' }
 ProcessingSource >> gtSourceCodeFor: aView [
 	<gtView>
-	^ self compile gtSourceCodeFor: aView
+	^ program gtSourceCodeFor: aView
 ]
 
 { #category : #'as yet unclassified' }
 ProcessingSource >> gtTreeFor: aView [
 	<gtView>
-	^ self compile gtTreeFor: aView
+	^ program gtTreeFor: aView
 ]
 
 { #category : #'as yet unclassified' }
 ProcessingSource >> gtViewIntermediaryRepresentationFor: aView [
 	<gtView>
-	^ self compile gtViewIntermediaryRepresentationFor: aView
+	^ program gtViewIntermediaryRepresentationFor: aView
 ]
 
 { #category : #'as yet unclassified' }
 ProcessingSource >> render [
-	| canvas |
-	canvas := ProcessingCanvas new.
-	self compile drawOnto: canvas.
-	^ canvas render
+	^ program run render
 ]

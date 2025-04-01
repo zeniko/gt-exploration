@@ -26,7 +26,7 @@ ProcessingTranspiler >> compile: ast [
 	class := ProcessingCodeBase newAnonymousSubclass.
 	variables do: [ :name | class addSlot: name ].
 	class compile: source.
-	^ (class perform: #new) setAst: ast
+	^ class perform: #new
 ]
 
 { #category : #'as yet unclassified' }

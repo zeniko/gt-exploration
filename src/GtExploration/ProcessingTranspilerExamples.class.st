@@ -14,27 +14,17 @@ ProcessingTranspilerExamples >> newTranspiler [
 ]
 
 { #category : #'as yet unclassified' }
-ProcessingTranspilerExamples >> transpileAlpinerWanderweg [
-	<gtExample>
-	| ast transpiler|
-	ast := ProcessingParserExamples new parseAlpinerWanderweg.
-	transpiler := self newTranspiler.
-	self assert: (transpiler transpile: ast) equals: 'drawOnto: canvas
+ProcessingTranspilerExamples >> transpilationAlpinerWanderweg [
+	^ 'drawOnto: canvas
 	canvas size: 200 by: 200.
 	canvas rect: 100 by: 100 at: 50 @ 50.
 	canvas fill: (Color r: 255 / 255.0 g: 0 / 255.0 b: 0 / 255.0).
-	canvas rect: 100 by: (100/3) at: 50 @ (50+(100/3)).'.
-	self assert: transpiler variables size equals: 0.
-	^ transpiler compile: ast
+	canvas rect: 100 by: (100/3) at: 50 @ (50+(100/3)).'
 ]
 
 { #category : #'as yet unclassified' }
-ProcessingTranspilerExamples >> transpileExample02 [
-	<gtExample>
-	| ast transpiler |
-	ast := ProcessingParserExamples new parseExample02.
-	transpiler := self newTranspiler.
-	self assert: (transpiler transpile: ast) equals: 'drawOnto: canvas
+ProcessingTranspilerExamples >> transpilationExample02 [
+	^ 'drawOnto: canvas
 	canvas size: 200 by: 200.
 	a := 0.
 	[ (a<200) ] whileTrue: [ 
@@ -44,9 +34,37 @@ ProcessingTranspilerExamples >> transpileExample02 [
 	].
 	(a>=200) ifTrue: [ 
 		canvas ellipse: 20 by: 20 at: 10 @ 10.
-	].'.
+	].'
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingTranspilerExamples >> transpilationSize [
+	^ 'drawOnto: canvas
+	canvas size: 200 by: 200.'
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingTranspilerExamples >> transpileAlpinerWanderweg [
+	<gtExample>
+	| ast transpiler |
+	ast := ProcessingProgramExamples new testAlpinerWanderweg ast.
+	transpiler := self newTranspiler.
+	self assert: (transpiler transpile: ast) equals: self transpilationAlpinerWanderweg.
+	self assert: transpiler variables size equals: 0.
+	self assert: (ProcessingProgramExamples new testAlpinerWanderweg compilation class >> #drawOnto:) sourceCode equals: self transpilationAlpinerWanderweg.
+	^ transpiler compile: ast
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingTranspilerExamples >> transpileExample02 [
+	<gtExample>
+	| ast transpiler |
+	ast := ProcessingProgramExamples new testExample02 ast.
+	transpiler := self newTranspiler.
+	self assert: (transpiler transpile: ast) equals: self transpilationExample02.
 	self assert: transpiler variables size equals: 1.
 	self assert: (' ' join: transpiler variables) equals: 'a'.
+	self assert: (ProcessingProgramExamples new testExample02 compilation class >> #drawOnto:) sourceCode equals: self transpilationExample02.
 	^ transpiler compile: ast
 ]
 
@@ -54,10 +72,10 @@ ProcessingTranspilerExamples >> transpileExample02 [
 ProcessingTranspilerExamples >> transpileSize [
 	<gtExample>
 	| ast transpiler |
-	ast := ProcessingParserExamples new parseSize.
+	ast := ProcessingProgramExamples new testMinimal ast.
 	transpiler := self newTranspiler.
-	self assert: (transpiler transpile: ast) equals: 'drawOnto: canvas
-	canvas size: 200 by: 200.'.
+	self assert: (transpiler transpile: ast) equals: self transpilationSize.
 	self assert: transpiler variables size equals: 0.
+	self assert: (ProcessingProgramExamples new testMinimal compilation class >> #drawOnto:) sourceCode equals: self transpilationSize.
 	^ transpiler compile: ast
 ]
