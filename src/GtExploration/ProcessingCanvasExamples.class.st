@@ -7,13 +7,13 @@ Class {
 { #category : #example }
 ProcessingCanvasExamples >> alpinerWanderweg [
 	<gtExample>
-	| canvas child |
-	canvas := self singleSquare.
+	| canvas program child |
+	canvas := ProcessingCanvas new.
+	program := ProcessingTranspilerExamples new transpileAlpinerWanderweg.
+	program drawOnto: canvas.
 	
-	canvas fill: (canvas colorWithR: 255 g: 0 b: 0).
 	self assert: canvas fillColor equals: Color red.
 	
-	canvas rect: 100 by: 100 / 3 at: 50 @ (50 + (100 / 3)).
 	child := canvas canvasElement children last.
 	self assert: child measuredBounds position equals: 50 @ (250/3).
 	self assert: child background paint color equals: Color red.

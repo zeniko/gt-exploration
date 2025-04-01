@@ -25,6 +25,7 @@ ProcessingTranspilerExamples >> transpileAlpinerWanderweg [
 	canvas fill: (Color r: 255 / 255.0 g: 0 / 255.0 b: 0 / 255.0).
 	canvas rect: 100 by: (100/3) at: 50 @ (50+(100/3)).'.
 	self assert: transpiler variables size equals: 0.
+	^ transpiler compile: ast
 ]
 
 { #category : #'as yet unclassified' }
@@ -58,4 +59,5 @@ ProcessingTranspilerExamples >> transpileSize [
 	self assert: (transpiler transpile: ast) equals: 'drawOnto: canvas
 	canvas size: 200 by: 200.'.
 	self assert: transpiler variables size equals: 0.
+	^ transpiler compile: ast
 ]
