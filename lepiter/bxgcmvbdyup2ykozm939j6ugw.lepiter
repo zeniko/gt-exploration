@@ -74,7 +74,7 @@
 					"uidString" : "WKZrLxruDQC7IynCAft/yQ=="
 				},
 				"exampleSelector" : "sourceExample02",
-				"previewHeight" : 200,
+				"previewHeight" : 250,
 				"previewShowSelector" : "gtViewsFor:",
 				"exampleBehaviorName" : "ProcessingSourceExamples",
 				"codeExpanded" : true,
@@ -151,7 +151,7 @@
 					"uidString" : "eCQAFhruDQC3/Lu5Aft/yQ=="
 				},
 				"exampleSelector" : "programExample02",
-				"previewHeight" : 200,
+				"previewHeight" : 250,
 				"previewShowSelector" : "gtSourceCodeFor:",
 				"exampleBehaviorName" : "ProcessingProgramExamples",
 				"codeExpanded" : true,
@@ -228,7 +228,7 @@
 					"uidString" : "eNNhPBruDQC9KuKtAft/yQ=="
 				},
 				"exampleSelector" : "programExample02",
-				"previewHeight" : 200,
+				"previewHeight" : 250,
 				"previewShowSelector" : "gtTreeFor:",
 				"exampleBehaviorName" : "ProcessingProgramExamples",
 				"codeExpanded" : true,
@@ -305,7 +305,7 @@
 					"uidString" : "YCasKhruDQC4bfqVAft/yQ=="
 				},
 				"exampleSelector" : "programExample02",
-				"previewHeight" : 200,
+				"previewHeight" : 250,
 				"previewShowSelector" : "gtBytecodeFor:",
 				"exampleBehaviorName" : "ProcessingProgramExamples",
 				"codeExpanded" : true,
@@ -382,7 +382,7 @@
 					"uidString" : "GKCTORruDQC8VEQtAft/yQ=="
 				},
 				"exampleSelector" : "programExample02",
-				"previewHeight" : 200,
+				"previewHeight" : 250,
 				"previewShowSelector" : "gtOutputFor:",
 				"exampleBehaviorName" : "ProcessingProgramExamples",
 				"codeExpanded" : true,
