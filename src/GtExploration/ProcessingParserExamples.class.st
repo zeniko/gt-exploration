@@ -15,6 +15,16 @@ ProcessingParserExamples >> parseAlpinerWanderweg [
 ]
 
 { #category : #'as yet unclassified' }
+ProcessingParserExamples >> parseEndlessLoop [
+	<gtExample>
+	| ast node |
+	ast := ProcessingParser parse: ProcessingSourceExamples new sourceCodeEndlessLoop.
+	self assert: ast statements size equals: 1.
+	node := ast statements first.
+	^ ast
+]
+
+{ #category : #'as yet unclassified' }
 ProcessingParserExamples >> parseExample02 [
 	<gtExample>
 	| ast node |

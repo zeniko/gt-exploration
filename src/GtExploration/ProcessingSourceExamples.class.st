@@ -36,6 +36,12 @@ rect(50, 50 + 100 / 3, 100, 100 / 3)
 ]
 
 { #category : #'as yet unclassified' }
+ProcessingSourceExamples >> sourceCodeEndlessLoop [
+	<gtExample>
+	^ 'while 1 == 1: loop'
+]
+
+{ #category : #'as yet unclassified' }
 ProcessingSourceExamples >> sourceCodeExample02 [
 	<gtExample>
 	^ 'size(200, 200)
@@ -52,6 +58,16 @@ if a >= 200:
 ProcessingSourceExamples >> sourceCodeMinimal [
 	<gtExample>
 	^ 'size(200, 200)'
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingSourceExamples >> sourceEndlessLoop [
+	<gtExample>
+	| source |
+	source := ProcessingSource new fromString: self sourceCodeEndlessLoop.
+	self assert: source asString equals: self sourceCodeEndlessLoop.
+	self assert: source program isNotNil.
+	^ source
 ]
 
 { #category : #'as yet unclassified' }

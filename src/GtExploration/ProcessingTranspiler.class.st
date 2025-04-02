@@ -140,6 +140,7 @@ ProcessingTranspiler >> visitVariableExpression: var [
 ProcessingTranspiler >> visitWhileStatement: expr [
 	self appendLine: '[ ' , (expr condition acceptVisitor: self) , ' ] whileTrue: [ '.
 	indentation := indentation + 1.
+	self appendLine: 'self _loopCheck.'.
 	expr statements do: [ :stmt |
 		| res |
 		res := stmt acceptVisitor: self.

@@ -1,8 +1,20 @@
 Class {
 	#name : #ProcessingCodeBase,
 	#superclass : #Object,
+	#instVars : [
+		'_loopCounter'
+	],
 	#category : #'GtExploration-Processing'
 }
+
+{ #category : #'as yet unclassified' }
+ProcessingCodeBase >> _loopCheck [
+	_loopCounter := _loopCounter - 1.
+	_loopCounter <= 0 ifTrue: [
+		"TODO: use custom exception"
+		Error new signal: 'Endless loop detected.'
+	]
+]
 
 { #category : #'as yet unclassified' }
 ProcessingCodeBase >> gtBytecodeFor: aView [
@@ -52,4 +64,11 @@ ProcessingCodeBase >> gtViewIntermediaryRepresentationFor: aView [
 			string := (self class >> #drawOnto:) ast ir longPrintString.
 			string copyFrom: 2 to: string size
 		]
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingCodeBase >> initialize [
+	"Maximum number of loop iterations, before it's considered an endless loop."
+	"TODO: investigate why larger numbers don't work"
+	_loopCounter := 10000
 ]
