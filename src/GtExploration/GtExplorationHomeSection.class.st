@@ -12,6 +12,26 @@ GtExplorationHomeSection >> cardPriorities [
 	)
 ]
 
+{ #category : #'as yet unclassified' }
+GtExplorationHomeSection >> processingAbstractionCard [
+	<gtSectionCard>
+	<gtExample>
+	^ GtHomeCard lazy
+		title: 'Processing abstractions';
+		description: 'Load the Processing Abstractions project and database';
+		databaseName: 'zeniko:processing-abstractions';
+		pageName: 'Einleitung';
+		setPriority;
+		loadLepiter: [ Metacello new
+				repository: 'github://zeniko/processing-abstractions:main/src';
+				baseline: 'ProcessingAbstractions';
+				load.
+			#BaselineOfProcessingAbstractions asClass loadLepiter.
+			self class updateGtWorld ];
+		assertInvariant;
+		yourself
+]
+
 { #category : #card }
 GtExplorationHomeSection >> projectCard [
 	<gtSectionCard>
@@ -27,7 +47,7 @@ GtExplorationHomeSection >> projectCard [
 
 { #category : #'as yet unclassified' }
 GtExplorationHomeSection >> projectCard2 [
-	<gtSectionCard>
+	"<gtSectionCard>"
 	^ ProcessingAbstractionsHomeSection new projectCard
 		priority: 20;
 		yourself
