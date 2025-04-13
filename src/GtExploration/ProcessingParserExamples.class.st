@@ -34,6 +34,15 @@ ProcessingParserExamples >> parseExample02 [
 ]
 
 { #category : #'as yet unclassified' }
+ProcessingParserExamples >> parseExample03 [
+	<gtExample>
+	| ast node |
+	ast := ProcessingProgramExamples new programExample03 ast.
+	self assert: ast statements size equals: 3.
+	^ ast
+]
+
+{ #category : #'as yet unclassified' }
 ProcessingParserExamples >> parseMinimal [
 	<gtExample>
 	| ast node |

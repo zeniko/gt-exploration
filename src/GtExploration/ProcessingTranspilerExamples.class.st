@@ -51,6 +51,20 @@ ProcessingTranspilerExamples >> transpilationExample02 [
 ]
 
 { #category : #'as yet unclassified' }
+ProcessingTranspilerExamples >> transpilationExample03 [
+	<gtExample>
+	^ 'drawOnto: canvas
+	canvas size: 200 by: 200.
+	x := 200.
+	[ (x>0) ] whileTrue: [ 
+		self _loopCheck.
+		canvas fill: (Color r: (200-x) / 255.0 g: 128 / 255.0 b: x / 255.0).
+		canvas ellipse: x by: x at: 100 @ 100.
+		x := (x-20).
+	].'
+]
+
+{ #category : #'as yet unclassified' }
 ProcessingTranspilerExamples >> transpilationMinimal [
 	<gtExample>
 	^ 'drawOnto: canvas
@@ -91,6 +105,19 @@ ProcessingTranspilerExamples >> transpileExample02 [
 	self assert: transpiler variables size equals: 1.
 	self assert: (' ' join: transpiler variables) equals: 'a'.
 	self assert: ((transpiler compile: ast) class >> #drawOnto:) sourceCode equals: self transpilationExample02.
+	^ transpiler compile: ast
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingTranspilerExamples >> transpileExample03 [
+	<gtExample>
+	| ast transpiler |
+	ast := ProcessingParserExamples new parseExample03.
+	transpiler := self newTranspiler.
+	self assert: (transpiler transpile: ast) equals: self transpilationExample03.
+	self assert: transpiler variables size equals: 1.
+	self assert: (' ' join: transpiler variables) equals: 'x'.
+	self assert: ((transpiler compile: ast) class >> #drawOnto:) sourceCode equals: self transpilationExample03.
 	^ transpiler compile: ast
 ]
 

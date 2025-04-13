@@ -55,6 +55,19 @@ if a >= 200:
 ]
 
 { #category : #'as yet unclassified' }
+ProcessingSourceExamples >> sourceCodeExample03 [
+	<gtExample>
+	^ 'size(200, 200)
+# Variable für Farbe und Durchmesser
+x = 200
+while x > 0:
+	# Zeichne konzentrische Kreise in ändernder Farbe
+	fill(200 - x, 128, x)
+	ellipse(100, 100, x, x)
+	x = x - 20'
+]
+
+{ #category : #'as yet unclassified' }
 ProcessingSourceExamples >> sourceCodeMinimal [
 	<gtExample>
 	^ 'size(200, 200)'
@@ -76,6 +89,16 @@ ProcessingSourceExamples >> sourceExample02 [
 	| source |
 	source := ProcessingSource new fromString: self sourceCodeExample02.
 	self assert: source asString equals: self sourceCodeExample02.
+	self assert: source program isNotNil.
+	^ source
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingSourceExamples >> sourceExample03 [
+	<gtExample>
+	| source |
+	source := ProcessingSource new fromString: self sourceCodeExample03.
+	self assert: source asString equals: self sourceCodeExample03.
 	self assert: source program isNotNil.
 	^ source
 ]
