@@ -22,8 +22,8 @@ ProcessingProgramExamples >> programEndlessLoop [
 	self assert: program ast statements size equals: 1.
 	self assert: program compilation isNotNil.
 	detected := nil.
-	[program canvas] on: Error do: [ :ex | detected := ex asString ].
-	self assert: detected equals: 'Error: Endless loop detected.'.
+	[program canvas] on: ProcessingRunawayProgramException do: [ :ex | detected := ex asString ].
+	self assert: detected equals: 'ProcessingRunawayProgramException: Endless loop detected.'.
 	^ program
 ]
 

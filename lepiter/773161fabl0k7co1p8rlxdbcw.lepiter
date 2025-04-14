@@ -29,7 +29,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-04-02T11:36:12.02+02:00"
+						"dateAndTimeString" : "2025-04-14T22:34:19.37+02:00"
 					}
 				},
 				"uid" : {
@@ -39,7 +39,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "All used classes are tested using in order to make sure that all required functionality works and that none of the found bugs regresses:"
+				"string" : "All used classes are tested in order to make sure that all required functionality works and that none of the found bugs regress:"
 			},
 			{
 				"__type" : "elementSnippet",

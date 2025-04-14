@@ -27,7 +27,7 @@ ProcessingParserExamples >> parseEndlessLoop [
 { #category : #'as yet unclassified' }
 ProcessingParserExamples >> parseExample02 [
 	<gtExample>
-	| ast node |
+	| ast |
 	ast := ProcessingProgramExamples new programExample02 ast.
 	self assert: ast statements size equals: 4.
 	^ ast
@@ -36,7 +36,7 @@ ProcessingParserExamples >> parseExample02 [
 { #category : #'as yet unclassified' }
 ProcessingParserExamples >> parseExample03 [
 	<gtExample>
-	| ast node |
+	| ast |
 	ast := ProcessingProgramExamples new programExample03 ast.
 	self assert: ast statements size equals: 4.
 	^ ast

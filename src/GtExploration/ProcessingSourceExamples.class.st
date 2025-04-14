@@ -76,6 +76,19 @@ ProcessingSourceExamples >> sourceCodeMinimal [
 ]
 
 { #category : #'as yet unclassified' }
+ProcessingSourceExamples >> sourceCodeRecursion [
+	<gtExample>
+	^ 'size(200, 200)
+
+def recursion(n):
+    ellipse(100, 100, n, n)
+    if n > 20:
+        recursion(n - 10)
+
+recursion(200)'
+]
+
+{ #category : #'as yet unclassified' }
 ProcessingSourceExamples >> sourceEndlessLoop [
 	<gtExample>
 	| source |
@@ -112,5 +125,16 @@ ProcessingSourceExamples >> sourceMinimal [
 	source := ProcessingSource new fromString: self sourceCodeMinimal.
 	self assert: source asString equals: self sourceCodeMinimal.
 	self assert: source program isNotNil.
+	^ source
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingSourceExamples >> sourceRecursion [
+	<gtExample>
+	| source |
+	source := ProcessingSource new fromString: self sourceCodeRecursion.
+	self assert: source asString equals: self sourceCodeRecursion.
+	"TODO: fix function parsing"
+	"self assert: source program isNotNil."
 	^ source
 ]

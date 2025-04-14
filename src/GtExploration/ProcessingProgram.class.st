@@ -22,7 +22,7 @@ ProcessingProgram >> canvas [
 	"TODO: make this customizeable"
 	runner limitTo: 2 seconds.
 	(promise wait isKindOf: AsyncFutureCancelled) ifTrue: [
-		Error new signal: 'Endless loop detected.'
+		ProcessingRunawayProgramException new signal: 'Endless loop detected.'
 	].
 	^ runner canvas
 ]
