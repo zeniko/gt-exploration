@@ -45,8 +45,6 @@ ProcessingRunner >> run: program [
 	done := false.
 	"TODO: handle errors"
 	promise := AsyncFuturePromise new future: [
-		"Delay just for demonstration purposes (TODO: remove)"
-		0.5 second wait.
 		program compilation drawOnto: canvas.
 		done := true.
 	] asAsyncFuture.

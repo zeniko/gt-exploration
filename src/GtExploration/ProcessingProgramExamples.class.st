@@ -42,7 +42,7 @@ ProcessingProgramExamples >> programExample03 [
 	<gtExample>
 	| program |
 	program := ProcessingSourceExamples new sourceExample03 program.
-	self assert: program ast statements size equals: 3.
+	self assert: program ast statements size equals: 4.
 	self assert: program compilation isNotNil.
 	^ program
 ]

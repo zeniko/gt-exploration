@@ -58,6 +58,8 @@ if a >= 200:
 ProcessingSourceExamples >> sourceCodeExample03 [
 	<gtExample>
 	^ 'size(200, 200)
+# Für die Demonstration: 1/2 Sekunde vor dem Zeichnen
+delay(500)
 # Variable für Farbe und Durchmesser
 x = 200
 while x > 0:

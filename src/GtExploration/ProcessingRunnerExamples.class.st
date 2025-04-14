@@ -15,6 +15,30 @@ ProcessingRunnerExamples >> newRunner [
 ]
 
 { #category : #'as yet unclassified' }
+ProcessingRunnerExamples >> runAlpinerWanderweg [
+	<gtExample>
+	| program runner |
+	program := ProcessingProgramExamples new programAlpinerWanderweg.
+	runner := self newRunner.
+	runner run: program; wait.
+	self assert: runner canvas isNil equals: false.
+	self assert: runner isDone equals: true.
+	^ runner
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingRunnerExamples >> runExample02 [
+	<gtExample>
+	| program runner |
+	program := ProcessingProgramExamples new programExample02.
+	runner := self newRunner.
+	runner run: program; limitTo: 2 seconds; wait.
+	self assert: runner canvas isNil equals: false.
+	self assert: runner isDone equals: true.
+	^ runner
+]
+
+{ #category : #'as yet unclassified' }
 ProcessingRunnerExamples >> runExample03 [
 	<gtExample>
 	| program runner |
@@ -33,8 +57,8 @@ ProcessingRunnerExamples >> runInterrupted [
 	program := ProcessingProgramExamples new programEndlessLoop.
 	runner := self newRunner.
 	runner limitTo: 0.1 seconds; run: program; wait.
-	self assert: runner canvas isNil equals: false.
 	self assert: runner isDone equals: false.
+	self assert: runner canvas isNil equals: false.
 	^ runner
 ]
 

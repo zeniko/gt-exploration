@@ -8,7 +8,7 @@ Class {
 ProcessingCanvasExamples >> alpinerWanderweg [
 	<gtExample>
 	| canvas child |
-	canvas := ProcessingProgramExamples new programAlpinerWanderweg canvas.
+	canvas := ProcessingRunnerExamples new runAlpinerWanderweg canvas.
 	
 	self assert: canvas fillColor equals: Color red.
 	
@@ -51,7 +51,7 @@ ProcessingCanvasExamples >> createColor [
 ProcessingCanvasExamples >> example02 [
 	<gtExample>
 	| canvas |
-	canvas := ProcessingProgramExamples new programExample02 canvas.
+	canvas := ProcessingRunnerExamples new runExample02 canvas.
 	^ canvas
 ]
 

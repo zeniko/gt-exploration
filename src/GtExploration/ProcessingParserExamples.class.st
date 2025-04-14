@@ -38,7 +38,7 @@ ProcessingParserExamples >> parseExample03 [
 	<gtExample>
 	| ast node |
 	ast := ProcessingProgramExamples new programExample03 ast.
-	self assert: ast statements size equals: 3.
+	self assert: ast statements size equals: 4.
 	^ ast
 ]
 

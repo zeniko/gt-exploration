@@ -53,6 +53,7 @@ ProcessingTranspilerExamples >> transpilationExample03 [
 	<gtExample>
 	^ 'drawOnto: canvas
 	canvas size: 200 by: 200.
+	(500 / 1000.0) seconds wait.
 	x := 200.
 	[ (x>0) ] whileTrue: [ 
 		canvas fill: (Color r: (200-x) / 255.0 g: 128 / 255.0 b: x / 255.0).

@@ -30,6 +30,11 @@ ProcessingTranspiler >> compile: ast [
 ]
 
 { #category : #'as yet unclassified' }
+ProcessingTranspiler >> emitDelay: args [
+	^ '(' , args first , ' / 1000.0) seconds wait.'
+]
+
+{ #category : #'as yet unclassified' }
 ProcessingTranspiler >> emitEllipse: args [
 	^ 'canvas ellipse: ' , (args at: 3) , ' by: ' , (args at: 4) , ' at: ' , (args at: 1) , ' @ ' , (args at: 2) , '.'
 ]
@@ -109,6 +114,7 @@ ProcessingTranspiler >> visitFunctionCallExpression: fnCall [
 	name = 'fill' ifTrue: [ ^ self emitFill: args ].
 	name = 'rect' ifTrue: [ ^ self emitRect: args ].
 	name = 'ellipse' ifTrue: [ ^ self emitEllipse: args ].
+	name = 'delay' ifTrue: [ ^ self emitDelay: args ].
 ]
 
 { #category : #'as yet unclassified' }
