@@ -9,7 +9,7 @@ ProcessingCanvasExamples >> alpinerWanderweg [
 	<gtExample>
 	| canvas child |
 	canvas := ProcessingProgramExamples new programAlpinerWanderweg canvas.
-
+	
 	self assert: canvas fillColor equals: Color red.
 	
 	child := canvas canvasElement children last.

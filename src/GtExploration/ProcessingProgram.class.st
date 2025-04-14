@@ -16,10 +16,15 @@ ProcessingProgram >> ast [
 
 { #category : #'as yet unclassified' }
 ProcessingProgram >> canvas [
-	| canvas |
-	canvas := ProcessingCanvas new.
-	compilation drawOnto: canvas.
-	^ canvas
+	| runner promise |
+	runner := ProcessingRunner new.
+	promise := runner run: self.
+	"TODO: make this customizeable"
+	runner limitTo: 2 seconds.
+	(promise wait isKindOf: AsyncFutureCancelled) ifTrue: [
+		Error new signal: 'Endless loop detected.'
+	].
+	^ runner canvas
 ]
 
 { #category : #'as yet unclassified' }

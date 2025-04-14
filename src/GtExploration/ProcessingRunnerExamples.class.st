@@ -9,30 +9,44 @@ ProcessingRunnerExamples >> newRunner [
 	<gtExample>
 	| runner |
 	runner := ProcessingRunner new.
+	self assert: runner canvas equals: nil.
+	self assert: runner isDone equals: nil.
+	^ runner
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingRunnerExamples >> runExample03 [
+	<gtExample>
+	| program runner |
+	program := ProcessingProgramExamples new programExample03.
+	runner := self newRunner.
+	runner run: program; limitTo: 2 seconds; wait.
+	self assert: runner canvas isNil equals: false.
+	self assert: runner isDone equals: true.
 	^ runner
 ]
 
 { #category : #'as yet unclassified' }
 ProcessingRunnerExamples >> runInterrupted [
 	<gtExample>
-	| program runner canvas promise |
+	| program runner |
 	program := ProcessingProgramExamples new programEndlessLoop.
 	runner := self newRunner.
-	canvas := ProcessingCanvasExamples new container.
 	"TODO: this doesn't yet cancel the endless loop"
-	promise := runner run: program with: canvas for: 0.1 seconds.
-	self assert: (promise wait isKindOf: AsyncFutureCancelled) equals: true.
-	^ promise
+	runner run: program; limitTo: 0.1 seconds; wait.
+	self assert: runner canvas isNil equals: false.
+	self assert: runner isDone equals: false.
+	^ runner
 ]
 
 { #category : #'as yet unclassified' }
 ProcessingRunnerExamples >> runMinimal [
 	<gtExample>
-	| program runner canvas promise |
+	| program runner |
 	program := ProcessingProgramExamples new programMinimal.
 	runner := self newRunner.
-	canvas := ProcessingCanvasExamples new container.
-	promise := runner run: program with: canvas for: 2 seconds.
-	self assert: promise wait equals: true.
-	^ promise
+	runner run: program; wait.
+	self assert: runner canvas isNil equals: false.
+	self assert: runner isDone equals: true.
+	^ runner
 ]

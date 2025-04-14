@@ -42,43 +42,6 @@
 				"string" : "Since Processing programs may run for a longer time, {{gtClass:ProcessingRunner}} runs them in the background (with the option of terminating runaway programs caused e.g. by endless loops)."
 			},
 			{
-				"__type" : "textSnippet",
-				"children" : {
-					"__type" : "snippets",
-					"items" : [ ]
-				},
-				"createEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"createTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-04-13T21:34:59.186+02:00"
-					}
-				},
-				"editEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"editTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-04-13T21:34:59.186+02:00"
-					}
-				},
-				"uid" : {
-					"__type" : "uid",
-					"uidString" : "UJWZxA/vDQC7hKvTACSiwQ=="
-				},
-				"paragraphStyle" : {
-					"__type" : "textStyle"
-				},
-				"string" : ""
-			},
-			{
 				"__type" : "pharoSnippet",
 				"children" : {
 					"__type" : "snippets",
@@ -103,14 +66,51 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-04-13T22:52:44.907+02:00"
+						"dateAndTimeString" : "2025-04-14T21:54:41.499+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
 					"uidString" : "0CsyxQ/vDQC7iThhACSiwQ=="
 				},
-				"code" : "program := ProcessingProgramExamples new programExample03.\rcanvas := ProcessingCanvas new.\r\rrunner := ProcessingRunner new.\rrunner run: program with: canvas for: 2 seconds.\r\rcanvas"
+				"code" : "program := ProcessingProgramExamples new programExample03.\r\rrunner := ProcessingRunner new.\rrunner run: program; limitTo: 2 seconds.\r\rrunner canvas"
+			},
+			{
+				"__type" : "elementSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-04-14T21:59:02.251+02:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-04-14T21:59:50.981+02:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "+GF0OCTvDQCF7ZZsAZKRoA=="
+				},
+				"code" : "program := ProcessingProgramExamples new programExample03.\r\rrunner := ProcessingRunner new.\rrunner run: program; limitTo: 2 seconds.\r\rrunner canvas render",
+				"elementHeight" : 217,
+				"codeHeight" : 125,
+				"codeVisible" : true
 			}
 		]
 	},
