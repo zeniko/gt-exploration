@@ -28,7 +28,6 @@ ProcessingTranspilerExamples >> transpilationEndlessLoop [
 	<gtExample>
 	^ 'drawOnto: canvas
 	[ (1==1) ] whileTrue: [ 
-		self _loopCheck.
 		loop
 	].'
 ]
@@ -40,7 +39,6 @@ ProcessingTranspilerExamples >> transpilationExample02 [
 	canvas size: 200 by: 200.
 	a := 0.
 	[ (a<200) ] whileTrue: [ 
-		self _loopCheck.
 		canvas fill: (Color r: a / 255.0 g: 128 / 255.0 b: 0 / 255.0).
 		canvas rect: 100 by: 100 at: a @ a.
 		a := (a+50).
@@ -57,7 +55,6 @@ ProcessingTranspilerExamples >> transpilationExample03 [
 	canvas size: 200 by: 200.
 	x := 200.
 	[ (x>0) ] whileTrue: [ 
-		self _loopCheck.
 		canvas fill: (Color r: (200-x) / 255.0 g: 128 / 255.0 b: x / 255.0).
 		canvas ellipse: x by: x at: 100 @ 100.
 		x := (x-20).

@@ -1,20 +1,8 @@
 Class {
 	#name : #ProcessingCodeBase,
 	#superclass : #Object,
-	#instVars : [
-		'_loopCounter'
-	],
 	#category : #'GtExploration-Processing'
 }
-
-{ #category : #'as yet unclassified' }
-ProcessingCodeBase >> _loopCheck [
-	_loopCounter := _loopCounter - 1.
-	_loopCounter <= 0 ifTrue: [
-		"TODO: use custom exception"
-		Error new signal: 'Endless loop detected.'
-	]
-]
 
 { #category : #'as yet unclassified' }
 ProcessingCodeBase >> gtBytecodeFor: aView [

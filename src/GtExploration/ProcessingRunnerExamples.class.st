@@ -32,8 +32,7 @@ ProcessingRunnerExamples >> runInterrupted [
 	| program runner |
 	program := ProcessingProgramExamples new programEndlessLoop.
 	runner := self newRunner.
-	"TODO: this doesn't yet cancel the endless loop"
-	runner run: program; limitTo: 0.1 seconds; wait.
+	runner limitTo: 0.1 seconds; run: program; wait.
 	self assert: runner canvas isNil equals: false.
 	self assert: runner isDone equals: false.
 	^ runner
