@@ -13,43 +13,6 @@
 							"__type" : "textSnippet",
 							"children" : {
 								"__type" : "snippets",
-								"items" : [ ]
-							},
-							"createEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"createTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-04-13T22:57:38.376+02:00"
-								}
-							},
-							"editEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"editTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-04-13T22:58:27.884+02:00"
-								}
-							},
-							"uid" : {
-								"__type" : "uid",
-								"uidString" : "4Njk6hDvDQCCQSSzACSiwQ=="
-							},
-							"paragraphStyle" : {
-								"__type" : "textStyle"
-							},
-							"string" : "Run programs off the UI thread (see {{gtPage:Processing Runner|db=5rgxfv9r684digmpw7ph7kbt4}})"
-						},
-						{
-							"__type" : "textSnippet",
-							"children" : {
-								"__type" : "snippets",
 								"items" : [
 									{
 										"__type" : "textSnippet",
@@ -113,7 +76,7 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-04-02T12:05:23.702+02:00"
+												"dateAndTimeString" : "2025-04-15T11:55:49.762+02:00"
 											}
 										},
 										"uid" : {
@@ -123,7 +86,7 @@
 										"paragraphStyle" : {
 											"__type" : "textStyle"
 										},
-										"string" : "API expansion"
+										"string" : "API expansion: `stroke`, `strokeWeight`, `width` and `height`, `sin`, `radians` (so that it runs {{gtPage:Funktionen und Rekursion|db=dl0rc62x02fk8k57e43hr8acw}})"
 									}
 								]
 							},
@@ -220,7 +183,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-04-13T23:01:01.804+02:00"
+									"dateAndTimeString" : "2025-04-15T11:57:36.188+02:00"
 								}
 							},
 							"uid" : {
@@ -230,7 +193,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Allow program introspection (step by step)"
+							"string" : "Allow program introspection (Processing-line by Processing-line)"
 						}
 					]
 				},
@@ -275,6 +238,118 @@
 							"children" : {
 								"__type" : "snippets",
 								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-04-15T11:00:27.199+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-04-15T11:00:56.987+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "mKsDIy/vDQCRAyZ8AJ/Z3A=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Add event handlers for live updating (every 5 seconds)"
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [
+									{
+										"__type" : "textSnippet",
+										"children" : {
+											"__type" : "snippets",
+											"items" : [ ]
+										},
+										"createEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"createTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2025-04-15T10:59:03.357+02:00"
+											}
+										},
+										"editEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"editTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2025-04-15T10:59:15.21+02:00"
+											}
+										},
+										"uid" : {
+											"__type" : "uid",
+											"uidString" : "SJYEHi/vDQCNbwVSAJ/Z3A=="
+										},
+										"paragraphStyle" : {
+											"__type" : "textStyle"
+										},
+										"string" : "connect source lines to bytecode blocks"
+									},
+									{
+										"__type" : "textSnippet",
+										"children" : {
+											"__type" : "snippets",
+											"items" : [ ]
+										},
+										"createEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"createTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2025-04-15T10:58:50.703+02:00"
+											}
+										},
+										"editEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"editTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2025-04-15T10:59:00.341+02:00"
+											}
+										},
+										"uid" : {
+											"__type" : "uid",
+											"uidString" : "QNmVGi/vDQCL7/LQAJ/Z3A=="
+										},
+										"paragraphStyle" : {
+											"__type" : "textStyle"
+										},
+										"string" : "connect source lines to output shapes"
+									}
+								]
 							},
 							"createEmail" : {
 								"__type" : "email",
@@ -416,6 +491,43 @@
 								"__type" : "textStyle"
 							},
 							"string" : "Allow stepping through bytecode"
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-04-15T11:55:57.304+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-04-15T11:56:33.614+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "wEiB6S/vDQCGTmBxAJ/Z3A=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Support animations (through `setup` - called once - and `draw` - called repeatedly)"
 						}
 					]
 				},
@@ -491,6 +603,43 @@
 								"__type" : "textStyle"
 							},
 							"string" : "{{gtPage:How to implement a moldable  exception|db=2j9m7db2i4oz116bexd7wbdxo}}"
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-04-15T10:58:15.884+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-04-15T11:00:03.845+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "4DQwGy/vDQCL+DGvAJ/Z3A=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Implement Processing snippet (instead of {{gtClass:LePythonSnippet}})"
 						}
 					]
 				},
