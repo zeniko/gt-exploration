@@ -10,8 +10,13 @@ ProcessingCodeBase >> gtBytecodeFor: aView [
 	^ aView list
 		title: 'Bytecode';
 		priority: 11;
-		"TODO: show other methods as well"
-		items: [ (self class >> #drawOnto:) symbolicBytecodes ];
+		items: [ | codes |
+			codes := OrderedCollection new.
+			self class methodDict keysAndValuesDo: [ :key :value |
+				codes add: 'FUNCTION ' , key; addAll: value symbolicBytecodes
+			].
+			codes
+		];
 		itemText: [ :each | each printString ]
 ]
 
@@ -24,7 +29,7 @@ ProcessingCodeBase >> gtOutputFor: aView [
 		priority: 20;
 		stencil: [ | canvas |
 			canvas := ProcessingCanvas new.
-			self perform: #drawOnto: with: canvas.
+			self drawOnto: canvas.
 			GtInspectorElementLiveViewContainer new
 				element: canvas asElement;
 				clipChildren: false
@@ -34,14 +39,24 @@ ProcessingCodeBase >> gtOutputFor: aView [
 { #category : #'as yet unclassified' }
 ProcessingCodeBase >> gtSourceCodeFor: aView [
 	<gtView>
+	"Adapted from GtPharoMethodsCoderView>>#gtMethodsFor"
+	| coder viewModel |
+	coder := GtPharoStreamingMethodsCoder forFilter: (GtSearchInheritedMethodsFilter forClass: self class).
+	
+	viewModel := (GtPharoStreamingMethodsCoderViewModel new streamingCodersModel: coder)
+		shouldExpandByDefault: true;
+		shouldHaveHeaderByDefault: false.
+	
 	^ aView explicit
 		title: 'Smalltalk';
 		priority: 5;
+		stencil: [
+			"TODO: Find a better way of removing the filter bar"
+			(GtPharoStreamingMethodsCoderElement new streamingCodersViewModel: viewModel) children second removeFromParent
+		];
 		actionButtonIcon: BrGlamorousVectorIcons browse
-			tooltip: 'Browse method'
-			action: [ self gtBrowse ];
-		"TODO: show other methods as well"
-		stencil: [ (GtPharoMethodCoder forMethod: (self class >> #drawOnto:)) asExpandedOnlyElement vFitContentLimited ]
+			tooltip: 'Browse class in Coder'
+			action: [ self gtBrowse ]
 ]
 
 { #category : #'as yet unclassified' }
@@ -51,8 +66,11 @@ ProcessingCodeBase >> gtViewIntermediaryRepresentationFor: aView [
 		title: 'IR';
 		priority: 10;
 		text: [ | string |
-			"TODO: show other methods as well"
-			string := (self class >> #drawOnto:) ast ir longPrintString.
-			string copyFrom: 2 to: string size
+			string := ''.
+			self class methodDict keysAndValuesDo: [ :key :value |
+				string := string , 'FUNCTION ' , key , '
+' , value ast ir longPrintString
+			].
+			string
 		]
 ]

@@ -171,7 +171,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-03-18T16:28:58.159+01:00"
+						"dateAndTimeString" : "2025-04-15T18:27:01.945+02:00"
 					}
 				},
 				"uid" : {
@@ -181,7 +181,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "Like this, the compiled program cheaply provides a Smalltalk, a Bytecode and an Output view."
+				"string" : "Like this, the compiled program cheaply provides a Smalltalk, a Bytecode and an Output view. See {{gtPage:Querying classes and methods|db=2j9m7db2i4oz116bexd7wbdxo}} for a "
 			},
 			{
 				"__type" : "textSnippet",
@@ -282,14 +282,14 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-03-25T23:48:08.537+01:00"
+						"dateAndTimeString" : "2025-03-25T23:48:28.222+01:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
 					"uidString" : "GOl2BAbtDQCdDqZ/CprFvw=="
 				},
-				"code" : "size(200, 200)\r\na = 0\rwhile a < 200:\r\tfill(a, 128, 0)\r\trect(a, a, 100, 100)\r\ta = a + 50\rif a >= 200:\r\tellipse(0, 0, 20, 20)"
+				"code" : "size(200, 200)\r\na = 0\rwhile a < 200:\r\tfill(a, 128, 0)\r\trect(a, a, 100, 100)\r\ta = a + 50\rif a >= 200:\r\tellipse(10, 10, 20, 20)"
 			},
 			{
 				"__type" : "pharoSnippet",

@@ -64,12 +64,11 @@ ProcessingTranspiler >> emitFill: args [
 
 { #category : #'as yet unclassified' }
 ProcessingTranspiler >> emitFunctionDef: name with: args [
-	| defLine argNo |
+	| defLine argNames |
 	defLine := name , ': canvas'.
-	argNo := 1.
-	[ argNo <= args size ] whileTrue: [
-		defLine := defLine , ' arg' , argNo asString , ': ' , (args at: argNo).
-		argNo := argNo + 1.
+	argNames := userDefs at: name.
+	1 to: args size do: [ :argNo |
+		defLine := defLine , ' '  , (argNames at: argNo) , ': ' , (args at: argNo).
 	].
 	^ defLine
 ]
@@ -90,7 +89,14 @@ ProcessingTranspiler >> transpile: ast [
 	globalVariables := Set new.
 	localVariables := Set new.
 	functions := ''.
-	userDefs := ast statements select: [ :stmt | stmt isKindOf: PyFunctionDefinitionNode ] thenCollect: [ :stmt | stmt fname value ].
+	
+	userDefs := Dictionary new.
+	ast statements select: [ :stmt | stmt isKindOf: PyFunctionDefinitionNode ] thenDo: [ :stmt |
+		| args |
+		args := self acceptNodes: stmt parameters.
+		userDefs at: stmt fname value put: args.
+	].
+	
 	lines := OrderedCollection new.
 	indentation := 0.
 	self appendLine: 'drawOnto: canvas'.
@@ -149,7 +155,11 @@ ProcessingTranspiler >> visitAssignmentStatement: expr [
 
 { #category : #'as yet unclassified' }
 ProcessingTranspiler >> visitBinaryExpression: expr [
-	^ '(' ,(expr left acceptVisitor: self) , expr operator value , (expr right acceptVisitor: self) , ')'
+	| op |
+	op := expr operator value.
+	"Python compares value equality with `==`, Smalltalk does with `=`"
+	op = '==' ifTrue: [ op := '=' ].
+	^ '(' ,(expr left acceptVisitor: self) , ' ' , op , ' ' , (expr right acceptVisitor: self) , ')'
 ]
 
 { #category : #'as yet unclassified' }
@@ -181,7 +191,7 @@ ProcessingTranspiler >> visitFunctionCallExpression: fnCall [
 	name = 'rect' ifTrue: [ ^ self emitRect: args ].
 	name = 'ellipse' ifTrue: [ ^ self emitEllipse: args ].
 	name = 'delay' ifTrue: [ ^ self emitDelay: args ].
-	(userDefs includes: name) ifTrue: [ ^ 'self ' , (self emitFunctionDef: name with: args) ].
+	(userDefs includesKey: name) ifTrue: [ ^ 'self ' , (self emitFunctionDef: name with: args) ].
 	ProcessingNotImplementedException new signal: 'Function ' , name , ' not implemented!'
 ]
 

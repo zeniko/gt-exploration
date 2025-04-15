@@ -20,14 +20,14 @@ ProcessingTranspilerExamples >> transpilationAlpinerWanderweg [
 	canvas size: 200 by: 200.
 	canvas rect: 100 by: 100 at: 50 @ 50.
 	canvas fill: (Color r: 255 / 255.0 g: 0 / 255.0 b: 0 / 255.0).
-	canvas rect: 100 by: (100/3) at: 50 @ (50+(100/3)).'
+	canvas rect: 100 by: (100 / 3) at: 50 @ (50 + (100 / 3)).'
 ]
 
 { #category : #'as yet unclassified' }
 ProcessingTranspilerExamples >> transpilationEndlessLoop [
 	<gtExample>
 	^ 'drawOnto: canvas
-	[ (1==1) ] whileTrue: [ 
+	[ (1 = 1) ] whileTrue: [ 
 		loop
 	].'
 ]
@@ -38,12 +38,12 @@ ProcessingTranspilerExamples >> transpilationExample02 [
 	^ 'drawOnto: canvas
 	canvas size: 200 by: 200.
 	a := 0.
-	[ (a<200) ] whileTrue: [ 
+	[ (a < 200) ] whileTrue: [ 
 		canvas fill: (Color r: a / 255.0 g: 128 / 255.0 b: 0 / 255.0).
 		canvas rect: 100 by: 100 at: a @ a.
-		a := (a+50).
+		a := (a + 50).
 	].
-	(a>=200) ifTrue: [ 
+	(a >= 200) ifTrue: [ 
 		canvas ellipse: 20 by: 20 at: 10 @ 10.
 	].'
 ]
@@ -54,10 +54,10 @@ ProcessingTranspilerExamples >> transpilationExample03 [
 		^ 'drawOnto: canvas
 	canvas size: 200 by: 200.
 	x := 200.
-	[ (x>0) ] whileTrue: [ 
-		canvas fill: (Color r: (200-x) / 255.0 g: 128 / 255.0 b: x / 255.0).
+	[ (x > 0) ] whileTrue: [ 
+		canvas fill: (Color r: (200 - x) / 255.0 g: 128 / 255.0 b: x / 255.0).
 		canvas ellipse: x by: x at: 100 @ 100.
-		x := (x-20).
+		x := (x - 20).
 		(50 / 1000.0) seconds wait.
 	].'
 ]
@@ -74,13 +74,13 @@ ProcessingTranspilerExamples >> transpilationRecursion [
 	<gtExample>
 	^ 'drawOnto: canvas
 	canvas size: 200 by: 200.
-	self recursion: canvas arg1: 200
+	self recursion: canvas n: 200
 	
 
-recursion: canvas arg1: n
+recursion: canvas n: n
 	canvas ellipse: n by: n at: 100 @ 100.
-	(n>20) ifTrue: [ 
-		self recursion: canvas arg1: (n-10)
+	(n > 20) ifTrue: [ 
+		self recursion: canvas n: (n - 10)
 	].'
 ]
 
@@ -160,8 +160,8 @@ ProcessingTranspilerExamples >> transpileRecursion [
 	self assert: (transpiler transpile: ast) equals: self transpilationRecursion.
 	self assert: transpiler variables size equals: 0.
 	self assert: transpiler userDefs size equals: 1.
-	self assert: ((transpiler compile: ast) class >> #drawOnto:) sourceCode equals: (self transpilationRecursion splitOn: '
+	self assert: ('
 
-') first.
+' join: ((transpiler compile: ast) class methods collect: [ :method | method sourceCode ]) sorted) equals: self transpilationRecursion.
 	^ transpiler compile: ast
 ]

@@ -53,7 +53,7 @@ ProcessingProgram >> gtSourceCodeFor: aView [
 { #category : #'as yet unclassified' }
 ProcessingProgram >> gtTreeFor: aView [
 	<gtView>
-	^ ast gtTreeFor: aView
+	^ ast gtExploreFor: aView
 ]
 
 { #category : #'as yet unclassified' }

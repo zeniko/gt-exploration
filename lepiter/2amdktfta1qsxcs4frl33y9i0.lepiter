@@ -171,7 +171,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-03-18T16:28:58.159+01:00"
+						"dateAndTimeString" : "2025-04-15T18:27:02.903+02:00"
 					}
 				},
 				"uid" : {
@@ -181,7 +181,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "Like this, the compiled program cheaply provides a Smalltalk, a Bytecode and an Output view."
+				"string" : "Like this, the compiled program cheaply provides a Smalltalk, a Bytecode and an Output view. See {{gtPage:Querying classes and methods|db=2j9m7db2i4oz116bexd7wbdxo}} for a start."
 			},
 			{
 				"__type" : "textSnippet",

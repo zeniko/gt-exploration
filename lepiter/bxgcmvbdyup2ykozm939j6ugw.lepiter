@@ -151,7 +151,7 @@
 					"uidString" : "eCQAFhruDQC3/Lu5Aft/yQ=="
 				},
 				"exampleSelector" : "programExample02",
-				"previewHeight" : 250,
+				"previewHeight" : 260,
 				"previewShowSelector" : "gtSourceCodeFor:",
 				"exampleBehaviorName" : "ProcessingProgramExamples",
 				"codeExpanded" : true,

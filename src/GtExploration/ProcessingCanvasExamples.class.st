@@ -25,12 +25,14 @@ ProcessingCanvasExamples >> alpinerWanderweg [
 
 { #category : #example }
 ProcessingCanvasExamples >> container [
-"How to measure the extent of an element that has not yet been rendered?!"
+	"TODO: How to measure the extent of an element that has not yet been rendered?!"
 	<gtExample>
 	| canvas |
 	canvas := ProcessingCanvas new.
 	canvas size: 200 by: 200.
 	self assert: canvas fillColor equals: Color white.
+	self assert: (canvas asElement isKindOf: BlScalableElement).
+	self assert: canvas asElement children first equals: canvas canvasElement.
 	"self assert: (canvas canvasElement measuredBounds extent) equals: 200 @ 200."
 	^ canvas
 ]
@@ -52,6 +54,8 @@ ProcessingCanvasExamples >> example02 [
 	<gtExample>
 	| canvas |
 	canvas := ProcessingRunnerExamples new runExample02 canvas.
+	self assert: canvas canvasElement children size equals: 5.
+	self assert: (canvas canvasElement children select: [ :el | el isKindOf: BlEllipseElement ]) size equals: 1.
 	^ canvas
 ]
 
@@ -67,6 +71,17 @@ ProcessingCanvasExamples >> fillColor [
 	canvas fill: (canvas colorWithR: 128 g: 128 b: 128).
 	self assert: canvas fillColor equals: Color gray.
 	^ canvas
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingCanvasExamples >> recursion [
+	<gtExample>
+	| program canvas |
+	program := ProcessingRunnerExamples new runRecursion.
+	canvas := program canvas canvasElement.
+	self assert: canvas children size equals: 19.
+	self assert: (canvas children select: [ :el | el isKindOf: BlEllipseElement ]) size equals: 19.
+	^ program canvas
 ]
 
 { #category : #'as yet unclassified' }
