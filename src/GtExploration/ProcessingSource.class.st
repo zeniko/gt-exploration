@@ -80,5 +80,5 @@ ProcessingSource >> program [
 
 { #category : #'as yet unclassified' }
 ProcessingSource >> render [
-	^ self program canvas render
+	^ self program canvas asElement
 ]

@@ -8,6 +8,11 @@ Class {
 	#category : #'GtExploration-Processing'
 }
 
+{ #category : #'as yet unclassified' }
+ProcessingCanvas >> asElement [
+	^ canvasElement asScalableElement
+]
+
 { #category : #accessing }
 ProcessingCanvas >> canvasElement [
 	^ canvasElement
@@ -51,7 +56,7 @@ ProcessingCanvas >> gtViewFor: aView [
 	<gtView>
 	^ aView forward
 		title: 'Live';
-		object: [ self render ];
+		object: [ self asElement ];
 		view: #gtLiveFor:
 ]
 
@@ -72,11 +77,6 @@ ProcessingCanvas >> rect: width by: height at: xy [
 	shape relocate: xy.
 	shape border: (BlBorder paint: Color black width: 0.5).
 	canvasElement addChild: shape
-]
-
-{ #category : #'as yet unclassified' }
-ProcessingCanvas >> render [
-	^ canvasElement asScalableElement
 ]
 
 { #category : #'as yet unclassified' }

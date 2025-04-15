@@ -25,7 +25,7 @@ ProcessingCodeBase >> gtOutputFor: aView [
 			canvas := ProcessingCanvas new.
 			self perform: #drawOnto: with: canvas.
 			GtInspectorElementLiveViewContainer new
-				element: canvas render;
+				element: canvas asElement;
 				clipChildren: false
 		]
 ]

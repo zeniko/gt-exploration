@@ -66,53 +66,16 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T17:31:13.668+01:00"
+						"dateAndTimeString" : "2025-04-15T12:52:03.442+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
 					"uidString" : "gDMtP87qDQCtcv2IAvIjXQ=="
 				},
-				"code" : "canvas := ProcessingCanvas new.\rcanvas\r\tsize: 200 by: 200;\r\trect: 100 by: 100 at: 50 @ 50;\r\tfill: Color red;\r\trect: 100 by: 100/3 at: 50 @ (50 + (100 / 3)).\rcanvas render\r",
-				"elementHeight" : 342,
-				"codeHeight" : 140,
-				"codeVisible" : true
-			},
-			{
-				"__type" : "elementSnippet",
-				"children" : {
-					"__type" : "snippets",
-					"items" : [ ]
-				},
-				"createEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"createTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-03-25T23:37:35.28+01:00"
-					}
-				},
-				"editEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"editTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-03-25T23:37:52.43+01:00"
-					}
-				},
-				"uid" : {
-					"__type" : "uid",
-					"uidString" : "gC+mGpTtDQC19My1BbBRww=="
-				},
-				"code" : "canvas := ProcessingCanvas new.\rcanvas\r\tsize: 200 by: 200;\r\tellipse: 100 by: 100 at: 50 @ 50.\rcanvas render\r",
-				"elementHeight" : 100,
-				"codeHeight" : 50,
+				"code" : "ProcessingCanvas new\r\tsize: 200 by: 200;\r\trect: 100 by: 100 at: 50 @ 50;\r\tfill: Color red;\r\trect: 100 by: 100/3 at: 50 @ (50 + (100 / 3))",
+				"elementHeight" : 338,
+				"codeHeight" : 107,
 				"codeVisible" : true
 			}
 		]

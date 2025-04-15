@@ -66,16 +66,53 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-04-14T22:24:09.44+02:00"
+						"dateAndTimeString" : "2025-04-15T12:49:15.437+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
 					"uidString" : "+GF0OCTvDQCF7ZZsAZKRoA=="
 				},
-				"code" : "program := ProcessingProgramExamples new programExample03.\r\rrunner := ProcessingRunner new.\rrunner run: program; limitTo: 0.2 seconds.\r\rrunner canvas render",
-				"elementHeight" : 217,
-				"codeHeight" : 125,
+				"code" : "ProcessingRunner new run: ProcessingProgramExamples new programExample03; canvas",
+				"elementHeight" : 189,
+				"codeHeight" : 22,
+				"codeVisible" : true
+			},
+			{
+				"__type" : "elementSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-04-15T12:45:53.967+02:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-04-15T12:49:07.94+02:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "mLsenDDvDQCHsKUxCFRQHA=="
+				},
+				"code" : "ProcessingRunner new\r\trun: ProcessingProgramExamples new programExample03;\r\tlimitTo: 0.2 seconds;\r\tcanvas",
+				"elementHeight" : 91,
+				"codeHeight" : 59,
 				"codeVisible" : true
 			}
 		]
