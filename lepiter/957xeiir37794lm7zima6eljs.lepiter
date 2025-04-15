@@ -219,7 +219,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-04-15T14:20:48.713+02:00"
+									"dateAndTimeString" : "2025-04-15T16:19:21.3+02:00"
 								}
 							},
 							"uid" : {
@@ -229,7 +229,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Start work on transpiling (recursive) function definitions"
+							"string" : "Transpiling (recursive) function definitions (see {{gtMethod:ProcessingTranspilerExamples>>#transpileRecursion}})"
 						},
 						{
 							"__type" : "textSnippet",
@@ -1679,6 +1679,114 @@
 					"__type" : "textStyle"
 				},
 				"string" : "# Week 6"
+			},
+			{
+				"__type" : "textSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-04-15T16:53:49.109+02:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-04-15T16:53:49.109+02:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "CGO/EjTvDQCP+LFrByy8eg=="
+				},
+				"paragraphStyle" : {
+					"__type" : "textStyle"
+				},
+				"string" : ""
+			},
+			{
+				"__type" : "textSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-04-15T16:22:15.602+02:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-04-15T16:22:42.156+02:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "4GK8mDPvDQC1yg5ZByy8eg=="
+				},
+				"paragraphStyle" : {
+					"__type" : "textStyle"
+				},
+				"string" : "Add a new week entry at the top:"
+			},
+			{
+				"__type" : "pharoSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-04-15T16:19:54.162+02:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-04-15T17:51:00.214+02:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "UI90mTPvDQC104gDByy8eg=="
+				},
+				"code" : "\"TODO: Easier way to get the ISO8601 week number?\"\risoweek := ((Interval from: 1 to: 53) select: [ :n | (Week week: n) <= Date today ]) last.\rheader := BlRunRopedText string: '# Week ' , isoweek asString.\rsnip := thisSnippet page children second.\rsnip text asString = header asString ifFalse: [\r\tsnip addSnippetBeforeSelf text: header.\r\tsnip addSnippetBeforeSelf indent.\r].\rsnip text"
 			}
 		]
 	},

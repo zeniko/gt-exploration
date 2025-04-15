@@ -10,6 +10,7 @@ ProcessingCodeBase >> gtBytecodeFor: aView [
 	^ aView list
 		title: 'Bytecode';
 		priority: 11;
+		"TODO: show other methods as well"
 		items: [ (self class >> #drawOnto:) symbolicBytecodes ];
 		itemText: [ :each | each printString ]
 ]
@@ -39,6 +40,7 @@ ProcessingCodeBase >> gtSourceCodeFor: aView [
 		actionButtonIcon: BrGlamorousVectorIcons browse
 			tooltip: 'Browse method'
 			action: [ self gtBrowse ];
+		"TODO: show other methods as well"
 		stencil: [ (GtPharoMethodCoder forMethod: (self class >> #drawOnto:)) asExpandedOnlyElement vFitContentLimited ]
 ]
 
@@ -49,6 +51,7 @@ ProcessingCodeBase >> gtViewIntermediaryRepresentationFor: aView [
 		title: 'IR';
 		priority: 10;
 		text: [ | string |
+			"TODO: show other methods as well"
 			string := (self class >> #drawOnto:) ast ir longPrintString.
 			string copyFrom: 2 to: string size
 		]

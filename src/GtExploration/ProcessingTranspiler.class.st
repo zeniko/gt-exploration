@@ -48,11 +48,6 @@ ProcessingTranspiler >> compile: ast [
 ]
 
 { #category : #'as yet unclassified' }
-ProcessingTranspiler >> emitDefCall: args [
-	ProcessingNotImplementedException new signal: 'User defined function calls not implemented!'
-]
-
-{ #category : #'as yet unclassified' }
 ProcessingTranspiler >> emitDelay: args [
 	^ '(' , args first , ' / 1000.0) seconds wait.'
 ]
@@ -65,6 +60,18 @@ ProcessingTranspiler >> emitEllipse: args [
 { #category : #'as yet unclassified' }
 ProcessingTranspiler >> emitFill: args [
 	^ 'canvas fill: (Color r: ' , (args at: 1) , ' / 255.0 g: ' , (args at: 2) , ' / 255.0 b: ' , (args at: 3) , ' / 255.0).'
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingTranspiler >> emitFunctionDef: name with: args [
+	| defLine argNo |
+	defLine := name , ': canvas'.
+	argNo := 1.
+	[ argNo <= args size ] whileTrue: [
+		defLine := defLine , ' arg' , argNo asString , ': ' , (args at: argNo).
+		argNo := argNo + 1.
+	].
+	^ defLine
 ]
 
 { #category : #'as yet unclassified' }
@@ -89,6 +96,7 @@ ProcessingTranspiler >> transpile: ast [
 	self appendLine: 'drawOnto: canvas'.
 	indentation := indentation + 1.
 	ast acceptVisitor: self.
+	"TODO: only update the canvas at the end of drawOnto (avoid rendering artifacts)"
 	^ ('
 ' join: lines) , functions
 ]
@@ -105,18 +113,7 @@ ProcessingTranspiler >> transpileFunction: ast named: name args: args [
 	lines := OrderedCollection new.
 	indentation := 0.
 	self appendLine: ''.
-	args size > 0 ifTrue: [
-		| defLine argNo |
-		defLine := name , ':' , args first.
-		argNo := 2.
-		[ argNo <= args size ] whileTrue: [
-			defLine := defLine , ' arg' , argNo , ': ' , (args at: argNo).
-			argNo := argNo + 1.
-		].
-		self appendLine: defLine.
-	] ifFalse: [
-		self appendLine: name.
-	].
+	self appendLine: (self emitFunctionDef: name with: args).
 	self acceptStatements: ast.
 	localVariables size > 0 ifTrue: [
 		lines insert: (Character tab , '| ' , (localVariables join: ' ') , ' |') at: 2.
@@ -184,7 +181,7 @@ ProcessingTranspiler >> visitFunctionCallExpression: fnCall [
 	name = 'rect' ifTrue: [ ^ self emitRect: args ].
 	name = 'ellipse' ifTrue: [ ^ self emitEllipse: args ].
 	name = 'delay' ifTrue: [ ^ self emitDelay: args ].
-	(userDefs includes: name) ifTrue: [ ^ self emitDefCall: args ].
+	(userDefs includes: name) ifTrue: [ ^ 'self ' , (self emitFunctionDef: name with: args) ].
 	ProcessingNotImplementedException new signal: 'Function ' , name , ' not implemented!'
 ]
 

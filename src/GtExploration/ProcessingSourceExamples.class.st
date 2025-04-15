@@ -58,15 +58,15 @@ if a >= 200:
 ProcessingSourceExamples >> sourceCodeExample03 [
 	<gtExample>
 	^ 'size(200, 200)
-# Für die Demonstration: 1/2 Sekunde vor dem Zeichnen
-delay(500)
 # Variable für Farbe und Durchmesser
 x = 200
 while x > 0:
 	# Zeichne konzentrische Kreise in ändernder Farbe
 	fill(200 - x, 128, x)
 	ellipse(100, 100, x, x)
-	x = x - 20'
+	x = x - 20
+	# Für die Demonstration: 50ms Pause zwischen zwei Kreisen
+	delay(50)'
 ]
 
 { #category : #'as yet unclassified' }
@@ -134,7 +134,6 @@ ProcessingSourceExamples >> sourceRecursion [
 	| source |
 	source := ProcessingSource new fromString: self sourceCodeRecursion.
 	self assert: source asString equals: self sourceCodeRecursion.
-	"TODO: fix function parsing"
-	"self assert: source program isNotNil."
+	self assert: source program isNotNil.
 	^ source
 ]

@@ -51,14 +51,14 @@ ProcessingTranspilerExamples >> transpilationExample02 [
 { #category : #'as yet unclassified' }
 ProcessingTranspilerExamples >> transpilationExample03 [
 	<gtExample>
-	^ 'drawOnto: canvas
+		^ 'drawOnto: canvas
 	canvas size: 200 by: 200.
-	(500 / 1000.0) seconds wait.
 	x := 200.
 	[ (x>0) ] whileTrue: [ 
 		canvas fill: (Color r: (200-x) / 255.0 g: 128 / 255.0 b: x / 255.0).
 		canvas ellipse: x by: x at: 100 @ 100.
 		x := (x-20).
+		(50 / 1000.0) seconds wait.
 	].'
 ]
 
@@ -67,6 +67,21 @@ ProcessingTranspilerExamples >> transpilationMinimal [
 	<gtExample>
 	^ 'drawOnto: canvas
 	canvas size: 200 by: 200.'
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingTranspilerExamples >> transpilationRecursion [
+	<gtExample>
+	^ 'drawOnto: canvas
+	canvas size: 200 by: 200.
+	self recursion: canvas arg1: 200
+	
+
+recursion: canvas arg1: n
+	canvas ellipse: n by: n at: 100 @ 100.
+	(n>20) ifTrue: [ 
+		self recursion: canvas arg1: (n-10)
+	].'
 ]
 
 { #category : #'as yet unclassified' }
@@ -133,5 +148,20 @@ ProcessingTranspilerExamples >> transpileMinimal [
 	self assert: transpiler variables size equals: 0.
 	self assert: transpiler userDefs size equals: 0.
 	self assert: ((transpiler compile: ast) class >> #drawOnto:) sourceCode equals: self transpilationMinimal.
+	^ transpiler compile: ast
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingTranspilerExamples >> transpileRecursion [
+	<gtExample>
+	| ast transpiler |
+	ast := ProcessingParserExamples new parseRecursion.
+	transpiler := self newTranspiler.
+	self assert: (transpiler transpile: ast) equals: self transpilationRecursion.
+	self assert: transpiler variables size equals: 0.
+	self assert: transpiler userDefs size equals: 1.
+	self assert: ((transpiler compile: ast) class >> #drawOnto:) sourceCode equals: (self transpilationRecursion splitOn: '
+
+') first.
 	^ transpiler compile: ast
 ]

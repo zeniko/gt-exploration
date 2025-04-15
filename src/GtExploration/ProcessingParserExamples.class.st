@@ -38,7 +38,7 @@ ProcessingParserExamples >> parseExample03 [
 	<gtExample>
 	| ast |
 	ast := ProcessingProgramExamples new programExample03 ast.
-	self assert: ast statements size equals: 4.
+	self assert: ast statements size equals: 3.
 	^ ast
 ]
 
@@ -51,5 +51,14 @@ ProcessingParserExamples >> parseMinimal [
 	node := ast statements first.
 	self assert: node asString equals: 'a PyExpressionStatementNode(size(200, 200))'.
 	self assert: node expression receiver nameToken value equals: 'size'.
+	^ ast
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingParserExamples >> parseRecursion [
+	<gtExample>
+	| ast |
+	ast := ProcessingProgramExamples new programRecursion ast.
+	self assert: ast statements size equals: 3.
 	^ ast
 ]

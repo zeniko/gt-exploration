@@ -510,7 +510,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-25T21:41:35.051+01:00"
+						"dateAndTimeString" : "2025-02-25T21:41:42.288+01:00"
 					}
 				},
 				"uid" : {
@@ -520,7 +520,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "W'll need at least arithmetic operators, assignment, list creation and function calls."
+				"string" : "W'll need to support at least arithmetic operators, assignment, list creation and function calls."
 			},
 			{
 				"__type" : "textSnippet",

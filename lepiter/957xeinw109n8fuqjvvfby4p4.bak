@@ -28,43 +28,6 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-04-02T11:22:41.011+02:00"
-											}
-										},
-										"editEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"editTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-04-02T12:05:12.719+02:00"
-											}
-										},
-										"uid" : {
-											"__type" : "uid",
-											"uidString" : "OGWU7inuDQC3DWv5BFt4mg=="
-										},
-										"paragraphStyle" : {
-											"__type" : "textStyle"
-										},
-										"string" : "Functions (recursion)"
-									},
-									{
-										"__type" : "textSnippet",
-										"children" : {
-											"__type" : "snippets",
-											"items" : [ ]
-										},
-										"createEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"createTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
 												"dateAndTimeString" : "2025-04-02T12:05:21.01+02:00"
 											}
 										},
@@ -814,7 +777,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-04-15T11:00:03.845+02:00"
+									"dateAndTimeString" : "2025-04-15T16:41:05.989+02:00"
 								}
 							},
 							"uid" : {
@@ -824,7 +787,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Implement Processing snippet (instead of {{gtClass:LePythonSnippet}})"
+							"string" : "Implement Processing snippet (instead of {{gtClass:LePythonSnippet}}, see e.g. {{gtPage:Extending Lepiter with custom snippets and annotations|db=2j9m7db2i4oz116bexd7wbdxo}})"
 						},
 						{
 							"__type" : "textSnippet",
@@ -862,6 +825,43 @@
 								"__type" : "textStyle"
 							},
 							"string" : "Further Python functionality: default function arguments"
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-04-15T14:42:34.336+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-04-15T14:42:36.579+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "aKhfPTLvDQC9paqkDHmwsQ=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Speed up tests"
 						}
 					]
 				},
