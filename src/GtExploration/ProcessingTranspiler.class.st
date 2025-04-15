@@ -49,17 +49,17 @@ ProcessingTranspiler >> compile: ast [
 
 { #category : #'as yet unclassified' }
 ProcessingTranspiler >> emitDelay: args [
-	^ '(' , args first , ' / 1000.0) seconds wait.'
+	^ '(' , args first , ' / 1000.0) seconds wait'
 ]
 
 { #category : #'as yet unclassified' }
 ProcessingTranspiler >> emitEllipse: args [
-	^ 'canvas ellipse: ' , (args at: 3) , ' by: ' , (args at: 4) , ' at: ' , (args at: 1) , ' @ ' , (args at: 2) , '.'
+	^ 'canvas ellipse: ' , (args at: 3) , ' by: ' , (args at: 4) , ' at: ' , (args at: 1) , ' @ ' , (args at: 2)
 ]
 
 { #category : #'as yet unclassified' }
 ProcessingTranspiler >> emitFill: args [
-	^ 'canvas fill: (Color r: ' , (args at: 1) , ' / 255.0 g: ' , (args at: 2) , ' / 255.0 b: ' , (args at: 3) , ' / 255.0).'
+	^ 'canvas fill: (Color r: ' , (args at: 1) , ' / 255.0 g: ' , (args at: 2) , ' / 255.0 b: ' , (args at: 3) , ' / 255.0)'
 ]
 
 { #category : #'as yet unclassified' }
@@ -75,12 +75,22 @@ ProcessingTranspiler >> emitFunctionDef: name with: args [
 
 { #category : #'as yet unclassified' }
 ProcessingTranspiler >> emitRect: args [
-	^ 'canvas rect: ' , (args at: 3) , ' by: ' , (args at: 4) , ' at: ' , (args at: 1) , ' @ ' , (args at: 2) , '.'
+	^ 'canvas rect: ' , (args at: 3) , ' by: ' , (args at: 4) , ' at: ' , (args at: 1) , ' @ ' , (args at: 2)
 ]
 
 { #category : #'as yet unclassified' }
 ProcessingTranspiler >> emitSize: args [
-	^ 'canvas size: ' , (args at: 1) , ' by: ' , (args at: 2) , '.'
+	^ 'canvas size: ' , (args at: 1) , ' by: ' , (args at: 2)
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingTranspiler >> emitText: args [
+	^ 'canvas text: ' , (args at: 1) , ' at: ' , (args at: 2) , ' @ ' , (args at: 3)
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingTranspiler >> emitTextSize: args [
+	^ 'canvas textSize: ' , (args at: 1)
 ]
 
 { #category : #'as yet unclassified' }
@@ -108,7 +118,7 @@ ProcessingTranspiler >> transpile: ast [
 ]
 
 { #category : #'as yet unclassified' }
-ProcessingTranspiler >> transpileFunction: ast named: name args: args [
+ProcessingTranspiler >> transpileFunction: ast name: name args: args [
 	| globalLines globalIndentation res |
 	"Preserve global state"
 	localVariables do: [ :var | globalVariables add: var ].
@@ -122,7 +132,7 @@ ProcessingTranspiler >> transpileFunction: ast named: name args: args [
 	self appendLine: (self emitFunctionDef: name with: args).
 	self acceptStatements: ast.
 	localVariables size > 0 ifTrue: [
-		lines insert: (Character tab , '| ' , (localVariables join: ' ') , ' |') at: 2.
+		lines insert: (Character tab asString , '| ' , (' ' join: localVariables) , ' |') before: 3.
 	].
 	res := '
 ' , ('
@@ -171,7 +181,7 @@ ProcessingTranspiler >> visitComparisonExpression: expr [
 ProcessingTranspiler >> visitExpressionStatement: stmt [
 	(self acceptNodes: stmt children) do: [ :res |
 		(res isKindOf: ProcessingTranspiler) ifFalse: [
-			self appendLine: res.
+			self appendLine: res , '.'.
 		]
 	]
 ]
@@ -191,7 +201,9 @@ ProcessingTranspiler >> visitFunctionCallExpression: fnCall [
 	name = 'rect' ifTrue: [ ^ self emitRect: args ].
 	name = 'ellipse' ifTrue: [ ^ self emitEllipse: args ].
 	name = 'delay' ifTrue: [ ^ self emitDelay: args ].
-	(userDefs includesKey: name) ifTrue: [ ^ 'self ' , (self emitFunctionDef: name with: args) ].
+	name = 'text' ifTrue: [ ^ self emitText: args ].
+	name = 'textSize' ifTrue: [ ^ self emitTextSize: args ].
+	(userDefs includesKey: name) ifTrue: [ ^ '(self ' , (self emitFunctionDef: name with: args) , ')' ].
 	ProcessingNotImplementedException new signal: 'Function ' , name , ' not implemented!'
 ]
 
@@ -200,13 +212,17 @@ ProcessingTranspiler >> visitFunctionDefinition: def [
 	| name args |
 	name := def fname value.
 	args := self acceptNodes: def parameters.
-	^ self transpileFunction: def named: name args: args
+	^ self transpileFunction: def name: name args: args
 ]
 
 { #category : #'as yet unclassified' }
 ProcessingTranspiler >> visitIfStatement: expr [
-	self appendLine: (expr condition acceptVisitor: self) , ' ifTrue: [ '.
+	self appendLine: (expr condition acceptVisitor: self) , ' ifTrue: ['.
 	self acceptStatements: expr.
+	expr else ifNotNil: [
+		self appendLine: '] ifFalse: ['.
+		self acceptStatements: expr else.
+	].
 	self appendLine: '].'
 ]
 
@@ -221,13 +237,23 @@ ProcessingTranspiler >> visitParameter: param [
 ]
 
 { #category : #'as yet unclassified' }
+ProcessingTranspiler >> visitReturnStatement: expr [
+	^ '^ ' , (self acceptNodes: expr expressions) first.
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingTranspiler >> visitString: expr [
+	^ '''' , ('' join: (expr parts collect: [ :part | (part value allButFirst: 1) allButLast: 1 ])) , ''''
+]
+
+{ #category : #'as yet unclassified' }
 ProcessingTranspiler >> visitVariableExpression: var [
 	^ var nameToken value
 ]
 
 { #category : #'as yet unclassified' }
 ProcessingTranspiler >> visitWhileStatement: expr [
-	self appendLine: '[ ' , (expr condition acceptVisitor: self) , ' ] whileTrue: [ '.
+	self appendLine: '[ ' , (expr condition acceptVisitor: self) , ' ] whileTrue: ['.
 	self acceptStatements: expr.
 	self appendLine: '].'
 ]

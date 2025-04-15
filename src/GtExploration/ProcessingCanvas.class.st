@@ -3,7 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'fillColor',
-		'canvasElement'
+		'canvasElement',
+		'textSize'
 	],
 	#category : #'GtExploration-Processing'
 }
@@ -63,10 +64,12 @@ ProcessingCanvas >> gtViewFor: aView [
 
 { #category : #'as yet unclassified' }
 ProcessingCanvas >> initialize [
-	canvasElement := BlElement new.
-	canvasElement background: Color veryLightGray.
-	canvasElement size: 100 @ 100.
+	canvasElement := BlElement new
+		background: Color veryLightGray;
+		size: 100 @ 100;
+		yourself.
 	fillColor := Color white.
+	textSize := 12.
 ]
 
 { #category : #'as yet unclassified' }
@@ -83,4 +86,26 @@ ProcessingCanvas >> rect: width by: height at: xy [
 { #category : #'as yet unclassified' }
 ProcessingCanvas >> size: width by: height [
 	canvasElement size: (Point x: width y: height).
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingCanvas >> text: text at: pos [
+	| roped shape |
+	roped := text asRopedText
+		fontSize: textSize;
+		foreground: fillColor.
+	shape := BlTextElement new text: roped.
+	canvasElement addChild: shape.
+	"y-position is of baseline"
+	shape relocate: pos x @ (pos y - textSize).
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingCanvas >> textSize [
+	^ textSize
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingCanvas >> textSize: size [
+	textSize := size.
 ]

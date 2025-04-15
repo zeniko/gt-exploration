@@ -39,7 +39,7 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-04-15T11:55:49.762+02:00"
+												"dateAndTimeString" : "2025-04-15T22:04:18.853+02:00"
 											}
 										},
 										"uid" : {
@@ -49,7 +49,7 @@
 										"paragraphStyle" : {
 											"__type" : "textStyle"
 										},
-										"string" : "API expansion: `stroke`, `strokeWeight`, `width` and `height`, `sin`, `radians` (so that it runs {{gtPage:Funktionen und Rekursion|db=dl0rc62x02fk8k57e43hr8acw}})"
+										"string" : "API expansion: `stroke`, `strokeWeight`, `width` and `height`, `sin`, `radians`,  (so that it runs {{gtPage:Funktionen und Rekursion|db=dl0rc62x02fk8k57e43hr8acw}})"
 									}
 								]
 							},
@@ -554,7 +554,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-04-15T14:04:34.082+02:00"
+									"dateAndTimeString" : "2025-04-15T17:55:45.398+02:00"
 								}
 							},
 							"uid" : {
@@ -564,7 +564,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Further Python functionality: `global`"
+							"string" : "Further Python functionality: `global`, `return`"
 						},
 						{
 							"__type" : "textSnippet",
@@ -814,7 +814,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-04-15T14:05:45.882+02:00"
+									"dateAndTimeString" : "2025-04-15T17:55:57.167+02:00"
 								}
 							},
 							"uid" : {
@@ -824,7 +824,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Further Python functionality: default function arguments"
+							"string" : "Further Python functionality: default function arguments, `break`, `continue`"
 						},
 						{
 							"__type" : "textSnippet",

@@ -60,7 +60,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-03-25T22:21:16.215+01:00"
+									"dateAndTimeString" : "2025-04-14T22:30:37.802+02:00"
 								}
 							},
 							"editEmail" : {
@@ -71,17 +71,17 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-03-25T22:22:11.454+01:00"
+									"dateAndTimeString" : "2025-04-14T22:31:22.852+02:00"
 								}
 							},
 							"uid" : {
 								"__type" : "uid",
-								"uidString" : "2DK3CZPtDQCrSLO+CvN6aQ=="
+								"uidString" : "uDbEqCTvDQC2TfC9APS8Wg=="
 							},
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Prepares an output canvas of the given dimensions. This command must always be called first (for animations: first command in `def setup`)."
+							"string" : "Waits `ms` milliseconds before continuing (mainly needed for demonstration purposes)."
 						}
 					]
 				},
@@ -93,7 +93,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-03-25T22:21:04.278+01:00"
+						"dateAndTimeString" : "2025-03-25T23:32:40.095+01:00"
 					}
 				},
 				"editEmail" : {
@@ -104,17 +104,92 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-03-25T22:21:15.834+01:00"
+						"dateAndTimeString" : "2025-04-14T22:30:25.199+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "8A0BCZPtDQCqy8fgCvN6aQ=="
+					"uidString" : "GAUOCZTtDQC0C5B6BbBRww=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "`size(width, height)`"
+				"string" : "`delay(ms)`"
+			},
+			{
+				"__type" : "textSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-03-25T23:32:38.095+01:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-03-25T23:33:12.067+01:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "sHzvCJTtDQC0BuafBbBRww=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Draws an ellipse width the given diameters with its center at `(x; y)`."
+						}
+					]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-03-25T22:19:46.302+01:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-03-25T23:32:37.549+01:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "MDxbBJPtDQCoagIyCvN6aQ=="
+				},
+				"paragraphStyle" : {
+					"__type" : "textStyle"
+				},
+				"string" : "`ellipse(x, y, dx, dy)`"
 			},
 			{
 				"__type" : "textSnippet",
@@ -285,7 +360,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-03-25T23:32:38.095+01:00"
+									"dateAndTimeString" : "2025-03-25T22:21:16.215+01:00"
 								}
 							},
 							"editEmail" : {
@@ -296,17 +371,17 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-03-25T23:33:12.067+01:00"
+									"dateAndTimeString" : "2025-03-25T22:22:11.454+01:00"
 								}
 							},
 							"uid" : {
 								"__type" : "uid",
-								"uidString" : "sHzvCJTtDQC0BuafBbBRww=="
+								"uidString" : "2DK3CZPtDQCrSLO+CvN6aQ=="
 							},
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Draws an ellipse width the given diameters with its center at `(x; y)`."
+							"string" : "Prepares an output canvas of the given dimensions. This command must always be called first (for animations: first command in `def setup`)."
 						}
 					]
 				},
@@ -318,7 +393,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-03-25T22:19:46.302+01:00"
+						"dateAndTimeString" : "2025-03-25T22:21:04.278+01:00"
 					}
 				},
 				"editEmail" : {
@@ -329,17 +404,17 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-03-25T23:32:37.549+01:00"
+						"dateAndTimeString" : "2025-03-25T22:21:15.834+01:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "MDxbBJPtDQCoagIyCvN6aQ=="
+					"uidString" : "8A0BCZPtDQCqy8fgCvN6aQ=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "`ellipse(x, y, dx, dy)`"
+				"string" : "`size(width, height)`"
 			},
 			{
 				"__type" : "textSnippet",
@@ -360,7 +435,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-04-14T22:30:37.802+02:00"
+									"dateAndTimeString" : "2025-04-15T23:45:08.647+02:00"
 								}
 							},
 							"editEmail" : {
@@ -371,17 +446,17 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-04-14T22:30:58.408+02:00"
+									"dateAndTimeString" : "2025-04-15T23:45:26.995+02:00"
 								}
 							},
 							"uid" : {
 								"__type" : "uid",
-								"uidString" : "uDbEqCTvDQC2TfC9APS8Wg=="
+								"uidString" : "4Exc0TnvDQCfx2CuBdezFA=="
 							},
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Waits `ms` milliseconds before continuing."
+							"string" : "Renders the given `string` with its baseline starting at `(x; y)`."
 						}
 					]
 				},
@@ -393,7 +468,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-03-25T23:32:40.095+01:00"
+						"dateAndTimeString" : "2025-04-15T23:44:45.232+02:00"
 					}
 				},
 				"editEmail" : {
@@ -404,17 +479,92 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-04-14T22:30:25.199+02:00"
+						"dateAndTimeString" : "2025-04-15T23:45:01.279+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "GAUOCZTtDQC0C5B6BbBRww=="
+					"uidString" : "sO9d0DnvDQCfTJFLBdezFA=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "`delay(ms)`"
+				"string" : "`text(string, x, y)`"
+			},
+			{
+				"__type" : "textSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-04-15T23:46:01.565+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-04-15T23:46:23.881+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "qALN0znvDQChyis2BdezFA=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Sets the size for rendering text in pixels."
+						}
+					]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-04-15T23:45:28.888+02:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-04-15T23:45:35.943+02:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "wBr40jnvDQChXS3+BdezFA=="
+				},
+				"paragraphStyle" : {
+					"__type" : "textStyle"
+				},
+				"string" : "`textSize(size)`"
 			}
 		]
 	},

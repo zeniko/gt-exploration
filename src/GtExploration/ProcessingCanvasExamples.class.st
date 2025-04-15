@@ -31,6 +31,7 @@ ProcessingCanvasExamples >> container [
 	canvas := ProcessingCanvas new.
 	canvas size: 200 by: 200.
 	self assert: canvas fillColor equals: Color white.
+	self assert: canvas textSize equals: 12.
 	self assert: (canvas asElement isKindOf: BlScalableElement).
 	self assert: canvas asElement children first equals: canvas canvasElement.
 	"self assert: (canvas canvasElement measuredBounds extent) equals: 200 @ 200."
@@ -56,6 +57,21 @@ ProcessingCanvasExamples >> example02 [
 	canvas := ProcessingRunnerExamples new runExample02 canvas.
 	self assert: canvas canvasElement children size equals: 5.
 	self assert: (canvas canvasElement children select: [ :el | el isKindOf: BlEllipseElement ]) size equals: 1.
+	^ canvas
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingCanvasExamples >> fibonacci [
+	<gtExample>
+	| program canvas |
+	program := ProcessingRunnerExamples new runFibonacci.
+	canvas := program canvas.
+	self assert: canvas textSize equals: 50.
+	self assert: canvas canvasElement children size equals: 2.
+	self assert: (canvas canvasElement children first isKindOf: BlTextElement).
+	self assert: canvas canvasElement children first text asString equals: 'Fibonacci'.
+	self assert: (canvas canvasElement children second isKindOf: BlTextElement).
+	self assert: canvas canvasElement children second text asString equals: '55'.
 	^ canvas
 ]
 

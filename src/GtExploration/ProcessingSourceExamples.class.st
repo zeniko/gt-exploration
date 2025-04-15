@@ -70,6 +70,26 @@ while x > 0:
 ]
 
 { #category : #'as yet unclassified' }
+ProcessingSourceExamples >> sourceCodeFibonacci [
+	<gtExample>
+	^ 'size(200, 200)
+
+def fibonacci(n):
+    if n > 2:
+        a = fibonacci(n - 1)
+        return a + fibonacci(n - 2)
+    else:
+      return 1
+
+textSize(30)
+fill(0, 0, 0)
+text("Fibonacci", 20, 75)
+textSize(50)
+fill(255, 255, 255)
+text(fibonacci(10), 20, 125)'
+]
+
+{ #category : #'as yet unclassified' }
 ProcessingSourceExamples >> sourceCodeMinimal [
 	<gtExample>
 	^ 'size(200, 200)'
@@ -115,6 +135,16 @@ ProcessingSourceExamples >> sourceExample03 [
 	source := ProcessingSource new fromString: self sourceCodeExample03.
 	self assert: source asString equals: self sourceCodeExample03.
 	self assert: source program isNotNil.
+	^ source
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingSourceExamples >> sourceFibonacci [
+	<gtExample>
+	| source |
+	source := ProcessingSource new fromString: self sourceCodeFibonacci.
+	self assert: source asString equals: self sourceCodeFibonacci.
+	"self assert: source program isNotNil."
 	^ source
 ]
 

@@ -27,8 +27,8 @@ ProcessingTranspilerExamples >> transpilationAlpinerWanderweg [
 ProcessingTranspilerExamples >> transpilationEndlessLoop [
 	<gtExample>
 	^ 'drawOnto: canvas
-	[ (1 = 1) ] whileTrue: [ 
-		loop
+	[ (1 = 1) ] whileTrue: [
+		loop.
 	].'
 ]
 
@@ -38,12 +38,12 @@ ProcessingTranspilerExamples >> transpilationExample02 [
 	^ 'drawOnto: canvas
 	canvas size: 200 by: 200.
 	a := 0.
-	[ (a < 200) ] whileTrue: [ 
+	[ (a < 200) ] whileTrue: [
 		canvas fill: (Color r: a / 255.0 g: 128 / 255.0 b: 0 / 255.0).
 		canvas rect: 100 by: 100 at: a @ a.
 		a := (a + 50).
 	].
-	(a >= 200) ifTrue: [ 
+	(a >= 200) ifTrue: [
 		canvas ellipse: 20 by: 20 at: 10 @ 10.
 	].'
 ]
@@ -54,12 +54,35 @@ ProcessingTranspilerExamples >> transpilationExample03 [
 		^ 'drawOnto: canvas
 	canvas size: 200 by: 200.
 	x := 200.
-	[ (x > 0) ] whileTrue: [ 
+	[ (x > 0) ] whileTrue: [
 		canvas fill: (Color r: (200 - x) / 255.0 g: 128 / 255.0 b: x / 255.0).
 		canvas ellipse: x by: x at: 100 @ 100.
 		x := (x - 20).
 		(50 / 1000.0) seconds wait.
 	].'
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingTranspilerExamples >> transpilationFibonacci [
+	<gtExample>
+	^ 'drawOnto: canvas
+	canvas size: 200 by: 200.
+	canvas textSize: 30.
+	canvas fill: (Color r: 0 / 255.0 g: 0 / 255.0 b: 0 / 255.0).
+	canvas text: ''Fibonacci'' at: 20 @ 75.
+	canvas textSize: 50.
+	canvas fill: (Color r: 255 / 255.0 g: 255 / 255.0 b: 255 / 255.0).
+	canvas text: (self fibonacci: canvas n: 10) at: 20 @ 125.
+	
+
+fibonacci: canvas n: n
+	| a |
+	(n > 2) ifTrue: [
+		a := (self fibonacci: canvas n: (n - 1)).
+		^ (a + (self fibonacci: canvas n: (n - 2)))
+	] ifFalse: [
+		^ 1
+	]..'
 ]
 
 { #category : #'as yet unclassified' }
@@ -74,14 +97,14 @@ ProcessingTranspilerExamples >> transpilationRecursion [
 	<gtExample>
 	^ 'drawOnto: canvas
 	canvas size: 200 by: 200.
-	self recursion: canvas n: 200
+	(self recursion: canvas n: 200).
 	
 
 recursion: canvas n: n
 	canvas ellipse: n by: n at: 100 @ 100.
-	(n > 20) ifTrue: [ 
-		self recursion: canvas n: (n - 10)
-	].'
+	(n > 20) ifTrue: [
+		(self recursion: canvas n: (n - 10)).
+	]..'
 ]
 
 { #category : #'as yet unclassified' }
@@ -139,6 +162,21 @@ ProcessingTranspilerExamples >> transpileExample03 [
 ]
 
 { #category : #'as yet unclassified' }
+ProcessingTranspilerExamples >> transpileFibonacci [
+	<gtExample>
+	| ast transpiler |
+	ast := ProcessingParserExamples new parseFibonacci.
+	transpiler := self newTranspiler.
+	self assert: (transpiler transpile: ast) equals: self transpilationFibonacci.
+	self assert: transpiler variables size equals: 0.
+	self assert: transpiler userDefs size equals: 1.
+	self assert: ('
+
+' join: ((transpiler compile: ast) class methods collect: [ :method | method sourceCode ]) sorted) equals: self transpilationFibonacci.
+	^ "transpiler compile:" ast
+]
+
+{ #category : #'as yet unclassified' }
 ProcessingTranspilerExamples >> transpileMinimal [
 	<gtExample>
 	| ast transpiler |
@@ -163,5 +201,5 @@ ProcessingTranspilerExamples >> transpileRecursion [
 	self assert: ('
 
 ' join: ((transpiler compile: ast) class methods collect: [ :method | method sourceCode ]) sorted) equals: self transpilationRecursion.
-	^ transpiler compile: ast
+	^ "transpiler compile:" ast
 ]

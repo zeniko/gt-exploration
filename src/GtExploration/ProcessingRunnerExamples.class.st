@@ -51,6 +51,18 @@ ProcessingRunnerExamples >> runExample03 [
 ]
 
 { #category : #'as yet unclassified' }
+ProcessingRunnerExamples >> runFibonacci [
+	<gtExample>
+	| program runner |
+	program := ProcessingProgramExamples new programFibonacci.
+	runner := self newRunner.
+	runner run: program; limitTo: 2 seconds; wait.
+	self assert: runner canvas isNil equals: false.
+	self assert: runner isDone equals: true.
+	^ runner
+]
+
+{ #category : #'as yet unclassified' }
 ProcessingRunnerExamples >> runInterrupted [
 	<gtExample>
 	| program runner |
