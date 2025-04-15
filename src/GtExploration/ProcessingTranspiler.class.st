@@ -3,8 +3,11 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'lines',
-		'variables',
-		'indentation'
+		'globalVariables',
+		'indentation',
+		'functions',
+		'localVariables',
+		'userDefs'
 	],
 	#category : #'GtExploration-Processing'
 }
@@ -12,6 +15,19 @@ Class {
 { #category : #'as yet unclassified' }
 ProcessingTranspiler >> acceptNodes: nodes [
 	^ nodes collect: [ :each | each acceptVisitor: self ]
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingTranspiler >> acceptStatements: expr [
+	indentation := indentation + 1.
+	expr statements do: [ :stmt |
+		| res |
+		res := stmt acceptVisitor: self.
+		(res isKindOf: ProcessingTranspiler) ifFalse: [
+			self appendLine: res
+		].
+	].
+	indentation := indentation - 1.
 ]
 
 { #category : #'as yet unclassified' }
@@ -24,9 +40,16 @@ ProcessingTranspiler >> compile: ast [
 	| class source |
 	source := self transpile: ast.
 	class := ProcessingCodeBase newAnonymousSubclass.
-	variables do: [ :name | class addSlot: name ].
-	class compile: source.
-	^ class perform: #new
+	localVariables do: [ :name | class addSlot: name ].
+	(source splitOn: '
+
+') do: [ :method | class compile: method ].
+	^ class new
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingTranspiler >> emitDefCall: args [
+	ProcessingNotImplementedException new signal: 'User defined function calls not implemented!'
 ]
 
 { #category : #'as yet unclassified' }
@@ -57,27 +80,73 @@ ProcessingTranspiler >> emitSize: args [
 { #category : #'as yet unclassified' }
 ProcessingTranspiler >> transpile: ast [
 	"Turn the AST into a Smalltalk source string"
-	| nl |
-	nl := String with: (Character cr).
-	variables := Set new.
+	globalVariables := Set new.
+	localVariables := Set new.
+	functions := ''.
+	userDefs := ast statements select: [ :stmt | stmt isKindOf: PyFunctionDefinitionNode ] thenCollect: [ :stmt | stmt fname value ].
 	lines := OrderedCollection new.
 	indentation := 0.
 	self appendLine: 'drawOnto: canvas'.
 	indentation := indentation + 1.
 	ast acceptVisitor: self.
-	^ nl join: lines.
+	^ ('
+' join: lines) , functions
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingTranspiler >> transpileFunction: ast named: name args: args [
+	| globalLines globalIndentation res |
+	"Preserve global state"
+	localVariables do: [ :var | globalVariables add: var ].
+	globalLines := lines.
+	globalIndentation := indentation.
+	
+	localVariables := Set new.
+	lines := OrderedCollection new.
+	indentation := 0.
+	self appendLine: ''.
+	args size > 0 ifTrue: [
+		| defLine argNo |
+		defLine := name , ':' , args first.
+		argNo := 2.
+		[ argNo <= args size ] whileTrue: [
+			defLine := defLine , ' arg' , argNo , ': ' , (args at: argNo).
+			argNo := argNo + 1.
+		].
+		self appendLine: defLine.
+	] ifFalse: [
+		self appendLine: name.
+	].
+	self acceptStatements: ast.
+	localVariables size > 0 ifTrue: [
+		lines insert: (Character tab , '| ' , (localVariables join: ' ') , ' |') at: 2.
+	].
+	res := '
+' , ('
+' join: lines).
+	
+	"Restore global state"
+	indentation := globalIndentation.
+	lines := globalLines.
+	localVariables := globalVariables.
+	^ res
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingTranspiler >> userDefs [
+	^ userDefs
 ]
 
 { #category : #'as yet unclassified' }
 ProcessingTranspiler >> variables [
-	^ variables
+	^ localVariables
 ]
 
 { #category : #'as yet unclassified' }
 ProcessingTranspiler >> visitAssignmentStatement: expr [
 	| name |
 	name := expr lhs nameToken value.
-	variables add: name.
+	localVariables add: name.
 	self appendLine: name , ' := ' , (expr tos first acceptVisitor: self) , '.'
 ]
 
@@ -115,26 +184,33 @@ ProcessingTranspiler >> visitFunctionCallExpression: fnCall [
 	name = 'rect' ifTrue: [ ^ self emitRect: args ].
 	name = 'ellipse' ifTrue: [ ^ self emitEllipse: args ].
 	name = 'delay' ifTrue: [ ^ self emitDelay: args ].
+	(userDefs includes: name) ifTrue: [ ^ self emitDefCall: args ].
+	ProcessingNotImplementedException new signal: 'Function ' , name , ' not implemented!'
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingTranspiler >> visitFunctionDefinition: def [
+	| name args |
+	name := def fname value.
+	args := self acceptNodes: def parameters.
+	^ self transpileFunction: def named: name args: args
 ]
 
 { #category : #'as yet unclassified' }
 ProcessingTranspiler >> visitIfStatement: expr [
 	self appendLine: (expr condition acceptVisitor: self) , ' ifTrue: [ '.
-	indentation := indentation + 1.
-	expr statements do: [ :stmt |
-		| res |
-		res := stmt acceptVisitor: self.
-		(res isKindOf: ProcessingTranspiler) ifFalse: [
-			self appendLine: res
-		].
-	].
-	indentation := indentation - 1.
+	self acceptStatements: expr.
 	self appendLine: '].'
 ]
 
 { #category : #'as yet unclassified' }
 ProcessingTranspiler >> visitNumber: num [
 	^ num numberToken value
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingTranspiler >> visitParameter: param [
+	^ param name nameToken value
 ]
 
 { #category : #'as yet unclassified' }
@@ -145,14 +221,6 @@ ProcessingTranspiler >> visitVariableExpression: var [
 { #category : #'as yet unclassified' }
 ProcessingTranspiler >> visitWhileStatement: expr [
 	self appendLine: '[ ' , (expr condition acceptVisitor: self) , ' ] whileTrue: [ '.
-	indentation := indentation + 1.
-	expr statements do: [ :stmt |
-		| res |
-		res := stmt acceptVisitor: self.
-		(res isKindOf: ProcessingTranspiler) ifFalse: [
-			self appendLine: res.
-		].
-	].
-	indentation := indentation - 1.
+	self acceptStatements: expr.
 	self appendLine: '].'
 ]

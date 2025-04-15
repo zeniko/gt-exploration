@@ -53,10 +53,3 @@ ProcessingCodeBase >> gtViewIntermediaryRepresentationFor: aView [
 			string copyFrom: 2 to: string size
 		]
 ]
-
-{ #category : #'as yet unclassified' }
-ProcessingCodeBase >> initialize [
-	"Maximum number of loop iterations, before it's considered an endless loop."
-	"TODO: investigate why larger numbers don't work"
-	_loopCounter := 10000
-]

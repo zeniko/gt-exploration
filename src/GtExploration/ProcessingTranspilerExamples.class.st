@@ -77,6 +77,7 @@ ProcessingTranspilerExamples >> transpileAlpinerWanderweg [
 	transpiler := self newTranspiler.
 	self assert: (transpiler transpile: ast) equals: self transpilationAlpinerWanderweg.
 	self assert: transpiler variables size equals: 0.
+	self assert: transpiler userDefs size equals: 0.
 	self assert: ((transpiler compile: ast) class >> #drawOnto:) sourceCode equals: self transpilationAlpinerWanderweg.
 	^ transpiler compile: ast
 ]
@@ -89,6 +90,7 @@ ProcessingTranspilerExamples >> transpileEndlessLoop [
 	transpiler := self newTranspiler.
 	self assert: (transpiler transpile: ast) equals: self transpilationEndlessLoop.
 	self assert: transpiler variables size equals: 0.
+	self assert: transpiler userDefs size equals: 0.
 	self assert: ((transpiler compile: ast) class >> #drawOnto:) sourceCode equals: self transpilationEndlessLoop.
 	^ transpiler compile: ast
 ]
@@ -102,6 +104,7 @@ ProcessingTranspilerExamples >> transpileExample02 [
 	self assert: (transpiler transpile: ast) equals: self transpilationExample02.
 	self assert: transpiler variables size equals: 1.
 	self assert: (' ' join: transpiler variables) equals: 'a'.
+	self assert: transpiler userDefs size equals: 0.
 	self assert: ((transpiler compile: ast) class >> #drawOnto:) sourceCode equals: self transpilationExample02.
 	^ transpiler compile: ast
 ]
@@ -115,6 +118,7 @@ ProcessingTranspilerExamples >> transpileExample03 [
 	self assert: (transpiler transpile: ast) equals: self transpilationExample03.
 	self assert: transpiler variables size equals: 1.
 	self assert: (' ' join: transpiler variables) equals: 'x'.
+	self assert: transpiler userDefs size equals: 0.
 	self assert: ((transpiler compile: ast) class >> #drawOnto:) sourceCode equals: self transpilationExample03.
 	^ transpiler compile: ast
 ]
@@ -127,6 +131,7 @@ ProcessingTranspilerExamples >> transpileMinimal [
 	transpiler := self newTranspiler.
 	self assert: (transpiler transpile: ast) equals: self transpilationMinimal.
 	self assert: transpiler variables size equals: 0.
+	self assert: transpiler userDefs size equals: 0.
 	self assert: ((transpiler compile: ast) class >> #drawOnto:) sourceCode equals: self transpilationMinimal.
 	^ transpiler compile: ast
 ]

@@ -71,7 +71,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-04-15T11:52:15.095+02:00"
+									"dateAndTimeString" : "2025-04-15T11:53:09.462+02:00"
 								}
 							},
 							"uid" : {
@@ -81,7 +81,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Always run programs through {{gtClass:ProcessingRunner}} off the main UI thread"
+							"string" : "Always run programs through [[Processing Runner]] off the main UI thread"
 						},
 						{
 							"__type" : "textSnippet",
@@ -156,6 +156,43 @@
 								"__type" : "textStyle"
 							},
 							"string" : "Extend [[Processing API]]: `delay`"
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-04-15T14:20:03.147+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-04-15T14:20:48.713+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "+GDW7DHvDQCcdYS/CFRQHA=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Start work on transpiling (recursive) function definitions"
 						},
 						{
 							"__type" : "textSnippet",

@@ -1,5 +1,5 @@
 Class {
 	#name : #ProcessingRunawayProgramException,
-	#superclass : #Exception,
+	#superclass : #ProcessingRunTimeException,
 	#category : #'GtExploration-Processing'
 }
