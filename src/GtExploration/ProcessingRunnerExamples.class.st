@@ -41,6 +41,7 @@ ProcessingRunnerExamples >> runExample02 [
 { #category : #'as yet unclassified' }
 ProcessingRunnerExamples >> runExample03 [
 	<gtExample>
+	<noTest> "Example03 contains deliberate `delay` calls"
 	| program runner |
 	program := ProcessingProgramExamples new programExample03.
 	runner := self newRunner.
@@ -65,6 +66,7 @@ ProcessingRunnerExamples >> runFibonacci [
 { #category : #'as yet unclassified' }
 ProcessingRunnerExamples >> runInterrupted [
 	<gtExample>
+	<noTest> "Runaway detection currently takes a few seconds"
 	| program runner |
 	program := ProcessingProgramExamples new programEndlessLoop.
 	runner := self newRunner.

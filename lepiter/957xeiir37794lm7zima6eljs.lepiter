@@ -29,7 +29,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-04-15T11:51:23.932+02:00"
+						"dateAndTimeString" : "2025-04-17T18:07:28.177+02:00"
 					}
 				},
 				"uid" : {
@@ -39,7 +39,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "This documents progress made so far (see [[ToDo - Priorities]] for what remains...):"
+				"string" : "This documents progress made so far (not quite a {{gtPage:Project Diary|db=2j9m7db2i4oz116bexd7wbdxo}}; see [[ToDo - Priorities]] for what remains...):"
 			},
 			{
 				"__type" : "textSnippet",
@@ -219,7 +219,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-04-15T23:55:44.988+02:00"
+									"dateAndTimeString" : "2025-04-17T19:00:02.09+02:00"
 								}
 							},
 							"uid" : {
@@ -229,10 +229,10 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Adjust current views for multi-methods compilations; inspect it:"
+							"string" : "Adjust current views for multi-methods compilations:"
 						},
 						{
-							"__type" : "pharoSnippet",
+							"__type" : "elementSnippet",
 							"children" : {
 								"__type" : "snippets",
 								"items" : [ ]
@@ -245,7 +245,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-04-15T23:54:33.769+02:00"
+									"dateAndTimeString" : "2025-04-17T18:56:18.833+02:00"
 								}
 							},
 							"editEmail" : {
@@ -256,14 +256,17 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-04-15T23:54:56.213+02:00"
+									"dateAndTimeString" : "2025-04-17T18:57:57.505+02:00"
 								}
 							},
 							"uid" : {
 								"__type" : "uid",
-								"uidString" : "QFBy8znvDQCkASPhBdezFA=="
+								"uidString" : "aAaCBF7vDQCdmuiWAXBg4w=="
 							},
-							"code" : "ProcessingProgramExamples new programFibonacci"
+							"code" : "GtInspector new object: ProcessingSourceExamples new sourceFibonacci",
+							"elementHeight" : 411,
+							"codeHeight" : 26,
+							"codeVisible" : true
 						},
 						{
 							"__type" : "textSnippet",
@@ -323,7 +326,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-04-15T11:33:38.788+02:00"
+						"dateAndTimeString" : "2025-04-17T18:10:23.943+02:00"
 					}
 				},
 				"uid" : {
@@ -1728,7 +1731,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-04-15T16:53:49.109+02:00"
+						"dateAndTimeString" : "2025-04-17T18:24:58.485+02:00"
 					}
 				},
 				"editEmail" : {
@@ -1739,7 +1742,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-04-15T16:53:49.109+02:00"
+						"dateAndTimeString" : "2025-04-17T18:24:58.485+02:00"
 					}
 				},
 				"uid" : {
@@ -1802,7 +1805,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-04-15T16:19:54.162+02:00"
+						"dateAndTimeString" : "2025-04-17T18:05:38.798+02:00"
 					}
 				},
 				"editEmail" : {
@@ -1813,14 +1816,14 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-04-15T17:51:00.214+02:00"
+						"dateAndTimeString" : "2025-04-17T18:25:03.097+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "UI90mTPvDQC104gDByy8eg=="
+					"uidString" : "sMVOT13vDQCR5mJJAXBg4w=="
 				},
-				"code" : "\"TODO: Easier way to get the ISO8601 week number?\"\risoweek := ((Interval from: 1 to: 53) select: [ :n | (Week week: n) <= Date today ]) last.\rheader := BlRunRopedText string: '# Week ' , isoweek asString.\rsnip := thisSnippet page children second.\rsnip text asString = header asString ifFalse: [\r\tsnip addSnippetBeforeSelf text: header.\r\tsnip addSnippetBeforeSelf indent.\r].\rsnip text"
+				"code" : "PageAutomationHelper addWeekSection: thisSnippet"
 			}
 		]
 	},

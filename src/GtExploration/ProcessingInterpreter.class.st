@@ -1,7 +1,7 @@
 Class {
 	#name : #ProcessingInterpreter,
 	#superclass : #Object,
-	#category : #GtExploration
+	#category : #'GtExploration-Experiments'
 }
 
 { #category : #'as yet unclassified' }

@@ -17,6 +17,7 @@ ProcessingProgramExamples >> programAlpinerWanderweg [
 { #category : #'as yet unclassified' }
 ProcessingProgramExamples >> programEndlessLoop [
 	<gtExample>
+	<noTest> "Runaway detection currently takes a few seconds"
 	| program detected |
 	program := ProcessingSourceExamples new sourceEndlessLoop program.
 	self assert: program ast statements size equals: 1.

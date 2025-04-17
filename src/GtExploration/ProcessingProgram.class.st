@@ -53,7 +53,47 @@ ProcessingProgram >> gtSourceCodeFor: aView [
 { #category : #'as yet unclassified' }
 ProcessingProgram >> gtTreeFor: aView [
 	<gtView>
-	^ ast gtExploreFor: aView
+	"^ ast gtExploreFor: aView"
+	"copied from {{gtMethod:SmaCCParseNode>>#gtExploreFor:}}"
+	| topParent |
+	topParent := ast topParent.
+	topParent completeSource isNil
+		ifTrue: [ ^ aView empty ].
+	^ aView explicit
+		priority: 5;
+		title: 'Explore';
+		stencil: [ | element editor tree |
+			element := BlElement new.
+			element layout: BlLinearLayout horizontal.
+			element
+				constraintsDo: [ :c | 
+					c vertical matchParent.
+					c horizontal matchParent ].
+			editor := ast
+				gtSourceEditorWithHighlight: BrGlamorousColors neutralBackgroundColor.
+			editor
+				constraintsDo: [ :e | 
+					e vertical matchParent.
+					e horizontal matchParent ];
+				beReadOnlyWithSelection;
+				aptitude: BrShadowAptitude;
+				background: Color white;
+				margin: (BlInsets all: 10).
+			element addChild: editor.
+			(topParent gtTreeFor: GtPhlowView empty)
+				asElementDo: [ :e | tree := e ].
+			tree
+				constraintsDo: [ :e | 
+					e vertical matchParent.
+					e horizontal matchParent ];
+				aptitude: BrShadowAptitude;
+				background: Color white;
+				margin: (BlInsets all: 10).
+			"expand the entire tree (for now); TODO: refined view"
+			tree children second expandAll.
+			element addChild: tree.
+			topParent gtHookEditor: editor toTree: tree children last.
+			element ]
 ]
 
 { #category : #'as yet unclassified' }

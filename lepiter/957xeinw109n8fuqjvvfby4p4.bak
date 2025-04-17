@@ -39,7 +39,7 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-04-15T22:04:18.853+02:00"
+												"dateAndTimeString" : "2025-04-15T22:04:27.818+02:00"
 											}
 										},
 										"uid" : {
@@ -49,7 +49,7 @@
 										"paragraphStyle" : {
 											"__type" : "textStyle"
 										},
-										"string" : "API expansion: `stroke`, `strokeWeight`, `width` and `height`, `sin`, `radians`,  (so that it runs {{gtPage:Funktionen und Rekursion|db=dl0rc62x02fk8k57e43hr8acw}})"
+										"string" : "API expansion: `triangle`, `background`, `stroke`, `strokeWeight`, `width` and `height`, `sin`, `radians` (so that it runs {{gtPage:Funktionen und Rekursion|db=dl0rc62x02fk8k57e43hr8acw}})"
 									}
 								]
 							},
@@ -639,6 +639,43 @@
 								"__type" : "textStyle"
 							},
 							"string" : "Further Processing API: `image`"
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-04-17T19:00:28.89+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-04-17T19:00:32.827+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "wI9pE17vDQCeeomFAXBg4w=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Expand test suite"
 						}
 					]
 				},
@@ -862,6 +899,118 @@
 								"__type" : "textStyle"
 							},
 							"string" : "Speed up tests"
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [
+									{
+										"__type" : "textSnippet",
+										"children" : {
+											"__type" : "snippets",
+											"items" : [ ]
+										},
+										"createEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"createTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2025-04-17T19:01:19.562+02:00"
+											}
+										},
+										"editEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"editTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2025-04-17T19:02:05.611+02:00"
+											}
+										},
+										"uid" : {
+											"__type" : "uid",
+											"uidString" : "EMluFl7vDQCgTb7rAXBg4w=="
+										},
+										"paragraphStyle" : {
+											"__type" : "textStyle"
+										},
+										"string" : "Backspace keys and others occasionally not responding (work-around: Win+Win)"
+									},
+									{
+										"__type" : "textSnippet",
+										"children" : {
+											"__type" : "snippets",
+											"items" : [ ]
+										},
+										"createEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"createTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2025-04-17T19:01:02.475+02:00"
+											}
+										},
+										"editEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"editTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2025-04-17T19:01:18.882+02:00"
+											}
+										},
+										"uid" : {
+											"__type" : "uid",
+											"uidString" : "EAtqFV7vDQCf4Vh7AXBg4w=="
+										},
+										"paragraphStyle" : {
+											"__type" : "textStyle"
+										},
+										"string" : "Indentation shortcut"
+									}
+								]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-04-17T19:00:44.876+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-04-17T19:01:02.27+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "4IRdFF7vDQCe1KWzAXBg4w=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Fix quality-of-life issues for GT under Windows"
 						}
 					]
 				},
