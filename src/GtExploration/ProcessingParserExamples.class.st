@@ -18,7 +18,7 @@ ProcessingParserExamples >> parseAlpinerWanderweg [
 ProcessingParserExamples >> parseEndlessLoop [
 	<gtExample>
 	| ast node |
-	ast := ProcessingParser parse: ProcessingSourceExamples new sourceCodeEndlessLoop.
+	ast := ProcessingProgramExamples new programEndlessLoop ast.
 	self assert: ast statements size equals: 1.
 	node := ast statements first.
 	^ ast
@@ -69,5 +69,14 @@ ProcessingParserExamples >> parseRecursion [
 	| ast |
 	ast := ProcessingProgramExamples new programRecursion ast.
 	self assert: ast statements size equals: 3.
+	^ ast
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingParserExamples >> parseSwitzerland [
+	<gtExample>
+	| ast node |
+	ast := ProcessingProgramExamples new programSwitzerland ast.
+	self assert: ast statements size equals: 4.
 	^ ast
 ]

@@ -72,3 +72,12 @@ ProcessingProgramExamples >> programRecursion [
 	self assert: program compilation isNotNil.
 	^ program
 ]
+
+{ #category : #'as yet unclassified' }
+ProcessingProgramExamples >> programSwitzerland [
+	<gtExample>
+	| program |
+	program := ProcessingSourceExamples new sourceSwitzerland program.
+	self assert: program compilation isNotNil.
+	^ program
+]

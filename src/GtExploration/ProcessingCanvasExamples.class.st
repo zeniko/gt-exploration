@@ -23,6 +23,18 @@ ProcessingCanvasExamples >> alpinerWanderweg [
 
 ]
 
+{ #category : #'as yet unclassified' }
+ProcessingCanvasExamples >> blueBackground [
+	<gtExample>
+	| canvas |
+	canvas := self singleSquare.
+	canvas background: Color blue.
+	self assert: canvas canvasElement background paint color equals: Color blue.
+	self assert: canvas canvasElement children size equals: 0.
+	^ canvas
+	
+]
+
 { #category : #example }
 ProcessingCanvasExamples >> container [
 	"TODO: How to measure the extent of an element that has not yet been rendered?!"
@@ -32,6 +44,8 @@ ProcessingCanvasExamples >> container [
 	canvas size: 200 by: 200.
 	self assert: canvas fillColor equals: Color white.
 	self assert: canvas textSize equals: 12.
+	self assert: canvas canvasElement background paint color equals: Color veryLightGray.
+	self assert: canvas canvasElement children size equals: 0.
 	self assert: (canvas asElement isKindOf: BlScalableElement).
 	self assert: canvas asElement children first equals: canvas canvasElement.
 	"self assert: (canvas canvasElement measuredBounds extent) equals: 200 @ 200."
@@ -122,6 +136,7 @@ ProcessingCanvasExamples >> singleSquare [
 	| canvas child |
 	canvas := self container.
 	canvas rect: 100 by: 100 at: 50 @ 50.
+	self assert: canvas canvasElement children size equals: 1.
 	child := canvas canvasElement children last.
 	self assert: (child isKindOf: BlElement).
 	self assert: child measuredBounds position equals: 50 @ 50.

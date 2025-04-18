@@ -109,6 +109,16 @@ recursion(200)'
 ]
 
 { #category : #'as yet unclassified' }
+ProcessingSourceExamples >> sourceCodeSwitzerland [
+	<gtExample>
+	"This is an example from the introductionary course and thus inaccurate in both color and proportion"
+	^ 'size(200, 200)
+background(255, 0, 0)
+rect(75, 25, 50, 150)
+rect(25, 75, 150, 50)'
+]
+
+{ #category : #'as yet unclassified' }
 ProcessingSourceExamples >> sourceEndlessLoop [
 	<gtExample>
 	| source |
@@ -144,7 +154,7 @@ ProcessingSourceExamples >> sourceFibonacci [
 	| source |
 	source := ProcessingSource new fromString: self sourceCodeFibonacci.
 	self assert: source asString equals: self sourceCodeFibonacci.
-	"self assert: source program isNotNil."
+	self assert: source program isNotNil.
 	^ source
 ]
 
@@ -164,6 +174,16 @@ ProcessingSourceExamples >> sourceRecursion [
 	| source |
 	source := ProcessingSource new fromString: self sourceCodeRecursion.
 	self assert: source asString equals: self sourceCodeRecursion.
+	self assert: source program isNotNil.
+	^ source
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingSourceExamples >> sourceSwitzerland [
+	<gtExample>
+	| source |
+	source := ProcessingSource new fromString: self sourceCodeSwitzerland.
+	self assert: source asString equals: self sourceCodeSwitzerland.
 	self assert: source program isNotNil.
 	^ source
 ]

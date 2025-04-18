@@ -14,6 +14,12 @@ ProcessingCanvas >> asElement [
 	^ canvasElement asScalableElement
 ]
 
+{ #category : #'as yet unclassified' }
+ProcessingCanvas >> background: color [
+	self canvasElement background: color.
+	self canvasElement children do: [ :child | child removeFromParent ].
+]
+
 { #category : #accessing }
 ProcessingCanvas >> canvasElement [
 	^ canvasElement

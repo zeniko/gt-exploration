@@ -48,6 +48,11 @@ ProcessingTranspiler >> compile: ast [
 ]
 
 { #category : #'as yet unclassified' }
+ProcessingTranspiler >> emitBackground: args [
+	^ 'canvas background: (Color r: ' , (args at: 1) , ' / 255.0 g: ' , (args at: 2) , ' / 255.0 b: ' , (args at: 3) , ' / 255.0)'
+]
+
+{ #category : #'as yet unclassified' }
 ProcessingTranspiler >> emitDelay: args [
 	^ '(' , args first , ' / 1000.0) seconds wait'
 ]
@@ -196,11 +201,12 @@ ProcessingTranspiler >> visitFunctionCallExpression: fnCall [
 	| name args |
 	name := fnCall receiver nameToken value.
 	args := self acceptNodes: fnCall arguments.
-	name = 'size' ifTrue: [ ^ self emitSize: args ].
+	name = 'background' ifTrue: [ ^ self emitBackground: args ].
+	name = 'delay' ifTrue: [ ^ self emitDelay: args ].
+	name = 'ellipse' ifTrue: [ ^ self emitEllipse: args ].
 	name = 'fill' ifTrue: [ ^ self emitFill: args ].
 	name = 'rect' ifTrue: [ ^ self emitRect: args ].
-	name = 'ellipse' ifTrue: [ ^ self emitEllipse: args ].
-	name = 'delay' ifTrue: [ ^ self emitDelay: args ].
+	name = 'size' ifTrue: [ ^ self emitSize: args ].
 	name = 'text' ifTrue: [ ^ self emitText: args ].
 	name = 'textSize' ifTrue: [ ^ self emitTextSize: args ].
 	(userDefs includesKey: name) ifTrue: [ ^ '(self ' , (self emitFunctionDef: name with: args) , ')' ].
