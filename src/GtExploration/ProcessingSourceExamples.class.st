@@ -109,6 +109,16 @@ recursion(200)'
 ]
 
 { #category : #'as yet unclassified' }
+ProcessingSourceExamples >> sourceCodeShapes [
+	<gtExample>
+	^ 'size(200, 200)
+rect(20, 30, 60, 40)
+ellipse(150, 50, 60, 40)
+line(25, 150, 75, 125)
+triangle(125, 125, 150, 175, 175, 150)'
+]
+
+{ #category : #'as yet unclassified' }
 ProcessingSourceExamples >> sourceCodeSwitzerland [
 	<gtExample>
 	"This is an example from the introductionary course and thus inaccurate in both color and proportion"
@@ -174,6 +184,16 @@ ProcessingSourceExamples >> sourceRecursion [
 	| source |
 	source := ProcessingSource new fromString: self sourceCodeRecursion.
 	self assert: source asString equals: self sourceCodeRecursion.
+	self assert: source program isNotNil.
+	^ source
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingSourceExamples >> sourceShapes [
+	<gtExample>
+	| source |
+	source := ProcessingSource new fromString: self sourceCodeShapes.
+	self assert: source asString equals: self sourceCodeShapes.
 	self assert: source program isNotNil.
 	^ source
 ]

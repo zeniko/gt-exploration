@@ -108,6 +108,17 @@ recursion: canvas n: n
 ]
 
 { #category : #'as yet unclassified' }
+ProcessingTranspilerExamples >> transpilationShapes [
+	<gtExample>
+	^ 'drawOnto: canvas
+	canvas size: 200 by: 200.
+	canvas rect: 60 by: 40 at: 20 @ 30.
+	canvas ellipse: 60 by: 40 at: 150 @ 50.
+	canvas line: 25 @ 150 to: 75 @ 125.
+	canvas triangle: { 125 @ 125. 150 @ 175. 175 @ 150. }.'
+]
+
+{ #category : #'as yet unclassified' }
 ProcessingTranspilerExamples >> transpilationSwitzerland [
 	<gtExample>
 	^ 'drawOnto: canvas
@@ -212,6 +223,19 @@ ProcessingTranspilerExamples >> transpileRecursion [
 
 ' join: ((transpiler compile: ast) class methods collect: [ :method | method sourceCode ]) sorted) equals: self transpilationRecursion.
 	^ "transpiler compile:" ast
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingTranspilerExamples >> transpileShapes [
+	<gtExample>
+	| ast transpiler |
+	ast := ProcessingParserExamples new parseShapes.
+	transpiler := self newTranspiler.
+	self assert: (transpiler transpile: ast) equals: self transpilationShapes.
+	self assert: transpiler variables size equals: 0.
+	self assert: transpiler userDefs size equals: 0.
+	self assert: ((transpiler compile: ast) class >> #drawOnto:) sourceCode equals: self transpilationShapes.
+	^ transpiler compile: ast
 ]
 
 { #category : #'as yet unclassified' }

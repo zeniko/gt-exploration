@@ -74,6 +74,15 @@ ProcessingProgramExamples >> programRecursion [
 ]
 
 { #category : #'as yet unclassified' }
+ProcessingProgramExamples >> programShapes [
+	<gtExample>
+	| program |
+	program := ProcessingSourceExamples new sourceShapes program.
+	self assert: program compilation isNotNil.
+	^ program
+]
+
+{ #category : #'as yet unclassified' }
 ProcessingProgramExamples >> programSwitzerland [
 	<gtExample>
 	| program |

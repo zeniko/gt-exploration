@@ -115,6 +115,21 @@ ProcessingCanvasExamples >> recursion [
 ]
 
 { #category : #'as yet unclassified' }
+ProcessingCanvasExamples >> shapes [
+	<gtExample>
+	| canvas |
+	canvas := ProcessingProgramExamples new programShapes canvas.
+	
+	self assert: canvas fillColor equals: Color white.
+	self assert: canvas canvasElement children size equals: 4.
+	self assert: (canvas canvasElement children first isKindOf: BlElement).
+	self assert: (canvas canvasElement children second isKindOf: BlEllipseElement).
+	self assert: (canvas canvasElement children third isKindOf: BlLineElement).
+	self assert: (canvas canvasElement children fourth isKindOf: BlPolygonElement).
+	^ canvas
+]
+
+{ #category : #'as yet unclassified' }
 ProcessingCanvasExamples >> singleCircle [
 	<gtExample>
 	| canvas child |
@@ -131,6 +146,20 @@ ProcessingCanvasExamples >> singleCircle [
 ]
 
 { #category : #'as yet unclassified' }
+ProcessingCanvasExamples >> singleLine [
+	<gtExample>
+	| canvas child |
+	canvas := self container.
+	canvas line: 0@100 to: 200@0.
+	child := canvas canvasElement children last.
+	self assert: child class equals: BlLineElement.
+	self assert: child border paint color equals: Color black.
+	self assert: child border width equals: 0.5.
+	^ canvas
+
+]
+
+{ #category : #'as yet unclassified' }
 ProcessingCanvasExamples >> singleSquare [
 	<gtExample>
 	| canvas child |
@@ -140,6 +169,21 @@ ProcessingCanvasExamples >> singleSquare [
 	child := canvas canvasElement children last.
 	self assert: (child isKindOf: BlElement).
 	self assert: child measuredBounds position equals: 50 @ 50.
+	self assert: child background paint color equals: Color white.
+	self assert: child border paint color equals: Color black.
+	self assert: child border width equals: 0.5.
+	^ canvas
+
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingCanvasExamples >> singleTriangle [
+	<gtExample>
+	| canvas child |
+	canvas := self container.
+	canvas triangle: { 0@200. 200@200. 100@0. }.
+	child := canvas canvasElement children last.
+	self assert: child class equals: BlPolygonElement.
 	self assert: child background paint color equals: Color white.
 	self assert: child border paint color equals: Color black.
 	self assert: child border width equals: 0.5.

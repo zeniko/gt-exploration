@@ -79,6 +79,11 @@ ProcessingTranspiler >> emitFunctionDef: name with: args [
 ]
 
 { #category : #'as yet unclassified' }
+ProcessingTranspiler >> emitLine: args [
+	^ 'canvas line: ' , (args at: 1) , ' @ ' , (args at: 2) , ' to: ' , (args at: 3) , ' @ ' , (args at: 4)
+]
+
+{ #category : #'as yet unclassified' }
 ProcessingTranspiler >> emitRect: args [
 	^ 'canvas rect: ' , (args at: 3) , ' by: ' , (args at: 4) , ' at: ' , (args at: 1) , ' @ ' , (args at: 2)
 ]
@@ -96,6 +101,11 @@ ProcessingTranspiler >> emitText: args [
 { #category : #'as yet unclassified' }
 ProcessingTranspiler >> emitTextSize: args [
 	^ 'canvas textSize: ' , (args at: 1)
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingTranspiler >> emitTriangle: args [
+	^ 'canvas triangle: { ' , (args at: 1) , ' @ ' , (args at: 2) , '. ' , (args at: 3) , ' @ ' , (args at: 4) , '. ' , (args at: 5) , ' @ ' , (args at: 6) , '. }'
 ]
 
 { #category : #'as yet unclassified' }
@@ -205,10 +215,12 @@ ProcessingTranspiler >> visitFunctionCallExpression: fnCall [
 	name = 'delay' ifTrue: [ ^ self emitDelay: args ].
 	name = 'ellipse' ifTrue: [ ^ self emitEllipse: args ].
 	name = 'fill' ifTrue: [ ^ self emitFill: args ].
+	name = 'line' ifTrue: [ ^ self emitLine: args ].
 	name = 'rect' ifTrue: [ ^ self emitRect: args ].
 	name = 'size' ifTrue: [ ^ self emitSize: args ].
 	name = 'text' ifTrue: [ ^ self emitText: args ].
 	name = 'textSize' ifTrue: [ ^ self emitTextSize: args ].
+	name = 'triangle' ifTrue: [ ^ self emitTriangle: args ].
 	(userDefs includesKey: name) ifTrue: [ ^ '(self ' , (self emitFunctionDef: name with: args) , ')' ].
 	ProcessingNotImplementedException new signal: 'Function ' , name , ' not implemented!'
 ]

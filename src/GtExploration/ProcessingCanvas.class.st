@@ -40,18 +40,19 @@ ProcessingCanvas >> colorWithR: r g: g b: b [
 ProcessingCanvas >> ellipse: dx by: dy at: xy [
 	| shape |
 	shape := BlEllipseElement new
-		centerAnchor: (BlAbsolutePositionAnchor new position: xy);
+		centerAnchor: (BlAbsolutePositionAnchor position: xy);
 		majorRadius: dx / 2;
 		minorRadius: dy / 2;
 		background: fillColor;
 		border: (BlBorder paint: Color black width: 0.5);
 		yourself.
-	canvasElement addChild: shape
+	canvasElement addChild: shape.
+	^ shape
 ]
 
 { #category : #'as yet unclassified' }
 ProcessingCanvas >> fill: color [
-	fillColor:=color.
+	fillColor := color.
 ]
 
 { #category : #accessing }
@@ -79,14 +80,28 @@ ProcessingCanvas >> initialize [
 ]
 
 { #category : #'as yet unclassified' }
+ProcessingCanvas >> line: fromXy to: toXy [
+	| shape |
+	shape := BlLineElement new
+		fromAnchor: (BlAbsolutePositionAnchor position: fromXy);
+		toAnchor: (BlAbsolutePositionAnchor position: toXy);
+		border: (BlBorder paint: Color black width: 0.5);
+		yourself.
+	canvasElement addChild: shape.
+	^ shape
+]
+
+{ #category : #'as yet unclassified' }
 ProcessingCanvas >> rect: width by: height at: xy [
 	| shape |
-	shape := BlElement new.
-	shape background: fillColor.
-	shape size: (Point x: width y: height).
-	shape relocate: xy.
-	shape border: (BlBorder paint: Color black width: 0.5).
-	canvasElement addChild: shape
+	shape := BlElement new
+		background: fillColor;
+		size: (Point x: width y: height);
+		relocate: xy;
+		border: (BlBorder paint: Color black width: 0.5);
+		yourself.
+	canvasElement addChild: shape.
+	^ shape
 ]
 
 { #category : #'as yet unclassified' }
@@ -114,4 +129,16 @@ ProcessingCanvas >> textSize [
 { #category : #'as yet unclassified' }
 ProcessingCanvas >> textSize: size [
 	textSize := size.
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingCanvas >> triangle: vertices [
+	| shape |
+	shape := BlPolygonElement new
+		anchors: (vertices collect: [ :xy | BlAbsolutePositionAnchor position: xy ]);
+		background: fillColor;
+		border: (BlBorder paint: Color black width: 0.5);
+		yourself.
+	canvasElement addChild: shape.
+	^ shape
 ]

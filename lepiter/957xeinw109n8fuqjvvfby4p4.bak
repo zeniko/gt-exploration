@@ -967,7 +967,7 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-04-17T19:01:18.882+02:00"
+												"dateAndTimeString" : "2025-04-17T19:02:25.039+02:00"
 											}
 										},
 										"uid" : {
@@ -977,7 +977,7 @@
 										"paragraphStyle" : {
 											"__type" : "textStyle"
 										},
-										"string" : "Indentation shortcut"
+										"string" : "Indent/dedent shortcuts for Lepiter pages"
 									}
 								]
 							},

@@ -333,7 +333,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-04-18T22:41:14.646+02:00"
+									"dateAndTimeString" : "2025-04-18T23:22:03.492+02:00"
 								}
 							},
 							"uid" : {
@@ -343,7 +343,47 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Further extend [[Processing API]]: `background`"
+							"string" : "Further extend [[Processing API]]: `background`, `line`, `triangle`"
+						},
+						{
+							"__type" : "exampleSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-04-18T23:47:41.299+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-04-18T23:47:41.299+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "UKViNHbvDQCQWs+HDiwq3g=="
+							},
+							"exampleSelector" : "shapes",
+							"previewHeight" : 200,
+							"previewShowSelector" : "gtViewsFor:",
+							"exampleBehaviorName" : "ProcessingCanvasExamples",
+							"codeExpanded" : true,
+							"previewExpanded" : false,
+							"noCode" : true
 						}
 					]
 				},
