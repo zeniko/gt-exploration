@@ -70,6 +70,19 @@ while x > 0:
 ]
 
 { #category : #'as yet unclassified' }
+ProcessingSourceExamples >> sourceCodeExample04 [
+	<gtExample>
+	^ 'size(30, 20)
+x = 0
+def setX():
+    global x
+    x = random(2) ** 2 * sin(radians(270))
+setX()
+text(x, 0, 20)
+'
+]
+
+{ #category : #'as yet unclassified' }
 ProcessingSourceExamples >> sourceCodeFibonacci [
 	<gtExample>
 	^ 'size(200, 200)
@@ -154,6 +167,16 @@ ProcessingSourceExamples >> sourceExample03 [
 	| source |
 	source := ProcessingSource new fromString: self sourceCodeExample03.
 	self assert: source asString equals: self sourceCodeExample03.
+	self assert: source program isNotNil.
+	^ source
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingSourceExamples >> sourceExample04 [
+	<gtExample>
+	| source |
+	source := ProcessingSource new fromString: self sourceCodeExample04.
+	self assert: source asString equals: self sourceCodeExample04.
 	self assert: source program isNotNil.
 	^ source
 ]

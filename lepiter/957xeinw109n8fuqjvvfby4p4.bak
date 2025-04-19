@@ -39,7 +39,7 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-04-15T22:04:27.818+02:00"
+												"dateAndTimeString" : "2025-04-19T23:30:05.194+02:00"
 											}
 										},
 										"uid" : {
@@ -49,7 +49,7 @@
 										"paragraphStyle" : {
 											"__type" : "textStyle"
 										},
-										"string" : "API expansion: `triangle`, `background`, `stroke`, `strokeWeight`, `width` and `height`, `sin`, `radians` (so that it runs {{gtPage:Funktionen und Rekursion|db=dl0rc62x02fk8k57e43hr8acw}})"
+										"string" : "API expansion: `stroke`, `strokeWeight`, `width` and `height` (so that it runs {{gtPage:Funktionen und Rekursion|db=dl0rc62x02fk8k57e43hr8acw}})"
 									}
 								]
 							},
@@ -528,43 +528,6 @@
 								"__type" : "textStyle"
 							},
 							"string" : "Allow stepping through bytecode"
-						},
-						{
-							"__type" : "textSnippet",
-							"children" : {
-								"__type" : "snippets",
-								"items" : [ ]
-							},
-							"createEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"createTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-04-15T14:04:20.106+02:00"
-								}
-							},
-							"editEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"editTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-04-15T17:55:45.398+02:00"
-								}
-							},
-							"uid" : {
-								"__type" : "uid",
-								"uidString" : "ELegtDHvDQCU/YTICFRQHA=="
-							},
-							"paragraphStyle" : {
-								"__type" : "textStyle"
-							},
-							"string" : "Further Python functionality: `global`, `return`"
 						},
 						{
 							"__type" : "textSnippet",

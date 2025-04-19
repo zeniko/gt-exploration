@@ -43,6 +43,15 @@ ProcessingParserExamples >> parseExample03 [
 ]
 
 { #category : #'as yet unclassified' }
+ProcessingParserExamples >> parseExample04 [
+	<gtExample>
+	| ast |
+	ast := ProcessingProgramExamples new programExample04 ast.
+	self assert: ast statements size equals: 5.
+	^ ast
+]
+
+{ #category : #'as yet unclassified' }
 ProcessingParserExamples >> parseFibonacci [
 	<gtExample>
 	| ast |

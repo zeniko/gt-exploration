@@ -322,6 +322,43 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-04-19T22:26:46.259+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-04-19T23:29:45.98+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "OAHYMInvDQCURGaTCeWxZw=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Further Python functionality: `return`, `global`"
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
 									"dateAndTimeString" : "2025-04-18T22:40:53.29+02:00"
 								}
 							},
@@ -333,7 +370,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-04-18T23:22:03.492+02:00"
+									"dateAndTimeString" : "2025-04-19T23:30:30.933+02:00"
 								}
 							},
 							"uid" : {
@@ -343,7 +380,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Further extend [[Processing API]]: `background`, `line`, `triangle`"
+							"string" : "Further extend [[Processing API]]: `background`, `line`, `triangle`, `random`, `sin`, `cos`, `tan`, `radians`"
 						},
 						{
 							"__type" : "exampleSnippet",

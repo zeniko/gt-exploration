@@ -53,6 +53,11 @@ ProcessingTranspiler >> emitBackground: args [
 ]
 
 { #category : #'as yet unclassified' }
+ProcessingTranspiler >> emitCos: args [
+	^ '(' , (args at: 1) , ' cos)'
+]
+
+{ #category : #'as yet unclassified' }
 ProcessingTranspiler >> emitDelay: args [
 	^ '(' , args first , ' / 1000.0) seconds wait'
 ]
@@ -84,13 +89,33 @@ ProcessingTranspiler >> emitLine: args [
 ]
 
 { #category : #'as yet unclassified' }
+ProcessingTranspiler >> emitRadians: args [
+	^ '(' , (args at: 1) , ' * Float pi / 180)'
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingTranspiler >> emitRandom: args [
+	^ '(SharedRandom globalGenerator next * ' , (args at: 1) , ')'
+]
+
+{ #category : #'as yet unclassified' }
 ProcessingTranspiler >> emitRect: args [
 	^ 'canvas rect: ' , (args at: 3) , ' by: ' , (args at: 4) , ' at: ' , (args at: 1) , ' @ ' , (args at: 2)
 ]
 
 { #category : #'as yet unclassified' }
+ProcessingTranspiler >> emitSin: args [
+	^ '(' , (args at: 1) , ' sin)'
+]
+
+{ #category : #'as yet unclassified' }
 ProcessingTranspiler >> emitSize: args [
 	^ 'canvas size: ' , (args at: 1) , ' by: ' , (args at: 2)
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingTranspiler >> emitTan: args [
+	^ '(' , (args at: 1) , ' tan)'
 ]
 
 { #category : #'as yet unclassified' }
@@ -134,13 +159,15 @@ ProcessingTranspiler >> transpile: ast [
 
 { #category : #'as yet unclassified' }
 ProcessingTranspiler >> transpileFunction: ast name: name args: args [
-	| globalLines globalIndentation res |
+	| saveLocalVariables saveGlobalVariables saveLines saveIndentation res |
 	"Preserve global state"
-	localVariables do: [ :var | globalVariables add: var ].
-	globalLines := lines.
-	globalIndentation := indentation.
+	saveLocalVariables := localVariables.
+	saveGlobalVariables := globalVariables.
+	saveLines := lines.
+	saveIndentation := indentation.
 	
 	localVariables := Set new.
+	globalVariables := Set new.
 	lines := OrderedCollection new.
 	indentation := 0.
 	self appendLine: ''.
@@ -152,11 +179,13 @@ ProcessingTranspiler >> transpileFunction: ast name: name args: args [
 	res := '
 ' , ('
 ' join: lines).
+	globalVariables do: [ :var | saveGlobalVariables add: var ].
 	
 	"Restore global state"
-	indentation := globalIndentation.
-	lines := globalLines.
-	localVariables := globalVariables.
+	indentation := saveIndentation.
+	lines := saveLines.
+	globalVariables := saveGlobalVariables.
+	localVariables := saveLocalVariables.
 	^ res
 ]
 
@@ -174,7 +203,9 @@ ProcessingTranspiler >> variables [
 ProcessingTranspiler >> visitAssignmentStatement: expr [
 	| name |
 	name := expr lhs nameToken value.
-	localVariables add: name.
+	(globalVariables includes: name) ifFalse: [
+		localVariables add: name.
+	].
 	self appendLine: name , ' := ' , (expr tos first acceptVisitor: self) , '.'
 ]
 
@@ -212,14 +243,19 @@ ProcessingTranspiler >> visitFunctionCallExpression: fnCall [
 	name := fnCall receiver nameToken value.
 	args := self acceptNodes: fnCall arguments.
 	name = 'background' ifTrue: [ ^ self emitBackground: args ].
+	name = 'cos' ifTrue: [ ^ self emitCos: args ].
 	name = 'delay' ifTrue: [ ^ self emitDelay: args ].
 	name = 'ellipse' ifTrue: [ ^ self emitEllipse: args ].
 	name = 'fill' ifTrue: [ ^ self emitFill: args ].
 	name = 'line' ifTrue: [ ^ self emitLine: args ].
+	name = 'radians' ifTrue: [ ^ self emitRadians: args ].
+	name = 'random' ifTrue: [ ^ self emitRandom: args ].
 	name = 'rect' ifTrue: [ ^ self emitRect: args ].
+	name = 'sin' ifTrue: [ ^ self emitSin: args ].
 	name = 'size' ifTrue: [ ^ self emitSize: args ].
 	name = 'text' ifTrue: [ ^ self emitText: args ].
 	name = 'textSize' ifTrue: [ ^ self emitTextSize: args ].
+	name = 'tan' ifTrue: [ ^ self emitTan: args ].
 	name = 'triangle' ifTrue: [ ^ self emitTriangle: args ].
 	(userDefs includesKey: name) ifTrue: [ ^ '(self ' , (self emitFunctionDef: name with: args) , ')' ].
 	ProcessingNotImplementedException new signal: 'Function ' , name , ' not implemented!'
@@ -231,6 +267,11 @@ ProcessingTranspiler >> visitFunctionDefinition: def [
 	name := def fname value.
 	args := self acceptNodes: def parameters.
 	^ self transpileFunction: def name: name args: args
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingTranspiler >> visitGlobalStatement: global [
+	global nameTokens do: [ :token | globalVariables add: token value ].
 ]
 
 { #category : #'as yet unclassified' }

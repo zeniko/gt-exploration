@@ -63,6 +63,20 @@ ProcessingTranspilerExamples >> transpilationExample03 [
 ]
 
 { #category : #'as yet unclassified' }
+ProcessingTranspilerExamples >> transpilationExample04 [
+	<gtExample>
+	^ 'drawOnto: canvas
+	canvas size: 30 by: 20.
+	x := 0.
+	(self setX: canvas).
+	canvas text: x at: 0 @ 20.
+	
+
+setX: canvas
+	x := (((SharedRandom globalGenerator next * 2) ** 2) * ((270 * Float pi / 180) sin))..'
+]
+
+{ #category : #'as yet unclassified' }
 ProcessingTranspilerExamples >> transpilationFibonacci [
 	<gtExample>
 	^ 'drawOnto: canvas
@@ -183,6 +197,22 @@ ProcessingTranspilerExamples >> transpileExample03 [
 ]
 
 { #category : #'as yet unclassified' }
+ProcessingTranspilerExamples >> transpileExample04 [
+	<gtExample>
+	| ast transpiler |
+	ast := ProcessingParserExamples new parseExample04.
+	transpiler := self newTranspiler.
+	self assert: (transpiler transpile: ast) equals: self transpilationExample04.
+	self assert: transpiler variables size equals: 1.
+	self assert: (' ' join: transpiler variables) equals: 'x'.
+	self assert: transpiler userDefs size equals: 1.
+	self assert: ('
+
+' join: ((transpiler compile: ast) class methods collect: [ :method | method sourceCode ]) sorted) equals: self transpilationExample04.
+	^ transpiler compile: ast
+]
+
+{ #category : #'as yet unclassified' }
 ProcessingTranspilerExamples >> transpileFibonacci [
 	<gtExample>
 	| ast transpiler |
@@ -194,7 +224,7 @@ ProcessingTranspilerExamples >> transpileFibonacci [
 	self assert: ('
 
 ' join: ((transpiler compile: ast) class methods collect: [ :method | method sourceCode ]) sorted) equals: self transpilationFibonacci.
-	^ "transpiler compile:" ast
+	^ transpiler compile: ast
 ]
 
 { #category : #'as yet unclassified' }

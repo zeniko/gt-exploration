@@ -47,6 +47,15 @@ ProcessingProgramExamples >> programExample03 [
 ]
 
 { #category : #'as yet unclassified' }
+ProcessingProgramExamples >> programExample04 [
+	<gtExample>
+	| program |
+	program := ProcessingSourceExamples new sourceExample04 program.
+	self assert: program compilation isNotNil.
+	^ program
+]
+
+{ #category : #'as yet unclassified' }
 ProcessingProgramExamples >> programFibonacci [
 	<gtExample>
 	| program |

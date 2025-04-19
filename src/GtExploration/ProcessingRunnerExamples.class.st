@@ -21,8 +21,8 @@ ProcessingRunnerExamples >> runAlpinerWanderweg [
 	program := ProcessingProgramExamples new programAlpinerWanderweg.
 	runner := self newRunner.
 	runner run: program; wait.
-	self assert: runner canvas isNil equals: false.
-	self assert: runner isDone equals: true.
+	self assert: runner canvas isNotNil.
+	self assert: runner isDone.
 	^ runner
 ]
 
@@ -33,8 +33,8 @@ ProcessingRunnerExamples >> runExample02 [
 	program := ProcessingProgramExamples new programExample02.
 	runner := self newRunner.
 	runner run: program; limitTo: 2 seconds; wait.
-	self assert: runner canvas isNil equals: false.
-	self assert: runner isDone equals: true.
+	self assert: runner canvas isNotNil.
+	self assert: runner isDone.
 	^ runner
 ]
 
@@ -46,8 +46,20 @@ ProcessingRunnerExamples >> runExample03 [
 	program := ProcessingProgramExamples new programExample03.
 	runner := self newRunner.
 	runner run: program; limitTo: 2 seconds; wait.
-	self assert: runner canvas isNil equals: false.
-	self assert: runner isDone equals: true.
+	self assert: runner canvas isNotNil.
+	self assert: runner isDone.
+	^ runner
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingRunnerExamples >> runExample04 [
+	<gtExample>
+	| program runner |
+	program := ProcessingProgramExamples new programExample04.
+	runner := self newRunner.
+	runner run: program; limitTo: 2 seconds; wait.
+	self assert: runner canvas isNotNil.
+	self assert: runner isDone.
 	^ runner
 ]
 
@@ -58,8 +70,8 @@ ProcessingRunnerExamples >> runFibonacci [
 	program := ProcessingProgramExamples new programFibonacci.
 	runner := self newRunner.
 	runner run: program; limitTo: 2 seconds; wait.
-	self assert: runner canvas isNil equals: false.
-	self assert: runner isDone equals: true.
+	self assert: runner canvas isNotNil.
+	self assert: runner isDone.
 	^ runner
 ]
 
@@ -71,8 +83,8 @@ ProcessingRunnerExamples >> runInterrupted [
 	program := ProcessingProgramExamples new programEndlessLoop.
 	runner := self newRunner.
 	runner limitTo: 0.1 seconds; run: program; wait.
-	self assert: runner isDone equals: false.
-	self assert: runner canvas isNil equals: false.
+	self assert: runner isDone not.
+	self assert: runner canvas isNotNil.
 	^ runner
 ]
 
@@ -83,8 +95,8 @@ ProcessingRunnerExamples >> runMinimal [
 	program := ProcessingProgramExamples new programMinimal.
 	runner := self newRunner.
 	runner run: program; wait.
-	self assert: runner canvas isNil equals: false.
-	self assert: runner isDone equals: true.
+	self assert: runner canvas isNotNil.
+	self assert: runner isDone.
 	^ runner
 ]
 
@@ -95,7 +107,7 @@ ProcessingRunnerExamples >> runRecursion [
 	program := ProcessingProgramExamples new programRecursion.
 	runner := self newRunner.
 	runner run: program; limitTo: 2 seconds; wait.
-	self assert: runner canvas isNil equals: false.
-	self assert: runner isDone equals: true.
+	self assert: runner canvas isNotNil.
+	self assert: runner isDone.
 	^ runner
 ]
