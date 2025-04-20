@@ -4,7 +4,7 @@ Class {
 	#category : #'GtExploration-Examples'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingSourceExamples >> render [
 	<gtExample>
 	| source element |
@@ -14,7 +14,7 @@ ProcessingSourceExamples >> render [
 	^ element
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingSourceExamples >> sourceAlpinerWanderweg [
 	<gtExample>
 	| source |
@@ -24,7 +24,7 @@ ProcessingSourceExamples >> sourceAlpinerWanderweg [
 	^ source
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #source }
 ProcessingSourceExamples >> sourceCodeAlpinerWanderweg [
 	<gtExample>
 	^ '
@@ -35,13 +35,13 @@ rect(50, 50 + 100 / 3, 100, 100 / 3)
 '
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #source }
 ProcessingSourceExamples >> sourceCodeEndlessLoop [
 	<gtExample>
 	^ 'while 1 == 1: loop'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #source }
 ProcessingSourceExamples >> sourceCodeExample02 [
 	<gtExample>
 	^ 'size(200, 200)
@@ -54,7 +54,7 @@ if a >= 200:
 	ellipse(10, 10, 20, 20)'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #source }
 ProcessingSourceExamples >> sourceCodeExample03 [
 	<gtExample>
 	^ 'size(200, 200)
@@ -69,7 +69,7 @@ while x > 0:
 	delay(50)'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #source }
 ProcessingSourceExamples >> sourceCodeExample04 [
 	<gtExample>
 	^ 'size(30, 20)
@@ -81,14 +81,14 @@ setX()
 text(x, 0, 20)'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #source }
 ProcessingSourceExamples >> sourceCodeExample05 [
 	<gtExample>
 	^ 'size(200, 100)
 _a := width; _b := height'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #source }
 ProcessingSourceExamples >> sourceCodeFibonacci [
 	<gtExample>
 	^ 'size(200, 200)
@@ -108,13 +108,13 @@ fill(255, 255, 255)
 text(fibonacci(10), 20, 125)'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #source }
 ProcessingSourceExamples >> sourceCodeMinimal [
 	<gtExample>
 	^ 'size(200, 200)'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #source }
 ProcessingSourceExamples >> sourceCodeRecursion [
 	<gtExample>
 	^ 'size(200, 200)
@@ -127,7 +127,7 @@ def recursion(n):
 recursion(200)'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #source }
 ProcessingSourceExamples >> sourceCodeShapes [
 	<gtExample>
 	^ 'size(200, 200)
@@ -137,7 +137,7 @@ line(25, 150, 75, 125)
 triangle(125, 125, 150, 175, 175, 150)'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #source }
 ProcessingSourceExamples >> sourceCodeSwitzerland [
 	<gtExample>
 	"This is an example from the introductionary course and thus inaccurate in both color and proportion"
@@ -147,7 +147,7 @@ rect(75, 25, 50, 150)
 rect(25, 75, 150, 50)'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingSourceExamples >> sourceEndlessLoop [
 	<gtExample>
 	| source |
@@ -157,7 +157,7 @@ ProcessingSourceExamples >> sourceEndlessLoop [
 	^ source
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingSourceExamples >> sourceExample02 [
 	<gtExample>
 	| source |
@@ -167,7 +167,7 @@ ProcessingSourceExamples >> sourceExample02 [
 	^ source
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingSourceExamples >> sourceExample03 [
 	<gtExample>
 	| source |
@@ -177,7 +177,7 @@ ProcessingSourceExamples >> sourceExample03 [
 	^ source
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingSourceExamples >> sourceExample04 [
 	<gtExample>
 	| source |
@@ -187,7 +187,7 @@ ProcessingSourceExamples >> sourceExample04 [
 	^ source
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingSourceExamples >> sourceExample05 [
 	<gtExample>
 	| source |
@@ -197,7 +197,7 @@ ProcessingSourceExamples >> sourceExample05 [
 	^ source
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingSourceExamples >> sourceFibonacci [
 	<gtExample>
 	| source |
@@ -207,7 +207,7 @@ ProcessingSourceExamples >> sourceFibonacci [
 	^ source
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingSourceExamples >> sourceMinimal [
 	<gtExample>
 	| source |
@@ -217,7 +217,7 @@ ProcessingSourceExamples >> sourceMinimal [
 	^ source
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingSourceExamples >> sourceRecursion [
 	<gtExample>
 	| source |
@@ -227,7 +227,7 @@ ProcessingSourceExamples >> sourceRecursion [
 	^ source
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingSourceExamples >> sourceShapes [
 	<gtExample>
 	| source |
@@ -237,7 +237,7 @@ ProcessingSourceExamples >> sourceShapes [
 	^ source
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingSourceExamples >> sourceSwitzerland [
 	<gtExample>
 	| source |

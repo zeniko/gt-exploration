@@ -4,7 +4,7 @@ Class {
 	#category : #'GtExploration-Examples'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingRunnerExamples >> newRunner [
 	<gtExample>
 	| runner |
@@ -14,7 +14,7 @@ ProcessingRunnerExamples >> newRunner [
 	^ runner
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingRunnerExamples >> runAlpinerWanderweg [
 	<gtExample>
 	| program runner |
@@ -27,7 +27,7 @@ ProcessingRunnerExamples >> runAlpinerWanderweg [
 	^ runner
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingRunnerExamples >> runExample02 [
 	<gtExample>
 	| program runner |
@@ -40,7 +40,7 @@ ProcessingRunnerExamples >> runExample02 [
 	^ runner
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingRunnerExamples >> runExample03 [
 	<gtExample>
 	<noTest> "Example03 contains deliberate `delay` calls"
@@ -54,7 +54,7 @@ ProcessingRunnerExamples >> runExample03 [
 	^ runner
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingRunnerExamples >> runExample04 [
 	<gtExample>
 	| program runner |
@@ -66,7 +66,7 @@ ProcessingRunnerExamples >> runExample04 [
 	^ runner
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingRunnerExamples >> runExample05 [
 	<gtExample>
 	| program runner |
@@ -80,7 +80,7 @@ ProcessingRunnerExamples >> runExample05 [
 	^ runner
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingRunnerExamples >> runFibonacci [
 	<gtExample>
 	| program runner |
@@ -92,7 +92,7 @@ ProcessingRunnerExamples >> runFibonacci [
 	^ runner
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingRunnerExamples >> runInterrupted [
 	<gtExample>
 	<noTest> "Runaway detection currently takes a few seconds"
@@ -109,7 +109,7 @@ ProcessingRunnerExamples >> runInterrupted [
 	^ runner
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingRunnerExamples >> runMinimal [
 	<gtExample>
 	| program runner |
@@ -121,7 +121,7 @@ ProcessingRunnerExamples >> runMinimal [
 	^ runner
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingRunnerExamples >> runRecursion [
 	<gtExample>
 	| program runner |

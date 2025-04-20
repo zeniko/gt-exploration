@@ -9,12 +9,12 @@ Class {
 	#category : #'GtExploration-Processing'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 ProcessingProgram >> ast [
 	^ ast
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #runtime }
 ProcessingProgram >> canvas [
 	| runner |
 	runner := self run.
@@ -24,30 +24,30 @@ ProcessingProgram >> canvas [
 	^ runner canvas
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 ProcessingProgram >> compilation [
 	^ compilation
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #views }
 ProcessingProgram >> gtBytecodeFor: aView [
 	<gtView>
 	^ compilation gtBytecodeFor: aView
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #views }
 ProcessingProgram >> gtOutputFor: aView [
 	<gtView>
 	^ compilation gtOutputFor: aView
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #views }
 ProcessingProgram >> gtSourceCodeFor: aView [
 	<gtView>
 	^ compilation gtSourceCodeFor: aView
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #views }
 ProcessingProgram >> gtTreeFor: aView [
 	<gtView>
 	"^ ast gtExploreFor: aView"
@@ -93,18 +93,18 @@ ProcessingProgram >> gtTreeFor: aView [
 			element ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #views }
 ProcessingProgram >> gtViewIntermediaryRepresentationFor: aView [
 	<gtView>
 	^ compilation gtViewIntermediaryRepresentationFor: aView
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #runtime }
 ProcessingProgram >> run [
 	^ self runFor: 2 seconds
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #runtime }
 ProcessingProgram >> runFor: duration [
 	^ ProcessingRunner new
 		limitTo: duration;
@@ -112,12 +112,12 @@ ProcessingProgram >> runFor: duration [
 		yourself
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 ProcessingProgram >> source [
 	^ source
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 ProcessingProgram >> source: aSource [
 	source := aSource.
 	ast := ProcessingParser parse: source asString.

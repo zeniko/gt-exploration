@@ -12,7 +12,7 @@ GtExplorationHomeSection >> cardPriorities [
 	)
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #card }
 GtExplorationHomeSection >> processingAbstractionCard [
 	<gtSectionCard>
 	<gtExample>

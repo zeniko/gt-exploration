@@ -9,22 +9,22 @@ Class {
 	#category : #'GtExploration-Processing'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 ProcessingRunner >> canvas [
 	^ canvas
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 ProcessingRunner >> canvas: aCanvas [
 	canvas := aCanvas
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 ProcessingRunner >> isDone [
 	^ done
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #runtime }
 ProcessingRunner >> limitTo: duration [
 	"Schedule a (hard) interruption, if the program still runs after the given `duration`."
 	^ ([ duration wait ] asAsyncForkedFuture then: [
@@ -34,7 +34,7 @@ ProcessingRunner >> limitTo: duration [
 	]) await
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #runtime }
 ProcessingRunner >> run: compilation [
 	| worker |
 	worker := AsyncFutureThreadPoolWorker new.
@@ -54,7 +54,7 @@ ProcessingRunner >> run: compilation [
 	^ promise
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #runtime }
 ProcessingRunner >> wait [
 	^ promise wait
 ]

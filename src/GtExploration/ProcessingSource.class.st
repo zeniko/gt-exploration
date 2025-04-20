@@ -7,29 +7,29 @@ Class {
 	#category : #'GtExploration-Processing'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 ProcessingSource >> asString [
 	^ source contents
 ]
 
-{ #category : #accessing }
+{ #category : #initialization }
 ProcessingSource >> fromFile: locator [
 	source := locator.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 ProcessingSource >> fromString: code [
 	"TODO: this file does not seem to be modifyable (in #gtContentsFor)"
 	source := (FileSystem memory workingDirectory / 'sample.pyde') writeStreamDo: [ :stream | stream nextPutAll: code ]; yourself.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #views }
 ProcessingSource >> gtBytecodeFor: aView [
 	<gtView>
 	^ self program gtBytecodeFor: aView
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #views }
 ProcessingSource >> gtContentsFor: aView [
 	"copy/paste from FileLocator > AbstractFileReference > #gtContentsFor:"
 	<gtView>
@@ -49,36 +49,36 @@ ProcessingSource >> gtContentsFor: aView [
 		stencil: [ source gtEditorView ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #views }
 ProcessingSource >> gtOutputFor: aView [
 	<gtView>
 	^ self program gtOutputFor: aView
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #views }
 ProcessingSource >> gtSourceCodeFor: aView [
 	<gtView>
 	^ self program gtSourceCodeFor: aView
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #views }
 ProcessingSource >> gtTreeFor: aView [
 	<gtView>
 	^ self program gtTreeFor: aView
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #views }
 ProcessingSource >> gtViewIntermediaryRepresentationFor: aView [
 	<gtView>
 	^ self program gtViewIntermediaryRepresentationFor: aView
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 ProcessingSource >> program [
 	^ ProcessingProgram new source: self asString
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #runtime }
 ProcessingSource >> render [
 	^ self program canvas asElement
 ]

@@ -4,7 +4,7 @@ Class {
 	#category : #'GtExploration-Examples'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingProgramExamples >> programAlpinerWanderweg [
 	<gtExample>
 	| program |
@@ -14,7 +14,7 @@ ProcessingProgramExamples >> programAlpinerWanderweg [
 	^ program
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingProgramExamples >> programEndlessLoop [
 	<gtExample>
 	| program |
@@ -24,7 +24,7 @@ ProcessingProgramExamples >> programEndlessLoop [
 	^ program
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingProgramExamples >> programExample02 [
 	<gtExample>
 	| program |
@@ -33,7 +33,7 @@ ProcessingProgramExamples >> programExample02 [
 	^ program
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingProgramExamples >> programExample03 [
 	<gtExample>
 	| program |
@@ -42,7 +42,7 @@ ProcessingProgramExamples >> programExample03 [
 	^ program
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingProgramExamples >> programExample04 [
 	<gtExample>
 	| program |
@@ -51,7 +51,7 @@ ProcessingProgramExamples >> programExample04 [
 	^ program
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingProgramExamples >> programExample05 [
 	<gtExample>
 	| program |
@@ -60,7 +60,7 @@ ProcessingProgramExamples >> programExample05 [
 	^ program
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingProgramExamples >> programFibonacci [
 	<gtExample>
 	| program |
@@ -69,7 +69,7 @@ ProcessingProgramExamples >> programFibonacci [
 	^ program
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingProgramExamples >> programMinimal [
 	<gtExample>
 	| program |
@@ -78,7 +78,7 @@ ProcessingProgramExamples >> programMinimal [
 	^ program
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingProgramExamples >> programRecursion [
 	<gtExample>
 	| program |
@@ -87,7 +87,7 @@ ProcessingProgramExamples >> programRecursion [
 	^ program
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingProgramExamples >> programShapes [
 	<gtExample>
 	| program |
@@ -96,7 +96,7 @@ ProcessingProgramExamples >> programShapes [
 	^ program
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingProgramExamples >> programSwitzerland [
 	<gtExample>
 	| program |

@@ -12,12 +12,12 @@ Class {
 	#category : #'GtExploration-Processing'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #visitor }
 ProcessingTranspiler >> acceptNodes: nodes [
 	^ nodes collect: [ :each | each acceptVisitor: self ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #visitor }
 ProcessingTranspiler >> acceptStatements: expr [
 	indentation := indentation + 1.
 	expr statements do: [ :stmt |
@@ -30,12 +30,12 @@ ProcessingTranspiler >> acceptStatements: expr [
 	indentation := indentation - 1.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #emitter }
 ProcessingTranspiler >> appendLine: line [
 	lines add: (String new: indentation withAll:(Character tab)) , line
 ]
 
-{ #category : #accessing }
+{ #category : #compiler }
 ProcessingTranspiler >> compile: ast [
 	| class source |
 	source := self transpile: ast.
@@ -48,32 +48,32 @@ ProcessingTranspiler >> compile: ast [
 	^ class new
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #emitter }
 ProcessingTranspiler >> emitBackground: args [
 	^ '_canvas background: (Color r: ' , (args at: 1) , ' / 255.0 g: ' , (args at: 2) , ' / 255.0 b: ' , (args at: 3) , ' / 255.0)'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #emitter }
 ProcessingTranspiler >> emitCos: args [
 	^ (args at: 1) , ' cos'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #emitter }
 ProcessingTranspiler >> emitDelay: args [
 	^ '(' , args first , ' / 1000.0) seconds wait'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #emitter }
 ProcessingTranspiler >> emitEllipse: args [
 	^ '_canvas ellipse: ' , (args at: 3) , ' by: ' , (args at: 4) , ' at: ' , (args at: 1) , ' @ ' , (args at: 2)
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #emitter }
 ProcessingTranspiler >> emitFill: args [
 	^ '_canvas fill: (Color r: ' , (args at: 1) , ' / 255.0 g: ' , (args at: 2) , ' / 255.0 b: ' , (args at: 3) , ' / 255.0)'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #emitter }
 ProcessingTranspiler >> emitFunctionDef: name with: args [
 	| defLine argNames |
 	args size = 0 ifTrue: [ ^ name ].
@@ -85,64 +85,64 @@ ProcessingTranspiler >> emitFunctionDef: name with: args [
 	^ defLine
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #emitter }
 ProcessingTranspiler >> emitLine: args [
 	^ '_canvas line: ' , (args at: 1) , ' @ ' , (args at: 2) , ' to: ' , (args at: 3) , ' @ ' , (args at: 4)
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #emitter }
 ProcessingTranspiler >> emitName: var [
 	"Internal variables of ProcessingCodeBase start with a single underscore. Make sure that there's no accidental leakage by doubling a leading underscore."
 	var first = $_ ifTrue: [ ^ '_' , var ].
 	^ var
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #emitter }
 ProcessingTranspiler >> emitRadians: args [
 	^ (args at: 1) , ' degreesToRadians'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #emitter }
 ProcessingTranspiler >> emitRandom: args [
 	^ '(SharedRandom globalGenerator next * ' , (args at: 1) , ')'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #emitter }
 ProcessingTranspiler >> emitRect: args [
 	^ '_canvas rect: ' , (args at: 3) , ' by: ' , (args at: 4) , ' at: ' , (args at: 1) , ' @ ' , (args at: 2)
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #emitter }
 ProcessingTranspiler >> emitSin: args [
 	^ (args at: 1) , ' sin'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #emitter }
 ProcessingTranspiler >> emitSize: args [
 	^ 'width := ' , (args at: 1) , '. height := ' , (args at: 2) , '. _canvas size: width by: height'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #emitter }
 ProcessingTranspiler >> emitTan: args [
 	^ (args at: 1) , ' tan'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #emitter }
 ProcessingTranspiler >> emitText: args [
 	^ '_canvas text: ' , (args at: 1) , ' at: ' , (args at: 2) , ' @ ' , (args at: 3)
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #emitter }
 ProcessingTranspiler >> emitTextSize: args [
 	^ '_canvas textSize: ' , (args at: 1)
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #emitter }
 ProcessingTranspiler >> emitTriangle: args [
 	^ '_canvas triangle: { ' , (args at: 1) , ' @ ' , (args at: 2) , '. ' , (args at: 3) , ' @ ' , (args at: 4) , '. ' , (args at: 5) , ' @ ' , (args at: 6) , '. }'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #compiler }
 ProcessingTranspiler >> transpile: ast [
 	"Turn the AST into a Smalltalk source string"
 	globalVariables := Set new.
@@ -173,7 +173,7 @@ ProcessingTranspiler >> transpile: ast [
 ' join: lines) , functions
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #compiler }
 ProcessingTranspiler >> transpileFunction: ast name: name args: args [
 	| saveLocalVariables saveGlobalVariables saveLines saveIndentation res |
 	"Preserve global state"
@@ -205,18 +205,18 @@ ProcessingTranspiler >> transpileFunction: ast name: name args: args [
 	^ res
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 ProcessingTranspiler >> userDefs [
 	^ userDefs
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 ProcessingTranspiler >> variables [
 	"This doesn't contain implicit globals such as `width` and `height`."
 	^ localVariables
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #visitor }
 ProcessingTranspiler >> visitAssignmentExpression: expr [
 	| name |
 	name := self emitName: expr variable nameToken value.
@@ -226,7 +226,7 @@ ProcessingTranspiler >> visitAssignmentExpression: expr [
 	self appendLine: name , ' := ' , (expr value acceptVisitor: self) , '.'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #visitor }
 ProcessingTranspiler >> visitAssignmentStatement: expr [
 	| name |
 	name := self emitName: expr lhs nameToken value.
@@ -236,7 +236,7 @@ ProcessingTranspiler >> visitAssignmentStatement: expr [
 	self appendLine: name , ' := ' , (expr tos first acceptVisitor: self) , '.'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #visitor }
 ProcessingTranspiler >> visitBinaryExpression: expr [
 	| op |
 	op := expr operator value.
@@ -245,12 +245,12 @@ ProcessingTranspiler >> visitBinaryExpression: expr [
 	^ '(' ,(expr left acceptVisitor: self) , ' ' , op , ' ' , (expr right acceptVisitor: self) , ')'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #visitor }
 ProcessingTranspiler >> visitComparisonExpression: expr [
 	^ self visitBinaryExpression: expr
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #visitor }
 ProcessingTranspiler >> visitExpressionStatement: stmt [
 	(self acceptNodes: stmt children) do: [ :res |
 		(res isKindOf: ProcessingTranspiler) ifFalse: [
@@ -259,12 +259,12 @@ ProcessingTranspiler >> visitExpressionStatement: stmt [
 	]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #visitor }
 ProcessingTranspiler >> visitFile: file [
 	self visitExpressionStatement: file
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #visitor }
 ProcessingTranspiler >> visitFunctionCallExpression: fnCall [
 	| name args |
 	name := fnCall receiver nameToken value.
@@ -288,7 +288,7 @@ ProcessingTranspiler >> visitFunctionCallExpression: fnCall [
 	ProcessingNotImplementedException new signal: 'Function ' , name , ' not implemented!'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #visitor }
 ProcessingTranspiler >> visitFunctionDefinition: def [
 	| name args |
 	name := def fname value.
@@ -296,12 +296,12 @@ ProcessingTranspiler >> visitFunctionDefinition: def [
 	^ self transpileFunction: def name: name args: args
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #visitor }
 ProcessingTranspiler >> visitGlobalStatement: global [
 	global nameTokens do: [ :token | globalVariables add: token value ].
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #visitor }
 ProcessingTranspiler >> visitIfStatement: expr [
 	self appendLine: (expr condition acceptVisitor: self) , ' ifTrue: ['.
 	self acceptStatements: expr.
@@ -312,32 +312,32 @@ ProcessingTranspiler >> visitIfStatement: expr [
 	self appendLine: '].'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #visitor }
 ProcessingTranspiler >> visitNumber: num [
 	^ num numberToken value
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #visitor }
 ProcessingTranspiler >> visitParameter: param [
 	^ param name nameToken value
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #visitor }
 ProcessingTranspiler >> visitReturnStatement: expr [
 	^ '^ ' , (self acceptNodes: expr expressions) first.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #visitor }
 ProcessingTranspiler >> visitString: expr [
 	^ '''' , ('' join: (expr parts collect: [ :part | (part value allButFirst: 1) allButLast: 1 ])) , ''''
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #visitor }
 ProcessingTranspiler >> visitVariableExpression: var [
 	^ self emitName: var nameToken value
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #visitor }
 ProcessingTranspiler >> visitWhileStatement: expr [
 	self appendLine: '[ ' , (expr condition acceptVisitor: self) , ' ] whileTrue: ['.
 	self acceptStatements: expr.

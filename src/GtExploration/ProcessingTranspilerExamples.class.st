@@ -4,7 +4,7 @@ Class {
 	#category : #'GtExploration-Examples'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingTranspilerExamples >> newTranspiler [
 	<gtExample>
 	| transpiler |
@@ -13,7 +13,7 @@ ProcessingTranspilerExamples >> newTranspiler [
 	^ transpiler
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #transpilation }
 ProcessingTranspilerExamples >> transpilationAlpinerWanderweg [
 	<gtExample>
 	^ '_run
@@ -23,7 +23,7 @@ ProcessingTranspilerExamples >> transpilationAlpinerWanderweg [
 	_canvas rect: 100 by: (100 / 3) at: 50 @ (50 + (100 / 3)).'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #transpilation }
 ProcessingTranspilerExamples >> transpilationEndlessLoop [
 	<gtExample>
 	^ '_run
@@ -32,7 +32,7 @@ ProcessingTranspilerExamples >> transpilationEndlessLoop [
 	].'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #transpilation }
 ProcessingTranspilerExamples >> transpilationExample02 [
 	<gtExample>
 	^ '_run
@@ -48,7 +48,7 @@ ProcessingTranspilerExamples >> transpilationExample02 [
 	].'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #transpilation }
 ProcessingTranspilerExamples >> transpilationExample03 [
 	<gtExample>
 	^ '_run
@@ -62,7 +62,7 @@ ProcessingTranspilerExamples >> transpilationExample03 [
 	].'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #transpilation }
 ProcessingTranspilerExamples >> transpilationExample04 [
 	<gtExample>
 	^ '_run
@@ -76,7 +76,7 @@ setX
 	x := (((SharedRandom globalGenerator next * 2) ** 2) * 270 degreesToRadians sin)..'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #transpilation }
 ProcessingTranspilerExamples >> transpilationExample05 [
 	<gtExample>
 	^ '_run
@@ -85,7 +85,7 @@ ProcessingTranspilerExamples >> transpilationExample05 [
 	__b := height.'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #transpilation }
 ProcessingTranspilerExamples >> transpilationFibonacci [
 	<gtExample>
 	^ '_run
@@ -108,14 +108,14 @@ fibonacci: n
 	]..'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #transpilation }
 ProcessingTranspilerExamples >> transpilationMinimal [
 	<gtExample>
 	^ '_run
 	width := 200. height := 200. _canvas size: width by: height.'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #transpilation }
 ProcessingTranspilerExamples >> transpilationRecursion [
 	<gtExample>
 	^ '_run
@@ -130,7 +130,7 @@ recursion: n
 	]..'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #transpilation }
 ProcessingTranspilerExamples >> transpilationShapes [
 	<gtExample>
 	^ '_run
@@ -141,7 +141,7 @@ ProcessingTranspilerExamples >> transpilationShapes [
 	_canvas triangle: { 125 @ 125. 150 @ 175. 175 @ 150. }.'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #transpilation }
 ProcessingTranspilerExamples >> transpilationSwitzerland [
 	<gtExample>
 	^ '_run
@@ -151,7 +151,7 @@ ProcessingTranspilerExamples >> transpilationSwitzerland [
 	_canvas rect: 150 by: 50 at: 25 @ 75.'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingTranspilerExamples >> transpileAlpinerWanderweg [
 	<gtExample>
 	| ast transpiler |
@@ -164,7 +164,7 @@ ProcessingTranspilerExamples >> transpileAlpinerWanderweg [
 	^ transpiler compile: ast
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingTranspilerExamples >> transpileEndlessLoop [
 	<gtExample>
 	| ast transpiler |
@@ -177,7 +177,7 @@ ProcessingTranspilerExamples >> transpileEndlessLoop [
 	^ transpiler compile: ast
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingTranspilerExamples >> transpileExample02 [
 	<gtExample>
 	| ast transpiler |
@@ -191,7 +191,7 @@ ProcessingTranspilerExamples >> transpileExample02 [
 	^ transpiler compile: ast
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingTranspilerExamples >> transpileExample03 [
 	<gtExample>
 	| ast transpiler |
@@ -205,7 +205,7 @@ ProcessingTranspilerExamples >> transpileExample03 [
 	^ transpiler compile: ast
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingTranspilerExamples >> transpileExample04 [
 	<gtExample>
 	| ast transpiler |
@@ -221,7 +221,7 @@ ProcessingTranspilerExamples >> transpileExample04 [
 	^ transpiler compile: ast
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingTranspilerExamples >> transpileExample05 [
 	<gtExample>
 	| ast transpiler |
@@ -235,7 +235,7 @@ ProcessingTranspilerExamples >> transpileExample05 [
 	^ transpiler compile: ast
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingTranspilerExamples >> transpileFibonacci [
 	<gtExample>
 	| ast transpiler |
@@ -250,7 +250,7 @@ ProcessingTranspilerExamples >> transpileFibonacci [
 	^ transpiler compile: ast
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingTranspilerExamples >> transpileMinimal [
 	<gtExample>
 	| ast transpiler |
@@ -263,7 +263,7 @@ ProcessingTranspilerExamples >> transpileMinimal [
 	^ transpiler compile: ast
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingTranspilerExamples >> transpileRecursion [
 	<gtExample>
 	| ast transpiler |
@@ -278,7 +278,7 @@ ProcessingTranspilerExamples >> transpileRecursion [
 	^ "transpiler compile:" ast
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingTranspilerExamples >> transpileShapes [
 	<gtExample>
 	| ast transpiler |
@@ -291,7 +291,7 @@ ProcessingTranspilerExamples >> transpileShapes [
 	^ transpiler compile: ast
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingTranspilerExamples >> transpileSwitzerland [
 	<gtExample>
 	| ast transpiler |

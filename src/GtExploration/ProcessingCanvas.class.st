@@ -4,17 +4,19 @@ Class {
 	#instVars : [
 		'fillColor',
 		'canvasElement',
-		'textSize'
+		'textSize',
+		'strokeColor',
+		'strokeWeight'
 	],
 	#category : #'GtExploration-Processing'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 ProcessingCanvas >> asElement [
 	^ canvasElement asScalableElement
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #shapes }
 ProcessingCanvas >> background: color [
 	self canvasElement background: color.
 	self canvasElement children do: [ :child | child removeFromParent ].
@@ -25,7 +27,7 @@ ProcessingCanvas >> canvasElement [
 	^ canvasElement
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 ProcessingCanvas >> colorWithR: r g: g b: b [
 	"Map 64 to 0.25, 128 to 0.5, 192 to 0.75 but 255 to 1.0 exactly."
 	^ Color fromRgbTriplet: {
@@ -36,7 +38,7 @@ ProcessingCanvas >> colorWithR: r g: g b: b [
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #shapes }
 ProcessingCanvas >> ellipse: dx by: dy at: xy [
 	| shape |
 	shape := BlEllipseElement new
@@ -50,7 +52,7 @@ ProcessingCanvas >> ellipse: dx by: dy at: xy [
 	^ shape
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #modifiers }
 ProcessingCanvas >> fill: color [
 	fillColor := color.
 ]
@@ -69,7 +71,7 @@ ProcessingCanvas >> gtViewFor: aView [
 		view: #gtLiveFor:
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 ProcessingCanvas >> initialize [
 	canvasElement := BlElement new
 		background: Color veryLightGray;
@@ -79,7 +81,7 @@ ProcessingCanvas >> initialize [
 	textSize := 12.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #shapes }
 ProcessingCanvas >> line: fromXy to: toXy [
 	| shape |
 	shape := BlLineElement new
@@ -91,7 +93,7 @@ ProcessingCanvas >> line: fromXy to: toXy [
 	^ shape
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #shapes }
 ProcessingCanvas >> rect: width by: height at: xy [
 	| shape |
 	shape := BlElement new
@@ -104,12 +106,32 @@ ProcessingCanvas >> rect: width by: height at: xy [
 	^ shape
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #modifiers }
 ProcessingCanvas >> size: width by: height [
 	canvasElement size: width @ height.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #modifiers }
+ProcessingCanvas >> stroke: color [
+	strokeColor := color.
+]
+
+{ #category : #accessing }
+ProcessingCanvas >> strokeColor [
+	^ strokeColor
+]
+
+{ #category : #accessing }
+ProcessingCanvas >> strokeWeight [
+	^ strokeWeight
+]
+
+{ #category : #modifiers }
+ProcessingCanvas >> strokeWeight: weight [
+	strokeWeight := weight.
+]
+
+{ #category : #shapes }
 ProcessingCanvas >> text: text at: pos [
 	| roped shape |
 	roped := text asRopedText
@@ -121,17 +143,17 @@ ProcessingCanvas >> text: text at: pos [
 	shape relocate: pos x @ (pos y - textSize).
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 ProcessingCanvas >> textSize [
 	^ textSize
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #modifiers }
 ProcessingCanvas >> textSize: size [
 	textSize := size.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #shapes }
 ProcessingCanvas >> triangle: vertices [
 	| shape |
 	shape := BlPolygonElement new

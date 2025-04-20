@@ -4,7 +4,7 @@ Class {
 	#category : #'GtExploration-Experiments'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #tool }
 PageAutomationHelper class >> addWeekSection: aSnippet [
 	| isoweek header snip |
 	"Inverse to {{gtMethod:Week class>>#week:}}"

@@ -23,7 +23,7 @@ ProcessingCanvasExamples >> alpinerWanderweg [
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingCanvasExamples >> blueBackground [
 	<gtExample>
 	| canvas |
@@ -52,7 +52,7 @@ ProcessingCanvasExamples >> container [
 	^ canvas
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingCanvasExamples >> createColor [
 	<gtExample>
 	| canvas |
@@ -64,7 +64,7 @@ ProcessingCanvasExamples >> createColor [
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingCanvasExamples >> example02 [
 	<gtExample>
 	| canvas |
@@ -74,7 +74,7 @@ ProcessingCanvasExamples >> example02 [
 	^ canvas
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingCanvasExamples >> fibonacci [
 	<gtExample>
 	| program canvas |
@@ -89,7 +89,7 @@ ProcessingCanvasExamples >> fibonacci [
 	^ canvas
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingCanvasExamples >> fillColor [
 	<gtExample>
 	| canvas |
@@ -103,7 +103,7 @@ ProcessingCanvasExamples >> fillColor [
 	^ canvas
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingCanvasExamples >> recursion [
 	<gtExample>
 	| program canvas |
@@ -114,7 +114,7 @@ ProcessingCanvasExamples >> recursion [
 	^ program canvas
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingCanvasExamples >> shapes [
 	<gtExample>
 	| canvas |
@@ -129,7 +129,7 @@ ProcessingCanvasExamples >> shapes [
 	^ canvas
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingCanvasExamples >> singleCircle [
 	<gtExample>
 	| canvas child |
@@ -145,7 +145,7 @@ ProcessingCanvasExamples >> singleCircle [
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingCanvasExamples >> singleLine [
 	<gtExample>
 	| canvas child |
@@ -159,7 +159,7 @@ ProcessingCanvasExamples >> singleLine [
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingCanvasExamples >> singleSquare [
 	<gtExample>
 	| canvas child |
@@ -176,7 +176,7 @@ ProcessingCanvasExamples >> singleSquare [
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingCanvasExamples >> singleTriangle [
 	<gtExample>
 	| canvas child |

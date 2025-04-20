@@ -4,7 +4,7 @@ Class {
 	#category : #'GtExploration-Examples'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingParserExamples >> parseAlpinerWanderweg [
 	<gtExample>
 	| ast |
@@ -14,7 +14,7 @@ ProcessingParserExamples >> parseAlpinerWanderweg [
 	^ ast
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingParserExamples >> parseEndlessLoop [
 	<gtExample>
 	| ast node |
@@ -24,7 +24,7 @@ ProcessingParserExamples >> parseEndlessLoop [
 	^ ast
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingParserExamples >> parseExample02 [
 	<gtExample>
 	| ast |
@@ -33,7 +33,7 @@ ProcessingParserExamples >> parseExample02 [
 	^ ast
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingParserExamples >> parseExample03 [
 	<gtExample>
 	| ast |
@@ -42,7 +42,7 @@ ProcessingParserExamples >> parseExample03 [
 	^ ast
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingParserExamples >> parseExample04 [
 	<gtExample>
 	| ast |
@@ -51,7 +51,7 @@ ProcessingParserExamples >> parseExample04 [
 	^ ast
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingParserExamples >> parseExample05 [
 	<gtExample>
 	| ast |
@@ -60,7 +60,7 @@ ProcessingParserExamples >> parseExample05 [
 	^ ast
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingParserExamples >> parseFibonacci [
 	<gtExample>
 	| ast |
@@ -69,7 +69,7 @@ ProcessingParserExamples >> parseFibonacci [
 	^ ast
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingParserExamples >> parseMinimal [
 	<gtExample>
 	| ast node |
@@ -81,7 +81,7 @@ ProcessingParserExamples >> parseMinimal [
 	^ ast
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingParserExamples >> parseRecursion [
 	<gtExample>
 	| ast |
@@ -90,7 +90,7 @@ ProcessingParserExamples >> parseRecursion [
 	^ ast
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingParserExamples >> parseShapes [
 	<gtExample>
 	| ast node |
@@ -99,7 +99,7 @@ ProcessingParserExamples >> parseShapes [
 	^ ast
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingParserExamples >> parseSwitzerland [
 	<gtExample>
 	| ast node |

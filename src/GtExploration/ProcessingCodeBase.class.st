@@ -4,7 +4,7 @@ Class {
 	#category : #'GtExploration-Processing'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #views }
 ProcessingCodeBase >> gtBytecodeFor: aView [
 	<gtView>
 	^ aView list
@@ -20,7 +20,7 @@ ProcessingCodeBase >> gtBytecodeFor: aView [
 		itemText: [ :each | each printString ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #views }
 ProcessingCodeBase >> gtOutputFor: aView [
 	<gtView>
 	^ aView explicit
@@ -34,7 +34,7 @@ ProcessingCodeBase >> gtOutputFor: aView [
 		]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #views }
 ProcessingCodeBase >> gtSourceCodeFor: aView [
 	<gtView>
 	"Adapted from GtPharoMethodsCoderView>>#gtMethodsFor"
@@ -57,7 +57,7 @@ ProcessingCodeBase >> gtSourceCodeFor: aView [
 			action: [ self gtBrowse ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #views }
 ProcessingCodeBase >> gtViewIntermediaryRepresentationFor: aView [
 	<gtView>
 	^ aView text
