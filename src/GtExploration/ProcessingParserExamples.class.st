@@ -95,7 +95,7 @@ ProcessingParserExamples >> parseShapes [
 	<gtExample>
 	| ast node |
 	ast := ProcessingProgramExamples new programShapes ast.
-	self assert: ast statements size equals: 5.
+	self assert: ast statements size equals: 6.
 	^ ast
 ]
 

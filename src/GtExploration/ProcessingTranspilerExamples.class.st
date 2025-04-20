@@ -19,7 +19,7 @@ ProcessingTranspilerExamples >> transpilationAlpinerWanderweg [
 	^ '_run
 	width := 200. height := 200. _canvas size: width by: height.
 	_canvas rect: 100 by: 100 at: 50 @ 50.
-	_canvas fill: (Color r: 255 / 255.0 g: 0 / 255.0 b: 0 / 255.0).
+	_canvas fill: (_canvas colorWithR: 255 g: 0 b: 0).
 	_canvas rect: 100 by: (100 / 3) at: 50 @ (50 + (100 / 3)).'
 ]
 
@@ -39,7 +39,7 @@ ProcessingTranspilerExamples >> transpilationExample02 [
 	width := 200. height := 200. _canvas size: width by: height.
 	a := 0.
 	[ (a < 200) ] whileTrue: [
-		_canvas fill: (Color r: a / 255.0 g: 128 / 255.0 b: 0 / 255.0).
+		_canvas fill: (_canvas colorWithR: a g: 128 b: 0).
 		_canvas rect: 100 by: 100 at: a @ a.
 		a := (a + 50).
 	].
@@ -55,7 +55,7 @@ ProcessingTranspilerExamples >> transpilationExample03 [
 	width := 200. height := 200. _canvas size: width by: height.
 	x := 200.
 	[ (x > 0) ] whileTrue: [
-		_canvas fill: (Color r: (200 - x) / 255.0 g: 128 / 255.0 b: x / 255.0).
+		_canvas fill: (_canvas colorWithR: (200 - x) g: 128 b: x).
 		_canvas ellipse: x by: x at: 100 @ 100.
 		x := (x - 20).
 		(50 / 1000.0) seconds wait.
@@ -91,10 +91,10 @@ ProcessingTranspilerExamples >> transpilationFibonacci [
 	^ '_run
 	width := 200. height := 200. _canvas size: width by: height.
 	_canvas textSize: 30.
-	_canvas fill: (Color r: 0 / 255.0 g: 0 / 255.0 b: 0 / 255.0).
+	_canvas fill: (_canvas colorWithR: 0 g: 0 b: 0).
 	_canvas text: ''Fibonacci'' at: 20 @ 75.
 	_canvas textSize: 50.
-	_canvas fill: (Color r: 255 / 255.0 g: 255 / 255.0 b: 255 / 255.0).
+	_canvas fill: (_canvas colorWithR: 255 g: 255 b: 255).
 	_canvas text: (self fibonacci: 10) at: 20 @ 125.
 	
 
@@ -135,6 +135,7 @@ ProcessingTranspilerExamples >> transpilationShapes [
 	<gtExample>
 	^ '_run
 	width := 200. height := 200. _canvas size: width by: height.
+	_canvas stroke: (_canvas colorWithR: 255 g: 255 b: 255).
 	_canvas rect: 60 by: 40 at: 20 @ 30.
 	_canvas ellipse: 60 by: 40 at: 150 @ 50.
 	_canvas line: 25 @ 150 to: 75 @ 125.

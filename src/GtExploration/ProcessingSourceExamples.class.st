@@ -131,6 +131,7 @@ recursion(200)'
 ProcessingSourceExamples >> sourceCodeShapes [
 	<gtExample>
 	^ 'size(200, 200)
+stroke(255, 255, 255)
 rect(20, 30, 60, 40)
 ellipse(150, 50, 60, 40)
 line(25, 150, 75, 125)

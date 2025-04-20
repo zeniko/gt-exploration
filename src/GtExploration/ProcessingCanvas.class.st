@@ -22,6 +22,11 @@ ProcessingCanvas >> background: color [
 	self canvasElement children do: [ :child | child removeFromParent ].
 ]
 
+{ #category : #initialization }
+ProcessingCanvas >> border [
+	^ BlBorder paint: strokeColor width: strokeWeight
+]
+
 { #category : #accessing }
 ProcessingCanvas >> canvasElement [
 	^ canvasElement
@@ -46,7 +51,7 @@ ProcessingCanvas >> ellipse: dx by: dy at: xy [
 		majorRadius: dx / 2;
 		minorRadius: dy / 2;
 		background: fillColor;
-		border: (BlBorder paint: Color black width: 0.5);
+		border: self border;
 		yourself.
 	canvasElement addChild: shape.
 	^ shape
@@ -78,6 +83,8 @@ ProcessingCanvas >> initialize [
 		size: 100 @ 100;
 		yourself.
 	fillColor := Color white.
+	strokeColor := Color black.
+	strokeWeight := 0.5.
 	textSize := 12.
 ]
 
@@ -87,7 +94,7 @@ ProcessingCanvas >> line: fromXy to: toXy [
 	shape := BlLineElement new
 		fromAnchor: (BlAbsolutePositionAnchor position: fromXy);
 		toAnchor: (BlAbsolutePositionAnchor position: toXy);
-		border: (BlBorder paint: Color black width: 0.5);
+		border: self border;
 		yourself.
 	canvasElement addChild: shape.
 	^ shape
@@ -98,9 +105,9 @@ ProcessingCanvas >> rect: width by: height at: xy [
 	| shape |
 	shape := BlElement new
 		background: fillColor;
-		size: (Point x: width y: height);
+		size: width @ height;
 		relocate: xy;
-		border: (BlBorder paint: Color black width: 0.5);
+		border: self border;
 		yourself.
 	canvasElement addChild: shape.
 	^ shape
@@ -159,7 +166,7 @@ ProcessingCanvas >> triangle: vertices [
 	shape := BlPolygonElement new
 		anchors: (vertices collect: [ :xy | BlAbsolutePositionAnchor position: xy ]);
 		background: fillColor;
-		border: (BlBorder paint: Color black width: 0.5);
+		border: self border;
 		yourself.
 	canvasElement addChild: shape.
 	^ shape

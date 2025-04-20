@@ -370,7 +370,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-04-19T23:30:30.933+02:00"
+									"dateAndTimeString" : "2025-04-20T14:25:05.966+02:00"
 								}
 							},
 							"uid" : {
@@ -380,7 +380,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Further extend [[Processing API]]: `background`, `line`, `triangle`, `random`, `sin`, `cos`, `tan`, `radians`"
+							"string" : "Further extend [[Processing API]]: `background`, `line`, `triangle`, `random`, `sin`, `cos`, `tan`, `radians`, `width` and `height`"
 						},
 						{
 							"__type" : "exampleSnippet",

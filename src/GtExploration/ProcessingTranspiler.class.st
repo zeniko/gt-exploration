@@ -70,7 +70,7 @@ ProcessingTranspiler >> emitEllipse: args [
 
 { #category : #emitter }
 ProcessingTranspiler >> emitFill: args [
-	^ '_canvas fill: (Color r: ' , (args at: 1) , ' / 255.0 g: ' , (args at: 2) , ' / 255.0 b: ' , (args at: 3) , ' / 255.0)'
+	^ '_canvas fill: (_canvas colorWithR: ' , (args at: 1) , ' g: ' , (args at: 2) , ' b: ' , (args at: 3) , ')'
 ]
 
 { #category : #emitter }
@@ -120,6 +120,16 @@ ProcessingTranspiler >> emitSin: args [
 { #category : #emitter }
 ProcessingTranspiler >> emitSize: args [
 	^ 'width := ' , (args at: 1) , '. height := ' , (args at: 2) , '. _canvas size: width by: height'
+]
+
+{ #category : #emitter }
+ProcessingTranspiler >> emitStroke: args [
+	^ '_canvas stroke: (_canvas colorWithR: ' , (args at: 1) , ' g: ' , (args at: 2) , ' b: ' , (args at: 3) , ')'
+]
+
+{ #category : #emitter }
+ProcessingTranspiler >> emitStrokeWeight: args [
+	^ '_canvas strokeWeight: ' , (args at: 1)
 ]
 
 { #category : #emitter }
@@ -280,6 +290,8 @@ ProcessingTranspiler >> visitFunctionCallExpression: fnCall [
 	name = 'rect' ifTrue: [ ^ self emitRect: args ].
 	name = 'sin' ifTrue: [ ^ self emitSin: args ].
 	name = 'size' ifTrue: [ ^ self emitSize: args ].
+	name = 'stroke' ifTrue: [ ^ self emitStroke: args ].
+	name = 'strokeWeight' ifTrue: [ ^ self emitStrokeWeight: args ].
 	name = 'text' ifTrue: [ ^ self emitText: args ].
 	name = 'textSize' ifTrue: [ ^ self emitTextSize: args ].
 	name = 'tan' ifTrue: [ ^ self emitTan: args ].

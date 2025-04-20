@@ -43,6 +43,8 @@ ProcessingCanvasExamples >> container [
 	canvas := ProcessingCanvas new.
 	canvas size: 200 by: 200.
 	self assert: canvas fillColor equals: Color white.
+	self assert: canvas strokeColor equals: Color black.
+	self assert: canvas strokeWeight equals: 0.5.
 	self assert: canvas textSize equals: 12.
 	self assert: canvas canvasElement background paint color equals: Color veryLightGray.
 	self assert: canvas canvasElement children size equals: 0.
@@ -121,6 +123,8 @@ ProcessingCanvasExamples >> shapes [
 	canvas := ProcessingProgramExamples new programShapes canvas.
 	
 	self assert: canvas fillColor equals: Color white.
+	self assert: canvas strokeColor equals: Color white.
+	self assert: canvas strokeWeight equals: 0.5.
 	self assert: canvas canvasElement children size equals: 4.
 	self assert: (canvas canvasElement children first isKindOf: BlElement).
 	self assert: (canvas canvasElement children second isKindOf: BlEllipseElement).
