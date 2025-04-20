@@ -133,3 +133,15 @@ ProcessingRunnerExamples >> runRecursion [
 	self assert: runner isDone.
 	^ runner
 ]
+
+{ #category : #example }
+ProcessingRunnerExamples >> runSierpinski [
+	<gtExample>
+	| program runner |
+	program := ProcessingProgramExamples new programSierpinski.
+	runner := self newRunner.
+	runner run: program compilation; limitTo: 2 seconds; wait.
+	self assert: runner canvas isNotNil.
+	self assert: runner isDone.
+	^ runner
+]

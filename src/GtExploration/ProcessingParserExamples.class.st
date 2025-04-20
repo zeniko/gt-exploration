@@ -100,6 +100,15 @@ ProcessingParserExamples >> parseShapes [
 ]
 
 { #category : #example }
+ProcessingParserExamples >> parseSierpinski [
+	<gtExample>
+	| ast |
+	ast := ProcessingProgramExamples new programSierpinski ast.
+	self assert: ast statements size equals: 8.
+	^ ast
+]
+
+{ #category : #example }
 ProcessingParserExamples >> parseSwitzerland [
 	<gtExample>
 	| ast node |

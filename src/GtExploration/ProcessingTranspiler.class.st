@@ -205,6 +205,8 @@ ProcessingTranspiler >> transpileFunction: ast name: name args: args [
 	res := '
 ' , ('
 ' join: lines).
+	"TODO: functions seem to end on a double dot."
+	res := res copyFrom: 1 to: res size - 1.
 	globalVariables do: [ :var | saveGlobalVariables add: var ].
 	
 	"Restore global state"
@@ -317,9 +319,23 @@ ProcessingTranspiler >> visitGlobalStatement: global [
 ProcessingTranspiler >> visitIfStatement: expr [
 	self appendLine: (expr condition acceptVisitor: self) , ' ifTrue: ['.
 	self acceptStatements: expr.
+	expr elsifs ifNotNil: [
+		expr elsifs do: [ :elif |
+			self appendLine: '] ifFalse: ['.
+			indentation := indentation + 1.
+			self appendLine: (elif condition acceptVisitor: self) , ' ifTrue: ['.
+			self acceptStatements: elif.
+		].
+	].
 	expr else ifNotNil: [
 		self appendLine: '] ifFalse: ['.
 		self acceptStatements: expr else.
+	].
+	expr elsifs ifNotNil: [
+		expr elsifs do: [ :elif |
+			self appendLine: '].'.
+			indentation := indentation - 1.
+		].
 	].
 	self appendLine: '].'
 ]

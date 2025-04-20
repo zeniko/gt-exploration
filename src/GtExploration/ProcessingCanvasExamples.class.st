@@ -134,6 +134,16 @@ ProcessingCanvasExamples >> shapes [
 ]
 
 { #category : #example }
+ProcessingCanvasExamples >> sierpinski [
+	<gtExample>
+	| program canvas |
+	program := ProcessingRunnerExamples new runSierpinski.
+	canvas := program canvas.
+	self assert: canvas canvasElement children size equals: 27.
+	^ canvas
+]
+
+{ #category : #example }
 ProcessingCanvasExamples >> singleCircle [
 	<gtExample>
 	| canvas child |

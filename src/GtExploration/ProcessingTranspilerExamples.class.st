@@ -73,7 +73,7 @@ ProcessingTranspilerExamples >> transpilationExample04 [
 	
 
 setX
-	x := (((SharedRandom globalGenerator next * 2) ** 2) * 270 degreesToRadians sin)..'
+	x := (((SharedRandom globalGenerator next * 2) ** 2) * 270 degreesToRadians sin).'
 ]
 
 { #category : #transpilation }
@@ -105,7 +105,7 @@ fibonacci: n
 		^ (a + (self fibonacci: (n - 2)))
 	] ifFalse: [
 		^ 1
-	]..'
+	].'
 ]
 
 { #category : #transpilation }
@@ -127,7 +127,7 @@ recursion: n
 	_canvas ellipse: n by: n at: 100 @ 100.
 	(n > 20) ifTrue: [
 		(self recursion: (n - 10)).
-	]..'
+	].'
 ]
 
 { #category : #transpilation }
@@ -140,6 +140,35 @@ ProcessingTranspilerExamples >> transpilationShapes [
 	_canvas ellipse: 60 by: 40 at: 150 @ 50.
 	_canvas line: 25 @ 150 to: 75 @ 125.
 	_canvas triangle: { 125 @ 125. 150 @ 175. 175 @ 150. }.'
+]
+
+{ #category : #transpilation }
+ProcessingTranspilerExamples >> transpilationSierpinski [
+	<gtExample>
+	^ '_run
+	px := 300.
+	width := px. height := ((px * 60 degreesToRadians sin) + 2). _canvas size: width by: height.
+	_canvas background: (Color r: 255 / 255.0 g: 255 / 255.0 b: 255 / 255.0).
+	_canvas fill: (_canvas colorWithR: 0 g: 0 b: 0).
+	_canvas stroke: (_canvas colorWithR: 0 g: 0 b: 0).
+	_canvas strokeWeight: 1.
+	(self sierpinski: 4 x: 2 y: 2 side: (width - 4)).
+	
+
+sierpinski: n x: x y: y side: side
+	| th side |
+	th := (side * 60 degreesToRadians sin).
+	(n = 1) ifTrue: [
+		_canvas triangle: { x @ (y + th). (x + side) @ (y + th). (x + (side / 2)) @ y. }.
+	] ifFalse: [
+		(n > 1) ifTrue: [
+			side := (side / 2).
+			th := (th / 2).
+			(self sierpinski: (n - 1) x: (x + (side / 2)) y: y side: side).
+			(self sierpinski: (n - 1) x: x y: (y + th) side: side).
+			(self sierpinski: (n - 1) x: (x + side) y: (y + th) side: side).
+		].
+	].'
 ]
 
 { #category : #transpilation }
@@ -289,6 +318,22 @@ ProcessingTranspilerExamples >> transpileShapes [
 	self assert: transpiler variables size equals: 0.
 	self assert: transpiler userDefs size equals: 0.
 	self assert: ((transpiler compile: ast) class >> #_run) sourceCode equals: self transpilationShapes.
+	^ transpiler compile: ast
+]
+
+{ #category : #example }
+ProcessingTranspilerExamples >> transpileSierpinski [
+	<gtExample>
+	| ast transpiler |
+	ast := ProcessingParserExamples new parseSierpinski.
+	transpiler := self newTranspiler.
+	self assert: (transpiler transpile: ast) equals: self transpilationSierpinski.
+	self assert: transpiler variables size equals: 1.
+	self assert: (' ' join: transpiler variables) equals: 'px'.
+	self assert: transpiler userDefs size equals: 1.
+	self assert: ('
+
+' join: ((transpiler compile: ast) class methods collect: [ :method | method sourceCode ]) sorted) equals: self transpilationSierpinski.
 	^ transpiler compile: ast
 ]
 

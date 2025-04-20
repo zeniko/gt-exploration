@@ -97,6 +97,15 @@ ProcessingProgramExamples >> programShapes [
 ]
 
 { #category : #example }
+ProcessingProgramExamples >> programSierpinski [
+	<gtExample>
+	| program |
+	program := ProcessingSourceExamples new sourceSierpinski program.
+	self assert: program compilation isNotNil.
+	^ program
+]
+
+{ #category : #example }
 ProcessingProgramExamples >> programSwitzerland [
 	<gtExample>
 	| program |

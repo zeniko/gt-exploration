@@ -414,7 +414,7 @@
 								"__type" : "uid",
 								"uidString" : "UKViNHbvDQCQWs+HDiwq3g=="
 							},
-							"exampleSelector" : "shapes",
+							"exampleSelector" : "sierpinski",
 							"previewHeight" : 200,
 							"previewShowSelector" : "gtViewsFor:",
 							"exampleBehaviorName" : "ProcessingCanvasExamples",

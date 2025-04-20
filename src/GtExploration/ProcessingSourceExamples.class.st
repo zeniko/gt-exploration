@@ -139,6 +139,30 @@ triangle(125, 125, 150, 175, 175, 150)'
 ]
 
 { #category : #source }
+ProcessingSourceExamples >> sourceCodeSierpinski [
+	^ 'px = 300
+size(px, px * sin(radians(60)) + 2)
+
+def sierpinski(n, x, y, side):
+	th = side * sin(radians(60))
+	if n == 1:
+		triangle(x, y + th, x + side, y + th, x + side / 2, y)
+	elif n > 1:
+		side = side / 2
+		th = th / 2
+		sierpinski(n - 1, x + side / 2, y, side)
+		sierpinski(n - 1, x, y + th, side)
+		sierpinski(n - 1, x + side, y + th, side)
+
+background(255, 255, 255)
+fill(0, 0, 0)
+stroke(0, 0, 0)
+strokeWeight(1)
+
+sierpinski(4, 2, 2, width - 4)'
+]
+
+{ #category : #source }
 ProcessingSourceExamples >> sourceCodeSwitzerland [
 	<gtExample>
 	"This is an example from the introductionary course and thus inaccurate in both color and proportion"
@@ -234,6 +258,16 @@ ProcessingSourceExamples >> sourceShapes [
 	| source |
 	source := ProcessingSource new fromString: self sourceCodeShapes.
 	self assert: source asString equals: self sourceCodeShapes.
+	self assert: source program isNotNil.
+	^ source
+]
+
+{ #category : #example }
+ProcessingSourceExamples >> sourceSierpinski [
+	<gtExample>
+	| source |
+	source := ProcessingSource new fromString: self sourceCodeSierpinski.
+	self assert: source asString equals: self sourceCodeSierpinski.
 	self assert: source program isNotNil.
 	^ source
 ]
