@@ -17,14 +17,10 @@ ProcessingProgramExamples >> programAlpinerWanderweg [
 { #category : #'as yet unclassified' }
 ProcessingProgramExamples >> programEndlessLoop [
 	<gtExample>
-	<noTest> "Runaway detection currently takes a few seconds"
-	| program detected |
+	| program |
 	program := ProcessingSourceExamples new sourceEndlessLoop program.
 	self assert: program ast statements size equals: 1.
 	self assert: program compilation isNotNil.
-	detected := nil.
-	[program canvas] on: ProcessingRunawayProgramException do: [ :ex | detected := ex asString ].
-	self assert: detected equals: 'ProcessingRunawayProgramException: Endless loop detected.'.
 	^ program
 ]
 

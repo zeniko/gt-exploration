@@ -40,6 +40,7 @@ ProcessingTranspiler >> compile: ast [
 	| class source |
 	source := self transpile: ast.
 	class := ProcessingCodeBase newAnonymousSubclass.
+	class addSlot: '_canvas'.
 	globalVariables do: [ :name | class addSlot: name ].
 	(source splitOn: '
 
@@ -49,7 +50,7 @@ ProcessingTranspiler >> compile: ast [
 
 { #category : #'as yet unclassified' }
 ProcessingTranspiler >> emitBackground: args [
-	^ 'canvas background: (Color r: ' , (args at: 1) , ' / 255.0 g: ' , (args at: 2) , ' / 255.0 b: ' , (args at: 3) , ' / 255.0)'
+	^ '_canvas background: (Color r: ' , (args at: 1) , ' / 255.0 g: ' , (args at: 2) , ' / 255.0 b: ' , (args at: 3) , ' / 255.0)'
 ]
 
 { #category : #'as yet unclassified' }
@@ -64,20 +65,21 @@ ProcessingTranspiler >> emitDelay: args [
 
 { #category : #'as yet unclassified' }
 ProcessingTranspiler >> emitEllipse: args [
-	^ 'canvas ellipse: ' , (args at: 3) , ' by: ' , (args at: 4) , ' at: ' , (args at: 1) , ' @ ' , (args at: 2)
+	^ '_canvas ellipse: ' , (args at: 3) , ' by: ' , (args at: 4) , ' at: ' , (args at: 1) , ' @ ' , (args at: 2)
 ]
 
 { #category : #'as yet unclassified' }
 ProcessingTranspiler >> emitFill: args [
-	^ 'canvas fill: (Color r: ' , (args at: 1) , ' / 255.0 g: ' , (args at: 2) , ' / 255.0 b: ' , (args at: 3) , ' / 255.0)'
+	^ '_canvas fill: (Color r: ' , (args at: 1) , ' / 255.0 g: ' , (args at: 2) , ' / 255.0 b: ' , (args at: 3) , ' / 255.0)'
 ]
 
 { #category : #'as yet unclassified' }
 ProcessingTranspiler >> emitFunctionDef: name with: args [
 	| defLine argNames |
-	defLine := name , ': canvas'.
+	args size = 0 ifTrue: [ ^ name ].
+	defLine := name , ': ' , (args at: 1).
 	argNames := userDefs at: name.
-	1 to: args size do: [ :argNo |
+	2 to: args size do: [ :argNo |
 		defLine := defLine , ' '  , (argNames at: argNo) , ': ' , (args at: argNo).
 	].
 	^ defLine
@@ -85,7 +87,7 @@ ProcessingTranspiler >> emitFunctionDef: name with: args [
 
 { #category : #'as yet unclassified' }
 ProcessingTranspiler >> emitLine: args [
-	^ 'canvas line: ' , (args at: 1) , ' @ ' , (args at: 2) , ' to: ' , (args at: 3) , ' @ ' , (args at: 4)
+	^ '_canvas line: ' , (args at: 1) , ' @ ' , (args at: 2) , ' to: ' , (args at: 3) , ' @ ' , (args at: 4)
 ]
 
 { #category : #'as yet unclassified' }
@@ -107,7 +109,7 @@ ProcessingTranspiler >> emitRandom: args [
 
 { #category : #'as yet unclassified' }
 ProcessingTranspiler >> emitRect: args [
-	^ 'canvas rect: ' , (args at: 3) , ' by: ' , (args at: 4) , ' at: ' , (args at: 1) , ' @ ' , (args at: 2)
+	^ '_canvas rect: ' , (args at: 3) , ' by: ' , (args at: 4) , ' at: ' , (args at: 1) , ' @ ' , (args at: 2)
 ]
 
 { #category : #'as yet unclassified' }
@@ -117,7 +119,7 @@ ProcessingTranspiler >> emitSin: args [
 
 { #category : #'as yet unclassified' }
 ProcessingTranspiler >> emitSize: args [
-	^ 'width := ' , (args at: 1) , '. height := ' , (args at: 2) , '. canvas size: width by: height'
+	^ 'width := ' , (args at: 1) , '. height := ' , (args at: 2) , '. _canvas size: width by: height'
 ]
 
 { #category : #'as yet unclassified' }
@@ -127,17 +129,17 @@ ProcessingTranspiler >> emitTan: args [
 
 { #category : #'as yet unclassified' }
 ProcessingTranspiler >> emitText: args [
-	^ 'canvas text: ' , (args at: 1) , ' at: ' , (args at: 2) , ' @ ' , (args at: 3)
+	^ '_canvas text: ' , (args at: 1) , ' at: ' , (args at: 2) , ' @ ' , (args at: 3)
 ]
 
 { #category : #'as yet unclassified' }
 ProcessingTranspiler >> emitTextSize: args [
-	^ 'canvas textSize: ' , (args at: 1)
+	^ '_canvas textSize: ' , (args at: 1)
 ]
 
 { #category : #'as yet unclassified' }
 ProcessingTranspiler >> emitTriangle: args [
-	^ 'canvas triangle: { ' , (args at: 1) , ' @ ' , (args at: 2) , '. ' , (args at: 3) , ' @ ' , (args at: 4) , '. ' , (args at: 5) , ' @ ' , (args at: 6) , '. }'
+	^ '_canvas triangle: { ' , (args at: 1) , ' @ ' , (args at: 2) , '. ' , (args at: 3) , ' @ ' , (args at: 4) , '. ' , (args at: 5) , ' @ ' , (args at: 6) , '. }'
 ]
 
 { #category : #'as yet unclassified' }
@@ -160,13 +162,13 @@ ProcessingTranspiler >> transpile: ast [
 	
 	lines := OrderedCollection new.
 	indentation := 0.
-	self appendLine: 'drawOnto: canvas'.
+	self appendLine: '_run'.
 	indentation := indentation + 1.
 	ast acceptVisitor: self.
 	
 	localVariables do: [ :var | globalVariables add: var ].
 	
-	"TODO: only update the canvas at the end of drawOnto (avoid rendering artifacts)"
+	"TODO: only update the canvas at the end of a draw phase (avoid rendering artifacts)"
 	^ ('
 ' join: lines) , functions
 ]

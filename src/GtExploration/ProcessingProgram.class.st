@@ -16,12 +16,9 @@ ProcessingProgram >> ast [
 
 { #category : #'as yet unclassified' }
 ProcessingProgram >> canvas [
-	| runner promise |
-	runner := ProcessingRunner new.
-	promise := runner run: self.
-	"TODO: make this customizeable"
-	runner limitTo: 2 seconds.
-	(promise wait isKindOf: AsyncFutureCancelled) ifTrue: [
+	| runner |
+	runner := self run.
+	(runner wait isKindOf: AsyncFutureCancelled) ifTrue: [
 		ProcessingRunawayProgramException new signal: 'Endless loop detected.'
 	].
 	^ runner canvas
@@ -100,6 +97,19 @@ ProcessingProgram >> gtTreeFor: aView [
 ProcessingProgram >> gtViewIntermediaryRepresentationFor: aView [
 	<gtView>
 	^ compilation gtViewIntermediaryRepresentationFor: aView
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingProgram >> run [
+	^ self runFor: 2 seconds
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingProgram >> runFor: duration [
+	^ ProcessingRunner new
+		limitTo: duration;
+		run: compilation;
+		yourself
 ]
 
 { #category : #'as yet unclassified' }

@@ -35,17 +35,18 @@ ProcessingRunner >> limitTo: duration [
 ]
 
 { #category : #'as yet unclassified' }
-ProcessingRunner >> run: program [
+ProcessingRunner >> run: compilation [
 	| worker |
 	worker := AsyncFutureThreadPoolWorker new.
 	worker startup wait.
 	
 	canvas isNil ifTrue: [ canvas := ProcessingCanvas new. ].
+	compilation instVarNamed: #_canvas put: canvas.
 	
 	done := false.
 	"TODO: handle errors"
 	promise := AsyncFuturePromise new future: [
-		program compilation drawOnto: canvas.
+		compilation _run.
 		done := true.
 	] asAsyncFuture.
 	worker schedule: promise.

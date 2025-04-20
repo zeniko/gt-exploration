@@ -66,16 +66,16 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-04-15T12:49:15.437+02:00"
+						"dateAndTimeString" : "2025-04-20T21:14:27.259+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
 					"uidString" : "+GF0OCTvDQCF7ZZsAZKRoA=="
 				},
-				"code" : "ProcessingRunner new run: ProcessingProgramExamples new programExample03; canvas",
-				"elementHeight" : 189,
-				"codeHeight" : 22,
+				"code" : "ProcessingRunner new run: ProcessingProgramExamples new programExample03 compilation; canvas",
+				"elementHeight" : 184,
+				"codeHeight" : 47,
 				"codeVisible" : true
 			},
 			{
@@ -140,14 +140,14 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-04-15T12:49:50.078+02:00"
+						"dateAndTimeString" : "2025-04-20T21:12:56.451+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
 					"uidString" : "SH/yqTDvDQCLWnY2CFRQHA=="
 				},
-				"code" : "ProcessingRunner new\r\trun: ProcessingProgramExamples new programExample03;\r\tlimitTo: 0.2 seconds;\r\tcanvas",
+				"code" : "ProcessingRunner new\r\trun: ProcessingProgramExamples new programExample03 compilation;\r\tlimitTo: 0.2 seconds;\r\tcanvas",
 				"elementHeight" : 89,
 				"codeHeight" : 81,
 				"codeVisible" : true

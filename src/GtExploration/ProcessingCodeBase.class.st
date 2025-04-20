@@ -22,14 +22,12 @@ ProcessingCodeBase >> gtBytecodeFor: aView [
 
 { #category : #'as yet unclassified' }
 ProcessingCodeBase >> gtOutputFor: aView [
-	"copy/paste from BlElement > #gtLiveFor:"
 	<gtView>
 	^ aView explicit
 		title: 'Output';
 		priority: 20;
 		stencil: [ | canvas |
-			canvas := ProcessingCanvas new.
-			self drawOnto: canvas.
+			canvas := ProcessingRunner new run: self; canvas.
 			GtInspectorElementLiveViewContainer new
 				element: canvas asElement;
 				clipChildren: false
