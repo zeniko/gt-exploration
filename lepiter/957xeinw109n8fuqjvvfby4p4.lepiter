@@ -39,7 +39,7 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-04-19T23:30:05.194+02:00"
+												"dateAndTimeString" : "2025-04-20T14:24:52.583+02:00"
 											}
 										},
 										"uid" : {
@@ -49,7 +49,7 @@
 										"paragraphStyle" : {
 											"__type" : "textStyle"
 										},
-										"string" : "API expansion: `stroke`, `strokeWeight`, `width` and `height` (so that it runs {{gtPage:Funktionen und Rekursion|db=dl0rc62x02fk8k57e43hr8acw}})"
+										"string" : "API expansion: `stroke`, `strokeWeight` (so that it runs {{gtPage:Funktionen und Rekursion|db=dl0rc62x02fk8k57e43hr8acw}})"
 									}
 								]
 							},

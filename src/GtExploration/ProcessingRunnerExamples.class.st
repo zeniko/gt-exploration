@@ -35,6 +35,7 @@ ProcessingRunnerExamples >> runExample02 [
 	runner run: program; limitTo: 2 seconds; wait.
 	self assert: runner canvas isNotNil.
 	self assert: runner isDone.
+	self assert: (program compilation instVarNamed: #a) equals: 200.
 	^ runner
 ]
 
@@ -48,6 +49,7 @@ ProcessingRunnerExamples >> runExample03 [
 	runner run: program; limitTo: 2 seconds; wait.
 	self assert: runner canvas isNotNil.
 	self assert: runner isDone.
+	self assert: (program compilation instVarNamed: #x) equals: 0.
 	^ runner
 ]
 
@@ -60,6 +62,20 @@ ProcessingRunnerExamples >> runExample04 [
 	runner run: program; limitTo: 2 seconds; wait.
 	self assert: runner canvas isNotNil.
 	self assert: runner isDone.
+	^ runner
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingRunnerExamples >> runExample05 [
+	<gtExample>
+	| program runner |
+	program := ProcessingProgramExamples new programExample05.
+	runner := self newRunner.
+	runner run: program; limitTo: 2 seconds; wait.
+	self assert: runner canvas isNotNil.
+	self assert: runner isDone.
+	self assert: (program compilation instVarNamed: #__a) equals: 200.
+	self assert: (program compilation instVarNamed: #__b) equals: 100.
 	^ runner
 ]
 

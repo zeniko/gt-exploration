@@ -40,7 +40,7 @@ ProcessingTranspiler >> compile: ast [
 	| class source |
 	source := self transpile: ast.
 	class := ProcessingCodeBase newAnonymousSubclass.
-	localVariables do: [ :name | class addSlot: name ].
+	globalVariables do: [ :name | class addSlot: name ].
 	(source splitOn: '
 
 ') do: [ :method | class compile: method ].
@@ -54,7 +54,7 @@ ProcessingTranspiler >> emitBackground: args [
 
 { #category : #'as yet unclassified' }
 ProcessingTranspiler >> emitCos: args [
-	^ '(' , (args at: 1) , ' cos)'
+	^ (args at: 1) , ' cos'
 ]
 
 { #category : #'as yet unclassified' }
@@ -89,8 +89,15 @@ ProcessingTranspiler >> emitLine: args [
 ]
 
 { #category : #'as yet unclassified' }
+ProcessingTranspiler >> emitName: var [
+	"Internal variables of ProcessingCodeBase start with a single underscore. Make sure that there's no accidental leakage by doubling a leading underscore."
+	var first = $_ ifTrue: [ ^ '_' , var ].
+	^ var
+]
+
+{ #category : #'as yet unclassified' }
 ProcessingTranspiler >> emitRadians: args [
-	^ '(' , (args at: 1) , ' * Float pi / 180)'
+	^ (args at: 1) , ' degreesToRadians'
 ]
 
 { #category : #'as yet unclassified' }
@@ -105,17 +112,17 @@ ProcessingTranspiler >> emitRect: args [
 
 { #category : #'as yet unclassified' }
 ProcessingTranspiler >> emitSin: args [
-	^ '(' , (args at: 1) , ' sin)'
+	^ (args at: 1) , ' sin'
 ]
 
 { #category : #'as yet unclassified' }
 ProcessingTranspiler >> emitSize: args [
-	^ 'canvas size: ' , (args at: 1) , ' by: ' , (args at: 2)
+	^ 'width := ' , (args at: 1) , '. height := ' , (args at: 2) , '. canvas size: width by: height'
 ]
 
 { #category : #'as yet unclassified' }
 ProcessingTranspiler >> emitTan: args [
-	^ '(' , (args at: 1) , ' tan)'
+	^ (args at: 1) , ' tan'
 ]
 
 { #category : #'as yet unclassified' }
@@ -140,6 +147,10 @@ ProcessingTranspiler >> transpile: ast [
 	localVariables := Set new.
 	functions := ''.
 	
+	"Prepare implicit globals"
+	globalVariables add: 'width'.
+	globalVariables add: 'height'.
+	"Collect the signatures of user defined functions."
 	userDefs := Dictionary new.
 	ast statements select: [ :stmt | stmt isKindOf: PyFunctionDefinitionNode ] thenDo: [ :stmt |
 		| args |
@@ -152,6 +163,9 @@ ProcessingTranspiler >> transpile: ast [
 	self appendLine: 'drawOnto: canvas'.
 	indentation := indentation + 1.
 	ast acceptVisitor: self.
+	
+	localVariables do: [ :var | globalVariables add: var ].
+	
 	"TODO: only update the canvas at the end of drawOnto (avoid rendering artifacts)"
 	^ ('
 ' join: lines) , functions
@@ -196,13 +210,24 @@ ProcessingTranspiler >> userDefs [
 
 { #category : #'as yet unclassified' }
 ProcessingTranspiler >> variables [
+	"This doesn't contain implicit globals such as `width` and `height`."
 	^ localVariables
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingTranspiler >> visitAssignmentExpression: expr [
+	| name |
+	name := self emitName: expr variable nameToken value.
+	(globalVariables includes: name) ifFalse: [
+		localVariables add: name.
+	].
+	self appendLine: name , ' := ' , (expr value acceptVisitor: self) , '.'
 ]
 
 { #category : #'as yet unclassified' }
 ProcessingTranspiler >> visitAssignmentStatement: expr [
 	| name |
-	name := expr lhs nameToken value.
+	name := self emitName: expr lhs nameToken value.
 	(globalVariables includes: name) ifFalse: [
 		localVariables add: name.
 	].
@@ -307,7 +332,7 @@ ProcessingTranspiler >> visitString: expr [
 
 { #category : #'as yet unclassified' }
 ProcessingTranspiler >> visitVariableExpression: var [
-	^ var nameToken value
+	^ self emitName: var nameToken value
 ]
 
 { #category : #'as yet unclassified' }

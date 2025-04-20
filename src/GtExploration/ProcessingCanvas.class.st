@@ -106,7 +106,7 @@ ProcessingCanvas >> rect: width by: height at: xy [
 
 { #category : #'as yet unclassified' }
 ProcessingCanvas >> size: width by: height [
-	canvasElement size: (Point x: width y: height).
+	canvasElement size: width @ height.
 ]
 
 { #category : #'as yet unclassified' }

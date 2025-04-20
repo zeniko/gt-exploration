@@ -78,8 +78,14 @@ def setX():
     global x
     x = random(2) ** 2 * sin(radians(270))
 setX()
-text(x, 0, 20)
-'
+text(x, 0, 20)'
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingSourceExamples >> sourceCodeExample05 [
+	<gtExample>
+	^ 'size(200, 100)
+_a := width; _b := height'
 ]
 
 { #category : #'as yet unclassified' }
@@ -177,6 +183,16 @@ ProcessingSourceExamples >> sourceExample04 [
 	| source |
 	source := ProcessingSource new fromString: self sourceCodeExample04.
 	self assert: source asString equals: self sourceCodeExample04.
+	self assert: source program isNotNil.
+	^ source
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingSourceExamples >> sourceExample05 [
+	<gtExample>
+	| source |
+	source := ProcessingSource new fromString: self sourceCodeExample05.
+	self assert: source asString equals: self sourceCodeExample05.
 	self assert: source program isNotNil.
 	^ source
 ]

@@ -17,7 +17,7 @@ ProcessingTranspilerExamples >> newTranspiler [
 ProcessingTranspilerExamples >> transpilationAlpinerWanderweg [
 	<gtExample>
 	^ 'drawOnto: canvas
-	canvas size: 200 by: 200.
+	width := 200. height := 200. canvas size: width by: height.
 	canvas rect: 100 by: 100 at: 50 @ 50.
 	canvas fill: (Color r: 255 / 255.0 g: 0 / 255.0 b: 0 / 255.0).
 	canvas rect: 100 by: (100 / 3) at: 50 @ (50 + (100 / 3)).'
@@ -36,7 +36,7 @@ ProcessingTranspilerExamples >> transpilationEndlessLoop [
 ProcessingTranspilerExamples >> transpilationExample02 [
 	<gtExample>
 	^ 'drawOnto: canvas
-	canvas size: 200 by: 200.
+	width := 200. height := 200. canvas size: width by: height.
 	a := 0.
 	[ (a < 200) ] whileTrue: [
 		canvas fill: (Color r: a / 255.0 g: 128 / 255.0 b: 0 / 255.0).
@@ -51,8 +51,8 @@ ProcessingTranspilerExamples >> transpilationExample02 [
 { #category : #'as yet unclassified' }
 ProcessingTranspilerExamples >> transpilationExample03 [
 	<gtExample>
-		^ 'drawOnto: canvas
-	canvas size: 200 by: 200.
+	^ 'drawOnto: canvas
+	width := 200. height := 200. canvas size: width by: height.
 	x := 200.
 	[ (x > 0) ] whileTrue: [
 		canvas fill: (Color r: (200 - x) / 255.0 g: 128 / 255.0 b: x / 255.0).
@@ -66,21 +66,30 @@ ProcessingTranspilerExamples >> transpilationExample03 [
 ProcessingTranspilerExamples >> transpilationExample04 [
 	<gtExample>
 	^ 'drawOnto: canvas
-	canvas size: 30 by: 20.
+	width := 30. height := 20. canvas size: width by: height.
 	x := 0.
 	(self setX: canvas).
 	canvas text: x at: 0 @ 20.
 	
 
 setX: canvas
-	x := (((SharedRandom globalGenerator next * 2) ** 2) * ((270 * Float pi / 180) sin))..'
+	x := (((SharedRandom globalGenerator next * 2) ** 2) * 270 degreesToRadians sin)..'
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingTranspilerExamples >> transpilationExample05 [
+	<gtExample>
+	^ 'drawOnto: canvas
+	width := 200. height := 100. canvas size: width by: height.
+	__a := width.
+	__b := height.'
 ]
 
 { #category : #'as yet unclassified' }
 ProcessingTranspilerExamples >> transpilationFibonacci [
 	<gtExample>
 	^ 'drawOnto: canvas
-	canvas size: 200 by: 200.
+	width := 200. height := 200. canvas size: width by: height.
 	canvas textSize: 30.
 	canvas fill: (Color r: 0 / 255.0 g: 0 / 255.0 b: 0 / 255.0).
 	canvas text: ''Fibonacci'' at: 20 @ 75.
@@ -103,14 +112,14 @@ fibonacci: canvas n: n
 ProcessingTranspilerExamples >> transpilationMinimal [
 	<gtExample>
 	^ 'drawOnto: canvas
-	canvas size: 200 by: 200.'
+	width := 200. height := 200. canvas size: width by: height.'
 ]
 
 { #category : #'as yet unclassified' }
 ProcessingTranspilerExamples >> transpilationRecursion [
 	<gtExample>
 	^ 'drawOnto: canvas
-	canvas size: 200 by: 200.
+	width := 200. height := 200. canvas size: width by: height.
 	(self recursion: canvas n: 200).
 	
 
@@ -125,7 +134,7 @@ recursion: canvas n: n
 ProcessingTranspilerExamples >> transpilationShapes [
 	<gtExample>
 	^ 'drawOnto: canvas
-	canvas size: 200 by: 200.
+	width := 200. height := 200. canvas size: width by: height.
 	canvas rect: 60 by: 40 at: 20 @ 30.
 	canvas ellipse: 60 by: 40 at: 150 @ 50.
 	canvas line: 25 @ 150 to: 75 @ 125.
@@ -136,7 +145,7 @@ ProcessingTranspilerExamples >> transpilationShapes [
 ProcessingTranspilerExamples >> transpilationSwitzerland [
 	<gtExample>
 	^ 'drawOnto: canvas
-	canvas size: 200 by: 200.
+	width := 200. height := 200. canvas size: width by: height.
 	canvas background: (Color r: 255 / 255.0 g: 0 / 255.0 b: 0 / 255.0).
 	canvas rect: 50 by: 150 at: 75 @ 25.
 	canvas rect: 150 by: 50 at: 25 @ 75.'
@@ -209,6 +218,20 @@ ProcessingTranspilerExamples >> transpileExample04 [
 	self assert: ('
 
 ' join: ((transpiler compile: ast) class methods collect: [ :method | method sourceCode ]) sorted) equals: self transpilationExample04.
+	^ transpiler compile: ast
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingTranspilerExamples >> transpileExample05 [
+	<gtExample>
+	| ast transpiler |
+	ast := ProcessingParserExamples new parseExample05.
+	transpiler := self newTranspiler.
+	self assert: (transpiler transpile: ast) equals: self transpilationExample05.
+	self assert: transpiler variables size equals: 2.
+	self assert: (' ' join: transpiler variables) equals: '__a __b'.
+	self assert: transpiler userDefs size equals: 0.
+	self assert: ((transpiler compile: ast) class >> #drawOnto:) sourceCode equals: self transpilationExample05.
 	^ transpiler compile: ast
 ]
 
