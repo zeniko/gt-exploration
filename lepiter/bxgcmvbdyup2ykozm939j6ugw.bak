@@ -74,11 +74,88 @@
 					"uidString" : "WKZrLxruDQC7IynCAft/yQ=="
 				},
 				"exampleSelector" : "sourceExample02",
-				"previewHeight" : 270,
+				"previewHeight" : 500,
 				"previewShowSelector" : "gtViewsFor:",
 				"exampleBehaviorName" : "ProcessingSourceExamples",
 				"codeExpanded" : true,
 				"previewExpanded" : false,
+				"noCode" : true
+			},
+			{
+				"__type" : "textSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-04-21T11:46:25.958+02:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-04-21T11:46:34.404+02:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "oHR/eqjvDQCNcEwAD5BFLA=="
+				},
+				"paragraphStyle" : {
+					"__type" : "textStyle"
+				},
+				"string" : "## Source Code"
+			},
+			{
+				"__type" : "exampleSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-04-21T11:46:40.853+02:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-04-21T11:46:40.853+02:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "CMRie6jvDQCOAIuSD5BFLA=="
+				},
+				"exampleSelector" : "programExample02",
+				"previewHeight" : 160,
+				"previewShowSelector" : "gtContentsFor:",
+				"exampleBehaviorName" : "ProcessingProgramExamples",
+				"codeExpanded" : true,
+				"previewExpanded" : true,
 				"noCode" : true
 			},
 			{

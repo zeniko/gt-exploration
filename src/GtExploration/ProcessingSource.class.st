@@ -24,6 +24,62 @@ ProcessingSource >> fromString: code [
 ]
 
 { #category : #views }
+ProcessingSource >> gtAbstractionsFor: aView [
+	<gtView>
+	^ aView explicit
+		priority: 1;
+		title: 'Abstractions';
+		stencil: [ | element child editor |
+			element := BlElement new.
+			element layout: (BlGridLayout new columnCount: 2).
+			element
+				constraintsDo: [ :c | 
+					c vertical matchParent.
+					c horizontal matchParent ].
+			
+			(self program gtContentsFor: GtPhlowView empty)
+				asElementDo: [ :e | child := e ].
+			child
+				background: Color white;
+				margin: (BlInsets all: 5).
+			element addChild: child.
+			editor := child.
+			
+			(self program gtTreeFor: GtPhlowView empty)
+				asElementDo: [ :e | child := e ].
+			child
+				constraintsDo: [ :c | 
+					c vertical matchParent.
+					c horizontal matchParent ];
+				margin: (BlInsets all: 5).
+			element addChild: child.
+			self program ast topParent gtHookEditor: editor toTree: child children last.
+			
+			(self gtBytecodeFor: GtPhlowView empty)
+				asElementDo: [ :e | child := e ].
+			child
+				constraintsDo: [ :c | 
+					c vertical matchParent.
+					c horizontal matchParent ];
+				margin: (BlInsets all: 5).
+			element addChild: child.
+			"TODO: Hook into editor (similar to the AST)"
+			
+			(self gtOutputFor: GtPhlowView empty)
+				asElementDo: [ :e | child := e ].
+			child
+				constraintsDo: [ :c | 
+					c vertical matchParent.
+					c horizontal matchParent ];
+				background: Color white;
+				margin: (BlInsets all: 5).
+			element addChild: child.
+			"TODO: Hook into editor (similar to the AST)"
+			
+			element ]
+]
+
+{ #category : #views }
 ProcessingSource >> gtBytecodeFor: aView [
 	<gtView>
 	^ self program gtBytecodeFor: aView
@@ -44,7 +100,7 @@ ProcessingSource >> gtContentsFor: aView [
 
 	^ aView explicit
 		title: 'Contents';
-		priority: 1;
+		priority: 2;
 		updateWhen: GtFileWatcherModificationAnnouncement in: eventLoop announcer;
 		stencil: [ source gtEditorView ]
 ]
