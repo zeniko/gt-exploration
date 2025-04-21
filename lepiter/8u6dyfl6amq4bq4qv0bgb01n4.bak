@@ -283,7 +283,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-03-18T20:49:29.977+01:00"
+						"dateAndTimeString" : "2025-03-18T20:49:42.918+01:00"
 					}
 				},
 				"uid" : {
@@ -293,7 +293,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "{{gtClass:ProcessingCompiler}} takes (the usual very limited Processing subset) and compiles it directly into IR. As it turns out {{gtClass:IRBuilder}} also performs various optimizations. So if control over all optimizations is desired, "
+				"string" : "{{gtClass:ProcessingCompiler}} takes (the usual very limited Processing subset) and compiles it directly into IR. As it turns out {{gtClass:IRBuilder}} also performs various optimizations. So if control over all optimizations is desired, an even lower level approach would be necessary."
 			},
 			{
 				"__type" : "pythonSnippet",

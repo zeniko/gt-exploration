@@ -296,7 +296,7 @@
 				"string" : "{{gtClass:ProcessingCompiler}} takes (the usual very limited Processing subset) and compiles it directly into IR. As it turns out {{gtClass:IRBuilder}} also performs various optimizations. So if control over all optimizations is desired, an even lower level approach would be necessary."
 			},
 			{
-				"__type" : "pythonSnippet",
+				"__type" : "processingSnippet",
 				"children" : {
 					"__type" : "snippets",
 					"items" : [ ]
@@ -309,7 +309,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-03-18T18:03:08.268+01:00"
+						"dateAndTimeString" : "2025-04-21T12:28:23.678+02:00"
 					}
 				},
 				"editEmail" : {
@@ -320,12 +320,12 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-03-18T18:03:09.07+01:00"
+						"dateAndTimeString" : "2025-04-21T12:28:24.159+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "+D2snQLtDQCvU30BCPNJlQ=="
+					"uidString" : "MNiQEKnvDQC8Zk8AA7u+Tw=="
 				},
 				"code" : "size(200, 200)\r\nrect(50, 50, 100, 100)\r\nfill(255, 0, 0)\r\nrect(50, 50 + 100 / 3, 100, 100 / 3)"
 			},
@@ -388,14 +388,14 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-03-18T20:46:25.29+01:00"
+						"dateAndTimeString" : "2025-04-21T12:28:38.814+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
 					"uidString" : "4CHv4QTtDQC7UoghBdZACw=="
 				},
-				"code" : "(method valueWithReceiver: (ProcessingCanvas new) arguments: #()) render"
+				"code" : "(method valueWithReceiver: (ProcessingCanvas new) arguments: #()) asElement"
 			}
 		]
 	},

@@ -42,7 +42,7 @@
 				"string" : "Since we're targetting Processing's Python mode, we can use GT's builtin {{gtClass:PythonParser}} for parsing source code:"
 			},
 			{
-				"__type" : "pythonSnippet",
+				"__type" : "processingSnippet",
 				"children" : {
 					"__type" : "snippets",
 					"items" : [ ]
@@ -55,7 +55,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T23:13:22.892+01:00"
+						"dateAndTimeString" : "2025-04-21T12:26:58.256+02:00"
 					}
 				},
 				"editEmail" : {
@@ -66,12 +66,12 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T23:13:23.949+01:00"
+						"dateAndTimeString" : "2025-04-21T12:26:58.795+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "4GCir9PqDQCVIr4sBzT6oA=="
+					"uidString" : "mGR5C6nvDQC8AcpNA7u+Tw=="
 				},
 				"code" : "# output canvas dimensions\rsize(200, 200)\r# draw an orange 100x100 square at (50; 50)\rfill(240, 128, 0)\r\nrect(50, 50, 100, 100)"
 			},
@@ -171,14 +171,14 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T20:20:09.971+01:00"
+						"dateAndTimeString" : "2025-04-21T12:27:19.872+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
 					"uidString" : "yMQFF9HqDQCag+1VBzT6oA=="
 				},
-				"code" : "canvas := ProcessingCanvas new.\r(ProcessingInterpreter new) interpret: ast onto: canvas.\rcanvas render"
+				"code" : "canvas := ProcessingCanvas new.\r(ProcessingInterpreter new) interpret: ast onto: canvas.\rcanvas asElement"
 			}
 		]
 	},

@@ -5,6 +5,58 @@ Class {
 }
 
 { #category : #views }
+ProcessingCodeBase >> gtAbstractionsFor: aView [
+	<gtView>
+	^ aView explicit
+		priority: 1;
+		title: 'Abstractions';
+		stencil: [ | element child |
+			element := BlElement new.
+			element layout: (BlGridLayout new columnCount: 2).
+			element
+				constraintsDo: [ :c | 
+					c vertical matchParent.
+					c horizontal matchParent ].
+			
+			(self gtSourceCodeFor: GtPhlowView empty)
+				asElementDo: [ :e | child := e ].
+			child
+				background: Color white;
+				margin: (BlInsets all: 5).
+			element addChild: child.
+			
+			(self gtViewIntermediaryRepresentationFor: GtPhlowView empty)
+				asElementDo: [ :e | child := e ].
+			child
+				constraintsDo: [ :c | 
+					c vertical matchParent.
+					c horizontal matchParent ];
+				margin: (BlInsets all: 5).
+			element addChild: child.
+			
+			(self gtBytecodeFor: GtPhlowView empty)
+				asElementDo: [ :e | child := e ].
+			child
+				constraintsDo: [ :c | 
+					c vertical matchParent.
+					c horizontal matchParent ];
+				margin: (BlInsets all: 5).
+			element addChild: child.
+			
+			(self gtOutputFor: GtPhlowView empty)
+				asElementDo: [ :e | child := e ].
+			child
+				constraintsDo: [ :c | 
+					c vertical matchParent.
+					c horizontal matchParent ];
+				background: Color white;
+				margin: (BlInsets all: 5).
+			element addChild: child.
+			
+			element ]
+]
+
+{ #category : #views }
 ProcessingCodeBase >> gtBytecodeFor: aView [
 	<gtView>
 	^ aView list

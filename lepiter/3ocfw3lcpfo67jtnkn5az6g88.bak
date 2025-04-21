@@ -137,14 +137,14 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-25T22:42:21.303+01:00"
+						"dateAndTimeString" : "2025-02-25T22:45:52.625+01:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
 					"uidString" : "2GiQEWDrDQCe7qH7C7gYPg=="
 				},
-				"string" : ""
+				"string" : "main:\r\n\tpush    rbp\r\n\tmov     rbp, rsp\r\n\tmov     eax, 0\r\n\tcall    setup\r\n.L9:\r\n\tmov     eax, 0\r\n\tcall    draw\r\n\tmov     eax, 0\r\n\tcall    update\r\n\tjmp     .L9\r\n\r\nx:\r\n\t.zero   4\r\n\r\nsetup:\r\n\tpush    rbp\r\n\tmov     rbp, rsp\r\n\tmov     esi, 200\r\n\tmov     edi, 200\r\n\tcall    size\r\n\tnop\r\n\tpop     rbp\r\n\tret\r\n\r\ndraw:\r\n\tpush    rbp\r\n\tmov     rbp, rsp\r\n\tmov     edx, 192\r\n\tmov     esi, 192\r\n\tmov     edi, 192\r\n\tcall    background\r\n\tmov     eax, DWORD PTR x[rip]\r\n\tmov     ecx, 100\r\n\tmov     edx, 100\r\n\tmov     esi, 50\r\n\tmov     edi, eax\r\n\tcall    rect\r\n\tmov     eax, DWORD PTR x[rip]\r\n\tadd     eax, 1\r\n\tmov     DWORD PTR x[rip], eax\r\n\tmov     eax, DWORD PTR x[rip]\r\n\tcmp     eax, 100\r\n\tjne     .L7\r\n\tmov     DWORD PTR x[rip], 0\r\n.L7:\r\n\tnop\r\n\tpop     rbp\r\n\tret"
 			},
 			{
 				"__type" : "textSnippet",

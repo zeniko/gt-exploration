@@ -27,12 +27,10 @@ ProcessingSourceExamples >> sourceAlpinerWanderweg [
 { #category : #source }
 ProcessingSourceExamples >> sourceCodeAlpinerWanderweg [
 	<gtExample>
-	^ '
-size(200, 200)
+	^ 'size(200, 200)
 rect(50, 50, 100, 100)
 fill(255, 0, 0)
-rect(50, 50 + 100 / 3, 100, 100 / 3)
-'
+rect(50, 50 + 100 / 3, 100, 100 / 3)'
 ]
 
 { #category : #source }

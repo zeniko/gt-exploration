@@ -12,12 +12,12 @@ Class {
 	#category : #'GtExploration-Processing'
 }
 
-{ #category : #visitor }
+{ #category : #visiting }
 ProcessingTranspiler >> acceptNodes: nodes [
 	^ nodes collect: [ :each | each acceptVisitor: self ]
 ]
 
-{ #category : #visitor }
+{ #category : #visiting }
 ProcessingTranspiler >> acceptStatements: expr [
 	indentation := indentation + 1.
 	expr statements do: [ :stmt |
@@ -30,12 +30,12 @@ ProcessingTranspiler >> acceptStatements: expr [
 	indentation := indentation - 1.
 ]
 
-{ #category : #emitter }
+{ #category : #emitting }
 ProcessingTranspiler >> appendLine: line [
 	lines add: (String new: indentation withAll:(Character tab)) , line
 ]
 
-{ #category : #compiler }
+{ #category : #compiling }
 ProcessingTranspiler >> compile: ast [
 	| class source |
 	source := self transpile: ast.
@@ -48,32 +48,32 @@ ProcessingTranspiler >> compile: ast [
 	^ class new
 ]
 
-{ #category : #emitter }
+{ #category : #emitting }
 ProcessingTranspiler >> emitBackground: args [
 	^ '_canvas background: (Color r: ' , (args at: 1) , ' / 255.0 g: ' , (args at: 2) , ' / 255.0 b: ' , (args at: 3) , ' / 255.0)'
 ]
 
-{ #category : #emitter }
+{ #category : #emitting }
 ProcessingTranspiler >> emitCos: args [
 	^ (args at: 1) , ' cos'
 ]
 
-{ #category : #emitter }
+{ #category : #emitting }
 ProcessingTranspiler >> emitDelay: args [
 	^ '(' , args first , ' / 1000.0) seconds wait'
 ]
 
-{ #category : #emitter }
+{ #category : #emitting }
 ProcessingTranspiler >> emitEllipse: args [
 	^ '_canvas ellipse: ' , (args at: 3) , ' by: ' , (args at: 4) , ' at: ' , (args at: 1) , ' @ ' , (args at: 2)
 ]
 
-{ #category : #emitter }
+{ #category : #emitting }
 ProcessingTranspiler >> emitFill: args [
 	^ '_canvas fill: (_canvas colorWithR: ' , (args at: 1) , ' g: ' , (args at: 2) , ' b: ' , (args at: 3) , ')'
 ]
 
-{ #category : #emitter }
+{ #category : #emitting }
 ProcessingTranspiler >> emitFunctionDef: name with: args [
 	| defLine argNames |
 	args size = 0 ifTrue: [ ^ name ].
@@ -85,74 +85,74 @@ ProcessingTranspiler >> emitFunctionDef: name with: args [
 	^ defLine
 ]
 
-{ #category : #emitter }
+{ #category : #emitting }
 ProcessingTranspiler >> emitLine: args [
 	^ '_canvas line: ' , (args at: 1) , ' @ ' , (args at: 2) , ' to: ' , (args at: 3) , ' @ ' , (args at: 4)
 ]
 
-{ #category : #emitter }
+{ #category : #emitting }
 ProcessingTranspiler >> emitName: var [
 	"Internal variables of ProcessingCodeBase start with a single underscore. Make sure that there's no accidental leakage by doubling a leading underscore."
 	var first = $_ ifTrue: [ ^ '_' , var ].
 	^ var
 ]
 
-{ #category : #emitter }
+{ #category : #emitting }
 ProcessingTranspiler >> emitRadians: args [
 	^ (args at: 1) , ' degreesToRadians'
 ]
 
-{ #category : #emitter }
+{ #category : #emitting }
 ProcessingTranspiler >> emitRandom: args [
 	^ '(SharedRandom globalGenerator next * ' , (args at: 1) , ')'
 ]
 
-{ #category : #emitter }
+{ #category : #emitting }
 ProcessingTranspiler >> emitRect: args [
 	^ '_canvas rect: ' , (args at: 3) , ' by: ' , (args at: 4) , ' at: ' , (args at: 1) , ' @ ' , (args at: 2)
 ]
 
-{ #category : #emitter }
+{ #category : #emitting }
 ProcessingTranspiler >> emitSin: args [
 	^ (args at: 1) , ' sin'
 ]
 
-{ #category : #emitter }
+{ #category : #emitting }
 ProcessingTranspiler >> emitSize: args [
 	^ 'width := ' , (args at: 1) , '. height := ' , (args at: 2) , '. _canvas size: width by: height'
 ]
 
-{ #category : #emitter }
+{ #category : #emitting }
 ProcessingTranspiler >> emitStroke: args [
 	^ '_canvas stroke: (_canvas colorWithR: ' , (args at: 1) , ' g: ' , (args at: 2) , ' b: ' , (args at: 3) , ')'
 ]
 
-{ #category : #emitter }
+{ #category : #emitting }
 ProcessingTranspiler >> emitStrokeWeight: args [
 	^ '_canvas strokeWeight: ' , (args at: 1)
 ]
 
-{ #category : #emitter }
+{ #category : #emitting }
 ProcessingTranspiler >> emitTan: args [
 	^ (args at: 1) , ' tan'
 ]
 
-{ #category : #emitter }
+{ #category : #emitting }
 ProcessingTranspiler >> emitText: args [
 	^ '_canvas text: ' , (args at: 1) , ' at: ' , (args at: 2) , ' @ ' , (args at: 3)
 ]
 
-{ #category : #emitter }
+{ #category : #emitting }
 ProcessingTranspiler >> emitTextSize: args [
 	^ '_canvas textSize: ' , (args at: 1)
 ]
 
-{ #category : #emitter }
+{ #category : #emitting }
 ProcessingTranspiler >> emitTriangle: args [
 	^ '_canvas triangle: { ' , (args at: 1) , ' @ ' , (args at: 2) , '. ' , (args at: 3) , ' @ ' , (args at: 4) , '. ' , (args at: 5) , ' @ ' , (args at: 6) , '. }'
 ]
 
-{ #category : #compiler }
+{ #category : #compiling }
 ProcessingTranspiler >> transpile: ast [
 	"Turn the AST into a Smalltalk source string"
 	globalVariables := Set new.
@@ -183,7 +183,7 @@ ProcessingTranspiler >> transpile: ast [
 ' join: lines) , functions
 ]
 
-{ #category : #compiler }
+{ #category : #compiling }
 ProcessingTranspiler >> transpileFunction: ast name: name args: args [
 	| saveLocalVariables saveGlobalVariables saveLines saveIndentation res |
 	"Preserve global state"
@@ -228,7 +228,7 @@ ProcessingTranspiler >> variables [
 	^ localVariables
 ]
 
-{ #category : #visitor }
+{ #category : #visiting }
 ProcessingTranspiler >> visitAssignmentExpression: expr [
 	| name |
 	name := self emitName: expr variable nameToken value.
@@ -238,7 +238,7 @@ ProcessingTranspiler >> visitAssignmentExpression: expr [
 	self appendLine: name , ' := ' , (expr value acceptVisitor: self) , '.'
 ]
 
-{ #category : #visitor }
+{ #category : #visiting }
 ProcessingTranspiler >> visitAssignmentStatement: expr [
 	| name |
 	name := self emitName: expr lhs nameToken value.
@@ -248,7 +248,7 @@ ProcessingTranspiler >> visitAssignmentStatement: expr [
 	self appendLine: name , ' := ' , (expr tos first acceptVisitor: self) , '.'
 ]
 
-{ #category : #visitor }
+{ #category : #visiting }
 ProcessingTranspiler >> visitBinaryExpression: expr [
 	| op |
 	op := expr operator value.
@@ -257,12 +257,12 @@ ProcessingTranspiler >> visitBinaryExpression: expr [
 	^ '(' ,(expr left acceptVisitor: self) , ' ' , op , ' ' , (expr right acceptVisitor: self) , ')'
 ]
 
-{ #category : #visitor }
+{ #category : #visiting }
 ProcessingTranspiler >> visitComparisonExpression: expr [
 	^ self visitBinaryExpression: expr
 ]
 
-{ #category : #visitor }
+{ #category : #visiting }
 ProcessingTranspiler >> visitExpressionStatement: stmt [
 	(self acceptNodes: stmt children) do: [ :res |
 		(res isKindOf: ProcessingTranspiler) ifFalse: [
@@ -271,12 +271,12 @@ ProcessingTranspiler >> visitExpressionStatement: stmt [
 	]
 ]
 
-{ #category : #visitor }
+{ #category : #visiting }
 ProcessingTranspiler >> visitFile: file [
 	self visitExpressionStatement: file
 ]
 
-{ #category : #visitor }
+{ #category : #visiting }
 ProcessingTranspiler >> visitFunctionCallExpression: fnCall [
 	| name args |
 	name := fnCall receiver nameToken value.
@@ -302,7 +302,7 @@ ProcessingTranspiler >> visitFunctionCallExpression: fnCall [
 	ProcessingNotImplementedException new signal: 'Function ' , name , ' not implemented!'
 ]
 
-{ #category : #visitor }
+{ #category : #visiting }
 ProcessingTranspiler >> visitFunctionDefinition: def [
 	| name args |
 	name := def fname value.
@@ -310,12 +310,12 @@ ProcessingTranspiler >> visitFunctionDefinition: def [
 	^ self transpileFunction: def name: name args: args
 ]
 
-{ #category : #visitor }
+{ #category : #visiting }
 ProcessingTranspiler >> visitGlobalStatement: global [
 	global nameTokens do: [ :token | globalVariables add: token value ].
 ]
 
-{ #category : #visitor }
+{ #category : #visiting }
 ProcessingTranspiler >> visitIfStatement: expr [
 	self appendLine: (expr condition acceptVisitor: self) , ' ifTrue: ['.
 	self acceptStatements: expr.
@@ -340,32 +340,32 @@ ProcessingTranspiler >> visitIfStatement: expr [
 	self appendLine: '].'
 ]
 
-{ #category : #visitor }
+{ #category : #visiting }
 ProcessingTranspiler >> visitNumber: num [
 	^ num numberToken value
 ]
 
-{ #category : #visitor }
+{ #category : #visiting }
 ProcessingTranspiler >> visitParameter: param [
 	^ param name nameToken value
 ]
 
-{ #category : #visitor }
+{ #category : #visiting }
 ProcessingTranspiler >> visitReturnStatement: expr [
 	^ '^ ' , (self acceptNodes: expr expressions) first.
 ]
 
-{ #category : #visitor }
+{ #category : #visiting }
 ProcessingTranspiler >> visitString: expr [
 	^ '''' , ('' join: (expr parts collect: [ :part | (part value allButFirst: 1) allButLast: 1 ])) , ''''
 ]
 
-{ #category : #visitor }
+{ #category : #visiting }
 ProcessingTranspiler >> visitVariableExpression: var [
 	^ self emitName: var nameToken value
 ]
 
-{ #category : #visitor }
+{ #category : #visiting }
 ProcessingTranspiler >> visitWhileStatement: expr [
 	self appendLine: '[ ' , (expr condition acceptVisitor: self) , ' ] whileTrue: ['.
 	self acceptStatements: expr.

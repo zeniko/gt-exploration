@@ -42,7 +42,7 @@
 				"string" : "This example finally demonstrates animated code:"
 			},
 			{
-				"__type" : "pythonSnippet",
+				"__type" : "processingSnippet",
 				"children" : {
 					"__type" : "snippets",
 					"items" : [ ]
@@ -55,7 +55,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-25T22:40:55.317+01:00"
+						"dateAndTimeString" : "2025-04-21T12:26:14.459+02:00"
 					}
 				},
 				"editEmail" : {
@@ -66,12 +66,12 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-25T22:42:06.485+01:00"
+						"dateAndTimeString" : "2025-04-21T12:26:15.144+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "CF5wDGDrDQC7TDsaC7gYPg=="
+					"uidString" : "qBbdCKnvDQC76PyjA7u+Tw=="
 				},
 				"code" : "def setup():\r\tsize(200, 200)\r\rx = 0\r\rdef draw():\r\tglobal x\r\tbackground(192, 192, 192)\r\trect(x, 50, 100, 100)\r\tx = x + 1\r\tif x == 100:\r\t\tx = 0"
 			},

@@ -113,7 +113,7 @@
 				"string" : "This file contains the following code (which is loaded in the snippet right afterwards): "
 			},
 			{
-				"__type" : "pythonSnippet",
+				"__type" : "processingSnippet",
 				"children" : {
 					"__type" : "snippets",
 					"items" : [ ]
@@ -126,7 +126,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T09:40:08.067+01:00"
+						"dateAndTimeString" : "2025-04-21T14:29:33.571+02:00"
 					}
 				},
 				"editEmail" : {
@@ -137,12 +137,12 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T22:52:51.642+01:00"
+						"dateAndTimeString" : "2025-04-21T14:29:33.992+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "6Gc8U8jqDQC51sjOCZ6mgg=="
+					"uidString" : "uJviwarvDQC5kU1ACYMj1g=="
 				},
 				"code" : "# output canvas dimensions\rsize(200, 200)\r# draw an orange 100x100 square at (50; 50)\rfill(240, 128, 0)\r\nrect(50, 50, 100, 100)"
 			},
@@ -284,7 +284,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-02-18T22:21:27.446+01:00"
+									"dateAndTimeString" : "2025-04-21T13:33:50.561+02:00"
 								}
 							},
 							"uid" : {
@@ -294,7 +294,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "[[Contents]] (demo)"
+							"string" : "[[Contents]]"
 						},
 						{
 							"__type" : "textSnippet",
@@ -321,7 +321,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-03-25T23:13:39.056+01:00"
+									"dateAndTimeString" : "2025-04-21T13:33:53.065+02:00"
 								}
 							},
 							"uid" : {
@@ -331,7 +331,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "[[Abstract Syntax Tree]] (demo)"
+							"string" : "[[Abstract Syntax Tree]]"
 						},
 						{
 							"__type" : "textSnippet",
@@ -358,7 +358,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-03-25T23:13:35.954+01:00"
+									"dateAndTimeString" : "2025-04-21T13:33:57.694+02:00"
 								}
 							},
 							"uid" : {
@@ -368,7 +368,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "[[Assembly]] (demo)"
+							"string" : "[[Assembly]]"
 						},
 						{
 							"__type" : "textSnippet",
@@ -395,7 +395,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-02-18T22:21:31.984+01:00"
+									"dateAndTimeString" : "2025-04-21T13:33:59.66+02:00"
 								}
 							},
 							"uid" : {
@@ -405,7 +405,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "[[Output (live)]] (demo)"
+							"string" : "[[Output (live)]]"
 						},
 						{
 							"__type" : "textSnippet",

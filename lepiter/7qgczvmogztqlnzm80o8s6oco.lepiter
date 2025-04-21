@@ -42,6 +42,46 @@
 				"string" : "Show the file's contents (editable!) ({{gtMethod:ProcessingSource>>gtContentsFor:}})"
 			},
 			{
+				"__type" : "exampleSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-04-21T12:33:05.397+02:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-04-21T12:33:05.397+02:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "IIVbIanvDQC8yOqRA7u+Tw=="
+				},
+				"exampleSelector" : "sourceAlpinerWanderweg",
+				"previewHeight" : 120,
+				"previewShowSelector" : "gtContentsFor:",
+				"exampleBehaviorName" : "ProcessingSourceExamples",
+				"codeExpanded" : true,
+				"previewExpanded" : true,
+				"noCode" : true
+			},
+			{
 				"__type" : "textSnippet",
 				"children" : {
 					"__type" : "snippets",

@@ -42,7 +42,7 @@
 				"string" : "This example draws three squares using a variable and a loop."
 			},
 			{
-				"__type" : "pythonSnippet",
+				"__type" : "processingSnippet",
 				"children" : {
 					"__type" : "snippets",
 					"items" : [ ]
@@ -55,7 +55,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-25T21:51:27.67+01:00"
+						"dateAndTimeString" : "2025-04-21T12:25:43.666+02:00"
 					}
 				},
 				"editEmail" : {
@@ -66,12 +66,12 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-25T21:51:34.629+01:00"
+						"dateAndTimeString" : "2025-04-21T12:25:46.578+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "8KqNW1/rDQCks/dvC7gYPg=="
+					"uidString" : "aD0HB6nvDQC7wiWhA7u+Tw=="
 				},
 				"code" : "size(200, 200)\r\na = 50\r\nwhile a < 200:\r\n\trect(a, a, 50, 50)\r\n\ta = a + 50"
 			},

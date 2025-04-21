@@ -79,7 +79,7 @@
 				"string" : "{{gtClass:ProcessingParser}} which is based on {{gtClass:PythonParser}} is a SmaCC based parser. For now, we use a visitor for the translation. Later on, a custom parser might be used which would contain the visitor's functionality as actions added directly to the parser."
 			},
 			{
-				"__type" : "pythonSnippet",
+				"__type" : "processingSnippet",
 				"children" : {
 					"__type" : "snippets",
 					"items" : [ ]
@@ -92,7 +92,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-03-18T10:45:40.363+01:00"
+						"dateAndTimeString" : "2025-04-21T12:27:33.865+02:00"
 					}
 				},
 				"editEmail" : {
@@ -103,12 +103,12 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-03-18T15:12:02.606+01:00"
+						"dateAndTimeString" : "2025-04-21T12:27:34.333+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "+AItgfzsDQCWBNFLABzEJg=="
+					"uidString" : "QL6YDanvDQC8RsGVA7u+Tw=="
 				},
 				"code" : "size(200, 200)\r\nrect(50, 50, 100, 100)\r\nfill(255, 0, 0)\r\nrect(50, 50 + 100 / 3, 100, 100 / 3)"
 			},
@@ -171,7 +171,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-04-15T18:27:01.945+02:00"
+						"dateAndTimeString" : "2025-04-15T18:27:02.903+02:00"
 					}
 				},
 				"uid" : {
@@ -181,7 +181,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "Like this, the compiled program cheaply provides a Smalltalk, a Bytecode and an Output view. See {{gtPage:Querying classes and methods|db=2j9m7db2i4oz116bexd7wbdxo}} for a "
+				"string" : "Like this, the compiled program cheaply provides a Smalltalk, a Bytecode and an Output view. See {{gtPage:Querying classes and methods|db=2j9m7db2i4oz116bexd7wbdxo}} for a start."
 			},
 			{
 				"__type" : "textSnippet",

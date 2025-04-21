@@ -66,7 +66,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-03-25T23:26:44.664+01:00"
+						"dateAndTimeString" : "2025-03-25T23:27:02.772+01:00"
 					}
 				},
 				"uid" : {
@@ -76,7 +76,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "Curre"
+				"string" : "Currently implemented as {{gtMethod:ProcessingSource>>#gtBytecodeFor:}}."
 			},
 			{
 				"__type" : "textSnippet",

@@ -208,7 +208,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-25T21:50:05.26+01:00"
+						"dateAndTimeString" : "2025-02-25T21:53:18.861+01:00"
 					}
 				},
 				"uid" : {
@@ -218,7 +218,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "## SMA"
+				"string" : "## LMA"
 			},
 			{
 				"__type" : "blockQuoteSnippet",

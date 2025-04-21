@@ -79,7 +79,7 @@
 				"string" : "{{gtClass:ProcessingParser}} which is based on {{gtClass:PythonParser}} is a SmaCC based parser. For now, we use a visitor for the translation. Later on, a custom parser might be used which would contain the visitor's functionality as actions added directly to the parser."
 			},
 			{
-				"__type" : "pythonSnippet",
+				"__type" : "processingSnippet",
 				"children" : {
 					"__type" : "snippets",
 					"items" : [ ]
@@ -92,7 +92,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-03-18T10:45:40.363+01:00"
+						"dateAndTimeString" : "2025-04-21T12:27:33.865+02:00"
 					}
 				},
 				"editEmail" : {
@@ -103,12 +103,12 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-03-18T15:12:02.606+01:00"
+						"dateAndTimeString" : "2025-04-21T12:27:34.333+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "+AItgfzsDQCWBNFLABzEJg=="
+					"uidString" : "QL6YDanvDQC8RsGVA7u+Tw=="
 				},
 				"code" : "size(200, 200)\r\nrect(50, 50, 100, 100)\r\nfill(255, 0, 0)\r\nrect(50, 50 + 100 / 3, 100, 100 / 3)"
 			},
@@ -258,7 +258,7 @@
 				"string" : "The following example contains slightly more complex code:"
 			},
 			{
-				"__type" : "pythonSnippet",
+				"__type" : "processingSnippet",
 				"children" : {
 					"__type" : "snippets",
 					"items" : [ ]
@@ -271,7 +271,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-03-18T22:06:37.728+01:00"
+						"dateAndTimeString" : "2025-04-21T12:27:46.638+02:00"
 					}
 				},
 				"editEmail" : {
@@ -282,12 +282,12 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-03-25T23:48:28.222+01:00"
+						"dateAndTimeString" : "2025-04-21T12:27:47.118+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "GOl2BAbtDQCdDqZ/CprFvw=="
+					"uidString" : "sKhbDqnvDQC8VQtCA7u+Tw=="
 				},
 				"code" : "size(200, 200)\r\na = 0\rwhile a < 200:\r\tfill(a, 128, 0)\r\trect(a, a, 100, 100)\r\ta = a + 50\rif a >= 200:\r\tellipse(10, 10, 20, 20)"
 			},
