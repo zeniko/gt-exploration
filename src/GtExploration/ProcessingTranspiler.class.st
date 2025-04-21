@@ -50,7 +50,7 @@ ProcessingTranspiler >> compile: ast [
 
 { #category : #emitting }
 ProcessingTranspiler >> emitBackground: args [
-	^ '_canvas background: (Color r: ' , (args at: 1) , ' / 255.0 g: ' , (args at: 2) , ' / 255.0 b: ' , (args at: 3) , ' / 255.0)'
+	^ '_canvas background: (_canvas colorWithR: ' , (args at: 1) , ' g: ' , (args at: 2) , ' b: ' , (args at: 3) , ')'
 ]
 
 { #category : #emitting }
@@ -196,17 +196,14 @@ ProcessingTranspiler >> transpileFunction: ast name: name args: args [
 	globalVariables := Set new.
 	lines := OrderedCollection new.
 	indentation := 0.
-	self appendLine: ''.
 	self appendLine: (self emitFunctionDef: name with: args).
 	self acceptStatements: ast.
+	"TODO: assigning to an argument yields a '... is shadowed' warning in the Transcript"
 	localVariables size > 0 ifTrue: [
-		lines insert: (Character tab asString , '| ' , (' ' join: localVariables) , ' |') before: 3.
+		lines insert: (Character tab asString , '| ' , (' ' join: localVariables) , ' |') before: 2.
 	].
 	res := '
-' , ('
-' join: lines).
-	"TODO: functions seem to end on a double dot."
-	res := res copyFrom: 1 to: res size - 1.
+' join: lines.
 	globalVariables do: [ :var | saveGlobalVariables add: var ].
 	
 	"Restore global state"
@@ -307,7 +304,9 @@ ProcessingTranspiler >> visitFunctionDefinition: def [
 	| name args |
 	name := def fname value.
 	args := self acceptNodes: def parameters.
-	^ self transpileFunction: def name: name args: args
+	functions := functions , '
+
+' , (self transpileFunction: def name: name args: args).
 ]
 
 { #category : #visiting }

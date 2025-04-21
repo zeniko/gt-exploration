@@ -28,7 +28,7 @@ ProcessingTranspilerExamples >> transpilationEndlessLoop [
 	<gtExample>
 	^ '_run
 	[ (1 = 1) ] whileTrue: [
-		loop.
+		(1 + 1).
 	].'
 ]
 
@@ -70,7 +70,6 @@ ProcessingTranspilerExamples >> transpilationExample04 [
 	x := 0.
 	(self setX).
 	_canvas text: x at: 0 @ 20.
-	
 
 setX
 	x := (((SharedRandom globalGenerator next * 2) ** 2) * 270 degreesToRadians sin).'
@@ -96,7 +95,6 @@ ProcessingTranspilerExamples >> transpilationFibonacci [
 	_canvas textSize: 50.
 	_canvas fill: (_canvas colorWithR: 255 g: 255 b: 255).
 	_canvas text: (self fibonacci: 10) at: 20 @ 125.
-	
 
 fibonacci: n
 	| a |
@@ -121,7 +119,6 @@ ProcessingTranspilerExamples >> transpilationRecursion [
 	^ '_run
 	width := 200. height := 200. _canvas size: width by: height.
 	(self recursion: 200).
-	
 
 recursion: n
 	_canvas ellipse: n by: n at: 100 @ 100.
@@ -148,12 +145,11 @@ ProcessingTranspilerExamples >> transpilationSierpinski [
 	^ '_run
 	px := 300.
 	width := px. height := ((px * 60 degreesToRadians sin) + 2). _canvas size: width by: height.
-	_canvas background: (Color r: 255 / 255.0 g: 255 / 255.0 b: 255 / 255.0).
+	_canvas background: (_canvas colorWithR: 255 g: 255 b: 255).
 	_canvas fill: (_canvas colorWithR: 0 g: 0 b: 0).
 	_canvas stroke: (_canvas colorWithR: 0 g: 0 b: 0).
 	_canvas strokeWeight: 1.
 	(self sierpinski: 4 x: 2 y: 2 side: (width - 4)).
-	
 
 sierpinski: n x: x y: y side: side
 	| th side |
@@ -176,7 +172,7 @@ ProcessingTranspilerExamples >> transpilationSwitzerland [
 	<gtExample>
 	^ '_run
 	width := 200. height := 200. _canvas size: width by: height.
-	_canvas background: (Color r: 255 / 255.0 g: 0 / 255.0 b: 0 / 255.0).
+	_canvas background: (_canvas colorWithR: 255 g: 0 b: 0).
 	_canvas rect: 50 by: 150 at: 75 @ 25.
 	_canvas rect: 150 by: 50 at: 25 @ 75.'
 ]

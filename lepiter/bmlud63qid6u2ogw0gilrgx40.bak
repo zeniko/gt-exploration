@@ -100,7 +100,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-25T20:27:40.744+01:00"
+						"dateAndTimeString" : "2025-04-21T18:50:02.71+02:00"
 					}
 				},
 				"uid" : {
@@ -110,7 +110,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "This file contains the following code (which is loaded in the snippet right afterwards): "
+				"string" : "This file contains the following code (which the snippet runs load: "
 			},
 			{
 				"__type" : "processingSnippet",
@@ -126,7 +126,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-04-21T12:28:55.728+02:00"
+						"dateAndTimeString" : "2025-04-21T14:29:33.571+02:00"
 					}
 				},
 				"editEmail" : {
@@ -137,46 +137,12 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-04-21T12:28:56.147+02:00"
+						"dateAndTimeString" : "2025-04-21T14:29:33.992+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "gON5EqnvDQC8rIlLA7u+Tw=="
-				},
-				"code" : "# output canvas dimensions\rsize(200, 200)\r# draw an orange 100x100 square at (50; 50)\rfill(240, 128, 0)\r\nrect(50, 50, 100, 100)"
-			},
-			{
-				"__type" : "processingSnippet",
-				"children" : {
-					"__type" : "snippets",
-					"items" : [ ]
-				},
-				"createEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"createTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-04-21T14:29:15.038+02:00"
-					}
-				},
-				"editEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"editTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-04-21T14:29:15.506+02:00"
-					}
-				},
-				"uid" : {
-					"__type" : "uid",
-					"uidString" : "MNHHwKrvDQC5exBHCYMj1g=="
+					"uidString" : "uJviwarvDQC5kU1ACYMj1g=="
 				},
 				"code" : "# output canvas dimensions\rsize(200, 200)\r# draw an orange 100x100 square at (50; 50)\rfill(240, 128, 0)\r\nrect(50, 50, 100, 100)"
 			},

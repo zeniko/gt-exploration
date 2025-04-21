@@ -36,7 +36,7 @@ rect(50, 50 + 100 / 3, 100, 100 / 3)'
 { #category : #source }
 ProcessingSourceExamples >> sourceCodeEndlessLoop [
 	<gtExample>
-	^ 'while 1 == 1: loop'
+	^ 'while 1 == 1: 1+1'
 ]
 
 { #category : #source }

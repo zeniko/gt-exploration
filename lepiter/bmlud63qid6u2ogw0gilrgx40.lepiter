@@ -100,7 +100,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-25T20:27:40.744+01:00"
+						"dateAndTimeString" : "2025-04-21T18:50:29.153+02:00"
 					}
 				},
 				"uid" : {
@@ -110,7 +110,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "This file contains the following code (which is loaded in the snippet right afterwards): "
+				"string" : "This file contains the following code (which the Processing snippet runs loads similar to the Pharo snippet below): "
 			},
 			{
 				"__type" : "processingSnippet",
