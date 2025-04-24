@@ -2,12 +2,14 @@ Class {
 	#name : #ProcessingTranspiler,
 	#superclass : #Object,
 	#instVars : [
-		'lines',
 		'globalVariables',
 		'indentation',
 		'functions',
 		'localVariables',
-		'userDefs'
+		'userDefs',
+		'astMap',
+		'astMaps',
+		'output'
 	],
 	#category : #'GtExploration-Processing'
 }
@@ -32,20 +34,30 @@ ProcessingTranspiler >> acceptStatements: expr [
 
 { #category : #emitting }
 ProcessingTranspiler >> appendLine: line [
-	lines add: (String new: indentation withAll:(Character tab)) , line
+	self emit: (String new: indentation withAll:(Character tab)) , line , '
+'.
 ]
 
 { #category : #compiling }
 ProcessingTranspiler >> compile: ast [
-	| class source |
+	| class source instance |
 	source := self transpile: ast.
 	class := ProcessingCodeBase newAnonymousSubclass.
 	class addSlot: '_canvas'.
+	class addSlot: '_astMaps'.
 	globalVariables do: [ :name | class addSlot: name ].
 	(source splitOn: '
 
 ') do: [ :method | class compile: method ].
-	^ class new
+	instance := class new.
+	instance instVarNamed: #_astMaps put: astMaps.
+	^ instance
+]
+
+{ #category : #emitting }
+ProcessingTranspiler >> emit: part [
+	output := output , part.
+	^ part size
 ]
 
 { #category : #emitting }
@@ -158,6 +170,7 @@ ProcessingTranspiler >> transpile: ast [
 	globalVariables := Set new.
 	localVariables := Set new.
 	functions := ''.
+	astMaps := Dictionary new.
 	
 	"Prepare implicit globals"
 	globalVariables add: 'width'.
@@ -170,45 +183,51 @@ ProcessingTranspiler >> transpile: ast [
 		userDefs at: stmt fname value put: args.
 	].
 	
-	lines := OrderedCollection new.
+	output := ''.
 	indentation := 0.
+	astMap := OrderedCollection new.
 	self appendLine: '_run'.
 	indentation := indentation + 1.
 	ast acceptVisitor: self.
 	
 	localVariables do: [ :var | globalVariables add: var ].
+	astMaps at: '_run' put: astMap.
 	
 	"TODO: only update the canvas at the end of a draw phase (avoid rendering artifacts)"
-	^ ('
-' join: lines) , functions
+	^ (output copyFrom: 1 to: output size - 1) , functions
 ]
 
 { #category : #compiling }
 ProcessingTranspiler >> transpileFunction: ast name: name args: args [
-	| saveLocalVariables saveGlobalVariables saveLines saveIndentation res |
+	| saveLocalVariables saveGlobalVariables saveIndentation saveAstMap saveOutput res header |
 	"Preserve global state"
 	saveLocalVariables := localVariables.
 	saveGlobalVariables := globalVariables.
-	saveLines := lines.
 	saveIndentation := indentation.
+	saveAstMap := astMap.
+	saveOutput := output.
 	
 	localVariables := Set new.
 	globalVariables := Set new.
-	lines := OrderedCollection new.
 	indentation := 0.
+	astMap := OrderedCollection new.
+	output := ''.
 	self appendLine: (self emitFunctionDef: name with: args).
+	header := output. output := ''.
 	self acceptStatements: ast.
 	"TODO: assigning to an argument yields a '... is shadowed' warning in the Transcript"
 	localVariables size > 0 ifTrue: [
-		lines insert: (Character tab asString , '| ' , (' ' join: localVariables) , ' |') before: 2.
+		header := header , Character tab asString , '| ' , (' ' join: localVariables) , ' |
+'.
 	].
-	res := '
-' join: lines.
+	res := header , (output copyFrom: 1 to: output size - 1).
 	globalVariables do: [ :var | saveGlobalVariables add: var ].
+	astMaps at: name put: astMap.
 	
 	"Restore global state"
+	output := saveOutput.
+	astMap := saveAstMap.
 	indentation := saveIndentation.
-	lines := saveLines.
 	globalVariables := saveGlobalVariables.
 	localVariables := saveLocalVariables.
 	^ res
