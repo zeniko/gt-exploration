@@ -193,6 +193,43 @@
 								"uidString" : "UJnpxarvDQC5rN8ACYMj1g=="
 							},
 							"code" : "size(200, 200)\rrect(50, 50, 100, 100)\rfill(255, 0, 0)\rrect(50, 50 + 100 / 3, 100, 100 / 3)"
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-04-25T18:26:34.861+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-04-25T18:27:08.305+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "KJL5hv7vDQC3IAzOCda3Rg=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Refactored {{gtClass:ProcessingTranspiler}} for mapping transpiled code to Processing code."
 						}
 					]
 				},

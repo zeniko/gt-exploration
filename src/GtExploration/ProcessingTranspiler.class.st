@@ -9,15 +9,12 @@ Class {
 		'userDefs',
 		'astMap',
 		'astMaps',
-		'output'
+		'output',
+		'methodName',
+		'nodeStack'
 	],
 	#category : #'GtExploration-Processing'
 }
-
-{ #category : #visiting }
-ProcessingTranspiler >> acceptNodes: nodes [
-	^ nodes collect: [ :each | each acceptVisitor: self ]
-]
 
 { #category : #visiting }
 ProcessingTranspiler >> acceptStatements: expr [
@@ -25,17 +22,12 @@ ProcessingTranspiler >> acceptStatements: expr [
 	expr statements do: [ :stmt |
 		| res |
 		res := stmt acceptVisitor: self.
-		(res isKindOf: ProcessingTranspiler) ifFalse: [
-			self appendLine: res
+		(res isKindOf: Number) ifTrue: [
+			res > 0 ifTrue: [ self emit: '.
+'. ].
 		].
 	].
 	indentation := indentation - 1.
-]
-
-{ #category : #emitting }
-ProcessingTranspiler >> appendLine: line [
-	self emit: (String new: indentation withAll:(Character tab)) , line , '
-'.
 ]
 
 { #category : #compiling }
@@ -56,112 +48,205 @@ ProcessingTranspiler >> compile: ast [
 
 { #category : #emitting }
 ProcessingTranspiler >> emit: part [
+	"Indent new lines."
+	(output = '' or: (output endsWith: '
+')) ifTrue: [
+		output := output , (String new: indentation withAll: Character tab)
+	].
 	output := output , part.
-	^ part size
+	nodeStack do: [ :node | node enlarge: part size ].
+	^ part
 ]
 
 { #category : #emitting }
 ProcessingTranspiler >> emitBackground: args [
-	^ '_canvas background: (_canvas colorWithR: ' , (args at: 1) , ' g: ' , (args at: 2) , ' b: ' , (args at: 3) , ')'
+	self emit: '_canvas background: (_canvas colorWithR: '.
+	args first acceptVisitor: self.
+	self emit: ' g: '.
+	args second acceptVisitor: self.
+	self emit: ' b: '.
+	args third acceptVisitor: self.
+	self emit: ')'.
 ]
 
 { #category : #emitting }
 ProcessingTranspiler >> emitCos: args [
-	^ (args at: 1) , ' cos'
+	args first acceptVisitor: self.
+	self emit: ' cos'.
 ]
 
 { #category : #emitting }
 ProcessingTranspiler >> emitDelay: args [
-	^ '(' , args first , ' / 1000.0) seconds wait'
+	self emit: '('.
+	args first acceptVisitor: self.
+	self emit: ' / 1000.0) seconds wait'.
 ]
 
 { #category : #emitting }
 ProcessingTranspiler >> emitEllipse: args [
-	^ '_canvas ellipse: ' , (args at: 3) , ' by: ' , (args at: 4) , ' at: ' , (args at: 1) , ' @ ' , (args at: 2)
+	self emit: '_canvas ellipse: '.
+	args third acceptVisitor: self.
+	self emit: ' by: '.
+	args fourth acceptVisitor: self.
+	self emit: ' at: '.
+	args first acceptVisitor: self.
+	self emit: ' @ '.
+	args second acceptVisitor: self.
 ]
 
 { #category : #emitting }
 ProcessingTranspiler >> emitFill: args [
-	^ '_canvas fill: (_canvas colorWithR: ' , (args at: 1) , ' g: ' , (args at: 2) , ' b: ' , (args at: 3) , ')'
+	self emit: '_canvas fill: (_canvas colorWithR: '.
+	args first acceptVisitor: self.
+	self emit: ' g: '.
+	args second acceptVisitor: self.
+	self emit: ' b: '.
+	args third acceptVisitor: self.
+	self emit: ')'.
 ]
 
 { #category : #emitting }
 ProcessingTranspiler >> emitFunctionDef: name with: args [
-	| defLine argNames |
-	args size = 0 ifTrue: [ ^ name ].
-	defLine := name , ': ' , (args at: 1).
-	argNames := userDefs at: name.
-	2 to: args size do: [ :argNo |
-		defLine := defLine , ' '  , (argNames at: argNo) , ': ' , (args at: argNo).
+	self emitName: name.
+	args size > 0 ifTrue: [
+		| argNames |
+		argNames := userDefs at: name.
+		self emit: ': '.
+		args first acceptVisitor: self.
+		2 to: args size do: [ :argNo |
+			self emit: ' ', (argNames at: argNo) , ': '.
+			(args at: argNo) acceptVisitor: self.
+		].
 	].
-	^ defLine
 ]
 
 { #category : #emitting }
 ProcessingTranspiler >> emitLine: args [
-	^ '_canvas line: ' , (args at: 1) , ' @ ' , (args at: 2) , ' to: ' , (args at: 3) , ' @ ' , (args at: 4)
+	self emit: '_canvas line: '.
+	args first acceptVisitor: self.
+	self emit: ' @ '.
+	args second acceptVisitor: self.
+	self emit: ' to: '.
+	args third acceptVisitor: self.
+	self emit: ' @ '.
+	args fourth acceptVisitor: self.
 ]
 
 { #category : #emitting }
 ProcessingTranspiler >> emitName: var [
 	"Internal variables of ProcessingCodeBase start with a single underscore. Make sure that there's no accidental leakage by doubling a leading underscore."
-	var first = $_ ifTrue: [ ^ '_' , var ].
-	^ var
+	var first = $_ ifTrue: [ ^ self emit: '_' , var ].
+	^ self emit: var
 ]
 
 { #category : #emitting }
 ProcessingTranspiler >> emitRadians: args [
-	^ (args at: 1) , ' degreesToRadians'
+	args first acceptVisitor: self.
+	self emit: ' degreesToRadians'.
 ]
 
 { #category : #emitting }
 ProcessingTranspiler >> emitRandom: args [
-	^ '(SharedRandom globalGenerator next * ' , (args at: 1) , ')'
+	self emit: '(SharedRandom globalGenerator next * '.
+	args first acceptVisitor: self.
+	self emit: ')'.
 ]
 
 { #category : #emitting }
 ProcessingTranspiler >> emitRect: args [
-	^ '_canvas rect: ' , (args at: 3) , ' by: ' , (args at: 4) , ' at: ' , (args at: 1) , ' @ ' , (args at: 2)
+	self emit: '_canvas rect: '.
+	args third acceptVisitor: self.
+	self emit: ' by: '.
+	args fourth acceptVisitor: self.
+	self emit: ' at: '.
+	args first acceptVisitor: self.
+	self emit: ' @ '.
+	args second acceptVisitor: self.
 ]
 
 { #category : #emitting }
 ProcessingTranspiler >> emitSin: args [
-	^ (args at: 1) , ' sin'
+	args first acceptVisitor: self.
+	self emit: ' sin'.
 ]
 
 { #category : #emitting }
 ProcessingTranspiler >> emitSize: args [
-	^ 'width := ' , (args at: 1) , '. height := ' , (args at: 2) , '. _canvas size: width by: height'
+	self emit: 'width := '.
+	args first acceptVisitor: self.
+	self emit:'. height := '.
+	args second acceptVisitor: self.
+	self emit: '. _canvas size: width by: height'.
 ]
 
 { #category : #emitting }
 ProcessingTranspiler >> emitStroke: args [
-	^ '_canvas stroke: (_canvas colorWithR: ' , (args at: 1) , ' g: ' , (args at: 2) , ' b: ' , (args at: 3) , ')'
+	self emit: '_canvas stroke: (_canvas colorWithR: '.
+	args first acceptVisitor: self.
+	self emit: ' g: '.
+	args second acceptVisitor: self.
+	self emit: ' b: '.
+	args third acceptVisitor: self.
+	self emit: ')'.
 ]
 
 { #category : #emitting }
 ProcessingTranspiler >> emitStrokeWeight: args [
-	^ '_canvas strokeWeight: ' , (args at: 1)
+	self emit: '_canvas strokeWeight: '.
+	args first acceptVisitor: self.
 ]
 
 { #category : #emitting }
 ProcessingTranspiler >> emitTan: args [
-	^ (args at: 1) , ' tan'
+	args first acceptVisitor: self.
+	self emit: ' tan'.
 ]
 
 { #category : #emitting }
 ProcessingTranspiler >> emitText: args [
-	^ '_canvas text: ' , (args at: 1) , ' at: ' , (args at: 2) , ' @ ' , (args at: 3)
+	self emit: '_canvas text: '.
+	args first acceptVisitor: self.
+	self emit: ' at: '.
+	args second acceptVisitor: self.
+	self emit: ' @ '.
+	args third acceptVisitor: self.
 ]
 
 { #category : #emitting }
 ProcessingTranspiler >> emitTextSize: args [
-	^ '_canvas textSize: ' , (args at: 1)
+	self emit: '_canvas textSize: '.
+	args first acceptVisitor: self.
 ]
 
 { #category : #emitting }
 ProcessingTranspiler >> emitTriangle: args [
-	^ '_canvas triangle: { ' , (args at: 1) , ' @ ' , (args at: 2) , '. ' , (args at: 3) , ' @ ' , (args at: 4) , '. ' , (args at: 5) , ' @ ' , (args at: 6) , '. }'
+	self emit: '_canvas triangle: { '.
+	args first acceptVisitor: self.
+	self emit: ' @ '.
+	args second acceptVisitor: self.
+	self emit: '. '.
+	args third acceptVisitor: self.
+	self emit: ' @ '.
+	args fourth acceptVisitor: self.
+	self emit: '. '.
+	args fifth acceptVisitor: self.
+	self emit: ' @ '.
+	args sixth acceptVisitor: self.
+	self emit: '. }'.
+]
+
+{ #category : #emitting }
+ProcessingTranspiler >> endEmit [
+	^ nodeStack removeLast size
+]
+
+{ #category : #emitting }
+ProcessingTranspiler >> startEmit: node [
+	| slice |
+	slice := ProcessingTranspilationSlice link: node method: methodName from: output size + 1.
+	astMap add: slice.
+	nodeStack add: slice.
+	^ slice
 ]
 
 { #category : #compiling }
@@ -171,27 +256,37 @@ ProcessingTranspiler >> transpile: ast [
 	localVariables := Set new.
 	functions := ''.
 	astMaps := Dictionary new.
+	nodeStack := OrderedCollection new.
 	
 	"Prepare implicit globals"
 	globalVariables add: 'width'.
 	globalVariables add: 'height'.
+	
+	"Throw-away values for function signature pre-parsing."
+	indentation := 0.
+	output := ''.
+	astMap := OrderedCollection new.
+	methodName := ''.
 	"Collect the signatures of user defined functions."
 	userDefs := Dictionary new.
 	ast statements select: [ :stmt | stmt isKindOf: PyFunctionDefinitionNode ] thenDo: [ :stmt |
 		| args |
-		args := self acceptNodes: stmt parameters.
+		stmt parameters do: [ :arg | arg acceptVisitor: self ].
+		args := astMap collect: [ :slice | slice slice: output ].
 		userDefs at: stmt fname value put: args.
 	].
 	
-	output := ''.
 	indentation := 0.
+	output := ''.
 	astMap := OrderedCollection new.
-	self appendLine: '_run'.
+	methodName := '_run'.
+	self emit: methodName , '
+'.
 	indentation := indentation + 1.
 	ast acceptVisitor: self.
 	
 	localVariables do: [ :var | globalVariables add: var ].
-	astMaps at: '_run' put: astMap.
+	astMaps at: methodName put: astMap.
 	
 	"TODO: only update the canvas at the end of a draw phase (avoid rendering artifacts)"
 	^ (output copyFrom: 1 to: output size - 1) , functions
@@ -199,32 +294,42 @@ ProcessingTranspiler >> transpile: ast [
 
 { #category : #compiling }
 ProcessingTranspiler >> transpileFunction: ast name: name args: args [
-	| saveLocalVariables saveGlobalVariables saveIndentation saveAstMap saveOutput res header |
+	| saveLocalVariables saveGlobalVariables saveIndentation saveAstMap saveOutput saveMethodName res header |
 	"Preserve global state"
 	saveLocalVariables := localVariables.
 	saveGlobalVariables := globalVariables.
 	saveIndentation := indentation.
 	saveAstMap := astMap.
 	saveOutput := output.
+	saveMethodName := methodName.
 	
 	localVariables := Set new.
 	globalVariables := Set new.
 	indentation := 0.
 	astMap := OrderedCollection new.
+	methodName := name.
+	
 	output := ''.
-	self appendLine: (self emitFunctionDef: name with: args).
-	header := output. output := ''.
+	self emitFunctionDef: name with: args.
+	header := output , '
+'.
+	
+	output := ''.
 	self acceptStatements: ast.
 	"TODO: assigning to an argument yields a '... is shadowed' warning in the Transcript"
 	localVariables size > 0 ifTrue: [
+		| headerSize |
+		headerSize := header size.
 		header := header , Character tab asString , '| ' , (' ' join: localVariables) , ' |
 '.
+		astMap do: [ :node | node move: header size - headerSize. ].
 	].
 	res := header , (output copyFrom: 1 to: output size - 1).
 	globalVariables do: [ :var | saveGlobalVariables add: var ].
 	astMaps at: name put: astMap.
 	
 	"Restore global state"
+	methodName := saveMethodName.
 	output := saveOutput.
 	astMap := saveAstMap.
 	indentation := saveIndentation.
@@ -247,21 +352,28 @@ ProcessingTranspiler >> variables [
 { #category : #visiting }
 ProcessingTranspiler >> visitAssignmentExpression: expr [
 	| name |
+	self startEmit: expr.
 	name := self emitName: expr variable nameToken value.
 	(globalVariables includes: name) ifFalse: [
 		localVariables add: name.
 	].
-	self appendLine: name , ' := ' , (expr value acceptVisitor: self) , '.'
+	self emit: ' := '.
+	expr value acceptVisitor: self.
+	^ self endEmit
 ]
 
 { #category : #visiting }
 ProcessingTranspiler >> visitAssignmentStatement: expr [
 	| name |
+	name := expr lhs nameToken value.
+	self startEmit: expr.
 	name := self emitName: expr lhs nameToken value.
 	(globalVariables includes: name) ifFalse: [
 		localVariables add: name.
 	].
-	self appendLine: name , ' := ' , (expr tos first acceptVisitor: self) , '.'
+	self emit: ' := '.
+	expr tos first acceptVisitor: self.
+	^ self endEmit.
 ]
 
 { #category : #visiting }
@@ -270,7 +382,14 @@ ProcessingTranspiler >> visitBinaryExpression: expr [
 	op := expr operator value.
 	"Python compares value equality with `==`, Smalltalk does with `=`"
 	op = '==' ifTrue: [ op := '=' ].
-	^ '(' ,(expr left acceptVisitor: self) , ' ' , op , ' ' , (expr right acceptVisitor: self) , ')'
+	
+	self startEmit: expr.
+	self emit: '('.
+	expr left acceptVisitor: self.
+	self emit: ' ' , op , ' '.
+	expr right acceptVisitor: self.
+	self emit: ')'.
+	^ self endEmit
 ]
 
 { #category : #visiting }
@@ -280,11 +399,14 @@ ProcessingTranspiler >> visitComparisonExpression: expr [
 
 { #category : #visiting }
 ProcessingTranspiler >> visitExpressionStatement: stmt [
-	(self acceptNodes: stmt children) do: [ :res |
-		(res isKindOf: ProcessingTranspiler) ifFalse: [
-			self appendLine: res , '.'.
-		]
-	]
+	stmt children do: [ :part |
+		| res |
+		res := part acceptVisitor: self.
+		(res isKindOf: Number) ifTrue: [
+			res > 0 ifTrue: [ self emit: '.
+'. ]
+		].
+	].
 ]
 
 { #category : #visiting }
@@ -295,97 +417,130 @@ ProcessingTranspiler >> visitFile: file [
 { #category : #visiting }
 ProcessingTranspiler >> visitFunctionCallExpression: fnCall [
 	| name args |
+	self startEmit: fnCall.
 	name := fnCall receiver nameToken value.
-	args := self acceptNodes: fnCall arguments.
-	name = 'background' ifTrue: [ ^ self emitBackground: args ].
-	name = 'cos' ifTrue: [ ^ self emitCos: args ].
-	name = 'delay' ifTrue: [ ^ self emitDelay: args ].
-	name = 'ellipse' ifTrue: [ ^ self emitEllipse: args ].
-	name = 'fill' ifTrue: [ ^ self emitFill: args ].
-	name = 'line' ifTrue: [ ^ self emitLine: args ].
-	name = 'radians' ifTrue: [ ^ self emitRadians: args ].
-	name = 'random' ifTrue: [ ^ self emitRandom: args ].
-	name = 'rect' ifTrue: [ ^ self emitRect: args ].
-	name = 'sin' ifTrue: [ ^ self emitSin: args ].
-	name = 'size' ifTrue: [ ^ self emitSize: args ].
-	name = 'stroke' ifTrue: [ ^ self emitStroke: args ].
-	name = 'strokeWeight' ifTrue: [ ^ self emitStrokeWeight: args ].
-	name = 'text' ifTrue: [ ^ self emitText: args ].
-	name = 'textSize' ifTrue: [ ^ self emitTextSize: args ].
-	name = 'tan' ifTrue: [ ^ self emitTan: args ].
-	name = 'triangle' ifTrue: [ ^ self emitTriangle: args ].
-	(userDefs includesKey: name) ifTrue: [ ^ '(self ' , (self emitFunctionDef: name with: args) , ')' ].
+	args := fnCall arguments.
+	name = 'background' ifTrue: [ self emitBackground: args. ^ self endEmit ].
+	name = 'cos' ifTrue: [ self emitCos: args. ^ self endEmit ].
+	name = 'delay' ifTrue: [ self emitDelay: args. ^ self endEmit ].
+	name = 'ellipse' ifTrue: [ self emitEllipse: args. ^ self endEmit ].
+	name = 'fill' ifTrue: [ self emitFill: args. ^ self endEmit ].
+	name = 'line' ifTrue: [ self emitLine: args. ^ self endEmit ].
+	name = 'radians' ifTrue: [ self emitRadians: args. ^ self endEmit ].
+	name = 'random' ifTrue: [ self emitRandom: args. ^ self endEmit ].
+	name = 'rect' ifTrue: [ self emitRect: args. ^ self endEmit ].
+	name = 'sin' ifTrue: [ self emitSin: args. ^ self endEmit ].
+	name = 'size' ifTrue: [ self emitSize: args. ^ self endEmit ].
+	name = 'stroke' ifTrue: [ self emitStroke: args. ^ self endEmit ].
+	name = 'strokeWeight' ifTrue: [ self emitStrokeWeight: args. ^ self endEmit ].
+	name = 'text' ifTrue: [ self emitText: args. ^ self endEmit ].
+	name = 'textSize' ifTrue: [ self emitTextSize: args. ^ self endEmit ].
+	name = 'tan' ifTrue: [ self emitTan: args. ^ self endEmit ].
+	name = 'triangle' ifTrue: [ self emitTriangle: args. ^ self endEmit ].
+	(userDefs includesKey: name) ifTrue: [
+		self emit: '(self '.
+		self emitFunctionDef: name with: args.
+		self emit: ')'.
+		^ self endEmit
+	].
 	ProcessingNotImplementedException new signal: 'Function ' , name , ' not implemented!'
 ]
 
 { #category : #visiting }
 ProcessingTranspiler >> visitFunctionDefinition: def [
-	| name args |
-	name := def fname value.
-	args := self acceptNodes: def parameters.
 	functions := functions , '
 
-' , (self transpileFunction: def name: name args: args).
+' , (self transpileFunction: def name: def fname value args: (def parameters collect: [ :param | param ])).
+	^ 0
 ]
 
 { #category : #visiting }
 ProcessingTranspiler >> visitGlobalStatement: global [
 	global nameTokens do: [ :token | globalVariables add: token value ].
+	^ 0
 ]
 
 { #category : #visiting }
 ProcessingTranspiler >> visitIfStatement: expr [
-	self appendLine: (expr condition acceptVisitor: self) , ' ifTrue: ['.
+	self startEmit: expr.
+	expr condition acceptVisitor: self.
+	self emit: ' ifTrue: [
+'.
 	self acceptStatements: expr.
 	expr elsifs ifNotNil: [
 		expr elsifs do: [ :elif |
-			self appendLine: '] ifFalse: ['.
+			self emit: '] ifFalse: [
+'.
 			indentation := indentation + 1.
-			self appendLine: (elif condition acceptVisitor: self) , ' ifTrue: ['.
+			elif condition acceptVisitor: self.
+			self emit: ' ifTrue: [
+'.
 			self acceptStatements: elif.
 		].
 	].
 	expr else ifNotNil: [
-		self appendLine: '] ifFalse: ['.
+		self emit: '] ifFalse: [
+'.
 		self acceptStatements: expr else.
 	].
 	expr elsifs ifNotNil: [
 		expr elsifs do: [ :elif |
-			self appendLine: '].'.
+			self emit: '].
+'.
 			indentation := indentation - 1.
 		].
 	].
-	self appendLine: '].'
+	self emit: ']'.
+	^ self endEmit
 ]
 
 { #category : #visiting }
 ProcessingTranspiler >> visitNumber: num [
-	^ num numberToken value
+	self startEmit: num.
+	self emit: num numberToken value.
+	^ self endEmit
 ]
 
 { #category : #visiting }
 ProcessingTranspiler >> visitParameter: param [
-	^ param name nameToken value
+	self startEmit: param.
+	self emit: param name nameToken value.
+	^ self endEmit
 ]
 
 { #category : #visiting }
 ProcessingTranspiler >> visitReturnStatement: expr [
-	^ '^ ' , (self acceptNodes: expr expressions) first.
+	self startEmit: expr.
+	self emit: '^ '.
+	expr expressions first acceptVisitor: self.
+	self emit: '
+'.
+	"Explicitly not returning anything in order to prevent a trailing dot."
+	self endEmit
 ]
 
 { #category : #visiting }
 ProcessingTranspiler >> visitString: expr [
-	^ '''' , ('' join: (expr parts collect: [ :part | (part value allButFirst: 1) allButLast: 1 ])) , ''''
+	self startEmit: expr.
+	self emit: '''' , ('' join: (expr parts collect: [ :part | (part value allButFirst: 1) allButLast: 1 ])) , ''''.
+	^ self endEmit
 ]
 
 { #category : #visiting }
 ProcessingTranspiler >> visitVariableExpression: var [
-	^ self emitName: var nameToken value
+	self startEmit: var.
+	self emitName: var nameToken value.
+	^ self endEmit
 ]
 
 { #category : #visiting }
 ProcessingTranspiler >> visitWhileStatement: expr [
-	self appendLine: '[ ' , (expr condition acceptVisitor: self) , ' ] whileTrue: ['.
+	self startEmit: expr.
+	self emit: '[ '.
+	expr condition acceptVisitor: self.
+	self emit: ' ] whileTrue: [
+'.
 	self acceptStatements: expr.
-	self appendLine: '].'
+	self emit: ']'.
+	^ self endEmit
 ]

@@ -301,7 +301,7 @@ ProcessingTranspilerExamples >> transpileRecursion [
 	self assert: ('
 
 ' join: ((transpiler compile: ast) class methods collect: [ :method | method sourceCode ]) sorted) equals: self transpilationRecursion.
-	^ "transpiler compile:" ast
+	^ transpiler compile: ast
 ]
 
 { #category : #example }
