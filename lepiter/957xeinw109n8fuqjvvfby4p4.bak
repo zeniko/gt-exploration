@@ -28,7 +28,7 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-04-24T22:09:54.906+02:00"
+												"dateAndTimeString" : "2025-04-25T23:59:50.188+02:00"
 											}
 										},
 										"editEmail" : {
@@ -39,17 +39,17 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-04-24T22:21:23.514+02:00"
+												"dateAndTimeString" : "2025-04-25T23:59:50.188+02:00"
 											}
 										},
 										"uid" : {
 											"__type" : "uid",
-											"uidString" : "kNvEie3vDQCy3EegAw9UBg=="
+											"uidString" : "4D+4MAPwDQC1iNSSCFuhlw=="
 										},
 										"paragraphStyle" : {
 											"__type" : "textStyle"
 										},
-										"string" : "AST-Transpilation Link"
+										"string" : ""
 									},
 									{
 										"__type" : "textSnippet",
@@ -76,7 +76,7 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-04-24T22:36:15.801+02:00"
+												"dateAndTimeString" : "2025-04-24T22:38:45.608+02:00"
 											}
 										},
 										"uid" : {
@@ -86,7 +86,7 @@
 										"paragraphStyle" : {
 											"__type" : "textStyle"
 										},
-										"string" : "Call stack introspection? (see e.g. {{gtClass:StepThroughTest}})"
+										"string" : "Call stack introspection? (see e.g. {{gtClass:StepThroughTest}} and {{gtClass:GtGemStoneDebugger}})"
 									}
 								]
 							},

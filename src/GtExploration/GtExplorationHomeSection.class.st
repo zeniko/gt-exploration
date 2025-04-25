@@ -37,12 +37,20 @@ GtExplorationHomeSection >> processingAbstractionCard [
 { #category : #card }
 GtExplorationHomeSection >> projectCard [
 	<gtSectionCard>
-	^ GtHomeCard page
+	^ GtHomeCard lazy
 		title: 'Implementation and Tests';
 		description: 'Technical details (not for students)';
-		priority: 10;
 		databaseName: 'zeniko:gt-exploration';
 		pageName: 'Individual Project';
+		setPriority;
+		loadLepiter: [
+			Metacello new
+				repository: 'github://zeniko/gt-exploration:main/src';
+				baseline: 'GtExploration';
+				load.
+			#BaselineOfGtExploration asClass loadLepiter.
+			self class updateGtWorld
+		];
 		assertInvariant;
 		yourself
 ]

@@ -26,7 +26,6 @@ ProcessingSourceExamples >> sourceAlpinerWanderweg [
 
 { #category : #source }
 ProcessingSourceExamples >> sourceCodeAlpinerWanderweg [
-	<gtExample>
 	^ 'size(200, 200)
 rect(50, 50, 100, 100)
 fill(255, 0, 0)
@@ -35,13 +34,11 @@ rect(50, 50 + 100 / 3, 100, 100 / 3)'
 
 { #category : #source }
 ProcessingSourceExamples >> sourceCodeEndlessLoop [
-	<gtExample>
 	^ 'while 1 == 1: 1+1'
 ]
 
 { #category : #source }
 ProcessingSourceExamples >> sourceCodeExample02 [
-	<gtExample>
 	^ 'size(200, 200)
 a = 0
 while a < 200:
@@ -54,7 +51,6 @@ if a >= 200:
 
 { #category : #source }
 ProcessingSourceExamples >> sourceCodeExample03 [
-	<gtExample>
 	^ 'size(200, 200)
 # Variable für Farbe und Durchmesser
 x = 200
@@ -69,7 +65,6 @@ while x > 0:
 
 { #category : #source }
 ProcessingSourceExamples >> sourceCodeExample04 [
-	<gtExample>
 	^ 'size(30, 20)
 x = 0
 def setX():
@@ -81,14 +76,12 @@ text(x, 0, 20)'
 
 { #category : #source }
 ProcessingSourceExamples >> sourceCodeExample05 [
-	<gtExample>
 	^ 'size(200, 100)
 _a := width; _b := height'
 ]
 
 { #category : #source }
 ProcessingSourceExamples >> sourceCodeFibonacci [
-	<gtExample>
 	^ 'size(200, 200)
 
 def fibonacci(n):
@@ -108,13 +101,11 @@ text(fibonacci(10), 20, 125)'
 
 { #category : #source }
 ProcessingSourceExamples >> sourceCodeMinimal [
-	<gtExample>
 	^ 'size(200, 200)'
 ]
 
 { #category : #source }
 ProcessingSourceExamples >> sourceCodeRecursion [
-	<gtExample>
 	^ 'size(200, 200)
 
 def recursion(n):
@@ -127,7 +118,6 @@ recursion(200)'
 
 { #category : #source }
 ProcessingSourceExamples >> sourceCodeShapes [
-	<gtExample>
 	^ 'size(200, 200)
 stroke(255, 255, 255)
 rect(20, 30, 60, 40)
@@ -162,7 +152,6 @@ sierpinski(4, 2, 2, width - 4)'
 
 { #category : #source }
 ProcessingSourceExamples >> sourceCodeSwitzerland [
-	<gtExample>
 	"This is an example from the introductionary course and thus inaccurate in both color and proportion"
 	^ 'size(200, 200)
 background(255, 0, 0)

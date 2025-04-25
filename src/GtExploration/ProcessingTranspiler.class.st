@@ -10,7 +10,6 @@ Class {
 		'astMap',
 		'astMaps',
 		'output',
-		'methodName',
 		'nodeStack'
 	],
 	#category : #'GtExploration-Processing'
@@ -32,7 +31,7 @@ ProcessingTranspiler >> acceptStatements: expr [
 
 { #category : #compiling }
 ProcessingTranspiler >> compile: ast [
-	| class source instance |
+	| class source instance _astMaps |
 	source := self transpile: ast.
 	class := ProcessingCodeBase newAnonymousSubclass.
 	class addSlot: '_canvas'.
@@ -41,8 +40,14 @@ ProcessingTranspiler >> compile: ast [
 	(source splitOn: '
 
 ') do: [ :method | class compile: method ].
+	_astMaps := OrderedCollection new.
+	class methodDict keysDo: [ :key |
+		(astMaps at: key asString) do: [ :slice |
+			_astMaps add: (slice cloneFor: class >> key).
+		].
+	].
 	instance := class new.
-	instance instVarNamed: #_astMaps put: astMaps.
+	instance instVarNamed: #_astMaps put: _astMaps.
 	^ instance
 ]
 
@@ -51,11 +56,11 @@ ProcessingTranspiler >> emit: part [
 	"Indent new lines."
 	(output = '' or: (output endsWith: '
 ')) ifTrue: [
-		output := output , (String new: indentation withAll: Character tab)
+		nodeStack select: [ :node | node startPos = (output size + 1) ] thenDo: [ :node | node move: indentation ].
+		output := output , (String new: indentation withAll: Character tab).
 	].
+	
 	output := output , part.
-	nodeStack do: [ :node | node enlarge: part size ].
-	^ part
 ]
 
 { #category : #emitting }
@@ -135,8 +140,9 @@ ProcessingTranspiler >> emitLine: args [
 { #category : #emitting }
 ProcessingTranspiler >> emitName: var [
 	"Internal variables of ProcessingCodeBase start with a single underscore. Make sure that there's no accidental leakage by doubling a leading underscore."
-	var first = $_ ifTrue: [ ^ self emit: '_' , var ].
-	^ self emit: var
+	var first = $_ ifTrue: [ self emit: '_' , var. ^ '_' , var ].
+	self emit: var.
+	^ var
 ]
 
 { #category : #emitting }
@@ -237,13 +243,16 @@ ProcessingTranspiler >> emitTriangle: args [
 
 { #category : #emitting }
 ProcessingTranspiler >> endEmit [
-	^ nodeStack removeLast size
+	| node |
+	node := nodeStack removeLast.
+	node setEnd: output size.
+	^ node size
 ]
 
 { #category : #emitting }
 ProcessingTranspiler >> startEmit: node [
 	| slice |
-	slice := ProcessingTranspilationSlice link: node method: methodName from: output size + 1.
+	slice := ProcessingTranspilationSlice link: node from: output size + 1.
 	astMap add: slice.
 	nodeStack add: slice.
 	^ slice
@@ -266,7 +275,6 @@ ProcessingTranspiler >> transpile: ast [
 	indentation := 0.
 	output := ''.
 	astMap := OrderedCollection new.
-	methodName := ''.
 	"Collect the signatures of user defined functions."
 	userDefs := Dictionary new.
 	ast statements select: [ :stmt | stmt isKindOf: PyFunctionDefinitionNode ] thenDo: [ :stmt |
@@ -279,14 +287,14 @@ ProcessingTranspiler >> transpile: ast [
 	indentation := 0.
 	output := ''.
 	astMap := OrderedCollection new.
-	methodName := '_run'.
-	self emit: methodName , '
+	self emit: '_run
 '.
 	indentation := indentation + 1.
 	ast acceptVisitor: self.
 	
 	localVariables do: [ :var | globalVariables add: var ].
-	astMaps at: methodName put: astMap.
+	astMap do: [ :slice | slice name: '_run' ].
+	astMaps at: '_run' put: astMap.
 	
 	"TODO: only update the canvas at the end of a draw phase (avoid rendering artifacts)"
 	^ (output copyFrom: 1 to: output size - 1) , functions
@@ -294,20 +302,18 @@ ProcessingTranspiler >> transpile: ast [
 
 { #category : #compiling }
 ProcessingTranspiler >> transpileFunction: ast name: name args: args [
-	| saveLocalVariables saveGlobalVariables saveIndentation saveAstMap saveOutput saveMethodName res header |
+	| saveLocalVariables saveGlobalVariables saveIndentation saveAstMap saveOutput res header methodName |
 	"Preserve global state"
 	saveLocalVariables := localVariables.
 	saveGlobalVariables := globalVariables.
 	saveIndentation := indentation.
 	saveAstMap := astMap.
 	saveOutput := output.
-	saveMethodName := methodName.
 	
 	localVariables := Set new.
 	globalVariables := Set new.
 	indentation := 0.
 	astMap := OrderedCollection new.
-	methodName := name.
 	
 	output := ''.
 	self emitFunctionDef: name with: args.
@@ -318,18 +324,26 @@ ProcessingTranspiler >> transpileFunction: ast name: name args: args [
 	self acceptStatements: ast.
 	"TODO: assigning to an argument yields a '... is shadowed' warning in the Transcript"
 	localVariables size > 0 ifTrue: [
-		| headerSize |
-		headerSize := header size.
 		header := header , Character tab asString , '| ' , (' ' join: localVariables) , ' |
 '.
-		astMap do: [ :node | node move: header size - headerSize. ].
+		astMap do: [ :node | node move: header size. ].
 	].
 	res := header , (output copyFrom: 1 to: output size - 1).
 	globalVariables do: [ :var | saveGlobalVariables add: var ].
-	astMaps at: name put: astMap.
+	
+	methodName := name.
+	args size > 0 ifTrue: [
+		| argNames |
+		argNames := userDefs at: name.
+		methodName := methodName , ':'.
+		2 to: argNames size do: [ :argNo |
+			methodName := methodName , (argNames at: argNo) , ':'.
+		].
+	].
+	astMap do: [ :slice | slice name: methodName ].
+	astMaps at: methodName put: astMap.
 	
 	"Restore global state"
-	methodName := saveMethodName.
 	output := saveOutput.
 	astMap := saveAstMap.
 	indentation := saveIndentation.

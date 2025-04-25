@@ -15,7 +15,6 @@ ProcessingTranspilerExamples >> newTranspiler [
 
 { #category : #transpilation }
 ProcessingTranspilerExamples >> transpilationAlpinerWanderweg [
-	<gtExample>
 	^ '_run
 	width := 200. height := 200. _canvas size: width by: height.
 	_canvas rect: 100 by: 100 at: 50 @ 50.
@@ -25,7 +24,6 @@ ProcessingTranspilerExamples >> transpilationAlpinerWanderweg [
 
 { #category : #transpilation }
 ProcessingTranspilerExamples >> transpilationEndlessLoop [
-	<gtExample>
 	^ '_run
 	[ (1 = 1) ] whileTrue: [
 		(1 + 1).
@@ -34,7 +32,6 @@ ProcessingTranspilerExamples >> transpilationEndlessLoop [
 
 { #category : #transpilation }
 ProcessingTranspilerExamples >> transpilationExample02 [
-	<gtExample>
 	^ '_run
 	width := 200. height := 200. _canvas size: width by: height.
 	a := 0.
@@ -50,7 +47,6 @@ ProcessingTranspilerExamples >> transpilationExample02 [
 
 { #category : #transpilation }
 ProcessingTranspilerExamples >> transpilationExample03 [
-	<gtExample>
 	^ '_run
 	width := 200. height := 200. _canvas size: width by: height.
 	x := 200.
@@ -64,7 +60,6 @@ ProcessingTranspilerExamples >> transpilationExample03 [
 
 { #category : #transpilation }
 ProcessingTranspilerExamples >> transpilationExample04 [
-	<gtExample>
 	^ '_run
 	width := 30. height := 20. _canvas size: width by: height.
 	x := 0.
@@ -77,7 +72,6 @@ setX
 
 { #category : #transpilation }
 ProcessingTranspilerExamples >> transpilationExample05 [
-	<gtExample>
 	^ '_run
 	width := 200. height := 100. _canvas size: width by: height.
 	__a := width.
@@ -86,7 +80,6 @@ ProcessingTranspilerExamples >> transpilationExample05 [
 
 { #category : #transpilation }
 ProcessingTranspilerExamples >> transpilationFibonacci [
-	<gtExample>
 	^ '_run
 	width := 200. height := 200. _canvas size: width by: height.
 	_canvas textSize: 30.
@@ -108,14 +101,12 @@ fibonacci: n
 
 { #category : #transpilation }
 ProcessingTranspilerExamples >> transpilationMinimal [
-	<gtExample>
 	^ '_run
 	width := 200. height := 200. _canvas size: width by: height.'
 ]
 
 { #category : #transpilation }
 ProcessingTranspilerExamples >> transpilationRecursion [
-	<gtExample>
 	^ '_run
 	width := 200. height := 200. _canvas size: width by: height.
 	(self recursion: 200).
@@ -129,7 +120,6 @@ recursion: n
 
 { #category : #transpilation }
 ProcessingTranspilerExamples >> transpilationShapes [
-	<gtExample>
 	^ '_run
 	width := 200. height := 200. _canvas size: width by: height.
 	_canvas stroke: (_canvas colorWithR: 255 g: 255 b: 255).
@@ -141,7 +131,6 @@ ProcessingTranspilerExamples >> transpilationShapes [
 
 { #category : #transpilation }
 ProcessingTranspilerExamples >> transpilationSierpinski [
-	<gtExample>
 	^ '_run
 	px := 300.
 	width := px. height := ((px * 60 degreesToRadians sin) + 2). _canvas size: width by: height.
@@ -169,7 +158,6 @@ sierpinski: n x: x y: y side: side
 
 { #category : #transpilation }
 ProcessingTranspilerExamples >> transpilationSwitzerland [
-	<gtExample>
 	^ '_run
 	width := 200. height := 200. _canvas size: width by: height.
 	_canvas background: (_canvas colorWithR: 255 g: 0 b: 0).
