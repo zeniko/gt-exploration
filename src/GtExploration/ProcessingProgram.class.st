@@ -32,7 +32,7 @@ ProcessingProgram >> compilation [
 { #category : #views }
 ProcessingProgram >> gtBytecodeFor: aView [
 	<gtView>
-	^ compilation gtBytecodeFor: aView
+	^ compilation _gtBytecodeFor: aView
 ]
 
 { #category : #views }
@@ -54,9 +54,48 @@ ProcessingProgram >> gtContentsFor: aView [
 ]
 
 { #category : #views }
+ProcessingProgram >> gtHookBytecode: anEditor toList: aList [
+	"Adapted from SmaCCParseNode>>#gtHookEditor:toTree:"
+	| highlightAttribute |
+	highlightAttribute := (BlTextDecorationAttribute new underline)
+		beNotOverwritableByStyler;
+		color: BrGlamorousColors textHighlightColor;
+		thickness: 3.
+	
+	aList
+		when: BrSelectionChanged
+		do:
+			[ :anEvent | 
+			aList
+				selectedItemDo:
+					[ :aItem |
+					| item |
+					item := aItem.
+					(item isKindOf: SymbolicBytecode) ifTrue: [
+						item := compilation _gtSliceForItem: item.
+					].
+					(item isKindOf: ProcessingTranspilationSlice)
+						ifTrue:
+							[ anEditor editor text clearAttributes: [ :attr | attr == highlightAttribute ].
+							anEditor editor text
+								attributes: {highlightAttribute}
+								from: item astNode startPosition
+								to: item astNode stopPosition.
+							item astNode gtScrollToPosition: item astNode startPosition inEditor: anEditor ] ] ].
+	
+	anEditor editor
+		when: BrTextEditorCursorMovedEvent
+		do:
+			[ :event | 
+			| position |
+			anEditor cursors do: [ :each | position := each position ].
+			position notNil ifTrue: [ compilation _gtSelectBytecode: aList at: position ] ]
+]
+
+{ #category : #views }
 ProcessingProgram >> gtOutputFor: aView [
 	<gtView>
-	^ compilation gtOutputFor: aView
+	^ compilation _gtOutputFor: aView
 ]
 
 { #category : #views }
@@ -66,7 +105,7 @@ ProcessingProgram >> gtSourceAstFor: aView [
 	ast topParent completeSource isNil
 		ifTrue: [ ^ aView empty ].
 	^ aView explicit
-		priority: 5;
+		priority: 10;
 		title: 'AST++';
 		stencil: [ | element editor tree |
 			element := BlElement new.
@@ -97,9 +136,44 @@ ProcessingProgram >> gtSourceAstFor: aView [
 ]
 
 { #category : #views }
+ProcessingProgram >> gtSourceBytecodeFor: aView [
+	<gtView>
+	^ aView explicit
+		priority: 10;
+		title: 'Bytecode++';
+		stencil: [ | element child editor |
+			element := BlElement new.
+			element layout: (BlGridLayout new columnCount: 2).
+			element
+				constraintsDo: [ :c | 
+					c vertical matchParent.
+					c horizontal matchParent ].
+			
+			(self gtContentsFor: GtPhlowView empty)
+				asElementDo: [ :e | child := e ].
+			child
+				background: Color white;
+				margin: (BlInsets all: 5).
+			element addChild: child.
+			editor := child.
+			
+			(self gtBytecodeFor: GtPhlowView empty)
+				asElementDo: [ :e | child := e ].
+			child
+				constraintsDo: [ :c | 
+					c vertical matchParent.
+					c horizontal matchParent ];
+				margin: (BlInsets all: 5).
+			element addChild: child.
+			self gtHookBytecode: editor toList: child.
+			
+			element ]
+]
+
+{ #category : #views }
 ProcessingProgram >> gtSourceCodeFor: aView [
 	<gtView>
-	^ compilation gtSourceCodeFor: aView
+	^ compilation _gtSourceCodeFor: aView
 ]
 
 { #category : #views }
@@ -127,7 +201,7 @@ ProcessingProgram >> gtTreeFor: aView [
 { #category : #views }
 ProcessingProgram >> gtViewIntermediaryRepresentationFor: aView [
 	<gtView>
-	^ compilation gtViewIntermediaryRepresentationFor: aView
+	^ compilation _gtViewIntermediaryRepresentationFor: aView
 ]
 
 { #category : #runtime }

@@ -29,7 +29,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-04-01T16:35:21.801+02:00"
+						"dateAndTimeString" : "2025-04-21T11:53:51.696+02:00"
 					}
 				},
 				"uid" : {
@@ -39,7 +39,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "{{gtClass:ProcessingProgram}} is a wrapper around a compiled Processing source and is responsibel for generating all possible views into the various abstraction levels of a program:"
+				"string" : "{{gtClass:ProcessingProgram}} is a wrapper around a compiled Processing source and is responsible for generating all possible views into the various abstraction levels of a program:"
 			},
 			{
 				"__type" : "exampleSnippet",
@@ -229,7 +229,7 @@
 				},
 				"exampleSelector" : "programExample02",
 				"previewHeight" : 260,
-				"previewShowSelector" : "gtSourceCodeFor:",
+				"previewShowSelector" : "_gtSourceCodeFor:",
 				"exampleBehaviorName" : "ProcessingProgramExamples",
 				"codeExpanded" : true,
 				"previewExpanded" : true,
@@ -383,7 +383,7 @@
 				},
 				"exampleSelector" : "programExample02",
 				"previewHeight" : 250,
-				"previewShowSelector" : "gtBytecodeFor:",
+				"previewShowSelector" : "_gtBytecodeFor:",
 				"exampleBehaviorName" : "ProcessingProgramExamples",
 				"codeExpanded" : true,
 				"previewExpanded" : true,
@@ -460,7 +460,7 @@
 				},
 				"exampleSelector" : "programExample02",
 				"previewHeight" : 250,
-				"previewShowSelector" : "gtOutputFor:",
+				"previewShowSelector" : "_gtOutputFor:",
 				"exampleBehaviorName" : "ProcessingProgramExamples",
 				"codeExpanded" : true,
 				"previewExpanded" : true,

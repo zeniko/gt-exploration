@@ -29,7 +29,9 @@ ProcessingSource >> gtAbstractionsFor: aView [
 	^ aView explicit
 		priority: 1;
 		title: 'Abstractions';
-		stencil: [ | element child editor |
+		stencil: [ | element child editor program |
+			program := self program.
+			
 			element := BlElement new.
 			element layout: (BlGridLayout new columnCount: 2).
 			element
@@ -37,7 +39,7 @@ ProcessingSource >> gtAbstractionsFor: aView [
 					c vertical matchParent.
 					c horizontal matchParent ].
 			
-			(self program gtContentsFor: GtPhlowView empty)
+			(program gtContentsFor: GtPhlowView empty)
 				asElementDo: [ :e | child := e ].
 			child
 				background: Color white;
@@ -45,7 +47,7 @@ ProcessingSource >> gtAbstractionsFor: aView [
 			element addChild: child.
 			editor := child.
 			
-			(self program gtTreeFor: GtPhlowView empty)
+			(program gtTreeFor: GtPhlowView empty)
 				asElementDo: [ :e | child := e ].
 			child
 				constraintsDo: [ :c | 
@@ -53,7 +55,7 @@ ProcessingSource >> gtAbstractionsFor: aView [
 					c horizontal matchParent ];
 				margin: (BlInsets all: 5).
 			element addChild: child.
-			self program ast topParent gtHookEditor: editor toTree: child children last.
+			program ast topParent gtHookEditor: editor toTree: child children last.
 			
 			(self gtBytecodeFor: GtPhlowView empty)
 				asElementDo: [ :e | child := e ].
@@ -63,7 +65,7 @@ ProcessingSource >> gtAbstractionsFor: aView [
 					c horizontal matchParent ];
 				margin: (BlInsets all: 5).
 			element addChild: child.
-			"TODO: Hook into editor (similar to the AST)"
+			program gtHookBytecode: editor toList: child.
 			
 			(self gtOutputFor: GtPhlowView empty)
 				asElementDo: [ :e | child := e ].
@@ -74,7 +76,7 @@ ProcessingSource >> gtAbstractionsFor: aView [
 				background: Color white;
 				margin: (BlInsets all: 5).
 			element addChild: child.
-			"TODO: Hook into editor (similar to the AST)"
+			"TODO: Hook into editor"
 			
 			element ]
 ]

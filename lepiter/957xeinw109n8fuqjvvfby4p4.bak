@@ -39,7 +39,7 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-04-25T23:59:50.188+02:00"
+												"dateAndTimeString" : "2025-04-26T00:00:03.202+02:00"
 											}
 										},
 										"uid" : {
@@ -49,7 +49,7 @@
 										"paragraphStyle" : {
 											"__type" : "textStyle"
 										},
-										"string" : ""
+										"string" : "Map bytecode to Processing code"
 									},
 									{
 										"__type" : "textSnippet",
@@ -337,7 +337,7 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-04-24T13:49:29.321+02:00"
+												"dateAndTimeString" : "2025-04-26T19:34:45.82+02:00"
 											}
 										},
 										"uid" : {
@@ -347,7 +347,41 @@
 										"paragraphStyle" : {
 											"__type" : "textStyle"
 										},
-										"string" : "Connect elements in Abstractions view (as seen in {{gtClass:GtExplainerExamples}})"
+										"string" : "Connect elements in Abstractions view (as seen in {{gtClass:GtExplainerExamples}}):"
+									},
+									{
+										"__type" : "pharoSnippet",
+										"children" : {
+											"__type" : "snippets",
+											"items" : [ ]
+										},
+										"createEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"createTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2025-04-26T19:34:58.858+02:00"
+											}
+										},
+										"editEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"editTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2025-04-26T19:35:45.435+02:00"
+											}
+										},
+										"uid" : {
+											"__type" : "uid",
+											"uidString" : "ECxdmxPwDQCt7cObB219MA=="
+										},
+										"code" : "GtPharoSyntaxExplainer new forMethod: ProcessingProgramExamples>>#programSierpinski"
 									},
 									{
 										"__type" : "textSnippet",

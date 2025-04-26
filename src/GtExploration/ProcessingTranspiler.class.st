@@ -321,6 +321,7 @@ ProcessingTranspiler >> transpileFunction: ast name: name args: args [
 '.
 	
 	output := ''.
+	astMap := OrderedCollection new.
 	self acceptStatements: ast.
 	"TODO: assigning to an argument yields a '... is shadowed' warning in the Transcript"
 	localVariables size > 0 ifTrue: [
