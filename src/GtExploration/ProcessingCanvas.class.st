@@ -11,6 +11,13 @@ Class {
 	#category : #'GtExploration-Processing'
 }
 
+{ #category : #initialization }
+ProcessingCanvas >> annotate: shape [
+	"Note the caller for later backreferencing this shape with the creating code."
+	shape userData at: #context put: thisContext stack third copyStack.
+	^ shape
+]
+
 { #category : #accessing }
 ProcessingCanvas >> asElement [
 	^ canvasElement asScalableElement
@@ -54,7 +61,7 @@ ProcessingCanvas >> ellipse: dx by: dy at: xy [
 		border: self border;
 		yourself.
 	canvasElement addChild: shape.
-	^ shape
+	^ self annotate: shape
 ]
 
 { #category : #modifiers }
@@ -97,7 +104,7 @@ ProcessingCanvas >> line: fromXy to: toXy [
 		border: self border;
 		yourself.
 	canvasElement addChild: shape.
-	^ shape
+	^ self annotate: shape
 ]
 
 { #category : #shapes }
@@ -110,7 +117,7 @@ ProcessingCanvas >> rect: width by: height at: xy [
 		border: self border;
 		yourself.
 	canvasElement addChild: shape.
-	^ shape
+	^ self annotate: shape
 ]
 
 { #category : #modifiers }
@@ -148,6 +155,7 @@ ProcessingCanvas >> text: text at: pos [
 	canvasElement addChild: shape.
 	"y-position is of baseline"
 	shape relocate: pos x @ (pos y - textSize).
+	^ self annotate: shape
 ]
 
 { #category : #accessing }
@@ -169,5 +177,5 @@ ProcessingCanvas >> triangle: vertices [
 		border: self border;
 		yourself.
 	canvasElement addChild: shape.
-	^ shape
+	^ self annotate: shape
 ]

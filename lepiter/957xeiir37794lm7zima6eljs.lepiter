@@ -219,7 +219,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-04-26T19:38:17.626+02:00"
+									"dateAndTimeString" : "2025-04-26T23:14:23.719+02:00"
 								}
 							},
 							"uid" : {
@@ -229,7 +229,44 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Refactored {{gtClass:ProcessingTranspiler}} and added {{gtClass:ProcessingTranspilationSlice}} for mapping transpiled code to Processing code. (Try it in the example above.)"
+							"string" : "Refactored {{gtClass:ProcessingTranspiler}} and added {{gtClass:ProcessingTranspilationSlice}} for mapping transpiled code to Processing code. (Try it in the example above!)"
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-04-26T23:13:13.02+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-04-26T23:13:56.54+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "YDrWpxbwDQC/gBfQC+1yhg=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Added caller context to canvas elements (see {{gtMethod:ProcessingCanvas>>#annotate:}})."
 						}
 					]
 				},
