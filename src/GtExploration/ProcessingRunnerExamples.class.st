@@ -145,3 +145,15 @@ ProcessingRunnerExamples >> runSierpinski [
 	self assert: runner isDone.
 	^ runner
 ]
+
+{ #category : #example }
+ProcessingRunnerExamples >> runStepwise [
+	<gtExample>
+	| program runner steps |
+	program := ProcessingProgramExamples new programExample02.
+	runner := self newRunner.
+	steps := runner runStepwise: program compilation.
+	self assert: steps size equals: 37.
+	self assert: runner isDone.
+	^ steps
+]

@@ -34,7 +34,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-04-26T22:39:04.237+02:00"
+									"dateAndTimeString" : "2025-04-26T22:39:33.953+02:00"
 								}
 							},
 							"uid" : {
@@ -44,7 +44,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Map canvas calls back to the source (through {{gtMethod:label=thisContext}})"
+							"string" : "Map canvas calls back to the source (through `thisContext stack`)"
 						},
 						{
 							"__type" : "textSnippet",

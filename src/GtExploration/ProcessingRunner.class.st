@@ -24,7 +24,7 @@ ProcessingRunner >> isDone [
 	^ done
 ]
 
-{ #category : #runtime }
+{ #category : #running }
 ProcessingRunner >> limitTo: duration [
 	"Schedule a (hard) interruption, if the program still runs after the given `duration`."
 	^ ([ duration wait ] asAsyncForkedFuture then: [
@@ -34,7 +34,7 @@ ProcessingRunner >> limitTo: duration [
 	]) await
 ]
 
-{ #category : #runtime }
+{ #category : #running }
 ProcessingRunner >> run: compilation [
 	| worker |
 	worker := AsyncFutureThreadPoolWorker new.
@@ -54,7 +54,33 @@ ProcessingRunner >> run: compilation [
 	^ promise
 ]
 
-{ #category : #runtime }
+{ #category : #running }
+ProcessingRunner >> runStepwise: compilation [
+	| steps block process session |
+	steps := OrderedCollection new.
+	
+	canvas isNil ifTrue: [ canvas := ProcessingCanvas new. ].
+	compilation instVarNamed: #_canvas put: canvas.
+	
+	block := [ compilation _run. done := true. ].
+	process := block newProcess.
+	[process step closure == block] whileFalse.
+	process step.
+	
+	session := process newDebugSessionNamed: 'ProcessingRunner>>#runStepwise:' startedAt: process suspendedContext.
+	session stepInto.
+	
+	[ session interruptedProcess isTerminated ] whileFalse: [
+		session interruptedContext closure = block ifFalse: [
+			steps add: (ProcessingRunStep create: session interruptedContext canvas: canvas).
+		].
+		session stepThrough.
+	].
+	
+	^ steps
+]
+
+{ #category : #running }
 ProcessingRunner >> wait [
 	^ promise wait
 ]
