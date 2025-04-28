@@ -124,6 +124,19 @@ ProcessingCodeBase >> _gtSliceForItem: byteCode [
 ]
 
 { #category : #views }
+ProcessingCodeBase >> _gtSliceForItem: method within: interval [
+	| slices |
+	slices := (self instVarNamed: #_astMaps) select: [ :slice |
+		(slice method = method) and: [
+			(slice startPos <= interval first) &
+			(slice endPos >= interval last)
+		]
+	].
+	slices size = 0 ifTrue: [ ^ nil ].
+	^ slices last
+]
+
+{ #category : #views }
 ProcessingCodeBase >> _gtSlicesFor: aView [
 	<gtView>
 	^ aView list

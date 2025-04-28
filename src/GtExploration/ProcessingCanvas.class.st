@@ -129,15 +129,16 @@ ProcessingCanvas >> print: text [
 				c horizontal matchParent ].
 		canvasElement addChild: innerCanvas asScalableElement.
 		canvasElement addChild: transcript asElement.
+	] ifNotNil: [
+		transcript nextPut: '
+'.
 	].
 	
 	(text isKindOf: Array) ifTrue: [
 		text allButLastDo: [ :part | transcript nextPut: part asString , ' ' ].
-		transcript nextPut: text last asString , '
-'.
+		transcript nextPut: text last asString.
 	] ifFalse: [
-		transcript nextPut: text asString , '
-'.
+		transcript nextPut: text asString.
 	].
 ]
 

@@ -115,11 +115,13 @@
 								"__type" : "uid",
 								"uidString" : "oAEDKT7wDQC5mWIDDoh1gA=="
 							},
-							"previewHeight" : 200,
-							"previewShowSelector" : "gtViewsFor:",
+							"exampleSelector" : "sourcePrint",
+							"previewHeight" : 300,
+							"previewShowSelector" : "gtAbstractionsFor:",
+							"exampleBehaviorName" : "ProcessingSourceExamples",
 							"codeExpanded" : true,
 							"previewExpanded" : false,
-							"noCode" : false
+							"noCode" : true
 						}
 					]
 				},
@@ -450,7 +452,7 @@
 								"__type" : "uid",
 								"uidString" : "WDXrEivwDQCedF1YDyCzFQ=="
 							},
-							"exampleSelector" : "runStepwise",
+							"exampleSelector" : "runExample02Stepwise",
 							"previewHeight" : 150,
 							"previewShowSelector" : "gtItemsFor:",
 							"exampleBehaviorName" : "ProcessingRunnerExamples",

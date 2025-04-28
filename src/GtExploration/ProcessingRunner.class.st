@@ -71,10 +71,13 @@ ProcessingRunner >> runStepwise: compilation [
 	session stepInto.
 	
 	[ session interruptedProcess isTerminated ] whileFalse: [
-		session interruptedContext closure = block ifFalse: [
+		(session interruptedContext methodClass inheritsFrom: ProcessingCodeBase) ifTrue: [
+			"TODO: only add one step per Python line"
 			steps add: (ProcessingRunStep create: session interruptedContext canvas: canvas).
+			session stepInto.
+		] ifFalse: [
+			session stepThrough.
 		].
-		session stepThrough.
 	].
 	
 	^ steps

@@ -452,7 +452,7 @@
 								"__type" : "uid",
 								"uidString" : "WDXrEivwDQCedF1YDyCzFQ=="
 							},
-							"exampleSelector" : "runStepwise",
+							"exampleSelector" : "runExample02Stepwise",
 							"previewHeight" : 150,
 							"previewShowSelector" : "gtItemsFor:",
 							"exampleBehaviorName" : "ProcessingRunnerExamples",

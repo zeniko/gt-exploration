@@ -41,6 +41,18 @@ ProcessingRunnerExamples >> runExample02 [
 ]
 
 { #category : #example }
+ProcessingRunnerExamples >> runExample02Stepwise [
+	<gtExample>
+	| program runner steps |
+	program := ProcessingProgramExamples new programExample02.
+	runner := self newRunner.
+	steps := runner runStepwise: program compilation.
+	self assert: steps size equals: 37.
+	self assert: runner isDone.
+	^ steps
+]
+
+{ #category : #example }
 ProcessingRunnerExamples >> runExample03 [
 	<gtExample>
 	<noTest> "Example03 contains deliberate `delay` calls"
@@ -90,6 +102,18 @@ ProcessingRunnerExamples >> runFibonacci [
 	self assert: runner canvas isNotNil.
 	self assert: runner isDone.
 	^ runner
+]
+
+{ #category : #example }
+ProcessingRunnerExamples >> runFibonacciStepwise [
+	<gtExample>
+	| program runner steps |
+	program := ProcessingProgramExamples new programFibonacci.
+	runner := self newRunner.
+	steps := runner runStepwise: program compilation.
+	self assert: steps size equals: 557.
+	self assert: runner isDone.
+	^ steps
 ]
 
 { #category : #example }
@@ -159,13 +183,13 @@ ProcessingRunnerExamples >> runSierpinski [
 ]
 
 { #category : #example }
-ProcessingRunnerExamples >> runStepwise [
+ProcessingRunnerExamples >> runSierpinskiStepwise [
 	<gtExample>
 	| program runner steps |
-	program := ProcessingProgramExamples new programExample02.
+	program := ProcessingProgramExamples new programSierpinski.
 	runner := self newRunner.
 	steps := runner runStepwise: program compilation.
-	self assert: steps size equals: 37.
+	self assert: steps size equals: 709.
 	self assert: runner isDone.
 	^ steps
 ]
