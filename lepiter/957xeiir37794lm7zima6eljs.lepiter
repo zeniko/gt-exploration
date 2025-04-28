@@ -71,7 +71,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-04-28T14:10:36.654+02:00"
+									"dateAndTimeString" : "2025-04-28T22:20:57.921+02:00"
 								}
 							},
 							"uid" : {
@@ -81,7 +81,47 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Processing API: `print` (to {{gtClass:GtTranscript}})."
+							"string" : "Processing API: `print` (to {{gtClass:GtTranscript}}):"
+						},
+						{
+							"__type" : "exampleSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-04-28T22:21:03.94+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-04-28T22:21:03.94+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "oAEDKT7wDQC5mWIDDoh1gA=="
+							},
+							"exampleSelector" : "sourcePrint",
+							"previewHeight" : 300,
+							"previewShowSelector" : "gtAbstractionsFor:",
+							"exampleBehaviorName" : "ProcessingSourceExamples",
+							"codeExpanded" : true,
+							"previewExpanded" : false,
+							"noCode" : true
 						}
 					]
 				},

@@ -37,10 +37,12 @@ ProcessingCanvasExamples >> blueBackground [
 
 { #category : #example }
 ProcessingCanvasExamples >> container [
-	"TODO: How to measure the extent of an element that has not yet been rendered?!"
 	<gtExample>
 	| canvas |
 	canvas := ProcessingCanvas new.
+	self assert: canvas canvasElement constraints horizontal resizer size equals: 100.
+	self assert: canvas canvasElement constraints vertical resizer size equals: 100.
+	
 	canvas size: 200 by: 200.
 	self assert: canvas fillColor equals: Color white.
 	self assert: canvas strokeColor equals: Color black.
@@ -50,7 +52,9 @@ ProcessingCanvasExamples >> container [
 	self assert: canvas canvasElement children size equals: 0.
 	self assert: (canvas asElement isKindOf: BlScalableElement).
 	self assert: canvas asElement children first equals: canvas canvasElement.
-	"self assert: (canvas canvasElement measuredBounds extent) equals: 200 @ 200."
+	self assert: canvas canvasElement constraints horizontal resizer size equals: 200.
+	self assert: canvas canvasElement constraints vertical resizer size equals: 200.
+	
 	^ canvas
 ]
 
@@ -63,7 +67,6 @@ ProcessingCanvasExamples >> createColor [
 	self assert: (canvas colorWithR: 160 g: 160 b: 160) equals: Color lightGray.
 	self assert: (canvas colorWithR: 192 g: 192 b: 192) equals: Color veryLightGray.
 	self assert: (canvas colorWithR: 255 g: 255 b: 255) equals: Color white.
-
 ]
 
 { #category : #example }
@@ -81,9 +84,9 @@ ProcessingCanvasExamples >> examplePrint [
 	<gtExample>
 	| canvas |
 	canvas := ProcessingRunnerExamples new runPrint canvas.
-	self assert: canvas canvasElement children size equals: 0.
-	self assert: canvas asElement children size equals: 2.
-	self assert: (canvas asElement children second isKindOf: GtTranscriptElement).
+	self assert: canvas canvasElement children size equals: 2.
+	self assert: canvas asElement children size equals: 1.
+	self assert: (canvas canvasElement children last isKindOf: GtTranscriptElement).
 	^ canvas
 ]
 

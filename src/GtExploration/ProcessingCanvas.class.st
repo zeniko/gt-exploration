@@ -112,10 +112,25 @@ ProcessingCanvas >> line: fromXy to: toXy [
 { #category : #shapes }
 ProcessingCanvas >> print: text [
 	transcript ifNil: [
+		| innerCanvas |
 		transcript := GtTranscript new.
-		"TODO: show transcript *below* the visual output"
-		canvasElement addChildFirst: transcript asElement.
+		innerCanvas := BlElement new
+			background: canvasElement background;
+			size: canvasElement constraints horizontal resizer size @ canvasElement constraints vertical resizer size;
+			yourself.
+		[canvasElement children size > 0 ] whileTrue: [
+			innerCanvas addChild: (canvasElement removeChildAt: 1).
+		].
+		canvasElement
+			background: Color white;
+			layout: (BlGridLayout new columnCount: 1);
+			constraintsDo: [ :c | 
+				c vertical matchParent.
+				c horizontal matchParent ].
+		canvasElement addChild: innerCanvas asScalableElement.
+		canvasElement addChild: transcript asElement.
 	].
+	
 	(text isKindOf: Array) ifTrue: [
 		text allButLastDo: [ :part | transcript nextPut: part asString , ' ' ].
 		transcript nextPut: text last asString , '
