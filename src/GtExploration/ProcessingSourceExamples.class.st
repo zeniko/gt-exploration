@@ -105,6 +105,13 @@ ProcessingSourceExamples >> sourceCodeMinimal [
 ]
 
 { #category : #source }
+ProcessingSourceExamples >> sourceCodePrint [
+	^ 'print("Hello, world!")
+var = 2 + 3
+print("2 + 3 =", var)'
+]
+
+{ #category : #source }
 ProcessingSourceExamples >> sourceCodeRecursion [
 	^ 'size(200, 200)
 
@@ -225,6 +232,16 @@ ProcessingSourceExamples >> sourceMinimal [
 	| source |
 	source := ProcessingSource new fromString: self sourceCodeMinimal.
 	self assert: source asString equals: self sourceCodeMinimal.
+	self assert: source program isNotNil.
+	^ source
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingSourceExamples >> sourcePrint [
+	<gtExample>
+	| source |
+	source := ProcessingSource new fromString: self sourceCodePrint.
+	self assert: source asString equals: self sourceCodePrint.
 	self assert: source program isNotNil.
 	^ source
 ]

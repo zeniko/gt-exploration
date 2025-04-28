@@ -77,6 +77,17 @@ ProcessingCanvasExamples >> example02 [
 ]
 
 { #category : #example }
+ProcessingCanvasExamples >> examplePrint [
+	<gtExample>
+	| canvas |
+	canvas := ProcessingRunnerExamples new runPrint canvas.
+	self assert: canvas canvasElement children size equals: 0.
+	self assert: canvas asElement children size equals: 2.
+	self assert: (canvas asElement children second isKindOf: GtTranscriptElement).
+	^ canvas
+]
+
+{ #category : #example }
 ProcessingCanvasExamples >> fibonacci [
 	<gtExample>
 	| program canvas |

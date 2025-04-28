@@ -6,7 +6,8 @@ Class {
 		'canvasElement',
 		'textSize',
 		'strokeColor',
-		'strokeWeight'
+		'strokeWeight',
+		'transcript'
 	],
 	#category : #'GtExploration-Processing'
 }
@@ -93,6 +94,7 @@ ProcessingCanvas >> initialize [
 	strokeColor := Color black.
 	strokeWeight := 0.5.
 	textSize := 12.
+	transcript := nil.
 ]
 
 { #category : #shapes }
@@ -105,6 +107,23 @@ ProcessingCanvas >> line: fromXy to: toXy [
 		yourself.
 	canvasElement addChild: shape.
 	^ self annotate: shape
+]
+
+{ #category : #shapes }
+ProcessingCanvas >> print: text [
+	transcript ifNil: [
+		transcript := GtTranscript new.
+		"TODO: show transcript *below* the visual output"
+		canvasElement addChildFirst: transcript asElement.
+	].
+	(text isKindOf: Array) ifTrue: [
+		text allButLastDo: [ :part | transcript nextPut: part asString , ' ' ].
+		transcript nextPut: text last asString , '
+'.
+	] ifFalse: [
+		transcript nextPut: text asString , '
+'.
+	].
 ]
 
 { #category : #shapes }

@@ -146,6 +146,21 @@ ProcessingTranspiler >> emitName: var [
 ]
 
 { #category : #emitting }
+ProcessingTranspiler >> emitPrint: args [
+	args size > 1 ifTrue: [
+		self emit: '_canvas print: { '.
+		args do: [ :arg |
+			arg acceptVisitor: self.
+			self emit: '. '.
+		].
+		self emit: ' }'.
+	] ifFalse: [
+		self emit: '_canvas print: '.
+		args first acceptVisitor: self.
+	].
+]
+
+{ #category : #emitting }
 ProcessingTranspiler >> emitRadians: args [
 	args first acceptVisitor: self.
 	self emit: ' degreesToRadians'.
@@ -441,6 +456,9 @@ ProcessingTranspiler >> visitFunctionCallExpression: fnCall [
 	name = 'ellipse' ifTrue: [ self emitEllipse: args. ^ self endEmit ].
 	name = 'fill' ifTrue: [ self emitFill: args. ^ self endEmit ].
 	name = 'line' ifTrue: [ self emitLine: args. ^ self endEmit ].
+	name = 'print' ifTrue: [ self emitPrint: args. ^ self endEmit ].
+	"`println` is to Processing what `print` is to Python."
+	name = 'println' ifTrue: [ self emitPrint: args. ^ self endEmit ].
 	name = 'radians' ifTrue: [ self emitRadians: args. ^ self endEmit ].
 	name = 'random' ifTrue: [ self emitRandom: args. ^ self endEmit ].
 	name = 'rect' ifTrue: [ self emitRect: args. ^ self endEmit ].

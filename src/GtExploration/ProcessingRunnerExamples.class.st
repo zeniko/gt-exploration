@@ -122,6 +122,18 @@ ProcessingRunnerExamples >> runMinimal [
 ]
 
 { #category : #example }
+ProcessingRunnerExamples >> runPrint [
+	<gtExample>
+	| program runner |
+	program := ProcessingProgramExamples new programPrint.
+	runner := self newRunner.
+	runner run: program compilation; wait.
+	self assert: runner canvas isNotNil.
+	self assert: runner isDone.
+	^ runner
+]
+
+{ #category : #example }
 ProcessingRunnerExamples >> runRecursion [
 	<gtExample>
 	| program runner |

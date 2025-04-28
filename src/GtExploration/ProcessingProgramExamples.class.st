@@ -79,6 +79,15 @@ ProcessingProgramExamples >> programMinimal [
 ]
 
 { #category : #example }
+ProcessingProgramExamples >> programPrint [
+	<gtExample>
+	| program |
+	program := ProcessingSourceExamples new sourcePrint program.
+	self assert: program compilation isNotNil.
+	^ program
+]
+
+{ #category : #example }
 ProcessingProgramExamples >> programRecursion [
 	<gtExample>
 	| program |

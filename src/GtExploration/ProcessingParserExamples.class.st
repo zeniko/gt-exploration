@@ -82,6 +82,15 @@ ProcessingParserExamples >> parseMinimal [
 ]
 
 { #category : #example }
+ProcessingParserExamples >> parsePrint [
+	<gtExample>
+	| ast |
+	ast := ProcessingProgramExamples new programPrint ast.
+	self assert: ast statements size equals: 3.
+	^ ast
+]
+
+{ #category : #example }
 ProcessingParserExamples >> parseRecursion [
 	<gtExample>
 	| ast |

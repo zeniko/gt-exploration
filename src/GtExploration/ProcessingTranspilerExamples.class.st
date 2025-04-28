@@ -106,6 +106,14 @@ ProcessingTranspilerExamples >> transpilationMinimal [
 ]
 
 { #category : #transpilation }
+ProcessingTranspilerExamples >> transpilationPrint [
+	^ '_run
+	_canvas print: ''Hello, world!''.
+	var := (2 + 3).
+	_canvas print: { ''2 + 3 =''. var.  }.'
+]
+
+{ #category : #transpilation }
 ProcessingTranspilerExamples >> transpilationRecursion [
 	^ '_run
 	width := 200. height := 200. _canvas size: width by: height.
@@ -274,6 +282,20 @@ ProcessingTranspilerExamples >> transpileMinimal [
 	self assert: transpiler variables size equals: 0.
 	self assert: transpiler userDefs size equals: 0.
 	self assert: ((transpiler compile: ast) class >> #_run) sourceCode equals: self transpilationMinimal.
+	^ transpiler compile: ast
+]
+
+{ #category : #example }
+ProcessingTranspilerExamples >> transpilePrint [
+	<gtExample>
+	| ast transpiler |
+	ast := ProcessingParserExamples new parsePrint.
+	transpiler := self newTranspiler.
+	self assert: (transpiler transpile: ast) equals: self transpilationPrint.
+	self assert: transpiler variables size equals: 1.
+	self assert: (' ' join: transpiler variables) equals: 'var'.
+	self assert: transpiler userDefs size equals: 0.
+	self assert: ((transpiler compile: ast) class >> #_run) sourceCode equals: self transpilationPrint.
 	^ transpiler compile: ast
 ]
 
