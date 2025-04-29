@@ -39,7 +39,7 @@ ProcessingProgram >> gtBytecodeFor: aView [
 ProcessingProgram >> gtContentsFor: aView [
 	<gtView>
 	^ aView explicit
-		priority: 5;
+		priority: 2;
 		title: 'Source';
 		stencil: [ | editor |
 			editor := ast
@@ -111,7 +111,7 @@ ProcessingProgram >> gtSourceAstFor: aView [
 	ast topParent completeSource isNil
 		ifTrue: [ ^ aView empty ].
 	^ aView explicit
-		priority: 10;
+		priority: 6;
 		title: 'AST++';
 		stencil: [ | element editor tree |
 			element := BlElement new.
@@ -145,7 +145,7 @@ ProcessingProgram >> gtSourceAstFor: aView [
 ProcessingProgram >> gtSourceBytecodeFor: aView [
 	<gtView>
 	^ aView explicit
-		priority: 10;
+		priority: 11;
 		title: 'Bytecode++';
 		stencil: [ | element child editor |
 			element := BlElement new.
@@ -163,7 +163,7 @@ ProcessingProgram >> gtSourceBytecodeFor: aView [
 			element addChild: child.
 			editor := child.
 			
-			(self gtBytecodeFor: GtPhlowView empty)
+			(compilation _gtBytecodeFor: GtPhlowView empty)
 				asElementDo: [ :e | child := e ].
 			child
 				constraintsDo: [ :c | 

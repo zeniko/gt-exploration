@@ -76,7 +76,7 @@ ProcessingRunner >> runStepwise: compilation [
 			| slice |
 			slice := compilation _gtSliceForItem: session interruptedContext method within: (session pcRangeForContext: session interruptedContext).
 			slice = lastSlice ifFalse: [
-				"TODO: only add one step per Python line"
+				"TODO: canvas is always one step behind (snapshot *before* the step)"
 				steps add: (ProcessingRunStep create: session interruptedContext canvas: canvas slice: slice).
 				lastSlice := slice.
 			].

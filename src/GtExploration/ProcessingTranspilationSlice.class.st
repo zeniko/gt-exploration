@@ -20,6 +20,11 @@ ProcessingTranspilationSlice class >> link: aNode method: aName from: from to: t
 	^ self new link: aNode method: aName from: from to: to
 ]
 
+{ #category : #views }
+ProcessingTranspilationSlice >> asString [
+	^ self slice: method sourceCode
+]
+
 { #category : #accessing }
 ProcessingTranspilationSlice >> astNode [
 	^ astNode

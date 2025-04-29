@@ -78,10 +78,8 @@ ProcessingCanvas >> fillColor [
 { #category : #views }
 ProcessingCanvas >> gtViewFor: aView [
 	<gtView>
-	^ aView forward
-		title: 'Live';
-		object: [ self asElement ];
-		view: #gtLiveFor:
+	^ (self asElement gtLiveFor: aView)
+		title: 'Live'
 ]
 
 { #category : #initialization }

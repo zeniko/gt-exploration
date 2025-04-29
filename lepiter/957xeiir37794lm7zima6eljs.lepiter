@@ -71,7 +71,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-04-29T12:31:08.966+02:00"
+									"dateAndTimeString" : "2025-04-29T15:37:11.002+02:00"
 								}
 							},
 							"uid" : {
@@ -81,10 +81,10 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Add \"Abstractions\" view for one program execution step:"
+							"string" : "Add \"Abstractions\" view for one program execution steps and allow stepping through them:"
 						},
 						{
-							"__type" : "elementSnippet",
+							"__type" : "exampleSnippet",
 							"children" : {
 								"__type" : "snippets",
 								"items" : [ ]
@@ -97,7 +97,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-04-29T12:31:21.775+02:00"
+									"dateAndTimeString" : "2025-04-29T15:33:05.252+02:00"
 								}
 							},
 							"editEmail" : {
@@ -108,17 +108,20 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-04-29T12:34:50.585+02:00"
+									"dateAndTimeString" : "2025-04-29T15:33:05.252+02:00"
 								}
 							},
 							"uid" : {
 								"__type" : "uid",
-								"uidString" : "mGPpCUrwDQC89s7cB8uMAw=="
+								"uidString" : "oD7Pk0zwDQC8c1WuA8zWiw=="
 							},
-							"code" : "(ProcessingRunnerExamples new runSierpinskiStepwise at: 236) gtAbstractionsFor: GtPhlowView empty",
-							"elementHeight" : 426,
-							"codeHeight" : 48,
-							"codeVisible" : true
+							"exampleSelector" : "sierpinskiStepper",
+							"previewHeight" : 500,
+							"previewShowSelector" : "gtViewsFor:",
+							"exampleBehaviorName" : "StepperExamples",
+							"codeExpanded" : true,
+							"previewExpanded" : false,
+							"noCode" : true
 						},
 						{
 							"__type" : "textSnippet",

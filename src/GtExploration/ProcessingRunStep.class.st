@@ -17,6 +17,11 @@ ProcessingRunStep class >> create: aContext canvas: aCanvas slice: aSlice [
 	^ ProcessingRunStep new create: aContext canvas: aCanvas slice: aSlice
 ]
 
+{ #category : #views }
+ProcessingRunStep >> asString [
+	^ 'Step: ' , slice asString
+]
+
 { #category : #initalization }
 ProcessingRunStep >> create: aContext canvas: aCanvas slice: aSlice [
 	canvas := aCanvas.
@@ -44,7 +49,7 @@ ProcessingRunStep >> create: aContext canvas: aCanvas slice: aSlice [
 ProcessingRunStep >> gtAbstractionsFor: aView [
 	<gtView>
 	^ aView explicit
-		priority: 0;
+		priority: 1;
 		title: 'Abstractions';
 		stencil: [ | element child |
 			element := BlElement new.
@@ -93,26 +98,43 @@ ProcessingRunStep >> gtAbstractionsFor: aView [
 { #category : #views }
 ProcessingRunStep >> gtOutputFor: aView [
 	<gtView>
+	"since the canvas can't be (easily) cloned, reuse it and just show only elements visible at this step"
 	canvas canvasElement children do: [ :child |
 		child visibility: ((visible includes: child) ifTrue: [ BlVisibility visible ] ifFalse: [ BlVisibility hidden ]).
 	].
-	^ canvas gtViewFor: aView
+	^ aView forward
+		title: 'Output';
+		priority: 20;
+		object: [ canvas ];
+		view: #gtViewFor:
 ]
 
 { #category : #views }
 ProcessingRunStep >> gtSourceCodeFor: aView [
 	<gtView>
-	^ slice gtComparisonFor: aView
+	^ aView forward
+		title: 'Source';
+		priority: 5;
+		object: [ slice ];
+		view: #gtComparisonFor:
 ]
 
 { #category : #views }
 ProcessingRunStep >> gtStackFor: aView [
 	<gtView>
-	^  stack gtItemsFor: aView
+	^ aView forward
+		title: 'Stack';
+		priority: 15;
+		object: [ stack ];
+		view: #gtItemsFor:
 ]
 
 { #category : #views }
 ProcessingRunStep >> gtVariablesFor: aView [
 	<gtView>
-	^  variables gtItemsFor: aView
+	^ aView forward
+		title: 'Variables';
+		priority: 10;
+		object: [ variables ];
+		view: #gtItemsFor:
 ]

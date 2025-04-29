@@ -57,7 +57,7 @@ ProcessingSource >> gtAbstractionsFor: aView [
 			element addChild: child.
 			program ast topParent gtHookEditor: editor toTree: child children last.
 			
-			(self gtBytecodeFor: GtPhlowView empty)
+			(program gtBytecodeFor: GtPhlowView empty)
 				asElementDo: [ :e | child := e ].
 			child
 				constraintsDo: [ :c | 
@@ -67,7 +67,7 @@ ProcessingSource >> gtAbstractionsFor: aView [
 			element addChild: child.
 			program gtHookBytecode: editor toList: child.
 			
-			(self gtOutputFor: GtPhlowView empty)
+			(program gtOutputFor: GtPhlowView empty)
 				asElementDo: [ :e | child := e ].
 			child
 				constraintsDo: [ :c | 
@@ -84,7 +84,9 @@ ProcessingSource >> gtAbstractionsFor: aView [
 { #category : #views }
 ProcessingSource >> gtBytecodeFor: aView [
 	<gtView>
-	^ self program gtBytecodeFor: aView
+	^ (self program gtBytecodeFor: aView)
+		title: 'Bytecode';
+		priority: 10
 ]
 
 { #category : #views }
@@ -101,7 +103,7 @@ ProcessingSource >> gtContentsFor: aView [
 	eventLoop := source watcher startLoop.
 
 	^ aView explicit
-		title: 'Contents';
+		title: 'Source';
 		priority: 2;
 		updateWhen: GtFileWatcherModificationAnnouncement in: eventLoop announcer;
 		stencil: [ source gtEditorView ]
@@ -110,25 +112,33 @@ ProcessingSource >> gtContentsFor: aView [
 { #category : #views }
 ProcessingSource >> gtOutputFor: aView [
 	<gtView>
-	^ self program gtOutputFor: aView
+	^ (self program gtOutputFor: aView)
+		title: 'Output';
+		priority: 20
 ]
 
 { #category : #views }
 ProcessingSource >> gtSourceCodeFor: aView [
 	<gtView>
-	^ self program gtSourceCodeFor: aView
+	^ (self program gtSourceCodeFor: aView)
+		title: 'Transpiled';
+		priority: 3
 ]
 
 { #category : #views }
 ProcessingSource >> gtTreeFor: aView [
 	<gtView>
-	^ self program gtTreeFor: aView
+	^ (self program gtTreeFor: aView)
+		title: 'AST';
+		priority: 5
 ]
 
 { #category : #views }
 ProcessingSource >> gtViewIntermediaryRepresentationFor: aView [
 	<gtView>
-	^ self program gtViewIntermediaryRepresentationFor: aView
+	^ (self program gtViewIntermediaryRepresentationFor: aView)
+		title: 'IR';
+		priority: 10
 ]
 
 { #category : #initialization }

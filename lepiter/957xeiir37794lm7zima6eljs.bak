@@ -71,7 +71,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-04-29T12:31:08.966+02:00"
+									"dateAndTimeString" : "2025-04-29T15:37:11.002+02:00"
 								}
 							},
 							"uid" : {
@@ -81,44 +81,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Add \"Abstractions\" view for one program execution step:"
-						},
-						{
-							"__type" : "elementSnippet",
-							"children" : {
-								"__type" : "snippets",
-								"items" : [ ]
-							},
-							"createEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"createTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-04-29T12:31:21.775+02:00"
-								}
-							},
-							"editEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"editTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-04-29T12:34:50.585+02:00"
-								}
-							},
-							"uid" : {
-								"__type" : "uid",
-								"uidString" : "mGPpCUrwDQC89s7cB8uMAw=="
-							},
-							"code" : "(ProcessingRunnerExamples new runSierpinskiStepwise at: 236) gtAbstractionsFor: GtPhlowView empty",
-							"elementHeight" : 424,
-							"codeHeight" : 50,
-							"codeVisible" : true
+							"string" : "Add \"Abstractions\" view for one program execution steps and allow stepping through them:"
 						},
 						{
 							"__type" : "exampleSnippet",
@@ -134,7 +97,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-04-29T12:35:16.305+02:00"
+									"dateAndTimeString" : "2025-04-29T15:33:05.252+02:00"
 								}
 							},
 							"editEmail" : {
@@ -145,18 +108,20 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-04-29T12:35:16.305+02:00"
+									"dateAndTimeString" : "2025-04-29T15:33:05.252+02:00"
 								}
 							},
 							"uid" : {
 								"__type" : "uid",
-								"uidString" : "aAjkF0rwDQC+Pw4RB8uMAw=="
+								"uidString" : "oD7Pk0zwDQC8c1WuA8zWiw=="
 							},
-							"previewHeight" : 200,
+							"exampleSelector" : "sierpinskiStepper",
+							"previewHeight" : 500,
 							"previewShowSelector" : "gtViewsFor:",
+							"exampleBehaviorName" : "StepperExamples",
 							"codeExpanded" : true,
 							"previewExpanded" : false,
-							"noCode" : false
+							"noCode" : true
 						},
 						{
 							"__type" : "textSnippet",

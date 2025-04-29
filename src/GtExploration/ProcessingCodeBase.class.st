@@ -139,11 +139,11 @@ ProcessingCodeBase >> _gtSliceForItem: method within: interval [
 { #category : #views }
 ProcessingCodeBase >> _gtSlicesFor: aView [
 	<gtView>
-	^ aView list
+	^ ((Stepper for: (self instVarNamed: #_astMaps) view: #gtComparisonFor:) gtListViewFor: aView)
 		title: 'Slices';
-		priority: 7;
+		priority: 7";
 		items: [ self instVarNamed: #_astMaps ];
-		itemText: [ :each | each slice: each method sourceCode ]
+		itemText: [ :each | each slice: each method sourceCode ]"
 ]
 
 { #category : #views }
