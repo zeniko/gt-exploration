@@ -592,7 +592,7 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-04-20T23:29:36.192+02:00"
+												"dateAndTimeString" : "2025-04-28T14:10:49.393+02:00"
 											}
 										},
 										"uid" : {
@@ -602,7 +602,7 @@
 										"paragraphStyle" : {
 											"__type" : "textStyle"
 										},
-										"string" : "Further Processing API: `image`, `loadImage`, `print` (to {{gtClass:Transcript}})"
+										"string" : "Further Processing API: `image`, `loadImage`"
 									},
 									{
 										"__type" : "textSnippet",

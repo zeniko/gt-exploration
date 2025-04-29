@@ -15,7 +15,6 @@ GtExplorationHomeSection >> cardPriorities [
 { #category : #card }
 GtExplorationHomeSection >> processingAbstractionCard [
 	<gtSectionCard>
-	<gtExample>
 	^ GtHomeCard lazy
 		title: 'Unterrichtseinheiten';
 		description: 'Material für Schüler:innen';

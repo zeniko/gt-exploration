@@ -5,34 +5,39 @@ Class {
 		'variables',
 		'canvas',
 		'visible',
-		'method'
+		'method',
+		'stack',
+		'slice'
 	],
 	#category : #'GtExploration-Processing'
 }
 
 { #category : #initalization }
-ProcessingRunStep class >> create: aContext canvas: aCanvas [
-	^ ProcessingRunStep new create: aContext canvas: aCanvas
+ProcessingRunStep class >> create: aContext canvas: aCanvas slice: aSlice [
+	^ ProcessingRunStep new create: aContext canvas: aCanvas slice: aSlice
 ]
 
 { #category : #initalization }
-ProcessingRunStep >> create: aContext canvas: aCanvas [
+ProcessingRunStep >> create: aContext canvas: aCanvas slice: aSlice [
 	canvas := aCanvas.
 	visible := aCanvas canvasElement children collect: [ :child | child ].
 	variables := Dictionary new.
 	aContext receiver ifNotNil: [
 		aContext receiver class slots do: [ :slot |
-			slot name first = $_ ifTrue: [
-				slot name second = $_ ifTrue: [
-					variables at: slot name put: (aContext receiver instVarNamed: (slot name copyFrom: 2))
+			(slot name beginsWith: '__') ifTrue: [
+				variables at: slot name put: (aContext receiver instVarNamed: (slot name copyFrom: 2))
+			].
+			(slot name beginsWith: '_') ifFalse: [
+				((slot name = #width) | (slot name = #height)) ifFalse: [
+					variables at: slot name put: (aContext receiver instVarNamed: slot name)
 				].
-			] ifFalse: [
-				variables at: slot name put: (aContext receiver instVarNamed: slot name)
 			].
 		].
 	].
 	aContext tempNames do: [ :name | variables at: name put: (aContext tempNamed: name) ].
 	method := aContext sourceNodeExecuted.
+	stack := (1 to: aContext size) collect: [ :ix | aContext at: ix ].
+	slice := aSlice.
 ]
 
 { #category : #views }
@@ -43,13 +48,30 @@ ProcessingRunStep >> gtAbstractionsFor: aView [
 		title: 'Abstractions';
 		stencil: [ | element child |
 			element := BlElement new.
-			element layout: (BlGridLayout new columnCount: 1).
+			element layout: (BlGridLayout new columnCount: 2).
 			element
 				constraintsDo: [ :c | 
 					c vertical matchParent.
 					c horizontal matchParent ].
 			
+			child := BlElement new.
+			slice ifNotNil: [
+				(slice gtSourceFor: GtPhlowView empty)
+					asElementDo: [ :e | child := e ].
+				child
+					background: Color white;
+					margin: (BlInsets all: 5).
+			].
+			element addChild: child.
+			
 			(self gtVariablesFor: GtPhlowView empty)
+				asElementDo: [ :e | child := e ].
+			child
+				background: Color white;
+				margin: (BlInsets all: 5).
+			element addChild: child.
+			
+			(self gtStackFor: GtPhlowView empty)
 				asElementDo: [ :e | child := e ].
 			child
 				background: Color white;
@@ -80,7 +102,13 @@ ProcessingRunStep >> gtOutputFor: aView [
 { #category : #views }
 ProcessingRunStep >> gtSourceCodeFor: aView [
 	<gtView>
-	^ method gtSourceCodeFor: aView
+	^ slice gtComparisonFor: aView
+]
+
+{ #category : #views }
+ProcessingRunStep >> gtStackFor: aView [
+	<gtView>
+	^  stack gtItemsFor: aView
 ]
 
 { #category : #views }

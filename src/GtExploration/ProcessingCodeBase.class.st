@@ -114,7 +114,7 @@ ProcessingCodeBase >> _gtSelectBytecode: aList at: position [
 ProcessingCodeBase >> _gtSliceForItem: byteCode [
 	| slices |
 	slices := (self instVarNamed: #_astMaps) select: [ :slice |
-		(slice method name = byteCode method name) and: [
+		(slice method = byteCode method) and: [
 			(slice startPos <= byteCode sourceInterval first) &
 			(slice endPos >= byteCode sourceInterval last)
 		]

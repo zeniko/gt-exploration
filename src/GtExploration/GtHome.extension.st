@@ -4,5 +4,4 @@ Extension { #name : #GtHome }
 GtHome >> gtZenikoExplorationSection [
 	<gtHomeSection>
 	^ GtExplorationHomeSection new
-
 ]

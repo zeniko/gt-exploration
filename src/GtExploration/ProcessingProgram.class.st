@@ -99,6 +99,12 @@ ProcessingProgram >> gtOutputFor: aView [
 ]
 
 { #category : #views }
+ProcessingProgram >> gtSlicesFor: aView [
+	<gtView>
+	^ compilation _gtSlicesFor: aView
+]
+
+{ #category : #views }
 ProcessingProgram >> gtSourceAstFor: aView [
 	<gtView>
 	"adapted from {{gtMethod:SmaCCParseNode>>#gtExploreFor:}}"

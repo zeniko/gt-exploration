@@ -56,7 +56,7 @@ ProcessingRunner >> run: compilation [
 
 { #category : #running }
 ProcessingRunner >> runStepwise: compilation [
-	| steps block process session |
+	| steps block process session lastSlice |
 	steps := OrderedCollection new.
 	
 	canvas isNil ifTrue: [ canvas := ProcessingCanvas new. ].
@@ -70,10 +70,16 @@ ProcessingRunner >> runStepwise: compilation [
 	session := process newDebugSessionNamed: 'ProcessingRunner>>#runStepwise:' startedAt: process suspendedContext.
 	session stepInto.
 	
+	lastSlice := nil.
 	[ session interruptedProcess isTerminated ] whileFalse: [
 		(session interruptedContext methodClass inheritsFrom: ProcessingCodeBase) ifTrue: [
-			"TODO: only add one step per Python line"
-			steps add: (ProcessingRunStep create: session interruptedContext canvas: canvas).
+			| slice |
+			slice := compilation _gtSliceForItem: session interruptedContext method within: (session pcRangeForContext: session interruptedContext).
+			slice = lastSlice ifFalse: [
+				"TODO: only add one step per Python line"
+				steps add: (ProcessingRunStep create: session interruptedContext canvas: canvas slice: slice).
+				lastSlice := slice.
+			].
 			session stepInto.
 		] ifFalse: [
 			session stepThrough.
