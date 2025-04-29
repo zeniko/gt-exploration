@@ -141,9 +141,7 @@ ProcessingCodeBase >> _gtSlicesFor: aView [
 	<gtView>
 	^ ((Stepper for: (self instVarNamed: #_astMaps) view: #gtComparisonFor:) gtListViewFor: aView)
 		title: 'Slices';
-		priority: 7";
-		items: [ self instVarNamed: #_astMaps ];
-		itemText: [ :each | each slice: each method sourceCode ]"
+		priority: 7
 ]
 
 { #category : #views }

@@ -56,7 +56,8 @@ ProcessingRunner >> run: compilation [
 
 { #category : #running }
 ProcessingRunner >> runStepwise: compilation [
-	| steps block process session lastSlice |
+	| steps block process session lastSlice lastStep |
+	"TODO: this is a flattened tree - unflatten it?"
 	steps := OrderedCollection new.
 	
 	canvas isNil ifTrue: [ canvas := ProcessingCanvas new. ].
@@ -71,19 +72,28 @@ ProcessingRunner >> runStepwise: compilation [
 	session stepInto.
 	
 	lastSlice := nil.
+	lastStep := nil.
 	[ session interruptedProcess isTerminated ] whileFalse: [
 		(session interruptedContext methodClass inheritsFrom: ProcessingCodeBase) ifTrue: [
 			| slice |
 			slice := compilation _gtSliceForItem: session interruptedContext method within: (session pcRangeForContext: session interruptedContext).
-			slice = lastSlice ifFalse: [
-				"TODO: canvas is always one step behind (snapshot *before* the step)"
-				steps add: (ProcessingRunStep create: session interruptedContext canvas: canvas slice: slice).
+			slice isNotNil & (slice = lastSlice) not ifTrue: [
+				lastStep ifNotNil: [
+					lastStep updateCanvas: canvas.
+					lastStep := nil.
+				].
+				lastStep := ProcessingRunStep create: session interruptedContext canvas: canvas slice: slice.
+				steps add: lastStep.
 				lastSlice := slice.
 			].
 			session stepInto.
 		] ifFalse: [
 			session stepThrough.
 		].
+	].
+	lastStep ifNotNil: [
+		lastStep updateCanvas: canvas.
+		lastStep := nil.
 	].
 	
 	^ steps

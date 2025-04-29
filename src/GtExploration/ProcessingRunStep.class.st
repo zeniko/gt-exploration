@@ -102,39 +102,36 @@ ProcessingRunStep >> gtOutputFor: aView [
 	canvas canvasElement children do: [ :child |
 		child visibility: ((visible includes: child) ifTrue: [ BlVisibility visible ] ifFalse: [ BlVisibility hidden ]).
 	].
-	^ aView forward
+	^ (canvas gtViewFor: aView)
 		title: 'Output';
-		priority: 20;
-		object: [ canvas ];
-		view: #gtViewFor:
+		priority: 20
 ]
 
 { #category : #views }
 ProcessingRunStep >> gtSourceCodeFor: aView [
 	<gtView>
-	^ aView forward
+	^ (slice gtComparisonFor: aView)
 		title: 'Source';
-		priority: 5;
-		object: [ slice ];
-		view: #gtComparisonFor:
+		priority: 5
 ]
 
 { #category : #views }
 ProcessingRunStep >> gtStackFor: aView [
 	<gtView>
-	^ aView forward
+	^ (stack gtItemsFor: aView)
 		title: 'Stack';
-		priority: 15;
-		object: [ stack ];
-		view: #gtItemsFor:
+		priority: 15
 ]
 
 { #category : #views }
 ProcessingRunStep >> gtVariablesFor: aView [
 	<gtView>
-	^ aView forward
+	^ (variables gtItemsFor: aView)
 		title: 'Variables';
-		priority: 10;
-		object: [ variables ];
-		view: #gtItemsFor:
+		priority: 10
+]
+
+{ #category : #initalization }
+ProcessingRunStep >> updateCanvas: aCanvas [
+	visible := aCanvas canvasElement children collect: [ :child | child ].
 ]

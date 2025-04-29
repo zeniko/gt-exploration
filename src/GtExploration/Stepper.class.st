@@ -31,20 +31,11 @@ Stepper >> gtContentFor: aView [
 	^ aView explicit
 		priority: 1;
 		title: 'Step';
-		stencil: [ | element child editor program |
-			element := BlElement new.
-			element layout: (BlGridLayout new columnCount: 1).
-			element
-				constraintsDo: [ :c | 
-					c vertical matchParent.
-					c horizontal matchParent ].
-			
-			((list at: index) perform: view with: GtPhlowView empty)
-				asElementDo: [ :e | child := e ].
-			element addChild: child.
-			
-			element ];
-	
+		stencil: [
+			| element |
+			((list at: index) perform: view with: GtPhlowView empty) asElementDo: [ :e | element := e ].
+			element asScalableElement
+		];
 		actionButtonIcon: BrGlamorousVectorIcons left
 			tooltip: 'Move one step backward'
 			action: [ :button | self stepTo: index - 1. ];
@@ -63,15 +54,23 @@ Stepper >> gtListViewFor: aView [
 		title: 'With List';
 		stencil: [ | element listElement child |
 			element := BlElement new.
-			element layout: (BlGridLayout new columnCount: 1).
 			element
+				layout: BlLinearLayout vertical;
 				constraintsDo: [ :c | 
 					c vertical matchParent.
-					c horizontal matchParent ].
+					c horizontal matchParent ];
+				when: BlElementExtentChangedEvent
+				do: [ :anEvent |
+					element measuredBounds extent x > element measuredBounds extent y ifTrue: [
+						element layout: BlLinearLayout horizontal.
+					] ifFalse: [
+						element layout: BlLinearLayout vertical.
+					].
+				].
 			
 			GtPhlowView empty list
 				items: [ list ];
-				itemText: [ :each | each asString ];
+				itemText: [ :each | (list indexOf: each) asString , ': ' , each asString ];
 				asElementDo: [ :e | child := e ].
 			child
 				background: Color white;
@@ -90,7 +89,8 @@ Stepper >> gtListViewFor: aView [
 			
 			listElement
 				selectOne: index;
-				"scrollToSelection;"
+				"TODO: only scroll if the selection isn't visible"
+				scrollToSelection;
 				when: BrSelectionChanged
 				do:
 					[ :anEvent |

@@ -48,8 +48,8 @@ ProcessingTranspilationSlice >> gtComparisonFor: aView [
 		title: 'Comparison';
 		stencil: [ | element child |
 			element := BlElement new.
-			element layout: (BlGridLayout new columnCount: 2).
 			element
+				layout: BlLinearLayout horizontal;
 				constraintsDo: [ :c | 
 					c vertical matchParent.
 					c horizontal matchParent ].

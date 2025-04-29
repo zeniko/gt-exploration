@@ -149,7 +149,7 @@ ProcessingProgram >> gtSourceBytecodeFor: aView [
 		title: 'Bytecode++';
 		stencil: [ | element child editor |
 			element := BlElement new.
-			element layout: (BlGridLayout new columnCount: 2).
+			element layout: BlLinearLayout horizontal.
 			element
 				constraintsDo: [ :c | 
 					c vertical matchParent.

@@ -47,7 +47,7 @@ ProcessingRunnerExamples >> runExample02Stepwise [
 	program := ProcessingProgramExamples new programExample02.
 	runner := self newRunner.
 	steps := runner runStepwise: program compilation.
-	self assert: steps size equals: 26.
+	self assert: steps size equals: 25.
 	self assert: runner isDone.
 	^ steps
 ]
@@ -111,7 +111,7 @@ ProcessingRunnerExamples >> runFibonacciStepwise [
 	program := ProcessingProgramExamples new programFibonacci.
 	runner := self newRunner.
 	steps := runner runStepwise: program compilation.
-	self assert: steps size equals: 551.
+	self assert: steps size equals: 550.
 	self assert: runner isDone.
 	^ steps
 ]
@@ -189,7 +189,7 @@ ProcessingRunnerExamples >> runSierpinskiStepwise [
 	program := ProcessingProgramExamples new programSierpinski.
 	runner := self newRunner.
 	steps := runner runStepwise: program compilation.
-	self assert: steps size equals: 664.
+	self assert: steps size equals: 637.
 	self assert: runner isDone.
 	^ steps
 ]

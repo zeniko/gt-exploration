@@ -121,7 +121,7 @@ ProcessingCanvas >> print: text [
 		].
 		canvasElement
 			background: Color white;
-			layout: (BlGridLayout new columnCount: 1);
+			layout: BlGridLayout vertical;
 			constraintsDo: [ :c | 
 				c vertical matchParent.
 				c horizontal matchParent ].

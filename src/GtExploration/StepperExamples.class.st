@@ -10,7 +10,7 @@ StepperExamples >> sierpinskiStepper [
 	| stepper |
 	stepper := Stepper for: ProcessingRunnerExamples new runSierpinskiStepwise view: #gtAbstractionsFor:.
 	self assert: stepper index equals: 1.
-	stepper stepTo: 236.
-	self assert: stepper index equals: 236.
+	stepper stepTo: 211.
+	self assert: stepper index equals: 211.
 	^ stepper
 ]
