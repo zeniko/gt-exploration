@@ -7,7 +7,7 @@ Class {
 		'index',
 		'announcer'
 	],
-	#category : #'GtExploration-Processing'
+	#category : #'GtExploration-Tools'
 }
 
 { #category : #initialization }

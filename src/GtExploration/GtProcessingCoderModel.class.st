@@ -14,6 +14,12 @@ GtProcessingCoderModel >> asCoderViewModel [
 
 { #category : #'private - execution' }
 GtProcessingCoderModel >> bindAndExecute: sourceString inContext: aGtSourceCoderEvaluationContext [
+	^ (ProcessingSource new fromString: sourceString) render
+]
+
+{ #category : #'private - execution' }
+GtProcessingCoderModel >> bindAndExecuteInspect: sourceString inContext: aGtSourceCoderEvaluationContext [
+	"TODO: hook up by subclassing GtPythonCoderViewModel"
 	^ ProcessingSource new fromString: sourceString
 ]
 
