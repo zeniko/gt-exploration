@@ -35,7 +35,7 @@ ProcessingCompiler >> emitFill: args [
 	(args at: 1) acceptVisitor: self.
 	(args at: 2) acceptVisitor: self.
 	(args at: 3) acceptVisitor: self.
-	builder send: #colorWithR:g:b:; send: #fill:; popTop.
+	builder send: #colorWithR:G:B:; send: #fill:; popTop.
 ]
 
 { #category : #'as yet unclassified' }

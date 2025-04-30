@@ -65,13 +65,12 @@ ProcessingTranspiler >> emit: part [
 
 { #category : #emitting }
 ProcessingTranspiler >> emitBackground: args [
-	self emit: '_canvas background: (_canvas colorWithR: '.
+	self emit: '_canvas backgroundR: '.
 	args first acceptVisitor: self.
-	self emit: ' g: '.
+	self emit: ' G: '.
 	args second acceptVisitor: self.
-	self emit: ' b: '.
+	self emit: ' B: '.
 	args third acceptVisitor: self.
-	self emit: ')'.
 ]
 
 { #category : #emitting }
@@ -101,13 +100,12 @@ ProcessingTranspiler >> emitEllipse: args [
 
 { #category : #emitting }
 ProcessingTranspiler >> emitFill: args [
-	self emit: '_canvas fill: (_canvas colorWithR: '.
+	self emit: '_canvas fillR: '.
 	args first acceptVisitor: self.
-	self emit: ' g: '.
+	self emit: ' G: '.
 	args second acceptVisitor: self.
-	self emit: ' b: '.
+	self emit: ' B: '.
 	args third acceptVisitor: self.
-	self emit: ')'.
 ]
 
 { #category : #emitting }
@@ -123,6 +121,12 @@ ProcessingTranspiler >> emitFunctionDef: name with: args [
 			(args at: argNo) acceptVisitor: self.
 		].
 	].
+]
+
+{ #category : #emitting }
+ProcessingTranspiler >> emitInt: args [
+	args first acceptVisitor: self.
+	self emit: ' rounded'.
 ]
 
 { #category : #emitting }
@@ -202,13 +206,12 @@ ProcessingTranspiler >> emitSize: args [
 
 { #category : #emitting }
 ProcessingTranspiler >> emitStroke: args [
-	self emit: '_canvas stroke: (_canvas colorWithR: '.
+	self emit: '_canvas strokeR: '.
 	args first acceptVisitor: self.
-	self emit: ' g: '.
+	self emit: ' G: '.
 	args second acceptVisitor: self.
-	self emit: ' b: '.
+	self emit: ' B: '.
 	args third acceptVisitor: self.
-	self emit: ')'.
 ]
 
 { #category : #emitting }
@@ -287,19 +290,19 @@ ProcessingTranspiler >> transpile: ast [
 	globalVariables add: 'height'.
 	
 	"Throw-away values for function signature pre-parsing."
-	indentation := 0.
 	output := ''.
-	astMap := OrderedCollection new.
+	indentation := 0.
+	
 	"Collect the signatures of user defined functions."
 	userDefs := Dictionary new.
 	ast statements select: [ :stmt | stmt isKindOf: PyFunctionDefinitionNode ] thenDo: [ :stmt |
 		| args |
+		astMap := OrderedCollection new.
 		stmt parameters do: [ :arg | arg acceptVisitor: self ].
 		args := astMap collect: [ :slice | slice slice: output ].
 		userDefs at: stmt fname value put: args.
 	].
 	
-	indentation := 0.
 	output := ''.
 	astMap := OrderedCollection new.
 	self emit: '_run
@@ -455,6 +458,7 @@ ProcessingTranspiler >> visitFunctionCallExpression: fnCall [
 	name = 'delay' ifTrue: [ self emitDelay: args. ^ self endEmit ].
 	name = 'ellipse' ifTrue: [ self emitEllipse: args. ^ self endEmit ].
 	name = 'fill' ifTrue: [ self emitFill: args. ^ self endEmit ].
+	name = 'int' ifTrue: [ self emitInt: args. ^ self endEmit ].
 	name = 'line' ifTrue: [ self emitLine: args. ^ self endEmit ].
 	name = 'print' ifTrue: [ self emitPrint: args. ^ self endEmit ].
 	"`println` is to Processing what `print` is to Python."
@@ -545,7 +549,11 @@ ProcessingTranspiler >> visitParameter: param [
 ProcessingTranspiler >> visitReturnStatement: expr [
 	self startEmit: expr.
 	self emit: '^ '.
-	expr expressions first acceptVisitor: self.
+	expr expressions size = 1 ifTrue: [
+		expr expressions first acceptVisitor: self.
+	] ifFalse: [
+		self emit: 'nil'.
+	].
 	self emit: '
 '.
 	"Explicitly not returning anything in order to prevent a trailing dot."
@@ -557,6 +565,25 @@ ProcessingTranspiler >> visitString: expr [
 	self startEmit: expr.
 	self emit: '''' , ('' join: (expr parts collect: [ :part | (part value allButFirst: 1) allButLast: 1 ])) , ''''.
 	^ self endEmit
+]
+
+{ #category : #visiting }
+ProcessingTranspiler >> visitTupleExpression: expr [
+	expr expressions size = 1 ifFalse: [
+		ProcessingNotImplementedException new signal: 'Tuples aren''t implemented!'
+	].
+	expr expressions first acceptVisitor: self.
+]
+
+{ #category : #visiting }
+ProcessingTranspiler >> visitUnaryExpression: expr [
+	expr operator value = '-' ifTrue: [
+		self startEmit: expr.
+		expr expression acceptVisitor: self.
+		self emit: ' negated'.
+		^ self endEmit
+	].
+	ProcessingNotImplementedException new signal: 'Unary operator ' , expr operator value , ' not implemented!'
 ]
 
 { #category : #visiting }

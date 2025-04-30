@@ -63,10 +63,10 @@ ProcessingCanvasExamples >> createColor [
 	<gtExample>
 	| canvas |
 	canvas := self container.
-	self assert: (canvas colorWithR: 128 g: 128 b: 128) equals: Color gray.
-	self assert: (canvas colorWithR: 160 g: 160 b: 160) equals: Color lightGray.
-	self assert: (canvas colorWithR: 192 g: 192 b: 192) equals: Color veryLightGray.
-	self assert: (canvas colorWithR: 255 g: 255 b: 255) equals: Color white.
+	self assert: (canvas colorWithR: 128 G: 128 B: 128) equals: Color gray.
+	self assert: (canvas colorWithR: 160 G: 160 B: 160) equals: Color lightGray.
+	self assert: (canvas colorWithR: 192 G: 192 B: 192) equals: Color veryLightGray.
+	self assert: (canvas colorWithR: 255 G: 255 B: 255) equals: Color white.
 ]
 
 { #category : #example }
@@ -114,7 +114,7 @@ ProcessingCanvasExamples >> fillColor [
 	self assert: canvas fillColor equals: Color red.
 	canvas fill: (Color fromRgbTriplet: #(0.0 0.0 1.0)).
 	self assert: canvas fillColor equals: Color blue.
-	canvas fill: (canvas colorWithR: 128 g: 128 b: 128).
+	canvas fill: (canvas colorWithR: 128 G: 128 B: 128).
 	self assert: canvas fillColor equals: Color gray.
 	^ canvas
 ]

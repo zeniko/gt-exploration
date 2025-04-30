@@ -199,6 +199,80 @@
 							"codeExpanded" : true,
 							"previewExpanded" : false,
 							"noCode" : true
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-04-30T01:27:34.761+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-04-30T01:28:54.987+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "KMLg4VTwDQCkDvg/CEFArw=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Some content for students: {{gtPage:Arbeiten mit Glamorous Toolkit|db=dl0rc62x02fk8k57e43hr8acw}}, {{gtPage:Verzweigungen und Schleifen|db=dl0rc62x02fk8k57e43hr8acw}}, {{gtPage:Funktionen und Rekursion|db=dl0rc62x02fk8k57e43hr8acw}}, {{gtPage:Abstrakter Syntax-Baum (AST)|db=dl0rc62x02fk8k57e43hr8acw}}, {{gtPage:AST übersetzen|db=dl0rc62x02fk8k57e43hr8acw}}."
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-04-30T02:37:25.649+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-04-30T02:38:30.98+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "aKKs21XwDQCngTsRCEFArw=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Extended Processing snippet with two more modes: Canvas, RunState stepper and Compiler Abstractions"
 						}
 					]
 				},

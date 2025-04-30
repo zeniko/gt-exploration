@@ -30,6 +30,11 @@ ProcessingCanvas >> background: color [
 	self canvasElement children do: [ :child | child removeFromParent ].
 ]
 
+{ #category : #shapes }
+ProcessingCanvas >> backgroundR: r G: g B: b [
+	self background: (self colorWithR: r G: g B: b)
+]
+
 { #category : #initialization }
 ProcessingCanvas >> border [
 	^ BlBorder paint: strokeColor width: strokeWeight
@@ -41,7 +46,7 @@ ProcessingCanvas >> canvasElement [
 ]
 
 { #category : #initialization }
-ProcessingCanvas >> colorWithR: r g: g b: b [
+ProcessingCanvas >> colorWithR: r G: g B: b [
 	"Map 64 to 0.25, 128 to 0.5, 192 to 0.75 but 255 to 1.0 exactly."
 	^ Color fromRgbTriplet: {
 		((r / 255.5) roundTo: 0.005) .
@@ -73,6 +78,11 @@ ProcessingCanvas >> fill: color [
 { #category : #accessing }
 ProcessingCanvas >> fillColor [
 	^ fillColor
+]
+
+{ #category : #modifiers }
+ProcessingCanvas >> fillR: r G: g B: b [
+	self fill: (self colorWithR: r G: g B: b)
 ]
 
 { #category : #views }
@@ -166,6 +176,11 @@ ProcessingCanvas >> stroke: color [
 { #category : #accessing }
 ProcessingCanvas >> strokeColor [
 	^ strokeColor
+]
+
+{ #category : #modifiers }
+ProcessingCanvas >> strokeR: r G: g B: b [
+	self stroke: (self colorWithR: r G: g B: b)
 ]
 
 { #category : #accessing }

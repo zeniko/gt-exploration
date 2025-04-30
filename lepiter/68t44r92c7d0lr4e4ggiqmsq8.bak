@@ -408,7 +408,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-04-28T22:01:01.044+02:00"
+									"dateAndTimeString" : "2025-04-28T22:01:31.305+02:00"
 								}
 							},
 							"uid" : {
@@ -418,7 +418,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Prints the given value "
+							"string" : "Prints the given value into an output console (mainly for debugging and for graphic-less program)."
 						}
 					]
 				},
@@ -1056,6 +1056,43 @@
 								"__type" : "textStyle"
 							},
 							"string" : "Returns the cosine value for the given angle (measured in radians)."
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-04-30T00:18:14.138+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-04-30T00:18:14.138+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "2KTi6VPwDQC214zlCEFArw=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : ""
 						}
 					]
 				},

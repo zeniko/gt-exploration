@@ -9,7 +9,7 @@ Class {
 
 { #category : #converting }
 GtProcessingCoderModel >> asCoderViewModel [
-	^ GtPythonCoderViewModel new coder: self
+	^ GtProcessingCoderViewModel new coder: self
 ]
 
 { #category : #'private - execution' }
@@ -17,17 +17,48 @@ GtProcessingCoderModel >> bindAndExecute: sourceString inContext: aGtSourceCoder
 	^ (ProcessingSource new fromString: sourceString) render
 ]
 
-{ #category : #'private - execution' }
-GtProcessingCoderModel >> bindAndExecuteInspect: sourceString inContext: aGtSourceCoderEvaluationContext [
-	"TODO: hook up by subclassing GtPythonCoderViewModel"
-	^ ProcessingSource new fromString: sourceString
-]
-
 { #category : #'api - ast' }
 GtProcessingCoderModel >> computeAst: theSourceString [
 	^ ProcessingParser
 		parseWithErrors: theSourceString
 		startingAt: ProcessingParser startingStateForfile_input
+]
+
+{ #category : #'private - actions' }
+GtProcessingCoderModel >> doIt: aEvaluationContext [
+	self doItAndPublish: [
+		(ProcessingSource new fromString: self currentSourceString) render
+	] with: aEvaluationContext.
+]
+
+{ #category : #'private - actions' }
+GtProcessingCoderModel >> doItAndGo: aEvaluationContext [
+	self doItAndPublish: [
+		| result |
+		result := (ProcessingSource new fromString: self currentSourceString).
+		Stepper for: (ProcessingRunner new runStepwise: result program compilation) view: #gtAbstractionsFor:
+	] with: aEvaluationContext.
+]
+
+{ #category : #'private - actions' }
+GtProcessingCoderModel >> doItAndGoSerialized: aEvaluationContext [
+	self doItAndPublish: [ 
+		ProcessingSource new fromString: self currentSourceString
+	] with: aEvaluationContext.
+]
+
+{ #category : #'private - execution' }
+GtProcessingCoderModel >> doItAndPublish: aBlock with: aEvaluationContext [
+	| result |
+	result := aBlock on: Error do: [ :error |
+		"TODO: error handling."
+	].
+	
+	aEvaluationContext evaluatedSourceString: ''.
+	result := GtSourceCoderEvaluationResultWithValue new value: result; evaluationContext: aEvaluationContext.
+	
+	self notifyEvaluatedWithResult: result.
+	self notifyObjectSpawnFromEvaluationResult: result requesterObject: aEvaluationContext requesterObject.
 ]
 
 { #category : #'api - ast' }
@@ -43,7 +74,7 @@ GtProcessingCoderModel >> initializeAddOns: addOns [
 	addOns addStyler: (GtCoderAstSmaCCParserStyler new smaccStyler: ProcessingParser gtStyler).
 	
 	addOns
-		addMainAction: 'Evaluate' translated
+		addMainAction: 'Run' translated
 		icon: BrGlamorousVectorIcons play
 		action: [ :aCoderUIModel :anElement | 
 			GtCoderCodeExecutor doIt
@@ -60,6 +91,15 @@ GtProcessingCoderModel >> initializeAddOns: addOns [
 				element: anElement;
 				execute ]
 		id: GtSourceCoderDoItAndGoActionId.
+	addOns
+		addMainAction: 'Abstractions' translated
+		icon: BrGlamorousVectorIcons playAsynchronous
+		action: [ :aCoderUIModel :anElement | 
+			GtCoderCodeExecutor doItAndGoSerialized
+				coderViewModel: aCoderUIModel;
+				element: anElement;
+				execute ]
+		id: GtSourceCoderDoItAndGoSerializedActionId.
 ]
 
 { #category : #initialize }
