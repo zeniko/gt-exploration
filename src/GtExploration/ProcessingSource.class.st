@@ -19,13 +19,23 @@ ProcessingSource class >> fromFile: locator [
 ]
 
 { #category : #initialization }
+ProcessingSource class >> fromSnippet: aSnippet [
+	^ self fromViewModel: aSnippet asSnippetViewModel coderViewModel
+]
+
+{ #category : #initialization }
 ProcessingSource class >> fromString: code [
-	| source virtual |
-	virtual := (FileSystem memory workingDirectory / 'sample.pyde') writeStreamDo: [ :stream | stream nextPutAll: code ]; yourself.
-	source := ProcessingSource new source: virtual.
-	virtual watcher startLoop announcer when: GtFileWatcherModificationAnnouncement do: [ :event |
-		source announcer announce: (ProcessingSourceChanged new source: source).
-	] for: source.
+	^ self fromFile: ((FileSystem memory workingDirectory / ('prog' , ((Random new nextInteger: 89999) + 10000) asString , '.pyde')) writeStreamDo: [ :stream | stream nextPutAll: code ]; yourself)
+]
+
+{ #category : #initialization }
+ProcessingSource class >> fromViewModel: aViewModel [
+	| source |
+	source := self fromString: aViewModel coderModel currentSourceString.
+	aViewModel announcer when: GtTextualCoderViewModelTextChanged do: [ :event |
+		"TODO: only pass it on, if it parses"
+		source onSourceChangedTo: event text.
+	].
 	^ source
 ]
 

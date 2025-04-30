@@ -284,7 +284,7 @@ ProcessingProgram >> run [
 ProcessingProgram >> runFor: duration [
 	^ ProcessingRunner new
 		limitTo: duration;
-		run: compilation;
+		run: compilation clone;
 		yourself
 ]
 
@@ -302,8 +302,13 @@ ProcessingProgram >> source: aSource [
 	compilation := ProcessingTranspiler new compile: ast.
 	
 	source announcer when: ProcessingSourceChanged do: [ :event |
-		ast := ProcessingParser parse: event source asString.
-		compilation := ProcessingTranspiler new compile: ast.
-		self announcer announce: (ProcessingProgramChanged new program: self).
+		[
+			| newAst newCompilation |
+			newAst := ProcessingParser parse: event source asString.
+			newCompilation := ProcessingTranspiler new compile: ast.
+			ast := newAst.
+			compilation := newCompilation.
+			self announcer announce: (ProcessingProgramChanged new program: self).
+		] on: Error do: [ "TODO: error handling?" ].
 	] for: self.
 ]

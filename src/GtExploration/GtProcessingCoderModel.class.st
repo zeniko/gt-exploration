@@ -27,7 +27,7 @@ GtProcessingCoderModel >> computeAst: theSourceString [
 { #category : #'private - actions' }
 GtProcessingCoderModel >> doIt: aEvaluationContext [
 	self doItAndPublish: [
-		(self processingSourceFor: aEvaluationContext requesterObject coderViewModel) render
+		(ProcessingSource fromViewModel: aEvaluationContext requesterObject coderViewModel) render
 	] with: aEvaluationContext.
 ]
 
@@ -35,7 +35,7 @@ GtProcessingCoderModel >> doIt: aEvaluationContext [
 GtProcessingCoderModel >> doItAndGo: aEvaluationContext [
 	self doItAndPublish: [
 		| program |
-		program := (self processingSourceFor: aEvaluationContext requesterObject coderViewModel) program.
+		program := (ProcessingSource fromViewModel: aEvaluationContext requesterObject coderViewModel) program.
 		"TODO: update stepper when the source changes? (this becomes expensive quickly!)"
 		Stepper for: (ProcessingRunner new runStepwise: program compilation) view: #gtAbstractionsFor:
 	] with: aEvaluationContext.
@@ -44,7 +44,7 @@ GtProcessingCoderModel >> doItAndGo: aEvaluationContext [
 { #category : #'private - actions' }
 GtProcessingCoderModel >> doItAndGoSerialized: aEvaluationContext [
 	self doItAndPublish: [
-		self processingSourceFor: aEvaluationContext requesterObject coderViewModel
+		ProcessingSource fromViewModel: aEvaluationContext requesterObject coderViewModel
 	] with: aEvaluationContext.
 ]
 
@@ -139,15 +139,4 @@ GtProcessingCoderModel >> primitiveEvaluate: aSourceString inContext: aGtSourceC
 	^ self
 		bindAndExecute: aSourceString
 		inContext: aGtSourceCoderEvaluationContext
-]
-
-{ #category : #'private - actions' }
-GtProcessingCoderModel >> processingSourceFor: aViewModel [
-	| source |
-	source := ProcessingSource fromString: self currentSourceString.
-	aViewModel announcer when: GtTextualCoderViewModelTextChanged do: [ :event |
-		"TODO: only pass it on, if it parses"
-		source onSourceChangedTo: self currentSourceString.
-	].
-	^ source
 ]
