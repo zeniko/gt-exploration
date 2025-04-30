@@ -100,14 +100,14 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T23:14:12.118+01:00"
+						"dateAndTimeString" : "2025-04-30T14:16:00.603+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
 					"uidString" : "aMc4xc/qDQCW5fqjBzT6oA=="
 				},
-				"code" : "source := ProcessingSource new fromString: thisSnippet previousSibling code.\r\"source := ProcessingSource new fromFile: FileLocator home / 'Documents' / 'Processing' / 'sample' / 'sample.pyde'.\"\rast := ProcessingParser parse: source asString"
+				"code" : "source := ProcessingSource fromString: thisSnippet previousSibling code.\r\"source := ProcessingSource new fromFile: FileLocator home / 'Documents' / 'Processing' / 'sample' / 'sample.pyde'.\"\rast := ProcessingParser parse: source asString"
 			},
 			{
 				"__type" : "textSnippet",

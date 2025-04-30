@@ -137,14 +137,14 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-03-18T16:37:39.803+01:00"
+						"dateAndTimeString" : "2025-04-30T14:16:17.082+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
 					"uidString" : "KKpuQQDtDQCfKiwmABzEJg=="
 				},
-				"code" : "source := ProcessingSource new fromString: thisSnippet previousSibling code.\rast := ProcessingParser parse: source asString.\rprogram := (ProcessingTranspiler new) compile: ast"
+				"code" : "source := ProcessingSource fromString: thisSnippet previousSibling code.\rast := ProcessingParser parse: source asString.\rprogram := (ProcessingTranspiler new) compile: ast"
 			},
 			{
 				"__type" : "textSnippet",
@@ -258,7 +258,7 @@
 				"string" : "The following example contains slightly more complex code:"
 			},
 			{
-				"__type" : "pythonSnippet",
+				"__type" : "processingSnippet",
 				"children" : {
 					"__type" : "snippets",
 					"items" : [ ]
@@ -271,7 +271,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-03-18T22:06:37.728+01:00"
+						"dateAndTimeString" : "2025-04-21T12:27:46.638+02:00"
 					}
 				},
 				"editEmail" : {
@@ -282,12 +282,12 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-03-25T23:48:28.222+01:00"
+						"dateAndTimeString" : "2025-04-21T12:27:47.118+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "GOl2BAbtDQCdDqZ/CprFvw=="
+					"uidString" : "sKhbDqnvDQC8VQtCA7u+Tw=="
 				},
 				"code" : "size(200, 200)\r\na = 0\rwhile a < 200:\r\tfill(a, 128, 0)\r\trect(a, a, 100, 100)\r\ta = a + 50\rif a >= 200:\r\tellipse(10, 10, 20, 20)"
 			},

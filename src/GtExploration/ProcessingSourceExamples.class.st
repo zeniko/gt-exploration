@@ -18,7 +18,7 @@ ProcessingSourceExamples >> render [
 ProcessingSourceExamples >> sourceAlpinerWanderweg [
 	<gtExample>
 	| source |
-	source := ProcessingSource new fromString: self sourceCodeAlpinerWanderweg.
+	source := ProcessingSource fromString: self sourceCodeAlpinerWanderweg.
 	self assert: source asString equals: self sourceCodeAlpinerWanderweg.
 	self assert: source program isNotNil.
 	^ source
@@ -170,7 +170,7 @@ rect(25, 75, 150, 50)'
 ProcessingSourceExamples >> sourceEndlessLoop [
 	<gtExample>
 	| source |
-	source := ProcessingSource new fromString: self sourceCodeEndlessLoop.
+	source := ProcessingSource fromString: self sourceCodeEndlessLoop.
 	self assert: source asString equals: self sourceCodeEndlessLoop.
 	self assert: source program isNotNil.
 	^ source
@@ -180,7 +180,7 @@ ProcessingSourceExamples >> sourceEndlessLoop [
 ProcessingSourceExamples >> sourceExample02 [
 	<gtExample>
 	| source |
-	source := ProcessingSource new fromString: self sourceCodeExample02.
+	source := ProcessingSource fromString: self sourceCodeExample02.
 	self assert: source asString equals: self sourceCodeExample02.
 	self assert: source program isNotNil.
 	^ source
@@ -190,7 +190,7 @@ ProcessingSourceExamples >> sourceExample02 [
 ProcessingSourceExamples >> sourceExample03 [
 	<gtExample>
 	| source |
-	source := ProcessingSource new fromString: self sourceCodeExample03.
+	source := ProcessingSource fromString: self sourceCodeExample03.
 	self assert: source asString equals: self sourceCodeExample03.
 	self assert: source program isNotNil.
 	^ source
@@ -200,7 +200,7 @@ ProcessingSourceExamples >> sourceExample03 [
 ProcessingSourceExamples >> sourceExample04 [
 	<gtExample>
 	| source |
-	source := ProcessingSource new fromString: self sourceCodeExample04.
+	source := ProcessingSource fromString: self sourceCodeExample04.
 	self assert: source asString equals: self sourceCodeExample04.
 	self assert: source program isNotNil.
 	^ source
@@ -210,7 +210,7 @@ ProcessingSourceExamples >> sourceExample04 [
 ProcessingSourceExamples >> sourceExample05 [
 	<gtExample>
 	| source |
-	source := ProcessingSource new fromString: self sourceCodeExample05.
+	source := ProcessingSource fromString: self sourceCodeExample05.
 	self assert: source asString equals: self sourceCodeExample05.
 	self assert: source program isNotNil.
 	^ source
@@ -220,7 +220,7 @@ ProcessingSourceExamples >> sourceExample05 [
 ProcessingSourceExamples >> sourceFibonacci [
 	<gtExample>
 	| source |
-	source := ProcessingSource new fromString: self sourceCodeFibonacci.
+	source := ProcessingSource fromString: self sourceCodeFibonacci.
 	self assert: source asString equals: self sourceCodeFibonacci.
 	self assert: source program isNotNil.
 	^ source
@@ -230,7 +230,7 @@ ProcessingSourceExamples >> sourceFibonacci [
 ProcessingSourceExamples >> sourceMinimal [
 	<gtExample>
 	| source |
-	source := ProcessingSource new fromString: self sourceCodeMinimal.
+	source := ProcessingSource fromString: self sourceCodeMinimal.
 	self assert: source asString equals: self sourceCodeMinimal.
 	self assert: source program isNotNil.
 	^ source
@@ -240,7 +240,7 @@ ProcessingSourceExamples >> sourceMinimal [
 ProcessingSourceExamples >> sourcePrint [
 	<gtExample>
 	| source |
-	source := ProcessingSource new fromString: self sourceCodePrint.
+	source := ProcessingSource fromString: self sourceCodePrint.
 	self assert: source asString equals: self sourceCodePrint.
 	self assert: source program isNotNil.
 	^ source
@@ -250,7 +250,7 @@ ProcessingSourceExamples >> sourcePrint [
 ProcessingSourceExamples >> sourceRecursion [
 	<gtExample>
 	| source |
-	source := ProcessingSource new fromString: self sourceCodeRecursion.
+	source := ProcessingSource fromString: self sourceCodeRecursion.
 	self assert: source asString equals: self sourceCodeRecursion.
 	self assert: source program isNotNil.
 	^ source
@@ -260,7 +260,7 @@ ProcessingSourceExamples >> sourceRecursion [
 ProcessingSourceExamples >> sourceShapes [
 	<gtExample>
 	| source |
-	source := ProcessingSource new fromString: self sourceCodeShapes.
+	source := ProcessingSource fromString: self sourceCodeShapes.
 	self assert: source asString equals: self sourceCodeShapes.
 	self assert: source program isNotNil.
 	^ source
@@ -270,7 +270,7 @@ ProcessingSourceExamples >> sourceShapes [
 ProcessingSourceExamples >> sourceSierpinski [
 	<gtExample>
 	| source |
-	source := ProcessingSource new fromString: self sourceCodeSierpinski.
+	source := ProcessingSource fromString: self sourceCodeSierpinski.
 	self assert: source asString equals: self sourceCodeSierpinski.
 	self assert: source program isNotNil.
 	^ source
@@ -280,7 +280,7 @@ ProcessingSourceExamples >> sourceSierpinski [
 ProcessingSourceExamples >> sourceSwitzerland [
 	<gtExample>
 	| source |
-	source := ProcessingSource new fromString: self sourceCodeSwitzerland.
+	source := ProcessingSource fromString: self sourceCodeSwitzerland.
 	self assert: source asString equals: self sourceCodeSwitzerland.
 	self assert: source program isNotNil.
 	^ source

@@ -4,10 +4,16 @@ Class {
 	#instVars : [
 		'source',
 		'compilation',
-		'ast'
+		'ast',
+		'announcer'
 	],
 	#category : #'GtExploration-Processing'
 }
+
+{ #category : #announcements }
+ProcessingProgram >> announcer [
+	^ announcer ifNil: [ announcer := Announcer new ]
+]
 
 { #category : #accessing }
 ProcessingProgram >> ast [
@@ -32,7 +38,18 @@ ProcessingProgram >> compilation [
 { #category : #views }
 ProcessingProgram >> gtBytecodeFor: aView [
 	<gtView>
-	^ compilation _gtBytecodeFor: aView
+	^ aView explicit
+		title: 'Bytecode' translated;
+		priority: 11;
+		stencil: [ | element |
+			(compilation _gtBytecodeFor: GtPhlowView empty)
+				asElementDo: [ :e | element := e ].
+			element
+				constraintsDo: [ :e | 
+					e vertical matchParent.
+					e horizontal matchParent ];
+				yourself ];
+		updateWhen: ProcessingProgramChanged in: self announcer
 ]
 
 { #category : #views }
@@ -50,7 +67,8 @@ ProcessingProgram >> gtContentsFor: aView [
 					e horizontal matchParent ];
 				beReadOnlyWithSelection;
 				background: Color white.
-			editor ]
+			editor ];
+		updateWhen: ProcessingProgramChanged in: self announcer
 ]
 
 { #category : #views }
@@ -95,13 +113,35 @@ ProcessingProgram >> gtHookBytecode: anEditor toList: aList [
 { #category : #views }
 ProcessingProgram >> gtOutputFor: aView [
 	<gtView>
-	^ compilation _gtOutputFor: aView
+	^ aView explicit
+		title: 'Output' translated;
+		priority: 20;
+		stencil: [ | element |
+			(compilation _gtOutputFor: GtPhlowView empty)
+				asElementDo: [ :e | element := e ].
+			element
+				constraintsDo: [ :e | 
+					e vertical matchParent.
+					e horizontal matchParent ];
+				yourself ];
+		updateWhen: ProcessingProgramChanged in: self announcer
 ]
 
 { #category : #views }
 ProcessingProgram >> gtSlicesFor: aView [
 	<gtView>
-	^ compilation _gtSlicesFor: aView
+	^ aView explicit
+		title: 'Slices' translated;
+		priority: 7;
+		stencil: [ | element |
+			(compilation _gtSlicesFor: GtPhlowView empty)
+				asElementDo: [ :e | element := e ].
+			element
+				constraintsDo: [ :e | 
+					e vertical matchParent.
+					e horizontal matchParent ];
+				yourself ];
+		updateWhen: ProcessingProgramChanged in: self announcer
 ]
 
 { #category : #views }
@@ -138,7 +178,8 @@ ProcessingProgram >> gtSourceAstFor: aView [
 				margin: (BlInsets all: 10).
 			element addChild: tree.
 			ast topParent gtHookEditor: editor toTree: tree children last.
-			element ]
+			element ];
+		updateWhen: ProcessingProgramChanged in: self announcer
 ]
 
 { #category : #views }
@@ -173,13 +214,25 @@ ProcessingProgram >> gtSourceBytecodeFor: aView [
 			element addChild: child.
 			self gtHookBytecode: editor toList: child.
 			
-			element ]
+			element ];
+		updateWhen: ProcessingProgramChanged in: self announcer
 ]
 
 { #category : #views }
 ProcessingProgram >> gtSourceCodeFor: aView [
 	<gtView>
-	^ compilation _gtSourceCodeFor: aView
+	^ aView explicit
+		title: 'Smalltalk';
+		priority: 5;
+		stencil: [ | element |
+			(compilation _gtSourceCodeFor: GtPhlowView empty)
+				asElementDo: [ :e | element := e ].
+			element
+				constraintsDo: [ :e | 
+					e vertical matchParent.
+					e horizontal matchParent ];
+				yourself ];
+		updateWhen: ProcessingProgramChanged in: self announcer
 ]
 
 { #category : #views }
@@ -187,13 +240,13 @@ ProcessingProgram >> gtTreeFor: aView [
 	<gtView>
 	| topParent |
 	topParent := ast topParent.
-	topParent completeSource isNil
-		ifTrue: [ ^ aView empty ].
+	"topParent completeSource isNil
+		ifTrue: [ ^ aView empty ]."
 	^ aView explicit
 		priority: 5;
 		title: 'AST';
 		stencil: [ | tree |
-			(topParent gtTreeFor: GtPhlowView empty)
+			(ast topParent gtTreeFor: GtPhlowView empty)
 				asElementDo: [ :e | tree := e ].
 			tree
 				constraintsDo: [ :e | 
@@ -201,13 +254,25 @@ ProcessingProgram >> gtTreeFor: aView [
 					e horizontal matchParent ].
 			"expand the entire tree (for now); TODO: refined view"
 			tree children second expandAll.
-			tree ]
+			tree ];
+		updateWhen: ProcessingProgramChanged in: self announcer
 ]
 
 { #category : #views }
 ProcessingProgram >> gtViewIntermediaryRepresentationFor: aView [
 	<gtView>
-	^ compilation _gtViewIntermediaryRepresentationFor: aView
+	^ aView explicit
+		title: 'IR';
+		priority: 10;
+		stencil: [ | element |
+			(compilation _gtViewIntermediaryRepresentationFor: GtPhlowView empty)
+				asElementDo: [ :e | element := e ].
+			element
+				constraintsDo: [ :e | 
+					e vertical matchParent.
+					e horizontal matchParent ];
+				yourself ];
+		updateWhen: ProcessingProgramChanged in: self announcer
 ]
 
 { #category : #runtime }
@@ -230,7 +295,15 @@ ProcessingProgram >> source [
 
 { #category : #initialization }
 ProcessingProgram >> source: aSource [
+	source ifNotNil: [ ProcessingCompileTimeException new signal: 'Reassigning ProcessingProgram>>#source isn''t supported!' ].
+	
 	source := aSource.
 	ast := ProcessingParser parse: source asString.
 	compilation := ProcessingTranspiler new compile: ast.
+	
+	source announcer when: ProcessingSourceChanged do: [ :event |
+		ast := ProcessingParser parse: event source asString.
+		compilation := ProcessingTranspiler new compile: ast.
+		self announcer announce: (ProcessingProgramChanged new program: self).
+	] for: self.
 ]

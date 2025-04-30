@@ -27,23 +27,24 @@ GtProcessingCoderModel >> computeAst: theSourceString [
 { #category : #'private - actions' }
 GtProcessingCoderModel >> doIt: aEvaluationContext [
 	self doItAndPublish: [
-		(ProcessingSource new fromString: self currentSourceString) render
+		(self processingSourceFor: aEvaluationContext requesterObject coderViewModel) render
 	] with: aEvaluationContext.
 ]
 
 { #category : #'private - actions' }
 GtProcessingCoderModel >> doItAndGo: aEvaluationContext [
 	self doItAndPublish: [
-		| result |
-		result := (ProcessingSource new fromString: self currentSourceString).
-		Stepper for: (ProcessingRunner new runStepwise: result program compilation) view: #gtAbstractionsFor:
+		| program |
+		program := (self processingSourceFor: aEvaluationContext requesterObject coderViewModel) program.
+		"TODO: update stepper when the source changes? (this becomes expensive quickly!)"
+		Stepper for: (ProcessingRunner new runStepwise: program compilation) view: #gtAbstractionsFor:
 	] with: aEvaluationContext.
 ]
 
 { #category : #'private - actions' }
 GtProcessingCoderModel >> doItAndGoSerialized: aEvaluationContext [
-	self doItAndPublish: [ 
-		ProcessingSource new fromString: self currentSourceString
+	self doItAndPublish: [
+		self processingSourceFor: aEvaluationContext requesterObject coderViewModel
 	] with: aEvaluationContext.
 ]
 
@@ -51,6 +52,8 @@ GtProcessingCoderModel >> doItAndGoSerialized: aEvaluationContext [
 GtProcessingCoderModel >> doItAndPublish: aBlock with: aEvaluationContext [
 	| result |
 	result := aBlock on: Error do: [ :error |
+		Transcript nextPut: error asString , '
+'.
 		"TODO: error handling."
 	].
 	
@@ -136,4 +139,15 @@ GtProcessingCoderModel >> primitiveEvaluate: aSourceString inContext: aGtSourceC
 	^ self
 		bindAndExecute: aSourceString
 		inContext: aGtSourceCoderEvaluationContext
+]
+
+{ #category : #'private - actions' }
+GtProcessingCoderModel >> processingSourceFor: aViewModel [
+	| source |
+	source := ProcessingSource fromString: self currentSourceString.
+	aViewModel announcer when: GtTextualCoderViewModelTextChanged do: [ :event |
+		"TODO: only pass it on, if it parses"
+		source onSourceChangedTo: self currentSourceString.
+	].
+	^ source
 ]

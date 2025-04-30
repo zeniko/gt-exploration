@@ -171,14 +171,14 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T20:20:09.971+01:00"
+						"dateAndTimeString" : "2025-04-21T12:27:19.872+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
 					"uidString" : "yMQFF9HqDQCag+1VBzT6oA=="
 				},
-				"code" : "canvas := ProcessingCanvas new.\r(ProcessingInterpreter new) interpret: ast onto: canvas.\rcanvas render"
+				"code" : "canvas := ProcessingCanvas new.\r(ProcessingInterpreter new) interpret: ast onto: canvas.\rcanvas asElement"
 			}
 		]
 	},

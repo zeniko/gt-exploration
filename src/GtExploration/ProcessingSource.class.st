@@ -2,25 +2,41 @@ Class {
 	#name : #ProcessingSource,
 	#superclass : #Object,
 	#instVars : [
-		'source'
+		'source',
+		'announcer'
 	],
 	#category : #'GtExploration-Processing'
 }
 
+{ #category : #initialization }
+ProcessingSource class >> fromFile: locator [
+	| source |
+	source := ProcessingSource new source: locator.
+	locator watcher startLoop announcer when: GtFileWatcherModificationAnnouncement do: [ :event |
+		source announcer announce: (ProcessingSourceChanged new source: source).
+	] for: source.
+	^ source
+]
+
+{ #category : #initialization }
+ProcessingSource class >> fromString: code [
+	| source virtual |
+	virtual := (FileSystem memory workingDirectory / 'sample.pyde') writeStreamDo: [ :stream | stream nextPutAll: code ]; yourself.
+	source := ProcessingSource new source: virtual.
+	virtual watcher startLoop announcer when: GtFileWatcherModificationAnnouncement do: [ :event |
+		source announcer announce: (ProcessingSourceChanged new source: source).
+	] for: source.
+	^ source
+]
+
+{ #category : #announcements }
+ProcessingSource >> announcer [
+	^ announcer ifNil: [ announcer := Announcer new ]
+]
+
 { #category : #accessing }
 ProcessingSource >> asString [
 	^ source contents
-]
-
-{ #category : #initialization }
-ProcessingSource >> fromFile: locator [
-	source := locator.
-]
-
-{ #category : #initialization }
-ProcessingSource >> fromString: code [
-	"TODO: this file does not seem to be modifyable (in #gtContentsFor)"
-	source := (FileSystem memory workingDirectory / 'sample.pyde') writeStreamDo: [ :stream | stream nextPutAll: code ]; yourself.
 ]
 
 { #category : #views }
@@ -99,14 +115,12 @@ ProcessingSource >> gtContentsFor: aView [
 	[ source readStreamDo: [ :s | s next: 1000 ] ]
 		on: ZnInvalidUTF8
 		do: [ ^ aView empty ].
-
-	eventLoop := source watcher startLoop.
-
+	
 	^ aView explicit
 		title: 'Source' translated;
 		priority: 2;
-		updateWhen: GtFileWatcherModificationAnnouncement in: eventLoop announcer;
-		stencil: [ source gtEditorView ]
+		stencil: [ source gtEditorView ];
+		updateWhen: ProcessingSourceChanged in: self announcer
 ]
 
 { #category : #views }
@@ -122,7 +136,7 @@ ProcessingSource >> gtSourceCodeFor: aView [
 	<gtView>
 	^ (self program gtSourceCodeFor: aView)
 		title: 'Transpiled' translated;
-		priority: 3
+		priority: 5
 ]
 
 { #category : #views }
@@ -130,7 +144,7 @@ ProcessingSource >> gtTreeFor: aView [
 	<gtView>
 	^ (self program gtTreeFor: aView)
 		title: 'AST';
-		priority: 5
+		priority: 3
 ]
 
 { #category : #views }
@@ -138,15 +152,26 @@ ProcessingSource >> gtViewIntermediaryRepresentationFor: aView [
 	<gtView>
 	^ (self program gtViewIntermediaryRepresentationFor: aView)
 		title: 'IR';
-		priority: 10
+		priority: 7
+]
+
+{ #category : #announcements }
+ProcessingSource >> onSourceChangedTo: aCode [
+	source writeStreamDo: [ :stream | stream nextPutAll: aCode ].
+	self announcer announce: (ProcessingSourceChanged new source: self).
 ]
 
 { #category : #initialization }
 ProcessingSource >> program [
-	^ ProcessingProgram new source: self asString
+	^ ProcessingProgram new source: self
 ]
 
 { #category : #runtime }
 ProcessingSource >> render [
 	^ self program canvas asElement
+]
+
+{ #category : #accessing }
+ProcessingSource >> source: aSource [
+	source := aSource.
 ]

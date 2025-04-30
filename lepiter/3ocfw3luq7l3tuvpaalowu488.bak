@@ -42,7 +42,7 @@
 				"string" : "This minimal example simply draws a centered square."
 			},
 			{
-				"__type" : "pythonSnippet",
+				"__type" : "processingSnippet",
 				"children" : {
 					"__type" : "snippets",
 					"items" : [ ]
@@ -55,7 +55,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-25T21:42:49.942+01:00"
+						"dateAndTimeString" : "2025-04-21T12:25:27.093+02:00"
 					}
 				},
 				"editEmail" : {
@@ -66,12 +66,12 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-25T21:43:13.514+01:00"
+						"dateAndTimeString" : "2025-04-21T12:25:29.629+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "8MOxPF/rDQCDpa9EC7gYPg=="
+					"uidString" : "CF8KBqnvDQC7sO+uA7u+Tw=="
 				},
 				"code" : "size(200, 200)\r\nrect(50, 50, 100, 100)"
 			},

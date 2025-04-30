@@ -74,8 +74,8 @@
 					"uidString" : "wL8PKanvDQC8/5xZA7u+Tw=="
 				},
 				"exampleSelector" : "sourceAlpinerWanderweg",
-				"previewHeight" : 120,
-				"previewShowSelector" : "gtExploreFor:",
+				"previewHeight" : 320,
+				"previewShowSelector" : "gtTreeFor:",
 				"exampleBehaviorName" : "ProcessingSourceExamples",
 				"codeExpanded" : true,
 				"previewExpanded" : true,

@@ -36,17 +36,18 @@ ProcessingRunner >> limitTo: duration [
 
 { #category : #running }
 ProcessingRunner >> run: compilation [
-	| worker |
+	| worker clone |
 	worker := AsyncFutureThreadPoolWorker new.
 	worker startup wait.
+	clone := compilation "clone".
 	
 	canvas isNil ifTrue: [ canvas := ProcessingCanvas new. ].
-	compilation instVarNamed: #_canvas put: canvas.
+	clone instVarNamed: #_canvas put: canvas.
 	
 	done := false.
 	"TODO: handle errors"
 	promise := AsyncFuturePromise new future: [
-		compilation _run.
+		clone _run.
 		done := true.
 	] asAsyncFuture.
 	worker schedule: promise.
@@ -56,14 +57,16 @@ ProcessingRunner >> run: compilation [
 
 { #category : #running }
 ProcessingRunner >> runStepwise: compilation [
-	| steps block process session lastSlice lastStep |
+	| clone steps block process session lastSlice lastStep |
+	clone := compilation "clone".
 	"TODO: this is a flattened tree - unflatten it?"
 	steps := OrderedCollection new.
 	
 	canvas isNil ifTrue: [ canvas := ProcessingCanvas new. ].
-	compilation instVarNamed: #_canvas put: canvas.
+	clone instVarNamed: #_canvas put: canvas.
 	
-	block := [ compilation _run. done := true. ].
+	done := false.
+	block := [ clone _run. done := true. ].
 	process := block newProcess.
 	[process step closure == block] whileFalse.
 	process step.
@@ -76,7 +79,7 @@ ProcessingRunner >> runStepwise: compilation [
 	[ session interruptedProcess isTerminated ] whileFalse: [
 		(session interruptedContext methodClass inheritsFrom: ProcessingCodeBase) ifTrue: [
 			| slice |
-			slice := compilation _gtSliceForItem: session interruptedContext method within: (session pcRangeForContext: session interruptedContext).
+			slice := clone _gtSliceForItem: session interruptedContext method within: (session pcRangeForContext: session interruptedContext).
 			slice isNotNil & (slice = lastSlice) not ifTrue: [
 				lastStep ifNotNil: [
 					lastStep updateCanvas: canvas.

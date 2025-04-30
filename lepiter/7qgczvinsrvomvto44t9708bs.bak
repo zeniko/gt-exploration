@@ -149,7 +149,7 @@
 				},
 				"exampleSelector" : "sourceAlpinerWanderweg",
 				"previewHeight" : 320,
-				"previewShowSelector" : "_gtOutputFor:",
+				"previewShowSelector" : "gtOutputFor:",
 				"exampleBehaviorName" : "ProcessingSourceExamples",
 				"codeExpanded" : true,
 				"previewExpanded" : true,
