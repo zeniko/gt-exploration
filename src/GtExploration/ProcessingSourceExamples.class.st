@@ -166,6 +166,67 @@ rect(75, 25, 50, 150)
 rect(25, 75, 150, 50)'
 ]
 
+{ #category : #source }
+ProcessingSourceExamples >> sourceCodeTurtleGraphics [
+	^ 'size(400, 400)
+draw_n_eck(5)
+
+move(0, height / 2, 0)
+kochpart(width, int(width / 3 ** 4))
+
+def draw_n_eck(n):
+	w = width / n * 3
+	move((width - w) / 2, 10, 0)
+	i = 0
+	while i < n:
+		fwd(w)
+		turn(360 / n)
+		i = i + 1
+
+def kochpart(siz, limit):
+	if siz < limit:
+		fwd(siz)
+		return
+	
+	kochpart(siz / 3, limit)
+	turn(-60)
+	kochpart(siz / 3, limit)
+	turn(120)
+	kochpart(siz / 3, limit)
+	turn(-60)
+	kochpart(siz / 3, limit)
+
+# ****************************************** #
+# Schildkrötenbefehle: move, fwd, turn       #
+# ****************************************** #
+
+# x-/y-Koordinate der Schildkröte und Blickrichtung
+t_x = 0
+t_y = 0
+t_angle = 0
+
+# verschiebt die Schildkröte (angle gibt die Blickrichtung an)
+def move(x, y, angle):
+	global t_x, t_y, t_angle
+	t_x = x
+	t_y = y
+	t_angle = angle
+
+# bewegt die Schildkröte um d nach vorne
+def fwd(d):
+	global t_x, t_y
+	oldX = t_x
+	oldY = t_y
+	t_x = t_x + d * cos(radians(t_angle))
+	t_y = t_y + d * sin(radians(t_angle))
+	line(oldX, oldY, t_x, t_y)
+
+# dreht die Schildkröte um angle Grad
+def turn(angle):
+	global t_angle
+	t_angle = t_angle + angle'
+]
+
 { #category : #example }
 ProcessingSourceExamples >> sourceEndlessLoop [
 	<gtExample>
@@ -282,6 +343,16 @@ ProcessingSourceExamples >> sourceSwitzerland [
 	| source |
 	source := ProcessingSource fromString: self sourceCodeSwitzerland.
 	self assert: source asString equals: self sourceCodeSwitzerland.
+	self assert: source program isNotNil.
+	^ source
+]
+
+{ #category : #example }
+ProcessingSourceExamples >> sourceTurtleGraphics [
+	<gtExample>
+	| source |
+	source := ProcessingSource fromString: self sourceCodeTurtleGraphics.
+	self assert: source asString equals: self sourceCodeTurtleGraphics.
 	self assert: source program isNotNil.
 	^ source
 ]

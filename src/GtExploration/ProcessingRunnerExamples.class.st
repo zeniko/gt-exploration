@@ -193,3 +193,15 @@ ProcessingRunnerExamples >> runSierpinskiStepwise [
 	self assert: runner isDone.
 	^ steps
 ]
+
+{ #category : #example }
+ProcessingRunnerExamples >> runTurtleGraphics [
+	<gtExample>
+	| program runner |
+	program := ProcessingProgramExamples new programTurtleGraphics.
+	runner := self newRunner.
+	runner run: program compilation; limitTo: 2 seconds; wait.
+	self assert: runner canvas isNotNil.
+	self assert: runner isDone.
+	^ runner
+]

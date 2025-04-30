@@ -315,7 +315,7 @@ ProcessingTranspiler >> transpile: ast [
 	astMaps at: '_run' put: astMap.
 	
 	"TODO: only update the canvas at the end of a draw phase (avoid rendering artifacts)"
-	^ (output copyFrom: 1 to: output size - 1) , functions
+	^ output allButLast , functions
 ]
 
 { #category : #compiling }
@@ -345,9 +345,10 @@ ProcessingTranspiler >> transpileFunction: ast name: name args: args [
 	localVariables size > 0 ifTrue: [
 		header := header , Character tab asString , '| ' , (' ' join: localVariables) , ' |
 '.
-		astMap do: [ :node | node move: header size. ].
 	].
-	res := header , (output copyFrom: 1 to: output size - 1).
+	astMap do: [ :node | node move: header size. ].
+	
+	res := header , output allButLast.
 	globalVariables do: [ :var | saveGlobalVariables add: var ].
 	
 	methodName := name.
@@ -554,10 +555,10 @@ ProcessingTranspiler >> visitReturnStatement: expr [
 	] ifFalse: [
 		self emit: 'nil'.
 	].
+	self endEmit.
 	self emit: '
 '.
 	"Explicitly not returning anything in order to prevent a trailing dot."
-	self endEmit
 ]
 
 { #category : #visiting }

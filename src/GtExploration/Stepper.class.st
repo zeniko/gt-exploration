@@ -89,7 +89,6 @@ Stepper >> gtListViewFor: aView [
 			
 			listElement
 				selectOne: index;
-				"TODO: only scroll if the selection isn't visible"
 				scrollToSelection;
 				when: BrSelectionChanged
 				do:
@@ -97,9 +96,17 @@ Stepper >> gtListViewFor: aView [
 						listElement selectedIndices ifNotEmpty:
 							[ :theIndices | self stepTo: theIndices first. ]
 					].
+			announcer when: StepperUpdate do: [
+				listElement selectOne: index; scrollToSelection.
+			] for: listElement.
 			
 			element ];
-		updateWhen: StepperUpdate in: announcer
+		actionButtonIcon: BrGlamorousVectorIcons left
+			tooltip: 'Move one step backward' translated
+			action: [ :button | self stepTo: index - 1. ];
+		actionButtonIcon: BrGlamorousVectorIcons right
+			tooltip: 'Move one step forward' translated
+			action: [ :button | self stepTo: index + 1. ]
 ]
 
 { #category : #'as yet unclassified' }

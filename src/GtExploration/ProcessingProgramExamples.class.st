@@ -122,3 +122,12 @@ ProcessingProgramExamples >> programSwitzerland [
 	self assert: program compilation isNotNil.
 	^ program
 ]
+
+{ #category : #example }
+ProcessingProgramExamples >> programTurtleGraphics [
+	<gtExample>
+	| program |
+	program := ProcessingSourceExamples new sourceTurtleGraphics program.
+	self assert: program compilation isNotNil.
+	^ program
+]

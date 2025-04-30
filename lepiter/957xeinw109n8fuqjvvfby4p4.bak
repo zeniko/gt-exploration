@@ -23,43 +23,6 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-04-15T11:00:27.199+02:00"
-								}
-							},
-							"editEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"editTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-04-30T13:56:16.254+02:00"
-								}
-							},
-							"uid" : {
-								"__type" : "uid",
-								"uidString" : "mKsDIy/vDQCRAyZ8AJ/Z3A=="
-							},
-							"paragraphStyle" : {
-								"__type" : "textStyle"
-							},
-							"string" : "Add event handlers for live updating (using {{gtClass:Announcer}})"
-						},
-						{
-							"__type" : "textSnippet",
-							"children" : {
-								"__type" : "snippets",
-								"items" : [ ]
-							},
-							"createEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"createTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
 									"dateAndTimeString" : "2025-04-13T22:59:23.072+02:00"
 								}
 							},
@@ -248,80 +211,6 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-04-15T10:59:03.357+02:00"
-											}
-										},
-										"editEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"editTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-04-15T10:59:15.21+02:00"
-											}
-										},
-										"uid" : {
-											"__type" : "uid",
-											"uidString" : "SJYEHi/vDQCNbwVSAJ/Z3A=="
-										},
-										"paragraphStyle" : {
-											"__type" : "textStyle"
-										},
-										"string" : "connect source lines to bytecode blocks"
-									},
-									{
-										"__type" : "textSnippet",
-										"children" : {
-											"__type" : "snippets",
-											"items" : [ ]
-										},
-										"createEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"createTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-04-15T14:26:28.593+02:00"
-											}
-										},
-										"editEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"editTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-04-15T14:29:06.675+02:00"
-											}
-										},
-										"uid" : {
-											"__type" : "uid",
-											"uidString" : "QGKyAzLvDQCeh4GHCFRQHA=="
-										},
-										"paragraphStyle" : {
-											"__type" : "textStyle"
-										},
-										"string" : "connect source lines to ast nodes (cf. {{gtMethod:SmaCCParseNode >> #gtExploreFor:}})"
-									},
-									{
-										"__type" : "textSnippet",
-										"children" : {
-											"__type" : "snippets",
-											"items" : [ ]
-										},
-										"createEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"createTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
 												"dateAndTimeString" : "2025-04-15T10:58:50.703+02:00"
 											}
 										},
@@ -370,7 +259,7 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-04-30T15:56:08.193+02:00"
+												"dateAndTimeString" : "2025-04-30T15:56:12.12+02:00"
 											}
 										},
 										"uid" : {
@@ -380,7 +269,7 @@
 										"paragraphStyle" : {
 											"__type" : "textStyle"
 										},
-										"string" : "improve IR view (tree/objects"
+										"string" : "improve IR view (tree or object list)"
 									}
 								]
 							},

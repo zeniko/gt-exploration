@@ -161,46 +161,6 @@
 							"string" : "Processing API: `print` (to {{gtClass:GtTranscript}}):"
 						},
 						{
-							"__type" : "exampleSnippet",
-							"children" : {
-								"__type" : "snippets",
-								"items" : [ ]
-							},
-							"createEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"createTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-04-28T22:21:03.94+02:00"
-								}
-							},
-							"editEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"editTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-04-28T22:21:03.94+02:00"
-								}
-							},
-							"uid" : {
-								"__type" : "uid",
-								"uidString" : "oAEDKT7wDQC5mWIDDoh1gA=="
-							},
-							"exampleSelector" : "sourcePrint",
-							"previewHeight" : 300,
-							"previewShowSelector" : "gtAbstractionsFor:",
-							"exampleBehaviorName" : "ProcessingSourceExamples",
-							"codeExpanded" : true,
-							"previewExpanded" : false,
-							"noCode" : true
-						},
-						{
 							"__type" : "textSnippet",
 							"children" : {
 								"__type" : "snippets",
@@ -336,7 +296,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-04-30T16:23:41.549+02:00"
+									"dateAndTimeString" : "2025-04-30T16:23:57.452+02:00"
 								}
 							},
 							"uid" : {
@@ -346,7 +306,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Update {{gtClass:ProcessingSource}} and {{gtClass:Proce"
+							"string" : "Update {{gtClass:ProcessingSource}} and {{gtClass:ProcessingProgram}} instances and their views when the content of a Processing snippet changes."
 						}
 					]
 				},

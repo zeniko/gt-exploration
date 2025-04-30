@@ -13,7 +13,7 @@ ProcessingSource class >> fromFile: locator [
 	| source |
 	source := ProcessingSource new source: locator.
 	locator watcher startLoop announcer when: GtFileWatcherModificationAnnouncement do: [ :event |
-		source announcer announce: (ProcessingSourceChanged new source: source).
+		source announceSourceChange.
 	] for: source.
 	^ source
 ]
@@ -25,7 +25,7 @@ ProcessingSource class >> fromSnippet: aSnippet [
 
 { #category : #initialization }
 ProcessingSource class >> fromString: code [
-	^ self fromFile: ((FileSystem memory workingDirectory / ('prog' , ((Random new nextInteger: 89999) + 10000) asString , '.pyde')) writeStreamDo: [ :stream | stream nextPutAll: code ]; yourself)
+	^ self fromFile: ((FileSystem memory workingDirectory / ('prog' , ((SharedRandom globalGenerator nextInteger: 89999) + 10000) asString , '.pyde')) writeStreamDo: [ :stream | stream nextPutAll: code ]; yourself)
 ]
 
 { #category : #initialization }
@@ -33,10 +33,23 @@ ProcessingSource class >> fromViewModel: aViewModel [
 	| source |
 	source := self fromString: aViewModel coderModel currentSourceString.
 	aViewModel announcer when: GtTextualCoderViewModelTextChanged do: [ :event |
-		"TODO: only pass it on, if it parses"
-		source onSourceChangedTo: event text.
-	].
+		source onSourceChangedTo: event text asString.
+	] for: source.
 	^ source
+]
+
+{ #category : #announcements }
+ProcessingSource >> announceSourceChange [
+	| ast |
+	[
+		ast := ProcessingParser parse: self asString.
+		self announcer announce: (ProcessingSourceChanged new source: self; ast: ast).
+	]
+		on: SmaCCParserError do: [ :error |
+			"TODO: show parser error"
+			^ Transcript nextPut: error asString , '
+'
+		].
 ]
 
 { #category : #announcements }
@@ -52,59 +65,9 @@ ProcessingSource >> asString [
 { #category : #views }
 ProcessingSource >> gtAbstractionsFor: aView [
 	<gtView>
-	^ aView explicit
+	^ (self program gtAbstractionsFor: aView)
 		priority: 1;
-		title: 'Abstractions' translated;
-		stencil: [ | element child editor program |
-			program := self program.
-			
-			element := BlElement new.
-			element layout: (BlGridLayout new columnCount: 2).
-			element
-				constraintsDo: [ :c | 
-					c vertical matchParent.
-					c horizontal matchParent ].
-			
-			(program gtContentsFor: GtPhlowView empty)
-				asElementDo: [ :e | child := e ].
-			child
-				background: Color white;
-				margin: (BlInsets all: 5).
-			element addChild: child.
-			editor := child.
-			
-			(program gtTreeFor: GtPhlowView empty)
-				asElementDo: [ :e | child := e ].
-			child
-				constraintsDo: [ :c | 
-					c vertical matchParent.
-					c horizontal matchParent ];
-				margin: (BlInsets all: 5).
-			element addChild: child.
-			program ast topParent gtHookEditor: editor toTree: child children last.
-			
-			(program gtBytecodeFor: GtPhlowView empty)
-				asElementDo: [ :e | child := e ].
-			child
-				constraintsDo: [ :c | 
-					c vertical matchParent.
-					c horizontal matchParent ];
-				margin: (BlInsets all: 5).
-			element addChild: child.
-			program gtHookBytecode: editor toList: child.
-			
-			(program gtOutputFor: GtPhlowView empty)
-				asElementDo: [ :e | child := e ].
-			child
-				constraintsDo: [ :c | 
-					c vertical matchParent.
-					c horizontal matchParent ];
-				background: Color white;
-				margin: (BlInsets all: 5).
-			element addChild: child.
-			"TODO: Hook into editor"
-			
-			element ]
+		title: 'Abstractions' translated
 ]
 
 { #category : #views }
@@ -121,7 +84,6 @@ ProcessingSource >> gtContentsFor: aView [
 	<gtView>
 	| eventLoop |
 	source isFile ifFalse: [ ^ aView empty ].
-	"TODO: handle syntax errors"
 	[ source readStreamDo: [ :s | s next: 1000 ] ]
 		on: ZnInvalidUTF8
 		do: [ ^ aView empty ].
@@ -168,7 +130,7 @@ ProcessingSource >> gtViewIntermediaryRepresentationFor: aView [
 { #category : #announcements }
 ProcessingSource >> onSourceChangedTo: aCode [
 	source writeStreamDo: [ :stream | stream nextPutAll: aCode ].
-	self announcer announce: (ProcessingSourceChanged new source: self).
+	self announceSourceChange.
 ]
 
 { #category : #initialization }

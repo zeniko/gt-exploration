@@ -14,7 +14,7 @@ ProcessingCodeBase >> _gtAbstractionsFor: aView [
 			element := BlElement new.
 			element layout: (BlGridLayout new columnCount: 2).
 			element
-				constraintsDo: [ :c | 
+				constraintsDo: [ :c |
 					c vertical matchParent.
 					c horizontal matchParent ].
 			
@@ -28,7 +28,7 @@ ProcessingCodeBase >> _gtAbstractionsFor: aView [
 			(self _gtViewIntermediaryRepresentationFor: GtPhlowView empty)
 				asElementDo: [ :e | child := e ].
 			child
-				constraintsDo: [ :c | 
+				constraintsDo: [ :c |
 					c vertical matchParent.
 					c horizontal matchParent ];
 				margin: (BlInsets all: 5).
@@ -37,7 +37,7 @@ ProcessingCodeBase >> _gtAbstractionsFor: aView [
 			(self _gtBytecodeFor: GtPhlowView empty)
 				asElementDo: [ :e | child := e ].
 			child
-				constraintsDo: [ :c | 
+				constraintsDo: [ :c |
 					c vertical matchParent.
 					c horizontal matchParent ];
 				margin: (BlInsets all: 5).
@@ -46,7 +46,7 @@ ProcessingCodeBase >> _gtAbstractionsFor: aView [
 			(self _gtOutputFor: GtPhlowView empty)
 				asElementDo: [ :e | child := e ].
 			child
-				constraintsDo: [ :c | 
+				constraintsDo: [ :c |
 					c vertical matchParent.
 					c horizontal matchParent ];
 				background: Color white;
@@ -79,7 +79,7 @@ ProcessingCodeBase >> _gtOutputFor: aView [
 		title: 'Output' translated;
 		priority: 20;
 		stencil: [ | canvas |
-			canvas := ProcessingRunner new run: self; canvas.
+			canvas := ProcessingRunner new run: self clone; canvas.
 			GtInspectorElementLiveViewContainer new
 				element: canvas asElement;
 				clipChildren: false

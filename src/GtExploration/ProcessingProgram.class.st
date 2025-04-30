@@ -36,6 +36,63 @@ ProcessingProgram >> compilation [
 ]
 
 { #category : #views }
+ProcessingProgram >> gtAbstractionsFor: aView [
+	<gtView>
+	^ aView explicit
+		priority: 1;
+		title: 'Abstractions' translated;
+		stencil: [ | element child editor |
+			element := BlElement new.
+			element layout: (BlGridLayout new columnCount: 2).
+			element
+				constraintsDo: [ :c |
+					c vertical matchParent.
+					c horizontal matchParent ].
+			
+			(self gtContentsFor: GtPhlowView empty)
+				asElementDo: [ :e | child := e ].
+			child
+				background: Color white;
+				margin: (BlInsets all: 5).
+			element addChild: child.
+			editor := child.
+			
+			(self gtTreeFor: GtPhlowView empty)
+				asElementDo: [ :e | child := e ].
+			child
+				constraintsDo: [ :c |
+					c vertical matchParent.
+					c horizontal matchParent ];
+				margin: (BlInsets all: 5).
+			element addChild: child.
+			self ast topParent gtHookEditor: editor toTree: child children last.
+			
+			(self gtBytecodeFor: GtPhlowView empty)
+				asElementDo: [ :e | child := e ].
+			child
+				constraintsDo: [ :c |
+					c vertical matchParent.
+					c horizontal matchParent ];
+				margin: (BlInsets all: 5).
+			element addChild: child.
+			self gtHookBytecode: editor toList: child.
+			
+			(self gtOutputFor: GtPhlowView empty)
+				asElementDo: [ :e | child := e ].
+			child
+				constraintsDo: [ :c |
+					c vertical matchParent.
+					c horizontal matchParent ];
+				background: Color white;
+				margin: (BlInsets all: 5).
+			element addChild: child.
+			"TODO: Hook into editor"
+			
+			element ];
+		updateWhen: ProcessingProgramChanged in: self announcer
+]
+
+{ #category : #views }
 ProcessingProgram >> gtBytecodeFor: aView [
 	<gtView>
 	^ aView explicit
@@ -62,7 +119,7 @@ ProcessingProgram >> gtContentsFor: aView [
 			editor := ast
 				gtSourceEditorWithHighlight: Color white.
 			editor
-				constraintsDo: [ :e | 
+				constraintsDo: [ :e |
 					e vertical matchParent.
 					e horizontal matchParent ];
 				beReadOnlyWithSelection;
@@ -120,7 +177,7 @@ ProcessingProgram >> gtOutputFor: aView [
 			(compilation _gtOutputFor: GtPhlowView empty)
 				asElementDo: [ :e | element := e ].
 			element
-				constraintsDo: [ :e | 
+				constraintsDo: [ :e |
 					e vertical matchParent.
 					e horizontal matchParent ];
 				yourself ];
@@ -137,7 +194,7 @@ ProcessingProgram >> gtSlicesFor: aView [
 			(compilation _gtSlicesFor: GtPhlowView empty)
 				asElementDo: [ :e | element := e ].
 			element
-				constraintsDo: [ :e | 
+				constraintsDo: [ :e |
 					e vertical matchParent.
 					e horizontal matchParent ];
 				yourself ];
@@ -157,13 +214,13 @@ ProcessingProgram >> gtSourceAstFor: aView [
 			element := BlElement new.
 			element layout: BlLinearLayout horizontal.
 			element
-				constraintsDo: [ :c | 
+				constraintsDo: [ :c |
 					c vertical matchParent.
 					c horizontal matchParent ].
 			(self gtContentsFor: GtPhlowView empty)
 				asElementDo: [ :e | editor := e ].
 			editor
-				constraintsDo: [ :e | 
+				constraintsDo: [ :e |
 					e vertical matchParent.
 					e horizontal matchParent ];
 				aptitude: BrShadowAptitude;
@@ -192,7 +249,7 @@ ProcessingProgram >> gtSourceBytecodeFor: aView [
 			element := BlElement new.
 			element layout: BlLinearLayout horizontal.
 			element
-				constraintsDo: [ :c | 
+				constraintsDo: [ :c |
 					c vertical matchParent.
 					c horizontal matchParent ].
 			
@@ -207,7 +264,7 @@ ProcessingProgram >> gtSourceBytecodeFor: aView [
 			(compilation _gtBytecodeFor: GtPhlowView empty)
 				asElementDo: [ :e | child := e ].
 			child
-				constraintsDo: [ :c | 
+				constraintsDo: [ :c |
 					c vertical matchParent.
 					c horizontal matchParent ];
 				margin: (BlInsets all: 5).
@@ -223,12 +280,12 @@ ProcessingProgram >> gtSourceCodeFor: aView [
 	<gtView>
 	^ aView explicit
 		title: 'Smalltalk';
-		priority: 5;
+		priority: 8;
 		stencil: [ | element |
 			(compilation _gtSourceCodeFor: GtPhlowView empty)
 				asElementDo: [ :e | element := e ].
 			element
-				constraintsDo: [ :e | 
+				constraintsDo: [ :e |
 					e vertical matchParent.
 					e horizontal matchParent ];
 				yourself ];
@@ -249,7 +306,7 @@ ProcessingProgram >> gtTreeFor: aView [
 			(ast topParent gtTreeFor: GtPhlowView empty)
 				asElementDo: [ :e | tree := e ].
 			tree
-				constraintsDo: [ :e | 
+				constraintsDo: [ :e |
 					e vertical matchParent.
 					e horizontal matchParent ].
 			"expand the entire tree (for now); TODO: refined view"
@@ -268,7 +325,7 @@ ProcessingProgram >> gtViewIntermediaryRepresentationFor: aView [
 			(compilation _gtViewIntermediaryRepresentationFor: GtPhlowView empty)
 				asElementDo: [ :e | element := e ].
 			element
-				constraintsDo: [ :e | 
+				constraintsDo: [ :e |
 					e vertical matchParent.
 					e horizontal matchParent ];
 				yourself ];
@@ -303,12 +360,13 @@ ProcessingProgram >> source: aSource [
 	
 	source announcer when: ProcessingSourceChanged do: [ :event |
 		[
-			| newAst newCompilation |
-			newAst := ProcessingParser parse: event source asString.
-			newCompilation := ProcessingTranspiler new compile: ast.
-			ast := newAst.
-			compilation := newCompilation.
+			compilation := ProcessingTranspiler new compile: event ast.
+			ast := event ast.
 			self announcer announce: (ProcessingProgramChanged new program: self).
-		] on: Error do: [ "TODO: error handling?" ].
+		] on: Error do: [ :error |
+			"TODO: error handling?"
+			Transcript nextPut: error asString , '
+'.
+		].
 	] for: self.
 ]

@@ -23,43 +23,6 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-04-15T11:00:27.199+02:00"
-								}
-							},
-							"editEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"editTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-04-30T13:56:16.254+02:00"
-								}
-							},
-							"uid" : {
-								"__type" : "uid",
-								"uidString" : "mKsDIy/vDQCRAyZ8AJ/Z3A=="
-							},
-							"paragraphStyle" : {
-								"__type" : "textStyle"
-							},
-							"string" : "Add event handlers for live updating (using {{gtClass:Announcer}})"
-						},
-						{
-							"__type" : "textSnippet",
-							"children" : {
-								"__type" : "snippets",
-								"items" : [ ]
-							},
-							"createEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"createTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
 									"dateAndTimeString" : "2025-04-13T22:59:23.072+02:00"
 								}
 							},
@@ -233,80 +196,6 @@
 											"uidString" : "ECxdmxPwDQCt7cObB219MA=="
 										},
 										"code" : "GtPharoSyntaxExplainer new forMethod: ProcessingProgramExamples>>#programSierpinski"
-									},
-									{
-										"__type" : "textSnippet",
-										"children" : {
-											"__type" : "snippets",
-											"items" : [ ]
-										},
-										"createEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"createTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-04-15T10:59:03.357+02:00"
-											}
-										},
-										"editEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"editTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-04-15T10:59:15.21+02:00"
-											}
-										},
-										"uid" : {
-											"__type" : "uid",
-											"uidString" : "SJYEHi/vDQCNbwVSAJ/Z3A=="
-										},
-										"paragraphStyle" : {
-											"__type" : "textStyle"
-										},
-										"string" : "connect source lines to bytecode blocks"
-									},
-									{
-										"__type" : "textSnippet",
-										"children" : {
-											"__type" : "snippets",
-											"items" : [ ]
-										},
-										"createEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"createTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-04-15T14:26:28.593+02:00"
-											}
-										},
-										"editEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"editTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-04-15T14:29:06.675+02:00"
-											}
-										},
-										"uid" : {
-											"__type" : "uid",
-											"uidString" : "QGKyAzLvDQCeh4GHCFRQHA=="
-										},
-										"paragraphStyle" : {
-											"__type" : "textStyle"
-										},
-										"string" : "connect source lines to ast nodes (cf. {{gtMethod:SmaCCParseNode >> #gtExploreFor:}})"
 									},
 									{
 										"__type" : "textSnippet",
@@ -566,43 +455,6 @@
 											"__type" : "textStyle"
 										},
 										"string" : "Support animations (through `setup` - called once - and `draw` - called repeatedly)"
-									},
-									{
-										"__type" : "textSnippet",
-										"children" : {
-											"__type" : "snippets",
-											"items" : [ ]
-										},
-										"createEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"createTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-04-30T13:56:32.445+02:00"
-											}
-										},
-										"editEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"editTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-04-30T13:56:50.002+02:00"
-											}
-										},
-										"uid" : {
-											"__type" : "uid",
-											"uidString" : "SGZfWF/wDQCI4tHkBqHlBw=="
-										},
-										"paragraphStyle" : {
-											"__type" : "textStyle"
-										},
-										"string" : "Fix {{gtClass:ProcessingTranspilationSlice}} for multi-method programs"
 									}
 								]
 							},
