@@ -30,17 +30,17 @@ Stepper >> gtContentFor: aView [
 	
 	^ aView explicit
 		priority: 1;
-		title: 'Step';
+		title: 'Step' translated;
 		stencil: [
 			| element |
 			((list at: index) perform: view with: GtPhlowView empty) asElementDo: [ :e | element := e ].
 			element asScalableElement
 		];
 		actionButtonIcon: BrGlamorousVectorIcons left
-			tooltip: 'Move one step backward'
+			tooltip: 'Move one step backward' translated
 			action: [ :button | self stepTo: index - 1. ];
 		actionButtonIcon: BrGlamorousVectorIcons right
-			tooltip: 'Move one step forward'
+			tooltip: 'Move one step forward' translated
 			action: [ :button | self stepTo: index + 1. ];
 		updateWhen: StepperUpdate in: announcer
 ]
@@ -51,7 +51,7 @@ Stepper >> gtListViewFor: aView [
 	list ifNil: [ ^ aView empty ].
 	^ aView explicit
 		priority: 10;
-		title: 'With List';
+		title: 'With List' translated;
 		stencil: [ | element listElement child |
 			element := BlElement new.
 			element

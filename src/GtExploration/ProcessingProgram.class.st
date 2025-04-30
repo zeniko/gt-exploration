@@ -40,7 +40,7 @@ ProcessingProgram >> gtContentsFor: aView [
 	<gtView>
 	^ aView explicit
 		priority: 2;
-		title: 'Source';
+		title: 'Source' translated;
 		stencil: [ | editor |
 			editor := ast
 				gtSourceEditorWithHighlight: Color white.
@@ -146,7 +146,7 @@ ProcessingProgram >> gtSourceBytecodeFor: aView [
 	<gtView>
 	^ aView explicit
 		priority: 11;
-		title: 'Bytecode++';
+		title: 'Bytecode' translated , '++';
 		stencil: [ | element child editor |
 			element := BlElement new.
 			element layout: BlLinearLayout horizontal.

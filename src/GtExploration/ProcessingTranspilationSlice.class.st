@@ -45,7 +45,7 @@ ProcessingTranspilationSlice >> gtComparisonFor: aView [
 	<gtView>
 	^ aView explicit
 		priority: 1;
-		title: 'Comparison';
+		title: 'Comparison' translated;
 		stencil: [ | element child |
 			element := BlElement new.
 			element
@@ -79,7 +79,7 @@ ProcessingTranspilationSlice >> gtSourceFor: aView [
 	<gtView>
 	^ aView explicit
 		priority: 10;
-		title: 'Source';
+		title: 'Source' translated;
 		stencil: [ astNode gtSourceEditorWithHighlight: BrGlamorousColors neutralBackgroundColor ]
 ]
 
@@ -88,7 +88,7 @@ ProcessingTranspilationSlice >> gtTranspilationFor: aView [
 	"Adapted from SymbolicBytecode>>#gtSourceFor:"
 	<gtView>
 	^ aView textEditor
-		title: 'Transpilation';
+		title: 'Transpilation' translated;
 		aptitude: BrGlamorousCodeEditorAptitude;
 		styler: (BrRBTextStyler new classOrMetaClass: self method methodClass);
 		priority: 11;

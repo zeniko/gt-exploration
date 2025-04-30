@@ -89,7 +89,7 @@ ProcessingCanvas >> fillR: r G: g B: b [
 ProcessingCanvas >> gtViewFor: aView [
 	<gtView>
 	^ (self asElement gtLiveFor: aView)
-		title: 'Live'
+		title: 'Output' translated
 ]
 
 { #category : #initialization }

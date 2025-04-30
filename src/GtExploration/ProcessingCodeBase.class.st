@@ -9,7 +9,7 @@ ProcessingCodeBase >> _gtAbstractionsFor: aView [
 	<gtView>
 	^ aView explicit
 		priority: 1;
-		title: 'Abstractions';
+		title: 'Abstractions' translated;
 		stencil: [ | element child |
 			element := BlElement new.
 			element layout: (BlGridLayout new columnCount: 2).
@@ -60,7 +60,7 @@ ProcessingCodeBase >> _gtAbstractionsFor: aView [
 ProcessingCodeBase >> _gtBytecodeFor: aView [
 	<gtView>
 	^ aView list
-		title: 'Bytecode';
+		title: 'Bytecode' translated;
 		priority: 11;
 		items: [ | codes |
 			codes := OrderedCollection new.
@@ -76,7 +76,7 @@ ProcessingCodeBase >> _gtBytecodeFor: aView [
 ProcessingCodeBase >> _gtOutputFor: aView [
 	<gtView>
 	^ aView explicit
-		title: 'Output';
+		title: 'Output' translated;
 		priority: 20;
 		stencil: [ | canvas |
 			canvas := ProcessingRunner new run: self; canvas.
@@ -140,7 +140,7 @@ ProcessingCodeBase >> _gtSliceForItem: method within: interval [
 ProcessingCodeBase >> _gtSlicesFor: aView [
 	<gtView>
 	^ ((Stepper for: (self instVarNamed: #_astMaps) view: #gtComparisonFor:) gtListViewFor: aView)
-		title: 'Slices';
+		title: 'Slices' translated;
 		priority: 7
 ]
 
@@ -163,7 +163,7 @@ ProcessingCodeBase >> _gtSourceCodeFor: aView [
 			(GtPharoStreamingMethodsCoderElement new streamingCodersViewModel: viewModel) children second removeFromParent
 		];
 		actionButtonIcon: BrGlamorousVectorIcons browse
-			tooltip: 'Browse class in Coder'
+			tooltip: 'Browse class in Coder' translated
 			action: [ self gtBrowse ]
 ]
 

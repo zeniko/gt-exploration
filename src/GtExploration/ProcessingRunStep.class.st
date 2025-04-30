@@ -50,7 +50,7 @@ ProcessingRunStep >> gtAbstractionsFor: aView [
 	<gtView>
 	^ aView explicit
 		priority: 1;
-		title: 'Abstractions';
+		title: 'Abstractions' translated;
 		stencil: [ | element child |
 			element := BlElement new.
 			element layout: (BlGridLayout new columnCount: 2).
@@ -103,7 +103,7 @@ ProcessingRunStep >> gtOutputFor: aView [
 		child visibility: ((visible includes: child) ifTrue: [ BlVisibility visible ] ifFalse: [ BlVisibility hidden ]).
 	].
 	^ (canvas gtViewFor: aView)
-		title: 'Output';
+		title: 'Output' translated;
 		priority: 20
 ]
 
@@ -111,7 +111,7 @@ ProcessingRunStep >> gtOutputFor: aView [
 ProcessingRunStep >> gtSourceCodeFor: aView [
 	<gtView>
 	^ (slice gtComparisonFor: aView)
-		title: 'Source';
+		title: 'Source' translated;
 		priority: 5
 ]
 
@@ -127,7 +127,7 @@ ProcessingRunStep >> gtStackFor: aView [
 ProcessingRunStep >> gtVariablesFor: aView [
 	<gtView>
 	^ (variables gtItemsFor: aView)
-		title: 'Variables';
+		title: 'Variables' translated;
 		priority: 10
 ]
 

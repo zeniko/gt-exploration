@@ -28,7 +28,7 @@ ProcessingSource >> gtAbstractionsFor: aView [
 	<gtView>
 	^ aView explicit
 		priority: 1;
-		title: 'Abstractions';
+		title: 'Abstractions' translated;
 		stencil: [ | element child editor program |
 			program := self program.
 			
@@ -85,7 +85,7 @@ ProcessingSource >> gtAbstractionsFor: aView [
 ProcessingSource >> gtBytecodeFor: aView [
 	<gtView>
 	^ (self program gtBytecodeFor: aView)
-		title: 'Bytecode';
+		title: 'Bytecode' translated;
 		priority: 10
 ]
 
@@ -103,7 +103,7 @@ ProcessingSource >> gtContentsFor: aView [
 	eventLoop := source watcher startLoop.
 
 	^ aView explicit
-		title: 'Source';
+		title: 'Source' translated;
 		priority: 2;
 		updateWhen: GtFileWatcherModificationAnnouncement in: eventLoop announcer;
 		stencil: [ source gtEditorView ]
@@ -113,7 +113,7 @@ ProcessingSource >> gtContentsFor: aView [
 ProcessingSource >> gtOutputFor: aView [
 	<gtView>
 	^ (self program gtOutputFor: aView)
-		title: 'Output';
+		title: 'Output' translated;
 		priority: 20
 ]
 
@@ -121,7 +121,7 @@ ProcessingSource >> gtOutputFor: aView [
 ProcessingSource >> gtSourceCodeFor: aView [
 	<gtView>
 	^ (self program gtSourceCodeFor: aView)
-		title: 'Transpiled';
+		title: 'Transpiled' translated;
 		priority: 3
 ]
 
