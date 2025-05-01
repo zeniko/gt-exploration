@@ -41,7 +41,7 @@ ProcessingProgram >> gtAbstractionsFor: aView [
 	^ aView explicit
 		priority: 1;
 		title: 'Abstractions' translated;
-		stencil: [ | element child editor |
+		stencil: [ | element child editor astTree |
 			element := BlElement new.
 			element layout: (BlGridLayout new columnCount: 2).
 			element
@@ -65,7 +65,8 @@ ProcessingProgram >> gtAbstractionsFor: aView [
 					c horizontal matchParent ];
 				margin: (BlInsets all: 5).
 			element addChild: child.
-			self ast topParent gtHookEditor: editor toTree: child children last.
+			astTree := child children last.
+			self ast topParent gtHookEditor: editor toTree: astTree.
 			
 			(self gtBytecodeFor: GtPhlowView empty)
 				asElementDo: [ :e | child := e ].
@@ -76,6 +77,7 @@ ProcessingProgram >> gtAbstractionsFor: aView [
 				margin: (BlInsets all: 5).
 			element addChild: child.
 			self gtHookBytecode: editor toList: child.
+			self gtHookBytecode: child toTree: astTree.
 			
 			(self gtOutputFor: GtPhlowView empty)
 				asElementDo: [ :e | child := e ].
@@ -150,8 +152,8 @@ ProcessingProgram >> gtHookBytecode: anEditor toList: aList [
 						item := compilation _gtSliceForItem: item.
 					].
 					(item isKindOf: ProcessingTranspilationSlice)
-						ifTrue:
-							[ anEditor editor text clearAttributes: [ :attr | attr == highlightAttribute ].
+						ifTrue: [
+							anEditor editor text clearAttributes: [ :attr | attr == highlightAttribute ].
 							anEditor editor text
 								attributes: {highlightAttribute}
 								from: item astNode startPosition
@@ -165,6 +167,42 @@ ProcessingProgram >> gtHookBytecode: anEditor toList: aList [
 			| position |
 			anEditor cursors do: [ :each | position := each position ].
 			position notNil ifTrue: [ compilation _gtSelectBytecode: aList at: position ] ]
+]
+
+{ #category : #views }
+ProcessingProgram >> gtHookBytecode: aList toTree: aTree [
+	"Adapted from SmaCCParseNode>>#gtHookEditor:toTree:"
+	aList
+		when: BrSelectionChanged
+		do:
+			[ :anEvent | 
+			aList
+				selectedItemDo:
+					[ :aItem |
+					| item |
+					item := aItem.
+					(item isKindOf: SymbolicBytecode) ifTrue: [
+						item := compilation _gtSliceForItem: item.
+					].
+					(item isKindOf: ProcessingTranspilationSlice)
+						ifTrue: [
+							item astNode gtSelectItemIn: aTree at: item astNode startPosition
+						] ] ].
+	
+	aTree
+		when: BrSelectionChanged
+		do:
+			[ :anEvent | 
+			aTree
+				selectedNodeDo:
+					[ :aNode | 
+					| item |
+					item := aNode value last.
+					((item isKindOf: SmaCCParseNode) or: [ item isKindOf: SmaCCToken ])
+						ifTrue: [
+							"This prevents selecting tokens without direct bytecode representation, so only do a oneway hook for now."
+							"compilation _gtSelectBytecode: aList at: item startPosition" "endPosition".
+						] ] ].
 ]
 
 { #category : #views }
@@ -295,10 +333,6 @@ ProcessingProgram >> gtSourceCodeFor: aView [
 { #category : #views }
 ProcessingProgram >> gtTreeFor: aView [
 	<gtView>
-	| topParent |
-	topParent := ast topParent.
-	"topParent completeSource isNil
-		ifTrue: [ ^ aView empty ]."
 	^ aView explicit
 		priority: 5;
 		title: 'AST';

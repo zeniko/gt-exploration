@@ -68,15 +68,22 @@ Stepper >> gtListViewFor: aView [
 					].
 				].
 			
-			GtPhlowView empty list
+			GtPhlowView empty columnedList
 				items: [ list ];
-				itemText: [ :each | (list indexOf: each) asString , ': ' , each asString ];
+				column: 'Index' translated
+					text: [ :each :eachIndex | 
+						eachIndex asRopedText foreground: Color gray ]
+						width: 45;
+				column: 'Item' translated
+					"TODO: use eachItem gtDisplayText instead?"
+					text: [ :each | each asString ];
 				asElementDo: [ :e | child := e ].
 			child
 				background: Color white;
 				margin: (BlInsets all: 5).
 			element addChild: child.
-			listElement := child.
+			"TODO: less hacky way to get to the list (view)?"
+			listElement := child children last.
 			
 			(self gtContentFor: GtPhlowView empty)
 				asElementDo: [ :e | child := e ].
