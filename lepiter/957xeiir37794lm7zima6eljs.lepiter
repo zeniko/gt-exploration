@@ -2168,7 +2168,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-04-26T16:54:48.673+02:00"
+									"dateAndTimeString" : "2025-05-02T13:38:15.944+02:00"
 								}
 							},
 							"uid" : {
@@ -2178,7 +2178,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Sketch out project: [[Individual Project]], [[Processing Source]] (including {{gtMethod:ProcessingSource >> #_gtOutputFor:}} view)"
+							"string" : "Sketch out project: [[Individual Project]], [[Processing Source]] (including {{gtMethod:ProcessingSource >> #gtOutputFor:}} view)"
 						},
 						{
 							"__type" : "textSnippet",

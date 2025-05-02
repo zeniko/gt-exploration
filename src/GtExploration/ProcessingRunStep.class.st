@@ -29,10 +29,10 @@ ProcessingRunStep >> create: aContext canvas: aCanvas slice: aSlice [
 	variables := Dictionary new.
 	aContext receiver ifNotNil: [
 		aContext receiver class slots do: [ :slot |
-			(slot name beginsWith: '__') ifTrue: [
-				variables at: slot name put: (aContext receiver instVarNamed: (slot name copyFrom: 2))
+			(slot name beginsWith: 'gt_') ifTrue: [
+				variables at: ('gt' , (slot name removePrefix: 'gt_')) asSymbol put: (aContext receiver instVarNamed: slot name)
 			].
-			(slot name beginsWith: '_') ifFalse: [
+			(slot name beginsWith: 'gt') ifFalse: [
 				((slot name = #width) | (slot name = #height)) ifFalse: [
 					variables at: slot name put: (aContext receiver instVarNamed: slot name)
 				].

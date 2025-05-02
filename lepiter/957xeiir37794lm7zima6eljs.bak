@@ -377,10 +377,10 @@
 								"__type" : "uid",
 								"uidString" : "8Ovc8ITwDQCxOqXaB7e7BA=="
 							},
-							"exampleSelector" : "sourceRecursion",
+							"exampleSelector" : "programRecursion",
 							"previewHeight" : 200,
 							"previewShowSelector" : "gtSourceIntermediaryRepresentationFor:",
-							"exampleBehaviorName" : "ProcessingSourceExamples",
+							"exampleBehaviorName" : "ProcessingProgramExamples",
 							"codeExpanded" : true,
 							"previewExpanded" : false,
 							"noCode" : true

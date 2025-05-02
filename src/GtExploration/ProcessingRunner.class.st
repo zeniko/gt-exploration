@@ -41,12 +41,12 @@ ProcessingRunner >> run: compilation [
 	worker startup wait.
 	
 	canvas isNil ifTrue: [ canvas := ProcessingCanvas new. ].
-	compilation instVarNamed: #_canvas put: canvas.
+	compilation instVarNamed: #gtCanvas put: canvas.
 	
 	done := false.
 	"TODO: handle errors"
 	promise := AsyncFuturePromise new future: [
-		compilation _run.
+		compilation gtRun.
 		done := true.
 	] asAsyncFuture.
 	worker schedule: promise.
@@ -61,10 +61,10 @@ ProcessingRunner >> runStepwise: compilation [
 	steps := OrderedCollection new.
 	
 	canvas isNil ifTrue: [ canvas := ProcessingCanvas new. ].
-	compilation instVarNamed: #_canvas put: canvas.
+	compilation instVarNamed: #gtCanvas put: canvas.
 	
 	done := false.
-	block := [ compilation _run. done := true. ].
+	block := [ compilation gtRun. done := true. ].
 	process := block newProcess.
 	[process step closure == block] whileFalse.
 	process step.
@@ -79,7 +79,7 @@ ProcessingRunner >> runStepwise: compilation [
 	[ session interruptedProcess isTerminated ] whileFalse: [
 		(session interruptedContext methodClass inheritsFrom: ProcessingCodeBase) ifTrue: [
 			| slice |
-			slice := compilation _gtSliceForItem: session interruptedContext method within: (session pcRangeForContext: session interruptedContext).
+			slice := compilation gtSliceForItem: session interruptedContext method within: (session pcRangeForContext: session interruptedContext).
 			slice isNotNil & (slice = lastSlice) not ifTrue: [
 				lastStep ifNotNil: [
 					lastStep updateCanvas: canvas.

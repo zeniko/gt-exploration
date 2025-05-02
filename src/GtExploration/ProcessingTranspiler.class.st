@@ -34,8 +34,8 @@ ProcessingTranspiler >> compile: ast [
 	| class source instance _astMaps |
 	source := self transpile: ast.
 	class := ProcessingCodeBase newAnonymousSubclass.
-	class addSlot: '_canvas'.
-	class addSlot: '_astMaps'.
+	class addSlot: 'gtCanvas'.
+	class addSlot: 'gtAstMaps'.
 	globalVariables do: [ :name | class addSlot: name ].
 	(source splitOn: '
 
@@ -47,7 +47,7 @@ ProcessingTranspiler >> compile: ast [
 		].
 	].
 	instance := class new.
-	instance instVarNamed: #_astMaps put: _astMaps.
+	instance instVarNamed: #gtAstMaps put: _astMaps.
 	^ instance
 ]
 
@@ -65,7 +65,7 @@ ProcessingTranspiler >> emit: part [
 
 { #category : #emitting }
 ProcessingTranspiler >> emitBackground: args [
-	self emit: '_canvas backgroundR: '.
+	self emit: 'gtCanvas backgroundR: '.
 	args first acceptVisitor: self.
 	self emit: ' G: '.
 	args second acceptVisitor: self.
@@ -88,7 +88,7 @@ ProcessingTranspiler >> emitDelay: args [
 
 { #category : #emitting }
 ProcessingTranspiler >> emitEllipse: args [
-	self emit: '_canvas ellipse: '.
+	self emit: 'gtCanvas ellipse: '.
 	args third acceptVisitor: self.
 	self emit: ' by: '.
 	args fourth acceptVisitor: self.
@@ -100,7 +100,7 @@ ProcessingTranspiler >> emitEllipse: args [
 
 { #category : #emitting }
 ProcessingTranspiler >> emitFill: args [
-	self emit: '_canvas fillR: '.
+	self emit: 'gtCanvas fillR: '.
 	args first acceptVisitor: self.
 	self emit: ' G: '.
 	args second acceptVisitor: self.
@@ -131,7 +131,7 @@ ProcessingTranspiler >> emitInt: args [
 
 { #category : #emitting }
 ProcessingTranspiler >> emitLine: args [
-	self emit: '_canvas line: '.
+	self emit: 'gtCanvas line: '.
 	args first acceptVisitor: self.
 	self emit: ' @ '.
 	args second acceptVisitor: self.
@@ -143,23 +143,25 @@ ProcessingTranspiler >> emitLine: args [
 
 { #category : #emitting }
 ProcessingTranspiler >> emitName: var [
-	"Internal variables of ProcessingCodeBase start with a single underscore. Make sure that there's no accidental leakage by doubling a leading underscore."
-	var first = $_ ifTrue: [ self emit: '_' , var. ^ '_' , var ].
-	self emit: var.
-	^ var
+	| name |
+	name := var.
+	"Internal variables of ProcessingCodeBase start with a the letters 'gt'. Make sure that there's no accidental leakage by inserting an underscore ('gtVar' -> 'gt_Var')."
+	(name beginsWith: 'gt') ifTrue: [ name := 'gt_' , (name removePrefix: 'gt') ].
+	self emit: name.
+	^ name
 ]
 
 { #category : #emitting }
 ProcessingTranspiler >> emitPrint: args [
 	args size > 1 ifTrue: [
-		self emit: '_canvas print: { '.
+		self emit: 'gtCanvas print: { '.
 		args do: [ :arg |
 			arg acceptVisitor: self.
 			self emit: '. '.
 		].
 		self emit: ' }'.
 	] ifFalse: [
-		self emit: '_canvas print: '.
+		self emit: 'gtCanvas print: '.
 		args first acceptVisitor: self.
 	].
 ]
@@ -179,7 +181,7 @@ ProcessingTranspiler >> emitRandom: args [
 
 { #category : #emitting }
 ProcessingTranspiler >> emitRect: args [
-	self emit: '_canvas rect: '.
+	self emit: 'gtCanvas rect: '.
 	args third acceptVisitor: self.
 	self emit: ' by: '.
 	args fourth acceptVisitor: self.
@@ -201,12 +203,12 @@ ProcessingTranspiler >> emitSize: args [
 	args first acceptVisitor: self.
 	self emit:'. height := '.
 	args second acceptVisitor: self.
-	self emit: '. _canvas size: width by: height'.
+	self emit: '. gtCanvas size: width by: height'.
 ]
 
 { #category : #emitting }
 ProcessingTranspiler >> emitStroke: args [
-	self emit: '_canvas strokeR: '.
+	self emit: 'gtCanvas strokeR: '.
 	args first acceptVisitor: self.
 	self emit: ' G: '.
 	args second acceptVisitor: self.
@@ -216,7 +218,7 @@ ProcessingTranspiler >> emitStroke: args [
 
 { #category : #emitting }
 ProcessingTranspiler >> emitStrokeWeight: args [
-	self emit: '_canvas strokeWeight: '.
+	self emit: 'gtCanvas strokeWeight: '.
 	args first acceptVisitor: self.
 ]
 
@@ -228,7 +230,7 @@ ProcessingTranspiler >> emitTan: args [
 
 { #category : #emitting }
 ProcessingTranspiler >> emitText: args [
-	self emit: '_canvas text: '.
+	self emit: 'gtCanvas text: '.
 	args first acceptVisitor: self.
 	self emit: ' at: '.
 	args second acceptVisitor: self.
@@ -238,13 +240,13 @@ ProcessingTranspiler >> emitText: args [
 
 { #category : #emitting }
 ProcessingTranspiler >> emitTextSize: args [
-	self emit: '_canvas textSize: '.
+	self emit: 'gtCanvas textSize: '.
 	args first acceptVisitor: self.
 ]
 
 { #category : #emitting }
 ProcessingTranspiler >> emitTriangle: args [
-	self emit: '_canvas triangle: { '.
+	self emit: 'gtCanvas triangle: { '.
 	args first acceptVisitor: self.
 	self emit: ' @ '.
 	args second acceptVisitor: self.
@@ -305,14 +307,14 @@ ProcessingTranspiler >> transpile: ast [
 	
 	output := ''.
 	astMap := OrderedCollection new.
-	self emit: '_run
+	self emit: 'gtRun
 '.
 	indentation := indentation + 1.
 	ast acceptVisitor: self.
 	
 	localVariables do: [ :var | globalVariables add: var ].
-	astMap do: [ :slice | slice name: '_run' ].
-	astMaps at: '_run' put: astMap.
+	astMap do: [ :slice | slice name: 'gtRun' ].
+	astMaps at: 'gtRun' put: astMap.
 	
 	"TODO: only update the canvas at the end of a draw phase (avoid rendering artifacts)"
 	^ output allButLast , functions

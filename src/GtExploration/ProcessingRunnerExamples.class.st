@@ -87,8 +87,8 @@ ProcessingRunnerExamples >> runExample05 [
 	runner run: program compilation; limitTo: 2 seconds; wait.
 	self assert: runner canvas isNotNil.
 	self assert: runner isDone.
-	self assert: (program compilation instVarNamed: #__a) equals: 200.
-	self assert: (program compilation instVarNamed: #__b) equals: 100.
+	self assert: (program compilation instVarNamed: #gt_A) equals: 200.
+	self assert: (program compilation instVarNamed: #gt_B) equals: 100.
 	^ runner
 ]
 

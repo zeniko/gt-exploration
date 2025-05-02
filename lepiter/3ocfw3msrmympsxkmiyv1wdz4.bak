@@ -362,7 +362,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-04-21T12:24:12.446+02:00"
+						"dateAndTimeString" : "2025-05-02T13:52:39.19+02:00"
 					}
 				},
 				"uid" : {
@@ -372,7 +372,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "{{gtTodo:label=`def setup()` and `def draw()` which are respectively called before entering the event loop and repeatedly while the event loop is running}}"
+				"string" : "{{gtTodo:label=`def setup()` and `def draw()` which are respectively called before entering the event loop and repeatedly while the event loop is running|completed=}}"
 			},
 			{
 				"__type" : "textSnippet",
@@ -510,7 +510,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-25T21:41:42.288+01:00"
+						"dateAndTimeString" : "2025-04-21T12:24:52.068+02:00"
 					}
 				},
 				"uid" : {
@@ -520,7 +520,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "W'll need to support at least arithmetic operators, assignment, list creation and function calls."
+				"string" : "We'll need to support at least arithmetic operators, assignment and function calls (and maybe list creation)."
 			},
 			{
 				"__type" : "textSnippet",

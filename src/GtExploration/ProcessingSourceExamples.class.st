@@ -77,7 +77,7 @@ text(x, 0, 20)'
 { #category : #source }
 ProcessingSourceExamples >> sourceCodeExample05 [
 	^ 'size(200, 100)
-_a := width; _b := height'
+gtA := width; gtB := height'
 ]
 
 { #category : #source }
@@ -297,7 +297,7 @@ ProcessingSourceExamples >> sourceMinimal [
 	^ source
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingSourceExamples >> sourcePrint [
 	<gtExample>
 	| source |

@@ -24,16 +24,16 @@ ProcessingTranspilerExamples >> newTranspiler [
 
 { #category : #transpilation }
 ProcessingTranspilerExamples >> transpilationAlpinerWanderweg [
-	^ '_run
-	width := 200. height := 200. _canvas size: width by: height.
-	_canvas rect: 100 by: 100 at: 50 @ 50.
-	_canvas fillR: 255 G: 0 B: 0.
-	_canvas rect: 100 by: (100 / 3) at: 50 @ (50 + (100 / 3)).'
+	^ 'gtRun
+	width := 200. height := 200. gtCanvas size: width by: height.
+	gtCanvas rect: 100 by: 100 at: 50 @ 50.
+	gtCanvas fillR: 255 G: 0 B: 0.
+	gtCanvas rect: 100 by: (100 / 3) at: 50 @ (50 + (100 / 3)).'
 ]
 
 { #category : #transpilation }
 ProcessingTranspilerExamples >> transpilationEndlessLoop [
-	^ '_run
+	^ 'gtRun
 	[ (1 = 1) ] whileTrue: [
 		(1 + 1).
 	].'
@@ -41,27 +41,27 @@ ProcessingTranspilerExamples >> transpilationEndlessLoop [
 
 { #category : #transpilation }
 ProcessingTranspilerExamples >> transpilationExample02 [
-	^ '_run
-	width := 200. height := 200. _canvas size: width by: height.
+	^ 'gtRun
+	width := 200. height := 200. gtCanvas size: width by: height.
 	a := 0.
 	[ (a < 200) ] whileTrue: [
-		_canvas fillR: a G: 128 B: 0.
-		_canvas rect: 100 by: 100 at: a @ a.
+		gtCanvas fillR: a G: 128 B: 0.
+		gtCanvas rect: 100 by: 100 at: a @ a.
 		a := (a + 50).
 	].
 	(a >= 200) ifTrue: [
-		_canvas ellipse: 20 by: 20 at: 10 @ 10.
+		gtCanvas ellipse: 20 by: 20 at: 10 @ 10.
 	].'
 ]
 
 { #category : #transpilation }
 ProcessingTranspilerExamples >> transpilationExample03 [
-	^ '_run
-	width := 200. height := 200. _canvas size: width by: height.
+	^ 'gtRun
+	width := 200. height := 200. gtCanvas size: width by: height.
 	x := 200.
 	[ (x > 0) ] whileTrue: [
-		_canvas fillR: (200 - x) G: 128 B: x.
-		_canvas ellipse: x by: x at: 100 @ 100.
+		gtCanvas fillR: (200 - x) G: 128 B: x.
+		gtCanvas ellipse: x by: x at: 100 @ 100.
 		x := (x - 20).
 		(50 / 1000.0) seconds wait.
 	].'
@@ -69,11 +69,11 @@ ProcessingTranspilerExamples >> transpilationExample03 [
 
 { #category : #transpilation }
 ProcessingTranspilerExamples >> transpilationExample04 [
-	^ '_run
-	width := 30. height := 20. _canvas size: width by: height.
+	^ 'gtRun
+	width := 30. height := 20. gtCanvas size: width by: height.
 	x := 0.
 	(self setX).
-	_canvas text: x at: 0 @ 20.
+	gtCanvas text: x at: 0 @ 20.
 
 setX
 	x := (((SharedRandom globalGenerator next * 2) ** 2) * 270 degreesToRadians sin).'
@@ -81,22 +81,22 @@ setX
 
 { #category : #transpilation }
 ProcessingTranspilerExamples >> transpilationExample05 [
-	^ '_run
-	width := 200. height := 100. _canvas size: width by: height.
-	__a := width.
-	__b := height.'
+	^ 'gtRun
+	width := 200. height := 100. gtCanvas size: width by: height.
+	gt_A := width.
+	gt_B := height.'
 ]
 
 { #category : #transpilation }
 ProcessingTranspilerExamples >> transpilationFibonacci [
-	^ '_run
-	width := 200. height := 200. _canvas size: width by: height.
-	_canvas textSize: 30.
-	_canvas fillR: 0 G: 0 B: 0.
-	_canvas text: ''Fibonacci'' at: 20 @ 75.
-	_canvas textSize: 50.
-	_canvas fillR: 255 G: 255 B: 255.
-	_canvas text: (self fibonacci: 10) at: 20 @ 125.
+	^ 'gtRun
+	width := 200. height := 200. gtCanvas size: width by: height.
+	gtCanvas textSize: 30.
+	gtCanvas fillR: 0 G: 0 B: 0.
+	gtCanvas text: ''Fibonacci'' at: 20 @ 75.
+	gtCanvas textSize: 50.
+	gtCanvas fillR: 255 G: 255 B: 255.
+	gtCanvas text: (self fibonacci: 10) at: 20 @ 125.
 
 fibonacci: n
 	| a |
@@ -110,26 +110,26 @@ fibonacci: n
 
 { #category : #transpilation }
 ProcessingTranspilerExamples >> transpilationMinimal [
-	^ '_run
-	width := 200. height := 200. _canvas size: width by: height.'
+	^ 'gtRun
+	width := 200. height := 200. gtCanvas size: width by: height.'
 ]
 
 { #category : #transpilation }
 ProcessingTranspilerExamples >> transpilationPrint [
-	^ '_run
-	_canvas print: ''Hello, world!''.
+	^ 'gtRun
+	gtCanvas print: ''Hello, world!''.
 	var := (2 + 3).
-	_canvas print: { ''2 + 3 =''. var.  }.'
+	gtCanvas print: { ''2 + 3 =''. var.  }.'
 ]
 
 { #category : #transpilation }
 ProcessingTranspilerExamples >> transpilationRecursion [
-	^ '_run
-	width := 200. height := 200. _canvas size: width by: height.
+	^ 'gtRun
+	width := 200. height := 200. gtCanvas size: width by: height.
 	(self recursion: 200).
 
 recursion: n
-	_canvas ellipse: n by: n at: 100 @ 100.
+	gtCanvas ellipse: n by: n at: 100 @ 100.
 	(n > 20) ifTrue: [
 		(self recursion: (n - 10)).
 	].'
@@ -137,31 +137,31 @@ recursion: n
 
 { #category : #transpilation }
 ProcessingTranspilerExamples >> transpilationShapes [
-	^ '_run
-	width := 200. height := 200. _canvas size: width by: height.
-	_canvas strokeR: 255 G: 255 B: 255.
-	_canvas rect: 60 by: 40 at: 20 @ 30.
-	_canvas ellipse: 60 by: 40 at: 150 @ 50.
-	_canvas line: 25 @ 150 to: 75 @ 125.
-	_canvas triangle: { 125 @ 125. 150 @ 175. 175 @ 150. }.'
+	^ 'gtRun
+	width := 200. height := 200. gtCanvas size: width by: height.
+	gtCanvas strokeR: 255 G: 255 B: 255.
+	gtCanvas rect: 60 by: 40 at: 20 @ 30.
+	gtCanvas ellipse: 60 by: 40 at: 150 @ 50.
+	gtCanvas line: 25 @ 150 to: 75 @ 125.
+	gtCanvas triangle: { 125 @ 125. 150 @ 175. 175 @ 150. }.'
 ]
 
 { #category : #transpilation }
 ProcessingTranspilerExamples >> transpilationSierpinski [
-	^ '_run
+	^ 'gtRun
 	px := 300.
-	width := px. height := ((px * 60 degreesToRadians sin) + 2). _canvas size: width by: height.
-	_canvas backgroundR: 255 G: 255 B: 255.
-	_canvas fillR: 0 G: 0 B: 0.
-	_canvas strokeR: 0 G: 0 B: 0.
-	_canvas strokeWeight: 1.
+	width := px. height := ((px * 60 degreesToRadians sin) + 2). gtCanvas size: width by: height.
+	gtCanvas backgroundR: 255 G: 255 B: 255.
+	gtCanvas fillR: 0 G: 0 B: 0.
+	gtCanvas strokeR: 0 G: 0 B: 0.
+	gtCanvas strokeWeight: 1.
 	(self sierpinski: 4 x: 2 y: 2 side: (width - 4)).
 
 sierpinski: n x: x y: y side: side
 	| th side |
 	th := (side * 60 degreesToRadians sin).
 	(n = 1) ifTrue: [
-		_canvas triangle: { x @ (y + th). (x + side) @ (y + th). (x + (side / 2)) @ y. }.
+		gtCanvas triangle: { x @ (y + th). (x + side) @ (y + th). (x + (side / 2)) @ y. }.
 	] ifFalse: [
 		(n > 1) ifTrue: [
 			side := (side / 2).
@@ -175,17 +175,17 @@ sierpinski: n x: x y: y side: side
 
 { #category : #transpilation }
 ProcessingTranspilerExamples >> transpilationSwitzerland [
-	^ '_run
-	width := 200. height := 200. _canvas size: width by: height.
-	_canvas backgroundR: 255 G: 0 B: 0.
-	_canvas rect: 50 by: 150 at: 75 @ 25.
-	_canvas rect: 150 by: 50 at: 25 @ 75.'
+	^ 'gtRun
+	width := 200. height := 200. gtCanvas size: width by: height.
+	gtCanvas backgroundR: 255 G: 0 B: 0.
+	gtCanvas rect: 50 by: 150 at: 75 @ 25.
+	gtCanvas rect: 150 by: 50 at: 25 @ 75.'
 ]
 
 { #category : #transpilation }
 ProcessingTranspilerExamples >> transpilationTurtleGraphics [
-	^ '_run
-	width := 400. height := 400. _canvas size: width by: height.
+	^ 'gtRun
+	width := 400. height := 400. gtCanvas size: width by: height.
 	(self draw_n_eck: 5).
 	(self move: 0 y: (height / 2) angle: 0).
 	(self kochpart: width limit: (width / (3 ** 4)) rounded).
@@ -228,7 +228,7 @@ fwd: d
 	oldY := t_y.
 	t_x := (t_x + (d * t_angle degreesToRadians cos)).
 	t_y := (t_y + (d * t_angle degreesToRadians sin)).
-	_canvas line: oldX @ oldY to: t_x @ t_y.
+	gtCanvas line: oldX @ oldY to: t_x @ t_y.
 
 turn: angle
 	t_angle := (t_angle + angle).'
@@ -310,7 +310,7 @@ ProcessingTranspilerExamples >> transpileExample05 [
 	transpiler := self newTranspiler.
 	self assert: (transpiler transpile: ast) equals: self transpilationExample05.
 	self assert: transpiler variables size equals: 2.
-	self assert: (' ' join: transpiler variables) equals: '__a __b'.
+	self assert: (' ' join: transpiler variables) equals: 'gt_A gt_B'.
 	self assert: transpiler userDefs size equals: 0.
 	self compare: (transpiler compile: ast) with: self transpilationExample05.
 	^ transpiler compile: ast

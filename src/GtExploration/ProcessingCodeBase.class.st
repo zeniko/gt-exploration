@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #views }
-ProcessingCodeBase >> _gtAbstractionsFor: aView [
+ProcessingCodeBase >> gtAbstractionsFor: aView [
 	<gtView>
 	^ aView explicit
 		priority: 1;
@@ -18,14 +18,14 @@ ProcessingCodeBase >> _gtAbstractionsFor: aView [
 					c vertical matchParent.
 					c horizontal matchParent ].
 			
-			(self _gtSourceCodeFor: GtPhlowView empty)
+			(self gtSourceCodeFor: GtPhlowView empty)
 				asElementDo: [ :e | child := e ].
 			child
 				background: Color white;
 				margin: (BlInsets all: 5).
 			element addChild: child.
 			
-			(self _gtViewIntermediaryRepresentationFor: GtPhlowView empty)
+			(self gtViewIntermediaryRepresentationFor: GtPhlowView empty)
 				asElementDo: [ :e | child := e ].
 			child
 				constraintsDo: [ :c |
@@ -34,7 +34,7 @@ ProcessingCodeBase >> _gtAbstractionsFor: aView [
 				margin: (BlInsets all: 5).
 			element addChild: child.
 			
-			(self _gtBytecodeFor: GtPhlowView empty)
+			(self gtBytecodeFor: GtPhlowView empty)
 				asElementDo: [ :e | child := e ].
 			child
 				constraintsDo: [ :c |
@@ -43,7 +43,7 @@ ProcessingCodeBase >> _gtAbstractionsFor: aView [
 				margin: (BlInsets all: 5).
 			element addChild: child.
 			
-			(self _gtOutputFor: GtPhlowView empty)
+			(self gtOutputFor: GtPhlowView empty)
 				asElementDo: [ :e | child := e ].
 			child
 				constraintsDo: [ :c |
@@ -57,7 +57,7 @@ ProcessingCodeBase >> _gtAbstractionsFor: aView [
 ]
 
 { #category : #views }
-ProcessingCodeBase >> _gtBytecodeFor: aView [
+ProcessingCodeBase >> gtBytecodeFor: aView [
 	<gtView>
 	^ aView list
 		title: 'Bytecode' translated;
@@ -73,7 +73,7 @@ ProcessingCodeBase >> _gtBytecodeFor: aView [
 ]
 
 { #category : #views }
-ProcessingCodeBase >> _gtGenerateIR: aSourceCode [
+ProcessingCodeBase >> gtGenerateIR: aSourceCode [
 	| trans ast |
 	trans := OCASTTranslator new.
 	ast := OpalCompiler new parse: aSourceCode.
@@ -83,7 +83,7 @@ ProcessingCodeBase >> _gtGenerateIR: aSourceCode [
 ]
 
 { #category : #views }
-ProcessingCodeBase >> _gtOutputFor: aView [
+ProcessingCodeBase >> gtOutputFor: aView [
 	<gtView>
 	^ aView explicit
 		title: 'Output' translated;
@@ -97,9 +97,9 @@ ProcessingCodeBase >> _gtOutputFor: aView [
 ]
 
 { #category : #views }
-ProcessingCodeBase >> _gtSelectBytecode: aList at: position [
+ProcessingCodeBase >> gtSelectBytecode: aList at: position [
 	| slices indices |
-	slices := (self instVarNamed: #_astMaps) select: [ :slice |
+	slices := (self instVarNamed: #gtAstMaps) select: [ :slice |
 		(slice astNode sourceInterval first - 1 <= position) &
 		(slice astNode sourceInterval last >= position)
 	].
@@ -121,9 +121,9 @@ ProcessingCodeBase >> _gtSelectBytecode: aList at: position [
 ]
 
 { #category : #views }
-ProcessingCodeBase >> _gtSelectIRNode: aList at: position [
+ProcessingCodeBase >> gtSelectIRNode: aList at: position [
 	| slices indices |
-	slices := (self instVarNamed: #_astMaps) select: [ :slice |
+	slices := (self instVarNamed: #gtAstMaps) select: [ :slice |
 		(slice astNode sourceInterval first - 1 <= position) &
 		(slice astNode sourceInterval last >= position)
 	].
@@ -147,9 +147,9 @@ ProcessingCodeBase >> _gtSelectIRNode: aList at: position [
 ]
 
 { #category : #views }
-ProcessingCodeBase >> _gtSliceForIRItem: irNode [
+ProcessingCodeBase >> gtSliceForIRItem: irNode [
 	| slices |
-	slices := (self instVarNamed: #_astMaps) select: [ :slice |
+	slices := (self instVarNamed: #gtAstMaps) select: [ :slice |
 		irNode sourceNode ifNotNil: [
 			(slice method sourceCode = irNode sourceNode methodNode sourceCode) and: [
 				(slice startPos <= irNode sourceNode sourceInterval first) &
@@ -162,9 +162,9 @@ ProcessingCodeBase >> _gtSliceForIRItem: irNode [
 ]
 
 { #category : #views }
-ProcessingCodeBase >> _gtSliceForItem: byteCode [
+ProcessingCodeBase >> gtSliceForItem: byteCode [
 	| slices |
-	slices := (self instVarNamed: #_astMaps) select: [ :slice |
+	slices := (self instVarNamed: #gtAstMaps) select: [ :slice |
 		(slice method = byteCode method) and: [
 			(slice startPos <= byteCode sourceInterval first) &
 			(slice endPos >= byteCode sourceInterval last)
@@ -175,9 +175,9 @@ ProcessingCodeBase >> _gtSliceForItem: byteCode [
 ]
 
 { #category : #views }
-ProcessingCodeBase >> _gtSliceForItem: method within: interval [
+ProcessingCodeBase >> gtSliceForItem: method within: interval [
 	| slices |
-	slices := (self instVarNamed: #_astMaps) select: [ :slice |
+	slices := (self instVarNamed: #gtAstMaps) select: [ :slice |
 		(slice method = method) and: [
 			(slice startPos <= interval first) &
 			(slice endPos >= interval last)
@@ -188,15 +188,15 @@ ProcessingCodeBase >> _gtSliceForItem: method within: interval [
 ]
 
 { #category : #views }
-ProcessingCodeBase >> _gtSlicesFor: aView [
+ProcessingCodeBase >> gtSlicesFor: aView [
 	<gtView>
-	^ ((Stepper for: (self instVarNamed: #_astMaps) view: #gtComparisonFor:) gtListViewFor: aView)
+	^ ((Stepper for: (self instVarNamed: #gtAstMaps) view: #gtComparisonFor:) gtListViewFor: aView)
 		title: 'Slices' translated;
 		priority: 7
 ]
 
 { #category : #views }
-ProcessingCodeBase >> _gtSourceCodeFor: aView [
+ProcessingCodeBase >> gtSourceCodeFor: aView [
 	<gtView>
 	"Adapted from GtPharoMethodsCoderView>>#gtMethodsFor"
 	| coder viewModel |
@@ -219,7 +219,7 @@ ProcessingCodeBase >> _gtSourceCodeFor: aView [
 ]
 
 { #category : #views }
-ProcessingCodeBase >> _gtViewIntermediaryRepresentationFor: aView [
+ProcessingCodeBase >> gtViewIntermediaryRepresentationFor: aView [
 	<gtView>
 	^ aView columnedList
 		title: 'IR';
@@ -230,7 +230,7 @@ ProcessingCodeBase >> _gtViewIntermediaryRepresentationFor: aView [
 			self class methodDict keysAndValuesDo: [ :key :value |
 				| ir |
 				list add: value.
-				ir := self _gtGenerateIR: value sourceCode.
+				ir := self gtGenerateIR: value sourceCode.
 				ir startSequence withAllSuccessors do: [ :seq |
 					list addAll: seq sequence
 				].

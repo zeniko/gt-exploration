@@ -100,7 +100,7 @@ ProcessingProgram >> gtAbstractionsFor: aView [
 { #category : #views }
 ProcessingProgram >> gtBytecodeFor: aView [
 	<gtView>
-	^ self gtGetLiveView: aView for: [ :view | compilation _gtBytecodeFor: view ]
+	^ self gtGetLiveView: aView for: [ :view | compilation gtBytecodeFor: view ]
 		title: 'Bytecode' translated
 		priority: 15
 ]
@@ -159,7 +159,7 @@ ProcessingProgram >> gtHookEditor: anEditor toBytecode: aList [
 		astNode gtScrollToPosition: astNode startPosition inEditor: anEditor
 	].
 	
-	self gtOnEditorChange: anEditor do: [ :position | compilation _gtSelectBytecode: aList at: position ]
+	self gtOnEditorChange: anEditor do: [ :position | compilation gtSelectBytecode: aList at: position ]
 ]
 
 { #category : #views }
@@ -179,13 +179,13 @@ ProcessingProgram >> gtHookEditor: anEditor toIR: aList [
 		astNode gtScrollToPosition: astNode startPosition inEditor: anEditor
 	].
 	
-	self gtOnEditorChange: anEditor do: [ :position | compilation _gtSelectIRNode: aList at: position ]
+	self gtOnEditorChange: anEditor do: [ :position | compilation gtSelectIRNode: aList at: position ]
 ]
 
 { #category : #views }
 ProcessingProgram >> gtIntermediaryRepresentationFor: aView [
 	<gtView>
-	^ self gtGetLiveView: aView for: [ :view | compilation _gtViewIntermediaryRepresentationFor: view ]
+	^ self gtGetLiveView: aView for: [ :view | compilation gtViewIntermediaryRepresentationFor: view ]
 		title: 'IR'
 		priority: 10
 ]
@@ -210,10 +210,10 @@ ProcessingProgram >> gtOnListSelect: aList do: aBlock [
 				| item |
 				item := aItem.
 				(item isKindOf: SymbolicBytecode) ifTrue: [
-					item := compilation _gtSliceForItem: item.
+					item := compilation gtSliceForItem: item.
 				].
 				(item isKindOf: IRInstruction) ifTrue: [
-					item := compilation _gtSliceForIRItem: item.
+					item := compilation gtSliceForIRItem: item.
 				].
 				(item isKindOf: ProcessingTranspilationSlice) ifTrue: [
 					item := item astNode.
@@ -235,7 +235,7 @@ ProcessingProgram >> gtOnTreeSelect: aTree do: aBlock [
 				| item |
 				item := aNode value last.
 				(item isKindOf: SymbolicBytecode) ifTrue: [
-					item := compilation _gtSliceForItem: item.
+					item := compilation gtSliceForItem: item.
 				].
 				(item isKindOf: ProcessingTranspilationSlice) ifTrue: [
 					item := item astNode.
@@ -251,7 +251,7 @@ ProcessingProgram >> gtOnTreeSelect: aTree do: aBlock [
 { #category : #views }
 ProcessingProgram >> gtOutputFor: aView [
 	<gtView>
-	^ self gtGetLiveView: aView for: [ :view | compilation _gtOutputFor: view ]
+	^ self gtGetLiveView: aView for: [ :view | compilation gtOutputFor: view ]
 		title: 'Output' translated
 		priority: 20
 ]
@@ -259,7 +259,7 @@ ProcessingProgram >> gtOutputFor: aView [
 { #category : #views }
 ProcessingProgram >> gtSlicesFor: aView [
 	<gtView>
-	^ self gtGetLiveView: aView for: [ :view | compilation _gtSlicesFor: view ]
+	^ self gtGetLiveView: aView for: [ :view | compilation gtSlicesFor: view ]
 		title: 'Slices' translated
 		priority: 7
 ]
@@ -324,7 +324,7 @@ ProcessingProgram >> gtSourceBytecodeFor: aView [
 			element addChild: child.
 			editor := child.
 			
-			(compilation _gtBytecodeFor: GtPhlowView empty)
+			(compilation gtBytecodeFor: GtPhlowView empty)
 				asElementDo: [ :e | child := e ].
 			child
 				constraintsDo: [ :c |
@@ -341,7 +341,7 @@ ProcessingProgram >> gtSourceBytecodeFor: aView [
 { #category : #views }
 ProcessingProgram >> gtSourceCodeFor: aView [
 	<gtView>
-	^ self gtGetLiveView: aView for: [ :view | compilation _gtSourceCodeFor: view ]
+	^ self gtGetLiveView: aView for: [ :view | compilation gtSourceCodeFor: view ]
 		title: 'Smalltalk'
 		priority: 8
 ]
@@ -368,7 +368,7 @@ ProcessingProgram >> gtSourceIntermediaryRepresentationFor: aView [
 			element addChild: child.
 			editor := child.
 			
-			(compilation _gtViewIntermediaryRepresentationFor: GtPhlowView empty)
+			(compilation gtViewIntermediaryRepresentationFor: GtPhlowView empty)
 				asElementDo: [ :e | child := e ].
 			child
 				constraintsDo: [ :c |
