@@ -76,8 +76,11 @@ ProcessingProgram >> gtAbstractionsFor: aView [
 					c horizontal matchParent ];
 				margin: (BlInsets all: 5).
 			element addChild: child.
-			self gtHookBytecode: editor toList: child.
-			self gtHookBytecode: child toTree: astTree.
+			self gtHookEditor: editor toBytecode: child.
+			"Oneway hook bytecode to the AST tree"
+			self gtOnListSelect: child do: [ :astNode |
+				astNode gtSelectItemIn: astTree at: astNode startPosition
+			].
 			
 			(self gtOutputFor: GtPhlowView empty)
 				asElementDo: [ :e | child := e ].
@@ -97,18 +100,9 @@ ProcessingProgram >> gtAbstractionsFor: aView [
 { #category : #views }
 ProcessingProgram >> gtBytecodeFor: aView [
 	<gtView>
-	^ aView explicit
-		title: 'Bytecode' translated;
-		priority: 11;
-		stencil: [ | element |
-			(compilation _gtBytecodeFor: GtPhlowView empty)
-				asElementDo: [ :e | element := e ].
-			element
-				constraintsDo: [ :e | 
-					e vertical matchParent.
-					e horizontal matchParent ];
-				yourself ];
-		updateWhen: ProcessingProgramChanged in: self announcer
+	^ self gtGetLiveView: aView for: [ :view | compilation _gtBytecodeFor: view ]
+		title: 'Bytecode' translated
+		priority: 15
 ]
 
 { #category : #views }
@@ -131,112 +125,143 @@ ProcessingProgram >> gtContentsFor: aView [
 ]
 
 { #category : #views }
-ProcessingProgram >> gtHookBytecode: anEditor toList: aList [
-	"Adapted from SmaCCParseNode>>#gtHookEditor:toTree:"
+ProcessingProgram >> gtGetLiveView: aView for: aBlock title: aTitle priority: aPriority [
+	^ aView explicit
+		title: aTitle;
+		priority: aPriority;
+		stencil: [
+			| element |
+			(aBlock cull: GtPhlowView empty)
+				asElementDo: [ :e | element := e ].
+			element
+				constraintsDo: [ :e |
+					e vertical matchParent.
+					e horizontal matchParent ];
+				yourself
+		];
+		updateWhen: ProcessingProgramChanged in: self announcer
+]
+
+{ #category : #views }
+ProcessingProgram >> gtHookEditor: anEditor toBytecode: aList [
 	| highlightAttribute |
 	highlightAttribute := (BlTextDecorationAttribute new underline)
 		beNotOverwritableByStyler;
 		color: BrGlamorousColors textHighlightColor;
 		thickness: 3.
 	
-	aList
-		when: BrSelectionChanged
-		do:
-			[ :anEvent | 
-			aList
-				selectedItemDo:
-					[ :aItem |
-					| item |
-					item := aItem.
-					(item isKindOf: SymbolicBytecode) ifTrue: [
-						item := compilation _gtSliceForItem: item.
-					].
-					(item isKindOf: ProcessingTranspilationSlice)
-						ifTrue: [
-							anEditor editor text clearAttributes: [ :attr | attr == highlightAttribute ].
-							anEditor editor text
-								attributes: {highlightAttribute}
-								from: item astNode startPosition
-								to: item astNode stopPosition.
-							item astNode gtScrollToPosition: item astNode startPosition inEditor: anEditor ] ] ].
+	self gtOnListSelect: aList do: [ :astNode |
+		anEditor editor text clearAttributes: [ :attr | attr == highlightAttribute ].
+		anEditor editor text
+			attributes: { highlightAttribute }
+			from: astNode startPosition
+			to: astNode stopPosition.
+		astNode gtScrollToPosition: astNode startPosition inEditor: anEditor
+	].
 	
-	anEditor editor
-		when: BrTextEditorCursorMovedEvent
-		do:
-			[ :event | 
-			| position |
-			anEditor cursors do: [ :each | position := each position ].
-			position notNil ifTrue: [ compilation _gtSelectBytecode: aList at: position ] ]
+	self gtOnEditorChange: anEditor do: [ :position | compilation _gtSelectBytecode: aList at: position ]
 ]
 
 { #category : #views }
-ProcessingProgram >> gtHookBytecode: aList toTree: aTree [
-	"Adapted from SmaCCParseNode>>#gtHookEditor:toTree:"
+ProcessingProgram >> gtHookEditor: anEditor toIR: aList [
+	| highlightAttribute |
+	highlightAttribute := (BlTextDecorationAttribute new underline)
+		beNotOverwritableByStyler;
+		color: BrGlamorousColors textHighlightColor;
+		thickness: 3.
+	
+	self gtOnListSelect: aList do: [ :astNode |
+		anEditor editor text clearAttributes: [ :attr | attr == highlightAttribute ].
+		anEditor editor text
+			attributes: { highlightAttribute }
+			from: astNode startPosition
+			to: astNode stopPosition.
+		astNode gtScrollToPosition: astNode startPosition inEditor: anEditor
+	].
+	
+	self gtOnEditorChange: anEditor do: [ :position | compilation _gtSelectIRNode: aList at: position ]
+]
+
+{ #category : #views }
+ProcessingProgram >> gtIntermediaryRepresentationFor: aView [
+	<gtView>
+	^ self gtGetLiveView: aView for: [ :view | compilation _gtViewIntermediaryRepresentationFor: view ]
+		title: 'IR'
+		priority: 10
+]
+
+{ #category : #views }
+ProcessingProgram >> gtOnEditorChange: anEditor do: aBlock [
+	anEditor editor
+		when: BrTextEditorCursorMovedEvent
+		do: [ :event |
+			| position |
+			anEditor cursors do: [ :each | position := each position ].
+			position notNil ifTrue: [ aBlock cull: position ]
+		]
+]
+
+{ #category : #views }
+ProcessingProgram >> gtOnListSelect: aList do: aBlock [
 	aList
 		when: BrSelectionChanged
-		do:
-			[ :anEvent | 
-			aList
-				selectedItemDo:
-					[ :aItem |
-					| item |
-					item := aItem.
-					(item isKindOf: SymbolicBytecode) ifTrue: [
-						item := compilation _gtSliceForItem: item.
-					].
-					(item isKindOf: ProcessingTranspilationSlice)
-						ifTrue: [
-							item astNode gtSelectItemIn: aTree at: item astNode startPosition
-						] ] ].
+		do: [ :anEvent |
+			aList selectedItemDo: [ :aItem |
+				| item |
+				item := aItem.
+				(item isKindOf: SymbolicBytecode) ifTrue: [
+					item := compilation _gtSliceForItem: item.
+				].
+				(item isKindOf: IRInstruction) ifTrue: [
+					item := compilation _gtSliceForIRItem: item.
+				].
+				(item isKindOf: ProcessingTranspilationSlice) ifTrue: [
+					item := item astNode.
+				].
+				((item isKindOf: SmaCCParseNode) or: [ item isKindOf: SmaCCToken ]) ifTrue: [
+					aBlock cull: item.
+				].
+			]
+		].
 	
+]
+
+{ #category : #views }
+ProcessingProgram >> gtOnTreeSelect: aTree do: aBlock [
 	aTree
 		when: BrSelectionChanged
-		do:
-			[ :anEvent | 
-			aTree
-				selectedNodeDo:
-					[ :aNode | 
-					| item |
-					item := aNode value last.
-					((item isKindOf: SmaCCParseNode) or: [ item isKindOf: SmaCCToken ])
-						ifTrue: [
-							"This prevents selecting tokens without direct bytecode representation, so only do a oneway hook for now."
-							"compilation _gtSelectBytecode: aList at: item startPosition" "endPosition".
-						] ] ].
+		do: [ :anEvent |
+			aTree selectedNodeDo: [ :aNode |
+				| item |
+				item := aNode value last.
+				(item isKindOf: SymbolicBytecode) ifTrue: [
+					item := compilation _gtSliceForItem: item.
+				].
+				(item isKindOf: ProcessingTranspilationSlice) ifTrue: [
+					item := item astNode.
+				].
+				((item isKindOf: SmaCCParseNode) or: [ item isKindOf: SmaCCToken ]) ifTrue: [
+					aBlock cull: item.
+				].
+			]
+		].
+	
 ]
 
 { #category : #views }
 ProcessingProgram >> gtOutputFor: aView [
 	<gtView>
-	^ aView explicit
-		title: 'Output' translated;
-		priority: 20;
-		stencil: [ | element |
-			(compilation _gtOutputFor: GtPhlowView empty)
-				asElementDo: [ :e | element := e ].
-			element
-				constraintsDo: [ :e |
-					e vertical matchParent.
-					e horizontal matchParent ];
-				yourself ];
-		updateWhen: ProcessingProgramChanged in: self announcer
+	^ self gtGetLiveView: aView for: [ :view | compilation _gtOutputFor: view ]
+		title: 'Output' translated
+		priority: 20
 ]
 
 { #category : #views }
 ProcessingProgram >> gtSlicesFor: aView [
 	<gtView>
-	^ aView explicit
-		title: 'Slices' translated;
-		priority: 7;
-		stencil: [ | element |
-			(compilation _gtSlicesFor: GtPhlowView empty)
-				asElementDo: [ :e | element := e ].
-			element
-				constraintsDo: [ :e |
-					e vertical matchParent.
-					e horizontal matchParent ];
-				yourself ];
-		updateWhen: ProcessingProgramChanged in: self announcer
+	^ self gtGetLiveView: aView for: [ :view | compilation _gtSlicesFor: view ]
+		title: 'Slices' translated
+		priority: 7
 ]
 
 { #category : #views }
@@ -281,7 +306,7 @@ ProcessingProgram >> gtSourceAstFor: aView [
 ProcessingProgram >> gtSourceBytecodeFor: aView [
 	<gtView>
 	^ aView explicit
-		priority: 11;
+		priority: 16;
 		title: 'Bytecode' translated , '++';
 		stencil: [ | element child editor |
 			element := BlElement new.
@@ -307,7 +332,7 @@ ProcessingProgram >> gtSourceBytecodeFor: aView [
 					c horizontal matchParent ];
 				margin: (BlInsets all: 5).
 			element addChild: child.
-			self gtHookBytecode: editor toList: child.
+			self gtHookEditor: editor toBytecode: child.
 			
 			element ];
 		updateWhen: ProcessingProgramChanged in: self announcer
@@ -316,17 +341,44 @@ ProcessingProgram >> gtSourceBytecodeFor: aView [
 { #category : #views }
 ProcessingProgram >> gtSourceCodeFor: aView [
 	<gtView>
+	^ self gtGetLiveView: aView for: [ :view | compilation _gtSourceCodeFor: view ]
+		title: 'Smalltalk'
+		priority: 8
+]
+
+{ #category : #views }
+ProcessingProgram >> gtSourceIntermediaryRepresentationFor: aView [
+	<gtView>
 	^ aView explicit
-		title: 'Smalltalk';
-		priority: 8;
-		stencil: [ | element |
-			(compilation _gtSourceCodeFor: GtPhlowView empty)
-				asElementDo: [ :e | element := e ].
+		priority: 11;
+		title: 'IR++';
+		stencil: [ | element child editor |
+			element := BlElement new.
+			element layout: BlLinearLayout horizontal.
 			element
-				constraintsDo: [ :e |
-					e vertical matchParent.
-					e horizontal matchParent ];
-				yourself ];
+				constraintsDo: [ :c |
+					c vertical matchParent.
+					c horizontal matchParent ].
+			
+			(self gtContentsFor: GtPhlowView empty)
+				asElementDo: [ :e | child := e ].
+			child
+				background: Color white;
+				margin: (BlInsets all: 5).
+			element addChild: child.
+			editor := child.
+			
+			(compilation _gtViewIntermediaryRepresentationFor: GtPhlowView empty)
+				asElementDo: [ :e | child := e ].
+			child
+				constraintsDo: [ :c |
+					c vertical matchParent.
+					c horizontal matchParent ];
+				margin: (BlInsets all: 5).
+			element addChild: child.
+			self gtHookEditor: editor toIR: child children last.
+			
+			element ];
 		updateWhen: ProcessingProgramChanged in: self announcer
 ]
 
@@ -344,25 +396,8 @@ ProcessingProgram >> gtTreeFor: aView [
 					e vertical matchParent.
 					e horizontal matchParent ].
 			"expand the entire tree (for now); TODO: refined view"
-			tree children second expandAll.
+			tree children last expandAll.
 			tree ];
-		updateWhen: ProcessingProgramChanged in: self announcer
-]
-
-{ #category : #views }
-ProcessingProgram >> gtViewIntermediaryRepresentationFor: aView [
-	<gtView>
-	^ aView explicit
-		title: 'IR';
-		priority: 10;
-		stencil: [ | element |
-			(compilation _gtViewIntermediaryRepresentationFor: GtPhlowView empty)
-				asElementDo: [ :e | element := e ].
-			element
-				constraintsDo: [ :e |
-					e vertical matchParent.
-					e horizontal matchParent ];
-				yourself ];
 		updateWhen: ProcessingProgramChanged in: self announcer
 ]
 

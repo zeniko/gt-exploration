@@ -61,7 +61,7 @@ ProcessingCodeBase >> _gtBytecodeFor: aView [
 	<gtView>
 	^ aView list
 		title: 'Bytecode' translated;
-		priority: 11;
+		priority: 12;
 		items: [ | codes |
 			codes := OrderedCollection new.
 			self class methodDict keysAndValuesDo: [ :key :value |
@@ -70,6 +70,16 @@ ProcessingCodeBase >> _gtBytecodeFor: aView [
 			codes
 		];
 		itemText: [ :each | each printString ]
+]
+
+{ #category : #views }
+ProcessingCodeBase >> _gtGenerateIR: aSourceCode [
+	| trans ast |
+	trans := OCASTTranslator new.
+	ast := OpalCompiler new parse: aSourceCode.
+	ast acceptVisitor: trans.
+	"calling IRBuilder>>#ir performs some optimizations, so skip around it"
+	^ trans privateMethodBuilder instVarNamed: #ir
 ]
 
 { #category : #views }
@@ -108,6 +118,47 @@ ProcessingCodeBase >> _gtSelectBytecode: aList at: position [
 		aList selectOne: indices last.
 		aList scrollToSelection.
 	].
+]
+
+{ #category : #views }
+ProcessingCodeBase >> _gtSelectIRNode: aList at: position [
+	| slices indices |
+	slices := (self instVarNamed: #_astMaps) select: [ :slice |
+		(slice astNode sourceInterval first - 1 <= position) &
+		(slice astNode sourceInterval last >= position)
+	].
+	slices size = 0 ifTrue: [ ^ nil ].
+	
+	indices := (1 to: aList items size) select: [ :index |
+		| item |
+		item := aList items at: index.
+		(item isKindOf: IRInstruction) and: [
+			item sourceNode ifNotNil: [
+				(item sourceNode methodNode sourceCode = slices last method sourceCode) &
+				(item sourceNode sourceInterval first >= slices last startPos) &
+				(item sourceNode sourceInterval last <= slices last endPos)
+			] ifNil: [ false ]
+		]
+	].
+	indices size > 0 ifTrue: [
+		aList selectOne: indices last.
+		aList scrollToSelection.
+	].
+]
+
+{ #category : #views }
+ProcessingCodeBase >> _gtSliceForIRItem: irNode [
+	| slices |
+	slices := (self instVarNamed: #_astMaps) select: [ :slice |
+		irNode sourceNode ifNotNil: [
+			(slice method sourceCode = irNode sourceNode methodNode sourceCode) and: [
+				(slice startPos <= irNode sourceNode sourceInterval first) &
+				(slice endPos >= irNode sourceNode sourceInterval last)
+			]
+		] ifNil: [ false ]
+	].
+	slices size = 0 ifTrue: [ ^ nil ].
+	^ slices last
 ]
 
 { #category : #views }
@@ -170,15 +221,41 @@ ProcessingCodeBase >> _gtSourceCodeFor: aView [
 { #category : #views }
 ProcessingCodeBase >> _gtViewIntermediaryRepresentationFor: aView [
 	<gtView>
-	^ aView text
+	^ aView columnedList
 		title: 'IR';
 		priority: 10;
-		text: [ | string |
-			string := ''.
+		items: [
+			| list |
+			list := OrderedCollection new.
 			self class methodDict keysAndValuesDo: [ :key :value |
-				string := string , 'FUNCTION ' , key , '
-' , value ast ir longPrintString
+				| ir |
+				list add: value.
+				ir := self _gtGenerateIR: value sourceCode.
+				ir startSequence withAllSuccessors do: [ :seq |
+					list addAll: seq sequence
+				].
 			].
-			string
-		]
+			list
+		];
+		column: 'Label' translated
+			text: [ :each |
+				((each isKindOf: CompiledMethod) ifTrue: [
+					'----'
+				] ifFalse: [
+					each sequence sequence first = each ifTrue: [
+						each sequence orderNumber asString
+					] ifFalse: [
+						''
+					]
+				]) asRopedText foreground: Color gray
+			] width: 45;
+		column: 'Instruction' translated
+			text: [ :each |
+				(each isKindOf: CompiledMethod) ifTrue: [
+					'FUNCTION ' , ((each sourceCode splitOn: '
+') first splitOn: ':') first
+				] ifFalse: [
+					each gtDisplayText
+				]
+			].
 ]

@@ -71,11 +71,11 @@ Stepper >> gtListViewFor: aView [
 			GtPhlowView empty columnedList
 				items: [ list ];
 				column: 'Index' translated
-					text: [ :each :eachIndex | 
-						eachIndex asRopedText foreground: Color gray ]
-						width: 45;
+					text: [ :each :eachIndex |
+						eachIndex asRopedText foreground: Color gray 
+					] width: 45;
 				column: 'Item' translated
-					"TODO: use eachItem gtDisplayText instead?"
+					"TODO: use each gtDisplayText instead?"
 					text: [ :each | each asString ];
 				asElementDo: [ :e | child := e ].
 			child

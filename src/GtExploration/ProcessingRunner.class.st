@@ -72,6 +72,8 @@ ProcessingRunner >> runStepwise: compilation [
 	session := process newDebugSessionNamed: 'ProcessingRunner>>#runStepwise:' startedAt: process suspendedContext.
 	session stepInto.
 	
+	"TODO: catch endless loops!"
+	
 	lastSlice := nil.
 	lastStep := nil.
 	[ session interruptedProcess isTerminated ] whileFalse: [

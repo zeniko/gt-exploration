@@ -96,6 +96,14 @@ ProcessingSource >> gtContentsFor: aView [
 ]
 
 { #category : #views }
+ProcessingSource >> gtIntermediaryRepresentationFor: aView [
+	<gtView>
+	^ (self program gtIntermediaryRepresentationFor: aView)
+		title: 'IR';
+		priority: 7
+]
+
+{ #category : #views }
 ProcessingSource >> gtOutputFor: aView [
 	<gtView>
 	^ (self program gtOutputFor: aView)
@@ -117,14 +125,6 @@ ProcessingSource >> gtTreeFor: aView [
 	^ (self program gtTreeFor: aView)
 		title: 'AST';
 		priority: 3
-]
-
-{ #category : #views }
-ProcessingSource >> gtViewIntermediaryRepresentationFor: aView [
-	<gtView>
-	^ (self program gtViewIntermediaryRepresentationFor: aView)
-		title: 'IR';
-		priority: 7
 ]
 
 { #category : #announcements }
