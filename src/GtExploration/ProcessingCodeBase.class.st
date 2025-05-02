@@ -131,7 +131,7 @@ ProcessingCodeBase >> gtSelectBytecode: aList at: position [
 		(slice astNode sourceInterval first - 1 <= position) &
 		(slice astNode sourceInterval last >= position)
 	].
-	slices size = 0 ifTrue: [ ^ nil ].
+	slices ifEmpty: [ ^ nil ].
 	
 	indices := (1 to: aList items size) select: [ :index |
 		| item |
@@ -142,7 +142,7 @@ ProcessingCodeBase >> gtSelectBytecode: aList at: position [
 			(item sourceInterval last <= slices last endPos)
 		]
 	].
-	indices size > 0 ifTrue: [
+	indices ifNotEmpty: [
 		aList selectOne: indices last.
 		aList scrollToSelection.
 	].
@@ -155,7 +155,7 @@ ProcessingCodeBase >> gtSelectIRNode: aList at: position [
 		(slice astNode sourceInterval first - 1 <= position) &
 		(slice astNode sourceInterval last >= position)
 	].
-	slices size = 0 ifTrue: [ ^ nil ].
+	slices ifEmpty: [ ^ nil ].
 	
 	indices := (1 to: aList items size) select: [ :index |
 		| item |
@@ -168,7 +168,7 @@ ProcessingCodeBase >> gtSelectIRNode: aList at: position [
 			] ifNil: [ false ]
 		]
 	].
-	indices size > 0 ifTrue: [
+	indices ifNotEmpty: [
 		aList selectOne: indices last.
 		aList scrollToSelection.
 	].
@@ -185,7 +185,7 @@ ProcessingCodeBase >> gtSliceForIRItem: irNode [
 			]
 		] ifNil: [ false ]
 	].
-	slices size = 0 ifTrue: [ ^ nil ].
+	slices ifEmpty: [ ^ nil ].
 	^ slices last
 ]
 
@@ -198,7 +198,7 @@ ProcessingCodeBase >> gtSliceForItem: byteCode [
 			(slice endPos >= byteCode sourceInterval last)
 		]
 	].
-	slices size = 0 ifTrue: [ ^ nil ].
+	slices ifEmpty: [ ^ nil ].
 	^ slices last
 ]
 
@@ -211,7 +211,7 @@ ProcessingCodeBase >> gtSliceForItem: method within: interval [
 			(slice endPos >= interval last)
 		]
 	].
-	slices size = 0 ifTrue: [ ^ nil ].
+	slices ifEmpty: [ ^ nil ].
 	^ slices last
 ]
 

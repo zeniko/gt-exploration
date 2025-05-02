@@ -131,7 +131,7 @@ ProcessingCanvas >> print: text [
 			background: canvasElement background;
 			size: canvasElement constraints horizontal resizer size @ canvasElement constraints vertical resizer size;
 			yourself.
-		[canvasElement children size > 0 ] whileTrue: [
+		[ canvasElement children isEmpty ] whileFalse: [
 			innerCanvas addChild: (canvasElement removeChildAt: 1).
 		].
 		canvasElement

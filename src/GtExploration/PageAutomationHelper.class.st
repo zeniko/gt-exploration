@@ -11,7 +11,7 @@ PageAutomationHelper class >> addWeekSection: aSnippet [
 	isoweek := (Date today - Year current asYear firstThursday + 10 days) days / 7 roundDownTo: 1.
 	
 	header := BlRunRopedText string: '# Week ' , isoweek asString.
-	snip := (aSnippet page children select: [ :child | child children size > 0 ]) first.
+	snip := (aSnippet page children select: [ :child | child children isNotEmpty ]) first.
 	snip text asString = header asString ifFalse: [
 		snip := snip addSnippetBeforeSelf text: header.
 		snip addSnippetAfterSelf indent.

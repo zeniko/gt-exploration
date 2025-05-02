@@ -34,10 +34,13 @@ GtProcessingCoderModel >> doIt: anEvaluationContext [
 { #category : #'private - actions' }
 GtProcessingCoderModel >> doItAndGo: anEvaluationContext [
 	self doItAndPublish: [
-		| program |
-		program := (ProcessingSource fromViewModel: anEvaluationContext requesterObject coderViewModel) program.
+		| runsteps |
+		runsteps := (ProcessingSource fromViewModel: anEvaluationContext requesterObject coderViewModel) program runSteps.
+		runsteps ifEmpty: [
+			ProcessingRunTimeException new signal: 'This program didn''t produce any run steps'.
+		].
 		"The stepper isn't updated when the source changes, as that's too resource intensive for non-trivial programs"
-		Stepper for: program runSteps view: #gtAbstractionsFor:
+		Stepper for: runsteps view: #gtAbstractionsFor:
 	] with: anEvaluationContext.
 ]
 

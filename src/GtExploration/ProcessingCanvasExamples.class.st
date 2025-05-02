@@ -20,7 +20,6 @@ ProcessingCanvasExamples >> alpinerWanderweg [
 	
 	self assert: canvas canvasElement children size equals: 2.
 	^ canvas
-
 ]
 
 { #category : #example }
@@ -87,15 +86,16 @@ ProcessingCanvasExamples >> examplePrint [
 	self assert: canvas canvasElement children size equals: 2.
 	self assert: canvas asElement children size equals: 1.
 	self assert: (canvas canvasElement children last isKindOf: GtTranscriptElement).
+	self assert: (canvas canvasElement children last transcript textDo: [ :text | text asString ]) equals: 'Hello, world!
+2 + 3 = 5'.
 	^ canvas
 ]
 
 { #category : #example }
 ProcessingCanvasExamples >> fibonacci [
 	<gtExample>
-	| program canvas |
-	program := ProcessingRunnerExamples new runFibonacci.
-	canvas := program canvas.
+	| canvas |
+	canvas := ProcessingRunnerExamples new runFibonacci canvas.
 	self assert: canvas textSize equals: 50.
 	self assert: canvas canvasElement children size equals: 2.
 	self assert: (canvas canvasElement children first isKindOf: BlTextElement).
@@ -122,12 +122,11 @@ ProcessingCanvasExamples >> fillColor [
 { #category : #example }
 ProcessingCanvasExamples >> recursion [
 	<gtExample>
-	| program canvas |
-	program := ProcessingRunnerExamples new runRecursion.
-	canvas := program canvas canvasElement.
-	self assert: canvas children size equals: 19.
-	self assert: (canvas children select: [ :el | el isKindOf: BlEllipseElement ]) size equals: 19.
-	^ program canvas
+	| canvas |
+	canvas := ProcessingRunnerExamples new runRecursion canvas.
+	self assert: canvas canvasElement children size equals: 19.
+	self assert: (canvas canvasElement children select: [ :el | el isKindOf: BlEllipseElement ]) size equals: 19.
+	^ canvas
 ]
 
 { #category : #example }
@@ -150,9 +149,8 @@ ProcessingCanvasExamples >> shapes [
 { #category : #example }
 ProcessingCanvasExamples >> sierpinski [
 	<gtExample>
-	| program canvas |
-	program := ProcessingRunnerExamples new runSierpinski.
-	canvas := program canvas.
+	| canvas |
+	canvas := ProcessingRunnerExamples new runSierpinski canvas.
 	self assert: canvas canvasElement children size equals: 27.
 	^ canvas
 ]
@@ -177,7 +175,6 @@ ProcessingCanvasExamples >> singleCircle [
 	at: 50 @ 50)'.
 	
 	^ canvas
-
 ]
 
 { #category : #example }
@@ -195,7 +192,6 @@ ProcessingCanvasExamples >> singleLine [
 	self assert: (child userData at: #context) sourceNodeExecuted asString equals: 'RBMessageNode(canvas line: 0 @ 100 to: 200 @ 0)'.
 	
 	^ canvas
-
 ]
 
 { #category : #example }
@@ -219,7 +215,6 @@ ProcessingCanvasExamples >> singleSquare [
 	at: 50 @ 50)'.
 	
 	^ canvas
-
 ]
 
 { #category : #example }
@@ -241,5 +236,4 @@ ProcessingCanvasExamples >> singleTriangle [
 			100 @ 0})'.
 	
 	^ canvas
-
 ]

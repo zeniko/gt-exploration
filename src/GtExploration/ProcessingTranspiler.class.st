@@ -116,7 +116,7 @@ ProcessingTranspiler >> emitFill: args [
 { #category : #emitting }
 ProcessingTranspiler >> emitFunctionDef: name with: args [
 	self emitName: name.
-	args size > 0 ifTrue: [
+	args ifNotEmpty: [
 		| argNames |
 		argNames := userDefs at: name.
 		self emit: ': '.
@@ -347,7 +347,7 @@ ProcessingTranspiler >> transpileFunction: ast name: name args: args [
 	astMap := OrderedCollection new.
 	self acceptStatements: ast.
 	"TODO: assigning to an argument yields a '... is shadowed' warning in the Transcript"
-	localVariables size > 0 ifTrue: [
+	localVariables ifNotEmpty: [
 		res := res , Character tab asString , '| ' , (' ' join: localVariables) , ' |
 '.
 	].
@@ -359,7 +359,7 @@ ProcessingTranspiler >> transpileFunction: ast name: name args: args [
 	globalVariables do: [ :var | saveGlobalVariables add: var ].
 	
 	methodName := name.
-	args size > 0 ifTrue: [
+	args ifNotEmpty: [
 		| argNames |
 		argNames := userDefs at: name.
 		methodName := methodName , ':'.

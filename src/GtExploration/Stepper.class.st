@@ -27,6 +27,7 @@ Stepper >> for: aList view: aView [
 Stepper >> gtContentFor: aView [
 	<gtView>
 	list ifNil: [ ^ aView empty ].
+	list size = 0 ifTrue: [ ^ aView empty ].
 	
 	^ aView explicit
 		priority: 1;
@@ -49,6 +50,8 @@ Stepper >> gtContentFor: aView [
 Stepper >> gtListViewFor: aView [
 	<gtView>
 	list ifNil: [ ^ aView empty ].
+	list ifEmpty: [ ^ aView empty ].
+	
 	^ aView explicit
 		priority: 10;
 		title: 'With List' translated;

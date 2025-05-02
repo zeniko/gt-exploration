@@ -179,6 +179,7 @@ ProcessingRunnerExamples >> runPrint [
 	| program runner |
 	program := ProcessingProgramExamples new programPrint.
 	runner := self newRunner.
+	self assert: runner canvas isNil.
 	runner run: program compilation; wait.
 	self assert: runner canvas isNotNil.
 	self assert: runner isDone.
