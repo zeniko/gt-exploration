@@ -143,8 +143,7 @@ ProcessingCanvas >> print: text [
 		canvasElement addChild: innerCanvas asScalableElement.
 		canvasElement addChild: transcript asElement.
 	] ifNotNil: [
-		transcript nextPut: '
-'.
+		transcript cr.
 	].
 	
 	(text isKindOf: Array) ifTrue: [

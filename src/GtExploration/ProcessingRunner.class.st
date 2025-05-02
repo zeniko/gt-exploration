@@ -44,7 +44,6 @@ ProcessingRunner >> run: compilation [
 	compilation instVarNamed: #gtCanvas put: canvas.
 	
 	done := false.
-	"TODO: handle errors"
 	promise := AsyncFuturePromise new future: [
 		compilation gtRun.
 		done := true.

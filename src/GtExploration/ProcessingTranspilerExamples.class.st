@@ -76,7 +76,10 @@ ProcessingTranspilerExamples >> transpilationExample04 [
 	gtCanvas text: x at: 0 @ 20.
 
 setX
-	x := (((SharedRandom globalGenerator next * 2) ** 2) * 270 degreesToRadians sin).'
+	x := (((SharedRandom globalGenerator next * 2) ** 2) * 270 degreesToRadians sin).
+
+setY
+'
 ]
 
 { #category : #transpilation }
@@ -297,7 +300,7 @@ ProcessingTranspilerExamples >> transpileExample04 [
 	self assert: (transpiler transpile: ast) equals: self transpilationExample04.
 	self assert: transpiler variables size equals: 1.
 	self assert: (' ' join: transpiler variables) equals: 'x'.
-	self assert: transpiler userDefs size equals: 1.
+	self assert: transpiler userDefs size equals: 2.
 	self compare: (transpiler compile: ast) with: self transpilationExample04.
 	^ transpiler compile: ast
 ]

@@ -122,7 +122,7 @@ Stepper >> index [
 ]
 
 { #category : #'as yet unclassified' }
-Stepper >> stepTo: aIndex [
-	index := aIndex clampBetween: 1 and: list size.
+Stepper >> stepTo: anIndex [
+	index := anIndex clampBetween: 1 and: list size.
 	announcer announce: StepperUpdate new.
 ]

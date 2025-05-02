@@ -493,7 +493,7 @@
 							},
 							"exampleSelector" : "programRecursion",
 							"previewHeight" : 200,
-							"previewShowSelector" : "gtSourceIntermediaryRepresentationFor:",
+							"previewShowSelector" : "gtSourceBytecodeFor:",
 							"exampleBehaviorName" : "ProcessingProgramExamples",
 							"codeExpanded" : true,
 							"previewExpanded" : false,

@@ -22,8 +22,7 @@ ProcessingTranspiler >> acceptStatements: expr [
 		| res |
 		res := stmt acceptVisitor: self.
 		(res isKindOf: Number) ifTrue: [
-			res > 0 ifTrue: [ self emit: '.
-'. ].
+			res > 0 ifTrue: [ self emit: '.'; cr. ].
 		].
 	].
 	indentation := indentation - 1.
@@ -31,7 +30,7 @@ ProcessingTranspiler >> acceptStatements: expr [
 
 { #category : #compiling }
 ProcessingTranspiler >> compile: ast [
-	| class source instance _astMaps |
+	| class source instance gtAstMaps |
 	source := self transpile: ast.
 	class := ProcessingCodeBase newAnonymousSubclass.
 	class addSlot: 'gtCanvas'.
@@ -40,15 +39,21 @@ ProcessingTranspiler >> compile: ast [
 	(source splitOn: '
 
 ') do: [ :method | class compile: method ].
-	_astMaps := OrderedCollection new.
+	gtAstMaps := OrderedCollection new.
 	class methodDict keysDo: [ :key |
 		(astMaps at: key asString) do: [ :slice |
-			_astMaps add: (slice cloneFor: class >> key).
+			gtAstMaps add: (slice cloneFor: class >> key).
 		].
 	].
 	instance := class new.
-	instance instVarNamed: #gtAstMaps put: _astMaps.
+	instance instVarNamed: #gtAstMaps put: gtAstMaps.
 	^ instance
+]
+
+{ #category : #emitting }
+ProcessingTranspiler >> cr [
+	self emit: '
+'.
 ]
 
 { #category : #emitting }
@@ -307,8 +312,7 @@ ProcessingTranspiler >> transpile: ast [
 	
 	output := ''.
 	astMap := OrderedCollection new.
-	self emit: 'gtRun
-'.
+	self emit: 'gtRun'; cr.
 	indentation := indentation + 1.
 	ast acceptVisitor: self.
 	
@@ -322,7 +326,7 @@ ProcessingTranspiler >> transpile: ast [
 
 { #category : #compiling }
 ProcessingTranspiler >> transpileFunction: ast name: name args: args [
-	| saveLocalVariables saveGlobalVariables saveIndentation saveAstMap saveOutput res header methodName |
+	| saveLocalVariables saveGlobalVariables saveIndentation saveAstMap saveOutput res methodName |
 	"Preserve global state"
 	saveLocalVariables := localVariables.
 	saveGlobalVariables := globalVariables.
@@ -336,21 +340,22 @@ ProcessingTranspiler >> transpileFunction: ast name: name args: args [
 	astMap := OrderedCollection new.
 	
 	output := ''.
-	self emitFunctionDef: name with: args.
-	header := output , '
-'.
+	self emitFunctionDef: name with: args; cr.
+	res := output.
 	
 	output := ''.
 	astMap := OrderedCollection new.
 	self acceptStatements: ast.
 	"TODO: assigning to an argument yields a '... is shadowed' warning in the Transcript"
 	localVariables size > 0 ifTrue: [
-		header := header , Character tab asString , '| ' , (' ' join: localVariables) , ' |
+		res := res , Character tab asString , '| ' , (' ' join: localVariables) , ' |
 '.
 	].
-	astMap do: [ :node | node move: header size. ].
+	astMap do: [ :node | node move: res size. ].
 	
-	res := header , output allButLast.
+	output size > 0 ifTrue: [
+		res := res , output allButLast.
+	].
 	globalVariables do: [ :var | saveGlobalVariables add: var ].
 	
 	methodName := name.
@@ -439,8 +444,7 @@ ProcessingTranspiler >> visitExpressionStatement: stmt [
 		| res |
 		res := part acceptVisitor: self.
 		(res isKindOf: Number) ifTrue: [
-			res > 0 ifTrue: [ self emit: '.
-'. ]
+			res > 0 ifTrue: [ self emit: '.'; cr. ]
 		].
 	].
 ]
@@ -483,7 +487,7 @@ ProcessingTranspiler >> visitFunctionCallExpression: fnCall [
 		self emit: ')'.
 		^ self endEmit
 	].
-	ProcessingNotImplementedException new signal: 'Function ' , name , ' not implemented!'
+	ProcessingNotImplementedException new tag: fnCall; signal: 'Function ' , name , ' not implemented!'
 ]
 
 { #category : #visiting }
@@ -504,29 +508,24 @@ ProcessingTranspiler >> visitGlobalStatement: global [
 ProcessingTranspiler >> visitIfStatement: expr [
 	self startEmit: expr.
 	expr condition acceptVisitor: self.
-	self emit: ' ifTrue: [
-'.
+	self emit: ' ifTrue: ['; cr.
 	self acceptStatements: expr.
 	expr elsifs ifNotNil: [
 		expr elsifs do: [ :elif |
-			self emit: '] ifFalse: [
-'.
+			self emit: '] ifFalse: ['; cr.
 			indentation := indentation + 1.
 			elif condition acceptVisitor: self.
-			self emit: ' ifTrue: [
-'.
+			self emit: ' ifTrue: ['; cr.
 			self acceptStatements: elif.
 		].
 	].
 	expr else ifNotNil: [
-		self emit: '] ifFalse: [
-'.
+		self emit: '] ifFalse: ['; cr.
 		self acceptStatements: expr else.
 	].
 	expr elsifs ifNotNil: [
 		expr elsifs do: [ :elif |
-			self emit: '].
-'.
+			self emit: '].'; cr.
 			indentation := indentation - 1.
 		].
 	].
@@ -549,6 +548,12 @@ ProcessingTranspiler >> visitParameter: param [
 ]
 
 { #category : #visiting }
+ProcessingTranspiler >> visitPassStatement: pass [
+	"no-op"
+	^ 0
+]
+
+{ #category : #visiting }
 ProcessingTranspiler >> visitReturnStatement: expr [
 	self startEmit: expr.
 	self emit: '^ '.
@@ -558,22 +563,21 @@ ProcessingTranspiler >> visitReturnStatement: expr [
 		self emit: 'nil'.
 	].
 	self endEmit.
-	self emit: '
-'.
+	self cr.
 	"Explicitly not returning anything in order to prevent a trailing dot."
 ]
 
 { #category : #visiting }
 ProcessingTranspiler >> visitString: expr [
 	self startEmit: expr.
-	self emit: '''' , ('' join: (expr parts collect: [ :part | (part value allButFirst: 1) allButLast: 1 ])) , ''''.
+	self emit: '''' , ('' join: (expr parts collect: [ :part | part value allButFirst allButLast ])) , ''''.
 	^ self endEmit
 ]
 
 { #category : #visiting }
 ProcessingTranspiler >> visitTupleExpression: expr [
 	expr expressions size = 1 ifFalse: [
-		ProcessingNotImplementedException new signal: 'Tuples aren''t implemented!'
+		ProcessingNotImplementedException new tag: expr; signal: 'Tuples aren''t implemented!'
 	].
 	expr expressions first acceptVisitor: self.
 ]
@@ -586,7 +590,7 @@ ProcessingTranspiler >> visitUnaryExpression: expr [
 		self emit: ' negated'.
 		^ self endEmit
 	].
-	ProcessingNotImplementedException new signal: 'Unary operator ' , expr operator value , ' not implemented!'
+	ProcessingNotImplementedException new tag: expr; signal: 'Unary operator ' , expr operator value , ' not implemented!'
 ]
 
 { #category : #visiting }
@@ -601,8 +605,7 @@ ProcessingTranspiler >> visitWhileStatement: expr [
 	self startEmit: expr.
 	self emit: '[ '.
 	expr condition acceptVisitor: self.
-	self emit: ' ] whileTrue: [
-'.
+	self emit: ' ] whileTrue: ['; cr.
 	self acceptStatements: expr.
 	self emit: ']'.
 	^ self endEmit

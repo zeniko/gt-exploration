@@ -25,43 +25,54 @@ GtProcessingCoderModel >> computeAst: theSourceString [
 ]
 
 { #category : #'private - actions' }
-GtProcessingCoderModel >> doIt: aEvaluationContext [
+GtProcessingCoderModel >> doIt: anEvaluationContext [
 	self doItAndPublish: [
-		(ProcessingSource fromViewModel: aEvaluationContext requesterObject coderViewModel) render
-	] with: aEvaluationContext.
+		(ProcessingSource fromViewModel: anEvaluationContext requesterObject coderViewModel) render
+	] with: anEvaluationContext.
 ]
 
 { #category : #'private - actions' }
-GtProcessingCoderModel >> doItAndGo: aEvaluationContext [
+GtProcessingCoderModel >> doItAndGo: anEvaluationContext [
 	self doItAndPublish: [
 		| program |
-		program := (ProcessingSource fromViewModel: aEvaluationContext requesterObject coderViewModel) program.
+		program := (ProcessingSource fromViewModel: anEvaluationContext requesterObject coderViewModel) program.
 		"The stepper isn't updated when the source changes, as that's too resource intensive for non-trivial programs"
 		Stepper for: program runSteps view: #gtAbstractionsFor:
-	] with: aEvaluationContext.
+	] with: anEvaluationContext.
 ]
 
 { #category : #'private - actions' }
-GtProcessingCoderModel >> doItAndGoSerialized: aEvaluationContext [
+GtProcessingCoderModel >> doItAndGoSerialized: anEvaluationContext [
 	self doItAndPublish: [
-		ProcessingSource fromViewModel: aEvaluationContext requesterObject coderViewModel
-	] with: aEvaluationContext.
+		ProcessingSource fromViewModel: anEvaluationContext requesterObject coderViewModel
+	] with: anEvaluationContext.
 ]
 
 { #category : #'private - execution' }
-GtProcessingCoderModel >> doItAndPublish: aBlock with: aEvaluationContext [
+GtProcessingCoderModel >> doItAndPublish: aBlock with: anEvaluationContext [
 	| result |
 	result := aBlock on: Error do: [ :error |
-		Transcript nextPut: error asString , '
-'.
-		"TODO: error handling."
+		| location |
+		location := anEvaluationContext requesterObject coderViewModel coderModel currentSourceString size + 1. "at the very end"
+		"TODO: nicer error messages"
+		(error isKindOf: SmaCCParserError) ifTrue: [
+			location := error tag errorToken stopPosition.
+		].
+		(error isKindOf: ProcessingNotImplementedException) ifTrue: [
+			location := error tag stopPosition.
+		].
+		^ self announce: (GtCoderParseError new
+			errorMessage: error asString;
+			location: location;
+			exception: error;
+			requesterObject: anEvaluationContext requesterObject)
 	].
 	
-	aEvaluationContext evaluatedSourceString: ''.
-	result := GtSourceCoderEvaluationResultWithValue new value: result; evaluationContext: aEvaluationContext.
+	anEvaluationContext evaluatedSourceString: ''.
+	result := GtSourceCoderEvaluationResultWithValue new value: result; evaluationContext: anEvaluationContext.
 	
 	self notifyEvaluatedWithResult: result.
-	self notifyObjectSpawnFromEvaluationResult: result requesterObject: aEvaluationContext requesterObject.
+	self notifyObjectSpawnFromEvaluationResult: result requesterObject: anEvaluationContext requesterObject.
 ]
 
 { #category : #'api - ast' }

@@ -46,9 +46,7 @@ ProcessingSource >> announceSourceChange [
 		self announcer announce: (ProcessingSourceChanged new source: self; ast: ast).
 	]
 		on: SmaCCParserError do: [ :error |
-			"TODO: show parser error"
-			^ Transcript nextPut: error asString , '
-'
+			"silently swallow errors on updates, as these happen intermittently during incomplete/slow typing"
 		].
 ]
 

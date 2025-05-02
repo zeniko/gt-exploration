@@ -47,7 +47,7 @@ ProcessingParserExamples >> parseExample04 [
 	<gtExample>
 	| ast |
 	ast := ProcessingProgramExamples new programExample04 ast.
-	self assert: ast statements size equals: 5.
+	self assert: ast statements size equals: 6.
 	^ ast
 ]
 

@@ -22,10 +22,14 @@ ProcessingProgram >> ast [
 
 { #category : #runtime }
 ProcessingProgram >> canvas [
-	| runner |
+	| runner result |
 	runner := self run.
-	(runner wait isKindOf: AsyncFutureCancelled) ifTrue: [
+	result := runner wait.
+	(result isKindOf: AsyncFutureCancelled) ifTrue: [
 		ProcessingRunawayProgramException new signal: 'Endless loop detected.'
+	].
+	(result isKindOf: Error) ifTrue: [
+		result signal.
 	].
 	^ runner canvas
 ]
@@ -206,9 +210,9 @@ ProcessingProgram >> gtOnListSelect: aList do: aBlock [
 	aList
 		when: BrSelectionChanged
 		do: [ :anEvent |
-			aList selectedItemDo: [ :aItem |
+			aList selectedItemDo: [ :anItem |
 				| item |
-				item := aItem.
+				item := anItem.
 				(item isKindOf: SymbolicBytecode) ifTrue: [
 					item := compilation gtSliceForItem: item.
 				].
@@ -449,9 +453,7 @@ ProcessingProgram >> source: aSource [
 			ast := event ast.
 			self announcer announce: (ProcessingProgramChanged new program: self).
 		] on: Error do: [ :error |
-			"TODO: error handling?"
-			Transcript nextPut: error asString , '
-'.
+			"silently swallow errors on updates, as these happen intermittently during incomplete/slow typing"
 		].
 	] for: self.
 ]
