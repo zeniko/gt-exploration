@@ -36,8 +36,8 @@ GtProcessingCoderModel >> doItAndGo: aEvaluationContext [
 	self doItAndPublish: [
 		| program |
 		program := (ProcessingSource fromViewModel: aEvaluationContext requesterObject coderViewModel) program.
-		"TODO: update stepper when the source changes? (this becomes expensive quickly!)"
-		Stepper for: (ProcessingRunner new runStepwise: program compilation) view: #gtAbstractionsFor:
+		"The stepper isn't updated when the source changes, as that's too resource intensive for non-trivial programs"
+		Stepper for: program runSteps view: #gtAbstractionsFor:
 	] with: aEvaluationContext.
 ]
 

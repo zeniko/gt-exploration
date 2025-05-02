@@ -384,6 +384,43 @@
 							"codeExpanded" : true,
 							"previewExpanded" : false,
 							"noCode" : true
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-05-02T15:05:09.67+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-05-02T15:05:35.563+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "oPx1iYjwDQCK8rQNBfCwSQ=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Catch endless loops during run step evaluation"
 						}
 					]
 				},
@@ -2168,7 +2205,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-04-26T16:54:48.673+02:00"
+									"dateAndTimeString" : "2025-05-02T13:38:15.944+02:00"
 								}
 							},
 							"uid" : {
@@ -2178,7 +2215,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Sketch out project: [[Individual Project]], [[Processing Source]] (including {{gtMethod:ProcessingSource >> #_gtOutputFor:}} view)"
+							"string" : "Sketch out project: [[Individual Project]], [[Processing Source]] (including {{gtMethod:ProcessingSource >> #gtOutputFor:}} view)"
 						},
 						{
 							"__type" : "textSnippet",

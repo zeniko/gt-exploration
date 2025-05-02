@@ -28,6 +28,16 @@ ProcessingRunnerExamples >> runAlpinerWanderweg [
 ]
 
 { #category : #example }
+ProcessingRunnerExamples >> runAlpinerWanderwegStepwise [
+	<gtExample>
+	| program steps |
+	program := ProcessingProgramExamples new programAlpinerWanderweg.
+	steps := program runSteps.
+	self assert: steps size equals: 7.
+	^ steps
+]
+
+{ #category : #example }
 ProcessingRunnerExamples >> runExample02 [
 	<gtExample>
 	| program runner |
@@ -110,7 +120,7 @@ ProcessingRunnerExamples >> runFibonacciStepwise [
 	| program runner steps |
 	program := ProcessingProgramExamples new programFibonacci.
 	runner := self newRunner.
-	steps := runner runStepwise: program compilation.
+	steps := runner limitTo: 2 seconds; runStepwise: program compilation.
 	self assert: steps size equals: 550.
 	self assert: runner isDone.
 	^ steps
@@ -123,14 +133,32 @@ ProcessingRunnerExamples >> runInterrupted [
 	| program runner detected |
 	program := ProcessingProgramExamples new programEndlessLoop.
 	detected := nil.
-	[ program canvas ] on: ProcessingRunawayProgramException do: [ :ex | detected := ex asString ].
-	self assert: detected equals: 'ProcessingRunawayProgramException: Endless loop detected.'.
-		
+	[ program canvas ] on: ProcessingRunawayProgramException do: [ :ex | detected := ex ].
+	self assert: detected asString equals: 'ProcessingRunawayProgramException: Endless loop detected.'.
+	
 	runner := self newRunner.
 	runner limitTo: 0.1 seconds; run: program compilation; wait.
 	self assert: runner isDone not.
 	self assert: runner canvas isNotNil.
 	^ runner
+]
+
+{ #category : #example }
+ProcessingRunnerExamples >> runInterruptedStepwise [
+	<gtExample>
+	<noTest> "Runaway detection currently takes a few seconds"
+	| program runner steps detected |
+	program := ProcessingProgramExamples new programEndlessLoop.
+	detected := nil.
+	[ steps := program runSteps ] on: ProcessingRunawayProgramException do: [ :ex | detected := ex ].
+	self assert: detected asString equals: 'ProcessingRunawayProgramException: Endless loop detected.'.
+	self assert: steps isNil.
+	
+	runner := self newRunner.
+	steps := runner limitTo: 0.1 seconds; runStepwise: program compilation.
+	self assert: steps isNotNil.
+	self assert: runner isDone not.
+	^ steps
 ]
 
 { #category : #example }

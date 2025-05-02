@@ -56,48 +56,56 @@ ProcessingRunner >> run: compilation [
 
 { #category : #running }
 ProcessingRunner >> runStepwise: compilation [
-	| steps block process session lastSlice lastStep |
-	"TODO: this is a flattened tree - unflatten it?"
-	steps := OrderedCollection new.
+	| worker steps block process session |
+	worker := AsyncFutureThreadPoolWorker new.
+	worker startup wait.
 	
 	canvas isNil ifTrue: [ canvas := ProcessingCanvas new. ].
 	compilation instVarNamed: #gtCanvas put: canvas.
 	
-	done := false.
+	"TODO: this is a flattened tree - unflatten it?"
+	steps := OrderedCollection new.
+	
 	block := [ compilation gtRun. done := true. ].
 	process := block newProcess.
-	[process step closure == block] whileFalse.
+	[ process step closure == block ] whileFalse.
 	process step.
 	
 	session := process newDebugSessionNamed: 'ProcessingRunner>>#runStepwise:' startedAt: process suspendedContext.
 	session stepInto.
 	
-	"TODO: catch endless loops!"
-	
-	lastSlice := nil.
-	lastStep := nil.
-	[ session interruptedProcess isTerminated ] whileFalse: [
-		(session interruptedContext methodClass inheritsFrom: ProcessingCodeBase) ifTrue: [
-			| slice |
-			slice := compilation gtSliceForItem: session interruptedContext method within: (session pcRangeForContext: session interruptedContext).
-			slice isNotNil & (slice = lastSlice) not ifTrue: [
-				lastStep ifNotNil: [
-					lastStep updateCanvas: canvas.
-					lastStep := nil.
-				].
-				lastStep := ProcessingRunStep create: session interruptedContext canvas: canvas slice: slice.
-				steps add: lastStep.
-				lastSlice := slice.
-			].
-			session stepInto.
-		] ifFalse: [
-			session stepThrough.
-		].
-	].
-	lastStep ifNotNil: [
-		lastStep updateCanvas: canvas.
+	done := false.
+	promise := AsyncFuturePromise new future: [
+		| lastSlice lastStep |
+		lastSlice := nil.
 		lastStep := nil.
-	].
+		[ session interruptedProcess isTerminated ] whileFalse: [
+			(session interruptedContext methodClass inheritsFrom: ProcessingCodeBase) ifTrue: [
+				| slice |
+				slice := compilation gtSliceForItem: session interruptedContext method within: (session pcRangeForContext: session interruptedContext).
+				slice isNotNil & (slice = lastSlice) not ifTrue: [
+					lastStep ifNotNil: [
+						lastStep updateCanvas: canvas.
+						lastStep := nil.
+					].
+					lastStep := ProcessingRunStep create: session interruptedContext canvas: canvas slice: slice.
+					steps add: lastStep.
+					lastSlice := slice.
+				].
+				session stepInto.
+			] ifFalse: [
+				session stepThrough.
+			].
+		].
+		lastStep ifNotNil: [
+			lastStep updateCanvas: canvas.
+			lastStep := nil.
+		].
+		done := true.
+	] asAsyncFuture.
+	worker schedule: promise.
+	
+	promise wait.
 	
 	^ steps
 ]

@@ -414,6 +414,22 @@ ProcessingProgram >> runFor: duration [
 		yourself
 ]
 
+{ #category : #runtime }
+ProcessingProgram >> runSteps [
+	^ self runStepsFor: 2 seconds
+]
+
+{ #category : #runtime }
+ProcessingProgram >> runStepsFor: duration [
+	| runner steps |
+	runner := ProcessingRunner new.
+	steps := runner limitTo: duration; runStepwise: compilation clone.
+	runner isDone ifFalse: [
+		ProcessingRunawayProgramException new signal: 'Endless loop detected.'
+	].
+	^ steps
+]
+
 { #category : #accessing }
 ProcessingProgram >> source [
 	^ source
