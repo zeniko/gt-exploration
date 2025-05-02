@@ -59,17 +59,45 @@ ProcessingCodeBase >> gtAbstractionsFor: aView [
 { #category : #views }
 ProcessingCodeBase >> gtBytecodeFor: aView [
 	<gtView>
-	^ aView list
+	^ aView columnedList
 		title: 'Bytecode' translated;
 		priority: 12;
-		items: [ | codes |
-			codes := OrderedCollection new.
+		items: [
+			| list |
+			list := OrderedCollection new.
 			self class methodDict keysAndValuesDo: [ :key :value |
-				codes add: 'FUNCTION ' , key; addAll: value symbolicBytecodes
+				list add: value; addAll: value symbolicBytecodes
 			].
-			codes
+			list
 		];
-		itemText: [ :each | each printString ]
+		column: 'Address' translated
+			text: [ :each |
+				((each isKindOf: CompiledMethod) ifTrue: [
+					'----'
+				] ifFalse: [
+					each offset
+				]) asRopedText foreground: Color gray
+			] width: 50;
+		column: 'Code' translated
+			text: [ :each |
+				((each isKindOf: CompiledMethod) ifTrue: [
+					'----'
+				] ifFalse: [
+					| byteStr |
+					byteStr := OrderedCollection new.
+					each bytes do: [ :byte | byteStr add: ((byte radix: 16) padLeftTo: 2 with: $0) ].
+					' ' join: byteStr
+				]) asRopedText foreground: Color blue
+			] width: 45;
+		column: 'Mnemonic' translated
+			text: [ :each |
+				(each isKindOf: CompiledMethod) ifTrue: [
+					'FUNCTION ' , ((each sourceCode splitOn: '
+') first splitOn: ':') first
+				] ifFalse: [
+					each description
+				]
+			]
 ]
 
 { #category : #views }

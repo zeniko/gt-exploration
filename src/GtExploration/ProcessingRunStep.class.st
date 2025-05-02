@@ -118,17 +118,24 @@ ProcessingRunStep >> gtSourceCodeFor: aView [
 { #category : #views }
 ProcessingRunStep >> gtStackFor: aView [
 	<gtView>
-	^ (stack gtItemsFor: aView)
+	^ aView columnedList
 		title: 'Stack';
-		priority: 15
+		priority: 15;
+		items: [ stack reverse ];
+		column: 'Stack' text: [ :each :index | index asRopedText foreground: Color gray ] width: 45;
+		column: 'Value' translated text: [ :each | each gtDisplayText ]
 ]
 
 { #category : #views }
 ProcessingRunStep >> gtVariablesFor: aView [
 	<gtView>
-	^ (variables gtItemsFor: aView)
+	^ aView columnedTree
 		title: 'Variables' translated;
-		priority: 10
+		priority: 10;
+		items: [ variables associations sort: (#key collatedBy: #asString) ];
+		column: 'Name' translated text: [ :assoc | assoc key ];
+		column: 'Variable value' translated text: [ :assoc | assoc value ] weight: 3;
+		send: [ :assoc | assoc value  ]
 ]
 
 { #category : #initalization }

@@ -76,9 +76,9 @@ ProcessingProgram >> gtAbstractionsFor: aView [
 					c horizontal matchParent ];
 				margin: (BlInsets all: 5).
 			element addChild: child.
-			self gtHookEditor: editor toBytecode: child.
+			self gtHookEditor: editor toBytecode: child children last.
 			"Oneway hook bytecode to the AST tree"
-			self gtOnListSelect: child do: [ :astNode |
+			self gtOnListSelect: child children last do: [ :astNode |
 				astNode gtSelectItemIn: astTree at: astNode startPosition
 			].
 			
@@ -332,7 +332,7 @@ ProcessingProgram >> gtSourceBytecodeFor: aView [
 					c horizontal matchParent ];
 				margin: (BlInsets all: 5).
 			element addChild: child.
-			self gtHookEditor: editor toBytecode: child.
+			self gtHookEditor: editor toBytecode: child children last.
 			
 			element ];
 		updateWhen: ProcessingProgramChanged in: self announcer
