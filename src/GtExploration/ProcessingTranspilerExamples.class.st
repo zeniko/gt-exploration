@@ -76,7 +76,7 @@ ProcessingTranspilerExamples >> transpilationExample04 [
 	gtCanvas text: x at: 0 @ 20.
 
 setX
-	x := (((SharedRandom globalGenerator next * 2) ** 2) * 270 degreesToRadians sin).
+	x := ((((SharedRandom globalGenerator next * 2) ** 2) * 270 degreesToRadians sin) \\ 3).
 
 setY
 '

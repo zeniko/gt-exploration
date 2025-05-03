@@ -415,6 +415,9 @@ ProcessingTranspiler >> visitAssignmentStatement: expr [
 		localVariables add: name.
 	].
 	self emit: ' := '.
+	expr tos size > 1 ifTrue: [
+		ProcessingNotImplementedException new tag: expr; signal.
+	].
 	expr tos first acceptVisitor: self.
 	^ self endEmit.
 ]
@@ -425,6 +428,8 @@ ProcessingTranspiler >> visitBinaryExpression: expr [
 	op := expr operator value.
 	"Python compares value equality with `==`, Smalltalk does with `=`"
 	op = '==' ifTrue: [ op := '=' ].
+	"Modulo is `%` in Python but `\\` in Smalltalk"
+	op = '%' ifTrue: [ op := '\\' ].
 	
 	self startEmit: expr.
 	self emit: '('.
@@ -559,6 +564,9 @@ ProcessingTranspiler >> visitPassStatement: pass [
 ProcessingTranspiler >> visitReturnStatement: expr [
 	self startEmit: expr.
 	self emit: '^ '.
+	expr expressions size > 1 ifTrue: [
+		ProcessingNotImplementedException new tag: expr; signal.
+	].
 	expr expressions size = 1 ifTrue: [
 		expr expressions first acceptVisitor: self.
 	] ifFalse: [
@@ -596,6 +604,9 @@ ProcessingTranspiler >> visitUnaryExpression: expr [
 		expr expression acceptVisitor: self.
 		self emit: ' negated'.
 		^ self endEmit
+	].
+	expr operator value = '+' ifTrue: [
+		expr expression acceptVisitor: self.
 	].
 	ProcessingNotImplementedException new tag: expr; signal: 'Unary operator ' , expr operator value , ' not implemented!'
 ]

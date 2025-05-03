@@ -109,14 +109,6 @@ ProcessingSource >> gtOutputFor: aView [
 		priority: 20
 ]
 
-{ #category : #'as yet unclassified' }
-ProcessingSource >> gtSourceBytesFor: aView [
-	<gtView>
-	^ (self program gtSourceBytesFor: aView)
-		title: 'Source Bytes' translated;
-		priority: 3
-]
-
 { #category : #views }
 ProcessingSource >> gtSourceCodeFor: aView [
 	<gtView>

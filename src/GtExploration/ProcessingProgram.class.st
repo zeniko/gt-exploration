@@ -40,6 +40,32 @@ ProcessingProgram >> compilation [
 ]
 
 { #category : #views }
+ProcessingProgram >> gtASTTokensFor: aView [
+	<gtView>
+	^ aView columnedList
+		title: 'AST Tokens';
+		priority: 4;
+		items: [ PythonASTBuilder new extractTokens: ast ];
+		column: 'Line' translated
+			text: [ :each |
+				(source asString copyFrom: 1 to: each startPosition) lineCount asRopedText foreground: Color gray
+			] width: 45;
+		column: 'Indentation' translated
+			text: [ :each |
+				| line indent ch |
+				line := (source asString copyFrom: 1 to: each startPosition) lines last readStream.
+				indent := 0.
+				[ line atEnd not and: [ (ch := line next) isSeparator ] ] whileTrue: [
+					indent := indent + (ch = Character tab ifTrue: [ 8 - (indent \\ 8) ] ifFalse: [ 1 ])
+				].
+				indent asRopedText foreground: Color gray
+			] width: 45;
+		column: 'Token'
+			text: [ :each | each value ];
+		updateWhen: ProcessingSourceChanged in: source announcer
+]
+
+{ #category : #views }
 ProcessingProgram >> gtAbstractionsFor: aView [
 	<gtView>
 	^ aView explicit
