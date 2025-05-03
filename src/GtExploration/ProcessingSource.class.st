@@ -109,12 +109,20 @@ ProcessingSource >> gtOutputFor: aView [
 		priority: 20
 ]
 
+{ #category : #'as yet unclassified' }
+ProcessingSource >> gtSourceBytesFor: aView [
+	<gtView>
+	^ (self program gtSourceBytesFor: aView)
+		title: 'Source Bytes' translated;
+		priority: 3
+]
+
 { #category : #views }
 ProcessingSource >> gtSourceCodeFor: aView [
 	<gtView>
 	^ (self program gtSourceCodeFor: aView)
 		title: 'Transpiled' translated;
-		priority: 5
+		priority: 6
 ]
 
 { #category : #views }
@@ -122,7 +130,7 @@ ProcessingSource >> gtTreeFor: aView [
 	<gtView>
 	^ (self program gtTreeFor: aView)
 		title: 'AST';
-		priority: 3
+		priority: 5
 ]
 
 { #category : #announcements }

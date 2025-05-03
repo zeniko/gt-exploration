@@ -25,7 +25,7 @@ ProcessingCodeBase >> gtAbstractionsFor: aView [
 				margin: (BlInsets all: 5).
 			element addChild: child.
 			
-			(self gtViewIntermediaryRepresentationFor: GtPhlowView empty)
+			(self gtIntermediaryRepresentationFor: GtPhlowView empty)
 				asElementDo: [ :e | child := e ].
 			child
 				constraintsDo: [ :c |
@@ -108,6 +108,48 @@ ProcessingCodeBase >> gtGenerateIR: aSourceCode [
 	ast acceptVisitor: trans.
 	"calling IRBuilder>>#ir performs some optimizations, so skip around it"
 	^ trans privateMethodBuilder instVarNamed: #ir
+]
+
+{ #category : #views }
+ProcessingCodeBase >> gtIntermediaryRepresentationFor: aView [
+	<gtView>
+	^ aView columnedList
+		title: 'IR';
+		priority: 10;
+		items: [
+			| list |
+			list := OrderedCollection new.
+			self class methodDict keysAndValuesDo: [ :key :value |
+				| ir |
+				list add: value.
+				ir := self gtGenerateIR: value sourceCode.
+				ir startSequence withAllSuccessors do: [ :seq |
+					list addAll: seq sequence
+				].
+			].
+			list
+		];
+		column: 'Label' translated
+			text: [ :each |
+				((each isKindOf: CompiledMethod) ifTrue: [
+					'----'
+				] ifFalse: [
+					each sequence sequence first = each ifTrue: [
+						each sequence orderNumber asString
+					] ifFalse: [
+						''
+					]
+				]) asRopedText foreground: Color gray
+			] width: 45;
+		column: 'Instruction' translated
+			text: [ :each |
+				(each isKindOf: CompiledMethod) ifTrue: [
+					'FUNCTION ' , ((each sourceCode splitOn: '
+') first splitOn: ':') first
+				] ifFalse: [
+					each gtDisplayText
+				]
+			].
 ]
 
 { #category : #views }
@@ -244,46 +286,4 @@ ProcessingCodeBase >> gtSourceCodeFor: aView [
 		actionButtonIcon: BrGlamorousVectorIcons browse
 			tooltip: 'Browse class in Coder' translated
 			action: [ self gtBrowse ]
-]
-
-{ #category : #views }
-ProcessingCodeBase >> gtViewIntermediaryRepresentationFor: aView [
-	<gtView>
-	^ aView columnedList
-		title: 'IR';
-		priority: 10;
-		items: [
-			| list |
-			list := OrderedCollection new.
-			self class methodDict keysAndValuesDo: [ :key :value |
-				| ir |
-				list add: value.
-				ir := self gtGenerateIR: value sourceCode.
-				ir startSequence withAllSuccessors do: [ :seq |
-					list addAll: seq sequence
-				].
-			].
-			list
-		];
-		column: 'Label' translated
-			text: [ :each |
-				((each isKindOf: CompiledMethod) ifTrue: [
-					'----'
-				] ifFalse: [
-					each sequence sequence first = each ifTrue: [
-						each sequence orderNumber asString
-					] ifFalse: [
-						''
-					]
-				]) asRopedText foreground: Color gray
-			] width: 45;
-		column: 'Instruction' translated
-			text: [ :each |
-				(each isKindOf: CompiledMethod) ifTrue: [
-					'FUNCTION ' , ((each sourceCode splitOn: '
-') first splitOn: ':') first
-				] ifFalse: [
-					each gtDisplayText
-				]
-			].
 ]

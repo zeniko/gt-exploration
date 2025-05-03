@@ -189,7 +189,7 @@ ProcessingProgram >> gtHookEditor: anEditor toIR: aList [
 { #category : #views }
 ProcessingProgram >> gtIntermediaryRepresentationFor: aView [
 	<gtView>
-	^ self gtGetLiveView: aView for: [ :view | compilation gtViewIntermediaryRepresentationFor: view ]
+	^ self gtGetLiveView: aView for: [ :view | compilation gtIntermediaryRepresentationFor: view ]
 		title: 'IR'
 		priority: 10
 ]
@@ -343,6 +343,26 @@ ProcessingProgram >> gtSourceBytecodeFor: aView [
 ]
 
 { #category : #views }
+ProcessingProgram >> gtSourceBytesFor: aView [
+	<gtView>
+	^ aView columnedList
+		title: 'Source Bytes' translated;
+		priority: 3;
+		items: [ source asString ];
+		column: 'Index' translated
+			text: [ :each :index | 
+				index asRopedText foreground: Color gray ]
+			width: 45;
+		column: 'Character' translated
+			text: [ :each | (each gtDisplayString removePrefix: 'Character ') removePrefix: '$' ];
+		column: 'ASCII'
+			text: [ :each | each asciiValue ];
+		column: 'HEX'
+			text: [ :each | (each asciiValue radix: 16) padLeftTo: 2 with: $0 ];
+		updateWhen: ProcessingSourceChanged in: source announcer
+]
+
+{ #category : #views }
 ProcessingProgram >> gtSourceCodeFor: aView [
 	<gtView>
 	^ self gtGetLiveView: aView for: [ :view | compilation gtSourceCodeFor: view ]
@@ -372,7 +392,7 @@ ProcessingProgram >> gtSourceIntermediaryRepresentationFor: aView [
 			element addChild: child.
 			editor := child.
 			
-			(compilation gtViewIntermediaryRepresentationFor: GtPhlowView empty)
+			(compilation gtIntermediaryRepresentationFor: GtPhlowView empty)
 				asElementDo: [ :e | child := e ].
 			child
 				constraintsDo: [ :c |
@@ -384,6 +404,70 @@ ProcessingProgram >> gtSourceIntermediaryRepresentationFor: aView [
 			
 			element ];
 		updateWhen: ProcessingProgramChanged in: self announcer
+]
+
+{ #category : #views }
+ProcessingProgram >> gtSourceSourceBytesFor: aView [
+	<gtView>
+	^ aView explicit
+		title: 'Source Bytes' translated;
+		priority: 3;
+		stencil: [
+		| container list editor |
+		container := BlElement new
+			constraintsDo: [:c | 
+				c vertical matchParent. 
+				c horizontal matchParent. ];
+			margin: (BlInsets top: 10 bottom: 10);
+			layout: (BlLinearLayout horizontal cellSpacing: 10).
+		editor := BrEditorElement new
+				constraintsDo: [ :c | 
+					c vertical matchParent. 
+					c horizontal matchParent.
+					c linear weight: 2. ];
+				editor: (BrTextEditorModel new
+				text: (source asString asRopedText glamorousCodeFont);
+				when: BrTextEditorCursorMovedEvent do: [:e | 
+					list selectOne: (e newIndex + 1 max: 1).
+					list children first scrollToPosition: (e newIndex + 1 clampBetween: 1 and: source asString size - 1) ];
+				when: BrTextEditorCursorAddedEvent do: [:e | 
+					list selectOne: (e cursor position + 1 max: 1).
+					list children first scrollToPosition: (e cursor position + 1 clampBetween: 1 and: source asString size - 1) ]).
+		container addChild: editor.
+		
+		list := BrColumnedList new
+			rowStencil: (BrGlamorousColumnedListSelectableRowElementStencilBuilder new);
+			constraintsDo: [:c | 
+				c vertical matchParent. 
+				c horizontal matchParent ];
+			
+			items: source asString asOrderedCollection;
+			when: BrSelectionChanged do: [ :event | 
+				event selectedInterval ifNotNil: [ 
+					editor editor text clearAttributes: [ :each | each isKindOf: BlTextHighlightAttribute ].
+					(editor editor text from: event selectedInterval first to: event selectedInterval last)
+						attribute: (BlTextHighlightAttribute new paint: BrGlamorousColors textHighlightColor "result: (editor editor text at: event selectedInterval first)")] ].
+		list column
+			title: 'Index';
+			width: 35;
+			stencil: [ :char :index | BrColumnCellLabelStencil new text: (index asString asRopedText glamorousRegularFont; foreground: Color gray; fontSize: 12)].
+		list column
+			title: 'Char';
+			width: 45;
+			stencil: [ :char | BrColumnCellLabelStencil new text: (((char gtDisplayString removePrefix: 'Character ') removePrefix: '$') asRopedText glamorousRegularFont; fontSize: 12)].
+		list column
+			title: 'ASCII';
+			width: 45;
+			stencil: [ :char | BrColumnCellLabelStencil new text: ((char asciiValue asString) asRopedText glamorousRegularFont; fontSize: 12)].
+		list column
+			title: 'HEX';
+			width: 45;
+			stencil: [ :char | BrColumnCellLabelStencil new text: ((((char asciiValue radix: 16) padLeftTo: 2 with: $0) asString) asRopedText glamorousRegularFont; fontSize: 12)].
+		container addChild: list.
+		
+		container 
+		];
+	updateWhen: ProcessingSourceChanged in: source announcer
 ]
 
 { #category : #views }

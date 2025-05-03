@@ -1,6 +1,8 @@
 Class {
 	#name : #ProcessingTranspiler,
 	#superclass : #Object,
+	#traits : 'TPyRootNodeVisitor',
+	#classTraits : 'TPyRootNodeVisitor classTrait',
 	#instVars : [
 		'globalVariables',
 		'indentation',
@@ -434,8 +436,8 @@ ProcessingTranspiler >> visitBinaryExpression: expr [
 ]
 
 { #category : #visiting }
-ProcessingTranspiler >> visitComparisonExpression: expr [
-	^ self visitBinaryExpression: expr
+ProcessingTranspiler >> visitExpression: expr [
+	ProcessingNotImplementedException new tag: expr; signal: 'Unsupported expression type ' , expr asString
 ]
 
 { #category : #visiting }
@@ -565,6 +567,11 @@ ProcessingTranspiler >> visitReturnStatement: expr [
 	self endEmit.
 	self cr.
 	"Explicitly not returning anything in order to prevent a trailing dot."
+]
+
+{ #category : #visiting }
+ProcessingTranspiler >> visitStatement: stmt [
+	ProcessingNotImplementedException new tag: stmt; signal: 'Unsupported statement type ' , stmt asString
 ]
 
 { #category : #visiting }
