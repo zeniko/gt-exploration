@@ -172,7 +172,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-04-01T16:37:41.694+02:00"
+						"dateAndTimeString" : "2025-04-01T16:39:17.497+02:00"
 					}
 				},
 				"editEmail" : {
@@ -183,12 +183,89 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-04-01T16:37:46.332+02:00"
+						"dateAndTimeString" : "2025-04-01T16:39:22.47+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "MI5ONxruDQC7onjHAft/yQ=="
+					"uidString" : "EIinOxruDQC8aTBCAft/yQ=="
+				},
+				"paragraphStyle" : {
+					"__type" : "textStyle"
+				},
+				"string" : "## Abstract Syntax Tree"
+			},
+			{
+				"__type" : "exampleSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-04-01T16:39:06.845+02:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-04-01T16:39:06.845+02:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "eNNhPBruDQC9KuKtAft/yQ=="
+				},
+				"exampleSelector" : "programExample02",
+				"previewHeight" : 250,
+				"previewShowSelector" : "gtTreeFor:",
+				"exampleBehaviorName" : "ProcessingProgramExamples",
+				"codeExpanded" : true,
+				"previewExpanded" : true,
+				"noCode" : true
+			},
+			{
+				"__type" : "textSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-05-03T21:13:50.173+02:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-05-03T21:14:40.635+02:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "SHvJzaHwDQCDQyMWCGjzaA=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
@@ -249,7 +326,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-04-01T16:39:17.497+02:00"
+						"dateAndTimeString" : "2025-05-03T21:14:42.44+02:00"
 					}
 				},
 				"editEmail" : {
@@ -260,17 +337,17 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-04-01T16:39:22.47+02:00"
+						"dateAndTimeString" : "2025-05-03T21:14:49.214+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "EIinOxruDQC8aTBCAft/yQ=="
+					"uidString" : "QAPn0KHwDQCDiQKoCGjzaA=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "## Abstract Syntax Tree"
+				"string" : "## Intermediary Representation"
 			},
 			{
 				"__type" : "exampleSnippet",
@@ -286,7 +363,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-04-01T16:39:06.845+02:00"
+						"dateAndTimeString" : "2025-05-03T21:14:55.222+02:00"
 					}
 				},
 				"editEmail" : {
@@ -297,16 +374,16 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-04-01T16:39:06.845+02:00"
+						"dateAndTimeString" : "2025-05-03T21:14:55.222+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "eNNhPBruDQC9KuKtAft/yQ=="
+					"uidString" : "8Ayq0aHwDQCEI51fCGjzaA=="
 				},
 				"exampleSelector" : "programExample02",
-				"previewHeight" : 250,
-				"previewShowSelector" : "gtTreeFor:",
+				"previewHeight" : 260,
+				"previewShowSelector" : "gtIntermediaryRepresentationFor:",
 				"exampleBehaviorName" : "ProcessingProgramExamples",
 				"codeExpanded" : true,
 				"previewExpanded" : true,

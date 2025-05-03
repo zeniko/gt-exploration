@@ -169,10 +169,7 @@ ProcessingCodeBase >> gtOutputFor: aView [
 { #category : #views }
 ProcessingCodeBase >> gtSelectBytecode: aList at: position [
 	| slices indices |
-	slices := (self instVarNamed: #gtAstMaps) select: [ :slice |
-		(slice astNode sourceInterval first - 1 <= position) &
-		(slice astNode sourceInterval last >= position)
-	].
+	slices := self gtSlicesAround: position.
 	slices ifEmpty: [ ^ nil ].
 	
 	indices := (1 to: aList items size) select: [ :index |
@@ -193,10 +190,7 @@ ProcessingCodeBase >> gtSelectBytecode: aList at: position [
 { #category : #views }
 ProcessingCodeBase >> gtSelectIRNode: aList at: position [
 	| slices indices |
-	slices := (self instVarNamed: #gtAstMaps) select: [ :slice |
-		(slice astNode sourceInterval first - 1 <= position) &
-		(slice astNode sourceInterval last >= position)
-	].
+	slices := self gtSlicesAround: position.
 	slices ifEmpty: [ ^ nil ].
 	
 	indices := (1 to: aList items size) select: [ :index |
@@ -233,15 +227,7 @@ ProcessingCodeBase >> gtSliceForIRItem: irNode [
 
 { #category : #views }
 ProcessingCodeBase >> gtSliceForItem: byteCode [
-	| slices |
-	slices := (self instVarNamed: #gtAstMaps) select: [ :slice |
-		(slice method = byteCode method) and: [
-			(slice startPos <= byteCode sourceInterval first) &
-			(slice endPos >= byteCode sourceInterval last)
-		]
-	].
-	slices ifEmpty: [ ^ nil ].
-	^ slices last
+	^ self gtSliceForItem: byteCode method within: byteCode sourceInterval
 ]
 
 { #category : #views }
@@ -255,6 +241,14 @@ ProcessingCodeBase >> gtSliceForItem: method within: interval [
 	].
 	slices ifEmpty: [ ^ nil ].
 	^ slices last
+]
+
+{ #category : #views }
+ProcessingCodeBase >> gtSlicesAround: aPosition [
+	^ (self instVarNamed: #gtAstMaps) select: [ :slice |
+		(slice astNode sourceInterval first - 1 <= aPosition) &
+		(slice astNode sourceInterval last >= aPosition)
+	]
 ]
 
 { #category : #views }

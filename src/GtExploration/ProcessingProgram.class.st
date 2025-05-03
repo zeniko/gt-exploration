@@ -40,32 +40,6 @@ ProcessingProgram >> compilation [
 ]
 
 { #category : #views }
-ProcessingProgram >> gtASTTokensFor: aView [
-	<gtView>
-	^ aView columnedList
-		title: 'AST Tokens';
-		priority: 4;
-		items: [ PythonASTBuilder new extractTokens: ast ];
-		column: 'Line' translated
-			text: [ :each |
-				(source asString copyFrom: 1 to: each startPosition) lineCount asRopedText foreground: Color gray
-			] width: 45;
-		column: 'Indentation' translated
-			text: [ :each |
-				| line indent ch |
-				line := (source asString copyFrom: 1 to: each startPosition) lines last readStream.
-				indent := 0.
-				[ line atEnd not and: [ (ch := line next) isSeparator ] ] whileTrue: [
-					indent := indent + (ch = Character tab ifTrue: [ 8 - (indent \\ 8) ] ifFalse: [ 1 ])
-				].
-				indent asRopedText foreground: Color gray
-			] width: 45;
-		column: 'Token'
-			text: [ :each | each value ];
-		updateWhen: ProcessingSourceChanged in: source announcer
-]
-
-{ #category : #views }
 ProcessingProgram >> gtAbstractionsFor: aView [
 	<gtView>
 	^ aView explicit
@@ -96,7 +70,8 @@ ProcessingProgram >> gtAbstractionsFor: aView [
 				margin: (BlInsets all: 5).
 			element addChild: child.
 			astTree := child children last.
-			self ast topParent gtHookEditor: editor toTree: astTree.
+			"self ast topParent gtHookEditor: editor toTree: astTree."
+			self gtHookEditor: editor toTree: astTree.
 			
 			(self gtBytecodeFor: GtPhlowView empty)
 				asElementDo: [ :e | child := e ].
@@ -109,7 +84,8 @@ ProcessingProgram >> gtAbstractionsFor: aView [
 			self gtHookEditor: editor toBytecode: child children last.
 			"Oneway hook bytecode to the AST tree"
 			self gtOnListSelect: child children last do: [ :astNode |
-				astNode gtSelectItemIn: astTree at: astNode startPosition
+				self gtSelectTreeNode: astTree at: astNode startPosition
+				"astNode gtSelectItemIn: astTree at: astNode startPosition"
 			].
 			
 			(self gtOutputFor: GtPhlowView empty)
@@ -213,6 +189,27 @@ ProcessingProgram >> gtHookEditor: anEditor toIR: aList [
 ]
 
 { #category : #views }
+ProcessingProgram >> gtHookEditor: anEditor toTree: aTree [
+	| highlightAttribute |
+	highlightAttribute := (BlTextDecorationAttribute new underline)
+		beNotOverwritableByStyler;
+		color: BrGlamorousColors textHighlightColor;
+		thickness: 3.
+	
+	self gtOnTreeSelect: aTree do: [ :astNode |
+		anEditor editor text clearAttributes: [ :attr | attr == highlightAttribute ].
+		anEditor editor text
+			attributes: { highlightAttribute }
+			from: astNode startPosition
+			to: astNode stopPosition.
+		
+		anEditor scrollToPosition: (anEditor text asString lineNumberCorrespondingToIndex: astNode startPosition).
+	].
+	
+	self gtOnEditorChange: anEditor do: [ :position | self gtSelectTreeNode: aTree at: position ]
+]
+
+{ #category : #views }
 ProcessingProgram >> gtIntermediaryRepresentationFor: aView [
 	<gtView>
 	^ self gtGetLiveView: aView for: [ :view | compilation gtIntermediaryRepresentationFor: view ]
@@ -263,7 +260,7 @@ ProcessingProgram >> gtOnTreeSelect: aTree do: aBlock [
 		do: [ :anEvent |
 			aTree selectedNodeDo: [ :aNode |
 				| item |
-				item := aNode value last.
+				item := aNode value.
 				(item isKindOf: SymbolicBytecode) ifTrue: [
 					item := compilation gtSliceForItem: item.
 				].
@@ -287,6 +284,29 @@ ProcessingProgram >> gtOutputFor: aView [
 ]
 
 { #category : #views }
+ProcessingProgram >> gtSelectTreeNode: aTree at: aPosition [
+	| treeNode nextNode |
+	nextNode := aTree viewModel itemAt: 1.
+	2 to: aTree viewModel itemCount do: [ :index |
+		| node |
+		node := aTree viewModel itemAt: index.
+		(aPosition between: node value startPosition and: node value stopPosition) ifTrue: [
+			nextNode := node.
+		]
+	].
+	[
+		nextNode expand.
+		treeNode := nextNode.
+		nextNode := treeNode childrenNodes detect: [ :each |
+			aPosition between: each value startPosition and: each value stopPosition
+		] ifNone: [ nil ].
+		nextNode notNil
+	] whileTrue.
+	aTree selectOne: treeNode indexInTree.
+	aTree children first scrollToPosition: treeNode indexInTree
+]
+
+{ #category : #views }
 ProcessingProgram >> gtSlicesFor: aView [
 	<gtView>
 	^ self gtGetLiveView: aView for: [ :view | compilation gtSlicesFor: view ]
@@ -297,9 +317,6 @@ ProcessingProgram >> gtSlicesFor: aView [
 { #category : #views }
 ProcessingProgram >> gtSourceAstFor: aView [
 	<gtView>
-	"adapted from {{gtMethod:SmaCCParseNode>>#gtExploreFor:}}"
-	ast topParent completeSource isNil
-		ifTrue: [ ^ aView empty ].
 	^ aView explicit
 		priority: 6;
 		title: 'AST++';
@@ -327,7 +344,7 @@ ProcessingProgram >> gtSourceAstFor: aView [
 				background: Color white;
 				margin: (BlInsets all: 10).
 			element addChild: tree.
-			ast topParent gtHookEditor: editor toTree: tree children last.
+			self gtHookEditor: editor toTree: tree children last.
 			element ];
 		updateWhen: ProcessingProgramChanged in: self announcer
 ]
@@ -497,10 +514,129 @@ ProcessingProgram >> gtSourceSourceBytesFor: aView [
 ]
 
 { #category : #views }
+ProcessingProgram >> gtTokensFor: aView [
+	<gtView>
+	^ aView columnedList
+		title: 'AST Tokens';
+		priority: 4;
+		items: [ PythonTokenExtractor new extractTokens: ast ];
+		column: 'Line' translated
+			text: [ :each |
+				(source asString copyFrom: 1 to: each startPosition) lineCount asRopedText foreground: Color gray
+			] width: 45;
+		column: 'Indentation' translated
+			text: [ :each |
+				| line indent ch |
+				line := (source asString copyFrom: 1 to: each startPosition) lines last readStream.
+				indent := 0.
+				[ line atEnd not and: [ (ch := line next) isSeparator ] ] whileTrue: [
+					indent := indent + (ch = Character tab ifTrue: [ 8 - (indent \\ 8) ] ifFalse: [ 1 ])
+				].
+				indent asRopedText foreground: Color gray
+			] width: 45;
+		column: 'Token'
+			text: [ :each | each value ];
+		updateWhen: ProcessingSourceChanged in: source announcer
+]
+
+{ #category : #views }
+ProcessingProgram >> gtTree2For: aView [
+	<gtView>
+	| names |
+	names := Dictionary newFrom: {
+		PyAssignmentExpressionNode -> 'Assignment'.
+		PyAssignmentStatementNode -> 'Assignment'.
+		PyBinaryExpressionNode -> 'Binary Op'.
+		PyComparisonExpressionNode -> 'Binary Comparison'.
+		PyElseNode -> 'Else'.
+		PyExpressionStatementNode -> 'Expression'.
+		PyFileNode -> 'Root'.
+		PyFunctionCallExpressionNode -> 'Function Call'.
+		PyFunctionDefinitionNode -> 'Function Definition'.
+		PyGlobalStatementNode -> 'Global Variables'.
+		PyIfStatementNode -> 'If Conditional'.
+		PyNumberNode -> 'Number'.
+		PyParameterNode -> 'Parameter'.
+		PyPassStatementNode -> 'Pass'.
+		PyReturnStatementNode -> 'Return'.
+		PyStringNode -> 'String'.
+		PyTupleExpressionNode -> 'Tuple'.
+		PyUnaryExpressionNode -> 'Unary Op'.
+		PyVariableExpressionNode -> 'Variable'.
+		PyWhileStatementNode -> 'While Loop'.
+	}.
+	^ aView columnedTree
+		priority: 5;
+		title: 'AST 2';
+		items: [ ast acceptVisitor: PythonTokenExtractor new ];
+		children: [ :each |
+			(each isKindOf: PyRootNode) ifTrue: [
+				| nodes |
+				nodes := each acceptVisitor: PythonTokenExtractor new.
+				[ nodes size = 1 and: [ nodes first isKindOf: PyRootNode ] ] whileTrue: [
+					nodes := nodes first acceptVisitor: PythonTokenExtractor new.
+				].
+				((nodes size = 1) not or: [ nodes first isKindOf: PyRootNode ]) ifTrue: [ nodes ] ifFalse: [ #() ]
+			] ifFalse: [
+				#()
+			]
+		];
+		column: 'Node' translated text: [ :each |
+			| node |
+			node := each.
+			[ (node isKindOf: PyRootNode) and: [ (node acceptVisitor: PythonTokenExtractor new) size = 1 ] ] whileTrue: [
+				node := (node acceptVisitor: PythonTokenExtractor new) first.
+			].
+			(node isKindOf: PyRootNode) ifTrue: [
+				(names at: node class) asRopedText foreground: BrGlamorousColors disabledButtonTextColor
+			] ifFalse: [
+				node value
+			]
+		];
+		column: 'Type' translated text: [ :each |
+			| node prev |
+			node := each.
+			prev := each.
+			[ (node isKindOf: PyRootNode) and: [ (node acceptVisitor: PythonTokenExtractor new) size = 1 ] ] whileTrue: [
+				prev := node.
+				node := (node acceptVisitor: PythonTokenExtractor new) first.
+			].
+			(prev isKindOf: PyRootNode) ifTrue: [
+				prev = node ifTrue: [
+					'' asRopedText
+				] ifFalse: [
+					(names at: prev class) asRopedText
+				]
+			] ifFalse: [
+				'Token' asRopedText foreground: BrGlamorousColors disabledButtonTextColor
+			]
+		]
+]
+
+{ #category : #views }
 ProcessingProgram >> gtTreeFor: aView [
 	<gtView>
 	^ aView explicit
 		priority: 5;
+		title: 'AST';
+		stencil: [ | tree |
+			(self gtTree2For: GtPhlowView empty)
+				asElementDo: [ :e | tree := e ].
+			tree
+				constraintsDo: [ :e |
+					e vertical matchParent.
+					e horizontal matchParent ].
+			"expand the entire tree"
+			tree children last expandAll.
+			tree ];
+		updateWhen: ProcessingProgramChanged in: self announcer
+]
+
+{ #category : #views }
+ProcessingProgram >> gtTreeOldFor: aView [
+	<gtView>
+	^ aView explicit
+		priority: 6;
 		title: 'AST';
 		stencil: [ | tree |
 			(ast topParent gtTreeFor: GtPhlowView empty)
