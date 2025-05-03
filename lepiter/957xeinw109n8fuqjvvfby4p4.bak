@@ -259,7 +259,7 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-05-03T14:07:22.477+02:00"
+												"dateAndTimeString" : "2025-05-04T01:30:14.864+02:00"
 											}
 										},
 										"uid" : {
@@ -269,7 +269,7 @@
 										"paragraphStyle" : {
 											"__type" : "textStyle"
 										},
-										"string" : "shortcuts for the Processing Snippet (Ctrl+R → Run, Ctrl+G → Steps, Ctrl+? → Abstractions)"
+										"string" : "shortcuts for the Processing Snippet (Ctrl+D → Run, Ctrl+G → Steps, Ctrl+R → Abstractions)"
 									},
 									{
 										"__type" : "textSnippet",
@@ -285,7 +285,7 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-05-03T14:07:45.59+02:00"
+												"dateAndTimeString" : "2025-05-04T01:29:29.523+02:00"
 											}
 										},
 										"editEmail" : {
@@ -296,54 +296,17 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-05-03T14:07:56.011+02:00"
+												"dateAndTimeString" : "2025-05-04T01:30:38.779+02:00"
 											}
 										},
 										"uid" : {
 											"__type" : "uid",
-											"uidString" : "8OYE2pvwDQCtxzt4CGjzaA=="
+											"uidString" : "UF8VYKXwDQC6AegpCOx/sg=="
 										},
 										"paragraphStyle" : {
 											"__type" : "textStyle"
 										},
-										"string" : "improved AST view (and an addition Tokens view)"
-									},
-									{
-										"__type" : "textSnippet",
-										"children" : {
-											"__type" : "snippets",
-											"items" : [ ]
-										},
-										"createEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"createTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-05-03T14:59:29.298+02:00"
-											}
-										},
-										"editEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"editTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-05-03T14:59:39.766+02:00"
-											}
-										},
-										"uid" : {
-											"__type" : "uid",
-											"uidString" : "aLYDk5zwDQC11sZsCGjzaA=="
-										},
-										"paragraphStyle" : {
-											"__type" : "textStyle"
-										},
-										"string" : "connect source code bytes view "
+										"string" : "add {{gtClass:BrEditorShortcut}} to {{gtClass:BrTextEditorReadonlyWithSelectionMode}} (for "
 									}
 								]
 							},

@@ -78,19 +78,10 @@ ProcessingSource >> gtBytecodeFor: aView [
 
 { #category : #views }
 ProcessingSource >> gtContentsFor: aView [
-	"copy/paste from FileLocator > AbstractFileReference > #gtContentsFor:"
 	<gtView>
-	| eventLoop |
-	source isFile ifFalse: [ ^ aView empty ].
-	[ source readStreamDo: [ :s | s next: 1000 ] ]
-		on: ZnInvalidUTF8
-		do: [ ^ aView empty ].
-	
-	^ aView explicit
+	^ (self program gtContentsFor: aView)
 		title: 'Source' translated;
-		priority: 2;
-		stencil: [ source gtEditorView ];
-		updateWhen: ProcessingSourceChanged in: self announcer
+		priority: 2
 ]
 
 { #category : #views }

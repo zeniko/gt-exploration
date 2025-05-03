@@ -75,17 +75,15 @@ ProcessingTranspilationSlice >> gtComparisonFor: aView [
 
 { #category : #views }
 ProcessingTranspilationSlice >> gtSourceFor: aView [
-	"Adapted from SmaCCParseNode>>#gtSourceFor:"
 	<gtView>
 	^ aView explicit
 		priority: 10;
 		title: 'Source' translated;
-		stencil: [ astNode gtSourceEditorWithHighlight: BrGlamorousColors neutralBackgroundColor ]
+		stencil: [ astNode gtSourceEditorWithHighlight: BrGlamorousColors textHighlightColor ]
 ]
 
 { #category : #views }
 ProcessingTranspilationSlice >> gtTranspilationFor: aView [
-	"Adapted from SymbolicBytecode>>#gtSourceFor:"
 	<gtView>
 	^ aView textEditor
 		title: 'Transpilation' translated;
