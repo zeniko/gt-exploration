@@ -103,6 +103,32 @@ ProcessingRunnerExamples >> runExample05 [
 ]
 
 { #category : #example }
+ProcessingRunnerExamples >> runExample06 [
+	<gtExample>
+	| program runner |
+	program := ProcessingProgramExamples new programExample06.
+	runner := self newRunner.
+	runner run: program compilation; limitTo: 2 seconds; wait.
+	self assert: runner canvas isNotNil.
+	self assert: runner isDone.
+	self assert: (program compilation instVarNamed: #var) equals: 5.
+	self assert: (program compilation instVarNamed: #cond) equals: true.
+	^ runner
+]
+
+{ #category : #example }
+ProcessingRunnerExamples >> runExample06Stepwise [
+	<gtExample>
+	| program runner steps |
+	program := ProcessingProgramExamples new programExample06.
+	runner := self newRunner.
+	steps := runner runStepwise: program compilation.
+	self assert: steps size equals: 13.
+	self assert: runner isDone.
+	^ steps
+]
+
+{ #category : #example }
 ProcessingRunnerExamples >> runFibonacci [
 	<gtExample>
 	| program runner |

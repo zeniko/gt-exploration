@@ -7,6 +7,15 @@ Class {
 }
 
 { #category : #building }
+PythonTokenExtractor >> add: values separatedBy: commas to: tokens [
+	1 to: values size - 1 do: [ :index |
+		tokens add: (values at: index).
+		tokens add: (commas at: index).
+	].
+	tokens add: values last.
+]
+
+{ #category : #building }
 PythonTokenExtractor >> extractTokens: ast [
 	^ ((ast acceptVisitor: self) collect: [ :item |
 		(item isKindOf: PyRootNode) ifTrue: [
@@ -29,7 +38,25 @@ PythonTokenExtractor >> visitAssignmentStatement: stmt [
 
 { #category : #visiting }
 PythonTokenExtractor >> visitBinaryExpression: expr [
+	"TODO: fix bug in PythonParser"
+	expr operator ifNil: [ ^ { expr left. expr opeator. expr right. } ].
 	^ { expr left. expr operator. expr right. }
+]
+
+{ #category : #visiting }
+PythonTokenExtractor >> visitComparisonExpression: expr [
+	| tokens chain |
+	tokens := OrderedCollection new.
+	tokens add: expr left.
+	tokens add: expr operator.
+	chain := expr right.
+	[ chain isKindOf: PyComparisonExpressionNode ] whileTrue: [
+		tokens add: chain left.
+		tokens add: chain operator.
+		chain := chain right.
+	].
+	tokens add: chain.
+	^ tokens
 ]
 
 { #category : #visiting }
@@ -69,17 +96,26 @@ PythonTokenExtractor >> visitFile: file [
 ]
 
 { #category : #visiting }
+PythonTokenExtractor >> visitForStatement: stmt [
+	| tokens |
+	tokens := OrderedCollection new.
+	tokens add: stmt forToken.
+	self add: stmt exprs separatedBy: stmt commaTokens to: tokens.
+	tokens add: stmt inToken.
+	tokens add: stmt inExpression.
+	tokens add: stmt colonToken.
+	tokens addAll: stmt statements.
+	^ tokens
+]
+
+{ #category : #visiting }
 PythonTokenExtractor >> visitFunctionCallExpression: fnCall [
 	| tokens |
 	tokens := OrderedCollection new.
 	tokens add: fnCall receiver.
 	tokens add: fnCall lparenToken.
 	fnCall arguments ifNotEmpty: [
-		1 to: fnCall arguments size - 1 do: [ :index |
-			tokens add: (fnCall arguments at: index).
-			tokens add: (fnCall commaTokens at: index).
-		].
-		tokens add: fnCall arguments last.
+		self add: fnCall arguments separatedBy: fnCall commaTokens to: tokens.
 	].
 	tokens add: fnCall rparenToken.
 	^ tokens
@@ -93,11 +129,7 @@ PythonTokenExtractor >> visitFunctionDefinition: def [
 	tokens add: def fname.
 	tokens add: def lparenToken.
 	def parameters ifNotEmpty: [
-		1 to: def parameters size - 1 do: [ :index |
-			tokens add: (def parameters at: index).
-			tokens add: (def commaTokens at: index).
-		].
-		tokens add: def parameters last.
+		self add: def parameters separatedBy: def commaTokens to: tokens.
 	].
 	tokens add: def rparenToken.
 	tokens add: def colonToken.
@@ -110,12 +142,15 @@ PythonTokenExtractor >> visitGlobalStatement: stmt [
 	| tokens |
 	tokens := OrderedCollection new.
 	tokens add: stmt globalToken.
-	1 to: stmt nameTokens size - 1 do: [ :index |
-		tokens add: (stmt nameTokens at: index).
-		tokens add: (stmt commaTokens at: index).
-	].
-	tokens add: stmt nameTokens last.
+	self add: stmt nameTokens separatedBy: stmt commaTokens to: tokens.
 	^ tokens
+]
+
+{ #category : #visiting }
+PythonTokenExtractor >> visitIfExpression: expr [
+	"TODO: fix bug in PythonParser"
+	"`if` and `condition` are swapped!"
+	^ { expr condition. expr ifToken. expr if. expr elseToken. expr else. }
 ]
 
 { #category : #visiting }

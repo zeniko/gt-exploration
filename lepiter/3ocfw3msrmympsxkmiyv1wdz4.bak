@@ -362,7 +362,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-05-02T13:52:39.19+02:00"
+						"dateAndTimeString" : "2025-05-02T13:52:43.813+02:00"
 					}
 				},
 				"uid" : {
@@ -372,7 +372,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "{{gtTodo:label=`def setup()` and `def draw()` which are respectively called before entering the event loop and repeatedly while the event loop is running|completed=}}"
+				"string" : "{{gtTodo:label=`def setup()` and `def draw()` which are respectively called before entering the event loop and repeatedly while the event loop is running}}"
 			},
 			{
 				"__type" : "textSnippet",

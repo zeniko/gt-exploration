@@ -83,6 +83,14 @@ gtA := width; gtB := height'
 ]
 
 { #category : #source }
+ProcessingSourceExamples >> sourceCodeExample06 [
+	^ 'cond = True and False or not 1 == 2 > 3
+var = 5 if cond else 3
+for x in range(1, var):
+	print(x)'
+]
+
+{ #category : #source }
 ProcessingSourceExamples >> sourceCodeFibonacci [
 	^ 'size(200, 200)
 
@@ -275,6 +283,16 @@ ProcessingSourceExamples >> sourceExample05 [
 	| source |
 	source := ProcessingSource fromString: self sourceCodeExample05.
 	self assert: source asString equals: self sourceCodeExample05.
+	self assert: source program isNotNil.
+	^ source
+]
+
+{ #category : #example }
+ProcessingSourceExamples >> sourceExample06 [
+	<gtExample>
+	| source |
+	source := ProcessingSource fromString: self sourceCodeExample06.
+	self assert: source asString equals: self sourceCodeExample06.
 	self assert: source program isNotNil.
 	^ source
 ]

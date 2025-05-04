@@ -101,9 +101,9 @@ ProcessingSource >> gtOutputFor: aView [
 ]
 
 { #category : #views }
-ProcessingSource >> gtSourceCodeFor: aView [
+ProcessingSource >> gtTranspilationFor: aView [
 	<gtView>
-	^ (self program gtSourceCodeFor: aView)
+	^ (self program gtTranspilationFor: aView)
 		title: 'Transpiled' translated;
 		priority: 6
 ]

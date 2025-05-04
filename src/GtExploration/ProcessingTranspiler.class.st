@@ -277,6 +277,11 @@ ProcessingTranspiler >> endEmit [
 ]
 
 { #category : #emitting }
+ProcessingTranspiler >> notImplemented: expr [
+	ProcessingNotImplementedException new tag: expr; signal.
+]
+
+{ #category : #emitting }
 ProcessingTranspiler >> startEmit: node [
 	| slice |
 	slice := ProcessingTranspilationSlice link: node from: output size + 1.
@@ -408,6 +413,7 @@ ProcessingTranspiler >> visitAssignmentExpression: expr [
 { #category : #visiting }
 ProcessingTranspiler >> visitAssignmentStatement: expr [
 	| name |
+	expr lhs nameToken ifNil: [ self notImplemented: expr ].
 	name := expr lhs nameToken value.
 	self startEmit: expr.
 	name := self emitName: expr lhs nameToken value.
@@ -415,9 +421,7 @@ ProcessingTranspiler >> visitAssignmentStatement: expr [
 		localVariables add: name.
 	].
 	self emit: ' := '.
-	expr tos size > 1 ifTrue: [
-		ProcessingNotImplementedException new tag: expr; signal.
-	].
+	expr tos size > 1 ifTrue: [ self notImplemented: expr ].
 	expr tos first acceptVisitor: self.
 	^ self endEmit.
 ]
@@ -425,11 +429,25 @@ ProcessingTranspiler >> visitAssignmentStatement: expr [
 { #category : #visiting }
 ProcessingTranspiler >> visitBinaryExpression: expr [
 	| op |
-	op := expr operator value.
-	"Python compares value equality with `==`, Smalltalk does with `=`"
-	op = '==' ifTrue: [ op := '=' ].
+	expr operator ifNotNil: [
+		op := expr operator value.
+	] ifNil: [
+		"TODO: fix bug in PythonParser"
+		op := expr opeator value.
+	].
+	
 	"Modulo is `%` in Python but `\\` in Smalltalk"
 	op = '%' ifTrue: [ op := '\\' ].
+	
+	((op = 'and') | (op = 'or')) ifTrue: [
+		self startEmit: expr.
+		self emit: '('.
+		expr left acceptVisitor: self.
+		self emit: ' ' , op , ': [ '.
+		expr right acceptVisitor: self.
+		self emit: ' ])'.
+		^ self endEmit		
+	].
 	
 	self startEmit: expr.
 	self emit: '('.
@@ -441,8 +459,36 @@ ProcessingTranspiler >> visitBinaryExpression: expr [
 ]
 
 { #category : #visiting }
+ProcessingTranspiler >> visitComparisonExpression: expr [
+	| op chain depth |
+	op := expr operator value.
+	"Python compares value equality with `==`, Smalltalk does with `=`"
+	op = '==' ifTrue: [ op := '=' ].
+	
+	self startEmit: expr.
+	self emit: '('.
+	expr left acceptVisitor: self.
+	self emit: ' ' , op , ' '.
+	chain := expr right.
+	depth := 0.
+	[ chain isKindOf: PyComparisonExpressionNode ] whileTrue: [
+		"TODO: for correctness, `chain left` should be stored in a temporary variable so that its value isn't calculated twice"
+		chain left acceptVisitor: self.
+		self emit: ' and: [ '.
+		chain left acceptVisitor: self.
+		self emit: ' ' , op , ' '.
+		chain := chain right.
+		depth := depth + 1.
+	].
+	chain acceptVisitor: self.
+	1 to: depth do: [ :n | self emit: ' ]'. ].
+	self emit: ')'.
+	^ self endEmit
+]
+
+{ #category : #visiting }
 ProcessingTranspiler >> visitExpression: expr [
-	ProcessingNotImplementedException new tag: expr; signal: 'Unsupported expression type ' , expr asString
+	self notImplemented: expr
 ]
 
 { #category : #visiting }
@@ -459,6 +505,32 @@ ProcessingTranspiler >> visitExpressionStatement: stmt [
 { #category : #visiting }
 ProcessingTranspiler >> visitFile: file [
 	self visitExpressionStatement: file
+]
+
+{ #category : #visiting }
+ProcessingTranspiler >> visitForStatement: expr [
+	"only `for ... in range(...):` is currently supported"
+	(expr inExpression isKindOf: PyFunctionCallExpressionNode) ifFalse: [ self notImplemented: expr ].
+	(expr inExpression receiver isKindOf: PyVariableExpressionNode) ifFalse: [ self notImplemented: expr ].
+	expr inExpression receiver nameToken value = 'range' ifFalse: [ self notImplemented: expr ].
+	(expr inExpression arguments size between: 1 and: 2) ifFalse: [ self notImplemented: expr ].
+	expr exprs size > 1 ifTrue: [ self notImplemented: expr ].
+	expr else ifNotNil: [ self notImplemented: expr ].
+	
+	self startEmit: expr.
+	expr inExpression arguments size = 1 ifTrue: [
+		self emit: '0'.
+	] ifFalse: [
+		expr inExpression arguments first acceptVisitor: self.
+	].
+	self emit: ' to: ('.
+	expr inExpression arguments last acceptVisitor: self.
+	self emit: ' - 1) do: [ :'.
+	expr exprs first acceptVisitor: self.
+	self emit: ' |'; cr.
+	self acceptStatements: expr.
+	self emit: ']'.
+	^ self endEmit
 ]
 
 { #category : #visiting }
@@ -494,7 +566,7 @@ ProcessingTranspiler >> visitFunctionCallExpression: fnCall [
 		self emit: ')'.
 		^ self endEmit
 	].
-	ProcessingNotImplementedException new tag: fnCall; signal: 'Function ' , name , ' not implemented!'
+	self notImplemented: fnCall
 ]
 
 { #category : #visiting }
@@ -509,6 +581,21 @@ ProcessingTranspiler >> visitFunctionDefinition: def [
 ProcessingTranspiler >> visitGlobalStatement: global [
 	global nameTokens do: [ :token | globalVariables add: token value ].
 	^ 0
+]
+
+{ #category : #visiting }
+ProcessingTranspiler >> visitIfExpression: expr [
+	self startEmit: expr.
+	self emit: '('.
+	"TODO: fix bug in PythonParser"
+	"`if` and `condition` are swapped!"
+	expr if acceptVisitor: self.
+	self emit: ' ifTrue: [ '.
+	expr condition acceptVisitor: self.
+	self emit: ' ] ifFalse: [ '.
+	expr else acceptVisitor: self.
+	self emit: ' ])'.
+	^ self endEmit
 ]
 
 { #category : #visiting }
@@ -564,9 +651,7 @@ ProcessingTranspiler >> visitPassStatement: pass [
 ProcessingTranspiler >> visitReturnStatement: expr [
 	self startEmit: expr.
 	self emit: '^ '.
-	expr expressions size > 1 ifTrue: [
-		ProcessingNotImplementedException new tag: expr; signal.
-	].
+	expr expressions size > 1 ifTrue: [ self notImplemented: expr ].
 	expr expressions size = 1 ifTrue: [
 		expr expressions first acceptVisitor: self.
 	] ifFalse: [
@@ -579,7 +664,7 @@ ProcessingTranspiler >> visitReturnStatement: expr [
 
 { #category : #visiting }
 ProcessingTranspiler >> visitStatement: stmt [
-	ProcessingNotImplementedException new tag: stmt; signal: 'Unsupported statement type ' , stmt asString
+	self notImplemented: stmt
 ]
 
 { #category : #visiting }
@@ -591,9 +676,7 @@ ProcessingTranspiler >> visitString: expr [
 
 { #category : #visiting }
 ProcessingTranspiler >> visitTupleExpression: expr [
-	expr expressions size = 1 ifFalse: [
-		ProcessingNotImplementedException new tag: expr; signal: 'Tuples aren''t implemented!'
-	].
+	expr expressions size = 1 ifFalse: [ self notImplemented: expr ].
 	expr expressions first acceptVisitor: self.
 ]
 
@@ -606,20 +689,36 @@ ProcessingTranspiler >> visitUnaryExpression: expr [
 		^ self endEmit
 	].
 	expr operator value = '+' ifTrue: [
+		"Force number"
+		self startEmit: expr.
+		self emit: '(0 + '.
 		expr expression acceptVisitor: self.
+		self emit: ')'.
+		^ self endEmit
 	].
-	ProcessingNotImplementedException new tag: expr; signal: 'Unary operator ' , expr operator value , ' not implemented!'
+	expr operator value = 'not' ifTrue: [
+		self startEmit: expr.
+		expr expression acceptVisitor: self.
+		self emit: ' not'.
+		^ self endEmit
+	].
+	self notImplemented: expr
 ]
 
 { #category : #visiting }
 ProcessingTranspiler >> visitVariableExpression: var [
 	self startEmit: var.
-	self emitName: var nameToken value.
+	(#('True' 'False' 'None') includes: var nameToken value) ifTrue: [
+		self emit: ((Dictionary newFrom: { 'True' -> 'true'. 'False' -> 'false'. 'None' -> 'nil'. }) at: var nameToken value).
+	] ifFalse: [
+		self emitName: var nameToken value.
+	].
 	^ self endEmit
 ]
 
 { #category : #visiting }
 ProcessingTranspiler >> visitWhileStatement: expr [
+	expr else ifNotNil: [ self notImplemented: expr ].
 	self startEmit: expr.
 	self emit: '[ '.
 	expr condition acceptVisitor: self.

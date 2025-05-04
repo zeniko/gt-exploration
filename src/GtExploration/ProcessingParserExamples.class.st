@@ -61,6 +61,15 @@ ProcessingParserExamples >> parseExample05 [
 ]
 
 { #category : #example }
+ProcessingParserExamples >> parseExample06 [
+	<gtExample>
+	| ast |
+	ast := ProcessingProgramExamples new programExample06 ast.
+	self assert: ast statements size equals: 3.
+	^ ast
+]
+
+{ #category : #example }
 ProcessingParserExamples >> parseFibonacci [
 	<gtExample>
 	| ast |

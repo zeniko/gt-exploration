@@ -91,6 +91,16 @@ ProcessingTranspilerExamples >> transpilationExample05 [
 ]
 
 { #category : #transpilation }
+ProcessingTranspilerExamples >> transpilationExample06 [
+	^ 'gtRun
+	cond := ((true and: [ false ]) or: [ (1 = 2 and: [ 2 = 3 ]) not ]).
+	var := (cond ifTrue: [ 5 ] ifFalse: [ 3 ]).
+	1 to: (var - 1) do: [ :x |
+		gtCanvas print: x.
+	].'
+]
+
+{ #category : #transpilation }
 ProcessingTranspilerExamples >> transpilationFibonacci [
 	^ 'gtRun
 	width := 200. height := 200. gtCanvas size: width by: height.
@@ -316,6 +326,20 @@ ProcessingTranspilerExamples >> transpileExample05 [
 	self assert: (' ' join: transpiler variables) equals: 'gt_A gt_B'.
 	self assert: transpiler userDefs size equals: 0.
 	self compare: (transpiler compile: ast) with: self transpilationExample05.
+	^ transpiler compile: ast
+]
+
+{ #category : #example }
+ProcessingTranspilerExamples >> transpileExample06 [
+	<gtExample>
+	| ast transpiler |
+	ast := ProcessingParserExamples new parseExample06.
+	transpiler := self newTranspiler.
+	self assert: (transpiler transpile: ast) equals: self transpilationExample06.
+	self assert: transpiler variables size equals: 2.
+	self assert: (' ' join: transpiler variables) equals: 'var cond'.
+	self assert: transpiler userDefs size equals: 0.
+	self compare: (transpiler compile: ast) with: self transpilationExample06.
 	^ transpiler compile: ast
 ]
 

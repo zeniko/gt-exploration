@@ -61,6 +61,16 @@ PythonTokenExtractorExamples >> tokensExample05 [
 ]
 
 { #category : #example }
+PythonTokenExtractorExamples >> tokensExample06 [
+	<gtExample>
+	| tokens |
+	tokens := self newExtractor extractTokens: ProcessingParserExamples new parseExample06.
+	self assert: tokens size equals: 33.
+	self assert: (tokens allSatisfy: [ :item | item isKindOf: SmaCCToken ]).
+	^ tokens
+]
+
+{ #category : #example }
 PythonTokenExtractorExamples >> tokensFibonacci [
 	<gtExample>
 	| tokens |

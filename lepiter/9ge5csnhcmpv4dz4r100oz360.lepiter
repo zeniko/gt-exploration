@@ -66,7 +66,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-04-30T22:13:48.611+02:00"
+						"dateAndTimeString" : "2025-05-04T18:41:33.019+02:00"
 					}
 				},
 				"uid" : {
@@ -105,7 +105,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-04-30T18:28:00.265+02:00"
+									"dateAndTimeString" : "2025-05-04T18:40:29.166+02:00"
 								}
 							},
 							"uid" : {
@@ -115,7 +115,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Run the code and render the resulting [[Processing Canvas]]."
+							"string" : "Run the code and render the resulting [[Processing Canvas]] (shortcut: Ctrl+R)."
 						},
 						{
 							"__type" : "textSnippet",
@@ -142,7 +142,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-04-30T18:28:33.459+02:00"
+									"dateAndTimeString" : "2025-05-04T18:40:52.798+02:00"
 								}
 							},
 							"uid" : {
@@ -152,7 +152,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Run the code step-by-step and display a {{gtClass:Stepper}} for stepping through the execution."
+							"string" : "Run the code step-by-step and display a {{gtClass:Stepper}} for stepping through the execution (shortcut: Ctrl+G)."
 						},
 						{
 							"__type" : "textSnippet",
@@ -179,7 +179,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-04-30T18:29:14.254+02:00"
+									"dateAndTimeString" : "2025-05-04T18:40:50.469+02:00"
 								}
 							},
 							"uid" : {
@@ -189,7 +189,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Compile the code and show various steps from the Processing source to its output."
+							"string" : "Compile the code and show various steps from the Processing source to its output (shortcut: Ctrl+D)."
 						}
 					]
 				},
@@ -294,9 +294,9 @@
 					"uidString" : "WGEOLGPwDQCsTw60CmG2nw=="
 				},
 				"code" : "GtInspector forObject: (ProcessingSource fromSnippet:(thisSnippet page children select: [ :snip | snip isKindOf: LePythonSnippet ]) first) viewSelector: #gtAbstractionsFor:",
-				"elementHeight" : 357,
+				"elementHeight" : 466,
 				"codeHeight" : 67,
-				"codeVisible" : true
+				"codeVisible" : false
 			}
 		]
 	},

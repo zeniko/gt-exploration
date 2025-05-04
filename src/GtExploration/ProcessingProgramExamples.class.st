@@ -61,6 +61,15 @@ ProcessingProgramExamples >> programExample05 [
 ]
 
 { #category : #example }
+ProcessingProgramExamples >> programExample06 [
+	<gtExample>
+	| program |
+	program := ProcessingSourceExamples new sourceExample06 program.
+	self assert: program compilation isNotNil.
+	^ program
+]
+
+{ #category : #example }
 ProcessingProgramExamples >> programFibonacci [
 	<gtExample>
 	| program |

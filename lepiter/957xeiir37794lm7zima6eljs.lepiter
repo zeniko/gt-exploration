@@ -379,7 +379,7 @@
 							},
 							"exampleSelector" : "programRecursion",
 							"previewHeight" : 200,
-							"previewShowSelector" : "gtSourceIntermediaryRepresentationFor:",
+							"previewShowSelector" : "gtIntermediaryRepresentationPlusSourceFor:",
 							"exampleBehaviorName" : "ProcessingProgramExamples",
 							"codeExpanded" : true,
 							"previewExpanded" : false,
@@ -493,7 +493,7 @@
 							},
 							"exampleSelector" : "programRecursion",
 							"previewHeight" : 200,
-							"previewShowSelector" : "gtSourceBytecodeFor:",
+							"previewShowSelector" : "gtBytecodePlusSourceFor:",
 							"exampleBehaviorName" : "ProcessingProgramExamples",
 							"codeExpanded" : true,
 							"previewExpanded" : false,
@@ -646,6 +646,43 @@
 								"__type" : "textStyle"
 							},
 							"string" : "Shortcuts for the Processing snippet are: Ctrl+R (Run, just produce output), Ctrl+G (run steps, \"debug\") and Ctrl+D (show details, compiler abstractions)."
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-05-04T17:37:34.428+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-05-04T17:38:08.25+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "kKs25rLwDQCSmQgvCqJFoA=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Support `for ... in range(...)` loops, boolean values"
 						}
 					]
 				},

@@ -120,7 +120,59 @@ ProcessingProgram >> gtBytecodeFor: aView [
 	<gtView>
 	^ self gtGetLiveView: aView for: [ :view | compilation gtBytecodeFor: view ]
 		title: 'Bytecode' translated
-		priority: 15
+		priority: 35
+]
+
+{ #category : #views }
+ProcessingProgram >> gtBytecodePlusSourceFor: aView [
+	<gtView>
+	^ aView explicit
+		priority: 36;
+		title: 'Bytecode' translated , '++';
+		stencil: [ | element editor list |
+			element := self gtCombineWithSource: (compilation gtBytecodeFor: GtPhlowView empty).
+			
+			editor := element children first.
+			list := element children last children last.
+			
+			self gtOnListSelect: list do: [ :astNode |
+				self gtEditorHightlight: editor from: astNode startPosition to: astNode stopPosition.
+			].
+			self gtOnEditorChange: editor do: [ :position |
+				compilation gtSelectBytecode: list at: position.
+			].
+			
+			element ];
+		updateWhen: ProcessingProgramChanged in: self announcer
+]
+
+{ #category : #views }
+ProcessingProgram >> gtCombineWithSource: aView [
+	| element child |
+	element := BlElement new.
+	element layout: BlLinearLayout horizontal.
+	element
+		constraintsDo: [ :c |
+			c vertical matchParent.
+			c horizontal matchParent ].
+	
+	(self gtContentsFor: GtPhlowView empty)
+		asElementDo: [ :e | child := e ].
+	child
+		background: Color white;
+		margin: (BlInsets all: 5).
+	element addChild: child.
+	
+	aView
+		asElementDo: [ :e | child := e ].
+	child
+		constraintsDo: [ :c |
+			c vertical matchParent.
+			c horizontal matchParent ];
+		margin: (BlInsets all: 5).
+	element addChild: child.
+	
+	^ element
 ]
 
 { #category : #views }
@@ -174,7 +226,30 @@ ProcessingProgram >> gtIntermediaryRepresentationFor: aView [
 	<gtView>
 	^ self gtGetLiveView: aView for: [ :view | compilation gtIntermediaryRepresentationFor: view ]
 		title: 'IR'
-		priority: 10
+		priority: 30
+]
+
+{ #category : #views }
+ProcessingProgram >> gtIntermediaryRepresentationPlusSourceFor: aView [
+	<gtView>
+	^ aView explicit
+		priority: 31;
+		title: 'IR++';
+		stencil: [ | element editor list |
+			element := self gtCombineWithSource: (compilation gtIntermediaryRepresentationFor: GtPhlowView empty).
+			
+			editor := element children first.
+			list := element children last children last.
+			
+			self gtOnListSelect: list do: [ :astNode |
+				self gtEditorHightlight: editor from: astNode startPosition to: astNode stopPosition.
+			].
+			self gtOnEditorChange: editor do: [ :position |
+				compilation gtSelectIRNode: list at: position.
+			].
+			
+			element ];
+		updateWhen: ProcessingProgramChanged in: self announcer
 ]
 
 { #category : #views }
@@ -244,7 +319,19 @@ ProcessingProgram >> gtOutputFor: aView [
 	<gtView>
 	^ self gtGetLiveView: aView for: [ :view | compilation gtOutputFor: view ]
 		title: 'Output' translated
-		priority: 20
+		priority: 40
+]
+
+{ #category : #views }
+ProcessingProgram >> gtOutputPlusSourceFor: aView [
+	<gtView>
+	^ aView explicit
+		priority: 41;
+		title: 'Output++';
+		stencil: [
+			self gtCombineWithSource: (self gtOutputFor: GtPhlowView empty)
+		];
+		updateWhen: ProcessingProgramChanged in: self announcer
 ]
 
 { #category : #views }
@@ -290,94 +377,7 @@ ProcessingProgram >> gtSlicesFor: aView [
 	<gtView>
 	^ self gtGetLiveView: aView for: [ :view | compilation gtSlicesFor: view ]
 		title: 'Slices' translated
-		priority: 7
-]
-
-{ #category : #views }
-ProcessingProgram >> gtSourceAstFor: aView [
-	<gtView>
-	^ aView explicit
-		priority: 6;
-		title: 'AST++';
-		stencil: [ | element editor tree |
-			element := BlElement new.
-			element layout: BlLinearLayout horizontal.
-			element
-				constraintsDo: [ :c |
-					c vertical matchParent.
-					c horizontal matchParent ].
-			
-			(self gtContentsFor: GtPhlowView empty)
-				asElementDo: [ :e | editor := e ].
-			editor
-				constraintsDo: [ :e |
-					e vertical matchParent.
-					e horizontal matchParent ];
-				aptitude: BrShadowAptitude;
-				background: Color white;
-				margin: (BlInsets all: 10).
-			element addChild: editor.
-			
-			(self gtTreeFor: GtPhlowView empty)
-				asElementDo: [ :e | tree := e ].
-			tree
-				aptitude: BrShadowAptitude;
-				background: Color white;
-				margin: (BlInsets all: 10).
-			element addChild: tree.
-			
-			self gtOnTreeSelect: tree children last do: [ :astNode |
-				self gtEditorHightlight: editor from: astNode startPosition to: astNode stopPosition.
-			].
-			self gtOnEditorChange: editor do: [ :position |
-				self gtSelectTreeNode: tree children last at: position.
-			].
-			
-			element ];
-		updateWhen: ProcessingProgramChanged in: self announcer
-]
-
-{ #category : #views }
-ProcessingProgram >> gtSourceBytecodeFor: aView [
-	<gtView>
-	^ aView explicit
-		priority: 16;
-		title: 'Bytecode' translated , '++';
-		stencil: [ | element child editor list |
-			element := BlElement new.
-			element layout: BlLinearLayout horizontal.
-			element
-				constraintsDo: [ :c |
-					c vertical matchParent.
-					c horizontal matchParent ].
-			
-			(self gtContentsFor: GtPhlowView empty)
-				asElementDo: [ :e | child := e ].
-			child
-				background: Color white;
-				margin: (BlInsets all: 5).
-			element addChild: child.
-			editor := child.
-			
-			(compilation gtBytecodeFor: GtPhlowView empty)
-				asElementDo: [ :e | child := e ].
-			child
-				constraintsDo: [ :c |
-					c vertical matchParent.
-					c horizontal matchParent ];
-				margin: (BlInsets all: 5).
-			element addChild: child.
-			list := child children last.
-			
-			self gtOnListSelect: list do: [ :astNode |
-				self gtEditorHightlight: editor from: astNode startPosition to: astNode stopPosition.
-			].
-			self gtOnEditorChange: editor do: [ :position |
-				compilation gtSelectBytecode: list at: position.
-			].
-			
-			element ];
-		updateWhen: ProcessingProgramChanged in: self announcer
+		priority: 22
 ]
 
 { #category : #views }
@@ -385,7 +385,7 @@ ProcessingProgram >> gtSourceBytesFor: aView [
 	<gtView>
 	^ aView columnedList
 		title: 'Source Bytes' translated;
-		priority: 3;
+		priority: 5;
 		items: [ source asString ];
 		column: 'Index' translated
 			text: [ :each :index | 
@@ -401,91 +401,16 @@ ProcessingProgram >> gtSourceBytesFor: aView [
 ]
 
 { #category : #views }
-ProcessingProgram >> gtSourceCodeFor: aView [
-	<gtView>
-	^ self gtGetLiveView: aView for: [ :view | compilation gtSourceCodeFor: view ]
-		title: 'Smalltalk'
-		priority: 8
-]
-
-{ #category : #views }
-ProcessingProgram >> gtSourceIntermediaryRepresentationFor: aView [
-	<gtView>
-	^ aView explicit
-		priority: 11;
-		title: 'IR++';
-		stencil: [ | element child editor list |
-			element := BlElement new.
-			element layout: BlLinearLayout horizontal.
-			element
-				constraintsDo: [ :c |
-					c vertical matchParent.
-					c horizontal matchParent ].
-			
-			(self gtContentsFor: GtPhlowView empty)
-				asElementDo: [ :e | child := e ].
-			child
-				background: Color white;
-				margin: (BlInsets all: 5).
-			element addChild: child.
-			editor := child.
-			
-			(compilation gtIntermediaryRepresentationFor: GtPhlowView empty)
-				asElementDo: [ :e | child := e ].
-			child
-				constraintsDo: [ :c |
-					c vertical matchParent.
-					c horizontal matchParent ];
-				margin: (BlInsets all: 5).
-			element addChild: child.
-			list := child children last.
-			
-			self gtOnListSelect: list do: [ :astNode |
-				self gtEditorHightlight: editor from: astNode startPosition to: astNode stopPosition.
-			].
-			self gtOnEditorChange: editor do: [ :position |
-				compilation gtSelectIRNode: list at: position.
-			].
-			
-			element ];
-		updateWhen: ProcessingProgramChanged in: self announcer
-]
-
-{ #category : #views }
-ProcessingProgram >> gtSourceSourceBytesFor: aView [
+ProcessingProgram >> gtSourceBytesPlusSourceFor: aView [
 	<gtView>
 	^ aView explicit
 		title: 'Source Bytes++';
-		priority: 4;
-		stencil: [ | element child editor list |
-			element := BlElement new.
-			element layout: BlLinearLayout horizontal.
-			element
-				constraintsDo: [ :c |
-					c vertical matchParent.
-					c horizontal matchParent ].
+		priority: 6;
+		stencil: [ | element editor list |
+			element := self gtCombineWithSource: (self gtSourceBytesFor: GtPhlowView empty).
 			
-			(self gtContentsFor: GtPhlowView empty)
-				asElementDo: [ :e | child := e ].
-			child
-				constraintsDo: [ :c |
-					c vertical matchParent. 
-					c horizontal matchParent.
-					c linear weight: 2. ];
-				background: Color white;
-				margin: (BlInsets all: 5).
-			element addChild: child.
-			editor := child.
-			
-			(self gtSourceBytesFor: GtPhlowView empty)
-				asElementDo: [ :e | child := e ].
-			child
-				constraintsDo: [ :c |
-					c vertical matchParent.
-					c horizontal matchParent ];
-				margin: (BlInsets all: 5).
-			element addChild: child.
-			list := child children last.
+			editor := element children first.
+			list := element children last children last.
 			
 			list when: BrSelectionChanged do: [ :event |
 				event selectedInterval ifNotNil: [
@@ -504,10 +429,36 @@ ProcessingProgram >> gtSourceSourceBytesFor: aView [
 ]
 
 { #category : #views }
-ProcessingProgram >> gtSourceTokensFor: aView [
+ProcessingProgram >> gtTokensFor: aView [
+	<gtView>
+	^ aView columnedList
+		title: 'AST Tokens';
+		priority: 10;
+		items: [ PythonTokenExtractor new extractTokens: ast ];
+		column: 'Line' translated
+			text: [ :each |
+				(source asString copyFrom: 1 to: each startPosition) lineCount asRopedText foreground: Color gray
+			] width: 45;
+		column: 'Indentation' translated
+			text: [ :each |
+				| line indent ch |
+				line := (source asString copyFrom: 1 to: each startPosition) lines last readStream.
+				indent := 0.
+				[ line atEnd not and: [ (ch := line next) isSeparator ] ] whileTrue: [
+					indent := indent + (ch = Character tab ifTrue: [ 8 - (indent \\ 8) ] ifFalse: [ 1 ])
+				].
+				indent asRopedText foreground: Color gray
+			] width: 45;
+		column: 'Token'
+			text: [ :each | each value ];
+		updateWhen: ProcessingSourceChanged in: source announcer
+]
+
+{ #category : #views }
+ProcessingProgram >> gtTokensPlusSourceFor: aView [
 	<gtView>
 	^ aView explicit
-		priority: 5;
+		priority: 11;
 		title: 'AST Tokens++';
 		stencil: [ | element child editor list |
 			element := BlElement new.
@@ -547,29 +498,23 @@ ProcessingProgram >> gtSourceTokensFor: aView [
 ]
 
 { #category : #views }
-ProcessingProgram >> gtTokensFor: aView [
+ProcessingProgram >> gtTranspilationFor: aView [
 	<gtView>
-	^ aView columnedList
-		title: 'AST Tokens';
-		priority: 5;
-		items: [ PythonTokenExtractor new extractTokens: ast ];
-		column: 'Line' translated
-			text: [ :each |
-				(source asString copyFrom: 1 to: each startPosition) lineCount asRopedText foreground: Color gray
-			] width: 45;
-		column: 'Indentation' translated
-			text: [ :each |
-				| line indent ch |
-				line := (source asString copyFrom: 1 to: each startPosition) lines last readStream.
-				indent := 0.
-				[ line atEnd not and: [ (ch := line next) isSeparator ] ] whileTrue: [
-					indent := indent + (ch = Character tab ifTrue: [ 8 - (indent \\ 8) ] ifFalse: [ 1 ])
-				].
-				indent asRopedText foreground: Color gray
-			] width: 45;
-		column: 'Token'
-			text: [ :each | each value ];
-		updateWhen: ProcessingSourceChanged in: source announcer
+	^ self gtGetLiveView: aView for: [ :view | compilation gtSourceCodeFor: view ]
+		title: 'Smalltalk'
+		priority: 20
+]
+
+{ #category : #views }
+ProcessingProgram >> gtTranspilationPlusSourceFor: aView [
+	<gtView>
+	^ aView explicit
+		priority: 21;
+		title: 'Smalltalk++';
+		stencil: [
+			self gtCombineWithSource: (self gtSourceCodeFor: GtPhlowView empty)
+		];
+		updateWhen: ProcessingProgramChanged in: self announcer
 ]
 
 { #category : #views }
@@ -584,9 +529,11 @@ ProcessingProgram >> gtTreeFor: aView [
 		PyElseNode -> 'Else'.
 		PyExpressionStatementNode -> 'Expression'.
 		PyFileNode -> 'Root'.
+		PyForStatementNode -> 'For Loop'.
 		PyFunctionCallExpressionNode -> 'Function Call'.
 		PyFunctionDefinitionNode -> 'Function Definition'.
 		PyGlobalStatementNode -> 'Global Variables'.
+		PyIfExpressionNode -> 'If Conditional'.
 		PyIfStatementNode -> 'If Conditional'.
 		PyNumberNode -> 'Number'.
 		PyParameterNode -> 'Parameter'.
@@ -599,7 +546,7 @@ ProcessingProgram >> gtTreeFor: aView [
 		PyWhileStatementNode -> 'While Loop'.
 	}.
 	^ aView columnedTree
-		priority: 6;
+		priority: 15;
 		title: 'AST';
 		items: [ ast acceptVisitor: PythonTokenExtractor new ];
 		children: [ :each |
@@ -652,7 +599,7 @@ ProcessingProgram >> gtTreeFor: aView [
 ProcessingProgram >> gtTreeOldFor: aView [
 	<gtView>
 	^ aView explicit
-		priority: 7;
+		priority: 19;
 		title: 'AST (old)';
 		stencil: [ | tree |
 			(ast topParent gtTreeFor: GtPhlowView empty)
@@ -664,6 +611,29 @@ ProcessingProgram >> gtTreeOldFor: aView [
 					e horizontal matchParent ];
 				yourself
 		];
+		updateWhen: ProcessingProgramChanged in: self announcer
+]
+
+{ #category : #views }
+ProcessingProgram >> gtTreePlusSourceFor: aView [
+	<gtView>
+	^ aView explicit
+		priority: 16;
+		title: 'AST++';
+		stencil: [ | element editor tree |
+			element := self gtCombineWithSource: (self gtTreeFor: GtPhlowView empty).
+			
+			editor := element children first.
+			tree := element children last children last.
+
+			self gtOnTreeSelect: tree do: [ :astNode |
+				self gtEditorHightlight: editor from: astNode startPosition to: astNode stopPosition.
+			].
+			self gtOnEditorChange: editor do: [ :position |
+				self gtSelectTreeNode: tree at: position.
+			].
+			
+			element ];
 		updateWhen: ProcessingProgramChanged in: self announcer
 ]
 
