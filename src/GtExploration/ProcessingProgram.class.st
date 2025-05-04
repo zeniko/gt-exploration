@@ -192,7 +192,7 @@ ProcessingProgram >> gtContentsFor: aView [
 				constraintsDo: [ :e |
 					e vertical matchParent.
 					e horizontal matchParent ];
-				beReadOnlyWithSelection;
+				beMode: BrTextEditorReadonlyWithNavigationMode new;
 				background: Color white.
 			editor ];
 		updateWhen: ProcessingProgramChanged in: self announcer
@@ -478,7 +478,7 @@ ProcessingProgram >> gtTokensFor: aView [
 	^ aView columnedList
 		title: 'AST Tokens';
 		priority: 10;
-		items: [ PythonTokenExtractor new extractTokens: ast ];
+		items: [ ProcessingTokenExtractor new extractTokens: ast ];
 		column: 'Line' translated
 			text: [ :each |
 				(source asString copyFrom: 1 to: each startPosition) lineCount asRopedText foreground: Color gray
@@ -592,13 +592,13 @@ ProcessingProgram >> gtTreeFor: aView [
 	^ aView columnedTree
 		priority: 15;
 		title: 'AST';
-		items: [ ast acceptVisitor: PythonTokenExtractor new ];
+		items: [ ast acceptVisitor: ProcessingTokenExtractor new ];
 		children: [ :each |
 			(each isKindOf: PyRootNode) ifTrue: [
 				| nodes |
-				nodes := each acceptVisitor: PythonTokenExtractor new.
+				nodes := each acceptVisitor: ProcessingTokenExtractor new.
 				[ nodes size = 1 and: [ nodes first isKindOf: PyRootNode ] ] whileTrue: [
-					nodes := nodes first acceptVisitor: PythonTokenExtractor new.
+					nodes := nodes first acceptVisitor: ProcessingTokenExtractor new.
 				].
 				((nodes size = 1) not or: [ nodes first isKindOf: PyRootNode ]) ifTrue: [ nodes ] ifFalse: [ #() ]
 			] ifFalse: [
@@ -608,8 +608,8 @@ ProcessingProgram >> gtTreeFor: aView [
 		column: 'Node' translated text: [ :each |
 			| node |
 			node := each.
-			[ (node isKindOf: PyRootNode) and: [ (node acceptVisitor: PythonTokenExtractor new) size = 1 ] ] whileTrue: [
-				node := (node acceptVisitor: PythonTokenExtractor new) first.
+			[ (node isKindOf: PyRootNode) and: [ (node acceptVisitor: ProcessingTokenExtractor new) size = 1 ] ] whileTrue: [
+				node := (node acceptVisitor: ProcessingTokenExtractor new) first.
 			].
 			(node isKindOf: PyRootNode) ifTrue: [
 				(names at: node class) asRopedText foreground: BrGlamorousColors disabledButtonTextColor
@@ -621,9 +621,9 @@ ProcessingProgram >> gtTreeFor: aView [
 			| node prev |
 			node := each.
 			prev := each.
-			[ (node isKindOf: PyRootNode) and: [ (node acceptVisitor: PythonTokenExtractor new) size = 1 ] ] whileTrue: [
+			[ (node isKindOf: PyRootNode) and: [ (node acceptVisitor: ProcessingTokenExtractor new) size = 1 ] ] whileTrue: [
 				prev := node.
-				node := (node acceptVisitor: PythonTokenExtractor new) first.
+				node := (node acceptVisitor: ProcessingTokenExtractor new) first.
 			].
 			(prev isKindOf: PyRootNode) ifTrue: [
 				prev = node ifTrue: [

@@ -1,13 +1,13 @@
 Class {
-	#name : #PythonTokenExtractor,
+	#name : #ProcessingTokenExtractor,
 	#superclass : #Object,
 	#traits : 'TPyRootNodeVisitor',
 	#classTraits : 'TPyRootNodeVisitor classTrait',
-	#category : #'GtExploration-Tools'
+	#category : #'GtExploration-Processing'
 }
 
 { #category : #building }
-PythonTokenExtractor >> add: values separatedBy: commas to: tokens [
+ProcessingTokenExtractor >> add: values separatedBy: commas to: tokens [
 	1 to: values size - 1 do: [ :index |
 		tokens add: (values at: index).
 		tokens add: (commas at: index).
@@ -16,7 +16,7 @@ PythonTokenExtractor >> add: values separatedBy: commas to: tokens [
 ]
 
 { #category : #building }
-PythonTokenExtractor >> extractTokens: ast [
+ProcessingTokenExtractor >> extractTokens: ast [
 	^ ((ast acceptVisitor: self) collect: [ :item |
 		(item isKindOf: PyRootNode) ifTrue: [
 			self extractTokens: item
@@ -27,22 +27,22 @@ PythonTokenExtractor >> extractTokens: ast [
 ]
 
 { #category : #visiting }
-PythonTokenExtractor >> visitAssignmentExpression: expr [
+ProcessingTokenExtractor >> visitAssignmentExpression: expr [
 	^ { expr variable. expr assign. expr value. }
 ]
 
 { #category : #visiting }
-PythonTokenExtractor >> visitAssignmentStatement: stmt [
+ProcessingTokenExtractor >> visitAssignmentStatement: stmt [
 	^ { stmt lhs. stmt assigns first. stmt tos first. }
 ]
 
 { #category : #visiting }
-PythonTokenExtractor >> visitBinaryExpression: expr [
+ProcessingTokenExtractor >> visitBinaryExpression: expr [
 	^ { expr left. expr operator. expr right. }
 ]
 
 { #category : #visiting }
-PythonTokenExtractor >> visitComparisonExpression: expr [
+ProcessingTokenExtractor >> visitComparisonExpression: expr [
 	| tokens chain |
 	tokens := OrderedCollection new.
 	tokens add: expr left.
@@ -58,7 +58,7 @@ PythonTokenExtractor >> visitComparisonExpression: expr [
 ]
 
 { #category : #visiting }
-PythonTokenExtractor >> visitElif: elif [
+ProcessingTokenExtractor >> visitElif: elif [
 	| tokens |
 	tokens := OrderedCollection new.
 	tokens add: elif elifToken.
@@ -69,7 +69,7 @@ PythonTokenExtractor >> visitElif: elif [
 ]
 
 { #category : #visiting }
-PythonTokenExtractor >> visitElse: else [
+ProcessingTokenExtractor >> visitElse: else [
 	| tokens |
 	tokens := OrderedCollection new.
 	tokens add: else elseToken.
@@ -79,22 +79,22 @@ PythonTokenExtractor >> visitElse: else [
 ]
 
 { #category : #visiting }
-PythonTokenExtractor >> visitExpression: expr [
+ProcessingTokenExtractor >> visitExpression: expr [
 	ProcessingNotImplementedException new tag: expr; signal: 'Unsupported expression type ' , expr asString
 ]
 
 { #category : #visiting }
-PythonTokenExtractor >> visitExpressionStatement: stmt [
+ProcessingTokenExtractor >> visitExpressionStatement: stmt [
 	^ stmt children
 ]
 
 { #category : #visiting }
-PythonTokenExtractor >> visitFile: file [
+ProcessingTokenExtractor >> visitFile: file [
 	^ self visitExpressionStatement: file
 ]
 
 { #category : #visiting }
-PythonTokenExtractor >> visitForStatement: stmt [
+ProcessingTokenExtractor >> visitForStatement: stmt [
 	| tokens |
 	tokens := OrderedCollection new.
 	tokens add: stmt forToken.
@@ -107,7 +107,7 @@ PythonTokenExtractor >> visitForStatement: stmt [
 ]
 
 { #category : #visiting }
-PythonTokenExtractor >> visitFunctionCallExpression: fnCall [
+ProcessingTokenExtractor >> visitFunctionCallExpression: fnCall [
 	| tokens |
 	tokens := OrderedCollection new.
 	tokens add: fnCall receiver.
@@ -120,7 +120,7 @@ PythonTokenExtractor >> visitFunctionCallExpression: fnCall [
 ]
 
 { #category : #visiting }
-PythonTokenExtractor >> visitFunctionDefinition: def [
+ProcessingTokenExtractor >> visitFunctionDefinition: def [
 	| tokens |
 	tokens := OrderedCollection new.
 	tokens add: def defToken.
@@ -136,7 +136,7 @@ PythonTokenExtractor >> visitFunctionDefinition: def [
 ]
 
 { #category : #visiting }
-PythonTokenExtractor >> visitGlobalStatement: stmt [
+ProcessingTokenExtractor >> visitGlobalStatement: stmt [
 	| tokens |
 	tokens := OrderedCollection new.
 	tokens add: stmt globalToken.
@@ -145,12 +145,12 @@ PythonTokenExtractor >> visitGlobalStatement: stmt [
 ]
 
 { #category : #visiting }
-PythonTokenExtractor >> visitIfExpression: expr [
+ProcessingTokenExtractor >> visitIfExpression: expr [
 	^ { expr if. expr ifToken. expr condition. expr elseToken. expr else. }
 ]
 
 { #category : #visiting }
-PythonTokenExtractor >> visitIfStatement: stmt [
+ProcessingTokenExtractor >> visitIfStatement: stmt [
 	| tokens |
 	tokens := OrderedCollection new.
 	tokens add: stmt ifToken.
@@ -163,53 +163,53 @@ PythonTokenExtractor >> visitIfStatement: stmt [
 ]
 
 { #category : #visiting }
-PythonTokenExtractor >> visitNumber: expr [
+ProcessingTokenExtractor >> visitNumber: expr [
 	^ { expr numberToken. }
 ]
 
 { #category : #visiting }
-PythonTokenExtractor >> visitParameter: param [
+ProcessingTokenExtractor >> visitParameter: param [
 	^ { param name nameToken. }
 ]
 
 { #category : #visiting }
-PythonTokenExtractor >> visitPassStatement: stmt [
+ProcessingTokenExtractor >> visitPassStatement: stmt [
 	^ { stmt passToken. }
 ]
 
 { #category : #visiting }
-PythonTokenExtractor >> visitReturnStatement: stmt [
+ProcessingTokenExtractor >> visitReturnStatement: stmt [
 	stmt expressions ifEmpty: [ ^ { stmt returnToken. } ].
 	^ { stmt returnToken. stmt expressions first. }
 ]
 
 { #category : #visiting }
-PythonTokenExtractor >> visitStatement: stmt [
+ProcessingTokenExtractor >> visitStatement: stmt [
 	ProcessingNotImplementedException new tag: stmt; signal: 'Unsupported statement type ' , stmt asString
 ]
 
 { #category : #visiting }
-PythonTokenExtractor >> visitString: expr [
+ProcessingTokenExtractor >> visitString: expr [
 	^ expr parts
 ]
 
 { #category : #visiting }
-PythonTokenExtractor >> visitTupleExpression: expr [
+ProcessingTokenExtractor >> visitTupleExpression: expr [
 	^ { expr lparenToken. expr expressions first. expr rparenToken. }
 ]
 
 { #category : #visiting }
-PythonTokenExtractor >> visitUnaryExpression: expr [
+ProcessingTokenExtractor >> visitUnaryExpression: expr [
 	^ { expr operator. expr expression }
 ]
 
 { #category : #visiting }
-PythonTokenExtractor >> visitVariableExpression: expr [
+ProcessingTokenExtractor >> visitVariableExpression: expr [
 	^ { expr nameToken. }
 ]
 
 { #category : #visiting }
-PythonTokenExtractor >> visitWhileStatement: stmt [
+ProcessingTokenExtractor >> visitWhileStatement: stmt [
 	| tokens |
 	tokens := OrderedCollection new.
 	tokens add: stmt whileToken.

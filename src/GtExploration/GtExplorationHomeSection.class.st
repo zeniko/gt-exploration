@@ -1,7 +1,7 @@
 Class {
 	#name : #GtExplorationHomeSection,
 	#superclass : #GtHomeMultiCardSection,
-	#category : #'GtExploration-Sections'
+	#category : #'GtExploration-GtExtensions'
 }
 
 { #category : #initialization }

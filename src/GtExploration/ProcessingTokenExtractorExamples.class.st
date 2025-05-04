@@ -1,17 +1,17 @@
 Class {
-	#name : #PythonTokenExtractorExamples,
+	#name : #ProcessingTokenExtractorExamples,
 	#superclass : #Object,
 	#category : #'GtExploration-Examples'
 }
 
 { #category : #example }
-PythonTokenExtractorExamples >> newExtractor [
+ProcessingTokenExtractorExamples >> newExtractor [
 	<gtExample>
-	^ PythonTokenExtractor new
+	^ ProcessingTokenExtractor new
 ]
 
 { #category : #example }
-PythonTokenExtractorExamples >> tokensAlpinerWanderweg [
+ProcessingTokenExtractorExamples >> tokensAlpinerWanderweg [
 	<gtExample>
 	| tokens |
 	tokens := self newExtractor extractTokens: ProcessingParserExamples new parseAlpinerWanderweg.
@@ -21,7 +21,7 @@ PythonTokenExtractorExamples >> tokensAlpinerWanderweg [
 ]
 
 { #category : #example }
-PythonTokenExtractorExamples >> tokensExample02 [
+ProcessingTokenExtractorExamples >> tokensExample02 [
 	<gtExample>
 	| tokens |
 	tokens := self newExtractor extractTokens: ProcessingParserExamples new parseExample02.
@@ -31,7 +31,7 @@ PythonTokenExtractorExamples >> tokensExample02 [
 ]
 
 { #category : #example }
-PythonTokenExtractorExamples >> tokensExample03 [
+ProcessingTokenExtractorExamples >> tokensExample03 [
 	<gtExample>
 	| tokens |
 	tokens := self newExtractor extractTokens: ProcessingParserExamples new parseExample03.
@@ -41,7 +41,7 @@ PythonTokenExtractorExamples >> tokensExample03 [
 ]
 
 { #category : #example }
-PythonTokenExtractorExamples >> tokensExample04 [
+ProcessingTokenExtractorExamples >> tokensExample04 [
 	<gtExample>
 	| tokens |
 	tokens := self newExtractor extractTokens: ProcessingParserExamples new parseExample04.
@@ -51,7 +51,7 @@ PythonTokenExtractorExamples >> tokensExample04 [
 ]
 
 { #category : #example }
-PythonTokenExtractorExamples >> tokensExample05 [
+ProcessingTokenExtractorExamples >> tokensExample05 [
 	<gtExample>
 	| tokens |
 	tokens := self newExtractor extractTokens: ProcessingParserExamples new parseExample05.
@@ -61,7 +61,7 @@ PythonTokenExtractorExamples >> tokensExample05 [
 ]
 
 { #category : #example }
-PythonTokenExtractorExamples >> tokensExample06 [
+ProcessingTokenExtractorExamples >> tokensExample06 [
 	<gtExample>
 	| tokens |
 	tokens := self newExtractor extractTokens: ProcessingParserExamples new parseExample06.
@@ -71,7 +71,7 @@ PythonTokenExtractorExamples >> tokensExample06 [
 ]
 
 { #category : #example }
-PythonTokenExtractorExamples >> tokensFibonacci [
+ProcessingTokenExtractorExamples >> tokensFibonacci [
 	<gtExample>
 	| tokens |
 	tokens := self newExtractor extractTokens: ProcessingParserExamples new parseFibonacci.
@@ -81,7 +81,7 @@ PythonTokenExtractorExamples >> tokensFibonacci [
 ]
 
 { #category : #example }
-PythonTokenExtractorExamples >> tokensSierpinski [
+ProcessingTokenExtractorExamples >> tokensSierpinski [
 	<gtExample>
 	| tokens |
 	tokens := self newExtractor extractTokens: ProcessingParserExamples new parseSierpinski.
@@ -91,7 +91,7 @@ PythonTokenExtractorExamples >> tokensSierpinski [
 ]
 
 { #category : #example }
-PythonTokenExtractorExamples >> tokensTurtleGraphics [
+ProcessingTokenExtractorExamples >> tokensTurtleGraphics [
 	<gtExample>
 	| tokens |
 	tokens := self newExtractor extractTokens: ProcessingParserExamples new parseTurtleGraphics.
