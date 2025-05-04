@@ -233,80 +233,6 @@
 											"__type" : "textStyle"
 										},
 										"string" : "connect source lines to output shapes"
-									},
-									{
-										"__type" : "textSnippet",
-										"children" : {
-											"__type" : "snippets",
-											"items" : [ ]
-										},
-										"createEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"createTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-05-03T14:06:42.462+02:00"
-											}
-										},
-										"editEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"editTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-05-04T01:30:14.864+02:00"
-											}
-										},
-										"uid" : {
-											"__type" : "uid",
-											"uidString" : "MKVB1pvwDQCqs+KXCGjzaA=="
-										},
-										"paragraphStyle" : {
-											"__type" : "textStyle"
-										},
-										"string" : "shortcuts for the Processing Snippet (Ctrl+D → Run, Ctrl+G → Steps, Ctrl+R → Abstractions)"
-									},
-									{
-										"__type" : "textSnippet",
-										"children" : {
-											"__type" : "snippets",
-											"items" : [ ]
-										},
-										"createEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"createTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-05-04T01:29:29.523+02:00"
-											}
-										},
-										"editEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"editTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-05-04T01:30:38.779+02:00"
-											}
-										},
-										"uid" : {
-											"__type" : "uid",
-											"uidString" : "UF8VYKXwDQC6AegpCOx/sg=="
-										},
-										"paragraphStyle" : {
-											"__type" : "textStyle"
-										},
-										"string" : "add {{gtClass:BrEditorShortcut}} to {{gtClass:BrTextEditorReadonlyWithSelectionMode}} (for "
 									}
 								]
 							},
@@ -567,6 +493,43 @@
 											"__type" : "textStyle"
 										},
 										"string" : "Everything is inspectable (mention Shift+Ctrl+Alt+Click → Inspect All)"
+									},
+									{
+										"__type" : "textSnippet",
+										"children" : {
+											"__type" : "snippets",
+											"items" : [ ]
+										},
+										"createEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"createTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2025-05-03T14:06:42.462+02:00"
+											}
+										},
+										"editEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"editTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2025-05-04T12:48:55.278+02:00"
+											}
+										},
+										"uid" : {
+											"__type" : "uid",
+											"uidString" : "MKVB1pvwDQCqs+KXCGjzaA=="
+										},
+										"paragraphStyle" : {
+											"__type" : "textStyle"
+										},
+										"string" : "document shortcuts for the Processing Snippet (Ctrl+D → Run, Ctrl+G → Steps, Ctrl+R → Abstractions)"
 									},
 									{
 										"__type" : "textSnippet",
@@ -897,43 +860,6 @@
 								"__type" : "textStyle"
 							},
 							"string" : "Clean up remaining TODOs in {{gtPackage:name=GtExploration|label=Processing}} code"
-						},
-						{
-							"__type" : "textSnippet",
-							"children" : {
-								"__type" : "snippets",
-								"items" : [ ]
-							},
-							"createEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"createTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-04-15T10:58:15.884+02:00"
-								}
-							},
-							"editEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"editTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-04-15T16:41:05.989+02:00"
-								}
-							},
-							"uid" : {
-								"__type" : "uid",
-								"uidString" : "4DQwGy/vDQCL+DGvAJ/Z3A=="
-							},
-							"paragraphStyle" : {
-								"__type" : "textStyle"
-							},
-							"string" : "Implement Processing snippet (instead of {{gtClass:LePythonSnippet}}, see e.g. {{gtPage:Extending Lepiter with custom snippets and annotations|db=2j9m7db2i4oz116bexd7wbdxo}})"
 						},
 						{
 							"__type" : "textSnippet",

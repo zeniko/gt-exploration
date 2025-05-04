@@ -34,6 +34,13 @@ GtProcessingCoderModel >> doIt: anEvaluationContext [
 { #category : #'private - actions' }
 GtProcessingCoderModel >> doItAndGo: anEvaluationContext [
 	self doItAndPublish: [
+		ProcessingSource fromViewModel: anEvaluationContext requesterObject coderViewModel
+	] with: anEvaluationContext.
+]
+
+{ #category : #'private - actions' }
+GtProcessingCoderModel >> doItAndGoSerialized: anEvaluationContext [
+	self doItAndPublish: [
 		| runsteps |
 		runsteps := (ProcessingSource fromViewModel: anEvaluationContext requesterObject coderViewModel) program runSteps.
 		runsteps ifEmpty: [
@@ -41,13 +48,6 @@ GtProcessingCoderModel >> doItAndGo: anEvaluationContext [
 		].
 		"The stepper isn't updated when the source changes, as that's too resource intensive for non-trivial programs"
 		Stepper for: runsteps view: #gtAbstractionsFor:
-	] with: anEvaluationContext.
-]
-
-{ #category : #'private - actions' }
-GtProcessingCoderModel >> doItAndGoSerialized: anEvaluationContext [
-	self doItAndPublish: [
-		ProcessingSource fromViewModel: anEvaluationContext requesterObject coderViewModel
 	] with: anEvaluationContext.
 ]
 
@@ -89,9 +89,8 @@ GtProcessingCoderModel >> initializeAddOns: addOns [
 	super initializeAddOns: addOns.
 	
 	addOns addStyler: (GtCoderAstSmaCCParserStyler new smaccStyler: ProcessingParser gtStyler).
-	
 	addOns
-		addMainAction: 'Run' translated
+		addMainAction: 'Run (Ctrl+R)' translated
 		icon: BrGlamorousVectorIcons play
 		action: [ :aCoderUIModel :anElement | 
 			GtCoderCodeExecutor doIt
@@ -100,23 +99,23 @@ GtProcessingCoderModel >> initializeAddOns: addOns [
 				execute ]
 		id: GtSourceCoderDoItActionId.
 	addOns
-		addMainAction: 'Inspect' translated
+		addMainAction: 'Run Steps (Ctrl+G)' translated
 		icon: BrGlamorousVectorIcons playinspect
-		action: [ :aCoderUIModel :anElement | 
-			GtCoderCodeExecutor doItAndGo
-				coderViewModel: aCoderUIModel;
-				element: anElement;
-				execute ]
-		id: GtSourceCoderDoItAndGoActionId.
-	addOns
-		addMainAction: 'Abstractions' translated
-		icon: BrGlamorousVectorIcons playAsynchronous
 		action: [ :aCoderUIModel :anElement | 
 			GtCoderCodeExecutor doItAndGoSerialized
 				coderViewModel: aCoderUIModel;
 				element: anElement;
 				execute ]
 		id: GtSourceCoderDoItAndGoSerializedActionId.
+	addOns
+		addMainAction: 'Details (Ctrl+D)' translated
+		icon: BrGlamorousVectorIcons playAsynchronous
+		action: [ :aCoderUIModel :anElement | 
+			GtCoderCodeExecutor doItAndGo
+				coderViewModel: aCoderUIModel;
+				element: anElement;
+				execute ]
+		id: GtSourceCoderDoItAndGoActionId.
 ]
 
 { #category : #initialize }
@@ -124,8 +123,9 @@ GtProcessingCoderModel >> initializeShortcuts: addOns [
 	super initializeShortcuts: addOns.
 
 	addOns
-		addShortcut: GtSourceCoderDoItShortcut new;
-		addShortcut: GtSourceCoderDoItAndInspectShortcut new
+		addShortcut: GtProcessingCoderRunShortcut new;
+		addShortcut: GtProcessingCoderRunStepsShortcut new;
+		addShortcut: GtProcessingCoderRunDetailsShortcut new
 ]
 
 { #category : #'instance creation' }
