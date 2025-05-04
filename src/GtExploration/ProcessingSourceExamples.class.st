@@ -116,7 +116,7 @@ ProcessingSourceExamples >> sourceCodeMinimal [
 
 { #category : #source }
 ProcessingSourceExamples >> sourceCodePrint [
-	^ 'print("Hello, world!")
+	^ 'print("Hello," '' world!'')
 var = 2 + 3
 print("2 + 3 =", var)'
 ]

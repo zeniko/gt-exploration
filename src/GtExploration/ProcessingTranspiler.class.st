@@ -386,6 +386,28 @@ ProcessingTranspiler >> transpileFunction: ast name: name args: args [
 	^ res
 ]
 
+{ #category : #emitting }
+ProcessingTranspiler >> unescape: str [
+	| special in |
+	special := Dictionary newFrom: {
+		$n -> Character lf.
+		$r -> Character cr.
+		$t -> Character tab.
+		$\ -> $\. $' -> $'. $" -> $".
+		"TODO: octal, hex and unicode escapes"
+	}.
+	in := str allButFirst allButLast readStream.
+	^ String new: str size streamContents: [ :out |
+		[ in atEnd ] whileFalse: [ | char |
+			out nextPut: ((char := in next) = $\ ifTrue: [
+				special at: (char := in next) ifAbsent: [ out nextPut: $\. char ]
+			] ifFalse: [
+				char
+			]).
+		].
+	]
+]
+
 { #category : #accessing }
 ProcessingTranspiler >> userDefs [
 	^ userDefs
@@ -662,7 +684,7 @@ ProcessingTranspiler >> visitStatement: stmt [
 { #category : #visiting }
 ProcessingTranspiler >> visitString: expr [
 	self startEmit: expr.
-	self emit: '''' , ('' join: (expr parts collect: [ :part | part value allButFirst allButLast ])) , ''''.
+	self emit: '''' , ('' join: (expr parts collect: [ :part | self unescape: part value ])) , ''''.
 	^ self endEmit
 ]
 

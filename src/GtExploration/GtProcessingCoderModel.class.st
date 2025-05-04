@@ -55,17 +55,22 @@ GtProcessingCoderModel >> doItAndGoSerialized: anEvaluationContext [
 GtProcessingCoderModel >> doItAndPublish: aBlock with: anEvaluationContext [
 	| result |
 	result := aBlock on: Error do: [ :error |
-		| location |
+		| location message |
 		location := anEvaluationContext requesterObject coderViewModel coderModel currentSourceString size + 1. "at the very end"
 		"TODO: nicer error messages"
+		message := error messageText.
+		message ifEmpty: [ message := error asString ].
+		
 		(error isKindOf: SmaCCParserError) ifTrue: [
-			location := error tag errorToken stopPosition.
+			location := error tag errorToken startPosition.
 		].
 		(error isKindOf: ProcessingNotImplementedException) ifTrue: [
-			location := error tag stopPosition.
+			location := error tag startPosition.
+			message ifEmpty: [ message := 'Unsupported: ' , error tag asString. ].
 		].
+		
 		^ self announce: (GtCoderParseError new
-			errorMessage: error asString;
+			errorMessage: message;
 			location: location;
 			exception: error;
 			requesterObject: anEvaluationContext requesterObject)

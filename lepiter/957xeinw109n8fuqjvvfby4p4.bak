@@ -630,7 +630,7 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-05-04T21:55:26.87+02:00"
+												"dateAndTimeString" : "2025-05-04T21:55:36.629+02:00"
 											}
 										},
 										"uid" : {
@@ -640,7 +640,7 @@
 										"paragraphStyle" : {
 											"__type" : "textStyle"
 										},
-										"string" : "(Common transpilation targets: "
+										"string" : "(Common transpilation targets: C, JavaScript, ...)"
 									}
 								]
 							},
