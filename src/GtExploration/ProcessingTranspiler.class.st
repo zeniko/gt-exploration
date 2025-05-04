@@ -429,13 +429,7 @@ ProcessingTranspiler >> visitAssignmentStatement: expr [
 { #category : #visiting }
 ProcessingTranspiler >> visitBinaryExpression: expr [
 	| op |
-	expr operator ifNotNil: [
-		op := expr operator value.
-	] ifNil: [
-		"TODO: fix bug in PythonParser"
-		op := expr opeator value.
-	].
-	
+	op := expr operator value.
 	"Modulo is `%` in Python but `\\` in Smalltalk"
 	op = '%' ifTrue: [ op := '\\' ].
 	
@@ -587,11 +581,9 @@ ProcessingTranspiler >> visitGlobalStatement: global [
 ProcessingTranspiler >> visitIfExpression: expr [
 	self startEmit: expr.
 	self emit: '('.
-	"TODO: fix bug in PythonParser"
-	"`if` and `condition` are swapped!"
-	expr if acceptVisitor: self.
-	self emit: ' ifTrue: [ '.
 	expr condition acceptVisitor: self.
+	self emit: ' ifTrue: [ '.
+	expr if acceptVisitor: self.
 	self emit: ' ] ifFalse: [ '.
 	expr else acceptVisitor: self.
 	self emit: ' ])'.

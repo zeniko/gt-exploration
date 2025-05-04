@@ -38,8 +38,6 @@ PythonTokenExtractor >> visitAssignmentStatement: stmt [
 
 { #category : #visiting }
 PythonTokenExtractor >> visitBinaryExpression: expr [
-	"TODO: fix bug in PythonParser"
-	expr operator ifNil: [ ^ { expr left. expr opeator. expr right. } ].
 	^ { expr left. expr operator. expr right. }
 ]
 
@@ -148,9 +146,7 @@ PythonTokenExtractor >> visitGlobalStatement: stmt [
 
 { #category : #visiting }
 PythonTokenExtractor >> visitIfExpression: expr [
-	"TODO: fix bug in PythonParser"
-	"`if` and `condition` are swapped!"
-	^ { expr condition. expr ifToken. expr if. expr elseToken. expr else. }
+	^ { expr if. expr ifToken. expr condition. expr elseToken. expr else. }
 ]
 
 { #category : #visiting }

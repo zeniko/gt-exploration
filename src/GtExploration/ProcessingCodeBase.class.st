@@ -8,8 +8,8 @@ Class {
 ProcessingCodeBase >> gtAbstractionsFor: aView [
 	<gtView>
 	^ aView explicit
-		priority: 1;
 		title: 'Abstractions' translated;
+		priority: 1;
 		stencil: [ | element child |
 			element := BlElement new.
 			element layout: (BlGridLayout new columnCount: 2).
@@ -61,7 +61,7 @@ ProcessingCodeBase >> gtBytecodeFor: aView [
 	<gtView>
 	^ aView columnedList
 		title: 'Bytecode' translated;
-		priority: 12;
+		priority: 30;
 		items: [
 			| list |
 			list := OrderedCollection new.
@@ -100,7 +100,7 @@ ProcessingCodeBase >> gtBytecodeFor: aView [
 			]
 ]
 
-{ #category : #views }
+{ #category : #meta }
 ProcessingCodeBase >> gtGenerateIR: aSourceCode [
 	| trans ast |
 	trans := OCASTTranslator new.
@@ -115,7 +115,7 @@ ProcessingCodeBase >> gtIntermediaryRepresentationFor: aView [
 	<gtView>
 	^ aView columnedList
 		title: 'IR';
-		priority: 10;
+		priority: 20;
 		items: [
 			| list |
 			list := OrderedCollection new.
@@ -157,84 +157,21 @@ ProcessingCodeBase >> gtOutputFor: aView [
 	<gtView>
 	^ aView explicit
 		title: 'Output' translated;
-		priority: 20;
+		priority: 40;
 		stencil: [ | canvas |
-			canvas := ProcessingRunner new run: self clone; canvas.
-			GtInspectorElementLiveViewContainer new
-				element: canvas asElement;
-				clipChildren: false
+			canvas := ProcessingRunner new
+				limitTo: 2 seconds;
+				run: self clone;
+				canvas.
+			canvas asElement
 		]
 ]
 
-{ #category : #views }
-ProcessingCodeBase >> gtSelectBytecode: aList at: position [
-	| slices indices |
-	slices := self gtSlicesAround: position.
-	slices ifEmpty: [ ^ nil ].
-	
-	indices := (1 to: aList items size) select: [ :index |
-		| item |
-		item := aList items at: index.
-		(item isKindOf: SymbolicBytecode) and: [
-			(item method name = slices last method name) &
-			(item sourceInterval first >= slices last startPos) &
-			(item sourceInterval last <= slices last endPos)
-		]
-	].
-	indices ifNotEmpty: [
-		aList selectOne: indices last.
-		aList scrollToSelection.
-	].
-]
-
-{ #category : #views }
-ProcessingCodeBase >> gtSelectIRNode: aList at: position [
-	| slices indices |
-	slices := self gtSlicesAround: position.
-	slices ifEmpty: [ ^ nil ].
-	
-	indices := (1 to: aList items size) select: [ :index |
-		| item |
-		item := aList items at: index.
-		(item isKindOf: IRInstruction) and: [
-			item sourceNode ifNotNil: [
-				(item sourceNode methodNode sourceCode = slices last method sourceCode) &
-				(item sourceNode sourceInterval first >= slices last startPos) &
-				(item sourceNode sourceInterval last <= slices last endPos)
-			] ifNil: [ false ]
-		]
-	].
-	indices ifNotEmpty: [
-		aList selectOne: indices last.
-		aList scrollToSelection.
-	].
-]
-
-{ #category : #views }
-ProcessingCodeBase >> gtSliceForIRItem: irNode [
+{ #category : #meta }
+ProcessingCodeBase >> gtSliceFor: method within: interval [
 	| slices |
 	slices := (self instVarNamed: #gtAstMaps) select: [ :slice |
-		irNode sourceNode ifNotNil: [
-			(slice method sourceCode = irNode sourceNode methodNode sourceCode) and: [
-				(slice startPos <= irNode sourceNode sourceInterval first) &
-				(slice endPos >= irNode sourceNode sourceInterval last)
-			]
-		] ifNil: [ false ]
-	].
-	slices ifEmpty: [ ^ nil ].
-	^ slices last
-]
-
-{ #category : #views }
-ProcessingCodeBase >> gtSliceForItem: byteCode [
-	^ self gtSliceForItem: byteCode method within: byteCode sourceInterval
-]
-
-{ #category : #views }
-ProcessingCodeBase >> gtSliceForItem: method within: interval [
-	| slices |
-	slices := (self instVarNamed: #gtAstMaps) select: [ :slice |
-		(slice method = method) and: [
+		(slice method sourceCode = method sourceCode) and: [
 			(slice startPos <= interval first) &
 			(slice endPos >= interval last)
 		]
@@ -243,7 +180,7 @@ ProcessingCodeBase >> gtSliceForItem: method within: interval [
 	^ slices last
 ]
 
-{ #category : #views }
+{ #category : #meta }
 ProcessingCodeBase >> gtSlicesAround: aPosition [
 	^ (self instVarNamed: #gtAstMaps) select: [ :slice |
 		(slice astNode sourceInterval first - 1 <= aPosition) &
@@ -256,7 +193,7 @@ ProcessingCodeBase >> gtSlicesFor: aView [
 	<gtView>
 	^ ((Stepper for: (self instVarNamed: #gtAstMaps) view: #gtComparisonFor:) gtListViewFor: aView)
 		title: 'Slices' translated;
-		priority: 7
+		priority: 12
 ]
 
 { #category : #views }
@@ -272,7 +209,7 @@ ProcessingCodeBase >> gtSourceCodeFor: aView [
 	
 	^ aView explicit
 		title: 'Smalltalk';
-		priority: 5;
+		priority: 10;
 		stencil: [
 			"TODO: Find a better way of removing the filter bar"
 			(GtPharoStreamingMethodsCoderElement new streamingCodersViewModel: viewModel) children second removeFromParent

@@ -44,10 +44,9 @@ ProcessingSource >> announceSourceChange [
 	[
 		ast := ProcessingParser parse: self asString.
 		self announcer announce: (ProcessingSourceChanged new source: self; ast: ast).
-	]
-		on: SmaCCParserError do: [ :error |
-			"silently swallow errors on updates, as these happen intermittently during incomplete/slow typing"
-		].
+	] on: SmaCCParserError do: [ :error |
+		"silently swallow errors on updates, as these happen intermittently during incomplete/slow typing"
+	].
 ]
 
 { #category : #announcements }

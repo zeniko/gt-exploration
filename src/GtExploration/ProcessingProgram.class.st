@@ -70,13 +70,6 @@ ProcessingProgram >> gtAbstractionsFor: aView [
 				margin: (BlInsets all: 5).
 			element addChild: child.
 			astTree := child children last.
-			"self ast topParent gtHookEditor: editor toTree: astTree."
-			self gtOnTreeSelect: astTree do: [ :astNode |
-				self gtEditorHightlight: editor from: astNode startPosition to: astNode stopPosition.
-			].
-			self gtOnEditorChange: editor do: [ :position |
-				self gtSelectTreeNode: astTree at: position.
-			].
 			
 			(self gtBytecodeFor: GtPhlowView empty)
 				asElementDo: [ :e | child := e ].
@@ -88,18 +81,6 @@ ProcessingProgram >> gtAbstractionsFor: aView [
 			element addChild: child.
 			list := child children last.
 			
-			self gtOnListSelect: list do: [ :astNode |
-				self gtEditorHightlight: editor from: astNode startPosition to: astNode stopPosition.
-			].
-			self gtOnEditorChange: editor do: [ :position |
-				compilation gtSelectBytecode: list at: position.
-			].
-			"Oneway hook bytecode to the AST tree"
-			self gtOnListSelect: child children last do: [ :astNode |
-				self gtSelectTreeNode: astTree at: astNode startPosition
-				"astNode gtSelectItemIn: astTree at: astNode startPosition"
-			].
-			
 			(self gtOutputFor: GtPhlowView empty)
 				asElementDo: [ :e | child := e ].
 			child
@@ -109,7 +90,30 @@ ProcessingProgram >> gtAbstractionsFor: aView [
 				background: Color white;
 				margin: (BlInsets all: 5).
 			element addChild: child.
-			"TODO: Hook into editor"
+			
+			"Hook AST tree and source view:"
+			"self ast topParent gtHookEditor: editor toTree: astTree."
+			self gtOnTreeSelect: astTree do: [ :astNode |
+				self gtEditorHightlight: editor from: astNode startPosition to: astNode stopPosition.
+			].
+			self gtOnEditorChange: editor do: [ :position |
+				self gtSelectTreeNode: astTree at: position.
+			].
+			
+			"Hook bytecode list and source view:"
+			self gtOnListSelect: list do: [ :astNode |
+				self gtEditorHightlight: editor from: astNode startPosition to: astNode stopPosition.
+			].
+			self gtOnEditorChange: editor do: [ :position |
+				self gtSelectBytecode: list at: position.
+			].
+			"Oneway hook bytecode list to AST tree"
+			self gtOnListSelect: child children last do: [ :astNode |
+				self gtSelectTreeNode: astTree at: astNode startPosition
+				"astNode gtSelectItemIn: astTree at: astNode startPosition"
+			].
+			
+			"TODO: Hook canvas into editor"
 			
 			element ];
 		updateWhen: ProcessingProgramChanged in: self announcer
@@ -139,7 +143,7 @@ ProcessingProgram >> gtBytecodePlusSourceFor: aView [
 				self gtEditorHightlight: editor from: astNode startPosition to: astNode stopPosition.
 			].
 			self gtOnEditorChange: editor do: [ :position |
-				compilation gtSelectBytecode: list at: position.
+				self gtSelectBytecode: list at: position.
 			].
 			
 			element ];
@@ -245,7 +249,7 @@ ProcessingProgram >> gtIntermediaryRepresentationPlusSourceFor: aView [
 				self gtEditorHightlight: editor from: astNode startPosition to: astNode stopPosition.
 			].
 			self gtOnEditorChange: editor do: [ :position |
-				compilation gtSelectIRNode: list at: position.
+				self gtSelectIRNode: list at: position.
 			].
 			
 			element ];
@@ -276,10 +280,10 @@ ProcessingProgram >> gtOnListSelect: aList do: aBlock [
 				| item |
 				item := anItem.
 				(item isKindOf: SymbolicBytecode) ifTrue: [
-					item := compilation gtSliceForItem: item.
+					item := compilation gtSliceFor: item method within: item sourceInterval.
 				].
 				(item isKindOf: IRInstruction) ifTrue: [
-					item := compilation gtSliceForIRItem: item.
+					item := compilation gtSliceFor: item sourceNode methodNode within: item sourceNode sourceInterval.
 				].
 				(item isKindOf: ProcessingTranspilationSlice) ifTrue: [
 					item := item astNode.
@@ -301,7 +305,7 @@ ProcessingProgram >> gtOnTreeSelect: aTree do: aBlock [
 				| item |
 				item := aNode value.
 				(item isKindOf: SymbolicBytecode) ifTrue: [
-					item := compilation gtSliceForItem: item.
+					item := compilation gtSliceFor: item method within: item sourceInterval.
 				].
 				(item isKindOf: ProcessingTranspilationSlice) ifTrue: [
 					item := item astNode.
@@ -332,6 +336,46 @@ ProcessingProgram >> gtOutputPlusSourceFor: aView [
 			self gtCombineWithSource: (self gtOutputFor: GtPhlowView empty)
 		];
 		updateWhen: ProcessingProgramChanged in: self announcer
+]
+
+{ #category : #views }
+ProcessingProgram >> gtSelectBytecode: aList at: position [
+	| slices |
+	slices := compilation gtSlicesAround: position.
+	slices ifEmpty: [ ^ nil ].
+	self gtSelectListItem: aList with: [ :item |
+		(item isKindOf: SymbolicBytecode) and: [
+			(item method name = slices last method name) &
+			(item sourceInterval first >= slices last startPos) &
+			(item sourceInterval last <= slices last endPos)
+		]
+	].
+]
+
+{ #category : #views }
+ProcessingProgram >> gtSelectIRNode: aList at: position [
+	| slices |
+	slices := compilation gtSlicesAround: position.
+	slices ifEmpty: [ ^ nil ].
+	self gtSelectListItem: aList with: [ :item |
+		(item isKindOf: IRInstruction) and: [ item sourceNode isNotNil and: [
+			(item sourceNode methodNode sourceCode = slices last method sourceCode) &
+			(item sourceNode sourceInterval first >= slices last startPos) &
+			(item sourceNode sourceInterval last <= slices last endPos)
+		] ]
+	].
+]
+
+{ #category : #views }
+ProcessingProgram >> gtSelectListItem: aList with: aBlock [
+	| indices |
+	indices := (1 to: aList items size) select: [ :index |
+		aBlock cull: (aList items at: index)
+	].
+	indices ifNotEmpty: [
+		aList selectOne: indices last.
+		aList scrollToSelection.
+	].
 ]
 
 { #category : #views }
@@ -512,7 +556,7 @@ ProcessingProgram >> gtTranspilationPlusSourceFor: aView [
 		priority: 21;
 		title: 'Smalltalk++';
 		stencil: [
-			self gtCombineWithSource: (self gtSourceCodeFor: GtPhlowView empty)
+			self gtCombineWithSource: (self gtTranspilationFor: GtPhlowView empty)
 		];
 		updateWhen: ProcessingProgramChanged in: self announcer
 ]

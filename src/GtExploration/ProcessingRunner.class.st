@@ -81,7 +81,7 @@ ProcessingRunner >> runStepwise: compilation [
 		[ session interruptedProcess isTerminated ] whileFalse: [
 			(session interruptedContext methodClass inheritsFrom: ProcessingCodeBase) ifTrue: [
 				| slice |
-				slice := compilation gtSliceForItem: session interruptedContext method within: (session pcRangeForContext: session interruptedContext).
+				slice := compilation gtSliceFor: session interruptedContext method within: (session pcRangeForContext: session interruptedContext).
 				slice isNotNil & (slice = lastSlice) not ifTrue: [
 					lastStep ifNotNil: [
 						lastStep updateCanvas: canvas.
