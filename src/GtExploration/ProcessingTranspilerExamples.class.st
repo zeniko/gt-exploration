@@ -34,8 +34,7 @@ ProcessingTranspilerExamples >> transpilationAlpinerWanderweg [
 { #category : #transpilation }
 ProcessingTranspilerExamples >> transpilationEndlessLoop [
 	^ 'gtRun
-	[ (1 = 1) ] whileTrue: [
-		(1 + 1).
+	[ true ] whileTrue: [
 	].'
 ]
 

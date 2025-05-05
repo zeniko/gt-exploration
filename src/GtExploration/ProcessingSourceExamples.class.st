@@ -34,7 +34,7 @@ rect(50, 50 + 100 / 3, 100, 100 / 3)'
 
 { #category : #source }
 ProcessingSourceExamples >> sourceCodeEndlessLoop [
-	^ 'while 1 == 1: 1+1'
+	^ 'while True: pass'
 ]
 
 { #category : #source }

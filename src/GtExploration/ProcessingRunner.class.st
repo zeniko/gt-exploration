@@ -21,7 +21,10 @@ ProcessingRunner >> canvas: aCanvas [
 
 { #category : #running }
 ProcessingRunner >> debug: compilation [
-	| block process session debugger |
+	| worker block process session debugger |
+	worker := AsyncFutureThreadPoolWorker new.
+	worker startup wait.
+	
 	canvas isNil ifTrue: [ canvas := ProcessingCanvas new. ].
 	compilation instVarNamed: #gtCanvas put: canvas.
 	
@@ -32,7 +35,19 @@ ProcessingRunner >> debug: compilation [
 	process step.
 	
 	session := process newDebugSessionNamed: 'ProcessingRunner>>#debug:' startedAt: process suspendedContext.
-	session stepInto.
+	
+	"TODO: the debugger doesn't chatch endless steps."
+	"The first step could be into an endless loop!"
+	self limitTo: 0.5 seconds.
+	promise := AsyncFuturePromise new future: [
+		session stepInto.
+		done := true.
+	] asAsyncFuture.
+	worker schedule: promise.
+	promise wait.
+	
+	done ifFalse: [ ProcessingRunawayProgramException new signal: 'Endless loop detected.'. ].
+	done := false.
 	
 	debugger := GtMoldableDebugger on: session.
 	debugger openInPager.
@@ -93,12 +108,10 @@ ProcessingRunner >> runStepwise: compilation [
 	process step.
 	
 	session := process newDebugSessionNamed: 'ProcessingRunner>>#runStepwise:' startedAt: process suspendedContext.
-	session stepInto.
 	
 	promise := AsyncFuturePromise new future: [
 		| lastSlice lastStep |
-		lastSlice := nil.
-		lastStep := nil.
+		session stepInto.
 		[ session interruptedProcess isTerminated ] whileFalse: [
 			(session interruptedContext methodClass inheritsFrom: ProcessingCodeBase) ifTrue: [
 				| slice |
@@ -124,7 +137,6 @@ ProcessingRunner >> runStepwise: compilation [
 		done := true.
 	] asAsyncFuture.
 	worker schedule: promise.
-	
 	promise wait.
 	
 	^ steps
