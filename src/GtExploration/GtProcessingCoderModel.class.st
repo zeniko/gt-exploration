@@ -14,7 +14,7 @@ GtProcessingCoderModel >> asCoderViewModel [
 
 { #category : #'private - execution' }
 GtProcessingCoderModel >> bindAndExecute: sourceString inContext: aGtSourceCoderEvaluationContext [
-	^ (ProcessingSource new fromString: sourceString) render
+	^ (ProcessingSource fromString: sourceString) render
 ]
 
 { #category : #'api - ast' }
@@ -35,6 +35,13 @@ GtProcessingCoderModel >> doIt: anEvaluationContext [
 GtProcessingCoderModel >> doItAndGo: anEvaluationContext [
 	self doItAndPublish: [
 		ProcessingSource fromViewModel: anEvaluationContext requesterObject coderViewModel
+	] with: anEvaluationContext.
+]
+
+{ #category : #'private - actions' }
+GtProcessingCoderModel >> doItAndGoAsynchronous: anEvaluationContext [
+	self doItAndPublish: [
+		(ProcessingSource fromViewModel: anEvaluationContext requesterObject coderViewModel) program debug
 	] with: anEvaluationContext.
 ]
 
@@ -97,7 +104,7 @@ GtProcessingCoderModel >> initializeAddOns: addOns [
 	addOns
 		addMainAction: 'Run (Ctrl+R)' translated
 		icon: BrGlamorousVectorIcons play
-		action: [ :aCoderUIModel :anElement | 
+		action: [ :aCoderUIModel :anElement |
 			GtCoderCodeExecutor doIt
 				coderViewModel: aCoderUIModel;
 				element: anElement;
@@ -106,7 +113,7 @@ GtProcessingCoderModel >> initializeAddOns: addOns [
 	addOns
 		addMainAction: 'Run Steps (Ctrl+G)' translated
 		icon: BrGlamorousVectorIcons playinspect
-		action: [ :aCoderUIModel :anElement | 
+		action: [ :aCoderUIModel :anElement |
 			GtCoderCodeExecutor doItAndGoSerialized
 				coderViewModel: aCoderUIModel;
 				element: anElement;
@@ -115,12 +122,21 @@ GtProcessingCoderModel >> initializeAddOns: addOns [
 	addOns
 		addMainAction: 'Details (Ctrl+D)' translated
 		icon: BrGlamorousVectorIcons playAsynchronous
-		action: [ :aCoderUIModel :anElement | 
+		action: [ :aCoderUIModel :anElement |
 			GtCoderCodeExecutor doItAndGo
 				coderViewModel: aCoderUIModel;
 				element: anElement;
 				execute ]
 		id: GtSourceCoderDoItAndGoActionId.
+	addOns
+		addMainAction: 'Debug' translated
+		icon: BrGlamorousVectorIcons debug
+		action: [ :aCoderUIModel :anElement |
+			GtCoderCodeExecutor doItAndGoAsynchronous
+				coderViewModel: aCoderUIModel;
+				element: anElement;
+				execute ]
+		id: GtSourceCoderDebugActionId.
 ]
 
 { #category : #initialize }

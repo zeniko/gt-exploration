@@ -71,7 +71,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-05-05T17:51:03.318+02:00"
+									"dateAndTimeString" : "2025-05-05T17:57:32.745+02:00"
 								}
 							},
 							"uid" : {
@@ -81,7 +81,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Comparison view:"
+							"string" : "Comparison view (scroll it):"
 						},
 						{
 							"__type" : "exampleSnippet",
@@ -116,12 +116,49 @@
 								"uidString" : "OBzIRcfwDQCRKRH/AKWeZg=="
 							},
 							"exampleSelector" : "compareExample02To03Bytecode",
-							"previewHeight" : 300,
+							"previewHeight" : 250,
 							"previewShowSelector" : "gtCompareFor:",
 							"exampleBehaviorName" : "ViewComparisonExamples",
 							"codeExpanded" : true,
 							"previewExpanded" : false,
 							"noCode" : true
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-05-05T19:45:52.476+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-05-05T19:46:28.085+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "YPfkzsjwDQCVjKUYC3PhlQ=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Debug action for Processing snippet, launches the {{gtClass:GtMoldableDebugg"
 						},
 						{
 							"__type" : "textSnippet",

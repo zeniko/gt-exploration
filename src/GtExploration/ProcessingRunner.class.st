@@ -19,6 +19,27 @@ ProcessingRunner >> canvas: aCanvas [
 	canvas := aCanvas
 ]
 
+{ #category : #running }
+ProcessingRunner >> debug: compilation [
+	| block process session debugger |
+	canvas isNil ifTrue: [ canvas := ProcessingCanvas new. ].
+	compilation instVarNamed: #gtCanvas put: canvas.
+	
+	done := false.
+	block := [ compilation gtRun. done := true. ].
+	process := block newProcess.
+	[ process step closure == block ] whileFalse.
+	process step.
+	
+	session := process newDebugSessionNamed: 'ProcessingRunner>>#debug:' startedAt: process suspendedContext.
+	session stepInto.
+	
+	debugger := GtMoldableDebugger on: session.
+	debugger openInPager.
+	
+	^ canvas
+]
+
 { #category : #accessing }
 ProcessingRunner >> isDone [
 	^ done
@@ -65,6 +86,7 @@ ProcessingRunner >> runStepwise: compilation [
 	"TODO: this is a flattened tree - unflatten it?"
 	steps := OrderedCollection new.
 	
+	done := false.
 	block := [ compilation gtRun. done := true. ].
 	process := block newProcess.
 	[ process step closure == block ] whileFalse.
@@ -73,7 +95,6 @@ ProcessingRunner >> runStepwise: compilation [
 	session := process newDebugSessionNamed: 'ProcessingRunner>>#runStepwise:' startedAt: process suspendedContext.
 	session stepInto.
 	
-	done := false.
 	promise := AsyncFuturePromise new future: [
 		| lastSlice lastStep |
 		lastSlice := nil.

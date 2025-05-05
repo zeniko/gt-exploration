@@ -39,6 +39,11 @@ ProcessingProgram >> compilation [
 	^ compilation
 ]
 
+{ #category : #runtime }
+ProcessingProgram >> debug [
+	^ ProcessingRunner new debug: compilation clone
+]
+
 { #category : #views }
 ProcessingProgram >> gtAbstractionsFor: aView [
 	<gtView>
