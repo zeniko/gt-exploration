@@ -87,7 +87,7 @@ ProcessingCanvas >> fillR: r G: g B: b [
 
 { #category : #views }
 ProcessingCanvas >> gtDisplayOn: aStream [
-	aStream nextPutAll: 'Processing Canvas (#' , self hash asString , ')'
+	aStream nextPutAll: 'Processing Canvas (#' , (self hash radix: 16) , ')'
 ]
 
 { #category : #views }

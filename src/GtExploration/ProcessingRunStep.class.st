@@ -123,7 +123,8 @@ ProcessingRunStep >> gtStackFor: aView [
 		priority: 15;
 		items: [ stack reverse ];
 		column: 'Stack' text: [ :each :index | index asRopedText foreground: Color gray ] width: 45;
-		column: 'Value' translated text: [ :each | each gtDisplayText ]
+		column: 'Value' translated text: [ :each | each gtDisplayText ];
+		column: '"Pointer"' text: [ :each | '#' , (each hash radix: 16) ]
 ]
 
 { #category : #views }

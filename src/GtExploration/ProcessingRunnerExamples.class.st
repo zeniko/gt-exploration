@@ -240,6 +240,7 @@ ProcessingRunnerExamples >> runSierpinski [
 { #category : #example }
 ProcessingRunnerExamples >> runSierpinskiStepwise [
 	<gtExample>
+	<noTest> "Collecting that many samples takes a few seconds"
 	| program runner steps |
 	program := ProcessingProgramExamples new programSierpinski.
 	runner := self newRunner.

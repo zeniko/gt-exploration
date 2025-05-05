@@ -321,9 +321,11 @@ ProcessingProgram >> gtOnTreeSelect: aTree do: aBlock [
 { #category : #views }
 ProcessingProgram >> gtOutputFor: aView [
 	<gtView>
-	^ self gtGetLiveView: aView for: [ :view | compilation gtOutputFor: view ]
+	^ (self gtGetLiveView: aView for: [ :view | compilation gtOutputFor: view ]
 		title: 'Output' translated
-		priority: 40
+		priority: 40)
+		asElementDo: [ :e | e margin: (BlInsets all: 0) ];
+		yourself
 ]
 
 { #category : #views }
