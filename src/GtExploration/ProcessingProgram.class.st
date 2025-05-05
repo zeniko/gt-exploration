@@ -113,7 +113,7 @@ ProcessingProgram >> gtAbstractionsFor: aView [
 				self gtSelectBytecode: list at: position.
 			].
 			"Oneway hook bytecode list to AST tree"
-			self gtOnListSelect: child children last do: [ :astNode |
+			self gtOnListSelect: list do: [ :astNode |
 				self gtSelectTreeNode: astTree at: astNode startPosition
 				"astNode gtSelectItemIn: astTree at: astNode startPosition"
 			].
@@ -130,6 +130,77 @@ ProcessingProgram >> gtBytecodeFor: aView [
 	^ self gtGetLiveView: aView for: [ :view | compilation gtBytecodeFor: view ]
 		title: 'Bytecode' translated
 		priority: 35
+]
+
+{ #category : #views }
+ProcessingProgram >> gtBytecodePlusIRFor: aView [
+	<gtView>
+	^ aView explicit
+		priority: 37;
+		title: 'Bytecode' translated , '+IR';
+		stencil: [ | element child list irList skipOne |
+			element := BlElement new.
+			element layout: (BlGridLayout new columnCount: 2).
+			element
+				constraintsDo: [ :c |
+					c vertical matchParent.
+					c horizontal matchParent ].
+			
+			(self gtIntermediaryRepresentationFor: GtPhlowView empty)
+				asElementDo: [ :e | child := e ].
+			child
+				background: Color white;
+				margin: (BlInsets all: 5).
+			element addChild: child.
+			irList := child children last.
+			
+			(self gtBytecodeFor: GtPhlowView empty)
+				asElementDo: [ :e | child := e ].
+			child
+				constraintsDo: [ :c |
+					c vertical matchParent.
+					c horizontal matchParent ];
+				margin: (BlInsets all: 5).
+			element addChild: child.
+			list := child children last.
+			
+			"Prevent auto-selecting feedback changes."
+			skipOne := false.
+			list when: BrSelectionChanged do: [ :event |
+				skipOne ifFalse: [
+					skipOne := true.
+					list selectedItemDo: [ :item |
+						(item isKindOf: SymbolicBytecode) ifTrue: [
+							self gtSelectListItem: irList with: [ :irItem |
+								(irItem isKindOf: IRInstruction) and: [ irItem sourceNode isNotNil and: [
+									(irItem sourceNode methodNode sourceCode = item method sourceCode) &
+									(item sourceInterval includesAll: irItem sourceNode sourceInterval)
+								] ]
+							].
+						].
+					].
+					skipOne := false.
+				].
+			].
+			irList when: BrSelectionChanged do: [ :event |
+				skipOne ifFalse: [
+					skipOne := true.
+					irList selectedItemDo: [ :irItem |
+						((irItem isKindOf: IRInstruction) and: [ irItem sourceNode isNotNil ]) ifTrue: [
+							self gtSelectListItem: list with: [ :item |
+								(item isKindOf: SymbolicBytecode) and: [
+									(item method sourceCode = irItem sourceNode methodNode sourceCode) &
+									(irItem sourceNode sourceInterval includesAll: item sourceInterval)
+								]
+							].
+						].
+					].
+					skipOne := false.
+				].
+			].
+			
+			element ];
+		updateWhen: ProcessingProgramChanged in: self announcer
 ]
 
 { #category : #views }
@@ -288,7 +359,9 @@ ProcessingProgram >> gtOnListSelect: aList do: aBlock [
 					item := compilation gtSliceFor: item method within: item sourceInterval.
 				].
 				(item isKindOf: IRInstruction) ifTrue: [
-					item := compilation gtSliceFor: item sourceNode methodNode within: item sourceNode sourceInterval.
+					item sourceNode ifNotNil: [
+						item := compilation gtSliceFor: item sourceNode methodNode within: item sourceNode sourceInterval.
+					].
 				].
 				(item isKindOf: ProcessingTranspilationSlice) ifTrue: [
 					item := item astNode.
@@ -298,7 +371,6 @@ ProcessingProgram >> gtOnListSelect: aList do: aBlock [
 				].
 			]
 		].
-	
 ]
 
 { #category : #views }
@@ -353,8 +425,7 @@ ProcessingProgram >> gtSelectBytecode: aList at: position [
 	self gtSelectListItem: aList with: [ :item |
 		(item isKindOf: SymbolicBytecode) and: [
 			(item method name = slices last method name) &
-			(item sourceInterval first >= slices last startPos) &
-			(item sourceInterval last <= slices last endPos)
+			(slices last interval includesAll: item sourceInterval)
 		]
 	].
 ]
@@ -367,8 +438,7 @@ ProcessingProgram >> gtSelectIRNode: aList at: position [
 	self gtSelectListItem: aList with: [ :item |
 		(item isKindOf: IRInstruction) and: [ item sourceNode isNotNil and: [
 			(item sourceNode methodNode sourceCode = slices last method sourceCode) &
-			(item sourceNode sourceInterval first >= slices last startPos) &
-			(item sourceNode sourceInterval last <= slices last endPos)
+			(slices last interval includesAll: item sourceNode sourceInterval)
 		] ]
 	].
 ]
@@ -391,8 +461,7 @@ ProcessingProgram >> gtSelectToken: aList at: aPosition [
 		| item |
 		item := aList items at: index.
 		((item isKindOf: SmaCCToken) and: [
-			(item sourceInterval first <= (aPosition + 1)) &
-			(item sourceInterval last >= (aPosition + 1))
+			item sourceInterval includes: aPosition + 1
 		]) ifTrue: [
 			aList selectOne: index.
 			aList scrollToSelection.
@@ -542,6 +611,61 @@ ProcessingProgram >> gtTokensPlusSourceFor: aView [
 			].
 			self gtOnEditorChange: editor do: [ :position |
 				self gtSelectToken: list at: position.
+			].
+			
+			element ];
+		updateWhen: ProcessingProgramChanged in: self announcer
+]
+
+{ #category : #views }
+ProcessingProgram >> gtTokensPlusTreeFor: aView [
+	<gtView>
+	^ aView explicit
+		priority: 12;
+		title: 'AST Tokens+AST';
+		stencil: [ | element child list tree skipOne |
+			element := BlElement new.
+			element layout: BlLinearLayout horizontal.
+			element
+				constraintsDo: [ :c |
+					c vertical matchParent.
+					c horizontal matchParent ].
+			
+			(self gtTokensFor: GtPhlowView empty)
+				asElementDo: [ :e | child := e ].
+			child
+				constraintsDo: [ :c |
+					c vertical matchParent.
+					c horizontal matchParent ];
+				margin: (BlInsets all: 5).
+			element addChild: child.
+			list := child children last.
+			
+			(self gtTreeFor: GtPhlowView empty)
+				asElementDo: [ :e | child := e ].
+			child
+				constraintsDo: [ :c |
+					c vertical matchParent.
+					c horizontal matchParent ];
+				margin: (BlInsets all: 5).
+			element addChild: child.
+			tree := child children last.
+			
+			"Prevent auto-selecting feedback changes."
+			skipOne := false.
+			self gtOnListSelect: list do: [ :astNode |
+				skipOne ifFalse: [
+					skipOne := true.
+					self gtSelectTreeNode: tree at: astNode startPosition.
+					skipOne := false.
+				].
+			].
+			self gtOnTreeSelect: tree do: [ :astNode |
+				skipOne ifFalse: [
+					skipOne := true.
+					self gtSelectToken: list at: astNode startPosition.
+					skipOne := false.
+				].
 			].
 			
 			element ];

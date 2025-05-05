@@ -35,11 +35,6 @@ ProcessingTranspilationSlice >> cloneFor: aMethod [
 	^ self class link: astNode method: aMethod from: startPos to: startPos + size
 ]
 
-{ #category : #accessing }
-ProcessingTranspilationSlice >> endPos [
-	^ startPos + size
-]
-
 { #category : #views }
 ProcessingTranspilationSlice >> gtComparisonFor: aView [
 	<gtView>
@@ -99,6 +94,11 @@ ProcessingTranspilationSlice >> gtTranspilationFor: aView [
 						thickness: 3;
 						beNotOverwritableByStyler)}.
 			text ]
+]
+
+{ #category : #accessing }
+ProcessingTranspilationSlice >> interval [
+	^ startPos to: startPos + size
 ]
 
 { #category : #initalization }

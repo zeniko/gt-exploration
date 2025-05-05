@@ -172,8 +172,7 @@ ProcessingCodeBase >> gtSliceFor: method within: interval [
 	| slices |
 	slices := (self instVarNamed: #gtAstMaps) select: [ :slice |
 		(slice method sourceCode = method sourceCode) and: [
-			(slice startPos <= interval first) &
-			(slice endPos >= interval last)
+			slice interval includesAll: interval
 		]
 	].
 	slices ifEmpty: [ ^ nil ].
