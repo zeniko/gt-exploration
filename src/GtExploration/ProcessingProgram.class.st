@@ -621,8 +621,8 @@ ProcessingProgram >> gtTokensPlusSourceFor: aView [
 ProcessingProgram >> gtTokensPlusTreeFor: aView [
 	<gtView>
 	^ aView explicit
-		priority: 12;
-		title: 'AST Tokens+AST';
+		priority: 17;
+		title: 'AST+Tokens';
 		stencil: [ | element child list tree skipOne |
 			element := BlElement new.
 			element layout: BlLinearLayout horizontal.

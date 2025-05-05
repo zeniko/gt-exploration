@@ -38,34 +38,12 @@ ProcessingTranspilationSlice >> cloneFor: aMethod [
 { #category : #views }
 ProcessingTranspilationSlice >> gtComparisonFor: aView [
 	<gtView>
-	^ aView explicit
+	^ ((ViewComparison newFor: {
+		self -> #gtSourceFor:.
+		self -> #gtTranspilationFor:.
+	}) gtCompareFor: aView)
 		priority: 1;
-		title: 'Comparison' translated;
-		stencil: [ | element child |
-			element := BlElement new.
-			element
-				layout: BlLinearLayout horizontal;
-				constraintsDo: [ :c | 
-					c vertical matchParent.
-					c horizontal matchParent ].
-			
-			(self gtSourceFor: GtPhlowView empty)
-				asElementDo: [ :e | child := e ].
-			child
-				background: Color white;
-				margin: (BlInsets all: 5).
-			element addChild: child.
-			
-			(self gtTranspilationFor: GtPhlowView empty)
-				asElementDo: [ :e | child := e ].
-			child
-				constraintsDo: [ :c | 
-					c vertical matchParent.
-					c horizontal matchParent ];
-				margin: (BlInsets all: 5).
-			element addChild: child.
-			
-			element ]
+		title: 'Comparison' translated
 ]
 
 { #category : #views }
@@ -74,26 +52,36 @@ ProcessingTranspilationSlice >> gtSourceFor: aView [
 	^ aView explicit
 		priority: 10;
 		title: 'Source' translated;
-		stencil: [ astNode gtSourceEditorWithHighlight: BrGlamorousColors textHighlightColor ]
+		stencil: [
+			(astNode gtSourceEditorWithHighlight: BrGlamorousColors textHighlightColor)
+				beMode: BrTextEditorReadonlyWithNavigationMode new;
+				yourself
+		]
 ]
 
 { #category : #views }
 ProcessingTranspilationSlice >> gtTranspilationFor: aView [
 	<gtView>
-	^ aView textEditor
+	^ aView explicit
 		title: 'Transpilation' translated;
-		aptitude: BrGlamorousCodeEditorAptitude;
-		styler: (BrRBTextStyler new classOrMetaClass: self method methodClass);
 		priority: 11;
-		text: [ | text |
-			text := self method sourceCode asRopedText.
-			(text from: self startPos to: startPos + size)
-				attributes:
-					{(BlTextUnderlineAttribute new
-						color: BrGlamorousColors textHighlightColor;
-						thickness: 3;
-						beNotOverwritableByStyler)}.
-			text ]
+		stencil: [
+			| element |
+			(GtPhlowView empty textEditor
+				aptitude: BrGlamorousCodeEditorAptitude;
+				styler: (BrRBTextStyler new classOrMetaClass: self method methodClass);
+				text: [ | text |
+					text := self method sourceCode asRopedText.
+					(text from: self startPos to: startPos + size)
+						attribute: (BlTextHighlightAttribute paint:
+							BrGlamorousColors textHighlightColor)
+							beNotOverwritableByStyler.
+					text ])
+				asElementDo: [ :e | element := e ].
+			element children first
+				beMode: BrTextEditorReadonlyWithNavigationMode new;
+				padding: (BlInsets all: 5).
+			element ]
 ]
 
 { #category : #accessing }

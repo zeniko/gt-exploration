@@ -34,7 +34,8 @@ ViewComparison >> gtCompareFor: aView [
 					background: Color white;
 					margin: (BlInsets all: 5).
 				element addChild: child.
-				child children last
+				
+				child children ifNotEmpty: [ child children last ] ifEmpty: [ child ]
 			].
 			
 			(children size = 2 and: [

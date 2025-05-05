@@ -212,8 +212,5 @@ ProcessingCodeBase >> gtSourceCodeFor: aView [
 		stencil: [
 			"TODO: Find a better way of removing the filter bar"
 			(GtPharoStreamingMethodsCoderElement new streamingCodersViewModel: viewModel) children second removeFromParent
-		];
-		actionButtonIcon: BrGlamorousVectorIcons browse
-			tooltip: 'Browse class in Coder' translated
-			action: [ self gtBrowse ]
+		]
 ]
