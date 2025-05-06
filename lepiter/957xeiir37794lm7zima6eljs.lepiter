@@ -148,7 +148,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-05-05T19:46:42.726+02:00"
+									"dateAndTimeString" : "2025-05-07T00:03:15.415+02:00"
 								}
 							},
 							"uid" : {
@@ -158,7 +158,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Debug action for Processing snippet, launches the {{gtClass:GtMoldableDebugger}} on the transpiled code"
+							"string" : "Debug action for Processing snippet, launches the {{gtClass:GtMoldableDebugger}} on the transpiled code."
 						},
 						{
 							"__type" : "textSnippet",
@@ -262,7 +262,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-05-06T17:59:27.109+02:00"
+									"dateAndTimeString" : "2025-05-07T00:03:00.677+02:00"
 								}
 							},
 							"uid" : {
@@ -272,7 +272,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Content for students: {{gtPage:Arbeiten mit Glamorous Toolkit|db=dl0rc62x02fk8k57e43hr8acw}} and subpages, {{gtPage:Maschinensprache und Prozessor|db=dl0rc62x02fk8k57e43hr8acw}} and subpages"
+							"string" : "Content for students: {{gtPage:Arbeiten mit Glamorous Toolkit|db=dl0rc62x02fk8k57e43hr8acw}} and subpages, {{gtPage:Maschinensprache und Prozessor|db=dl0rc62x02fk8k57e43hr8acw}} and subpages, {{gtPage:Funktionen eines Compilers|db=dl0rc62x02fk8k57e43hr8acw}} and some subpages."
 						},
 						{
 							"__type" : "textSnippet",
@@ -299,7 +299,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-05-06T21:49:31.886+02:00"
+									"dateAndTimeString" : "2025-05-07T00:03:29.62+02:00"
 								}
 							},
 							"uid" : {
@@ -309,7 +309,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Tweaked RunStep view includes also a bytecode extract"
+							"string" : "Tweaked RunStep view also includes a bytecode extract."
 						},
 						{
 							"__type" : "textSnippet",
@@ -525,7 +525,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-05-06T19:54:16.333+02:00"
+									"dateAndTimeString" : "2025-05-06T23:46:43.026+02:00"
 								}
 							},
 							"uid" : {
@@ -535,7 +535,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Some content for students: {{gtPage:Arbeiten mit Glamorous Toolkit|db=dl0rc62x02fk8k57e43hr8acw}}, {{gtPage:Verzweigungen und Schleifen|db=dl0rc62x02fk8k57e43hr8acw}}, {{gtPage:Funktionen|db=dl0rc62x02fk8k57e43hr8acw}}, {{gtPage:Abstrakter Syntax-Baum (AST)|db=dl0rc62x02fk8k57e43hr8acw}}, {{gtPage:AST übersetzen|db=dl0rc62x02fk8k57e43hr8acw}}."
+							"string" : "Some content for students: {{gtPage:Arbeiten mit Glamorous Toolkit|db=dl0rc62x02fk8k57e43hr8acw}}, {{gtPage:Verzweigungen und Schleifen|db=dl0rc62x02fk8k57e43hr8acw}}, {{gtPage:Funktionen|db=dl0rc62x02fk8k57e43hr8acw}}, {{gtPage:Abstrakter Syntax-Baum (AST)|db=dl0rc62x02fk8k57e43hr8acw}}, {{gtPage:Transpiler: AST übersetzen|db=dl0rc62x02fk8k57e43hr8acw}}."
 						},
 						{
 							"__type" : "textSnippet",
@@ -1950,7 +1950,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-04-15T11:39:33.376+02:00"
+									"dateAndTimeString" : "2025-05-06T23:31:04.333+02:00"
 								}
 							},
 							"uid" : {
@@ -1960,7 +1960,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Add sample curriculum content: {{gtPage:Programmieren mit Processing|db=dl0rc62x02fk8k57e43hr8acw}} and {{gtPage:Parser: Struktur des Programms erkennen|db=dl0rc62x02fk8k57e43hr8acw}}"
+							"string" : "Add sample curriculum content: {{gtPage:Programmieren mit Processing|db=dl0rc62x02fk8k57e43hr8acw}} and {{gtPage:Lexer: Das Programm in \"Worte\" zerlegen|db=dl0rc62x02fk8k57e43hr8acw}}"
 						},
 						{
 							"__type" : "textSnippet",
