@@ -214,43 +214,6 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-05-03T14:09:28.475+02:00"
-											}
-										},
-										"editEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"editTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-05-03T14:10:00.758+02:00"
-											}
-										},
-										"uid" : {
-											"__type" : "uid",
-											"uidString" : "eM0m4JvwDQCxIxfJCGjzaA=="
-										},
-										"paragraphStyle" : {
-											"__type" : "textStyle"
-										},
-										"string" : "Historical background: Smalltalk → Squeak → Pharo → GT"
-									},
-									{
-										"__type" : "textSnippet",
-										"children" : {
-											"__type" : "snippets",
-											"items" : [ ]
-										},
-										"createEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"createTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
 												"dateAndTimeString" : "2025-05-03T14:39:44.451+02:00"
 											}
 										},
@@ -630,7 +593,7 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-05-06T10:09:46.355+02:00"
+												"dateAndTimeString" : "2025-05-06T10:09:58.971+02:00"
 											}
 										},
 										"uid" : {
@@ -640,7 +603,7 @@
 										"paragraphStyle" : {
 											"__type" : "textStyle"
 										},
-										"string" : "Further Processing API: `image`, `loadImage`, `mousePressed`, `mouseX`, "
+										"string" : "Further Processing API: `image`, `loadImage`, `mousePressed`, `mouseX`, `mouseY`, `keyPressed`, `key`, `keyCode`, ..."
 									}
 								]
 							},

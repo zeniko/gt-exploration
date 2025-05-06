@@ -174,7 +174,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-05-06T10:10:17.96+02:00"
+									"dateAndTimeString" : "2025-05-06T12:07:30.441+02:00"
 								}
 							},
 							"editEmail" : {
@@ -185,17 +185,17 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-05-06T10:18:48.682+02:00"
+									"dateAndTimeString" : "2025-05-06T12:07:59.148+02:00"
 								}
 							},
 							"uid" : {
 								"__type" : "uid",
-								"uidString" : "oF0yz9TwDQCNJT2wCeKGxg=="
+								"uidString" : "KJd8hdbwDQCC5bq/BMwnMw=="
 							},
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Support animations through `def setup()` and `def draw()` ("
+							"string" : "Processing API: `frameRate`, animations through `def setup()` and `def draw()` (for now, these stop after 30 seconds):"
 						},
 						{
 							"__type" : "exampleSnippet",
@@ -236,6 +236,43 @@
 							"codeExpanded" : true,
 							"previewExpanded" : false,
 							"noCode" : true
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-05-06T15:04:39.874+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-05-06T15:04:53.281+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "6NkM/9jwDQC0F+8CDBnJ5A=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Content for students: "
 						},
 						{
 							"__type" : "textSnippet",
