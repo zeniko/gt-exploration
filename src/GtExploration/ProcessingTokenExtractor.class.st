@@ -69,6 +69,11 @@ ProcessingTokenExtractor >> visitElif: elif [
 ]
 
 { #category : #visiting }
+ProcessingTokenExtractor >> visitEllipsis: expr [
+	^ { expr ellipsis. }
+]
+
+{ #category : #visiting }
 ProcessingTokenExtractor >> visitElse: else [
 	| tokens |
 	tokens := OrderedCollection new.

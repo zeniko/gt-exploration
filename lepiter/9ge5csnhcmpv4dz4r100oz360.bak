@@ -66,7 +66,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-04-30T22:13:48.611+02:00"
+						"dateAndTimeString" : "2025-05-04T18:41:33.019+02:00"
 					}
 				},
 				"uid" : {
@@ -294,7 +294,7 @@
 					"uidString" : "WGEOLGPwDQCsTw60CmG2nw=="
 				},
 				"code" : "GtInspector forObject: (ProcessingSource fromSnippet:(thisSnippet page children select: [ :snip | snip isKindOf: LePythonSnippet ]) first) viewSelector: #gtAbstractionsFor:",
-				"elementHeight" : 357,
+				"elementHeight" : 466,
 				"codeHeight" : 67,
 				"codeVisible" : false
 			}

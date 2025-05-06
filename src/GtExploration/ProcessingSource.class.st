@@ -54,7 +54,7 @@ ProcessingSource >> announcer [
 	^ announcer ifNil: [ announcer := Announcer new ]
 ]
 
-{ #category : #accessing }
+{ #category : #views }
 ProcessingSource >> asString [
 	^ source contents
 ]
@@ -131,7 +131,7 @@ ProcessingSource >> render [
 	^ self program canvas asElement
 ]
 
-{ #category : #accessing }
+{ #category : #initialization }
 ProcessingSource >> source: aSource [
 	source := aSource.
 ]

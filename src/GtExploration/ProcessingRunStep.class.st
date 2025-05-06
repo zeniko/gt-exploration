@@ -51,11 +51,11 @@ ProcessingRunStep >> gtAbstractionsFor: aView [
 	^ aView explicit
 		priority: 1;
 		title: 'Abstractions' translated;
-		stencil: [ | element child |
+		stencil: [ | element child inner |
 			element := BlElement new.
 			element layout: (BlGridLayout new columnCount: 2).
 			element
-				constraintsDo: [ :c | 
+				constraintsDo: [ :c |
 					c vertical matchParent.
 					c horizontal matchParent ].
 			
@@ -69,19 +69,34 @@ ProcessingRunStep >> gtAbstractionsFor: aView [
 			].
 			element addChild: child.
 			
-			(self gtVariablesFor: GtPhlowView empty)
+			(self gtBytecodeFor: GtPhlowView empty)
 				asElementDo: [ :e | child := e ].
 			child
 				background: Color white;
 				margin: (BlInsets all: 5).
 			element addChild: child.
 			
+			inner := BlElement new.
+			inner layout: BlLinearLayout vertical.
+			inner
+				constraintsDo: [ :c |
+					c vertical matchParent.
+					c horizontal matchParent ].
+			
+			(self gtVariablesFor: GtPhlowView empty)
+				asElementDo: [ :e | child := e ].
+			child
+				background: Color white;
+				margin: (BlInsets all: 5).
+			inner addChild: child.
+			
 			(self gtStackFor: GtPhlowView empty)
 				asElementDo: [ :e | child := e ].
 			child
 				background: Color white;
 				margin: (BlInsets all: 5).
-			element addChild: child.
+			inner addChild: child.
+			element addChild: inner.
 			
 			(self gtOutputFor: GtPhlowView empty)
 				asElementDo: [ :e | child := e ].
@@ -93,6 +108,48 @@ ProcessingRunStep >> gtAbstractionsFor: aView [
 			element addChild: child.
 			
 			element ]
+]
+
+{ #category : #views }
+ProcessingRunStep >> gtBytecodeFor: aView [
+	"Adapted from ProcessingCodeBase>>#gtBytecodeFor:"
+	<gtView>
+	^ aView columnedList
+		title: 'Bytecode' translated;
+		priority: 30;
+		items: [
+			method methodNode method symbolicBytecodes select: [ :item |
+				slice interval includesAll: item sourceInterval
+			]
+		];
+		column: 'Address' translated
+			text: [ :each |
+				((each isKindOf: CompiledMethod) ifTrue: [
+					'----'
+				] ifFalse: [
+					each offset
+				]) asRopedText foreground: Color gray
+			] width: 50;
+		column: 'Code' translated
+			text: [ :each |
+				((each isKindOf: CompiledMethod) ifTrue: [
+					'----'
+				] ifFalse: [
+					| byteStr |
+					byteStr := OrderedCollection new.
+					each bytes do: [ :byte | byteStr add: ((byte radix: 10) padLeftTo: 2 with: $0) ].
+					' ' join: byteStr
+				]) asRopedText foreground: Color blue
+			] width: 45;
+		column: 'Mnemonic' translated
+			text: [ :each |
+				(each isKindOf: CompiledMethod) ifTrue: [
+					'FUNCTION ' , ((each sourceCode splitOn: '
+') first splitOn: ':') first
+				] ifFalse: [
+					each description
+				]
+			]
 ]
 
 { #category : #views }

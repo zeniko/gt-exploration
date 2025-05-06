@@ -101,7 +101,7 @@ setX
 	x := ((((SharedRandom globalGenerator next * 2) ** 2) * 270 degreesToRadians sin) \\ 3).
 
 setY
-'
+	PyEllipsis.'
 ]
 
 { #category : #transpilation }

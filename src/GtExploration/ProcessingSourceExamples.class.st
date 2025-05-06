@@ -99,7 +99,7 @@ def setX():
     global x
     x = (random(2) ** 2 * sin(radians(270))) % 3
 def setY():
-	pass
+	...
 setX()
 text(x, 0, 20)'
 ]

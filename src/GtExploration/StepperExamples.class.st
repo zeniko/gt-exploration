@@ -5,6 +5,19 @@ Class {
 }
 
 { #category : #example }
+StepperExamples >> example02Stepper [
+	<gtExample>
+	| stepper |
+	stepper := Stepper for: ProcessingRunnerExamples new runExample02Stepwise view: #gtAbstractionsFor:.
+	self assert: stepper index equals: 1.
+	stepper stepTo: 13.
+	self assert: stepper index equals: 13.
+	stepper stepTo: 0.
+	self assert: stepper index equals: 1.
+	^ stepper
+]
+
+{ #category : #example }
 StepperExamples >> sierpinskiStepper [
 	<gtExample>
 	<noTest> "Collecting that many samples takes a few seconds"

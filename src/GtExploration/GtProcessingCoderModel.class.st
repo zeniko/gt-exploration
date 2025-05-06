@@ -129,7 +129,7 @@ GtProcessingCoderModel >> initializeAddOns: addOns [
 				execute ]
 		id: GtSourceCoderDoItAndGoActionId.
 	addOns
-		addMainAction: 'Debug' translated
+		addMainAction: 'Debug (Ctrl+Shift+D)' translated
 		icon: BrGlamorousVectorIcons debug
 		action: [ :aCoderUIModel :anElement |
 			GtCoderCodeExecutor doItAndGoAsynchronous
@@ -146,7 +146,8 @@ GtProcessingCoderModel >> initializeShortcuts: addOns [
 	addOns
 		addShortcut: GtProcessingCoderRunShortcut new;
 		addShortcut: GtProcessingCoderRunStepsShortcut new;
-		addShortcut: GtProcessingCoderRunDetailsShortcut new
+		addShortcut: GtProcessingCoderRunDetailsShortcut new;
+		addShortcut: GtProcessingCoderDebugShortcut new
 ]
 
 { #category : #'instance creation' }

@@ -66,7 +66,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-03-25T23:01:25.603+01:00"
+						"dateAndTimeString" : "2025-05-06T21:56:44.371+02:00"
 					}
 				},
 				"uid" : {
@@ -76,7 +76,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "The transpiler currently supports only a few statement types such as [[Processing API]] calls,  `if`-conditionals, `while`-loops and variable assignment. All may contain expressions with  variables and basic arithmetic (including comparisons for conditions)."
+				"string" : "The transpiler currently supports only a few statement types such as [[Processing API]] calls, `if`-conditionals, `while`-loops and variable assignment. All may contain expressions with variables and basic arithmetic (including comparisons for conditions)."
 			},
 			{
 				"__type" : "textSnippet",
@@ -226,7 +226,7 @@
 				},
 				"exampleSelector" : "transpileExample02",
 				"previewHeight" : 200,
-				"previewShowSelector" : "_gtSourceCodeFor:",
+				"previewShowSelector" : "gtSourceCodeFor:",
 				"exampleBehaviorName" : "ProcessingTranspilerExamples",
 				"codeExpanded" : true,
 				"previewExpanded" : true,

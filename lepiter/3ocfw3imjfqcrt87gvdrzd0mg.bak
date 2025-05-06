@@ -436,7 +436,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-25T22:23:21.786+01:00"
+						"dateAndTimeString" : "2025-02-25T22:47:18.429+01:00"
 					}
 				},
 				"uid" : {
@@ -446,7 +446,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "A modern alternative could be [WebAssembly](https://webassembly.org/) which has features a stack based design while still being executable on a different platform than GT: the browser. In comparison the Intel x86 assembly, WASM bytecode is executable on all processor architectures, as long as a modern browser runs on them."
+				"string" : "A modern alternative could be [WebAssembly](https://webassembly.org/) which has features a stack based design while still being executable on a different platform than GT: the browser. In comparison the Intel x86 assembly, [WASM bytecode](https://pengowray.github.io/wasm-ops/) is executable on all processor architectures, as long as a modern browser runs on them."
 			},
 			{
 				"__type" : "textSnippet",

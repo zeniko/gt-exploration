@@ -288,6 +288,43 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-05-06T21:48:28.435+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-05-06T21:49:31.886+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "aFYvo97wDQCVl73nCcaC0g=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Tweaked RunStep view includes also a bytecode extract"
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
 									"dateAndTimeString" : "2025-05-05T14:05:53.69+02:00"
 								}
 							},
@@ -488,7 +525,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-04-30T01:28:54.987+02:00"
+									"dateAndTimeString" : "2025-05-06T19:54:16.333+02:00"
 								}
 							},
 							"uid" : {
@@ -498,7 +535,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Some content for students: {{gtPage:Arbeiten mit Glamorous Toolkit|db=dl0rc62x02fk8k57e43hr8acw}}, {{gtPage:Verzweigungen und Schleifen|db=dl0rc62x02fk8k57e43hr8acw}}, {{gtPage:Funktionen und Rekursion|db=dl0rc62x02fk8k57e43hr8acw}}, {{gtPage:Abstrakter Syntax-Baum (AST)|db=dl0rc62x02fk8k57e43hr8acw}}, {{gtPage:AST übersetzen|db=dl0rc62x02fk8k57e43hr8acw}}."
+							"string" : "Some content for students: {{gtPage:Arbeiten mit Glamorous Toolkit|db=dl0rc62x02fk8k57e43hr8acw}}, {{gtPage:Verzweigungen und Schleifen|db=dl0rc62x02fk8k57e43hr8acw}}, {{gtPage:Funktionen|db=dl0rc62x02fk8k57e43hr8acw}}, {{gtPage:Abstrakter Syntax-Baum (AST)|db=dl0rc62x02fk8k57e43hr8acw}}, {{gtPage:AST übersetzen|db=dl0rc62x02fk8k57e43hr8acw}}."
 						},
 						{
 							"__type" : "textSnippet",

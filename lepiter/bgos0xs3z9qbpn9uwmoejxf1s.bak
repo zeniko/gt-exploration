@@ -66,14 +66,14 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-04-20T21:13:52.134+02:00"
+						"dateAndTimeString" : "2025-04-20T21:14:27.259+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
 					"uidString" : "+GF0OCTvDQCF7ZZsAZKRoA=="
 				},
-				"code" : "ProcessingProgramExamples new programExample03 canvas",
+				"code" : "ProcessingRunner new run: ProcessingProgramExamples new programExample03 compilation; canvas",
 				"elementHeight" : 184,
 				"codeHeight" : 47,
 				"codeVisible" : true
@@ -151,6 +151,83 @@
 				"elementHeight" : 89,
 				"codeHeight" : 81,
 				"codeVisible" : true
+			},
+			{
+				"__type" : "textSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-05-06T21:06:39.782+02:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-05-06T21:07:18.036+02:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "wJHhwt3wDQCNP+h7CcaC0g=="
+				},
+				"paragraphStyle" : {
+					"__type" : "textStyle"
+				},
+				"string" : "Through {{gtMethod:ProcessingRunner>>#runStepwise:}}, run steps can also be extracted and stepped through individually (using the {{gtClass:Stepper}} helper "
+			},
+			{
+				"__type" : "exampleSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-05-06T21:05:10.621+02:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-05-06T21:05:10.621+02:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "YNtXCN7wDQCNWY5ZCcaC0g=="
+				},
+				"exampleSelector" : "example02Stepper",
+				"previewHeight" : 500,
+				"previewShowSelector" : "gtViewsFor:",
+				"exampleBehaviorName" : "StepperExamples",
+				"codeExpanded" : true,
+				"previewExpanded" : false,
+				"noCode" : true
 			}
 		]
 	},

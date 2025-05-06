@@ -533,6 +533,13 @@ ProcessingTranspiler >> visitComparisonExpression: expr [
 ]
 
 { #category : #visiting }
+ProcessingTranspiler >> visitEllipsis: expr [
+	self startEmit: expr.
+	self emit: 'PyEllipsis'.
+	^ self endEmit
+]
+
+{ #category : #visiting }
 ProcessingTranspiler >> visitExpression: expr [
 	self notImplemented: expr
 ]
@@ -697,8 +704,7 @@ ProcessingTranspiler >> visitParameter: param [
 
 { #category : #visiting }
 ProcessingTranspiler >> visitPassStatement: pass [
-	"no-op"
-	^ 0
+	"no-op" ^ 0
 ]
 
 { #category : #visiting }
