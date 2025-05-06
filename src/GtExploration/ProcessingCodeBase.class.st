@@ -94,7 +94,7 @@ ProcessingCodeBase >> gtBytecodeFor: aView [
 				] ifFalse: [
 					| byteStr |
 					byteStr := OrderedCollection new.
-					each bytes do: [ :byte | byteStr add: ((byte radix: 16) padLeftTo: 2 with: $0) ].
+					each bytes do: [ :byte | byteStr add: ((byte radix: 10) padLeftTo: 2 with: $0) ].
 					' ' join: byteStr
 				]) asRopedText foreground: Color blue
 			] width: 45;

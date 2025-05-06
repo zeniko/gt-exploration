@@ -262,7 +262,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-05-06T15:05:16.417+02:00"
+									"dateAndTimeString" : "2025-05-06T17:59:27.109+02:00"
 								}
 							},
 							"uid" : {
@@ -272,7 +272,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Content for students: {{gtPage:Arbeiten mit Glamorous Toolkit|db=dl0rc62x02fk8k57e43hr8acw}} and subpages"
+							"string" : "Content for students: {{gtPage:Arbeiten mit Glamorous Toolkit|db=dl0rc62x02fk8k57e43hr8acw}} and subpages, {{gtPage:Maschinensprache und Prozessor|db=dl0rc62x02fk8k57e43hr8acw}} and subpages"
 						},
 						{
 							"__type" : "textSnippet",
