@@ -1,6 +1,10 @@
 Class {
 	#name : #ProcessingCodeBase,
 	#superclass : #Object,
+	#instVars : [
+		'gtCanvas',
+		'gtAstMaps'
+	],
 	#category : #'GtExploration-Processing'
 }
 
@@ -56,6 +60,11 @@ ProcessingCodeBase >> gtAbstractionsFor: aView [
 			element ]
 ]
 
+{ #category : #accessing }
+ProcessingCodeBase >> gtAstMaps [
+	^ gtAstMaps
+]
+
 { #category : #views }
 ProcessingCodeBase >> gtBytecodeFor: aView [
 	<gtView>
@@ -98,6 +107,16 @@ ProcessingCodeBase >> gtBytecodeFor: aView [
 					each description
 				]
 			]
+]
+
+{ #category : #accessing }
+ProcessingCodeBase >> gtCanvas [
+	^ gtCanvas
+]
+
+{ #category : #accessing }
+ProcessingCodeBase >> gtCanvas: aCanvas [
+	gtCanvas := aCanvas.
 ]
 
 { #category : #meta }
@@ -170,7 +189,7 @@ ProcessingCodeBase >> gtOutputFor: aView [
 { #category : #meta }
 ProcessingCodeBase >> gtSliceFor: method within: interval [
 	| slices |
-	slices := (self instVarNamed: #gtAstMaps) select: [ :slice |
+	slices := gtAstMaps select: [ :slice |
 		(slice method sourceCode = method sourceCode) and: [
 			slice interval includesAll: interval
 		]
@@ -181,7 +200,7 @@ ProcessingCodeBase >> gtSliceFor: method within: interval [
 
 { #category : #meta }
 ProcessingCodeBase >> gtSlicesAround: aPosition [
-	^ (self instVarNamed: #gtAstMaps) select: [ :slice |
+	^ gtAstMaps select: [ :slice |
 		(slice astNode sourceInterval first - 1 <= aPosition) &
 		(slice astNode sourceInterval last >= aPosition)
 	]
@@ -190,7 +209,7 @@ ProcessingCodeBase >> gtSlicesAround: aPosition [
 { #category : #views }
 ProcessingCodeBase >> gtSlicesFor: aView [
 	<gtView>
-	^ ((Stepper for: (self instVarNamed: #gtAstMaps) view: #gtComparisonFor:) gtListViewFor: aView)
+	^ ((Stepper for: gtAstMaps view: #gtComparisonFor:) gtListViewFor: aView)
 		title: 'Slices' translated;
 		priority: 12
 ]
@@ -213,4 +232,9 @@ ProcessingCodeBase >> gtSourceCodeFor: aView [
 			"TODO: Find a better way of removing the filter bar"
 			(GtPharoStreamingMethodsCoderElement new streamingCodersViewModel: viewModel) children second removeFromParent
 		]
+]
+
+{ #category : #initialization }
+ProcessingCodeBase >> initialize [
+	gtAstMaps := OrderedCollection new.
 ]

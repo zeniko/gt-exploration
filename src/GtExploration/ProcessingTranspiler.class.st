@@ -32,23 +32,19 @@ ProcessingTranspiler >> acceptStatements: expr [
 
 { #category : #compiling }
 ProcessingTranspiler >> compile: ast [
-	| class source instance gtAstMaps |
+	| class source instance |
 	source := self transpile: ast.
 	class := ProcessingCodeBase newAnonymousSubclass.
-	class addSlot: 'gtCanvas'.
-	class addSlot: 'gtAstMaps'.
 	globalVariables do: [ :name | class addSlot: name ].
 	(source splitOn: '
 
 ') do: [ :method | class compile: method ].
-	gtAstMaps := OrderedCollection new.
+	instance := class new.
 	class methodDict keysDo: [ :key |
 		(astMaps at: key asString) do: [ :slice |
-			gtAstMaps add: (slice cloneFor: class >> key).
+			instance gtAstMaps add: (slice cloneFor: class >> key).
 		].
 	].
-	instance := class new.
-	instance instVarNamed: #gtAstMaps put: gtAstMaps.
 	^ instance
 ]
 

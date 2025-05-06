@@ -26,7 +26,7 @@ ProcessingRunner >> debug: compilation [
 	worker startup wait.
 	
 	canvas isNil ifTrue: [ canvas := ProcessingCanvas new. ].
-	compilation instVarNamed: #gtCanvas put: canvas.
+	compilation gtCanvas: canvas.
 	
 	done := false.
 	block := [ compilation gtRun. done := true. ].
@@ -77,7 +77,7 @@ ProcessingRunner >> run: compilation [
 	worker startup wait.
 	
 	canvas isNil ifTrue: [ canvas := ProcessingCanvas new. ].
-	compilation instVarNamed: #gtCanvas put: canvas.
+	compilation gtCanvas: canvas.
 	
 	done := false.
 	promise := AsyncFuturePromise new future: [
@@ -96,7 +96,7 @@ ProcessingRunner >> runStepwise: compilation [
 	worker startup wait.
 	
 	canvas isNil ifTrue: [ canvas := ProcessingCanvas new. ].
-	compilation instVarNamed: #gtCanvas put: canvas.
+	compilation gtCanvas: canvas.
 	
 	"TODO: this is a flattened tree - unflatten it?"
 	steps := OrderedCollection new.

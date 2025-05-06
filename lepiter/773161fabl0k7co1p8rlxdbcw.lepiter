@@ -76,7 +76,7 @@
 				"code" : "GtInspector forObject: (GtExampleGroup withAll: 'GtExploration' asPackage gtExamplesAllContained) runAll viewSelector: #gtExamplesFor:",
 				"elementHeight" : 532,
 				"codeHeight" : 50,
-				"codeVisible" : false
+				"codeVisible" : true
 			}
 		]
 	},
