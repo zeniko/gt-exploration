@@ -154,7 +154,7 @@ ProcessingTranspilerExamples >> transpilationPrint [
 	^ 'gtRun
 	gtCanvas print: ''Hello, world!''.
 	var := (2 + 3).
-	gtCanvas print: { ''2 + 3 =''. var.  }.'
+	gtCanvas print: { ''2 + 3 =''. var. }.'
 ]
 
 { #category : #transpilation }

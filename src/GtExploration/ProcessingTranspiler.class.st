@@ -176,7 +176,7 @@ ProcessingTranspiler >> emitPrint: args [
 			arg acceptVisitor: self.
 			self emit: '. '.
 		].
-		self emit: ' }'.
+		self emit: '}'.
 	] ifFalse: [
 		self emit: 'gtCanvas print: '.
 		args first acceptVisitor: self.

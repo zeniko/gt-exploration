@@ -42,7 +42,7 @@ fill(255, 0, 0)
 rect(50, 50 + 100 / 3, 100, 100 / 3)'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #source }
 ProcessingSourceExamples >> sourceCodeAnimation [
 	^ 'var = 0
 

@@ -107,7 +107,7 @@ ProcessingTranspilationSlice >> move: offset [
 	startPos := startPos + offset.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 ProcessingTranspilationSlice >> name: name [
 	method := name.
 ]
@@ -117,7 +117,7 @@ ProcessingTranspilationSlice >> setEnd: endPos [
 	size := endPos - startPos
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 ProcessingTranspilationSlice >> size [
 	^ size
 ]

@@ -119,12 +119,12 @@ Stepper >> gtListViewFor: aView [
 			action: [ :button | self stepTo: index + 1. ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 Stepper >> index [
 	^ index
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 Stepper >> stepTo: anIndex [
 	index := anIndex clampBetween: 1 and: list size.
 	announcer announce: StepperUpdate new.

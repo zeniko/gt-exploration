@@ -6,7 +6,7 @@ Class {
 
 { #category : #loading }
 BaselineOfGtExploration class >> loadLepiter [
-	IceRepository registry  
+	IceRepository registry
 		detect: [ :aRepository |
 			aRepository name = 'gt-exploration' ]
 		ifFound: [ :aRepository | 

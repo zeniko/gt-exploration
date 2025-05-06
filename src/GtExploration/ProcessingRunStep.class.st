@@ -193,7 +193,7 @@ ProcessingRunStep >> gtVariablesFor: aView [
 		items: [ variables associations sort: (#key collatedBy: #asString) ];
 		column: 'Name' translated text: [ :assoc | assoc key ];
 		column: 'Variable value' translated text: [ :assoc | assoc value ] weight: 3;
-		send: [ :assoc | assoc value  ]
+		send: [ :assoc | assoc value ]
 ]
 
 { #category : #initalization }
