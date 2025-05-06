@@ -566,43 +566,6 @@
 											"__type" : "textStyle"
 										},
 										"string" : "connect source lines to output shapes"
-									},
-									{
-										"__type" : "textSnippet",
-										"children" : {
-											"__type" : "snippets",
-											"items" : [ ]
-										},
-										"createEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"createTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-05-05T14:02:13.744+02:00"
-											}
-										},
-										"editEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"editTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-05-05T14:02:30.037+02:00"
-											}
-										},
-										"uid" : {
-											"__type" : "uid",
-											"uidString" : "mBHsAcTwDQCLwmrkBzBGdg=="
-										},
-										"paragraphStyle" : {
-											"__type" : "textStyle"
-										},
-										"string" : "allow to start Smalltalk debugger on gtRun"
 									}
 								]
 							},
@@ -667,7 +630,7 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-04-28T14:10:49.393+02:00"
+												"dateAndTimeString" : "2025-05-06T10:09:46.355+02:00"
 											}
 										},
 										"uid" : {
@@ -677,44 +640,7 @@
 										"paragraphStyle" : {
 											"__type" : "textStyle"
 										},
-										"string" : "Further Processing API: `image`, `loadImage`"
-									},
-									{
-										"__type" : "textSnippet",
-										"children" : {
-											"__type" : "snippets",
-											"items" : [ ]
-										},
-										"createEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"createTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-04-15T11:55:57.304+02:00"
-											}
-										},
-										"editEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"editTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-04-15T11:56:33.614+02:00"
-											}
-										},
-										"uid" : {
-											"__type" : "uid",
-											"uidString" : "wEiB6S/vDQCGTmBxAJ/Z3A=="
-										},
-										"paragraphStyle" : {
-											"__type" : "textStyle"
-										},
-										"string" : "Support animations (through `setup` - called once - and `draw` - called repeatedly)"
+										"string" : "Further Processing API: `image`, `loadImage`, `mousePressed`, `mouseX`, "
 									}
 								]
 							},

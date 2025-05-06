@@ -47,6 +47,8 @@ ProcessingCanvasExamples >> container [
 	self assert: canvas strokeColor equals: Color black.
 	self assert: canvas strokeWeight equals: 0.5.
 	self assert: canvas textSize equals: 12.
+	self assert: canvas frameRate equals: 30.
+	
 	self assert: canvas canvasElement background paint color equals: Color veryLightGray.
 	self assert: canvas canvasElement children size equals: 0.
 	self assert: (canvas asElement isKindOf: BlScalableElement).

@@ -171,6 +171,11 @@ ProcessingCodeBase >> gtIntermediaryRepresentationFor: aView [
 			].
 ]
 
+{ #category : #accessing }
+ProcessingCodeBase >> gtIsAnimation [
+	^ self class methodDict includesKey: #draw
+]
+
 { #category : #views }
 ProcessingCodeBase >> gtOutputFor: aView [
 	<gtView>
@@ -179,7 +184,7 @@ ProcessingCodeBase >> gtOutputFor: aView [
 		priority: 40;
 		stencil: [ | canvas |
 			canvas := ProcessingRunner new
-				limitTo: 2 seconds;
+				limitTo: (self gtIsAnimation ifTrue: [ 30 ] ifFalse: [ 2 ]) seconds;
 				run: self clone;
 				canvas.
 			canvas asElement

@@ -68,6 +68,10 @@ ProcessingTranspiler >> emit: part [
 
 { #category : #emitting }
 ProcessingTranspiler >> emitBackground: args [
+	args size = 1 ifTrue: [
+		self emit: 'gtCanvas backgroundGray: '.
+		^ args first acceptVisitor: self.
+	].
 	self emit: 'gtCanvas backgroundR: '.
 	args first acceptVisitor: self.
 	self emit: ' G: '.
@@ -103,12 +107,22 @@ ProcessingTranspiler >> emitEllipse: args [
 
 { #category : #emitting }
 ProcessingTranspiler >> emitFill: args [
+	args size = 1 ifTrue: [
+		self emit: 'gtCanvas fillGray: '.
+		^ args first acceptVisitor: self.
+	].
 	self emit: 'gtCanvas fillR: '.
 	args first acceptVisitor: self.
 	self emit: ' G: '.
 	args second acceptVisitor: self.
 	self emit: ' B: '.
 	args third acceptVisitor: self.
+]
+
+{ #category : #emitting }
+ProcessingTranspiler >> emitFrameRate: args [
+	self emit: 'gtCanvas frameRate: '.
+	args first acceptVisitor: self.
 ]
 
 { #category : #emitting }
@@ -211,6 +225,10 @@ ProcessingTranspiler >> emitSize: args [
 
 { #category : #emitting }
 ProcessingTranspiler >> emitStroke: args [
+	args size = 1 ifTrue: [
+		self emit: 'gtCanvas strokeGray: '.
+		^ args first acceptVisitor: self.
+	].
 	self emit: 'gtCanvas strokeR: '.
 	args first acceptVisitor: self.
 	self emit: ' G: '.
@@ -318,6 +336,22 @@ ProcessingTranspiler >> transpile: ast [
 	self emit: 'gtRun'; cr.
 	indentation := indentation + 1.
 	ast acceptVisitor: self.
+	
+	userDefs at: 'setup' ifPresent: [ :args |
+		args ifEmpty: [
+			self emit: 'self setup.'; cr.
+		].
+	].
+	userDefs at: 'draw' ifPresent: [ :args |
+		args ifEmpty: [
+			self emit: '[ gtCanvas frameRate > 0 ] whileTrue: ['; cr.
+			indentation := indentation + 1.
+			self emit: 'self draw.'; cr.
+			self emit: '(1 / gtCanvas frameRate) seconds wait.'; cr.
+			indentation := indentation - 1.
+			self emit: '].'; cr.
+		].
+	].
 	
 	localVariables do: [ :var | globalVariables add: var ].
 	astMap do: [ :slice | slice name: 'gtRun' ].
@@ -521,23 +555,32 @@ ProcessingTranspiler >> visitFile: file [
 
 { #category : #visiting }
 ProcessingTranspiler >> visitForStatement: expr [
+	| from to by |
 	"only `for ... in range(...):` is currently supported"
 	(expr inExpression isKindOf: PyFunctionCallExpressionNode) ifFalse: [ self notImplemented: expr ].
 	(expr inExpression receiver isKindOf: PyVariableExpressionNode) ifFalse: [ self notImplemented: expr ].
 	expr inExpression receiver nameToken value = 'range' ifFalse: [ self notImplemented: expr ].
-	(expr inExpression arguments size between: 1 and: 2) ifFalse: [ self notImplemented: expr ].
 	expr exprs size > 1 ifTrue: [ self notImplemented: expr ].
 	expr else ifNotNil: [ self notImplemented: expr ].
 	
+	from := expr inExpression arguments size > 1 ifTrue: [ expr inExpression arguments first ].
+	to := expr inExpression arguments size > 1 ifTrue: [ expr inExpression arguments second ] ifFalse: [ expr inExpression arguments first ].
+	by := expr inExpression arguments size > 2 ifTrue: [ expr inExpression arguments third ].
+	
 	self startEmit: expr.
-	expr inExpression arguments size = 1 ifTrue: [
-		self emit: '0'.
-	] ifFalse: [
-		expr inExpression arguments first acceptVisitor: self.
-	].
+	from ifNotNil: [ from acceptVisitor: self. ] ifNil: [ self emit: '0'. ].
 	self emit: ' to: ('.
-	expr inExpression arguments last acceptVisitor: self.
-	self emit: ' - 1) do: [ :'.
+	to acceptVisitor: self.
+	by ifNil: [
+		self emit: ' - 1)'.
+	] ifNotNil: [
+		self emit: ' - '.
+		"TODO: omit double-evaluationg step expression"
+		by acceptVisitor: self.
+		self emit: ' sign) by: '.
+		by acceptVisitor: self.
+	].
+	self emit: ' do: [ :'.
 	expr exprs first acceptVisitor: self.
 	self emit: ' |'; cr.
 	self acceptStatements: expr.
@@ -556,6 +599,7 @@ ProcessingTranspiler >> visitFunctionCallExpression: fnCall [
 	name = 'delay' ifTrue: [ self emitDelay: args. ^ self endEmit ].
 	name = 'ellipse' ifTrue: [ self emitEllipse: args. ^ self endEmit ].
 	name = 'fill' ifTrue: [ self emitFill: args. ^ self endEmit ].
+	name = 'frameRate' ifTrue: [ self emitFrameRate: args. ^ self endEmit ].
 	name = 'int' ifTrue: [ self emitInt: args. ^ self endEmit ].
 	name = 'line' ifTrue: [ self emitLine: args. ^ self endEmit ].
 	name = 'print' ifTrue: [ self emitPrint: args. ^ self endEmit ].

@@ -21,6 +21,16 @@ ProcessingTokenExtractorExamples >> tokensAlpinerWanderweg [
 ]
 
 { #category : #example }
+ProcessingTokenExtractorExamples >> tokensAnimation [
+	<gtExample>
+	| tokens |
+	tokens := self newExtractor extractTokens: ProcessingParserExamples new parseAnimation.
+	self assert: tokens size equals: 54.
+	self assert: (tokens allSatisfy: [ :item | item isKindOf: SmaCCToken ]).
+	^ tokens
+]
+
+{ #category : #example }
 ProcessingTokenExtractorExamples >> tokensExample02 [
 	<gtExample>
 	| tokens |

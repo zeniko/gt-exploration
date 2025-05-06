@@ -24,12 +24,40 @@ ProcessingSourceExamples >> sourceAlpinerWanderweg [
 	^ source
 ]
 
+{ #category : #example }
+ProcessingSourceExamples >> sourceAnimation [
+	<gtExample>
+	| source |
+	source := ProcessingSource fromString: self sourceCodeAnimation.
+	self assert: source asString equals: self sourceCodeAnimation.
+	self assert: source program isNotNil.
+	^ source
+]
+
 { #category : #source }
 ProcessingSourceExamples >> sourceCodeAlpinerWanderweg [
 	^ 'size(200, 200)
 rect(50, 50, 100, 100)
 fill(255, 0, 0)
 rect(50, 50 + 100 / 3, 100, 100 / 3)'
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingSourceExamples >> sourceCodeAnimation [
+	^ 'var = 0
+
+def setup():
+	size(200, 200)
+	frameRate(2)
+
+def draw():
+	global var
+	background(192)
+	rect(var, var, 50, 50)
+	var = var + 20
+	if var > height - 50:
+		var = 0
+'
 ]
 
 { #category : #source }

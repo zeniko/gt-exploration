@@ -7,7 +7,8 @@ Class {
 		'textSize',
 		'strokeColor',
 		'strokeWeight',
-		'transcript'
+		'transcript',
+		'frameRate'
 	],
 	#category : #'GtExploration-Processing'
 }
@@ -28,6 +29,11 @@ ProcessingCanvas >> asElement [
 ProcessingCanvas >> background: color [
 	self canvasElement background: color.
 	self canvasElement children do: [ :child | child removeFromParent ].
+]
+
+{ #category : #shapes }
+ProcessingCanvas >> backgroundGray: gray [
+	self backgroundR: gray G: gray B: gray.
 ]
 
 { #category : #shapes }
@@ -81,8 +87,23 @@ ProcessingCanvas >> fillColor [
 ]
 
 { #category : #modifiers }
+ProcessingCanvas >> fillGray: gray [
+	self fillR: gray G: gray B: gray.
+]
+
+{ #category : #modifiers }
 ProcessingCanvas >> fillR: r G: g B: b [
 	self fill: (self colorWithR: r G: g B: b)
+]
+
+{ #category : #accessing }
+ProcessingCanvas >> frameRate [
+	^ frameRate
+]
+
+{ #category : #acessing }
+ProcessingCanvas >> frameRate: aFrameRate [
+	frameRate := aFrameRate.
 ]
 
 { #category : #views }
@@ -108,6 +129,7 @@ ProcessingCanvas >> initialize [
 	strokeWeight := 0.5.
 	textSize := 12.
 	transcript := nil.
+	frameRate := 30.
 ]
 
 { #category : #shapes }
@@ -180,6 +202,11 @@ ProcessingCanvas >> stroke: color [
 { #category : #accessing }
 ProcessingCanvas >> strokeColor [
 	^ strokeColor
+]
+
+{ #category : #modifiers }
+ProcessingCanvas >> strokeGray: gray [
+	self strokeR: gray G: gray B: gray.
 ]
 
 { #category : #modifiers }

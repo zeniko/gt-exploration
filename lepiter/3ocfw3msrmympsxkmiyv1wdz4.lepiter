@@ -351,7 +351,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-25T20:44:06.32+01:00"
+						"dateAndTimeString" : "2025-05-06T10:08:54.074+02:00"
 					}
 				},
 				"editEmail" : {
@@ -362,17 +362,17 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-05-02T13:52:43.813+02:00"
+						"dateAndTimeString" : "2025-05-06T10:09:06.064+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "gI+ral7rDQCvKt6XC7gYPg=="
+					"uidString" : "kHJR3dTwDQCYKdJcCeKGxg=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "{{gtTodo:label=`def setup()` and `def draw()` which are respectively called before entering the event loop and repeatedly while the event loop is running}}"
+				"string" : "`def setup()` and `def draw()` for animations"
 			},
 			{
 				"__type" : "textSnippet",

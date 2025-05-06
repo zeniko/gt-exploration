@@ -15,6 +15,15 @@ ProcessingParserExamples >> parseAlpinerWanderweg [
 ]
 
 { #category : #example }
+ProcessingParserExamples >> parseAnimation [
+	<gtExample>
+	| ast |
+	ast := ProcessingProgramExamples new programAnimation ast.
+	self assert: ast statements size equals: 3.
+	^ ast
+]
+
+{ #category : #example }
 ProcessingParserExamples >> parseEndlessLoop [
 	<gtExample>
 	| ast node |

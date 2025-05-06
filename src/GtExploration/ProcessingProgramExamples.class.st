@@ -15,6 +15,15 @@ ProcessingProgramExamples >> programAlpinerWanderweg [
 ]
 
 { #category : #example }
+ProcessingProgramExamples >> programAnimation [
+	<gtExample>
+	| program |
+	program := ProcessingSourceExamples new sourceAnimation program.
+	self assert: program compilation isNotNil.
+	^ program
+]
+
+{ #category : #example }
 ProcessingProgramExamples >> programEndlessLoop [
 	<gtExample>
 	| program |

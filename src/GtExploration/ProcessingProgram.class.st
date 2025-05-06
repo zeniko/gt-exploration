@@ -29,7 +29,7 @@ ProcessingProgram >> canvas [
 		ProcessingRunawayProgramException new signal: 'Endless loop detected.'
 	].
 	(result isKindOf: Error) ifTrue: [
-		result signal.
+		ProcessingRunTimeException new tag: result; signal.
 	].
 	^ runner canvas
 ]
@@ -814,7 +814,8 @@ ProcessingProgram >> gtTreePlusSourceFor: aView [
 
 { #category : #runtime }
 ProcessingProgram >> run [
-	^ self runFor: 2 seconds
+	"Animations are limited to 30 seconds for now."
+	^ self runFor: (compilation gtIsAnimation ifTrue: [ 30 ] ifFalse: [ 2 ]) seconds
 ]
 
 { #category : #runtime }
@@ -827,6 +828,7 @@ ProcessingProgram >> runFor: duration [
 
 { #category : #runtime }
 ProcessingProgram >> runSteps [
+	"The default is 2 seconds even for animations in order to prevent an excessive amount of steps"
 	^ self runStepsFor: 2 seconds
 ]
 

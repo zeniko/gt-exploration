@@ -38,6 +38,22 @@ ProcessingRunnerExamples >> runAlpinerWanderwegStepwise [
 ]
 
 { #category : #example }
+ProcessingRunnerExamples >> runAnimation [
+	<gtExample>
+	"The animation is currently considered to be an endless loop"
+	| program runner detected |
+	program := ProcessingProgramExamples new programAnimation.
+	detected := (program runFor: 0.1 seconds) wait.
+	self assert: detected asString equals: 'AsyncFutureCancelled'.
+	
+	runner := self newRunner.
+	runner limitTo: 0.1 seconds; run: program compilation; wait.
+	self assert: runner isDone not.
+	self assert: runner canvas isNotNil.
+	^ runner
+]
+
+{ #category : #example }
 ProcessingRunnerExamples >> runExample02 [
 	<gtExample>
 	| program runner |

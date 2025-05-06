@@ -306,7 +306,7 @@
 				},
 				"exampleSelector" : "programExample02",
 				"previewHeight" : 260,
-				"previewShowSelector" : "gtSourceCodeFor:",
+				"previewShowSelector" : "gtTranspilationFor:",
 				"exampleBehaviorName" : "ProcessingProgramExamples",
 				"codeExpanded" : true,
 				"previewExpanded" : true,

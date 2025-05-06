@@ -32,6 +32,29 @@ ProcessingTranspilerExamples >> transpilationAlpinerWanderweg [
 ]
 
 { #category : #transpilation }
+ProcessingTranspilerExamples >> transpilationAnimation [
+	^ 'gtRun
+	var := 0.
+	self setup.
+	[ gtCanvas frameRate > 0 ] whileTrue: [
+		self draw.
+		(1 / gtCanvas frameRate) seconds wait.
+	].
+
+setup
+	width := 200. height := 200. gtCanvas size: width by: height.
+	gtCanvas frameRate: 2.
+
+draw
+	gtCanvas backgroundGray: 192.
+	gtCanvas rect: 50 by: 50 at: var @ var.
+	var := (var + 20).
+	(var > (height - 50)) ifTrue: [
+		var := 0.
+	].'
+]
+
+{ #category : #transpilation }
 ProcessingTranspilerExamples >> transpilationEndlessLoop [
 	^ 'gtRun
 	[ true ] whileTrue: [
@@ -256,6 +279,20 @@ ProcessingTranspilerExamples >> transpileAlpinerWanderweg [
 	self assert: transpiler variables size equals: 0.
 	self assert: transpiler userDefs size equals: 0.
 	self compare: (transpiler compile: ast) with: self transpilationAlpinerWanderweg.
+	^ transpiler compile: ast
+]
+
+{ #category : #example }
+ProcessingTranspilerExamples >> transpileAnimation [
+	<gtExample>
+	| ast transpiler |
+	ast := ProcessingParserExamples new parseAnimation.
+	transpiler := self newTranspiler.
+	self assert: (transpiler transpile: ast) equals: self transpilationAnimation.
+	self assert: transpiler variables size equals: 1.
+	self assert: (' ' join: transpiler variables) equals: 'var'.
+	self assert: transpiler userDefs size equals: 2.
+	self compare: (transpiler compile: ast) with: self transpilationAnimation.
 	^ transpiler compile: ast
 ]
 
