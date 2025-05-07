@@ -5,7 +5,8 @@ Class {
 		'list',
 		'view',
 		'index',
-		'announcer'
+		'announcer',
+		'reloader'
 	],
 	#category : #'GtExploration-GtExtensions'
 }
@@ -15,9 +16,31 @@ Stepper class >> for: aList view: aView [
 	^ Stepper new for: aList view: aView
 ]
 
+{ #category : #views }
+Stepper >> addActionButtons: aView [
+	reloader ifNotNil: [
+		aView actionButtonIcon: BrGlamorousVectorIcons refresh
+			tooltip: 'Reload the steps from their source' translated
+			action: [ :button | list := reloader value. self stepTo: index. ].
+	].
+	^ aView
+		actionButtonIcon: BrGlamorousVectorIcons left
+			tooltip: 'Move one step backward' translated
+			action: [ :button | self stepTo: index - 1. ];
+		actionButtonIcon: BrGlamorousVectorIcons right
+			tooltip: 'Move one step forward' translated
+			action: [ :button | self stepTo: index + 1. ]
+]
+
 { #category : #initialization }
 Stepper >> for: aList view: aView [
-	list := aList.
+	(aList isKindOf: FullBlockClosure) ifTrue: [
+		reloader := aList.
+		list := reloader value.
+	] ifFalse: [
+		reloader := nil.
+		list := aList.
+	].
 	view := aView.
 	index := 1.
 	announcer := Announcer new.
@@ -29,7 +52,7 @@ Stepper >> gtContentFor: aView [
 	list ifNil: [ ^ aView empty ].
 	list size = 0 ifTrue: [ ^ aView empty ].
 	
-	^ aView explicit
+	^ self addActionButtons: (aView explicit
 		priority: 1;
 		title: 'Step' translated;
 		stencil: [
@@ -37,13 +60,7 @@ Stepper >> gtContentFor: aView [
 			((list at: index) perform: view with: GtPhlowView empty) asElementDo: [ :e | element := e ].
 			element asScalableElement
 		];
-		actionButtonIcon: BrGlamorousVectorIcons left
-			tooltip: 'Move one step backward' translated
-			action: [ :button | self stepTo: index - 1. ];
-		actionButtonIcon: BrGlamorousVectorIcons right
-			tooltip: 'Move one step forward' translated
-			action: [ :button | self stepTo: index + 1. ];
-		updateWhen: StepperUpdate in: announcer
+		updateWhen: StepperUpdate in: announcer)
 ]
 
 { #category : #views }
@@ -52,7 +69,7 @@ Stepper >> gtListViewFor: aView [
 	list ifNil: [ ^ aView empty ].
 	list ifEmpty: [ ^ aView empty ].
 	
-	^ aView explicit
+	^ self addActionButtons: (aView explicit
 		priority: 10;
 		title: 'With List' translated;
 		stencil: [ | element listElement child |
@@ -106,17 +123,12 @@ Stepper >> gtListViewFor: aView [
 						listElement selectedIndices ifNotEmpty:
 							[ :theIndices | self stepTo: theIndices first. ]
 					].
+			
 			announcer when: StepperUpdate do: [
 				listElement selectOne: index; scrollToSelection.
 			] for: listElement.
 			
-			element ];
-		actionButtonIcon: BrGlamorousVectorIcons left
-			tooltip: 'Move one step backward' translated
-			action: [ :button | self stepTo: index - 1. ];
-		actionButtonIcon: BrGlamorousVectorIcons right
-			tooltip: 'Move one step forward' translated
-			action: [ :button | self stepTo: index + 1. ]
+			element ])
 ]
 
 { #category : #accessing }

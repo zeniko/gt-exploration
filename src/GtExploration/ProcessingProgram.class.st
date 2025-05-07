@@ -45,6 +45,34 @@ ProcessingProgram >> debug [
 ]
 
 { #category : #views }
+ProcessingProgram >> gtASTNodeNames [
+	^ Dictionary newFrom: {
+		PyAssignmentExpressionNode -> 'Assignment'.
+		PyAssignmentStatementNode -> 'Assignment'.
+		PyBinaryExpressionNode -> 'Binary Op'.
+		PyComparisonExpressionNode -> 'Binary Comparison'.
+		PyElseNode -> 'Else'.
+		PyExpressionStatementNode -> 'Expression'.
+		PyFileNode -> 'Root'.
+		PyForStatementNode -> 'For Loop'.
+		PyFunctionCallExpressionNode -> 'Function Call'.
+		PyFunctionDefinitionNode -> 'Function Definition'.
+		PyGlobalStatementNode -> 'Global Variables'.
+		PyIfExpressionNode -> 'If Conditional'.
+		PyIfStatementNode -> 'If Conditional'.
+		PyNumberNode -> 'Number'.
+		PyParameterNode -> 'Parameter'.
+		PyPassStatementNode -> 'Pass'.
+		PyReturnStatementNode -> 'Return'.
+		PyStringNode -> 'String'.
+		PyTupleExpressionNode -> 'Tuple'.
+		PyUnaryExpressionNode -> 'Unary Op'.
+		PyVariableExpressionNode -> 'Variable'.
+		PyWhileStatementNode -> 'While Loop'.
+	}
+]
+
+{ #category : #views }
 ProcessingProgram >> gtAbstractionsFor: aView [
 	<gtView>
 	^ aView explicit
@@ -281,6 +309,22 @@ ProcessingProgram >> gtEditorHightlight: anEditor from: from to: to [
 		attribute: (BlTextHighlightAttribute new paint: BrGlamorousColors textHighlightColor).
 	
 	anEditor scrollToPosition: (anEditor text asString lineNumberCorrespondingToIndex: from).
+]
+
+{ #category : #views }
+ProcessingProgram >> gtGetASTChildren: aNode [
+	| extractor nodes |
+	(aNode isKindOf: PyRootNode) ifFalse: [ ^ #() ].
+	
+	extractor := ProcessingTokenExtractor new.
+	nodes := aNode acceptVisitor: extractor.
+	[ nodes size = 1 and: [ nodes first isKindOf: PyRootNode ] ] whileTrue: [
+		nodes := nodes first acceptVisitor: extractor.
+	].
+	
+	(nodes size = 1) not ifTrue: [ ^ nodes ].
+	(nodes first isKindOf: PyRootNode) ifTrue: [ ^ nodes ].
+	^ #()
 ]
 
 { #category : #views }
@@ -695,72 +739,36 @@ ProcessingProgram >> gtTranspilationPlusSourceFor: aView [
 { #category : #views }
 ProcessingProgram >> gtTreeFor: aView [
 	<gtView>
-	| names |
-	names := Dictionary newFrom: {
-		PyAssignmentExpressionNode -> 'Assignment'.
-		PyAssignmentStatementNode -> 'Assignment'.
-		PyBinaryExpressionNode -> 'Binary Op'.
-		PyComparisonExpressionNode -> 'Binary Comparison'.
-		PyElseNode -> 'Else'.
-		PyExpressionStatementNode -> 'Expression'.
-		PyFileNode -> 'Root'.
-		PyForStatementNode -> 'For Loop'.
-		PyFunctionCallExpressionNode -> 'Function Call'.
-		PyFunctionDefinitionNode -> 'Function Definition'.
-		PyGlobalStatementNode -> 'Global Variables'.
-		PyIfExpressionNode -> 'If Conditional'.
-		PyIfStatementNode -> 'If Conditional'.
-		PyNumberNode -> 'Number'.
-		PyParameterNode -> 'Parameter'.
-		PyPassStatementNode -> 'Pass'.
-		PyReturnStatementNode -> 'Return'.
-		PyStringNode -> 'String'.
-		PyTupleExpressionNode -> 'Tuple'.
-		PyUnaryExpressionNode -> 'Unary Op'.
-		PyVariableExpressionNode -> 'Variable'.
-		PyWhileStatementNode -> 'While Loop'.
-	}.
 	^ aView columnedTree
 		priority: 15;
 		title: 'AST';
 		items: [ ast acceptVisitor: ProcessingTokenExtractor new ];
-		children: [ :each |
-			(each isKindOf: PyRootNode) ifTrue: [
-				| nodes |
-				nodes := each acceptVisitor: ProcessingTokenExtractor new.
-				[ nodes size = 1 and: [ nodes first isKindOf: PyRootNode ] ] whileTrue: [
-					nodes := nodes first acceptVisitor: ProcessingTokenExtractor new.
-				].
-				((nodes size = 1) not or: [ nodes first isKindOf: PyRootNode ]) ifTrue: [ nodes ] ifFalse: [ #() ]
-			] ifFalse: [
-				#()
-			]
-		];
+		children: [ :each | self gtGetASTChildren: each ];
 		column: 'Node' translated text: [ :each |
-			| node |
+			| node next |
 			node := each.
-			[ (node isKindOf: PyRootNode) and: [ (node acceptVisitor: ProcessingTokenExtractor new) size = 1 ] ] whileTrue: [
-				node := (node acceptVisitor: ProcessingTokenExtractor new) first.
+			[ (node isKindOf: PyRootNode) and: [ (next := (node acceptVisitor: ProcessingTokenExtractor new)) size = 1 ] ] whileTrue: [
+				node := next first.
 			].
 			(node isKindOf: PyRootNode) ifTrue: [
-				(names at: node class) asRopedText foreground: BrGlamorousColors disabledButtonTextColor
+				(self gtASTNodeNames at: node class) asRopedText foreground: BrGlamorousColors disabledButtonTextColor
 			] ifFalse: [
 				node value
 			]
 		];
 		column: 'Type' translated text: [ :each |
-			| node prev |
+			| node prev next |
 			node := each.
 			prev := each.
-			[ (node isKindOf: PyRootNode) and: [ (node acceptVisitor: ProcessingTokenExtractor new) size = 1 ] ] whileTrue: [
+			[ (node isKindOf: PyRootNode) and: [ (next := (node acceptVisitor: ProcessingTokenExtractor new)) size = 1 ] ] whileTrue: [
 				prev := node.
-				node := (node acceptVisitor: ProcessingTokenExtractor new) first.
+				node := next first.
 			].
 			(prev isKindOf: PyRootNode) ifTrue: [
 				prev = node ifTrue: [
 					'' asRopedText
 				] ifFalse: [
-					(names at: prev class) asRopedText
+					(self gtASTNodeNames at: prev class) translated asRopedText
 				]
 			] ifFalse: [
 				'Token' asRopedText foreground: BrGlamorousColors disabledButtonTextColor
@@ -809,6 +817,16 @@ ProcessingProgram >> gtTreePlusSourceFor: aView [
 			].
 			
 			element ];
+		updateWhen: ProcessingProgramChanged in: self announcer
+]
+
+{ #category : #views }
+ProcessingProgram >> gtTreeSceneryFor: aView [
+	<gtView>
+	^ aView explicit
+		priority: 18;
+		title: 'AST Tree';
+		stencil: [ ProcessingTreeSceneryCreator sceneryFor: self ];
 		updateWhen: ProcessingProgramChanged in: self announcer
 ]
 

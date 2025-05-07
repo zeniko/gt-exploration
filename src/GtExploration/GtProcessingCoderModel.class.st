@@ -48,13 +48,17 @@ GtProcessingCoderModel >> doItAndGoAsynchronous: anEvaluationContext [
 { #category : #'private - actions' }
 GtProcessingCoderModel >> doItAndGoSerialized: anEvaluationContext [
 	self doItAndPublish: [
-		| runsteps |
-		runsteps := (ProcessingSource fromViewModel: anEvaluationContext requesterObject coderViewModel) program runSteps.
-		runsteps ifEmpty: [
-			ProcessingRunTimeException new signal: 'This program didn''t produce any run steps'.
+		| program loader |
+		program := (ProcessingSource fromViewModel: anEvaluationContext requesterObject coderViewModel) program.
+		loader := [ | runsteps |
+			runsteps := program runSteps.
+			runsteps ifEmpty: [
+				ProcessingRunTimeException new signal: 'This program didn''t produce any run steps'.
+			].
+			runsteps
 		].
 		"The stepper isn't updated when the source changes, as that's too resource intensive for non-trivial programs"
-		Stepper for: runsteps view: #gtAbstractionsFor:
+		Stepper for: loader view: #gtAbstractionsFor:
 	] with: anEvaluationContext.
 ]
 

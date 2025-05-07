@@ -8,7 +8,7 @@ Class {
 StepperExamples >> example02Stepper [
 	<gtExample>
 	| stepper |
-	stepper := Stepper for: ProcessingRunnerExamples new runExample02Stepwise view: #gtAbstractionsFor:.
+	stepper := Stepper for: [ ProcessingRunnerExamples new runExample02Stepwise ] view: #gtAbstractionsFor:.
 	self assert: stepper index equals: 1.
 	stepper stepTo: 13.
 	self assert: stepper index equals: 13.

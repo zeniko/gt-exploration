@@ -177,7 +177,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-05-06T21:07:18.036+02:00"
+						"dateAndTimeString" : "2025-05-06T21:07:24.564+02:00"
 					}
 				},
 				"uid" : {
@@ -187,7 +187,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "Through {{gtMethod:ProcessingRunner>>#runStepwise:}}, run steps can also be extracted and stepped through individually (using the {{gtClass:Stepper}} helper "
+				"string" : "Through {{gtMethod:ProcessingRunner>>#runStepwise:}}, run steps can also be extracted and stepped through individually (using a {{gtClass:Stepper}} helper):"
 			},
 			{
 				"__type" : "exampleSnippet",
