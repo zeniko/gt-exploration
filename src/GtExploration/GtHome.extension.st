@@ -2,6 +2,7 @@ Extension { #name : #GtHome }
 
 { #category : #'*GtExploration' }
 GtHome >> gtZenikoExplorationSection [
-	<gtHomeSection>
+	"Disabled in favor of gtZenikoUnterrichtSection"
+	"<gtHomeSection>"
 	^ GtExplorationHomeSection new
 ]

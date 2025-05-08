@@ -461,6 +461,43 @@
 							"codeExpanded" : true,
 							"previewExpanded" : false,
 							"noCode" : true
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-05-08T23:49:55.014+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-05-08T23:50:26.232+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "iHkukQjxDQCh1X4SA2iQXA=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Running a Processing snippet now produces a live view."
 						}
 					]
 				},
@@ -2064,7 +2101,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-05-06T23:31:04.333+02:00"
+									"dateAndTimeString" : "2025-05-08T22:45:11.532+02:00"
 								}
 							},
 							"uid" : {
@@ -2074,7 +2111,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Add sample curriculum content: {{gtPage:Programmieren mit Processing|db=dl0rc62x02fk8k57e43hr8acw}} and {{gtPage:Lexer: Das Programm in \"Worte\" zerlegen|db=dl0rc62x02fk8k57e43hr8acw}}"
+							"string" : "Add sample curriculum content: {{gtPage:Wiederholung: Programmieren mit Processing|db=dl0rc62x02fk8k57e43hr8acw}} and {{gtPage:Lexer: Das Programm in \"Worte\" zerlegen|db=dl0rc62x02fk8k57e43hr8acw}}"
 						},
 						{
 							"__type" : "textSnippet",

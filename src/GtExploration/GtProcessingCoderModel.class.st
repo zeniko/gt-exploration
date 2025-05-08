@@ -27,7 +27,7 @@ GtProcessingCoderModel >> computeAst: theSourceString [
 { #category : #'private - actions' }
 GtProcessingCoderModel >> doIt: anEvaluationContext [
 	self doItAndPublish: [
-		(ProcessingSource fromViewModel: anEvaluationContext requesterObject coderViewModel) render
+		LiveViewWrapper createFor: (ProcessingSource fromViewModel: anEvaluationContext requesterObject coderViewModel) program view: #gtOutputFor:
 	] with: anEvaluationContext.
 ]
 
