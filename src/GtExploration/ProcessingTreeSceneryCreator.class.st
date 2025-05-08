@@ -21,7 +21,7 @@ ProcessingTreeSceneryCreator class >> addSubTree: aNode for: aProgram to: aScene
 	
 	(aProgram gtGetASTChildren: node) do: [ :childNode |
 		child := self addSubTree: childNode for: aProgram to: aScenery.
-		aScenery addConnectionWithStencil: GtSceneryStraightArcStencil new from: item to: child.
+		aScenery addConnectionWithStencil: (GtSceneryStraightArcStencil new arrowHeadType: #none) from: item to: child.
 	].
 	
 	^ item
@@ -33,12 +33,14 @@ ProcessingTreeSceneryCreator class >> sceneryFor: aProgram [
 	scenery := GtScenery new.
 	root := scenery
 		addItem: (GtSceneryTextLabelStencil new
-			label: 'Root';
+			label: 'Root' translated;
 			width: 40) asItem.
+	
 	(aProgram ast acceptVisitor: ProcessingTokenExtractor new) do: [ :childNode |
 		child := self addSubTree: childNode for: aProgram to: scenery.
-		scenery addConnectionWithStencil: GtSceneryStraightArcStencil new from: root to: child.
+		scenery addConnectionWithStencil: (GtSceneryStraightArcStencil new arrowHeadType: #none) from: root to: child.
 	].
+	
 	scenery onceLayout: GtGradHorizontalTreeLayout new.
 	^ scenery
 ]
