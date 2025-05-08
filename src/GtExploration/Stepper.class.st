@@ -32,6 +32,11 @@ Stepper >> addActionButtons: aView [
 			action: [ :button | self stepTo: index + 1. ]
 ]
 
+{ #category : #views }
+Stepper >> asElement [
+	^ (GtInspector forObject: self) asElement
+]
+
 { #category : #initialization }
 Stepper >> for: aList view: aView [
 	(aList isKindOf: FullBlockClosure) ifTrue: [

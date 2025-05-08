@@ -13,6 +13,11 @@ ViewComparison class >> newFor: aMapping [
 ]
 
 { #category : #views }
+ViewComparison >> asElement [
+	^ GtInspector forObject: self viewSelector: #gtCompareFor:
+]
+
+{ #category : #views }
 ViewComparison >> gtCompareFor: aView [
 	<gtView>
 	^ aView explicit

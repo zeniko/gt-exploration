@@ -137,14 +137,14 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-04-30T14:16:17.082+02:00"
+						"dateAndTimeString" : "2025-05-09T01:29:01.525+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
 					"uidString" : "KKpuQQDtDQCfKiwmABzEJg=="
 				},
-				"code" : "source := ProcessingSource fromString: thisSnippet previousSibling code.\rast := ProcessingParser parse: source asString.\rprogram := (ProcessingTranspiler new) compile: ast"
+				"code" : "ast := ProcessingParser parse: thisSnippet previousSibling code.\rprogram := ProcessingTranspiler new compile: ast"
 			},
 			{
 				"__type" : "textSnippet",
@@ -316,14 +316,14 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-04-30T14:16:25.813+02:00"
+						"dateAndTimeString" : "2025-05-09T01:29:19.177+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
 					"uidString" : "EJ7dBAbtDQCdGJMXCprFvw=="
 				},
-				"code" : "source := ProcessingSource fromString: thisSnippet previousSibling code.\rast := ProcessingParser parse: source asString.\rprogram := (ProcessingTranspiler new) compile: ast"
+				"code" : "ast := ProcessingParser parse: thisSnippet previousSibling code.\rprogram := ProcessingTranspiler new compile: ast"
 			}
 		]
 	},

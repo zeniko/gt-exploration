@@ -354,14 +354,14 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-03-18T20:46:58.547+01:00"
+						"dateAndTimeString" : "2025-04-30T14:22:58.65+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
 					"uidString" : "2PH+nQLtDQCvXTRzCPNJlQ=="
 				},
-				"code" : "source := ProcessingSource new fromString: thisSnippet previousSibling code.\rast := ProcessingParser parse: source asString.\rmethod := (ProcessingCompiler new) compile: ast"
+				"code" : "source := ProcessingSource fromString: thisSnippet previousSibling code.\rast := ProcessingParser parse: source asString.\rmethod := (ProcessingCompiler new) compile: ast"
 			},
 			{
 				"__type" : "pharoSnippet",

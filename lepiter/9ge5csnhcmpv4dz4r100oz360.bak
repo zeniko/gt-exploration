@@ -286,17 +286,17 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-04-30T18:31:20.333+02:00"
+						"dateAndTimeString" : "2025-05-09T01:25:21.743+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
 					"uidString" : "WGEOLGPwDQCsTw60CmG2nw=="
 				},
-				"code" : "GtInspector forObject: (ProcessingSource fromSnippet:(thisSnippet page children select: [ :snip | snip isKindOf: LePythonSnippet ]) first) viewSelector: #gtAbstractionsFor:",
+				"code" : "(ProcessingSource fromPage: thisSnippet page) viewSelector: #gtAbstractionsFor:",
 				"elementHeight" : 466,
 				"codeHeight" : 67,
-				"codeVisible" : false
+				"codeVisible" : true
 			}
 		]
 	},

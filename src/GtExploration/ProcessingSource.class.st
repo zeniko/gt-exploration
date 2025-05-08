@@ -19,6 +19,16 @@ ProcessingSource class >> fromFile: locator [
 ]
 
 { #category : #initialization }
+ProcessingSource class >> fromPage: aPage [
+	^ self fromPage: aPage at: 1
+]
+
+{ #category : #initialization }
+ProcessingSource class >> fromPage: aPage at: anIndex [
+	^ self fromSnippet: ((aPage children select: [ :snip | snip isKindOf: LePythonSnippet ]) at: anIndex)
+]
+
+{ #category : #initialization }
 ProcessingSource class >> fromSnippet: aSnippet [
 	^ self fromViewModel: aSnippet asSnippetViewModel coderViewModel
 ]
@@ -129,6 +139,19 @@ ProcessingSource >> program [
 { #category : #runtime }
 ProcessingSource >> render [
 	^ self program canvas asElement
+]
+
+{ #category : #runtime }
+ProcessingSource >> renderLive [
+	^ self renderLiveView: #gtOutputFor:
+]
+
+{ #category : #runtime }
+ProcessingSource >> renderLiveView: aViewSelector [
+	(self class methodDict includes: aViewSelector) ifFalse: [
+		^ LiveViewWrapper createFor: self program view: aViewSelector
+	].
+	^ LiveViewWrapper createFor: self view: aViewSelector
 ]
 
 { #category : #initialization }
