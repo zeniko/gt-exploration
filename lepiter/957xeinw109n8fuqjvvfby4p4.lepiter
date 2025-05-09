@@ -113,7 +113,7 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-05-07T20:39:42.783+02:00"
+												"dateAndTimeString" : "2025-05-09T07:30:24.801+02:00"
 											}
 										},
 										"uid" : {
@@ -123,7 +123,7 @@
 										"paragraphStyle" : {
 											"__type" : "textStyle"
 										},
-										"string" : "link bytecodes to the [Blue Book](http://stephane.ducasse.free.fr/FreeBooks/BlueBook/Bluebook.pdf)"
+										"string" : "link bytecodes to the [Blue Book](http://stephane.ducasse.free.fr/FreeBooks/BlueBook/Bluebook.pdf) and {{gtMethod:InstructionStream>>#interpretNextSistaV1InstructionFor:}}"
 									}
 								]
 							},

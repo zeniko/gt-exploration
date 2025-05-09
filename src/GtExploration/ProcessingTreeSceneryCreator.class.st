@@ -16,8 +16,8 @@ ProcessingTreeSceneryCreator class >> addSubTree: aNode for: aProgram to: aScene
 	] ifFalse: [
 		node value
 	].
-	item := aScenery addItem: (GtSceneryTextLabelStencil new
-		label: label; width: 7 * label size + 8) asItem.
+	item := aScenery addItem: (GtSceneryObjectLabelStencil new
+		object: node; label: label; width: 7 * label size + 8) asItem.
 	
 	(aProgram gtGetASTChildren: node) do: [ :childNode |
 		child := self addSubTree: childNode for: aProgram to: aScenery.
@@ -32,7 +32,8 @@ ProcessingTreeSceneryCreator class >> sceneryFor: aProgram [
 	| scenery root child |
 	scenery := GtScenery new.
 	root := scenery
-		addItem: (GtSceneryTextLabelStencil new
+		addItem: (GtSceneryObjectLabelStencil new
+			object: aProgram ast;
 			label: 'Root' translated;
 			width: 40) asItem.
 	

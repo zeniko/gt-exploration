@@ -249,14 +249,14 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-03-18T17:57:20.436+01:00"
+						"dateAndTimeString" : "2025-05-09T07:08:45.873+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
 					"uidString" : "MLXkiALtDQCs2cYcCPNJlQ=="
 				},
-				"code" : "method valueWithReceiver: nil arguments: { canvas }.\rcanvas render"
+				"code" : "method valueWithReceiver: nil arguments: { canvas }.\rcanvas"
 			},
 			{
 				"__type" : "textSnippet",
@@ -388,14 +388,14 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-04-21T12:28:38.814+02:00"
+						"dateAndTimeString" : "2025-05-09T07:08:19.741+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
 					"uidString" : "4CHv4QTtDQC7UoghBdZACw=="
 				},
-				"code" : "(method valueWithReceiver: (ProcessingCanvas new) arguments: #()) asElement"
+				"code" : "method valueWithReceiver: (ProcessingCanvas new) arguments: #()"
 			}
 		]
 	},

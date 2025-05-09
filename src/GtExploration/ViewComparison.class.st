@@ -14,7 +14,7 @@ ViewComparison class >> newFor: aMapping [
 
 { #category : #views }
 ViewComparison >> asElement [
-	^ GtInspector forObject: self viewSelector: #gtCompareFor:
+	^ (GtInspector forObject: self viewSelector: #gtCompareFor:) asElement
 ]
 
 { #category : #views }

@@ -20,7 +20,7 @@ ProcessingCanvas >> annotate: shape [
 	^ shape
 ]
 
-{ #category : #accessing }
+{ #category : #views }
 ProcessingCanvas >> asElement [
 	^ canvasElement asScalableElement
 ]
