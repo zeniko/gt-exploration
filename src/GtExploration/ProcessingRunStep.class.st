@@ -7,7 +7,8 @@ Class {
 		'visible',
 		'method',
 		'stack',
-		'slice'
+		'slice',
+		'transcript'
 	],
 	#category : #'GtExploration-Processing'
 }
@@ -23,9 +24,15 @@ ProcessingRunStep >> asString [
 ]
 
 { #category : #initalization }
+ProcessingRunStep >> canvasTranscript [
+	^ canvas transcript ifNotNil: [ canvas transcript textDo: [ :text | text asString ] ] ifNil: [ '' ]
+]
+
+{ #category : #initalization }
 ProcessingRunStep >> create: aContext canvas: aCanvas slice: aSlice [
 	canvas := aCanvas.
 	visible := aCanvas canvasElement children collect: [ :child | child ].
+	transcript := self canvasTranscript.
 	variables := Dictionary new.
 	aContext receiver ifNotNil: [
 		aContext receiver class slots do: [ :slot |
@@ -159,6 +166,9 @@ ProcessingRunStep >> gtOutputFor: aView [
 	canvas canvasElement children do: [ :child |
 		child visibility: ((visible includes: child) ifTrue: [ BlVisibility visible ] ifFalse: [ BlVisibility hidden ]).
 	].
+	canvas transcript ifNotNil: [
+		canvas transcript clear; nextPutAll: transcript.
+	].
 	^ (canvas gtViewFor: aView)
 		title: 'Output' translated;
 		priority: 20
@@ -199,4 +209,5 @@ ProcessingRunStep >> gtVariablesFor: aView [
 { #category : #initalization }
 ProcessingRunStep >> updateCanvas: aCanvas [
 	visible := aCanvas canvasElement children collect: [ :child | child ].
+	transcript := self canvasTranscript.
 ]

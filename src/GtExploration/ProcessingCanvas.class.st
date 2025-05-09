@@ -247,6 +247,11 @@ ProcessingCanvas >> textSize: size [
 	textSize := size.
 ]
 
+{ #category : #accessing }
+ProcessingCanvas >> transcript [
+	^ transcript
+]
+
 { #category : #shapes }
 ProcessingCanvas >> triangle: vertices [
 	| shape |
