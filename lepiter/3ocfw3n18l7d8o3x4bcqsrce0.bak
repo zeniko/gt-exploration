@@ -29,7 +29,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-25T20:41:46.27+01:00"
+						"dateAndTimeString" : "2025-02-25T20:42:16.063+01:00"
 					}
 				},
 				"uid" : {
@@ -39,7 +39,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "This project implements "
+				"string" : "This project aims to translate [[Processing Language]] into [[Assembly Language]]."
 			},
 			{
 				"__type" : "textSnippet",
@@ -55,7 +55,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-25T20:31:19.245+01:00"
+						"dateAndTimeString" : "2025-05-11T18:44:01.503+02:00"
 					}
 				},
 				"editEmail" : {
@@ -66,7 +66,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-25T20:31:19.245+01:00"
+						"dateAndTimeString" : "2025-05-11T18:53:26.857+02:00"
 					}
 				},
 				"uid" : {
@@ -76,7 +76,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : ""
+				"string" : "After looking into several options for [[Running Python/Processing]], it was decided to pursue [[Transpiling Processing]] to Smalltalk as a first step. This gives us another form of [[Assembly]] in the form of Smalltalk bytecodes (in a variant of those mentioned on page 596 in the [Blue Book](http://stephane.ducasse.free.fr/FreeBooks/BlueBook/Bluebook.pdf)). For a "
 			}
 		]
 	},
