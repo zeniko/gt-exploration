@@ -167,7 +167,11 @@ ProcessingRunStep >> gtOutputFor: aView [
 		child visibility: ((visible includes: child) ifTrue: [ BlVisibility visible ] ifFalse: [ BlVisibility hidden ]).
 	].
 	canvas transcript ifNotNil: [
-		canvas transcript clear; nextPutAll: transcript.
+		"TODO: Clearing an empty GtTranscript raises an exception."
+		self canvasTranscript ifNotEmpty: [
+			canvas transcript clear.
+		].
+		canvas transcript nextPutAll: transcript.
 	].
 	^ (canvas gtViewFor: aView)
 		title: 'Output' translated;
