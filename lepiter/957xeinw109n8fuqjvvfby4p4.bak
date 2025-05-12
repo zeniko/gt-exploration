@@ -28,43 +28,6 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-05-07T20:38:25.882+02:00"
-											}
-										},
-										"editEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"editTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-05-07T20:38:42.74+02:00"
-											}
-										},
-										"uid" : {
-											"__type" : "uid",
-											"uidString" : "kN+IxvHwDQCAK+25D3Z/FQ=="
-										},
-										"paragraphStyle" : {
-											"__type" : "textStyle"
-										},
-										"string" : "complete missing {{gtPage:Compiler: Maschinensprache generieren|db=dl0rc62x02fk8k57e43hr8acw}}"
-									},
-									{
-										"__type" : "textSnippet",
-										"children" : {
-											"__type" : "snippets",
-											"items" : [ ]
-										},
-										"createEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"createTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
 												"dateAndTimeString" : "2025-05-07T00:02:15.861+02:00"
 											}
 										},
@@ -113,7 +76,7 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-05-07T20:39:42.783+02:00"
+												"dateAndTimeString" : "2025-05-09T07:30:24.801+02:00"
 											}
 										},
 										"uid" : {
@@ -123,7 +86,7 @@
 										"paragraphStyle" : {
 											"__type" : "textStyle"
 										},
-										"string" : "link bytecodes to the [Blue Book](http://stephane.ducasse.free.fr/FreeBooks/BlueBook/Bluebook.pdf)"
+										"string" : "link bytecodes to the [Blue Book](http://stephane.ducasse.free.fr/FreeBooks/BlueBook/Bluebook.pdf) and {{gtMethod:InstructionStream>>#interpretNextSistaV1InstructionFor:}}"
 									}
 								]
 							},
@@ -157,43 +120,6 @@
 								"__type" : "textStyle"
 							},
 							"string" : "Revise content"
-						},
-						{
-							"__type" : "textSnippet",
-							"children" : {
-								"__type" : "snippets",
-								"items" : [ ]
-							},
-							"createEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"createTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-05-07T20:38:01.999+02:00"
-								}
-							},
-							"editEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"editTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-05-07T20:38:11.802+02:00"
-								}
-							},
-							"uid" : {
-								"__type" : "uid",
-								"uidString" : "sG4cxfHwDQC/MvdvD3Z/FQ=="
-							},
-							"paragraphStyle" : {
-								"__type" : "textStyle"
-							},
-							"string" : "test distribution on different machines"
 						},
 						{
 							"__type" : "textSnippet",
