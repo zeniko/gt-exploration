@@ -21,7 +21,10 @@ LiveViewWrapper >> asElement [
 { #category : #views }
 LiveViewWrapper >> gtViewFor: aView [
 	<gtView>
-	^ object perform: view with: aView
+	^ (object perform: view with: aView)
+		actionButtonIcon: BrGlamorousVectorIcons inspect
+			tooltip: 'Inspect wrapped object' translated
+			action: [ :button | button fireEvent: (GtPhlowObjectToSpawn new object: object) ]
 ]
 
 { #category : #accessing }

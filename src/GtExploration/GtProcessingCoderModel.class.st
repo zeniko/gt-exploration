@@ -34,7 +34,7 @@ GtProcessingCoderModel >> doIt: anEvaluationContext [
 { #category : #'private - actions' }
 GtProcessingCoderModel >> doItAndGo: anEvaluationContext [
 	self doItAndPublish: [
-		ProcessingSource fromViewModel: anEvaluationContext requesterObject coderViewModel
+		(ProcessingSource fromViewModel: anEvaluationContext requesterObject coderViewModel) renderLiveView: #gtAbstractionsFor:
 	] with: anEvaluationContext.
 ]
 

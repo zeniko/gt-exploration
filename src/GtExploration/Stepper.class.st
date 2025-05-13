@@ -104,6 +104,10 @@ Stepper >> gtListViewFor: aView [
 					text: [ :each | each asString ];
 				asElementDo: [ :e | child := e ].
 			child
+				constraintsDo: [ :c | 
+					c vertical matchParent.
+					c horizontal matchParent.
+					c linear weight: 0.5. ];
 				background: Color white;
 				margin: (BlInsets all: 5).
 			element addChild: child.
@@ -112,11 +116,6 @@ Stepper >> gtListViewFor: aView [
 			
 			(self gtContentFor: GtPhlowView empty)
 				asElementDo: [ :e | child := e ].
-			child
-				constraintsDo: [ :c | 
-					c vertical matchParent.
-					c horizontal matchParent ];
-				margin: (BlInsets all: 5).
 			element addChild: child.
 			
 			listElement
