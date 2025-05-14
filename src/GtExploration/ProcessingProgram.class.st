@@ -303,6 +303,16 @@ ProcessingProgram >> gtContentsFor: aView [
 ]
 
 { #category : #views }
+ProcessingProgram >> gtDefaultInspectorTool [
+	^ GtPhlowCompositeTool new
+		addTool: (GtPhlowExplicitTool new
+			withIconAptitude;
+			icon: BrGlamorousVectorIcons playAsynchronous;
+			stencil: [ GtInspector forObject: self viewSelector: #gtAbstractionsFor: ]);
+		addTool: super gtDefaultInspectorTool
+]
+
+{ #category : #views }
 ProcessingProgram >> gtEditorHightlight: anEditor from: from to: to [
 	anEditor editor text clearAttributes: [ :each | each isKindOf: BlTextHighlightAttribute ].
 	(anEditor editor text from: from to: to)

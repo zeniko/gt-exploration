@@ -148,7 +148,7 @@ ProcessingSource >> renderLive [
 
 { #category : #runtime }
 ProcessingSource >> renderLiveView: aViewSelector [
-	(self class methodDict includes: aViewSelector) ifFalse: [
+	(self class methodDict includesKey: aViewSelector) ifFalse: [
 		^ LiveViewWrapper createFor: self program view: aViewSelector
 	].
 	^ LiveViewWrapper createFor: self view: aViewSelector

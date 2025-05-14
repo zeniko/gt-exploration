@@ -7,9 +7,30 @@ Class {
 { #category : #initialization }
 GtExplorationHomeSection >> cardPriorities [
 	^ #(
-		projectCard
-		projectCard2
+		explorationCard
+		processingAbstractionCard
 	)
+]
+
+{ #category : #card }
+GtExplorationHomeSection >> explorationCard [
+	<gtSectionCard>
+	^ GtHomeCard lazy
+		title: 'Implementation and Tests';
+		description: 'Technical details (not for students)';
+		databaseName: 'zeniko:gt-exploration';
+		pageName: 'Individual Project';
+		setPriority;
+		loadLepiter: [
+			Metacello new
+				repository: 'github://zeniko/gt-exploration:main/src';
+				baseline: 'GtExploration';
+				load.
+			#BaselineOfGtExploration asClass loadLepiter.
+			self class updateGtWorld
+		];
+		assertInvariant;
+		yourself
 ]
 
 { #category : #card }
@@ -27,27 +48,6 @@ GtExplorationHomeSection >> processingAbstractionCard [
 				baseline: 'ProcessingAbstractions';
 				load.
 			#BaselineOfProcessingAbstractions asClass loadLepiter.
-			self class updateGtWorld
-		];
-		assertInvariant;
-		yourself
-]
-
-{ #category : #card }
-GtExplorationHomeSection >> projectCard [
-	<gtSectionCard>
-	^ GtHomeCard lazy
-		title: 'Implementation and Tests';
-		description: 'Technical details (not for students)';
-		databaseName: 'zeniko:gt-exploration';
-		pageName: 'Individual Project';
-		setPriority;
-		loadLepiter: [
-			Metacello new
-				repository: 'github://zeniko/gt-exploration:main/src';
-				baseline: 'GtExploration';
-				load.
-			#BaselineOfGtExploration asClass loadLepiter.
 			self class updateGtWorld
 		];
 		assertInvariant;
