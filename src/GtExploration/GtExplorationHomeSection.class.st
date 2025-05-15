@@ -1,8 +1,22 @@
 Class {
 	#name : #GtExplorationHomeSection,
 	#superclass : #GtHomeMultiCardSection,
+	#classInstVars : [
+		'studentMode'
+	],
 	#category : #'GtExploration-GtExtensions'
 }
+
+{ #category : #accessing }
+GtExplorationHomeSection class >> studentMode [
+	^ studentMode ifNil: [ false ]
+]
+
+{ #category : #accessing }
+GtExplorationHomeSection class >> studentMode: aBoolean [
+	studentMode := aBoolean.
+	self updateGtWorld.
+]
 
 { #category : #initialization }
 GtExplorationHomeSection >> cardPriorities [
@@ -15,6 +29,8 @@ GtExplorationHomeSection >> cardPriorities [
 { #category : #card }
 GtExplorationHomeSection >> explorationCard [
 	<gtSectionCard>
+	"allow hiding this card in student distributions"
+	self class studentMode ifTrue: [ ^ GtEmptyHomeCard new ].
 	^ GtHomeCard lazy
 		title: 'Implementation and Tests';
 		description: 'Technical details (not for students)';
