@@ -308,7 +308,19 @@ ProcessingProgram >> gtDefaultInspectorTool [
 		addTool: (GtPhlowExplicitTool new
 			withIconAptitude;
 			icon: BrGlamorousVectorIcons playAsynchronous;
-			stencil: [ GtInspector forObject: self viewSelector: #gtAbstractionsFor: ]);
+			stencil: [
+				BlContainerWithHeaderElement new
+					headerText: (self asString, ': ' , 'Abstractions' translated) asRopedText;
+					addChild: (GtInspector forObject: self viewSelector: #gtAbstractionsFor:)
+			]);
+		addTool: (GtPhlowExplicitTool new
+			withIconAptitude;
+			icon: BrGlamorousVectorIcons play;
+			stencil: [
+				BlContainerWithHeaderElement new
+					headerText: (self asString , ': ' , 'Output' translated) asRopedText;
+					addChild: (GtInspector forObject: self viewSelector: #gtOutputFor:)
+			]);
 		addTool: super gtDefaultInspectorTool
 ]
 
@@ -761,7 +773,7 @@ ProcessingProgram >> gtTreeFor: aView [
 				node := next first.
 			].
 			(node isKindOf: PyRootNode) ifTrue: [
-				(self gtASTNodeNames at: node class) asRopedText foreground: BrGlamorousColors disabledButtonTextColor
+				(self gtASTNodeNames at: node class) asRopedText foreground: Color lightGray
 			] ifFalse: [
 				node value
 			]
@@ -786,6 +798,15 @@ ProcessingProgram >> gtTreeFor: aView [
 		];
 	expandAll;
 	updateWhen: ProcessingProgramChanged in: self announcer
+]
+
+{ #category : #views }
+ProcessingProgram >> gtTreeMondrianFor: aView [
+	<gtView>
+	^ ((ProcessingTreeMondrianCreator mondrianFor: self) gtLiveFor: aView)
+		priority: 18;
+		title: 'AST Tree';
+		updateWhen: ProcessingProgramChanged in: self announcer
 ]
 
 { #category : #views }
@@ -827,16 +848,6 @@ ProcessingProgram >> gtTreePlusSourceFor: aView [
 			].
 			
 			element ];
-		updateWhen: ProcessingProgramChanged in: self announcer
-]
-
-{ #category : #views }
-ProcessingProgram >> gtTreeSceneryFor: aView [
-	<gtView>
-	^ aView explicit
-		priority: 18;
-		title: 'AST Tree';
-		stencil: [ ProcessingTreeSceneryCreator sceneryFor: self ];
 		updateWhen: ProcessingProgramChanged in: self announcer
 ]
 
