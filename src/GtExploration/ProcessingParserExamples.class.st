@@ -109,6 +109,15 @@ ProcessingParserExamples >> parseMinimal [
 ]
 
 { #category : #example }
+ProcessingParserExamples >> parseMouseEvents [
+	<gtExample>
+	| ast node |
+	ast := ProcessingParser parse: ProcessingSourceExamples new sourceCodeMouseEvents.
+	self assert: ast statements size equals: 2.
+	^ ast
+]
+
+{ #category : #example }
 ProcessingParserExamples >> parsePrint [
 	<gtExample>
 	| ast |

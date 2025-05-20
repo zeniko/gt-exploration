@@ -37,6 +37,7 @@ ProcessingTranspilerExamples >> transpilationAnimation [
 	var := 0.
 	self setup.
 	[ gtCanvas frameRate > 0 ] whileTrue: [
+		mouseX := gtCanvas mouseX. mouseY := gtCanvas mouseY. mousePressed := gtCanvas mousePressed.
 		self draw.
 		(1 / gtCanvas frameRate) seconds wait.
 	].
@@ -157,6 +158,28 @@ ProcessingTranspilerExamples >> transpilationImage [
 ProcessingTranspilerExamples >> transpilationMinimal [
 	^ 'gtRun
 	width := 200. height := 200. gtCanvas size: width by: height.'
+]
+
+{ #category : #transpilation }
+ProcessingTranspilerExamples >> transpilationMouseEvents [
+	^ 'gtRun
+	self setup.
+	[ gtCanvas frameRate > 0 ] whileTrue: [
+		mouseX := gtCanvas mouseX. mouseY := gtCanvas mouseY. mousePressed := gtCanvas mousePressed.
+		self draw.
+		(1 / gtCanvas frameRate) seconds wait.
+	].
+
+setup
+	width := 200. height := 200. gtCanvas size: width by: height.
+	gtCanvas fillGray: 0.
+	gtCanvas textSize: 20.
+
+draw
+	gtCanvas backgroundGray: 192.
+	gtCanvas text: (''x: '' , mouseX asString) x: 10 y: 30.
+	gtCanvas text: (''y: '' , mouseY asString) x: 10 y: 60.
+	gtCanvas text: (''pressed: '' , mousePressed asString) x: 10 y: 90.'
 ]
 
 { #category : #transpilation }
@@ -425,6 +448,19 @@ ProcessingTranspilerExamples >> transpileMinimal [
 	self assert: transpiler variables size equals: 0.
 	self assert: transpiler userDefs size equals: 0.
 	self compare: (transpiler compile: ast) with: self transpilationMinimal.
+	^ transpiler compile: ast
+]
+
+{ #category : #example }
+ProcessingTranspilerExamples >> transpileMouseEvents [
+	<gtExample>
+	| ast transpiler |
+	ast := ProcessingParserExamples new parseMouseEvents.
+	transpiler := self newTranspiler.
+	self assert: (transpiler transpile: ast) equals: self transpilationMouseEvents.
+	self assert: transpiler variables size equals: 0.
+	self assert: transpiler userDefs size equals: 2.
+	self compare: (transpiler compile: ast) with: self transpilationMouseEvents.
 	^ transpiler compile: ast
 ]
 

@@ -152,6 +152,20 @@ ProcessingSourceExamples >> sourceCodeMinimal [
 ]
 
 { #category : #source }
+ProcessingSourceExamples >> sourceCodeMouseEvents [
+	^ 'def setup():
+	size(200, 200)
+	fill(0)
+	textSize(20)
+
+def draw():
+	background(192)
+	text("x: " + str(mouseX), 10, 30)
+	text("y: " + str(mouseY), 10, 60)
+	text("pressed: " + str(mousePressed), 10, 90)'
+]
+
+{ #category : #source }
 ProcessingSourceExamples >> sourceCodePrint [
 	^ 'print("Hello," '' world!'')
 var = 2 + 3
@@ -360,6 +374,16 @@ ProcessingSourceExamples >> sourceMinimal [
 	| source |
 	source := ProcessingSource fromString: self sourceCodeMinimal.
 	self assert: source asString equals: self sourceCodeMinimal.
+	self assert: source program isNotNil.
+	^ source
+]
+
+{ #category : #example }
+ProcessingSourceExamples >> sourceMouseEvents [
+	<gtExample>
+	| source |
+	source := ProcessingSource fromString: self sourceCodeMouseEvents.
+	self assert: source asString equals: self sourceCodeMouseEvents.
 	self assert: source program isNotNil.
 	^ source
 ]

@@ -106,6 +106,15 @@ ProcessingProgramExamples >> programMinimal [
 ]
 
 { #category : #example }
+ProcessingProgramExamples >> programMouseEvents [
+	<gtExample>
+	| program |
+	program := ProcessingSourceExamples new sourceMouseEvents program.
+	self assert: program compilation isNotNil.
+	^ program
+]
+
+{ #category : #example }
 ProcessingProgramExamples >> programPrint [
 	<gtExample>
 	| program |

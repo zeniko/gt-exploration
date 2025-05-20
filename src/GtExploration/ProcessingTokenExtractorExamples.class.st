@@ -111,6 +111,16 @@ ProcessingTokenExtractorExamples >> tokensMinimal [
 ]
 
 { #category : #example }
+ProcessingTokenExtractorExamples >> tokensMouseEvents [
+	<gtExample>
+	| tokens |
+	tokens := self newExtractor extractTokens: ProcessingParserExamples new parseMouseEvents.
+	self assert: tokens size equals: 67.
+	self assert: (tokens allSatisfy: [ :item | item isKindOf: SmaCCToken ]).
+	^ tokens
+]
+
+{ #category : #example }
 ProcessingTokenExtractorExamples >> tokensPrint [
 	<gtExample>
 	| tokens |

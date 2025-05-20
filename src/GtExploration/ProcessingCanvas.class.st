@@ -8,7 +8,10 @@ Class {
 		'strokeColor',
 		'strokeWeight',
 		'transcript',
-		'frameRate'
+		'frameRate',
+		'mouseX',
+		'mouseY',
+		'mousePressed'
 	],
 	#category : #'GtExploration-Processing'
 }
@@ -158,13 +161,26 @@ ProcessingCanvas >> initialize [
 	canvasElement := BlElement new
 		background: Color veryLightGray;
 		size: 100 @ 100;
+		when: BlMouseMoveEvent do: [ :event |
+			mouseX := event localPosition x.
+			mouseY := event localPosition y.
+		];
+		when: BlMouseDownEvent do: [ :event |
+			mousePressed := true.
+		];
+		when: BlMouseUpEvent do: [ :event |
+			mousePressed := false.
+		];
 		yourself.
+	
 	fillColor := Color white.
 	strokeColor := Color black.
 	strokeWeight := 0.5.
 	textSize := 12.
 	transcript := nil.
 	frameRate := 30.
+	mouseX := 0. mouseY := 0.
+	mousePressed := false.
 ]
 
 { #category : #shapes }
@@ -202,6 +218,21 @@ ProcessingCanvas >> loadImage: path [
 		^ SkiaImage fromFile: FileLocator gtResource / path
 	].
 	^ nil
+]
+
+{ #category : #accessing }
+ProcessingCanvas >> mousePressed [
+	^ mousePressed
+]
+
+{ #category : #accessing }
+ProcessingCanvas >> mouseX [
+	^ mouseX
+]
+
+{ #category : #accessing }
+ProcessingCanvas >> mouseY [
+	^ mouseY
 ]
 
 { #category : #shapes }

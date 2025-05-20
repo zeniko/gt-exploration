@@ -247,6 +247,12 @@ ProcessingTranspiler >> emitSize: args [
 ]
 
 { #category : #emitting }
+ProcessingTranspiler >> emitStr: args [
+	args first acceptVisitor: self.
+	self emit: ' asString'.
+]
+
+{ #category : #emitting }
 ProcessingTranspiler >> emitStroke: args [
 	args size = 1 ifTrue: [
 		self emit: 'gtCanvas strokeGray: '.
@@ -312,6 +318,17 @@ ProcessingTranspiler >> endEmit [
 	^ node size
 ]
 
+{ #category : #visiting }
+ProcessingTranspiler >> isStringConcatenation: expr [
+	(expr isKindOf: PyBinaryExpressionNode) ifFalse: [ ^ false ].
+	expr operator value = '+' ifFalse: [ ^ false ].
+	(expr left isKindOf: PyStringNode) ifTrue: [ ^ true ].
+	(expr right isKindOf: PyStringNode) ifTrue: [ ^ true ].
+	(self isStringConcatenation: expr left) ifTrue: [ ^ true ].
+	(self isStringConcatenation: expr right) ifTrue: [ ^ true ].
+	^ false
+]
+
 { #category : #emitting }
 ProcessingTranspiler >> notImplemented: expr [
 	ProcessingNotImplementedException new tag: expr; signal.
@@ -336,8 +353,7 @@ ProcessingTranspiler >> transpile: ast [
 	nodeStack := OrderedCollection new.
 	
 	"Prepare implicit globals"
-	globalVariables add: 'width'.
-	globalVariables add: 'height'.
+	globalVariables addAll: { 'width'. 'height'. }.
 	
 	"Throw-away values for function signature pre-parsing."
 	output := ''.
@@ -366,8 +382,10 @@ ProcessingTranspiler >> transpile: ast [
 	].
 	userDefs at: 'draw' ifPresent: [ :args |
 		args ifEmpty: [
+			globalVariables addAll: { 'mouseX'. 'mouseY'. 'mousePressed'. }.
 			self emit: '[ gtCanvas frameRate > 0 ] whileTrue: ['; cr.
 			indentation := indentation + 1.
+			self emit: 'mouseX := gtCanvas mouseX. mouseY := gtCanvas mouseY. mousePressed := gtCanvas mousePressed.'; cr.
 			self emit: 'self draw.'; cr.
 			self emit: '(1 / gtCanvas frameRate) seconds wait.'; cr.
 			indentation := indentation - 1.
@@ -507,6 +525,7 @@ ProcessingTranspiler >> visitBinaryExpression: expr [
 	"Modulo is `%` in Python but `\\` in Smalltalk"
 	op = '%' ifTrue: [ op := '\\' ].
 	
+	"`and` and `or` are short-circuiting in Python"
 	((op = 'and') | (op = 'or')) ifTrue: [
 		self startEmit: expr.
 		self emit: '('.
@@ -516,6 +535,8 @@ ProcessingTranspiler >> visitBinaryExpression: expr [
 		self emit: ' ])'.
 		^ self endEmit		
 	].
+	
+	(self isStringConcatenation: expr) ifTrue: [ op := ','. ].
 	
 	self startEmit: expr.
 	self emit: '('.
@@ -641,6 +662,7 @@ ProcessingTranspiler >> visitFunctionCallExpression: fnCall [
 	name = 'rect' ifTrue: [ self emitRect: args. ^ self endEmit ].
 	name = 'sin' ifTrue: [ self emitSin: args. ^ self endEmit ].
 	name = 'size' ifTrue: [ self emitSize: args. ^ self endEmit ].
+	name = 'str' ifTrue: [ self emitStr: args. ^ self endEmit ].
 	name = 'stroke' ifTrue: [ self emitStroke: args. ^ self endEmit ].
 	name = 'strokeWeight' ifTrue: [ self emitStrokeWeight: args. ^ self endEmit ].
 	name = 'text' ifTrue: [ self emitText: args. ^ self endEmit ].
