@@ -121,6 +121,46 @@
 							"string" : "Processing API: `loadImage` and `image`, `mouseX`, `mouseY` and `mousePressed` inside `def draw()`, `str`"
 						},
 						{
+							"__type" : "exampleSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-05-21T00:53:52.814+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-05-21T00:53:52.814+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "sCsH3PrxDQC7RiBsBWhF1w=="
+							},
+							"exampleSelector" : "programMouseEvents",
+							"previewHeight" : 150,
+							"previewShowSelector" : "gtOutputFor:",
+							"exampleBehaviorName" : "ProcessingProgramExamples",
+							"codeExpanded" : true,
+							"previewExpanded" : false,
+							"noCode" : true
+						},
+						{
 							"__type" : "textSnippet",
 							"children" : {
 								"__type" : "snippets",

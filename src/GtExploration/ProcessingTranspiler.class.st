@@ -320,13 +320,11 @@ ProcessingTranspiler >> endEmit [
 
 { #category : #visiting }
 ProcessingTranspiler >> isStringConcatenation: expr [
+	(expr isKindOf: PyStringNode) ifTrue: [ ^ true ].
+	(expr isKindOf: PyFunctionCallExpressionNode) ifTrue: [ ^ expr receiver nameToken value = 'str' ].
 	(expr isKindOf: PyBinaryExpressionNode) ifFalse: [ ^ false ].
 	expr operator value = '+' ifFalse: [ ^ false ].
-	(expr left isKindOf: PyStringNode) ifTrue: [ ^ true ].
-	(expr right isKindOf: PyStringNode) ifTrue: [ ^ true ].
-	(self isStringConcatenation: expr left) ifTrue: [ ^ true ].
-	(self isStringConcatenation: expr right) ifTrue: [ ^ true ].
-	^ false
+	^ (self isStringConcatenation: expr left) or: [ self isStringConcatenation: expr right ]
 ]
 
 { #category : #emitting }
@@ -536,7 +534,7 @@ ProcessingTranspiler >> visitBinaryExpression: expr [
 		^ self endEmit		
 	].
 	
-	(self isStringConcatenation: expr) ifTrue: [ op := ','. ].
+	(op = '+' and: [ self isStringConcatenation: expr ]) ifTrue: [ op := ','. ].
 	
 	self startEmit: expr.
 	self emit: '('.

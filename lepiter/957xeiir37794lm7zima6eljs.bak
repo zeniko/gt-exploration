@@ -108,7 +108,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-05-20T23:26:22.917+02:00"
+									"dateAndTimeString" : "2025-05-20T23:27:01.052+02:00"
 								}
 							},
 							"uid" : {
@@ -118,7 +118,45 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Processing API: `loadImage` and `image`, `mouseX`, `mouseY` and `mousePressed` inside `def draw()`"
+							"string" : "Processing API: `loadImage` and `image`, `mouseX`, `mouseY` and `mousePressed` inside `def draw()`, `str`"
+						},
+						{
+							"__type" : "exampleSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-05-21T00:53:52.814+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-05-21T00:53:52.814+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "sCsH3PrxDQC7RiBsBWhF1w=="
+							},
+							"previewHeight" : 200,
+							"previewShowSelector" : "gtViewsFor:",
+							"codeExpanded" : true,
+							"previewExpanded" : false,
+							"noCode" : false
 						},
 						{
 							"__type" : "textSnippet",

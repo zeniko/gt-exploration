@@ -141,6 +141,25 @@ ProcessingCanvasExamples >> image [
 ]
 
 { #category : #example }
+ProcessingCanvasExamples >> mouseEvents [
+	<gtExample>
+	| canvas |
+	canvas := self container.
+	self assert: canvas mouseX @ canvas mouseY equals: 0 @ 0.
+	self assert: canvas mousePressed not.
+	canvas canvasElement dispatchEvent: BlMouseDownEvent primary.
+	self assert: canvas mousePressed.
+	canvas canvasElement dispatchEvent: BlMouseUpEvent primary.
+	self assert: canvas mousePressed not.
+	canvas canvasElement dispatchEvent: (BlMouseUpEvent primary position: 5 @ 7).
+	self assert: canvas mousePressed not.
+	self assert: canvas mouseX @ canvas mouseY equals: 0 @ 0.
+	canvas canvasElement dispatchEvent: (BlMouseMoveEvent new position: 10 @ 20).
+	self assert: canvas mouseX @ canvas mouseY equals: 10 @ 20.
+	^ canvas
+]
+
+{ #category : #example }
 ProcessingCanvasExamples >> recursion [
 	<gtExample>
 	| canvas |

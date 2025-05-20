@@ -177,9 +177,8 @@ setup
 
 draw
 	gtCanvas backgroundGray: 192.
-	gtCanvas text: (''x: '' , mouseX asString) x: 10 y: 30.
-	gtCanvas text: (''y: '' , mouseY asString) x: 10 y: 60.
-	gtCanvas text: (''pressed: '' , mousePressed asString) x: 10 y: 90.'
+	gtCanvas text: (''Mouse: '' , (mouseX asString , ('' @ '' , mouseY asString))) x: 10 y: 70.
+	gtCanvas text: (''('' , ((mousePressed not ifTrue: [ ''not '' ] ifFalse: [ '''' ]) , ''pressed)'')) x: 78 y: 100.'
 ]
 
 { #category : #transpilation }

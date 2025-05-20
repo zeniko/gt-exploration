@@ -162,8 +162,8 @@ ProcessingCanvas >> initialize [
 		background: Color veryLightGray;
 		size: 100 @ 100;
 		when: BlMouseMoveEvent do: [ :event |
-			mouseX := event localPosition x.
-			mouseY := event localPosition y.
+			mouseX := event localPosition x rounded.
+			mouseY := event localPosition y rounded.
 		];
 		when: BlMouseDownEvent do: [ :event |
 			mousePressed := true.
