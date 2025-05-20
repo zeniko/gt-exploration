@@ -141,6 +141,22 @@ ProcessingTranspiler >> emitFunctionDef: name with: args [
 ]
 
 { #category : #emitting }
+ProcessingTranspiler >> emitImage: args [
+	self emit: 'gtCanvas image: '.
+	args first acceptVisitor: self.
+	args size > 3 ifTrue: [
+		self emit: ' sized: '.
+		args fourth acceptVisitor: self.
+		self emit: ' @ '.
+		args fifth acceptVisitor: self.
+	].
+	self emit: ' at: '.
+	args second acceptVisitor: self.
+	self emit: ' @ '.
+	args third acceptVisitor: self.
+]
+
+{ #category : #emitting }
 ProcessingTranspiler >> emitInt: args [
 	args first acceptVisitor: self.
 	self emit: ' rounded'.
@@ -156,6 +172,12 @@ ProcessingTranspiler >> emitLine: args [
 	args third acceptVisitor: self.
 	self emit: ' @ '.
 	args fourth acceptVisitor: self.
+]
+
+{ #category : #emitting }
+ProcessingTranspiler >> emitLoadImage: args [
+	self emit: 'gtCanvas loadImage: '.
+	args first acceptVisitor: self.
 ]
 
 { #category : #emitting }
@@ -607,8 +629,10 @@ ProcessingTranspiler >> visitFunctionCallExpression: fnCall [
 	name = 'ellipse' ifTrue: [ self emitEllipse: args. ^ self endEmit ].
 	name = 'fill' ifTrue: [ self emitFill: args. ^ self endEmit ].
 	name = 'frameRate' ifTrue: [ self emitFrameRate: args. ^ self endEmit ].
+	name = 'image' ifTrue: [ self emitImage: args. ^ self endEmit ].
 	name = 'int' ifTrue: [ self emitInt: args. ^ self endEmit ].
 	name = 'line' ifTrue: [ self emitLine: args. ^ self endEmit ].
+	name = 'loadImage' ifTrue: [ self emitLoadImage: args. ^ self endEmit ].
 	name = 'print' ifTrue: [ self emitPrint: args. ^ self endEmit ].
 	"`println` is to Processing what `print` is to Python."
 	name = 'println' ifTrue: [ self emitPrint: args. ^ self endEmit ].

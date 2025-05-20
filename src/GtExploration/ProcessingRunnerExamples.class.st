@@ -169,6 +169,18 @@ ProcessingRunnerExamples >> runFibonacciStepwise [
 ]
 
 { #category : #example }
+ProcessingRunnerExamples >> runImage [
+	<gtExample>
+	| program runner |
+	program := ProcessingProgramExamples new programImage.
+	runner := self newRunner.
+	runner run: program compilation; wait.
+	self assert: runner canvas isNotNil.
+	self assert: runner isDone.
+	^ runner
+]
+
+{ #category : #example }
 ProcessingRunnerExamples >> runInterrupted [
 	<gtExample>
 	<noTest> "Runaway detection currently takes a few seconds"

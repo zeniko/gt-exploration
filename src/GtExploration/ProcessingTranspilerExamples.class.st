@@ -144,6 +144,16 @@ fibonacci: n
 ]
 
 { #category : #transpilation }
+ProcessingTranspilerExamples >> transpilationImage [
+	^ 'gtRun
+	width := 200. height := 200. gtCanvas size: width by: height.
+	img := gtCanvas loadImage: ''zeniko/gt-exploration/data/sample/thumbs-up.png''.
+	gtCanvas image: img at: 0 @ 0.
+	gtCanvas fillGray: 0.
+	gtCanvas image: img sized: 50 @ 50 at: 150 @ 150.'
+]
+
+{ #category : #transpilation }
 ProcessingTranspilerExamples >> transpilationMinimal [
 	^ 'gtRun
 	width := 200. height := 200. gtCanvas size: width by: height.'
@@ -389,6 +399,19 @@ ProcessingTranspilerExamples >> transpileFibonacci [
 	self assert: transpiler variables size equals: 0.
 	self assert: transpiler userDefs size equals: 1.
 	self compare: (transpiler compile: ast) with: self transpilationFibonacci.
+	^ transpiler compile: ast
+]
+
+{ #category : #example }
+ProcessingTranspilerExamples >> transpileImage [
+	<gtExample>
+	| ast transpiler |
+	ast := ProcessingParserExamples new parseImage.
+	transpiler := self newTranspiler.
+	self assert: (transpiler transpile: ast) equals: self transpilationImage.
+	self assert: transpiler variables size equals: 1.
+	self assert: transpiler userDefs size equals: 0.
+	self compare: (transpiler compile: ast) with: self transpilationImage.
 	^ transpiler compile: ast
 ]
 

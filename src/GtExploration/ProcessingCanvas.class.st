@@ -118,6 +118,23 @@ ProcessingCanvas >> gtViewFor: aView [
 		title: 'Output' translated
 ]
 
+{ #category : #shapes }
+ProcessingCanvas >> image: image at: xy [
+	^ self image: image sized: image width @ image height at: xy
+]
+
+{ #category : #shapes }
+ProcessingCanvas >> image: image sized: size at: xy [
+	| shape |
+	shape := image asElement
+		background: fillColor;
+		size: size;
+		relocate: xy;
+		yourself.
+	canvasElement addChild: shape.
+	^ self annotate: shape
+]
+
 { #category : #initialization }
 ProcessingCanvas >> initialize [
 	canvasElement := BlElement new
@@ -142,6 +159,26 @@ ProcessingCanvas >> line: fromXy to: toXy [
 		yourself.
 	canvasElement addChild: shape.
 	^ self annotate: shape
+]
+
+{ #category : #initialization }
+ProcessingCanvas >> loadImage: path [
+	(path beginsWith: 'http') ifTrue: [
+		| bytes |
+		bytes := ZnClient new get: path.
+		^ SkiaImage fromBuffer: bytes start: 0 end: bytes size
+	].
+	(FileReference / path) exists ifTrue: [
+		^ SkiaImage fromFile: FileReference / path
+	].
+	"Relative paths are relative to `FileLocator documents / 'lepiter'` or `FileLocator gtResource` for now (in that order)"
+	(FileLocator documents / 'lepiter' / path) exists ifTrue: [
+		^ SkiaImage fromFile: FileLocator documents / 'lepiter' / path
+	].
+	(FileLocator gtResource / path) exists ifTrue: [
+		^ SkiaImage fromFile: FileLocator gtResource / path
+	].
+	^ nil
 ]
 
 { #category : #shapes }

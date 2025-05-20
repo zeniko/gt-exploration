@@ -122,6 +122,22 @@ ProcessingCanvasExamples >> fillColor [
 ]
 
 { #category : #example }
+ProcessingCanvasExamples >> image [
+	<gtExample>
+	| canvas image |
+	canvas := self container.
+	image := canvas loadImage: 'nowhere/missing.ext'.
+	self assert: image isNil.
+	image := canvas loadImage: 'zeniko/gt-exploration/data/sample/thumbs-up.png'.
+	self assert: image isNotNil.
+	self assert: image width @ image height equals: 240 @ 168.
+	canvas image: image sized: 100 @ 100 at: 50 @ 50.
+	self assert: canvas canvasElement children size equals: 1.
+	self assert: (canvas canvasElement children first isKindOf: BlSkiaImageElement).
+	^ canvas
+]
+
+{ #category : #example }
 ProcessingCanvasExamples >> recursion [
 	<gtExample>
 	| canvas |

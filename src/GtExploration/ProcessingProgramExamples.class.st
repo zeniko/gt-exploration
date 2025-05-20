@@ -88,6 +88,15 @@ ProcessingProgramExamples >> programFibonacci [
 ]
 
 { #category : #example }
+ProcessingProgramExamples >> programImage [
+	<gtExample>
+	| program |
+	program := ProcessingSourceExamples new sourceImage program.
+	self assert: program compilation isNotNil.
+	^ program
+]
+
+{ #category : #example }
 ProcessingProgramExamples >> programMinimal [
 	<gtExample>
 	| program |

@@ -88,6 +88,15 @@ ProcessingParserExamples >> parseFibonacci [
 ]
 
 { #category : #example }
+ProcessingParserExamples >> parseImage [
+	<gtExample>
+	| ast |
+	ast := ProcessingParser parse: ProcessingSourceExamples new sourceCodeImage.
+	self assert: ast statements size equals: 5.
+	^ ast
+]
+
+{ #category : #example }
 ProcessingParserExamples >> parseMinimal [
 	<gtExample>
 	| ast node |

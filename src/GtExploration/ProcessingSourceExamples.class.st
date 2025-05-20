@@ -138,6 +138,15 @@ text(fibonacci(10), 20, 125)'
 ]
 
 { #category : #source }
+ProcessingSourceExamples >> sourceCodeImage [
+	^ 'size(200, 200)
+img = loadImage("zeniko/gt-exploration/data/sample/thumbs-up.png")
+image(img, 0, 0)
+fill(0)
+image(img, 150, 150, 50, 50)'
+]
+
+{ #category : #source }
 ProcessingSourceExamples >> sourceCodeMinimal [
 	^ 'size(200, 200)'
 ]
@@ -331,6 +340,16 @@ ProcessingSourceExamples >> sourceFibonacci [
 	| source |
 	source := ProcessingSource fromString: self sourceCodeFibonacci.
 	self assert: source asString equals: self sourceCodeFibonacci.
+	self assert: source program isNotNil.
+	^ source
+]
+
+{ #category : #example }
+ProcessingSourceExamples >> sourceImage [
+	<gtExample>
+	| source |
+	source := ProcessingSource fromString: self sourceCodeImage.
+	self assert: source asString equals: self sourceCodeImage.
 	self assert: source program isNotNil.
 	^ source
 ]

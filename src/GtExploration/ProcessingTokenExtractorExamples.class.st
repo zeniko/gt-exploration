@@ -91,6 +91,16 @@ ProcessingTokenExtractorExamples >> tokensFibonacci [
 ]
 
 { #category : #example }
+ProcessingTokenExtractorExamples >> tokensImage [
+	<gtExample>
+	| tokens |
+	tokens := self newExtractor extractTokens: ProcessingParserExamples new parseImage.
+	self assert: tokens size equals: 36.
+	self assert: (tokens allSatisfy: [ :item | item isKindOf: SmaCCToken ]).
+	^ tokens
+]
+
+{ #category : #example }
 ProcessingTokenExtractorExamples >> tokensMinimal [
 	<gtExample>
 	| tokens |
