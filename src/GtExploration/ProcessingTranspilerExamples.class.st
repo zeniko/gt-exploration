@@ -26,9 +26,9 @@ ProcessingTranspilerExamples >> newTranspiler [
 ProcessingTranspilerExamples >> transpilationAlpinerWanderweg [
 	^ 'gtRun
 	width := 200. height := 200. gtCanvas size: width by: height.
-	gtCanvas rect: 100 by: 100 at: 50 @ 50.
+	gtCanvas rect: 50 y: 50 width: 100 height: 100.
 	gtCanvas fillR: 255 G: 0 B: 0.
-	gtCanvas rect: 100 by: (100 / 3) at: 50 @ (50 + (100 / 3)).'
+	gtCanvas rect: 50 y: (50 + (100 / 3)) width: 100 height: (100 / 3).'
 ]
 
 { #category : #transpilation }
@@ -47,7 +47,7 @@ setup
 
 draw
 	gtCanvas backgroundGray: 192.
-	gtCanvas rect: 50 by: 50 at: var @ var.
+	gtCanvas rect: var y: var width: 50 height: 50.
 	var := (var + 20).
 	(var > (height - 50)) ifTrue: [
 		var := 0.
@@ -68,11 +68,11 @@ ProcessingTranspilerExamples >> transpilationExample02 [
 	a := 0.
 	[ (a < 200) ] whileTrue: [
 		gtCanvas fillR: a G: 128 B: 0.
-		gtCanvas rect: 100 by: 100 at: a @ a.
+		gtCanvas rect: a y: a width: 100 height: 100.
 		a := (a + 50).
 	].
 	(a >= 200) ifTrue: [
-		gtCanvas ellipse: 20 by: 20 at: 10 @ 10.
+		gtCanvas ellipse: 10 y: 10 dx: 20 dy: 20.
 	].'
 ]
 
@@ -83,7 +83,7 @@ ProcessingTranspilerExamples >> transpilationExample03 [
 	x := 200.
 	[ (x > 0) ] whileTrue: [
 		gtCanvas fillR: (200 - x) G: 128 B: x.
-		gtCanvas ellipse: x by: x at: 100 @ 100.
+		gtCanvas ellipse: 100 y: 100 dx: x dy: x.
 		x := (x - 20).
 		(50 / 1000.0) seconds wait.
 	].'
@@ -95,10 +95,10 @@ ProcessingTranspilerExamples >> transpilationExample04 [
 	width := 30. height := 20. gtCanvas size: width by: height.
 	x := 0.
 	(self setX).
-	gtCanvas text: x at: 0 @ 20.
+	gtCanvas text: x x: 0 y: 20.
 
 setX
-	x := ((((SharedRandom globalGenerator next * 2) ** 2) * 270 degreesToRadians sin) \\ 3).
+	x := ((((gtCanvas random: 2) ** 2) * 270 degreesToRadians sin) \\ 3).
 
 setY
 	PyEllipsis.'
@@ -128,10 +128,10 @@ ProcessingTranspilerExamples >> transpilationFibonacci [
 	width := 200. height := 200. gtCanvas size: width by: height.
 	gtCanvas textSize: 30.
 	gtCanvas fillR: 0 G: 0 B: 0.
-	gtCanvas text: ''Fibonacci'' at: 20 @ 75.
+	gtCanvas text: ''Fibonacci'' x: 20 y: 75.
 	gtCanvas textSize: 50.
 	gtCanvas fillR: 255 G: 255 B: 255.
-	gtCanvas text: (self fibonacci: 10) at: 20 @ 125.
+	gtCanvas text: (self fibonacci: 10) x: 20 y: 125.
 
 fibonacci: n
 	| a |
@@ -147,10 +147,10 @@ fibonacci: n
 ProcessingTranspilerExamples >> transpilationImage [
 	^ 'gtRun
 	width := 200. height := 200. gtCanvas size: width by: height.
-	img := gtCanvas loadImage: ''zeniko/gt-exploration/data/sample/thumbs-up.png''.
-	gtCanvas image: img at: 0 @ 0.
+	img := (gtCanvas loadImage: ''zeniko/gt-exploration/data/sample/thumbs-up.png'').
+	gtCanvas image: img x: 0 y: 0.
 	gtCanvas fillGray: 0.
-	gtCanvas image: img sized: 50 @ 50 at: 150 @ 150.'
+	gtCanvas image: img x: 150 y: 150 width: 50 height: 50.'
 ]
 
 { #category : #transpilation }
@@ -174,7 +174,7 @@ ProcessingTranspilerExamples >> transpilationRecursion [
 	(self recursion: 200).
 
 recursion: n
-	gtCanvas ellipse: n by: n at: 100 @ 100.
+	gtCanvas ellipse: 100 y: 100 dx: n dy: n.
 	(n > 20) ifTrue: [
 		(self recursion: (n - 10)).
 	].'
@@ -185,10 +185,10 @@ ProcessingTranspilerExamples >> transpilationShapes [
 	^ 'gtRun
 	width := 200. height := 200. gtCanvas size: width by: height.
 	gtCanvas strokeR: 255 G: 255 B: 255.
-	gtCanvas rect: 60 by: 40 at: 20 @ 30.
-	gtCanvas ellipse: 60 by: 40 at: 150 @ 50.
-	gtCanvas line: 25 @ 150 to: 75 @ 125.
-	gtCanvas triangle: { 125 @ 125. 150 @ 175. 175 @ 150. }.'
+	gtCanvas rect: 20 y: 30 width: 60 height: 40.
+	gtCanvas ellipse: 150 y: 50 dx: 60 dy: 40.
+	gtCanvas line: 25 y1: 150 x2: 75 y2: 125.
+	gtCanvas triangle: 125 y1: 125 x2: 150 y2: 175 x3: 175 y3: 150.'
 ]
 
 { #category : #transpilation }
@@ -206,7 +206,7 @@ sierpinski: n x: x y: y side: side
 	| th side |
 	th := (side * 60 degreesToRadians sin).
 	(n = 1) ifTrue: [
-		gtCanvas triangle: { x @ (y + th). (x + side) @ (y + th). (x + (side / 2)) @ y. }.
+		gtCanvas triangle: x y1: (y + th) x2: (x + side) y2: (y + th) x3: (x + (side / 2)) y3: y.
 	] ifFalse: [
 		(n > 1) ifTrue: [
 			side := (side / 2).
@@ -223,8 +223,8 @@ ProcessingTranspilerExamples >> transpilationSwitzerland [
 	^ 'gtRun
 	width := 200. height := 200. gtCanvas size: width by: height.
 	gtCanvas backgroundR: 255 G: 0 B: 0.
-	gtCanvas rect: 50 by: 150 at: 75 @ 25.
-	gtCanvas rect: 150 by: 50 at: 25 @ 75.'
+	gtCanvas rect: 75 y: 25 width: 50 height: 150.
+	gtCanvas rect: 25 y: 75 width: 150 height: 50.'
 ]
 
 { #category : #transpilation }
@@ -273,7 +273,7 @@ fwd: d
 	oldY := t_y.
 	t_x := (t_x + (d * t_angle degreesToRadians cos)).
 	t_y := (t_y + (d * t_angle degreesToRadians sin)).
-	gtCanvas line: oldX @ oldY to: t_x @ t_y.
+	gtCanvas line: oldX y1: oldY x2: t_x y2: t_y.
 
 turn: angle
 	t_angle := (t_angle + angle).'

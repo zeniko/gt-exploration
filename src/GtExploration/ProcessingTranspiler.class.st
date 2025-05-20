@@ -96,13 +96,13 @@ ProcessingTranspiler >> emitDelay: args [
 { #category : #emitting }
 ProcessingTranspiler >> emitEllipse: args [
 	self emit: 'gtCanvas ellipse: '.
-	args third acceptVisitor: self.
-	self emit: ' by: '.
-	args fourth acceptVisitor: self.
-	self emit: ' at: '.
 	args first acceptVisitor: self.
-	self emit: ' @ '.
+	self emit: ' y: '.
 	args second acceptVisitor: self.
+	self emit: ' dx: '.
+	args third acceptVisitor: self.
+	self emit: ' dy: '.
+	args fourth acceptVisitor: self.
 ]
 
 { #category : #emitting }
@@ -144,16 +144,16 @@ ProcessingTranspiler >> emitFunctionDef: name with: args [
 ProcessingTranspiler >> emitImage: args [
 	self emit: 'gtCanvas image: '.
 	args first acceptVisitor: self.
+	self emit: ' x: '.
+	args second acceptVisitor: self.
+	self emit: ' y: '.
+	args third acceptVisitor: self.
 	args size > 3 ifTrue: [
-		self emit: ' sized: '.
+		self emit: ' width: '.
 		args fourth acceptVisitor: self.
-		self emit: ' @ '.
+		self emit: ' height: '.
 		args fifth acceptVisitor: self.
 	].
-	self emit: ' at: '.
-	args second acceptVisitor: self.
-	self emit: ' @ '.
-	args third acceptVisitor: self.
 ]
 
 { #category : #emitting }
@@ -166,18 +166,19 @@ ProcessingTranspiler >> emitInt: args [
 ProcessingTranspiler >> emitLine: args [
 	self emit: 'gtCanvas line: '.
 	args first acceptVisitor: self.
-	self emit: ' @ '.
+	self emit: ' y1: '.
 	args second acceptVisitor: self.
-	self emit: ' to: '.
+	self emit: ' x2: '.
 	args third acceptVisitor: self.
-	self emit: ' @ '.
+	self emit: ' y2: '.
 	args fourth acceptVisitor: self.
 ]
 
 { #category : #emitting }
 ProcessingTranspiler >> emitLoadImage: args [
-	self emit: 'gtCanvas loadImage: '.
+	self emit: '(gtCanvas loadImage: '.
 	args first acceptVisitor: self.
+	self emit: ')'
 ]
 
 { #category : #emitting }
@@ -213,7 +214,7 @@ ProcessingTranspiler >> emitRadians: args [
 
 { #category : #emitting }
 ProcessingTranspiler >> emitRandom: args [
-	self emit: '(SharedRandom globalGenerator next * '.
+	self emit: '(gtCanvas random: '.
 	args first acceptVisitor: self.
 	self emit: ')'.
 ]
@@ -221,13 +222,13 @@ ProcessingTranspiler >> emitRandom: args [
 { #category : #emitting }
 ProcessingTranspiler >> emitRect: args [
 	self emit: 'gtCanvas rect: '.
-	args third acceptVisitor: self.
-	self emit: ' by: '.
-	args fourth acceptVisitor: self.
-	self emit: ' at: '.
 	args first acceptVisitor: self.
-	self emit: ' @ '.
+	self emit: ' y: '.
 	args second acceptVisitor: self.
+	self emit: ' width: '.
+	args third acceptVisitor: self.
+	self emit: ' height: '.
+	args fourth acceptVisitor: self.
 ]
 
 { #category : #emitting }
@@ -275,9 +276,9 @@ ProcessingTranspiler >> emitTan: args [
 ProcessingTranspiler >> emitText: args [
 	self emit: 'gtCanvas text: '.
 	args first acceptVisitor: self.
-	self emit: ' at: '.
+	self emit: ' x: '.
 	args second acceptVisitor: self.
-	self emit: ' @ '.
+	self emit: ' y: '.
 	args third acceptVisitor: self.
 ]
 
@@ -289,19 +290,18 @@ ProcessingTranspiler >> emitTextSize: args [
 
 { #category : #emitting }
 ProcessingTranspiler >> emitTriangle: args [
-	self emit: 'gtCanvas triangle: { '.
+	self emit: 'gtCanvas triangle: '.
 	args first acceptVisitor: self.
-	self emit: ' @ '.
+	self emit: ' y1: '.
 	args second acceptVisitor: self.
-	self emit: '. '.
+	self emit: ' x2: '.
 	args third acceptVisitor: self.
-	self emit: ' @ '.
+	self emit: ' y2: '.
 	args fourth acceptVisitor: self.
-	self emit: '. '.
+	self emit: ' x3: '.
 	args fifth acceptVisitor: self.
-	self emit: ' @ '.
+	self emit: ' y3: '.
 	args sixth acceptVisitor: self.
-	self emit: '. }'.
 ]
 
 { #category : #emitting }

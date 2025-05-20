@@ -15,8 +15,11 @@ Class {
 
 { #category : #initialization }
 ProcessingCanvas >> annotate: shape [
+	| index |
 	"Note the caller for later backreferencing this shape with the creating code."
-	shape userData at: #context put: thisContext stack third copyStack.
+	index := 1.
+	[ (thisContext stack at: index) receiver = self ] whileTrue: [ index := index + 1. ].
+	shape userData at: #context put: (thisContext stack at: index) copyStack.
 	^ shape
 ]
 
@@ -76,6 +79,11 @@ ProcessingCanvas >> ellipse: dx by: dy at: xy [
 	^ self annotate: shape
 ]
 
+{ #category : #shapes }
+ProcessingCanvas >> ellipse: x y: y dx: dx dy: dy [
+	^ self ellipse: dx by: dy at: x @ y
+]
+
 { #category : #modifiers }
 ProcessingCanvas >> fill: color [
 	fillColor := color.
@@ -101,7 +109,7 @@ ProcessingCanvas >> frameRate [
 	^ frameRate
 ]
 
-{ #category : #acessing }
+{ #category : #accessing }
 ProcessingCanvas >> frameRate: aFrameRate [
 	frameRate := aFrameRate.
 ]
@@ -120,11 +128,11 @@ ProcessingCanvas >> gtViewFor: aView [
 
 { #category : #shapes }
 ProcessingCanvas >> image: image at: xy [
-	^ self image: image sized: image width @ image height at: xy
+	^ self image: image at: xy sized: image width @ image height
 ]
 
 { #category : #shapes }
-ProcessingCanvas >> image: image sized: size at: xy [
+ProcessingCanvas >> image: image at: xy sized: size [
 	| shape |
 	shape := image asElement
 		background: fillColor;
@@ -133,6 +141,16 @@ ProcessingCanvas >> image: image sized: size at: xy [
 		yourself.
 	canvasElement addChild: shape.
 	^ self annotate: shape
+]
+
+{ #category : #shapes }
+ProcessingCanvas >> image: image x: x y: y [
+	self image: image at: x @ y
+]
+
+{ #category : #shapes }
+ProcessingCanvas >> image: image x: x y: y width: width height: height [
+	self image: image at: x @ y sized: width @ height
 ]
 
 { #category : #initialization }
@@ -159,6 +177,11 @@ ProcessingCanvas >> line: fromXy to: toXy [
 		yourself.
 	canvasElement addChild: shape.
 	^ self annotate: shape
+]
+
+{ #category : #shapes }
+ProcessingCanvas >> line: x1 y1: y1 x2: x2 y2: y2 [
+	^ self line: x1 @ y1 to: x2 @ y2
 ]
 
 { #category : #initialization }
@@ -213,6 +236,11 @@ ProcessingCanvas >> print: text [
 	].
 ]
 
+{ #category : #initialization }
+ProcessingCanvas >> random: limit [
+	^ SharedRandom globalGenerator next * limit
+]
+
 { #category : #shapes }
 ProcessingCanvas >> rect: width by: height at: xy [
 	| shape |
@@ -224,6 +252,11 @@ ProcessingCanvas >> rect: width by: height at: xy [
 		yourself.
 	canvasElement addChild: shape.
 	^ self annotate: shape
+]
+
+{ #category : #shapes }
+ProcessingCanvas >> rect: x y: y width: width height: height [
+	^ self rect: width by: height at: x @ y
 ]
 
 { #category : #modifiers }
@@ -274,6 +307,11 @@ ProcessingCanvas >> text: text at: pos [
 	^ self annotate: shape
 ]
 
+{ #category : #shapes }
+ProcessingCanvas >> text: text x: x y: y [
+	^ self text: text at: x @ y
+]
+
 { #category : #accessing }
 ProcessingCanvas >> textSize [
 	^ textSize
@@ -299,4 +337,9 @@ ProcessingCanvas >> triangle: vertices [
 		yourself.
 	canvasElement addChild: shape.
 	^ self annotate: shape
+]
+
+{ #category : #shapes }
+ProcessingCanvas >> triangle: x1 y1: y1 x2: x2 y2: y2 x3: x3 y3: y3 [
+	^ self triangle: { x1 @ y1. x2 @ y2. x3 @ y3. }
 ]

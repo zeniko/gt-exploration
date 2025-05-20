@@ -131,7 +131,10 @@ ProcessingCanvasExamples >> image [
 	image := canvas loadImage: 'zeniko/gt-exploration/data/sample/thumbs-up.png'.
 	self assert: image isNotNil.
 	self assert: image width @ image height equals: 240 @ 168.
-	canvas image: image sized: 100 @ 100 at: 50 @ 50.
+	canvas
+		image: image
+		at: 50 @ 50
+		sized: 100 @ 100.
 	self assert: canvas canvasElement children size equals: 1.
 	self assert: (canvas canvasElement children first isKindOf: BlSkiaImageElement).
 	^ canvas

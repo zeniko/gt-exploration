@@ -188,7 +188,7 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-05-06T10:09:58.971+02:00"
+												"dateAndTimeString" : "2025-05-20T21:11:20.32+02:00"
 											}
 										},
 										"uid" : {
@@ -198,7 +198,44 @@
 										"paragraphStyle" : {
 											"__type" : "textStyle"
 										},
-										"string" : "Further Processing API: `image`, `loadImage`, `mousePressed`, `mouseX`, `mouseY`, `keyPressed`, `key`, `keyCode`, ..."
+										"string" : "Further Processing API: `mousePressed`, `mouseX`, `mouseY`, `keyPressed`, `key`, `keyCode`, ..."
+									},
+									{
+										"__type" : "textSnippet",
+										"children" : {
+											"__type" : "snippets",
+											"items" : [ ]
+										},
+										"createEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"createTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2025-05-20T21:35:13.553+02:00"
+											}
+										},
+										"editEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"editTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2025-05-20T21:35:47.134+02:00"
+											}
+										},
+										"uid" : {
+											"__type" : "uid",
+											"uidString" : "aK6VFfjxDQCuspJrD1da6A=="
+										},
+										"paragraphStyle" : {
+											"__type" : "textStyle"
+										},
+										"string" : "Synchronize [[Processing API]] and {{gtPage:Processing API|db=dl0rc62x02fk8k57e43hr8acw}} (in {{gtPackage:ProcessingAbstractions}})"
 									}
 								]
 							},

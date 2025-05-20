@@ -254,6 +254,18 @@ ProcessingRunnerExamples >> runRecursion [
 ]
 
 { #category : #example }
+ProcessingRunnerExamples >> runShapesStepwise [
+	<gtExample>
+	| program runner steps |
+	program := ProcessingProgramExamples new programShapes.
+	runner := self newRunner.
+	steps := runner limitTo: 2 seconds; runStepwise: program compilation.
+	self assert: steps size equals: 6.
+	self assert: runner isDone.
+	^ steps
+]
+
+{ #category : #example }
 ProcessingRunnerExamples >> runSierpinski [
 	<gtExample>
 	| program runner |
@@ -273,7 +285,7 @@ ProcessingRunnerExamples >> runSierpinskiStepwise [
 	program := ProcessingProgramExamples new programSierpinski.
 	runner := self newRunner.
 	steps := runner runStepwise: program compilation.
-	self assert: steps size equals: 637.
+	self assert: steps size equals: 583.
 	self assert: runner isDone.
 	^ steps
 ]
