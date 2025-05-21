@@ -151,7 +151,7 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-05-21T15:30:25.323+02:00"
+												"dateAndTimeString" : "2025-05-21T23:32:29.077+02:00"
 											}
 										},
 										"uid" : {
@@ -161,7 +161,7 @@
 										"paragraphStyle" : {
 											"__type" : "textStyle"
 										},
-										"string" : "Further Processing API: `translate`, `rotate`, `scale`, `millis`, `circle`, `square`, ..."
+										"string" : "Further Processing API: `scale`, `millis`, ..."
 									},
 									{
 										"__type" : "textSnippet",

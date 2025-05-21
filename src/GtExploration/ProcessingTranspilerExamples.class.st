@@ -39,7 +39,7 @@ ProcessingTranspilerExamples >> transpilationAnimation [
 	[ gtCanvas frameRate > 0 ] whileTrue: [
 		mouseX := gtCanvas mouseX. mouseY := gtCanvas mouseY. mousePressed := gtCanvas mousePressed.
 		self draw.
-		(1 / gtCanvas frameRate) seconds wait.
+		gtCanvas endFrame.
 	].
 
 setup
@@ -167,7 +167,7 @@ ProcessingTranspilerExamples >> transpilationMouseEvents [
 	[ gtCanvas frameRate > 0 ] whileTrue: [
 		mouseX := gtCanvas mouseX. mouseY := gtCanvas mouseY. mousePressed := gtCanvas mousePressed.
 		self draw.
-		(1 / gtCanvas frameRate) seconds wait.
+		gtCanvas endFrame.
 	].
 
 setup
@@ -247,6 +247,29 @@ ProcessingTranspilerExamples >> transpilationSwitzerland [
 	gtCanvas backgroundR: 255 G: 0 B: 0.
 	gtCanvas rect: 75 y: 25 width: 50 height: 150.
 	gtCanvas rect: 25 y: 75 width: 150 height: 50.'
+]
+
+{ #category : #transpilation }
+ProcessingTranspilerExamples >> transpilationTransforms [
+	^ 'gtRun
+	width := 200. height := 200. gtCanvas size: width by: height.
+	gtCanvas fillGray: 0.
+	gtCanvas rect: 0 y: 0 width: 30 height: 30.
+	gtCanvas fillGray: 51.
+	gtCanvas translate: 50 y: 100.
+	gtCanvas rect: 0 y: 0 width: 30 height: 30.
+	gtCanvas fillGray: 102.
+	gtCanvas rotate: (3.141592653589793 / 8).
+	gtCanvas rect: 0 y: 0 width: 30 height: 30.
+	gtCanvas fillGray: 153.
+	gtCanvas translate: 20 y: 50.
+	gtCanvas rect: 0 y: 0 width: 30 height: 30.
+	gtCanvas fillGray: 204.
+	gtCanvas rotate: (3.141592653589793 / 8).
+	gtCanvas rect: 0 y: 0 width: 30 height: 30.
+	gtCanvas fillGray: 255.
+	gtCanvas scale: 2.
+	gtCanvas rect: 15 y: 70 negated width: 20 height: 20.'
 ]
 
 { #category : #transpilation }
@@ -527,6 +550,19 @@ ProcessingTranspilerExamples >> transpileSwitzerland [
 	self assert: transpiler variables size equals: 0.
 	self assert: transpiler userDefs size equals: 0.
 	self compare: (transpiler compile: ast) with: self transpilationSwitzerland.
+	^ transpiler compile: ast
+]
+
+{ #category : #example }
+ProcessingTranspilerExamples >> transpileTransforms [
+	<gtExample>
+	| ast transpiler |
+	ast := ProcessingParserExamples new parseTransforms.
+	transpiler := self newTranspiler.
+	self assert: (transpiler transpile: ast) equals: self transpilationTransforms.
+	self assert: transpiler variables size equals: 0.
+	self assert: transpiler userDefs size equals: 0.
+	self compare: (transpiler compile: ast) with: self transpilationTransforms.
 	^ transpiler compile: ast
 ]
 

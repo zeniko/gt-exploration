@@ -163,6 +163,15 @@ ProcessingParserExamples >> parseSwitzerland [
 ]
 
 { #category : #example }
+ProcessingParserExamples >> parseTransforms [
+	<gtExample>
+	| ast |
+	ast := ProcessingProgramExamples new programTransforms ast.
+	self assert: ast statements size equals: 18.
+	^ ast
+]
+
+{ #category : #example }
 ProcessingParserExamples >> parseTurtleGraphics [
 	<gtExample>
 	| ast |

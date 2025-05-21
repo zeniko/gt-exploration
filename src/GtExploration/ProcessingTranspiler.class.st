@@ -12,11 +12,69 @@ Class {
 		'astMap',
 		'astMaps',
 		'output',
-		'nodeStack',
+		'nodeStack'
+	],
+	#classVars : [
+		'builtins',
 		'constants'
 	],
 	#category : #'GtExploration-Processing'
 }
+
+{ #category : #accessing }
+ProcessingTranspiler class >> builtins [
+	^ builtins ifNil: [
+		builtins := Dictionary newFrom: {
+			'background' -> #emitBackground:.
+			'circle' -> #emitCircle:.
+			'cos' -> #emitCos:.
+			'delay' -> #emitDelay:.
+			'ellipse' -> #emitEllipse:.
+			'fill' -> #emitFill:.
+			'frameRate' -> #emitFrameRate:.
+			'image' -> #emitImage:.
+			'int' -> #emitInt:.
+			'line' -> #emitLine:.
+			'loadImage' -> #emitLoadImage:.
+			'print' -> #emitPrint:.
+			"`println` is to Processing what `print` is to Python."
+			'println' -> #emitPrint:.
+			'radians' -> #emitRadians:.
+			'random' -> #emitRandom:.
+			'rect' -> #emitRect:.
+			'rotate' -> #emitRotate:.
+			'scale' -> #emitScale:.
+			'sin' -> #emitSin:.
+			'size' -> #emitSize:.
+			'square' -> #emitSquare:.
+			'sqrt' -> #emitSqrt:.
+			'str' -> #emitStr:.
+			'stroke' -> #emitStroke:.
+			'strokeWeight' -> #emitStrokeWeight:.
+			'text' -> #emitText:.
+			'textSize' -> #emitTextSize:.
+			'tan' -> #emitTan:.
+			'translate' -> #emitTranslate:.
+			'triangle' -> #emitTriangle:.
+		}
+	]
+]
+
+{ #category : #accessing }
+ProcessingTranspiler class >> constants [
+	^ constants ifNil: [
+		constants := Dictionary newFrom: {
+			'True' -> 'true'.
+			'False' -> 'false'.
+			'None' -> 'nil'.
+			'PI' -> Float pi asString.
+			"The following implicit constants are internally treated like global variables."
+			'width' -> 'width'. 'height' -> 'height'.
+			'mouseX' -> 'mouseX'. 'mouseY' -> 'mouseY'.
+			'mousePressed' -> 'mousePressed'.
+		}
+	]
+]
 
 { #category : #visiting }
 ProcessingTranspiler >> acceptStatements: expr [
@@ -243,6 +301,18 @@ ProcessingTranspiler >> emitRect: args [
 ]
 
 { #category : #emitting }
+ProcessingTranspiler >> emitRotate: args [
+	self emit: 'gtCanvas rotate: '.
+	args first acceptVisitor: self.
+]
+
+{ #category : #emitting }
+ProcessingTranspiler >> emitScale: args [
+	self emit: 'gtCanvas scale: '.
+	args first acceptVisitor: self.
+]
+
+{ #category : #emitting }
 ProcessingTranspiler >> emitSin: args [
 	args first acceptVisitor: self.
 	self emit: ' sin'.
@@ -322,6 +392,14 @@ ProcessingTranspiler >> emitTextSize: args [
 ]
 
 { #category : #emitting }
+ProcessingTranspiler >> emitTranslate: args [
+	self emit: 'gtCanvas translate: '.
+	args first acceptVisitor: self.
+	self emit: ' y: '.
+	args second acceptVisitor: self.
+]
+
+{ #category : #emitting }
 ProcessingTranspiler >> emitTriangle: args [
 	self emit: 'gtCanvas triangle: '.
 	args first acceptVisitor: self.
@@ -377,17 +455,6 @@ ProcessingTranspiler >> transpile: ast [
 	astMaps := Dictionary new.
 	nodeStack := OrderedCollection new.
 	
-	constants := Dictionary newFrom: {
-		'True' -> 'true'.
-		'False' -> 'false'.
-		'None' -> 'nil'.
-		'PI' -> Float pi asString.
-		"The following implicit constants are internally treated like global variables."
-		'width' -> 'width'. 'height' -> 'height'.
-		'mouseX' -> 'mouseX'. 'mouseY' -> 'mouseY'.
-		'mousePressed' -> 'mousePressed'.
-	}.
-	
 	"Prepare implicit globals"
 	globalVariables addAll: { 'width'. 'height'. }.
 	
@@ -423,7 +490,7 @@ ProcessingTranspiler >> transpile: ast [
 			indentation := indentation + 1.
 			self emit: 'mouseX := gtCanvas mouseX. mouseY := gtCanvas mouseY. mousePressed := gtCanvas mousePressed.'; cr.
 			self emit: 'self draw.'; cr.
-			self emit: '(1 / gtCanvas frameRate) seconds wait.'; cr.
+			self emit: 'gtCanvas endFrame.'; cr.
 			indentation := indentation - 1.
 			self emit: '].'; cr.
 		].
@@ -528,7 +595,7 @@ ProcessingTranspiler >> variables [
 { #category : #visiting }
 ProcessingTranspiler >> visitAssignmentExpression: expr [
 	| name |
-	(constants includesKey: expr variable nameToken value) ifTrue: [
+	(ProcessingTranspiler constants includesKey: expr variable nameToken value) ifTrue: [
 		ProcessingCompileTimeException new tag: expr; signal: 'Can''t assign to constant.'.
 	].
 	self startEmit: expr.
@@ -546,7 +613,7 @@ ProcessingTranspiler >> visitAssignmentStatement: expr [
 	| name |
 	expr lhs nameToken ifNil: [ self notImplemented: expr ].
 	name := expr lhs nameToken value.
-	(constants includesKey: name) ifTrue: [
+	(ProcessingTranspiler constants includesKey: name) ifTrue: [
 		ProcessingCompileTimeException new tag: expr; signal: 'Can''t assign to constant.'.
 	].
 	self startEmit: expr.
@@ -686,34 +753,10 @@ ProcessingTranspiler >> visitFunctionCallExpression: fnCall [
 	self startEmit: fnCall.
 	name := fnCall receiver nameToken value.
 	args := fnCall arguments.
-	name = 'background' ifTrue: [ self emitBackground: args. ^ self endEmit ].
-	name = 'circle' ifTrue: [ self emitCircle: args. ^ self endEmit ].
-	name = 'cos' ifTrue: [ self emitCos: args. ^ self endEmit ].
-	name = 'delay' ifTrue: [ self emitDelay: args. ^ self endEmit ].
-	name = 'ellipse' ifTrue: [ self emitEllipse: args. ^ self endEmit ].
-	name = 'fill' ifTrue: [ self emitFill: args. ^ self endEmit ].
-	name = 'frameRate' ifTrue: [ self emitFrameRate: args. ^ self endEmit ].
-	name = 'image' ifTrue: [ self emitImage: args. ^ self endEmit ].
-	name = 'int' ifTrue: [ self emitInt: args. ^ self endEmit ].
-	name = 'line' ifTrue: [ self emitLine: args. ^ self endEmit ].
-	name = 'loadImage' ifTrue: [ self emitLoadImage: args. ^ self endEmit ].
-	name = 'print' ifTrue: [ self emitPrint: args. ^ self endEmit ].
-	"`println` is to Processing what `print` is to Python."
-	name = 'println' ifTrue: [ self emitPrint: args. ^ self endEmit ].
-	name = 'radians' ifTrue: [ self emitRadians: args. ^ self endEmit ].
-	name = 'random' ifTrue: [ self emitRandom: args. ^ self endEmit ].
-	name = 'rect' ifTrue: [ self emitRect: args. ^ self endEmit ].
-	name = 'sin' ifTrue: [ self emitSin: args. ^ self endEmit ].
-	name = 'size' ifTrue: [ self emitSize: args. ^ self endEmit ].
-	name = 'square' ifTrue: [ self emitSquare: args. ^ self endEmit ].
-	name = 'sqrt' ifTrue: [ self emitSqrt: args. ^ self endEmit ].
-	name = 'str' ifTrue: [ self emitStr: args. ^ self endEmit ].
-	name = 'stroke' ifTrue: [ self emitStroke: args. ^ self endEmit ].
-	name = 'strokeWeight' ifTrue: [ self emitStrokeWeight: args. ^ self endEmit ].
-	name = 'text' ifTrue: [ self emitText: args. ^ self endEmit ].
-	name = 'textSize' ifTrue: [ self emitTextSize: args. ^ self endEmit ].
-	name = 'tan' ifTrue: [ self emitTan: args. ^ self endEmit ].
-	name = 'triangle' ifTrue: [ self emitTriangle: args. ^ self endEmit ].
+	(ProcessingTranspiler builtins includesKey: name) ifTrue: [
+		self perform: (ProcessingTranspiler builtins at: name) with: args.
+		^ self endEmit
+	].
 	(userDefs includesKey: name) ifTrue: [
 		self emit: '(self '.
 		self emitFunctionDef: name with: args.
@@ -859,7 +902,7 @@ ProcessingTranspiler >> visitUnaryExpression: expr [
 { #category : #visiting }
 ProcessingTranspiler >> visitVariableExpression: var [
 	self startEmit: var.
-	(constants includesKey: var nameToken value) ifTrue: [
+	(ProcessingTranspiler constants includesKey: var nameToken value) ifTrue: [
 		self emit: (constants at: var nameToken value).
 	] ifFalse: [
 		self emitName: var nameToken value.

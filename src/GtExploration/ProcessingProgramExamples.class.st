@@ -160,6 +160,15 @@ ProcessingProgramExamples >> programSwitzerland [
 ]
 
 { #category : #example }
+ProcessingProgramExamples >> programTransforms [
+	<gtExample>
+	| program |
+	program := ProcessingSourceExamples new sourceTransforms program.
+	self assert: program compilation isNotNil.
+	^ program
+]
+
+{ #category : #example }
 ProcessingProgramExamples >> programTurtleGraphics [
 	<gtExample>
 	| program |

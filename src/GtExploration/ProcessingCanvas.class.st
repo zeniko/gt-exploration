@@ -10,7 +10,8 @@ Class {
 		'transcript',
 		'frameRate',
 		'mousePosition',
-		'mousePressed'
+		'mousePressed',
+		'transforms'
 	],
 	#category : #'GtExploration-Processing'
 }
@@ -82,6 +83,7 @@ ProcessingCanvas >> ellipse: dx by: dy at: xy [
 		background: fillColor;
 		border: self border;
 		yourself.
+	self transform: shape.
 	canvasElement addChild: shape.
 	^ self annotate: shape
 ]
@@ -89,6 +91,13 @@ ProcessingCanvas >> ellipse: dx by: dy at: xy [
 { #category : #shapes }
 ProcessingCanvas >> ellipse: x y: y dx: dx dy: dy [
 	^ self ellipse: dx by: dy at: x @ y
+]
+
+{ #category : #initialization }
+ProcessingCanvas >> endFrame [
+	"Transforms are reset at the end of a draw-cycle"
+	transforms := OrderedCollection new.
+	(1 / frameRate) seconds wait.
 ]
 
 { #category : #modifiers }
@@ -146,6 +155,7 @@ ProcessingCanvas >> image: image at: xy sized: size [
 		size: size;
 		relocate: xy;
 		yourself.
+	self transform: shape.
 	canvasElement addChild: shape.
 	^ self annotate: shape
 ]
@@ -184,6 +194,7 @@ ProcessingCanvas >> initialize [
 	frameRate := 30.
 	mousePosition := 0 @ 0.
 	mousePressed := false.
+	transforms := OrderedCollection new.
 ]
 
 { #category : #shapes }
@@ -194,6 +205,7 @@ ProcessingCanvas >> line: fromXy to: toXy [
 		toAnchor: (BlAbsolutePositionAnchor position: toXy);
 		border: self border;
 		yourself.
+	self transform: shape.
 	canvasElement addChild: shape.
 	^ self annotate: shape
 ]
@@ -281,9 +293,9 @@ ProcessingCanvas >> rect: width by: height at: xy [
 	shape := BlElement new
 		background: fillColor;
 		size: width @ height;
-		relocate: xy;
 		border: self border;
 		yourself.
+	self transform: shape position: xy.
 	canvasElement addChild: shape.
 	^ self annotate: shape
 ]
@@ -291,6 +303,16 @@ ProcessingCanvas >> rect: width by: height at: xy [
 { #category : #shapes }
 ProcessingCanvas >> rect: x y: y width: width height: height [
 	^ self rect: width by: height at: x @ y
+]
+
+{ #category : #modifiers }
+ProcessingCanvas >> rotate: angle [
+	transforms add: [ :trans | trans rotateBy: angle radiansToDegrees ].
+]
+
+{ #category : #modifiers }
+ProcessingCanvas >> scale: factor [
+	transforms add: [ :trans | trans scaleBy: factor ].
 ]
 
 { #category : #modifiers }
@@ -340,6 +362,7 @@ ProcessingCanvas >> text: text at: pos [
 		fontSize: textSize;
 		foreground: fillColor.
 	shape := BlTextElement new text: roped.
+	self transform: shape.
 	canvasElement addChild: shape.
 	"y-position is of baseline"
 	shape relocate: pos x @ (pos y - textSize).
@@ -366,6 +389,32 @@ ProcessingCanvas >> transcript [
 	^ transcript
 ]
 
+{ #category : #modifiers }
+ProcessingCanvas >> transform: shape [
+	| transform |
+	transform := shape transform.
+	transform normalizedOrigin: 0 @ 0.
+	transforms reverseDo: [ :tf | tf cull: transform ].
+	transform apply.
+	^ shape
+]
+
+{ #category : #modifiers }
+ProcessingCanvas >> transform: shape position: position [
+	| transform |
+	transform := shape transform.
+	transform normalizedOrigin: 0 @ 0.
+	transform translateBy: position.
+	transforms reverseDo: [ :tf | tf cull: transform ].
+	transform apply.
+	^ shape
+]
+
+{ #category : #modifiers }
+ProcessingCanvas >> translate: x y: y [
+	transforms add: [ :trans | trans translateBy: x @ y ].
+]
+
 { #category : #shapes }
 ProcessingCanvas >> triangle: vertices [
 	| shape |
@@ -374,6 +423,7 @@ ProcessingCanvas >> triangle: vertices [
 		background: fillColor;
 		border: self border;
 		yourself.
+	self transform: shape.
 	canvasElement addChild: shape.
 	^ self annotate: shape
 ]

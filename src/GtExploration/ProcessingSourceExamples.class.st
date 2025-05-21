@@ -227,6 +227,28 @@ rect(25, 75, 150, 50)'
 ]
 
 { #category : #source }
+ProcessingSourceExamples >> sourceCodeTransforms [
+	^ 'size(200, 200)
+fill(0)
+rect(0, 0, 30, 30)
+fill(51)
+translate(50, 100)
+rect(0, 0, 30, 30)
+fill(102)
+rotate(PI / 8)
+rect(0, 0, 30, 30)
+fill(153)
+translate(20, 50)
+rect(0, 0, 30, 30)
+fill(204)
+rotate(PI / 8)
+rect(0, 0, 30, 30)
+fill(255)
+scale(2)
+rect(15, -70, 20, 20)'
+]
+
+{ #category : #source }
 ProcessingSourceExamples >> sourceCodeTurtleGraphics [
 	^ 'size(400, 400)
 draw_n_eck(5)
@@ -433,6 +455,16 @@ ProcessingSourceExamples >> sourceSwitzerland [
 	| source |
 	source := ProcessingSource fromString: self sourceCodeSwitzerland.
 	self assert: source asString equals: self sourceCodeSwitzerland.
+	self assert: source program isNotNil.
+	^ source
+]
+
+{ #category : #example }
+ProcessingSourceExamples >> sourceTransforms [
+	<gtExample>
+	| source |
+	source := ProcessingSource fromString: self sourceCodeTransforms.
+	self assert: source asString equals: self sourceCodeTransforms.
 	self assert: source program isNotNil.
 	^ source
 ]

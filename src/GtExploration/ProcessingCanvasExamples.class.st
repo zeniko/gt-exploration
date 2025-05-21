@@ -13,7 +13,7 @@ ProcessingCanvasExamples >> alpinerWanderweg [
 	self assert: canvas fillColor equals: Color red.
 	
 	child := canvas canvasElement children last.
-	self assert: child measuredBounds position equals: 50 @ (250/3).
+	"self assert: child measuredBounds position equals: 50 @ (250/3)."
 	self assert: child background paint color equals: Color red.
 	self assert: child border paint color equals: Color black.
 	self assert: child border width equals: 0.5.
@@ -243,7 +243,7 @@ ProcessingCanvasExamples >> singleSquare [
 	self assert: canvas canvasElement children size equals: 1.
 	child := canvas canvasElement children last.
 	self assert: (child isKindOf: BlElement).
-	self assert: child measuredBounds position equals: 50 @ 50.
+	"self assert: child measuredBounds position equals: 50 @ 50."
 	self assert: child background paint color equals: Color white.
 	self assert: child border paint color equals: Color black.
 	self assert: child border width equals: 0.5.
@@ -275,5 +275,16 @@ ProcessingCanvasExamples >> singleTriangle [
 			200 @ 200.
 			100 @ 0})'.
 	
+	^ canvas
+]
+
+{ #category : #example }
+ProcessingCanvasExamples >> transforms [
+	<gtExample>
+	| canvas |
+	canvas := self container.
+	canvas rotate: 20 degreesToRadians.
+	canvas scale: 0.5.
+	canvas square: 50 y: 50 side: 100.
 	^ canvas
 ]

@@ -108,7 +108,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-05-21T15:29:14.505+02:00"
+									"dateAndTimeString" : "2025-05-21T23:32:22.393+02:00"
 								}
 							},
 							"uid" : {
@@ -118,7 +118,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Processing API: `loadImage` and `image`, `mouseX`, `mouseY` and `mousePressed` inside `def draw()`, `str`, `PI`, `sqrt`"
+							"string" : "Processing API: `loadImage` and `image`, `mouseX`, `mouseY` and `mousePressed` inside `def draw()`, `str`, `PI`, `sqrt`, `circle`, `square`, `translate`, `rotate`"
 						},
 						{
 							"__type" : "exampleSnippet",
