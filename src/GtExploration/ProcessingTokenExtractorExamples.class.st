@@ -141,6 +141,16 @@ ProcessingTokenExtractorExamples >> tokensSierpinski [
 ]
 
 { #category : #example }
+ProcessingTokenExtractorExamples >> tokensSpiral [
+	<gtExample>
+	| tokens |
+	tokens := self newExtractor extractTokens: ProcessingParserExamples new parseSpiral.
+	self assert: tokens size equals: 109.
+	self assert: (tokens allSatisfy: [ :item | item isKindOf: SmaCCToken ]).
+	^ tokens
+]
+
+{ #category : #example }
 ProcessingTokenExtractorExamples >> tokensTransforms [
 	<gtExample>
 	| tokens |

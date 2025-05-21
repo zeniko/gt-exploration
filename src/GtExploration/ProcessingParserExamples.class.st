@@ -154,6 +154,15 @@ ProcessingParserExamples >> parseSierpinski [
 ]
 
 { #category : #example }
+ProcessingParserExamples >> parseSpiral [
+	<gtExample>
+	| ast |
+	ast := ProcessingProgramExamples new programSpiral ast.
+	self assert: ast statements size equals: 6.
+	^ ast
+]
+
+{ #category : #example }
 ProcessingParserExamples >> parseSwitzerland [
 	<gtExample>
 	| ast node |

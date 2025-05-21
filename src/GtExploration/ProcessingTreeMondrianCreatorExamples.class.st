@@ -21,3 +21,21 @@ ProcessingTreeMondrianCreatorExamples >> astMondrianMinimal [
 	mondrian := ProcessingTreeMondrianCreator mondrianFor: program.
 	^ mondrian
 ]
+
+{ #category : #'as yet unclassified' }
+ProcessingTreeMondrianCreatorExamples >> astMondrianSpiral [
+	<gtExample>
+	| mondrian program |
+	program := ProcessingProgramExamples new programSpiral.
+	mondrian := ProcessingTreeMondrianCreator mondrianFor: program.
+	^ mondrian
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingTreeMondrianCreatorExamples >> astMondrianTurtleGraphics [
+	<gtExample>
+	| mondrian program |
+	program := ProcessingProgramExamples new programTurtleGraphics.
+	mondrian := ProcessingTreeMondrianCreator mondrianFor: program.
+	^ mondrian
+]

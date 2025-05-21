@@ -242,6 +242,26 @@ sierpinski: n x: x y: y side: side
 ]
 
 { #category : #transpilation }
+ProcessingTranspilerExamples >> transpilationSpiral [
+	^ 'gtRun
+	width := 600. height := 600. gtCanvas size: width by: height.
+	gtCanvas backgroundGray: 255.
+	gtCanvas translate: (width / 2) y: (height / 2).
+	gtCanvas scale: 0.95.
+	gtCanvas strokeWeight: 2.
+	0 to: (20 - 1) do: [ :_ |
+		gtCanvas fillGray: 255.
+		gtCanvas strokeGray: 0.
+		gtCanvas rect: (width negated / 2) y: (width negated / 2) width: width height: width.
+		gtCanvas fillGray: 0.
+		gtCanvas strokeGray: 255.
+		gtCanvas triangle: (width negated / 2) y1: (width negated / 2) x2: (width negated / 2) y2: 0 x3: 0 y3: (width negated / 2).
+		gtCanvas scale: (1 / 2 sqrt).
+		gtCanvas rotate: (3.141592653589793 / 4).
+	].'
+]
+
+{ #category : #transpilation }
 ProcessingTranspilerExamples >> transpilationSwitzerland [
 	^ 'gtRun
 	width := 200. height := 200. gtCanvas size: width by: height.
@@ -538,6 +558,19 @@ ProcessingTranspilerExamples >> transpileSierpinski [
 	self assert: (' ' join: transpiler variables) equals: 'px'.
 	self assert: transpiler userDefs size equals: 1.
 	self compare: (transpiler compile: ast) with:self transpilationSierpinski.
+	^ transpiler compile: ast
+]
+
+{ #category : #example }
+ProcessingTranspilerExamples >> transpileSpiral [
+	<gtExample>
+	| ast transpiler |
+	ast := ProcessingParserExamples new parseSpiral.
+	transpiler := self newTranspiler.
+	self assert: (transpiler transpile: ast) equals: self transpilationSpiral.
+	self assert: transpiler variables size equals: 0.
+	self assert: transpiler userDefs size equals: 0.
+	self compare: (transpiler compile: ast) with: self transpilationSpiral.
 	^ transpiler compile: ast
 ]
 

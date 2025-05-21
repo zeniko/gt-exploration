@@ -291,6 +291,19 @@ ProcessingRunnerExamples >> runSierpinskiStepwise [
 ]
 
 { #category : #example }
+ProcessingRunnerExamples >> runSpiralStepwise [
+	<gtExample>
+	<noTest>
+	| program runner steps |
+	program := ProcessingProgramExamples new programSpiral.
+	runner := self newRunner.
+	steps := runner runStepwise: program compilation.
+	self assert: steps size equals: 488.
+	self assert: runner isDone.
+	^ steps
+]
+
+{ #category : #example }
 ProcessingRunnerExamples >> runTurtleGraphics [
 	<gtExample>
 	| program runner |

@@ -400,7 +400,7 @@ ProcessingCanvas >> transcript [
 ProcessingCanvas >> transform: shape [
 	| transform |
 	transform := shape transform.
-	transform normalizedOrigin: 0 @ 0.
+	transform normalizedOrigin: 1 @ 1.
 	transforms reverseDo: [ :tf | tf cull: transform ].
 	transform apply.
 	^ shape

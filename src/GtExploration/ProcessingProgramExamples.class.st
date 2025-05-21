@@ -151,6 +151,15 @@ ProcessingProgramExamples >> programSierpinski [
 ]
 
 { #category : #example }
+ProcessingProgramExamples >> programSpiral [
+	<gtExample>
+	| program |
+	program := ProcessingSourceExamples new sourceSpiral program.
+	self assert: program compilation isNotNil.
+	^ program
+]
+
+{ #category : #example }
 ProcessingProgramExamples >> programSwitzerland [
 	<gtExample>
 	| program |

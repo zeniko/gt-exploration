@@ -28,3 +28,15 @@ StepperExamples >> sierpinskiStepper [
 	self assert: stepper index equals: 211.
 	^ stepper
 ]
+
+{ #category : #example }
+StepperExamples >> spiralStepper [
+	<gtExample>
+	<noTest> "Collecting that many samples takes a few seconds"
+	| stepper |
+	stepper := Stepper for: ProcessingRunnerExamples new runSpiralStepwise view: #gtAbstractionsFor:.
+	self assert: stepper index equals: 1.
+	stepper stepTo: 74.
+	self assert: stepper index equals: 74.
+	^ stepper
+]

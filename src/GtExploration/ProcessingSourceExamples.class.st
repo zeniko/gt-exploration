@@ -219,6 +219,25 @@ sierpinski(4, 2, 2, width - 4)'
 ]
 
 { #category : #source }
+ProcessingSourceExamples >> sourceCodeSpiral [
+	^ 'size(600, 600)
+background(255)
+
+translate(width / 2, height / 2)
+scale(0.95)
+strokeWeight(2)
+
+for _ in range(20):
+    fill(255); stroke(0)
+    rect(-width/2, -width/2, width, width)
+    fill(0); stroke(255)
+    triangle(-width/2, -width/2, -width/2, 0, 0, -width/2)
+    scale(1 / sqrt(2))
+    rotate(PI / 4)
+'
+]
+
+{ #category : #source }
 ProcessingSourceExamples >> sourceCodeSwitzerland [
 	"This is an example from the introductionary course and thus inaccurate in both color and proportion"
 	^ 'size(200, 200)
@@ -446,6 +465,16 @@ ProcessingSourceExamples >> sourceSierpinski [
 	| source |
 	source := ProcessingSource fromString: self sourceCodeSierpinski.
 	self assert: source asString equals: self sourceCodeSierpinski.
+	self assert: source program isNotNil.
+	^ source
+]
+
+{ #category : #example }
+ProcessingSourceExamples >> sourceSpiral [
+	<gtExample>
+	| source |
+	source := ProcessingSource fromString: self sourceCodeSpiral.
+	self assert: source asString equals: self sourceCodeSpiral.
 	self assert: source program isNotNil.
 	^ source
 ]
