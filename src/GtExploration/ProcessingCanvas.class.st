@@ -11,7 +11,8 @@ Class {
 		'frameRate',
 		'mousePosition',
 		'mousePressed',
-		'transforms'
+		'transforms',
+		'startMilliseconds'
 	],
 	#category : #'GtExploration-Processing'
 }
@@ -195,6 +196,7 @@ ProcessingCanvas >> initialize [
 	mousePosition := 0 @ 0.
 	mousePressed := false.
 	transforms := OrderedCollection new.
+	startMilliseconds := Time millisecondClockValue.
 ]
 
 { #category : #shapes }
@@ -233,6 +235,11 @@ ProcessingCanvas >> loadImage: path [
 		^ SkiaImage fromFile: FileLocator gtResource / path
 	].
 	^ nil
+]
+
+{ #category : #accessing }
+ProcessingCanvas >> millis [
+	^ Time millisecondClockValue - startMilliseconds
 ]
 
 { #category : #accessing }

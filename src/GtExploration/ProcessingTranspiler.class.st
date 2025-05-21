@@ -36,6 +36,7 @@ ProcessingTranspiler class >> builtins [
 			'int' -> #emitInt:.
 			'line' -> #emitLine:.
 			'loadImage' -> #emitLoadImage:.
+			'millis' -> #emitMillis:.
 			'print' -> #emitPrint:.
 			"`println` is to Processing what `print` is to Python."
 			'println' -> #emitPrint:.
@@ -248,6 +249,11 @@ ProcessingTranspiler >> emitLoadImage: args [
 	self emit: '(gtCanvas loadImage: '.
 	args first acceptVisitor: self.
 	self emit: ')'
+]
+
+{ #category : #emitting }
+ProcessingTranspiler >> emitMillis: args [
+	self emit: 'gtCanvas millis'.
 ]
 
 { #category : #emitting }

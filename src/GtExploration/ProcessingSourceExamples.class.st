@@ -161,7 +161,8 @@ ProcessingSourceExamples >> sourceCodeMouseEvents [
 def draw():
 	background(192)
 	text("Mouse: " + str(mouseX) + " @ " + str(mouseY), 10, 70)
-	text("(" + ("not " if not mousePressed else "") + "pressed)", 78, 100)'
+	text("(" + ("not " if not mousePressed else "") + "pressed)", 78, 100)
+	text("Time: " + str(millis()), 10, 190)'
 ]
 
 { #category : #source }

@@ -151,7 +151,7 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-05-21T23:35:52.316+02:00"
+												"dateAndTimeString" : "2025-05-22T00:04:55.002+02:00"
 											}
 										},
 										"uid" : {
@@ -161,7 +161,7 @@
 										"paragraphStyle" : {
 											"__type" : "textStyle"
 										},
-										"string" : "Further Processing API: `millis`, ..."
+										"string" : "Further Processing API: ..."
 									},
 									{
 										"__type" : "textSnippet",
