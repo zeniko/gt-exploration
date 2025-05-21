@@ -15,51 +15,10 @@ Class {
 		'nodeStack'
 	],
 	#classVars : [
-		'builtins',
 		'constants'
 	],
 	#category : #'GtExploration-Processing'
 }
-
-{ #category : #accessing }
-ProcessingTranspiler class >> builtins [
-	^ builtins ifNil: [
-		builtins := Dictionary newFrom: {
-			'background' -> #emitBackground:.
-			'circle' -> #emitCircle:.
-			'cos' -> #emitCos:.
-			'delay' -> #emitDelay:.
-			'ellipse' -> #emitEllipse:.
-			'fill' -> #emitFill:.
-			'frameRate' -> #emitFrameRate:.
-			'image' -> #emitImage:.
-			'int' -> #emitInt:.
-			'line' -> #emitLine:.
-			'loadImage' -> #emitLoadImage:.
-			'millis' -> #emitMillis:.
-			'print' -> #emitPrint:.
-			"`println` is to Processing what `print` is to Python."
-			'println' -> #emitPrint:.
-			'radians' -> #emitRadians:.
-			'random' -> #emitRandom:.
-			'rect' -> #emitRect:.
-			'rotate' -> #emitRotate:.
-			'scale' -> #emitScale:.
-			'sin' -> #emitSin:.
-			'size' -> #emitSize:.
-			'square' -> #emitSquare:.
-			'sqrt' -> #emitSqrt:.
-			'str' -> #emitStr:.
-			'stroke' -> #emitStroke:.
-			'strokeWeight' -> #emitStrokeWeight:.
-			'text' -> #emitText:.
-			'textSize' -> #emitTextSize:.
-			'tan' -> #emitTan:.
-			'translate' -> #emitTranslate:.
-			'triangle' -> #emitTriangle:.
-		}
-	]
-]
 
 { #category : #accessing }
 ProcessingTranspiler class >> constants [
@@ -127,75 +86,6 @@ ProcessingTranspiler >> emit: part [
 ]
 
 { #category : #emitting }
-ProcessingTranspiler >> emitBackground: args [
-	args size = 1 ifTrue: [
-		self emit: 'gtCanvas backgroundGray: '.
-		^ args first acceptVisitor: self.
-	].
-	self emit: 'gtCanvas backgroundR: '.
-	args first acceptVisitor: self.
-	self emit: ' G: '.
-	args second acceptVisitor: self.
-	self emit: ' B: '.
-	args third acceptVisitor: self.
-]
-
-{ #category : #emitting }
-ProcessingTranspiler >> emitCircle: args [
-	self emit: 'gtCanvas circle: '.
-	args first acceptVisitor: self.
-	self emit: ' y: '.
-	args second acceptVisitor: self.
-	self emit: ' d: '.
-	args third acceptVisitor: self.
-]
-
-{ #category : #emitting }
-ProcessingTranspiler >> emitCos: args [
-	args first acceptVisitor: self.
-	self emit: ' cos'.
-]
-
-{ #category : #emitting }
-ProcessingTranspiler >> emitDelay: args [
-	self emit: '('.
-	args first acceptVisitor: self.
-	self emit: ' / 1000.0) seconds wait'.
-]
-
-{ #category : #emitting }
-ProcessingTranspiler >> emitEllipse: args [
-	self emit: 'gtCanvas ellipse: '.
-	args first acceptVisitor: self.
-	self emit: ' y: '.
-	args second acceptVisitor: self.
-	self emit: ' dx: '.
-	args third acceptVisitor: self.
-	self emit: ' dy: '.
-	args fourth acceptVisitor: self.
-]
-
-{ #category : #emitting }
-ProcessingTranspiler >> emitFill: args [
-	args size = 1 ifTrue: [
-		self emit: 'gtCanvas fillGray: '.
-		^ args first acceptVisitor: self.
-	].
-	self emit: 'gtCanvas fillR: '.
-	args first acceptVisitor: self.
-	self emit: ' G: '.
-	args second acceptVisitor: self.
-	self emit: ' B: '.
-	args third acceptVisitor: self.
-]
-
-{ #category : #emitting }
-ProcessingTranspiler >> emitFrameRate: args [
-	self emit: 'gtCanvas frameRate: '.
-	args first acceptVisitor: self.
-]
-
-{ #category : #emitting }
 ProcessingTranspiler >> emitFunctionDef: name with: args [
 	self emitName: name.
 	args ifNotEmpty: [
@@ -211,7 +101,86 @@ ProcessingTranspiler >> emitFunctionDef: name with: args [
 ]
 
 { #category : #emitting }
-ProcessingTranspiler >> emitImage: args [
+ProcessingTranspiler >> emitName: var [
+	| name |
+	name := var.
+	"Internal variables of ProcessingCodeBase start with a the letters 'gt'. Make sure that there's no accidental leakage by inserting an underscore ('gtVar' -> 'gt_Var')."
+	(name beginsWith: 'gt') ifTrue: [ name := 'gt_' , (name removePrefix: 'gt') ].
+	self emit: name.
+	^ name
+]
+
+{ #category : #emitting }
+ProcessingTranspiler >> emit_background: args [
+	args size = 1 ifTrue: [
+		self emit: 'gtCanvas backgroundGray: '.
+		^ args first acceptVisitor: self.
+	].
+	self emit: 'gtCanvas backgroundR: '.
+	args first acceptVisitor: self.
+	self emit: ' G: '.
+	args second acceptVisitor: self.
+	self emit: ' B: '.
+	args third acceptVisitor: self.
+]
+
+{ #category : #emitting }
+ProcessingTranspiler >> emit_circle: args [
+	self emit: 'gtCanvas circle: '.
+	args first acceptVisitor: self.
+	self emit: ' y: '.
+	args second acceptVisitor: self.
+	self emit: ' d: '.
+	args third acceptVisitor: self.
+]
+
+{ #category : #emitting }
+ProcessingTranspiler >> emit_cos: args [
+	args first acceptVisitor: self.
+	self emit: ' cos'.
+]
+
+{ #category : #emitting }
+ProcessingTranspiler >> emit_delay: args [
+	self emit: '('.
+	args first acceptVisitor: self.
+	self emit: ' / 1000.0) seconds wait'.
+]
+
+{ #category : #emitting }
+ProcessingTranspiler >> emit_ellipse: args [
+	self emit: 'gtCanvas ellipse: '.
+	args first acceptVisitor: self.
+	self emit: ' y: '.
+	args second acceptVisitor: self.
+	self emit: ' dx: '.
+	args third acceptVisitor: self.
+	self emit: ' dy: '.
+	args fourth acceptVisitor: self.
+]
+
+{ #category : #emitting }
+ProcessingTranspiler >> emit_fill: args [
+	args size = 1 ifTrue: [
+		self emit: 'gtCanvas fillGray: '.
+		^ args first acceptVisitor: self.
+	].
+	self emit: 'gtCanvas fillR: '.
+	args first acceptVisitor: self.
+	self emit: ' G: '.
+	args second acceptVisitor: self.
+	self emit: ' B: '.
+	args third acceptVisitor: self.
+]
+
+{ #category : #emitting }
+ProcessingTranspiler >> emit_frameRate: args [
+	self emit: 'gtCanvas frameRate: '.
+	args first acceptVisitor: self.
+]
+
+{ #category : #emitting }
+ProcessingTranspiler >> emit_image: args [
 	self emit: 'gtCanvas image: '.
 	args first acceptVisitor: self.
 	self emit: ' x: '.
@@ -227,13 +196,13 @@ ProcessingTranspiler >> emitImage: args [
 ]
 
 { #category : #emitting }
-ProcessingTranspiler >> emitInt: args [
+ProcessingTranspiler >> emit_int: args [
 	args first acceptVisitor: self.
 	self emit: ' rounded'.
 ]
 
 { #category : #emitting }
-ProcessingTranspiler >> emitLine: args [
+ProcessingTranspiler >> emit_line: args [
 	self emit: 'gtCanvas line: '.
 	args first acceptVisitor: self.
 	self emit: ' y1: '.
@@ -245,29 +214,19 @@ ProcessingTranspiler >> emitLine: args [
 ]
 
 { #category : #emitting }
-ProcessingTranspiler >> emitLoadImage: args [
+ProcessingTranspiler >> emit_loadImage: args [
 	self emit: '(gtCanvas loadImage: '.
 	args first acceptVisitor: self.
 	self emit: ')'
 ]
 
 { #category : #emitting }
-ProcessingTranspiler >> emitMillis: args [
+ProcessingTranspiler >> emit_millis: args [
 	self emit: 'gtCanvas millis'.
 ]
 
 { #category : #emitting }
-ProcessingTranspiler >> emitName: var [
-	| name |
-	name := var.
-	"Internal variables of ProcessingCodeBase start with a the letters 'gt'. Make sure that there's no accidental leakage by inserting an underscore ('gtVar' -> 'gt_Var')."
-	(name beginsWith: 'gt') ifTrue: [ name := 'gt_' , (name removePrefix: 'gt') ].
-	self emit: name.
-	^ name
-]
-
-{ #category : #emitting }
-ProcessingTranspiler >> emitPrint: args [
+ProcessingTranspiler >> emit_print: args [
 	args size > 1 ifTrue: [
 		self emit: 'gtCanvas print: { '.
 		args do: [ :arg |
@@ -282,20 +241,26 @@ ProcessingTranspiler >> emitPrint: args [
 ]
 
 { #category : #emitting }
-ProcessingTranspiler >> emitRadians: args [
+ProcessingTranspiler >> emit_println: args [
+	"`println` is to Processing what `print` is to Python."
+	self emit_print: args.
+]
+
+{ #category : #emitting }
+ProcessingTranspiler >> emit_radians: args [
 	args first acceptVisitor: self.
 	self emit: ' degreesToRadians'.
 ]
 
 { #category : #emitting }
-ProcessingTranspiler >> emitRandom: args [
+ProcessingTranspiler >> emit_random: args [
 	self emit: '(gtCanvas random: '.
 	args first acceptVisitor: self.
 	self emit: ')'.
 ]
 
 { #category : #emitting }
-ProcessingTranspiler >> emitRect: args [
+ProcessingTranspiler >> emit_rect: args [
 	self emit: 'gtCanvas rect: '.
 	args first acceptVisitor: self.
 	self emit: ' y: '.
@@ -307,25 +272,25 @@ ProcessingTranspiler >> emitRect: args [
 ]
 
 { #category : #emitting }
-ProcessingTranspiler >> emitRotate: args [
+ProcessingTranspiler >> emit_rotate: args [
 	self emit: 'gtCanvas rotate: '.
 	args first acceptVisitor: self.
 ]
 
 { #category : #emitting }
-ProcessingTranspiler >> emitScale: args [
+ProcessingTranspiler >> emit_scale: args [
 	self emit: 'gtCanvas scale: '.
 	args first acceptVisitor: self.
 ]
 
 { #category : #emitting }
-ProcessingTranspiler >> emitSin: args [
+ProcessingTranspiler >> emit_sin: args [
 	args first acceptVisitor: self.
 	self emit: ' sin'.
 ]
 
 { #category : #emitting }
-ProcessingTranspiler >> emitSize: args [
+ProcessingTranspiler >> emit_size: args [
 	self emit: 'width := '.
 	args first acceptVisitor: self.
 	self emit:'. height := '.
@@ -334,13 +299,13 @@ ProcessingTranspiler >> emitSize: args [
 ]
 
 { #category : #emitting }
-ProcessingTranspiler >> emitSqrt: args [
+ProcessingTranspiler >> emit_sqrt: args [
 	args first acceptVisitor: self.
 	self emit: ' sqrt'.
 ]
 
 { #category : #emitting }
-ProcessingTranspiler >> emitSquare: args [
+ProcessingTranspiler >> emit_square: args [
 	self emit: 'gtCanvas square: '.
 	args first acceptVisitor: self.
 	self emit: ' y: '.
@@ -350,13 +315,13 @@ ProcessingTranspiler >> emitSquare: args [
 ]
 
 { #category : #emitting }
-ProcessingTranspiler >> emitStr: args [
+ProcessingTranspiler >> emit_str: args [
 	args first acceptVisitor: self.
 	self emit: ' asString'.
 ]
 
 { #category : #emitting }
-ProcessingTranspiler >> emitStroke: args [
+ProcessingTranspiler >> emit_stroke: args [
 	args size = 1 ifTrue: [
 		self emit: 'gtCanvas strokeGray: '.
 		^ args first acceptVisitor: self.
@@ -370,19 +335,19 @@ ProcessingTranspiler >> emitStroke: args [
 ]
 
 { #category : #emitting }
-ProcessingTranspiler >> emitStrokeWeight: args [
+ProcessingTranspiler >> emit_strokeWeight: args [
 	self emit: 'gtCanvas strokeWeight: '.
 	args first acceptVisitor: self.
 ]
 
 { #category : #emitting }
-ProcessingTranspiler >> emitTan: args [
+ProcessingTranspiler >> emit_tan: args [
 	args first acceptVisitor: self.
 	self emit: ' tan'.
 ]
 
 { #category : #emitting }
-ProcessingTranspiler >> emitText: args [
+ProcessingTranspiler >> emit_text: args [
 	self emit: 'gtCanvas text: '.
 	args first acceptVisitor: self.
 	self emit: ' x: '.
@@ -392,13 +357,13 @@ ProcessingTranspiler >> emitText: args [
 ]
 
 { #category : #emitting }
-ProcessingTranspiler >> emitTextSize: args [
+ProcessingTranspiler >> emit_textSize: args [
 	self emit: 'gtCanvas textSize: '.
 	args first acceptVisitor: self.
 ]
 
 { #category : #emitting }
-ProcessingTranspiler >> emitTranslate: args [
+ProcessingTranspiler >> emit_translate: args [
 	self emit: 'gtCanvas translate: '.
 	args first acceptVisitor: self.
 	self emit: ' y: '.
@@ -406,7 +371,7 @@ ProcessingTranspiler >> emitTranslate: args [
 ]
 
 { #category : #emitting }
-ProcessingTranspiler >> emitTriangle: args [
+ProcessingTranspiler >> emit_triangle: args [
 	self emit: 'gtCanvas triangle: '.
 	args first acceptVisitor: self.
 	self emit: ' y1: '.
@@ -755,18 +720,19 @@ ProcessingTranspiler >> visitForStatement: expr [
 
 { #category : #visiting }
 ProcessingTranspiler >> visitFunctionCallExpression: fnCall [
-	| name args |
+	| name builtin |
 	self startEmit: fnCall.
 	name := fnCall receiver nameToken value.
-	args := fnCall arguments.
-	(ProcessingTranspiler builtins includesKey: name) ifTrue: [
-		self perform: (ProcessingTranspiler builtins at: name) with: args.
-		^ self endEmit
-	].
+	"TODO: disallow overriding builtin functions?"
 	(userDefs includesKey: name) ifTrue: [
 		self emit: '(self '.
-		self emitFunctionDef: name with: args.
+		self emitFunctionDef: name with: fnCall arguments.
 		self emit: ')'.
+		^ self endEmit
+	].
+	builtin := ('emit_' , name , ':') asSymbol.
+	(self class methodDict includesKey: builtin) ifTrue: [
+		self perform: builtin with: fnCall arguments.
 		^ self endEmit
 	].
 	self notImplemented: fnCall

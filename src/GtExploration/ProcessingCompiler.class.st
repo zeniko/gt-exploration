@@ -29,7 +29,12 @@ ProcessingCompiler >> emitBinaryOp: op lhs: left rhs: right [
 ]
 
 { #category : #'as yet unclassified' }
-ProcessingCompiler >> emitFill: args [
+ProcessingCompiler >> emitNumber: num [
+	builder pushLiteral: num asNumber. 
+]
+
+{ #category : #'as yet unclassified' }
+ProcessingCompiler >> emit_fill: args [
 	builder pushReceiver; pushDup.
 	"TODO: instead of using #colorWithR:g:b: it should be possible to use pushLiteralVariable: Color; send: #r:g:b:"
 	(args at: 1) acceptVisitor: self.
@@ -39,12 +44,7 @@ ProcessingCompiler >> emitFill: args [
 ]
 
 { #category : #'as yet unclassified' }
-ProcessingCompiler >> emitNumber: num [
-	builder pushLiteral: num asNumber. 
-]
-
-{ #category : #'as yet unclassified' }
-ProcessingCompiler >> emitRect: args [
+ProcessingCompiler >> emit_rect: args [
 	builder pushReceiver.
 	(args at: 3) acceptVisitor: self.
 	(args at: 4) acceptVisitor: self.
@@ -54,7 +54,7 @@ ProcessingCompiler >> emitRect: args [
 ]
 
 { #category : #'as yet unclassified' }
-ProcessingCompiler >> emitSize: args [
+ProcessingCompiler >> emit_size: args [
 	builder pushReceiver.
 	(args at: 1) acceptVisitor: self.
 	(args at: 2) acceptVisitor: self.
@@ -80,9 +80,9 @@ ProcessingCompiler >> visitFile: file [
 ProcessingCompiler >> visitFunctionCallExpression: fnCall [
 	| name |
 	name := fnCall receiver nameToken value.
-	name = 'size' ifTrue: [ ^ self emitSize: fnCall arguments ].
-	name = 'fill' ifTrue: [ ^ self emitFill: fnCall arguments ].
-	name = 'rect' ifTrue: [ ^ self emitRect: fnCall arguments ].
+	name = 'size' ifTrue: [ ^ self emit_size: fnCall arguments ].
+	name = 'fill' ifTrue: [ ^ self emit_fill: fnCall arguments ].
+	name = 'rect' ifTrue: [ ^ self emit_rect: fnCall arguments ].
 ]
 
 { #category : #'as yet unclassified' }
