@@ -56,6 +56,11 @@ ProcessingCanvas >> canvasElement [
 	^ canvasElement
 ]
 
+{ #category : #shapes }
+ProcessingCanvas >> circle: x y: y d: d [
+	^ self ellipse: d by: d at: x @ y
+]
+
 { #category : #initialization }
 ProcessingCanvas >> colorWithR: r G: g B: b [
 	"Map 64 to 0.25, 128 to 0.5, 192 to 0.75 but 255 to 1.0 exactly."
@@ -291,6 +296,11 @@ ProcessingCanvas >> rect: x y: y width: width height: height [
 { #category : #modifiers }
 ProcessingCanvas >> size: width by: height [
 	canvasElement size: width @ height.
+]
+
+{ #category : #shapes }
+ProcessingCanvas >> square: x y: y side: side [
+	^ self rect: side by: side at: x @ y
 ]
 
 { #category : #modifiers }

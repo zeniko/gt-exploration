@@ -69,11 +69,11 @@ ProcessingTranspilerExamples >> transpilationExample02 [
 	a := 0.
 	[ (a < 200) ] whileTrue: [
 		gtCanvas fillR: a G: 128 B: 0.
-		gtCanvas rect: a y: a width: 100 height: 100.
+		gtCanvas square: a y: a side: 100.
 		a := (a + 50).
 	].
 	(a >= 200) ifTrue: [
-		gtCanvas ellipse: 10 y: 10 dx: 20 dy: 20.
+		gtCanvas circle: 10 y: 10 d: 20.
 	].'
 ]
 

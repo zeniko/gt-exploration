@@ -108,7 +108,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-05-20T23:27:01.052+02:00"
+									"dateAndTimeString" : "2025-05-21T15:29:14.505+02:00"
 								}
 							},
 							"uid" : {
@@ -118,7 +118,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Processing API: `loadImage` and `image`, `mouseX`, `mouseY` and `mousePressed` inside `def draw()`, `str`"
+							"string" : "Processing API: `loadImage` and `image`, `mouseX`, `mouseY` and `mousePressed` inside `def draw()`, `str`, `PI`, `sqrt`"
 						},
 						{
 							"__type" : "exampleSnippet",
@@ -482,7 +482,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-05-21T09:56:32.069+02:00"
+									"dateAndTimeString" : "2025-05-21T09:57:19.021+02:00"
 								}
 							},
 							"uid" : {
@@ -492,7 +492,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Removed Home section from {{gtPackage:ProcessingAbstractions}} (\"Implementation and Tests\" can now be hidden through {{gtMethod:GtExplorationHomeSection>>#studentMode:}})."
+							"string" : "Removed Home section from {{gtPackage:ProcessingAbstractions}} (\"Implementation and Tests\" can be hidden through {{gtMethod:GtExplorationHomeSection class>>#studentMode:}})."
 						}
 					]
 				},

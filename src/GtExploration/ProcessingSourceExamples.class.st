@@ -71,10 +71,10 @@ ProcessingSourceExamples >> sourceCodeExample02 [
 a = 0
 while a < 200:
 	fill(a, 128, 0)
-	rect(a, a, 100, 100)
+	square(a, a, 100)
 	a = a + 50
 if a >= 200:
-	ellipse(10, 10, 20, 20)'
+	circle(10, 10, 20)'
 ]
 
 { #category : #source }

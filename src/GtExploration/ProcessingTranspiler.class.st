@@ -12,7 +12,8 @@ Class {
 		'astMap',
 		'astMaps',
 		'output',
-		'nodeStack'
+		'nodeStack',
+		'constants'
 	],
 	#category : #'GtExploration-Processing'
 }
@@ -77,6 +78,16 @@ ProcessingTranspiler >> emitBackground: args [
 	self emit: ' G: '.
 	args second acceptVisitor: self.
 	self emit: ' B: '.
+	args third acceptVisitor: self.
+]
+
+{ #category : #emitting }
+ProcessingTranspiler >> emitCircle: args [
+	self emit: 'gtCanvas circle: '.
+	args first acceptVisitor: self.
+	self emit: ' y: '.
+	args second acceptVisitor: self.
+	self emit: ' d: '.
 	args third acceptVisitor: self.
 ]
 
@@ -247,6 +258,22 @@ ProcessingTranspiler >> emitSize: args [
 ]
 
 { #category : #emitting }
+ProcessingTranspiler >> emitSqrt: args [
+	args first acceptVisitor: self.
+	self emit: ' sqrt'.
+]
+
+{ #category : #emitting }
+ProcessingTranspiler >> emitSquare: args [
+	self emit: 'gtCanvas square: '.
+	args first acceptVisitor: self.
+	self emit: ' y: '.
+	args second acceptVisitor: self.
+	self emit: ' side: '.
+	args third acceptVisitor: self.
+]
+
+{ #category : #emitting }
 ProcessingTranspiler >> emitStr: args [
 	args first acceptVisitor: self.
 	self emit: ' asString'.
@@ -349,6 +376,17 @@ ProcessingTranspiler >> transpile: ast [
 	functions := ''.
 	astMaps := Dictionary new.
 	nodeStack := OrderedCollection new.
+	
+	constants := Dictionary newFrom: {
+		'True' -> 'true'.
+		'False' -> 'false'.
+		'None' -> 'nil'.
+		'PI' -> Float pi asString.
+		"The following implicit constants are internally treated like global variables."
+		'width' -> 'width'. 'height' -> 'height'.
+		'mouseX' -> 'mouseX'. 'mouseY' -> 'mouseY'.
+		'mousePressed' -> 'mousePressed'.
+	}.
 	
 	"Prepare implicit globals"
 	globalVariables addAll: { 'width'. 'height'. }.
@@ -490,6 +528,9 @@ ProcessingTranspiler >> variables [
 { #category : #visiting }
 ProcessingTranspiler >> visitAssignmentExpression: expr [
 	| name |
+	(constants includesKey: expr variable nameToken value) ifTrue: [
+		ProcessingCompileTimeException new tag: expr; signal: 'Can''t assign to constant.'.
+	].
 	self startEmit: expr.
 	name := self emitName: expr variable nameToken value.
 	(globalVariables includes: name) ifFalse: [
@@ -505,6 +546,9 @@ ProcessingTranspiler >> visitAssignmentStatement: expr [
 	| name |
 	expr lhs nameToken ifNil: [ self notImplemented: expr ].
 	name := expr lhs nameToken value.
+	(constants includesKey: name) ifTrue: [
+		ProcessingCompileTimeException new tag: expr; signal: 'Can''t assign to constant.'.
+	].
 	self startEmit: expr.
 	name := self emitName: expr lhs nameToken value.
 	(globalVariables includes: name) ifFalse: [
@@ -643,6 +687,7 @@ ProcessingTranspiler >> visitFunctionCallExpression: fnCall [
 	name := fnCall receiver nameToken value.
 	args := fnCall arguments.
 	name = 'background' ifTrue: [ self emitBackground: args. ^ self endEmit ].
+	name = 'circle' ifTrue: [ self emitCircle: args. ^ self endEmit ].
 	name = 'cos' ifTrue: [ self emitCos: args. ^ self endEmit ].
 	name = 'delay' ifTrue: [ self emitDelay: args. ^ self endEmit ].
 	name = 'ellipse' ifTrue: [ self emitEllipse: args. ^ self endEmit ].
@@ -660,6 +705,8 @@ ProcessingTranspiler >> visitFunctionCallExpression: fnCall [
 	name = 'rect' ifTrue: [ self emitRect: args. ^ self endEmit ].
 	name = 'sin' ifTrue: [ self emitSin: args. ^ self endEmit ].
 	name = 'size' ifTrue: [ self emitSize: args. ^ self endEmit ].
+	name = 'square' ifTrue: [ self emitSquare: args. ^ self endEmit ].
+	name = 'sqrt' ifTrue: [ self emitSqrt: args. ^ self endEmit ].
 	name = 'str' ifTrue: [ self emitStr: args. ^ self endEmit ].
 	name = 'stroke' ifTrue: [ self emitStroke: args. ^ self endEmit ].
 	name = 'strokeWeight' ifTrue: [ self emitStrokeWeight: args. ^ self endEmit ].
@@ -812,8 +859,8 @@ ProcessingTranspiler >> visitUnaryExpression: expr [
 { #category : #visiting }
 ProcessingTranspiler >> visitVariableExpression: var [
 	self startEmit: var.
-	(#('True' 'False' 'None') includes: var nameToken value) ifTrue: [
-		self emit: ((Dictionary newFrom: { 'True' -> 'true'. 'False' -> 'false'. 'None' -> 'nil'. }) at: var nameToken value).
+	(constants includesKey: var nameToken value) ifTrue: [
+		self emit: (constants at: var nameToken value).
 	] ifFalse: [
 		self emitName: var nameToken value.
 	].

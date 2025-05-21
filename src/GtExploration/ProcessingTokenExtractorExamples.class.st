@@ -35,7 +35,7 @@ ProcessingTokenExtractorExamples >> tokensExample02 [
 	<gtExample>
 	| tokens |
 	tokens := self newExtractor extractTokens: ProcessingParserExamples new parseExample02.
-	self assert: tokens size equals: 52.
+	self assert: tokens size equals: 48.
 	self assert: (tokens allSatisfy: [ :item | item isKindOf: SmaCCToken ]).
 	^ tokens
 ]
