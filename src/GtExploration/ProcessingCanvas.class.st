@@ -9,8 +9,7 @@ Class {
 		'strokeWeight',
 		'transcript',
 		'frameRate',
-		'mouseX',
-		'mouseY',
+		'mousePosition',
 		'mousePressed'
 	],
 	#category : #'GtExploration-Processing'
@@ -162,8 +161,7 @@ ProcessingCanvas >> initialize [
 		background: Color veryLightGray;
 		size: 100 @ 100;
 		when: BlMouseMoveEvent do: [ :event |
-			mouseX := event localPosition x rounded.
-			mouseY := event localPosition y rounded.
+			mousePosition := event localPosition.
 		];
 		when: BlMouseDownEvent do: [ :event |
 			mousePressed := true.
@@ -179,7 +177,7 @@ ProcessingCanvas >> initialize [
 	textSize := 12.
 	transcript := nil.
 	frameRate := 30.
-	mouseX := 0. mouseY := 0.
+	mousePosition := 0 @ 0.
 	mousePressed := false.
 ]
 
@@ -227,12 +225,12 @@ ProcessingCanvas >> mousePressed [
 
 { #category : #accessing }
 ProcessingCanvas >> mouseX [
-	^ mouseX
+	^ mousePosition x rounded
 ]
 
 { #category : #accessing }
 ProcessingCanvas >> mouseY [
-	^ mouseY
+	^ mousePosition y rounded
 ]
 
 { #category : #shapes }
