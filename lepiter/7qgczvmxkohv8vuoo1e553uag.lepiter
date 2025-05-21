@@ -1386,6 +1386,43 @@
 								"__type" : "textStyle"
 							},
 							"string" : "[[Student Feedback]]"
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-05-21T09:40:56.151+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-05-21T09:41:07.862+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "2P/sOALyDQCn0h//B36dsg=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "[[Setup for Students]]"
 						}
 					]
 				},

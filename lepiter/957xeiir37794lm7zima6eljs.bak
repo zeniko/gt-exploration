@@ -152,11 +152,13 @@
 								"__type" : "uid",
 								"uidString" : "sCsH3PrxDQC7RiBsBWhF1w=="
 							},
-							"previewHeight" : 200,
-							"previewShowSelector" : "gtViewsFor:",
+							"exampleSelector" : "programMouseEvents",
+							"previewHeight" : 150,
+							"previewShowSelector" : "gtOutputFor:",
+							"exampleBehaviorName" : "ProcessingProgramExamples",
 							"codeExpanded" : true,
 							"previewExpanded" : false,
-							"noCode" : false
+							"noCode" : true
 						},
 						{
 							"__type" : "textSnippet",
@@ -194,6 +196,43 @@
 								"__type" : "textStyle"
 							},
 							"string" : "Made {{gtClass:ProcessingCanvas}} API more consistent with [[Processing API]]."
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-05-21T09:56:39.824+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-05-21T09:56:44.359+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "gE4scQLyDQC/FR0MB36dsg=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Documented [[Setup for Students]]."
 						}
 					]
 				},
@@ -443,7 +482,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-05-20T23:15:04.832+02:00"
+									"dateAndTimeString" : "2025-05-21T09:56:32.069+02:00"
 								}
 							},
 							"uid" : {
@@ -453,41 +492,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Removed Home section from {{gtPackage:ProcessingAbstractions}}, allowed to hide the \"Implementation and Tests\" button through:"
-						},
-						{
-							"__type" : "pharoSnippet",
-							"children" : {
-								"__type" : "snippets",
-								"items" : [ ]
-							},
-							"createEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"createTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-05-20T23:15:06.609+02:00"
-								}
-							},
-							"editEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"editTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-05-20T23:15:09.679+02:00"
-								}
-							},
-							"uid" : {
-								"__type" : "uid",
-								"uidString" : "aHXMevnxDQCO4CmzBIR1Fg=="
-							},
-							"code" : "GtExplorationHomeSection studentMode: true"
+							"string" : "Removed Home section from {{gtPackage:ProcessingAbstractions}} (\"Implementation and Tests\" can now be hidden through {{gtMethod:GtExplorationHomeSection>>#studentMode:}})."
 						}
 					]
 				},

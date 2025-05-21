@@ -1,0 +1,482 @@
+{
+	"__schema" : "4.1",
+	"__type" : "page",
+	"children" : {
+		"__type" : "snippets",
+		"items" : [
+			{
+				"__type" : "textSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [
+									{
+										"__type" : "pharoSnippet",
+										"children" : {
+											"__type" : "snippets",
+											"items" : [ ]
+										},
+										"createEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"createTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2025-05-21T09:43:25.423+02:00"
+											}
+										},
+										"editEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"editTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2025-05-21T09:43:43.957+02:00"
+											}
+										},
+										"uid" : {
+											"__type" : "uid",
+											"uidString" : "mLXSQQLyDQCrnyKPB36dsg=="
+										},
+										"code" : "PageAutomationHelper updateProcessingAPI"
+									}
+								]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-05-21T09:42:32.637+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-05-21T09:43:21.338+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "SEKtPgLyDQCqS7AOB36dsg=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Make sure that {{gtPage:Processing API|db=dl0rc62x02fk8k57e43hr8acw}} is up-to-date. If it's not:"
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-05-21T09:43:23.507+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-05-21T09:47:24.669+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "OHm1QQLyDQCrmUK1B36dsg=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Download and extract the latest build from <https://gtoolkit.com/download/>."
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [
+									{
+										"__type" : "elementSnippet",
+										"children" : {
+											"__type" : "snippets",
+											"items" : [ ]
+										},
+										"createEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"createTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2025-05-21T09:45:49.174+02:00"
+											}
+										},
+										"editEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"editTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2025-05-21T09:46:02.561+02:00"
+											}
+										},
+										"uid" : {
+											"__type" : "uid",
+											"uidString" : "8CxkSgLyDQCt0veQB36dsg=="
+										},
+										"code" : "GtInspector newOn: FileLocator documents / 'lepiter'",
+										"elementHeight" : 184,
+										"codeHeight" : 0,
+										"codeVisible" : false
+									}
+								]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-05-21T09:45:32.612+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-05-21T09:47:00.689+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "oHVnSQLyDQCtIYjGB36dsg=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Temporarily rename the local lepiter database folder (else its content will be visible to students):"
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [
+									{
+										"__type" : "pharoSnippet",
+										"children" : {
+											"__type" : "snippets",
+											"items" : [ ]
+										},
+										"createEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"createTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2025-05-21T09:48:32.848+02:00"
+											}
+										},
+										"editEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"editTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2025-05-21T09:48:41.987+02:00"
+											}
+										},
+										"uid" : {
+											"__type" : "uid",
+											"uidString" : "gKQlVALyDQCzLuHuB36dsg=="
+										},
+										"code" : "Metacello new\r\n\trepository: 'github://zeniko/gt-exploration:main/src';\r\n\tbaseline: 'GtExploration';\r\n\tload.\r\n\r\nMetacello new\r\n\trepository: 'github://zeniko/processing-abstractions:main/src';\r\n\tbaseline: 'ProcessingAbstractions';\r\n\tload.\r\n\r\nGtExplorationHomeSection studentMode: true.\r\n\r\nLeSnippetElement keyboardShortcuts\r\n\tat: #IndentSnippet\r\n\t\tput: BlKeyCombinationBuilder new alt shift arrowRight build;\r\n\tat: #UnindentSnippet\r\n\t\tput: BlKeyCombinationBuilder new alt shift arrowLeft build."
+									}
+								]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-05-21T09:45:47.217+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-05-21T09:48:27.677+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "gExGSgLyDQCtzAcxB36dsg=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Create `startup.st` in the clean build's top level folder (where `GlamorousToolkit.image` is stored) with the following content:"
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-05-21T09:48:30.932+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-05-21T09:50:15.432+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "IGgIVALyDQCzKKFFB36dsg=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Run the build once, open Unterrichtseinheiten → {{gtPage:Einleitung|db=dl0rc62x02fk8k57e43hr8acw}}, save and quit."
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [
+									{
+										"__type" : "textSnippet",
+										"children" : {
+											"__type" : "snippets",
+											"items" : [ ]
+										},
+										"createEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"createTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2025-05-21T09:53:54.262+02:00"
+											}
+										},
+										"editEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"editTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2025-05-21T09:54:10.017+02:00"
+											}
+										},
+										"uid" : {
+											"__type" : "uid",
+											"uidString" : "8AdOZwLyDQC7u++2B36dsg=="
+										},
+										"paragraphStyle" : {
+											"__type" : "textStyle"
+										},
+										"string" : "After testing: **just quit** (without saving)."
+									}
+								]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-05-21T09:50:17.049+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-05-21T09:53:44.864+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "eNk1WALyDQC0TkoYB36dsg=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Run the build again, test that everything works. As a sample: Changing the first `200` to `300` in {{gtPage:Repetition: Compiler|db=dl0rc62x02fk8k57e43hr8acw}} should be reflected in the views below."
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-05-21T09:54:26.065+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-05-21T09:54:50.838+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "IP76ZgLyDQC7t1sYB36dsg=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Package the setup GT and distribute it to students."
+						}
+					]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-05-21T09:42:12.674+02:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-05-21T09:42:31.939+02:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "0NO2OQLyDQCoSJWsB36dsg=="
+				},
+				"paragraphStyle" : {
+					"__type" : "textStyle"
+				},
+				"string" : "Creating a GT package for students takes the following steps:"
+			}
+		]
+	},
+	"createEmail" : {
+		"__type" : "email",
+		"emailString" : "<unknown>"
+	},
+	"createTime" : {
+		"__type" : "time",
+		"time" : {
+			"__type" : "dateAndTime",
+			"dateAndTimeString" : "2025-05-21T09:41:09.346+02:00"
+		}
+	},
+	"editEmail" : {
+		"__type" : "email",
+		"emailString" : "<unknown>"
+	},
+	"editTime" : {
+		"__type" : "time",
+		"time" : {
+			"__type" : "dateAndTime",
+			"dateAndTimeString" : "2025-05-21T09:41:09.346+02:00"
+		}
+	},
+	"pageType" : {
+		"__type" : "namedPage",
+		"title" : "Setup for Students"
+	},
+	"uid" : {
+		"__type" : "uuid",
+		"uuid" : "d056b639-02f2-0d00-a847-71fc077e9db2"
+	}
+}

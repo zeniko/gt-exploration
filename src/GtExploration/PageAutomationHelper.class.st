@@ -18,3 +18,21 @@ PageAutomationHelper class >> addWeekSection: aSnippet [
 	].
 	^ snip
 ]
+
+{ #category : #tool }
+PageAutomationHelper class >> updateProcessingAPI [
+	| dbs exploreDB unterrichtDB exploreAPI unterrichtAPI |
+	
+	dbs := LeDatabasesRegistry uniqueInstance defaultLogicalDatabase databases.
+	exploreDB := (dbs select: [ :db | db databaseName = 'zeniko:gt-exploration' ]) first.
+	unterrichtDB := (dbs select: [ :db | db databaseName = 'zeniko:processing-abstractions' ]) first.
+	
+	exploreAPI := exploreDB pageNamed: 'Processing API'.
+	unterrichtAPI := unterrichtDB pageNamed: 'Processing API'.
+	
+	(unterrichtAPI children collect: [ :each | each ])
+		do: [ :each | unterrichtAPI removeSnippet: each ].
+	exploreAPI children do: [ :each | unterrichtAPI addSnippet: each clone ].
+	
+	^ unterrichtAPI
+]
