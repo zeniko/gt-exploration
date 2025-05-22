@@ -15,25 +15,40 @@ Class {
 		'nodeStack'
 	],
 	#classVars : [
-		'constants'
+		'constants',
+		'implicitVariables'
 	],
 	#category : #'GtExploration-Processing'
 }
 
 { #category : #accessing }
 ProcessingTranspiler class >> constants [
-	^ constants ifNil: [
-		constants := Dictionary newFrom: {
-			'True' -> 'true'.
-			'False' -> 'false'.
-			'None' -> 'nil'.
-			'PI' -> Float pi asString.
-			"The following implicit constants are internally treated like global variables."
-			'width' -> 'width'. 'height' -> 'height'.
-			'mouseX' -> 'mouseX'. 'mouseY' -> 'mouseY'.
-			'mousePressed' -> 'mousePressed'.
-		}
-	]
+	^ constants
+]
+
+{ #category : #accessing }
+ProcessingTranspiler class >> implicitVariables [
+	^ implicitVariables
+]
+
+{ #category : #initialization }
+ProcessingTranspiler class >> initialize [
+	"When modifying these lists, run the following line (Ctrl+D):
+	ProcessingTranspiler initialize
+	"
+	constants := Dictionary newFrom: {
+		'True' -> 'true'.
+		'False' -> 'false'.
+		'None' -> 'nil'.
+		'PI' -> Float pi asString.
+	}.
+	implicitVariables := #(
+		#width
+		#height
+		#mouseX
+		#mouseY
+		#mousePressed
+	).
 ]
 
 { #category : #visiting }
@@ -559,7 +574,7 @@ ProcessingTranspiler >> userDefs [
 
 { #category : #accessing }
 ProcessingTranspiler >> variables [
-	"This doesn't contain implicit globals such as `width` and `height`."
+	"This doesn't contain implicit globals such as `width` and `height` (cf. implicitVariables)."
 	^ localVariables
 ]
 

@@ -40,7 +40,7 @@ ProcessingRunStep >> create: aContext canvas: aCanvas slice: aSlice [
 				variables at: ('gt' , (slot name removePrefix: 'gt_')) asSymbol put: (aContext receiver instVarNamed: slot name)
 			].
 			(slot name beginsWith: 'gt') ifFalse: [
-				(ProcessingTranspiler constants includesKey: slot name asString) ifFalse: [
+				(ProcessingTranspiler implicitVariables includes: slot name) ifFalse: [
 					variables at: slot name put: (aContext receiver instVarNamed: slot name)
 				].
 			].
