@@ -267,7 +267,7 @@ ProcessingCanvasExamples >> singleTriangle [
 	<gtExample>
 	| canvas child |
 	canvas := self container.
-	canvas triangle: { 0@200. 200@200. 100@0. }.
+	canvas polygon: { 0@200. 200@200. 100@0. }.
 	child := canvas canvasElement children last.
 	self assert: child class equals: BlPolygonElement.
 	self assert: child background paint color equals: Color white.
@@ -276,7 +276,7 @@ ProcessingCanvasExamples >> singleTriangle [
 	
 	self assert: (child userData at: #context) method equals: thisContext method.
 	self assert: (child userData at: #context) sourceNodeExecuted asString equals: 'RBMessageNode(canvas
-	triangle: {0 @ 200.
+	polygon: {0 @ 200.
 			200 @ 200.
 			100 @ 0})'.
 	
@@ -292,8 +292,9 @@ ProcessingCanvasExamples >> transforms [
 	canvas scale: 0.5.
 	canvas square: 50 y: 50 side: 100.
 	canvas ellipse: 100 y: 125 dx: 100 dy: 50.
-	canvas triangle: { 50 @ 50. 150 @ 50. 100 @ 150. }.
+	canvas polygon: { 50 @ 50. 150 @ 50. 100 @ 150. }.
 	canvas image: self loadImage at: 200 @ 50.
 	canvas line: 200 @ 50 to: 440 @ 218.
+	canvas line: 200 @ 218 to: 440 @ 50.
 	^ canvas
 ]

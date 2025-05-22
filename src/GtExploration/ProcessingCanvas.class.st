@@ -76,17 +76,16 @@ ProcessingCanvas >> colorWithR: r G: g B: b [
 
 { #category : #shapes }
 ProcessingCanvas >> ellipse: dx by: dy at: xy [
-	| shape |
+	| shape topLeft |
+	topLeft := xy - ((dx / 2) @ (dy / 2)).
 	shape := BlEllipseElement new
-		centerAnchor: (BlAbsolutePositionAnchor position: xy);
+		centerAnchor: (BlAbsolutePositionAnchor position: xy - topLeft);
 		majorRadius: dx / 2;
 		minorRadius: dy / 2;
 		background: fillColor;
 		border: self border;
 		yourself.
-	self transform: shape.
-	canvasElement addChild: shape.
-	^ self annotate: shape
+	^ self place: shape at: topLeft
 ]
 
 { #category : #shapes }
@@ -155,9 +154,7 @@ ProcessingCanvas >> image: image at: xy sized: size [
 		background: fillColor;
 		size: size;
 		yourself.
-	self transform: shape position: xy.
-	canvasElement addChild: shape.
-	^ self annotate: shape
+	^ self place: shape at: xy
 ]
 
 { #category : #shapes }
@@ -200,15 +197,14 @@ ProcessingCanvas >> initialize [
 
 { #category : #shapes }
 ProcessingCanvas >> line: fromXy to: toXy [
-	| shape |
+	| shape topLeft |
+	topLeft := fromXy min: toXy.
 	shape := BlLineElement new
-		fromAnchor: (BlAbsolutePositionAnchor position: fromXy);
-		toAnchor: (BlAbsolutePositionAnchor position: toXy);
+		fromAnchor: (BlAbsolutePositionAnchor position: fromXy - topLeft);
+		toAnchor: (BlAbsolutePositionAnchor position: toXy - topLeft);
 		border: self border;
 		yourself.
-	self transform: shape.
-	canvasElement addChild: shape.
-	^ self annotate: shape
+	^ self place: shape at: topLeft
 ]
 
 { #category : #shapes }
@@ -256,6 +252,30 @@ ProcessingCanvas >> mouseY [
 	^ mousePosition y rounded
 ]
 
+{ #category : #initialization }
+ProcessingCanvas >> place: shape at: position [
+	| transform |
+	transform := shape transform
+		topLeftOrigin;
+		translateBy: position.
+	transforms reverseDo: [ :tf | tf cull: transform ].
+	transform apply.
+	canvasElement addChild: shape.
+	^ self annotate: shape
+]
+
+{ #category : #shapes }
+ProcessingCanvas >> polygon: vertices [
+	| shape topLeft |
+	topLeft := vertices reduce: [ :a :b | a min: b ].
+	shape := BlPolygonElement new
+		anchors: (vertices collect: [ :xy | BlAbsolutePositionAnchor position: xy - topLeft ]);
+		background: fillColor;
+		border: self border;
+		yourself.
+	^ self place: shape at: topLeft
+]
+
 { #category : #shapes }
 ProcessingCanvas >> print: text [
 	transcript ifNil: [
@@ -301,9 +321,7 @@ ProcessingCanvas >> rect: width by: height at: xy [
 		size: width @ height;
 		border: self border;
 		yourself.
-	self transform: shape position: xy.
-	canvasElement addChild: shape.
-	^ self annotate: shape
+	^ self place: shape at: xy
 ]
 
 { #category : #shapes }
@@ -368,11 +386,8 @@ ProcessingCanvas >> text: text at: pos [
 		fontSize: textSize;
 		foreground: fillColor.
 	shape := BlTextElement new text: roped.
-	self transform: shape.
-	canvasElement addChild: shape.
 	"y-position is of baseline"
-	shape relocate: pos x @ (pos y - textSize).
-	^ self annotate: shape
+	^ self place: shape at: pos x @ (pos y - textSize)
 ]
 
 { #category : #shapes }
@@ -396,46 +411,11 @@ ProcessingCanvas >> transcript [
 ]
 
 { #category : #modifiers }
-ProcessingCanvas >> transform: shape [
-	| transform |
-	transform := shape transform.
-	"TODO: this seems to work for ProcessingSourceExamples>>sourceSpiral but doesn't work for ProcessingCanvasExamples>>transforms"
-	transform normalizedOrigin: 1 @ 1.
-	transforms reverseDo: [ :tf | tf cull: transform ].
-	transform apply.
-	^ shape
-]
-
-{ #category : #modifiers }
-ProcessingCanvas >> transform: shape position: position [
-	| transform |
-	transform := shape transform.
-	transform topLeftOrigin.
-	transform translateBy: position.
-	transforms reverseDo: [ :tf | tf cull: transform ].
-	transform apply.
-	^ shape
-]
-
-{ #category : #modifiers }
 ProcessingCanvas >> translate: x y: y [
 	transforms add: [ :trans | trans translateBy: x @ y ].
 ]
 
 { #category : #shapes }
-ProcessingCanvas >> triangle: vertices [
-	| shape |
-	shape := BlPolygonElement new
-		anchors: (vertices collect: [ :xy | BlAbsolutePositionAnchor position: xy ]);
-		background: fillColor;
-		border: self border;
-		yourself.
-	self transform: shape.
-	canvasElement addChild: shape.
-	^ self annotate: shape
-]
-
-{ #category : #shapes }
 ProcessingCanvas >> triangle: x1 y1: y1 x2: x2 y2: y2 x3: x3 y3: y3 [
-	^ self triangle: { x1 @ y1. x2 @ y2. x3 @ y3. }
+	^ self polygon: { x1 @ y1. x2 @ y2. x3 @ y3. }
 ]
