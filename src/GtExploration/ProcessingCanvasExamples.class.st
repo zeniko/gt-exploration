@@ -124,6 +124,17 @@ ProcessingCanvasExamples >> fillColor [
 { #category : #example }
 ProcessingCanvasExamples >> image [
 	<gtExample>
+	| canvas |
+	canvas := self container.
+	canvas image: self loadImage at: 50 @ 50 sized: 100 @ 100.
+	self assert: canvas canvasElement children size equals: 1.
+	self assert: (canvas canvasElement children last isKindOf: BlSkiaImageElement).
+	^ canvas
+]
+
+{ #category : #example }
+ProcessingCanvasExamples >> loadImage [
+	<gtExample>
 	| canvas image |
 	canvas := self container.
 	image := canvas loadImage: 'nowhere/missing.ext'.
@@ -131,13 +142,7 @@ ProcessingCanvasExamples >> image [
 	image := canvas loadImage: 'zeniko/gt-exploration/data/sample/thumbs-up.png'.
 	self assert: image isNotNil.
 	self assert: image width @ image height equals: 240 @ 168.
-	canvas
-		image: image
-		at: 50 @ 50
-		sized: 100 @ 100.
-	self assert: canvas canvasElement children size equals: 1.
-	self assert: (canvas canvasElement children first isKindOf: BlSkiaImageElement).
-	^ canvas
+	^ image
 ]
 
 { #category : #example }
@@ -286,5 +291,9 @@ ProcessingCanvasExamples >> transforms [
 	canvas rotate: 20 degreesToRadians.
 	canvas scale: 0.5.
 	canvas square: 50 y: 50 side: 100.
+	canvas ellipse: 100 y: 125 dx: 100 dy: 50.
+	canvas triangle: { 50 @ 50. 150 @ 50. 100 @ 150. }.
+	canvas image: self loadImage at: 200 @ 50.
+	canvas line: 200 @ 50 to: 440 @ 218.
 	^ canvas
 ]

@@ -154,9 +154,8 @@ ProcessingCanvas >> image: image at: xy sized: size [
 	shape := image asElement
 		background: fillColor;
 		size: size;
-		relocate: xy;
 		yourself.
-	self transform: shape.
+	self transform: shape position: xy.
 	canvasElement addChild: shape.
 	^ self annotate: shape
 ]
@@ -400,6 +399,7 @@ ProcessingCanvas >> transcript [
 ProcessingCanvas >> transform: shape [
 	| transform |
 	transform := shape transform.
+	"TODO: this seems to work for ProcessingSourceExamples>>sourceSpiral but doesn't work for ProcessingCanvasExamples>>transforms"
 	transform normalizedOrigin: 1 @ 1.
 	transforms reverseDo: [ :tf | tf cull: transform ].
 	transform apply.
@@ -410,7 +410,7 @@ ProcessingCanvas >> transform: shape [
 ProcessingCanvas >> transform: shape position: position [
 	| transform |
 	transform := shape transform.
-	transform normalizedOrigin: 0 @ 0.
+	transform topLeftOrigin.
 	transform translateBy: position.
 	transforms reverseDo: [ :tf | tf cull: transform ].
 	transform apply.
