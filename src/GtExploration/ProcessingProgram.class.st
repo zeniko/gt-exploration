@@ -877,7 +877,7 @@ ProcessingProgram >> runStepsFor: duration [
 	runner := ProcessingRunner new.
 	steps := runner limitTo: duration; runStepwise: compilation clone.
 	runner isDone ifFalse: [
-		ProcessingRunawayProgramException new signal: 'Endless loop detected.'
+		steps add: (ProcessingRunStep create: thisContext canvas: runner canvas slice: (ProcessingRunawayProgramException new messageText: 'Endless loop detected!')).
 	].
 	^ steps
 ]

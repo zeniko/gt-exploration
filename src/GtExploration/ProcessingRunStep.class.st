@@ -55,6 +55,10 @@ ProcessingRunStep >> create: aContext canvas: aCanvas slice: aSlice [
 { #category : #views }
 ProcessingRunStep >> gtAbstractionsFor: aView [
 	<gtView>
+	(slice isKindOf: ProcessingRunawayProgramException) ifTrue: [
+		"ProcessingProgram>>#runStepsFor: adds an unthrown exception as a last step, if the program runs too long"
+		^ aView forward object: [ slice signal ].
+	].
 	^ aView explicit
 		priority: 1;
 		title: 'Abstractions' translated;

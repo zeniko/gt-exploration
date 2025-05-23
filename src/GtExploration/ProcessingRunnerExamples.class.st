@@ -54,6 +54,18 @@ ProcessingRunnerExamples >> runAnimation [
 ]
 
 { #category : #example }
+ProcessingRunnerExamples >> runAnimationStepwise [
+	<gtExample>
+	"The animation is currently considered to be an endless loop"
+	| program steps |
+	program := ProcessingProgramExamples new programAnimation.
+	steps := program runStepsFor: 0.1 seconds.
+	self assert: steps isNotEmpty.
+	self assert: ((steps last instVarNamed: #slice) isKindOf: ProcessingRunawayProgramException).
+	^ steps
+]
+
+{ #category : #example }
 ProcessingRunnerExamples >> runExample02 [
 	<gtExample>
 	| program runner |
@@ -203,14 +215,13 @@ ProcessingRunnerExamples >> runInterruptedStepwise [
 	<noTest> "Runaway detection currently takes a few seconds"
 	| program runner steps detected |
 	program := ProcessingProgramExamples new programEndlessLoop.
-	detected := nil.
-	[ steps := program runSteps ] on: ProcessingRunawayProgramException do: [ :ex | detected := ex ].
-	self assert: detected asString equals: 'ProcessingRunawayProgramException: Endless loop detected.'.
-	self assert: steps isNil.
+	steps := program runSteps.
+	self assert: steps size equals: 1.
+	self assert: ((steps last instVarNamed: #slice) isKindOf: ProcessingRunawayProgramException).
 	
 	runner := self newRunner.
 	steps := runner limitTo: 0.1 seconds; runStepwise: program compilation.
-	self assert: steps isNotNil.
+	self assert: steps size equals: 0.
 	self assert: runner isDone not.
 	^ steps
 ]
