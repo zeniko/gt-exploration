@@ -13,13 +13,31 @@ ProcessingCanvasExamples >> alpinerWanderweg [
 	self assert: canvas fillColor equals: Color red.
 	
 	child := canvas canvasElement children last.
-	"self assert: child measuredBounds position equals: 50 @ (250/3)."
 	self assert: child background paint color equals: Color red.
 	self assert: child border paint color equals: Color black.
 	self assert: child border width equals: 0.5.
 	
 	self assert: canvas canvasElement children size equals: 2.
 	^ canvas
+]
+
+{ #category : #example }
+ProcessingCanvasExamples >> alpinerWanderwegScripter [
+	<gtExample>
+	| canvas child |
+	canvas := self alpinerWanderweg.
+	^ BlScripter new
+		element: canvas canvasElement;
+		substeps: 'Square' do: [ :step |
+			step check value: [ :el | el children first bounds inParent topLeft ] equals: 50 @ 50.
+			step check value: [ :el | el children first bounds inParent bottomRight ] equals: 150 @ 150.
+		];
+		substeps: 'Rectangle' do: [ :step |
+			step check value: [ :el | el children second bounds inParent topLeft closeTo: 50 @ (50 + (100/3)) ] equals: true.
+			step check value: [ :el | el children second bounds inParent bottomRight closeTo: 150 @ (150 - (100 / 3)) ] equals: true.
+			step check value: [ :el | el children second background paint color ] equals: Color red.
+		];
+		play
 ]
 
 { #category : #example }
@@ -78,6 +96,38 @@ ProcessingCanvasExamples >> example02 [
 	self assert: canvas canvasElement children size equals: 5.
 	self assert: (canvas canvasElement children select: [ :el | el isKindOf: BlEllipseElement ]) size equals: 1.
 	^ canvas
+]
+
+{ #category : #example }
+ProcessingCanvasExamples >> example02Scripter [
+	<gtExample>
+	| canvas scripter |
+	canvas := ProcessingCanvasExamples new example02.
+	scripter := BlScripter new.
+	scripter element: canvas canvasElement.
+	#(1 2 3 4) do: [ :ix |
+		scripter substeps: ('Square ' , ix asString) do: [ :step |
+			step check value: [ :el |
+				(el children at: ix) bounds inParent topLeft
+			] equals: (50 * (ix - 1)) @ (50 * (ix - 1)).
+			step check value: [ :el |
+				(el children at: ix) bounds inParent bottomRight
+			] equals: (50 * (ix - 1) + 100) @ (50 * (ix - 1) + 100).
+			step check value: [ :el | (el children at: ix) background paint color ] equals: (canvas colorWithR: (50 * (ix - 1)) G: 128 B: 0).
+		].
+	].
+	scripter substeps: 'Circle' do: [ :step |
+			step check value: [ :el |
+				el children fifth bounds inParent topLeft
+			] equals: 0 @ 0.
+			step check value: [ :el |
+				el children fifth bounds inParent bottomRight
+			] equals: 20 @ 20.
+			step check value: [ :el |
+				el children fifth background paint color
+			] equals: (canvas colorWithR: 150 G: 128 B: 0).
+		].
+	^ scripter play
 ]
 
 { #category : #example }
@@ -150,18 +200,25 @@ ProcessingCanvasExamples >> mouseEvents [
 	<gtExample>
 	| canvas |
 	canvas := self container.
-	self assert: canvas mouseX @ canvas mouseY equals: 0 @ 0.
-	self assert: canvas mousePressed not.
-	canvas canvasElement dispatchEvent: BlMouseDownEvent primary.
-	self assert: canvas mousePressed.
-	canvas canvasElement dispatchEvent: BlMouseUpEvent primary.
-	self assert: canvas mousePressed not.
-	canvas canvasElement dispatchEvent: (BlMouseUpEvent primary position: 5 @ 7).
-	self assert: canvas mousePressed not.
-	self assert: canvas mouseX @ canvas mouseY equals: 0 @ 0.
-	canvas canvasElement dispatchEvent: (BlMouseMoveEvent new position: 10 @ 20).
-	self assert: canvas mouseX @ canvas mouseY equals: 10 @ 20.
-	^ canvas
+	^ BlScripter new
+		element: canvas canvasElement;
+		substeps: 'Mouse move' do: [ :step |
+			step set key: [ #mousePosition ] value: [ 50 @ 30 ].
+			step check value: [:_| canvas mouseX @ canvas mouseY ] equals: 0 @ 0.
+			step mouseMove.
+			step check value: [:_| canvas mouseX @ canvas mouseY ] equals: 50 @ 30.
+		];
+		substeps: 'Mouse click' do: [ :step |
+			step set key: [ #mousePosition ] value: [ 100 @ 100 ].
+			step check value: [:_| canvas mousePressed ] equals: false.
+			step mouseDown.
+			step check value: [:_| canvas mousePressed ] equals: true.
+			step mouseUp.
+			step check value: [:_| canvas mousePressed ] equals: false.
+			"Mouse clicks don't modify the mouse position"
+			step check value: [:_| canvas mouseX @ canvas mouseY ] equals: 50 @ 30.
+		];
+		play
 ]
 
 { #category : #example }
@@ -297,4 +354,34 @@ ProcessingCanvasExamples >> transforms [
 	canvas line: 200 @ 50 to: 440 @ 218.
 	canvas line: 200 @ 218 to: 440 @ 50.
 	^ canvas
+]
+
+{ #category : #example }
+ProcessingCanvasExamples >> transformsScripter [
+	<gtExample>
+	| canvas |
+	canvas := self transforms.
+	^ BlScripter new
+		element: canvas canvasElement;
+		substeps: 'Square' do: [ :step |
+			step check value: [ :el | el children first bounds inParent topLeft closeTo: -2.159195 @32.0428191 ] equals: true.
+			step check value: [ :el | el children first bounds inParent bottomRight closeTo: 61.926443 @ 96.128457 ] equals: true.
+		];
+		substeps: 'Ellipse' do: [ :step |
+			step check value: [ :el | el children second bounds inParent topLeft closeTo: -2.159195 @ 55.535135 ] equals: true.
+			step check value: [ :el | el children second bounds inParent bottomRight closeTo: 53.3759394 @ 96.128457 ] equals: true.
+		];
+		substeps: 'Triangle' do: [ :step |
+			step check value: [ :el | el children third bounds inParent topLeft closeTo: -2.159195 @ 32.042819 ] equals: true.
+			step check value: [ :el | el children third bounds inParent bottomRight closeTo: 61.926443 @ 96.128457 ] equals: true.
+		];
+		substeps: 'Image' do: [ :step |
+			step check value: [ :el | el children fourth bounds inParent topLeft closeTo: 56.689066 @ 57.69433 ] equals: true.
+			step check value: [ :el | el children fourth bounds inParent bottomRight closeTo: 198.181873 @ 177.670927 ] equals: true.
+		];
+		substeps: 'Line' do: [ :step |
+			step check value: [ :el | el children fifth bounds inParent topLeft closeTo: 56.689066 @ 57.69433 ] equals: true.
+			step check value: [ :el | el children fifth bounds inParent bottomRight closeTo: 198.181873 @ 177.670927 ] equals: true.
+		];
+		play
 ]

@@ -325,7 +325,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T16:35:27.675+01:00"
+						"dateAndTimeString" : "2025-02-18T16:35:54.49+01:00"
 					}
 				},
 				"uid" : {
@@ -335,7 +335,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "Both programming languages and the theoretical foundations of computers are taught according to the current [CS curriculum](https://www.bkd.be.ch/content/dam/bkd/dokumente/de/themen/bildung/mittelschulen/gymnasium/ams-gym-lehrplan-17-neu-ab-sj19-20-gesamtdokument.pdf#page=144)."
+				"string" : "Both programming languages and the theoretical foundations of computers are taught according to the current [CS curriculum](https://www.bkd.be.ch/content/dam/bkd/dokumente/de/themen/bildung/mittelschulen/gymnasium/ams-gym-lehrplan-17-neu-ab-sj19-20-gesamtdokument.pdf#page=144). This project would make it easier to combine these two aspects."
 			},
 			{
 				"__type" : "textSnippet",
