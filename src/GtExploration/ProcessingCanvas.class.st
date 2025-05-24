@@ -12,20 +12,11 @@ Class {
 		'mousePosition',
 		'mousePressed',
 		'transforms',
-		'startMilliseconds'
+		'startMilliseconds',
+		'canvas'
 	],
 	#category : #'GtExploration-Processing'
 }
-
-{ #category : #initialization }
-ProcessingCanvas >> annotate: shape [
-	| index |
-	"Note the caller for later backreferencing this shape with the creating code."
-	index := 1.
-	[ (thisContext stack at: index) receiver = self ] whileTrue: [ index := index + 1. ].
-	shape userData at: #context put: (thisContext stack at: index) copyStack.
-	^ shape
-]
 
 { #category : #views }
 ProcessingCanvas >> asElement [
@@ -34,8 +25,8 @@ ProcessingCanvas >> asElement [
 
 { #category : #shapes }
 ProcessingCanvas >> background: color [
-	self canvasElement background: color.
-	self canvasElement children do: [ :child | child removeFromParent ].
+	canvas background: color.
+	canvas children do: [ :child | child removeFromParent ].
 ]
 
 { #category : #shapes }
@@ -55,6 +46,7 @@ ProcessingCanvas >> border [
 
 { #category : #accessing }
 ProcessingCanvas >> canvasElement [
+	"The canvas element also contains the transcript after the first use of `print`."
 	^ canvasElement
 ]
 
@@ -182,6 +174,7 @@ ProcessingCanvas >> initialize [
 			mousePressed := false.
 		];
 		yourself.
+	canvas := canvasElement.
 	
 	fillColor := Color white.
 	strokeColor := Color black.
@@ -193,6 +186,12 @@ ProcessingCanvas >> initialize [
 	mousePressed := false.
 	transforms := OrderedCollection new.
 	startMilliseconds := Time millisecondClockValue.
+]
+
+{ #category : #accessing }
+ProcessingCanvas >> innerCanvas [
+	"This is the same as `canvasElement` as long as `print` isn't called."
+	^ canvas
 ]
 
 { #category : #shapes }
@@ -254,14 +253,21 @@ ProcessingCanvas >> mouseY [
 
 { #category : #initialization }
 ProcessingCanvas >> place: shape at: position [
-	| transform |
+	| transform index |
 	transform := shape transform
 		topLeftOrigin;
 		translateBy: position.
 	transforms reverseDo: [ :tf | tf cull: transform ].
 	transform apply.
-	canvasElement addChild: shape.
-	^ self annotate: shape
+	
+	canvas addChild: shape.
+	
+	"Note the caller for later backreferencing this shape with the creating code."
+	index := 1.
+	[ (thisContext stack at: index) receiver = self ] whileTrue: [ index := index + 1. ].
+	shape userData at: #context put: (thisContext stack at: index) copyStack.
+	
+	^ shape
 ]
 
 { #category : #shapes }
@@ -279,14 +285,16 @@ ProcessingCanvas >> polygon: vertices [
 { #category : #shapes }
 ProcessingCanvas >> print: text [
 	transcript ifNil: [
-		| innerCanvas |
+		| shapes |
 		transcript := GtTranscript new.
-		innerCanvas := BlElement new
+		canvas := BlElement new
 			background: canvasElement background;
 			size: canvasElement constraints horizontal resizer size @ canvasElement constraints vertical resizer size;
 			yourself.
-		[ canvasElement children isEmpty ] whileFalse: [
-			innerCanvas addChild: (canvasElement removeChildAt: 1).
+		shapes := canvasElement children collect: [ :el | el ].
+		shapes do: [ :el |
+			canvasElement removeChild: el.
+			canvas addChild: el.
 		].
 		canvasElement
 			background: Color white;
@@ -294,7 +302,7 @@ ProcessingCanvas >> print: text [
 			constraintsDo: [ :c | 
 				c vertical matchParent.
 				c horizontal matchParent ].
-		canvasElement addChild: innerCanvas asScalableElement.
+		canvasElement addChild: canvas asScalableElement.
 		canvasElement addChild: transcript asElement.
 	] ifNotNil: [
 		transcript cr.
@@ -341,7 +349,7 @@ ProcessingCanvas >> scale: factor [
 
 { #category : #modifiers }
 ProcessingCanvas >> size: width by: height [
-	canvasElement size: width @ height.
+	canvas size: width @ height.
 ]
 
 { #category : #shapes }

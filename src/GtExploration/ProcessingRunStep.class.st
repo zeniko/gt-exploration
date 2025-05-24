@@ -8,7 +8,8 @@ Class {
 		'method',
 		'stack',
 		'slice',
-		'transcript'
+		'transcript',
+		'screenshot'
 	],
 	#category : #'GtExploration-Processing'
 }
@@ -177,7 +178,7 @@ ProcessingRunStep >> gtOutputFor: aView [
 		].
 		canvas transcript nextPutAll: transcript.
 	].
-	^ (canvas gtViewFor: aView)
+	^ (canvas gtViewFor: aView) "(screenshot gtLiveFor: aView)"
 		title: 'Output' translated;
 		priority: 20
 ]
@@ -218,4 +219,8 @@ ProcessingRunStep >> gtVariablesFor: aView [
 ProcessingRunStep >> updateCanvas: aCanvas [
 	visible := aCanvas canvasElement children collect: [ :child | child ].
 	transcript := self canvasTranscript.
+	"TODO: fix screenshot size"
+	"screenshot := BlExporter png
+		element: aCanvas canvasElement;
+		doExport: [ :cv | cv snapshot asElement asScalableElement ]."
 ]

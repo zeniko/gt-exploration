@@ -137,6 +137,8 @@ ProcessingCanvasExamples >> examplePrint [
 	canvas := ProcessingRunnerExamples new runPrint canvas.
 	self assert: canvas canvasElement children size equals: 2.
 	self assert: canvas asElement children size equals: 1.
+	self assert: (canvas canvasElement children first isKindOf: BlScalableElement).
+	self assert: canvas canvasElement children first children first children size equals: 0.
 	self assert: (canvas canvasElement children last isKindOf: GtTranscriptElement).
 	self assert: (canvas canvasElement children last transcript textDo: [ :text | text asString ]) equals: 'Hello, world!
 2 + 3 = 5'.

@@ -78,7 +78,7 @@ ProcessingProgram >> gtAbstractionsFor: aView [
 	^ aView explicit
 		priority: 1;
 		title: 'Abstractions' translated;
-		stencil: [ | element child editor astTree list |
+		stencil: [ | element child editor astTree list canvas |
 			element := BlElement new.
 			element layout: (BlGridLayout new columnCount: 2).
 			element
@@ -123,6 +123,7 @@ ProcessingProgram >> gtAbstractionsFor: aView [
 				background: Color white;
 				margin: (BlInsets all: 5).
 			element addChild: child.
+			canvas := child children first.
 			
 			"Hook AST tree and source view:"
 			"self ast topParent gtHookEditor: editor toTree: astTree."
@@ -146,7 +147,8 @@ ProcessingProgram >> gtAbstractionsFor: aView [
 				"astNode gtSelectItemIn: astTree at: astNode startPosition"
 			].
 			
-			"TODO: Hook canvas into editor"
+			"Hook canvas into editor"
+			"self gtExplain: canvas in: editor."
 			
 			element ];
 		updateWhen: ProcessingProgramChanged in: self announcer
@@ -334,6 +336,38 @@ ProcessingProgram >> gtEditorHightlight: anEditor from: from to: to [
 ]
 
 { #category : #views }
+ProcessingProgram >> gtExplain: aCanvas in: anEditor [
+	| canvas seen |
+	aCanvas firstCommonParent: anEditor ifFound: [ :el |
+		el explainer isExplanationHolder: true.
+	] ifNone: [ ^ nil ].
+	
+	"TODO: this only gets children that have been drawn already (asynchronously!)"
+	0.1 seconds wait.
+	
+	canvas := aCanvas.
+	(canvas children size > 0 and: [ canvas children last isKindOf: GtTranscriptElement ]) ifTrue: [
+		canvas := canvas children first children first.
+	].
+	
+	seen := Set new.
+	canvas children do: [ :el |
+		| context slice marker |
+		context := el userData at: #context.
+		slice := compilation gtSliceFor: context method within: context sourceNodeExecuted sourceInterval.
+		marker := BlEllipseElement new
+			centerAnchor: (BlElementCenterAnchor element: el);
+			majorRadius: 2; minorRadius: 2;
+			aptitude: (GtExplainerTargetAptitude new explanationModel: slice).
+		el addChild: marker.
+		(seen includes: slice) ifFalse: [
+			(anEditor text from: slice astNode receiver startPosition to: slice astNode receiver stopPosition) glamorousExplanationFor: slice.
+			seen add: slice.
+		].
+	].
+]
+
+{ #category : #views }
 ProcessingProgram >> gtGetASTChildren: aNode [
 	| extractor nodes |
 	(aNode isKindOf: PyRootNode) ifFalse: [ ^ #() ].
@@ -477,8 +511,10 @@ ProcessingProgram >> gtOutputPlusSourceFor: aView [
 	^ aView explicit
 		priority: 41;
 		title: 'Output++';
-		stencil: [
-			self gtCombineWithSource: (self gtOutputFor: GtPhlowView empty)
+		stencil: [ | element |
+			element := self gtCombineWithSource: (self gtOutputFor: GtPhlowView empty).
+			self gtExplain: element children second children first in: element children first.
+			element
 		];
 		updateWhen: ProcessingProgramChanged in: self announcer
 ]

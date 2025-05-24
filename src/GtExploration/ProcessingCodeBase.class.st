@@ -191,6 +191,12 @@ ProcessingCodeBase >> gtOutputFor: aView [
 		]
 ]
 
+{ #category : #runtime }
+ProcessingCodeBase >> gtRun [
+	"Entry point for executing a Processing program"
+	^ self subclassResponsibility.
+]
+
 { #category : #meta }
 ProcessingCodeBase >> gtSliceFor: method within: interval [
 	| slices |
