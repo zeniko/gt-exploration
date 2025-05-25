@@ -510,7 +510,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-05-25T19:53:50.208+02:00"
+						"dateAndTimeString" : "2025-05-26T00:01:45.385+02:00"
 					}
 				},
 				"uid" : {
@@ -520,7 +520,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "## Smalltalk Bytecode"
+				"string" : "## Smalltalk Bytecode (SISTA)"
 			},
 			{
 				"__type" : "textSnippet",
@@ -547,7 +547,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-05-25T19:54:54.224+02:00"
+						"dateAndTimeString" : "2025-05-26T00:02:07.965+02:00"
 					}
 				},
 				"uid" : {
@@ -557,7 +557,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "A last alternative is the use of Smalltalk's own bytecode which is used in this very VM. By [[Transpiling Processing]] to Smalltalk, even GT's own {{gtClass:OpalCompiler}} can be used for producing such bytecode "
+				"string" : "A last alternative is the use of Smalltalk's own bytecode which is used in this very VM. By [[Transpiling Processing]] to Smalltalk, even GT's own {{gtClass:OpalCompiler}} can be used for producing such bytecode at little additional cost. See [[SISTA Bytecode]] for some details."
 			},
 			{
 				"__type" : "textSnippet",

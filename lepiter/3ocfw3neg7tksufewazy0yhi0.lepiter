@@ -171,7 +171,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-25T22:36:02.901+01:00"
+						"dateAndTimeString" : "2025-05-26T00:02:17.576+02:00"
 					}
 				},
 				"uid" : {
@@ -181,7 +181,44 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : ""
+				"string" : "## Smalltalk Bytecode"
+			},
+			{
+				"__type" : "elementSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-05-26T00:02:30.611+02:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-05-26T00:05:12.97+02:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "OFyFuV7yDQCzSX+YDrWtiA=="
+				},
+				"code" : "LiveViewWrapper createFor: (ProcessingSource fromPage: thisSnippet page) program view: #gtBytecodePlusIRFor:",
+				"elementHeight" : 469,
+				"codeHeight" : 50,
+				"codeVisible" : false
 			}
 		]
 	},

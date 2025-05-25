@@ -100,17 +100,17 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-05-04T18:36:07.962+02:00"
+						"dateAndTimeString" : "2025-05-04T18:36:11.412+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
 					"uidString" : "UM2AQF/rDQCroKbVC7gYPg=="
 				},
-				"code" : "(ProcessingSource fromSnpi: thisSnippet previousSibling code) render",
+				"code" : "(ProcessingSource fromSnippet: thisSnippet previousSibling) render",
 				"elementHeight" : 115,
 				"codeHeight" : 35,
-				"codeVisible" : true
+				"codeVisible" : false
 			},
 			{
 				"__type" : "textSnippet",
@@ -324,6 +324,80 @@
 					"uidString" : "CHtTWF/rDQCzC6YMC7gYPg=="
 				},
 				"string" : "i32.const 200\r\ni32.const 200\r\ncall $size\r\ni32.const 50\r\ni32.const 50\r\ni32.const 100\r\ni32.const 100\r\ncall $rect"
+			},
+			{
+				"__type" : "textSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-05-25T23:56:35.895+02:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-05-26T00:01:18.162+02:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "2NJgpF7yDQCuRnfCDrWtiA=="
+				},
+				"paragraphStyle" : {
+					"__type" : "textStyle"
+				},
+				"string" : "## Smalltalk Bytecode"
+			},
+			{
+				"__type" : "elementSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-05-25T23:56:45.052+02:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-05-26T00:04:13.94+02:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "YIzspF7yDQCuZE6vDrWtiA=="
+				},
+				"code" : "LiveViewWrapper createFor: (ProcessingSource fromPage: thisSnippet page) view: #gtBytecodePlusIRFor:",
+				"elementHeight" : 519,
+				"codeHeight" : 50,
+				"codeVisible" : true
 			}
 		]
 	},

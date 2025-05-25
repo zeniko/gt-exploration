@@ -42,7 +42,7 @@
 				"string" : "This is a more classical example without visual output which would also work due to Processing being pased on Python:"
 			},
 			{
-				"__type" : "pythonSnippet",
+				"__type" : "processingSnippet",
 				"children" : {
 					"__type" : "snippets",
 					"items" : [ ]
@@ -55,7 +55,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-25T22:33:22.534+01:00"
+						"dateAndTimeString" : "2025-04-21T12:25:57.498+02:00"
 					}
 				},
 				"editEmail" : {
@@ -66,12 +66,12 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-25T22:34:04.824+01:00"
+						"dateAndTimeString" : "2025-04-21T12:26:01.163+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "iG5z8V/rDQCFhfHNC7gYPg=="
+					"uidString" : "qEzaB6nvDQC71KdDA7u+Tw=="
 				},
 				"code" : "def fibonacci(n):\r\tif n <= 2:\r\t\treturn 1\r\treturn fibonacci(n - 1) + fibonacci(n - 2)\r\rfibonacci(10)"
 			},
@@ -171,7 +171,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-25T22:36:02.901+01:00"
+						"dateAndTimeString" : "2025-05-26T00:02:17.576+02:00"
 					}
 				},
 				"uid" : {
@@ -181,7 +181,44 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : ""
+				"string" : "## Smalltalk Bytecode"
+			},
+			{
+				"__type" : "elementSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-05-26T00:02:30.611+02:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-05-26T00:02:33.696+02:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "OFyFuV7yDQCzSX+YDrWtiA=="
+				},
+				"code" : "LiveViewWrapper createFor: (ProcessingSource fromPage: thisSnippet page) view: #gtBytecodeFor:",
+				"elementHeight" : 469,
+				"codeHeight" : 50,
+				"codeVisible" : false
 			}
 		]
 	},

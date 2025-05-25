@@ -42,7 +42,7 @@
 				"string" : "This example draws three squares using a variable and a loop."
 			},
 			{
-				"__type" : "pythonSnippet",
+				"__type" : "processingSnippet",
 				"children" : {
 					"__type" : "snippets",
 					"items" : [ ]
@@ -55,7 +55,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-25T21:51:27.67+01:00"
+						"dateAndTimeString" : "2025-04-21T12:25:43.666+02:00"
 					}
 				},
 				"editEmail" : {
@@ -66,12 +66,12 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-25T21:51:34.629+01:00"
+						"dateAndTimeString" : "2025-04-21T12:25:46.578+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "8KqNW1/rDQCks/dvC7gYPg=="
+					"uidString" : "aD0HB6nvDQC7wiWhA7u+Tw=="
 				},
 				"code" : "size(200, 200)\r\na = 50\r\nwhile a < 200:\r\n\trect(a, a, 50, 50)\r\n\ta = a + 50"
 			},
@@ -287,6 +287,80 @@
 					"uidString" : "OMAxX1/rDQCI6bXeC7gYPg=="
 				},
 				"string" : "i32.const 200\r\ni32.const 200\r\ncall $size\r\ni32.const 0\r\ni32.const 50\r\ni32.store\r\nblock $while1\r\n\ti32.const 0\r\n\ti32.load\r\n\ti32.const 200\r\n\ti32.ge_i\r\n\tbr_if $while1\r\n\ti32.const 0\r\n\ti32.load\r\n\ti32.const 0\r\n\ti32.load\r\n\ti32.const 50\r\n\ti32.const 50\r\n\tcall $rect\r\nend"
+			},
+			{
+				"__type" : "textSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-05-25T23:59:11.219+02:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-05-26T00:01:26.074+02:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "OOGirV7yDQCwlaNrDrWtiA=="
+				},
+				"paragraphStyle" : {
+					"__type" : "textStyle"
+				},
+				"string" : "## Smalltalk Bytecode"
+			},
+			{
+				"__type" : "elementSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-05-26T00:00:39.634+02:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-05-26T00:00:42.586+02:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "UPznsl7yDQCxEEcBDrWtiA=="
+				},
+				"code" : "LiveViewWrapper createFor: (ProcessingSource fromPage: thisSnippet page) view: #gtBytecodeFor:",
+				"elementHeight" : 499,
+				"codeHeight" : 50,
+				"codeVisible" : true
 			}
 		]
 	},

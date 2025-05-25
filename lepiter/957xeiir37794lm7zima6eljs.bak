@@ -447,7 +447,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-05-25T22:20:14.762+02:00"
+									"dateAndTimeString" : "2025-05-26T00:06:06.902+02:00"
 								}
 							},
 							"uid" : {
@@ -457,7 +457,44 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Documented [[Sista Bytecode]]."
+							"string" : "Documented [[Smalltalk Bytecode (SISTA)]]."
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-05-25T23:22:09.469+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-05-25T23:55:59.866+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "SKo1KV7yDQCk4xJDDrWtiA=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Reported [PythonParser typo](https://github.com/j-brant/SmaCC/issues/40) and [PythonParser attribute swap](https://github.com/j-brant/SmaCC/issues/41) (work-arounds in {{gtClass:ProcessingParser}}), the [YouTube snippet address bar issue](https://github.com/feenkcom/lepiter/issues/16) and [(un)indenting shortcuts not working on non-en-US keyboards](https://github.com/feenkcom/lepiter/issues/17) (work-rounds in [[Setup for Students]]) and [keyboard shortcuts being stuck](https://github.com/feenkcom/gtoolkit/issues/3264) (fix for unsticking documented  in {{gtPage:Wichtige Hinweise|db=dl0rc62x02fk8k57e43hr8acw}})."
 						}
 					]
 				},
