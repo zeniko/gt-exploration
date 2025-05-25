@@ -27,6 +27,14 @@ ProcessingTokenExtractor >> extractTokens: ast [
 ]
 
 { #category : #visiting }
+ProcessingTokenExtractor >> visitAssertStatement: stmt [
+	stmt values size = 1 ifTrue: [
+		^ { stmt assertToken. stmt values first. }
+	].
+	^ { stmt assertToken. stmt values first. stmt values second. }
+]
+
+{ #category : #visiting }
 ProcessingTokenExtractor >> visitAssignmentExpression: expr [
 	^ { expr variable. expr assign. expr value. }
 ]

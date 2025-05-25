@@ -79,6 +79,20 @@ ProcessingProgramExamples >> programExample06 [
 ]
 
 { #category : #example }
+ProcessingProgramExamples >> programExample07 [
+	<gtExample>
+	| program message |
+	program := ProcessingSourceExamples new sourceExample07 program.
+	self assert: program compilation isNotNil.
+	message := nil.
+	[
+		program compilation gtCanvas: ProcessingCanvas new; gtRun
+	] on: AssertionFailure do: [ :ex | message := ex asString. ].
+	self assert: message equals: 'AssertionFailure: Done!'.
+	^ program
+]
+
+{ #category : #example }
 ProcessingProgramExamples >> programFibonacci [
 	<gtExample>
 	| program |
@@ -110,6 +124,15 @@ ProcessingProgramExamples >> programMouseEvents [
 	<gtExample>
 	| program |
 	program := ProcessingSourceExamples new sourceMouseEvents program.
+	self assert: program compilation isNotNil.
+	^ program
+]
+
+{ #category : #example }
+ProcessingProgramExamples >> programMouseEvents2 [
+	<gtExample>
+	| program |
+	program := ProcessingSourceExamples new sourceMouseEvents2 program.
 	self assert: program compilation isNotNil.
 	^ program
 ]

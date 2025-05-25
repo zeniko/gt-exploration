@@ -75,7 +75,7 @@ GtProcessingCoderModel >> doItAndPublish: aBlock with: anEvaluationContext [
 		(error isKindOf: SmaCCParserError) ifTrue: [
 			location := error tag errorToken startPosition.
 		].
-		(error isKindOf: ProcessingNotImplementedException) ifTrue: [
+		(error isKindOf: ProcessingCompileTimeException) ifTrue: [
 			location := error tag startPosition.
 			message ifEmpty: [ message := 'Unsupported: ' , error tag asString. ].
 		].

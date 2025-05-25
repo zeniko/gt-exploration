@@ -89,6 +89,7 @@ ProcessingRunner >> run: compilation [
 				(ex isKindOf: AsyncFutureCancelled) ifFalse: [
 					canvas canvasElement addChild: ((GtSystemUtility freeze: ex) asDebuggableElement background: Color white).
 				].
+				ex
 		].
 	] asAsyncFuture.
 	worker schedule: promise.

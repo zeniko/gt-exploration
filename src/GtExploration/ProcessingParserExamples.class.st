@@ -79,6 +79,15 @@ ProcessingParserExamples >> parseExample06 [
 ]
 
 { #category : #example }
+ProcessingParserExamples >> parseExample07 [
+	<gtExample>
+	| ast |
+	ast := ProcessingProgramExamples new programExample07 ast.
+	self assert: ast statements size equals: 6.
+	^ ast
+]
+
+{ #category : #example }
 ProcessingParserExamples >> parseFibonacci [
 	<gtExample>
 	| ast |
@@ -114,6 +123,15 @@ ProcessingParserExamples >> parseMouseEvents [
 	| ast node |
 	ast := ProcessingParser parse: ProcessingSourceExamples new sourceCodeMouseEvents.
 	self assert: ast statements size equals: 2.
+	^ ast
+]
+
+{ #category : #example }
+ProcessingParserExamples >> parseMouseEvents2 [
+	<gtExample>
+	| ast node |
+	ast := ProcessingParser parse: ProcessingSourceExamples new sourceCodeMouseEvents2.
+	self assert: ast statements size equals: 5.
 	^ ast
 ]
 

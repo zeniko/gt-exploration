@@ -252,6 +252,11 @@ ProcessingTranspiler >> emit_millis: args [
 ]
 
 { #category : #emitting }
+ProcessingTranspiler >> emit_noStroke: args [
+	self emit: 'gtCanvas noStroke'.
+]
+
+{ #category : #emitting }
 ProcessingTranspiler >> emit_print: args [
 	args size > 1 ifTrue: [
 		self emit: 'gtCanvas print: { '.
@@ -282,6 +287,10 @@ ProcessingTranspiler >> emit_radians: args [
 ProcessingTranspiler >> emit_random: args [
 	self emit: '(gtCanvas random: '.
 	args first acceptVisitor: self.
+	args size > 1 ifTrue: [
+		self emit: ' to: '.
+		args second acceptVisitor: self.
+	].
 	self emit: ')'.
 ]
 
@@ -322,6 +331,12 @@ ProcessingTranspiler >> emit_size: args [
 	self emit:'. height := '.
 	args second acceptVisitor: self.
 	self emit: '. gtCanvas size: width by: height'.
+]
+
+{ #category : #emitting }
+ProcessingTranspiler >> emit_sq: args [
+	args first acceptVisitor: self.
+	self emit: ' squared'.
 ]
 
 { #category : #emitting }
@@ -486,11 +501,18 @@ ProcessingTranspiler >> transpile: ast [
 			self emit: '[ gtCanvas frameRate > 0 ] whileTrue: ['; cr.
 			indentation := indentation + 1.
 			self emit: 'mouseX := gtCanvas mouseX. mouseY := gtCanvas mouseY. mousePressed := gtCanvas mousePressed.'; cr.
-			userDefs at: 'mousePressed' ifPresent: [ :args2 |
-				args2 ifEmpty: [
-					self emit: 'mousePressed ifTrue: [ self mousePressed. ].'; cr.
+			
+			(#('mousePressed' 'mouseReleased' 'mouseClicked' 'mouseMoved')
+				select: [ :evt |
+					(userDefs includesKey: evt) and: [
+						(userDefs at: evt) isEmpty
+					]
+				]) ifNotEmpty: [ :evts |
+					self emit: 'gtCanvas handleEvents: #( '.
+					evts do: [ :evt | self emit: '#' , evt , ' '. ].
+					self emit: ') for: self.'; cr.
 				].
-			].
+			
 			self emit: 'self draw.'; cr.
 			self emit: 'gtCanvas endFrame.'; cr.
 			indentation := indentation - 1.
@@ -595,10 +617,25 @@ ProcessingTranspiler >> variables [
 ]
 
 { #category : #visiting }
+ProcessingTranspiler >> visitAssertStatement: stmt [
+	self startEmit: stmt.
+	self emit: '[ '.
+	stmt values first acceptVisitor: self.
+	self emit: ' ] '.
+	stmt values size = 1 ifTrue: [
+		self emit: 'assert'.
+	] ifFalse: [
+		self emit: 'assertWithDescription: '.
+		stmt values second acceptVisitor: self.
+	].
+	^ self endEmit
+]
+
+{ #category : #visiting }
 ProcessingTranspiler >> visitAssignmentExpression: expr [
 	| name |
 	(ProcessingTranspiler constants includesKey: expr variable nameToken value) ifTrue: [
-		ProcessingCompileTimeException new tag: expr; signal: 'Can''t assign to constant.'.
+		ProcessingCompileTimeException signal: 'Can''t assign to constant.' withTag: expr.
 	].
 	self startEmit: expr.
 	name := self emitName: expr variable nameToken value.
@@ -616,15 +653,25 @@ ProcessingTranspiler >> visitAssignmentStatement: expr [
 	expr lhs nameToken ifNil: [ self notImplemented: expr ].
 	name := expr lhs nameToken value.
 	(ProcessingTranspiler constants includesKey: name) ifTrue: [
-		ProcessingCompileTimeException new tag: expr; signal: 'Can''t assign to constant.'.
+		ProcessingCompileTimeException signal: 'Can''t assign to constant.' withTag: expr.
 	].
+	expr tos size > 1 ifTrue: [ self notImplemented: expr ].
 	self startEmit: expr.
 	name := self emitName: expr lhs nameToken value.
 	(globalVariables includes: name) ifFalse: [
 		localVariables add: name.
 	].
 	self emit: ' := '.
-	expr tos size > 1 ifTrue: [ self notImplemented: expr ].
+	
+	"Handle += -= *= /= %="
+	(expr assigns first value size = 2) & (expr assigns first value last = $=) ifTrue: [ | op |
+		op := expr assigns first value first asString.
+		op = '%' ifTrue: [ op:= '\\'. ].
+		(op = '+' and: [ self isStringConcatenation: expr tos first ]) ifTrue: [ op := ','. ].
+		self emitName: expr lhs nameToken value.
+		self emit: ' ' , op , ' '.
+	].
+	
 	expr tos first acceptVisitor: self.
 	^ self endEmit.
 ]
@@ -634,7 +681,7 @@ ProcessingTranspiler >> visitBinaryExpression: expr [
 	| op |
 	op := expr operator value.
 	"Modulo is `%` in Python but `\\` in Smalltalk"
-	op = '%' ifTrue: [ op := '\\' ].
+	op = '%' ifTrue: [ op := '\\'. ].
 	
 	"`and` and `or` are short-circuiting in Python"
 	((op = 'and') | (op = 'or')) ifTrue: [
@@ -856,6 +903,9 @@ ProcessingTranspiler >> visitReturnStatement: expr [
 	].
 	self endEmit.
 	self cr.
+	expr parent children last = expr ifFalse: [
+		ProcessingCompileTimeException signal: 'No statements after a return are allowed!' withTag: expr.
+	].
 	"Explicitly not returning anything in order to prevent a trailing dot."
 ]
 

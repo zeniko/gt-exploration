@@ -124,6 +124,17 @@ ProcessingTranspilerExamples >> transpilationExample06 [
 ]
 
 { #category : #transpilation }
+ProcessingTranspilerExamples >> transpilationExample07 [
+	^ 'gtRun
+	a := (gtCanvas random: 3 to: 7).
+	a := a + 2.
+	[ (5 <= a and: [ a <= 9 ]) ] assert.
+	a := a - 5.
+	[ (a < 4) ] assertWithDescription: ''Message''.
+	[ false ] assertWithDescription: ''Done!''.'
+]
+
+{ #category : #transpilation }
 ProcessingTranspilerExamples >> transpilationFibonacci [
 	^ 'gtRun
 	width := 200. height := 200. gtCanvas size: width by: height.
@@ -188,7 +199,7 @@ ProcessingTranspilerExamples >> transpilationMouseEvents2 [
 	self setup.
 	[ gtCanvas frameRate > 0 ] whileTrue: [
 		mouseX := gtCanvas mouseX. mouseY := gtCanvas mouseY. mousePressed := gtCanvas mousePressed.
-		mousePressed ifTrue: [ self mousePressed. ].
+		gtCanvas handleEvents: #( #mousePressed #mouseReleased #mouseMoved ) for: self.
 		self draw.
 		gtCanvas endFrame.
 	].
@@ -200,7 +211,13 @@ draw
 	PyEllipsis.
 
 mousePressed
-	gtCanvas backgroundR: 0 G: 255 B: 0.'
+	gtCanvas backgroundR: 0 G: 255 B: 0.
+
+mouseReleased
+	gtCanvas backgroundGray: 192.
+
+mouseMoved
+	gtCanvas backgroundR: mouseX G: 0 B: mouseY.'
 ]
 
 { #category : #transpilation }
@@ -477,6 +494,20 @@ ProcessingTranspilerExamples >> transpileExample06 [
 ]
 
 { #category : #example }
+ProcessingTranspilerExamples >> transpileExample07 [
+	<gtExample>
+	| ast transpiler |
+	ast := ProcessingParserExamples new parseExample07.
+	transpiler := self newTranspiler.
+	self assert: (transpiler transpile: ast) equals: self transpilationExample07.
+	self assert: transpiler variables size equals: 1.
+	self assert: (' ' join: transpiler variables) equals: 'a'.
+	self assert: transpiler userDefs size equals: 0.
+	self compare: (transpiler compile: ast) with: self transpilationExample07.
+	^ transpiler compile: ast
+]
+
+{ #category : #example }
 ProcessingTranspilerExamples >> transpileFibonacci [
 	<gtExample>
 	| ast transpiler |
@@ -532,11 +563,11 @@ ProcessingTranspilerExamples >> transpileMouseEvents [
 ProcessingTranspilerExamples >> transpileMouseEvents2 [
 	<gtExample>
 	| ast transpiler |
-	ast := ProcessingSourceExamples new sourceMouseEvents2 program ast.
+	ast := ProcessingParserExamples new parseMouseEvents2.
 	transpiler := self newTranspiler.
 	self assert: (transpiler transpile: ast) equals: self transpilationMouseEvents2.
 	self assert: transpiler variables size equals: 0.
-	self assert: transpiler userDefs size equals: 3.
+	self assert: transpiler userDefs size equals: 5.
 	self compare: (transpiler compile: ast) with: self transpilationMouseEvents2.
 	^ transpiler compile: ast
 ]

@@ -13,7 +13,8 @@ Class {
 		'mousePressed',
 		'transforms',
 		'startMilliseconds',
-		'canvas'
+		'canvas',
+		'events'
 	],
 	#category : #'GtExploration-Processing'
 }
@@ -137,6 +138,25 @@ ProcessingCanvas >> gtViewFor: aView [
 		title: 'Output' translated
 ]
 
+{ #category : #events }
+ProcessingCanvas >> handleEvents: aEvents for: aProgram [
+	events do: [ :event |
+		(event isKindOf: BlMouseMoveEvent) & (aEvents includes: #mouseMoved) ifTrue: [
+			aProgram perform: #mouseMoved.
+		].
+		(event isKindOf: BlMouseDownEvent) & (aEvents includes: #mousePressed) ifTrue: [
+			aProgram perform: #mousePressed.
+		].
+		(event isKindOf: BlMouseUpEvent) & (aEvents includes: #mouseReleased) ifTrue: [
+			aProgram perform: #mouseReleased.
+		].
+		(event isKindOf: BlMouseUpEvent) & (aEvents includes: #mouseClicked) ifTrue: [
+			aProgram perform: #mouseClicked.
+		].
+	].
+	events removeAll.
+]
+
 { #category : #shapes }
 ProcessingCanvas >> image: image at: xy [
 	^ self image: image at: xy sized: image width @ image height
@@ -164,17 +184,21 @@ ProcessingCanvas >> image: image x: x y: y width: width height: height [
 
 { #category : #initialization }
 ProcessingCanvas >> initialize [
+	events := OrderedCollection new.
 	canvasElement := BlElement new
 		background: Color veryLightGray;
 		size: 100 @ 100;
 		when: BlMouseMoveEvent do: [ :event |
 			mousePosition := event localPosition.
+			events add: event.
 		];
 		when: BlMouseDownEvent do: [ :event |
 			mousePressed := true.
+			events add: event.
 		];
 		when: BlMouseUpEvent do: [ :event |
 			mousePressed := false.
+			events add: event.
 		];
 		yourself.
 	canvas := canvasElement.
@@ -259,6 +283,11 @@ ProcessingCanvas >> mouseY [
 	^ mousePosition y rounded
 ]
 
+{ #category : #modifiers }
+ProcessingCanvas >> noStroke [
+	strokeWeight := 0.
+]
+
 { #category : #initialization }
 ProcessingCanvas >> place: shape at: position [
 	| transform index |
@@ -326,7 +355,12 @@ ProcessingCanvas >> print: text [
 
 { #category : #initialization }
 ProcessingCanvas >> random: limit [
-	^ SharedRandom globalGenerator next * limit
+	^ self random: 0 to: limit
+]
+
+{ #category : #initialization }
+ProcessingCanvas >> random: lowerLimit to: upperLimit [
+	^ SharedRandom globalGenerator next * (upperLimit - lowerLimit) + lowerLimit
 ]
 
 { #category : #shapes }

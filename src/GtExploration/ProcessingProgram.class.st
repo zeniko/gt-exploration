@@ -47,6 +47,7 @@ ProcessingProgram >> debug [
 { #category : #views }
 ProcessingProgram >> gtASTNodeNames [
 	^ Dictionary newFrom: {
+		PyAssertStatementNode -> 'Assert'.
 		PyAssignmentExpressionNode -> 'Assignment'.
 		PyAssignmentStatementNode -> 'Assignment'.
 		PyBinaryExpressionNode -> 'Binary Op'.

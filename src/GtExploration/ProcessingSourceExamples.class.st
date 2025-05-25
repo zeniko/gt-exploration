@@ -119,6 +119,16 @@ for x in range(1, var):
 ]
 
 { #category : #source }
+ProcessingSourceExamples >> sourceCodeExample07 [
+	^ 'a = random(3, 7)
+a += 2
+assert 5 <= a < 9
+a -= 5
+assert a < 4, "Message"
+assert False, "Done!"'
+]
+
+{ #category : #source }
 ProcessingSourceExamples >> sourceCodeFibonacci [
 	^ 'size(200, 200)
 
@@ -174,7 +184,13 @@ def draw():
 	...
 
 def mousePressed():
-	background(0, 255, 0)'
+	background(0, 255, 0)
+
+def mouseReleased():
+	background(192)
+
+def mouseMoved():
+	background(mouseX, 0, mouseY)'
 ]
 
 { #category : #source }
@@ -402,6 +418,16 @@ ProcessingSourceExamples >> sourceExample06 [
 	| source |
 	source := ProcessingSource fromString: self sourceCodeExample06.
 	self assert: source asString equals: self sourceCodeExample06.
+	self assert: source program isNotNil.
+	^ source
+]
+
+{ #category : #example }
+ProcessingSourceExamples >> sourceExample07 [
+	<gtExample>
+	| source |
+	source := ProcessingSource fromString: self sourceCodeExample07.
+	self assert: source asString equals: self sourceCodeExample07.
 	self assert: source program isNotNil.
 	^ source
 ]

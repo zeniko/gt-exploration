@@ -81,6 +81,16 @@ ProcessingTokenExtractorExamples >> tokensExample06 [
 ]
 
 { #category : #example }
+ProcessingTokenExtractorExamples >> tokensExample07 [
+	<gtExample>
+	| tokens |
+	tokens := self newExtractor extractTokens: ProcessingProgramExamples new programExample07 ast.
+	self assert: tokens size equals: 28.
+	self assert: (tokens allSatisfy: [ :item | item isKindOf: SmaCCToken ]).
+	^ tokens
+]
+
+{ #category : #example }
 ProcessingTokenExtractorExamples >> tokensFibonacci [
 	<gtExample>
 	| tokens |
@@ -116,6 +126,16 @@ ProcessingTokenExtractorExamples >> tokensMouseEvents [
 	| tokens |
 	tokens := self newExtractor extractTokens: ProcessingParserExamples new parseMouseEvents.
 	self assert: tokens size equals: 82.
+	self assert: (tokens allSatisfy: [ :item | item isKindOf: SmaCCToken ]).
+	^ tokens
+]
+
+{ #category : #example }
+ProcessingTokenExtractorExamples >> tokensMouseEvents2 [
+	<gtExample>
+	| tokens |
+	tokens := self newExtractor extractTokens: ProcessingParserExamples new parseMouseEvents2.
+	self assert: tokens size equals: 52.
 	self assert: (tokens allSatisfy: [ :item | item isKindOf: SmaCCToken ]).
 	^ tokens
 ]

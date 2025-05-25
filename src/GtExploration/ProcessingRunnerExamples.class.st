@@ -157,6 +157,19 @@ ProcessingRunnerExamples >> runExample06Stepwise [
 ]
 
 { #category : #example }
+ProcessingRunnerExamples >> runExample07 [
+	<gtExample>
+	| program runner |
+	program := ProcessingProgramExamples new programExample07.
+	runner := self newRunner.
+	runner run: program compilation; limitTo: 2 seconds; wait.
+	self assert: runner canvas isNotNil.
+	self assert: runner isDone not.
+	self assert: (runner wait isKindOf: AssertionFailure).
+	^ runner
+]
+
+{ #category : #example }
 ProcessingRunnerExamples >> runFibonacci [
 	<gtExample>
 	| program runner |
@@ -206,7 +219,8 @@ ProcessingRunnerExamples >> runInterrupted [
 	runner limitTo: 0.1 seconds; run: program compilation; wait.
 	self assert: runner isDone not.
 	self assert: runner canvas isNotNil.
-	^ runner
+	self assert: (runner wait isKindOf: AsyncFutureCancelled).
+	^ runner wait
 ]
 
 { #category : #example }
@@ -267,16 +281,19 @@ ProcessingRunnerExamples >> runRecursion [
 { #category : #example }
 ProcessingRunnerExamples >> runRuntimeError [
 	<gtExample>
-	| program runner canvas |
+	| program runner detected |
 	program := ProcessingSourceExamples new sourceRuntimeError program.
-	canvas := program canvas.
-	self assert: canvas canvasElement children size equals: 1.
-	self assert: (canvas canvasElement children first isKindOf: BrFrame).
+	detected := nil.
+	[ program canvas. ] on: ProcessingRunTimeException do: [ :ex | detected := ex asString ].
+	self assert: detected equals: 'ProcessingRunTimeException'.
 	
 	runner := self newRunner.
 	runner limitTo: 0.1 seconds; run: program compilation; wait.
 	self assert: runner isDone not.
 	self assert: runner canvas isNotNil.
+	self assert: runner canvas canvasElement children size equals: 1.
+	self assert: (runner canvas canvasElement children first isKindOf: BrFrame).
+	self assert: (runner wait isKindOf: ZeroDivide).
 	^ runner
 ]
 
