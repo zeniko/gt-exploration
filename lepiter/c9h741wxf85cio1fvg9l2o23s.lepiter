@@ -29,7 +29,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-03-04T20:36:51.766+01:00"
+						"dateAndTimeString" : "2025-05-25T21:53:40.002+02:00"
 					}
 				},
 				"uid" : {
@@ -39,7 +39,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "The official Processing IDE is at the time of writing still based on the JRE and written in Java ([source repository](https://github.com/processing/processing4)): ![Processing IDE](https://processing.org/static/a52d150cc8cc9b599ab90b5d57d04ce9/d61c2/ide.png) "
+				"string" : "The official Processing IDE is at the time of writing still based on the JRE and written in Java ([source repository](https://github.com/processing/processing4)): ![Processing IDE](attachments/395aop4i8x6oiqzsaxzp0qekw/ide.png) "
 			},
 			{
 				"__type" : "textSnippet",

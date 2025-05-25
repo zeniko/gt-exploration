@@ -410,7 +410,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-05-25T18:31:59.305+02:00"
+									"dateAndTimeString" : "2025-05-25T18:41:16.608+02:00"
 								}
 							},
 							"uid" : {
@@ -420,7 +420,44 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Added {{gtClass:ProcessingAstCleaner}} for "
+							"string" : "Added {{gtClass:ProcessingAstCleaner}} for preprocessing the AST for {{gtClass:ProcessingTranspiler}}."
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-05-25T22:20:08.916+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-05-25T22:20:14.762+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "IIhyS13yDQCgAkkKDyf3Ng=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Documented [[Sista Bytecode]]."
 						}
 					]
 				},

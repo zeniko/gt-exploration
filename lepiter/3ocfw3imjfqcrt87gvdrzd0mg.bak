@@ -214,7 +214,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-25T22:40:07.577+01:00"
+						"dateAndTimeString" : "2025-05-06T21:56:02.172+02:00"
 					}
 				},
 				"uid" : {
@@ -224,7 +224,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "(Intel x86 examples have been created with the help of Matt Godbolt's  [Compiler Explorer](https://godbolt.org/).)"
+				"string" : "(Intel x86 examples have been created with the help of Matt Godbolt's [Compiler Explorer](https://godbolt.org/).)"
 			},
 			{
 				"__type" : "textSnippet",
@@ -484,6 +484,80 @@
 					"__type" : "textStyle"
 				},
 				"string" : "This might however require an introduction into interpreters and JIT compilers."
+			},
+			{
+				"__type" : "textSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-05-25T19:52:01.444+02:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-05-25T19:53:50.208+02:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "oHi2OVvyDQCPeAfKDyf3Ng=="
+				},
+				"paragraphStyle" : {
+					"__type" : "textStyle"
+				},
+				"string" : "## Smalltalk Bytecode"
+			},
+			{
+				"__type" : "textSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-05-25T19:52:50.441+02:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-05-25T19:54:54.224+02:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "WBOiPFvyDQCQDH9CDyf3Ng=="
+				},
+				"paragraphStyle" : {
+					"__type" : "textStyle"
+				},
+				"string" : "A last alternative is the use of Smalltalk's own bytecode which is used in this very VM. By [[Transpiling Processing]] to Smalltalk, even GT's own {{gtClass:OpalCompiler}} can be used for producing such bytecode "
 			},
 			{
 				"__type" : "textSnippet",

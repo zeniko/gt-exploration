@@ -42,6 +42,43 @@
 				"string" : "The official Processing IDE is at the time of writing still based on the JRE and written in Java ([source repository](https://github.com/processing/processing4)): ![Processing IDE](https://processing.org/static/a52d150cc8cc9b599ab90b5d57d04ce9/d61c2/ide.png) "
 			},
 			{
+				"__type" : "pictureSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-05-25T21:52:19.621+02:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-05-25T21:53:04.012+02:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "iBzz51zyDQCbGo1+Dyf3Ng=="
+				},
+				"url" : "",
+				"caption" : "Processing IDE",
+				"previewHeight" : 300,
+				"reference" : ""
+			},
+			{
 				"__type" : "textSnippet",
 				"children" : {
 					"__type" : "snippets",
@@ -322,12 +359,12 @@
 		"__type" : "time",
 		"time" : {
 			"__type" : "dateAndTime",
-			"dateAndTimeString" : "2025-03-04T20:30:51.23+01:00"
+			"dateAndTimeString" : "2025-03-18T17:09:34.57+01:00"
 		}
 	},
 	"pageType" : {
 		"__type" : "namedPage",
-		"title" : "Interpreting Python/Processing"
+		"title" : "Running Python/Processing"
 	},
 	"uid" : {
 		"__type" : "uuid",
