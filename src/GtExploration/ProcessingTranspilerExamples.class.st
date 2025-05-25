@@ -7,7 +7,7 @@ Class {
 { #category : #example }
 ProcessingTranspilerExamples >> compare: anInstance with: aTranspilation [
 	| methods |
-	methods := OrderedCollection newFromArray: (anInstance class methods collect: [ :method | method sourceCode ]).
+	methods := OrderedCollection newFromArray: (anInstance class methods collect: #sourceCode).
 	self assert: methods sorted equals: (aTranspilation splitOn: '
 
 ') sorted.

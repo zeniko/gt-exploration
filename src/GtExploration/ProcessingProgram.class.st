@@ -611,7 +611,7 @@ ProcessingProgram >> gtSourceBytesFor: aView [
 		priority: 5;
 		items: [ source asString ];
 		column: 'Index' translated
-			text: [ :each :index | 
+			text: [ :each :index |
 				index asRopedText foreground: Color gray ]
 			width: 45;
 		column: 'Character' translated

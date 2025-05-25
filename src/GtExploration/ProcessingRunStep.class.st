@@ -26,7 +26,7 @@ ProcessingRunStep >> asString [
 
 { #category : #initalization }
 ProcessingRunStep >> canvasTranscript [
-	^ canvas transcript ifNotNil: [ canvas transcript textDo: [ :text | text asString ] ] ifNil: [ '' ]
+	^ canvas transcript ifNotNil: [ canvas transcript textDo: #asString ] ifNil: [ '' ]
 ]
 
 { #category : #initalization }
@@ -113,7 +113,7 @@ ProcessingRunStep >> gtAbstractionsFor: aView [
 			(self gtOutputFor: GtPhlowView empty)
 				asElementDo: [ :e | child := e ].
 			child
-				constraintsDo: [ :c | 
+				constraintsDo: [ :c |
 					c vertical matchParent.
 					c horizontal matchParent ];
 				margin: (BlInsets all: 5).

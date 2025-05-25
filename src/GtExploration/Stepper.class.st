@@ -81,7 +81,7 @@ Stepper >> gtListViewFor: aView [
 			element := BlElement new.
 			element
 				layout: BlLinearLayout vertical;
-				constraintsDo: [ :c | 
+				constraintsDo: [ :c |
 					c vertical matchParent.
 					c horizontal matchParent ];
 				when: BlElementExtentChangedEvent
@@ -97,14 +97,14 @@ Stepper >> gtListViewFor: aView [
 				items: [ list ];
 				column: 'Index' translated
 					text: [ :each :eachIndex |
-						eachIndex asRopedText foreground: Color gray 
+						eachIndex asRopedText foreground: Color gray
 					] width: 45;
 				column: 'Item' translated
 					"TODO: use each gtDisplayText instead?"
 					text: [ :each | each asString ];
 				asElementDo: [ :e | child := e ].
 			child
-				constraintsDo: [ :c | 
+				constraintsDo: [ :c |
 					c vertical matchParent.
 					c horizontal matchParent.
 					c linear weight: 0.5. ];

@@ -9,7 +9,7 @@ BaselineOfGtExploration class >> loadLepiter [
 	IceRepository registry
 		detect: [ :aRepository |
 			aRepository name = 'gt-exploration' ]
-		ifFound: [ :aRepository | 
+		ifFound: [ :aRepository |
 			| defaultDatabase currentProperties |
 			defaultDatabase := LeDatabasesRegistry defaultLogicalDatabase.
 			currentProperties := defaultDatabase properties.

@@ -30,7 +30,7 @@ ProcessingCompiler >> emitBinaryOp: op lhs: left rhs: right [
 
 { #category : #'as yet unclassified' }
 ProcessingCompiler >> emitNumber: num [
-	builder pushLiteral: num asNumber. 
+	builder pushLiteral: num asNumber.
 ]
 
 { #category : #'as yet unclassified' }

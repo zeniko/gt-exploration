@@ -27,7 +27,7 @@ ProcessingCanvas >> asElement [
 { #category : #shapes }
 ProcessingCanvas >> background: color [
 	canvas background: color.
-	canvas children do: [ :child | child removeFromParent ].
+	canvas children do: #removeFromParent.
 ]
 
 { #category : #shapes }
@@ -336,7 +336,7 @@ ProcessingCanvas >> print: text [
 		canvasElement
 			background: Color white;
 			layout: BlGridLayout vertical;
-			constraintsDo: [ :c | 
+			constraintsDo: [ :c |
 				c vertical matchParent.
 				c horizontal matchParent ].
 		canvasElement addChild: canvas asScalableElement.

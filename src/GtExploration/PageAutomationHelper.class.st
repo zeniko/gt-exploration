@@ -35,7 +35,7 @@ PageAutomationHelper class >> sistaV1BytecodeList [
 	data := (((bytecodes select: [ :l | (rx matchesIn: l) isNotEmpty ])
 		flatCollect: [ :l | rx matchesIn: l ])
 		collect: [ :m |
-			| from to binary ext descr|
+			| from to binary ext descr |
 			rx matches: (m removeSuffix: '	').
 			from := (rx subexpression: 2) asNumber.
 			to := rx subexpression: 3.

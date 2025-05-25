@@ -140,7 +140,7 @@ ProcessingCanvasExamples >> examplePrint [
 	self assert: (canvas canvasElement children first isKindOf: BlScalableElement).
 	self assert: canvas canvasElement children first children first children size equals: 0.
 	self assert: (canvas canvasElement children last isKindOf: GtTranscriptElement).
-	self assert: (canvas canvasElement children last transcript textDo: [ :text | text asString ]) equals: 'Hello, world!
+	self assert: (canvas canvasElement children last transcript textDo: #asString) equals: 'Hello, world!
 2 + 3 = 5'.
 	^ canvas
 ]

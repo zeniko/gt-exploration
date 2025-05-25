@@ -96,7 +96,7 @@ GtProcessingCoderModel >> doItAndPublish: aBlock with: anEvaluationContext [
 
 { #category : #'api - ast' }
 GtProcessingCoderModel >> implicitVariableReferencesTo: aString do: aBlock [
-	self astSync withAllNodesOfType: PyVariableExpressionNode do: [ :node | 
+	self astSync withAllNodesOfType: PyVariableExpressionNode do: [ :node |
 		node nameToken source = aString ifTrue: [ aBlock value: node ] ]
 ]
 
