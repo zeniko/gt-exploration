@@ -166,6 +166,18 @@ def draw():
 ]
 
 { #category : #source }
+ProcessingSourceExamples >> sourceCodeMouseEvents2 [
+	^ 'def setup():
+	size(200, 200)
+
+def draw():
+	...
+
+def mousePressed():
+	background(0, 255, 0)'
+]
+
+{ #category : #source }
 ProcessingSourceExamples >> sourceCodePrint [
 	^ 'print("Hello," '' world!'')
 var = 2 + 3
@@ -182,6 +194,11 @@ def recursion(n):
         recursion(n - 10)
 
 recursion(200)'
+]
+
+{ #category : #source }
+ProcessingSourceExamples >> sourceCodeRuntimeError [
+	^ '1/0'
 ]
 
 { #category : #source }
@@ -430,6 +447,16 @@ ProcessingSourceExamples >> sourceMouseEvents [
 ]
 
 { #category : #example }
+ProcessingSourceExamples >> sourceMouseEvents2 [
+	<gtExample>
+	| source |
+	source := ProcessingSource fromString: self sourceCodeMouseEvents2.
+	self assert: source asString equals: self sourceCodeMouseEvents2.
+	self assert: source program isNotNil.
+	^ source
+]
+
+{ #category : #example }
 ProcessingSourceExamples >> sourcePrint [
 	<gtExample>
 	| source |
@@ -445,6 +472,16 @@ ProcessingSourceExamples >> sourceRecursion [
 	| source |
 	source := ProcessingSource fromString: self sourceCodeRecursion.
 	self assert: source asString equals: self sourceCodeRecursion.
+	self assert: source program isNotNil.
+	^ source
+]
+
+{ #category : #example }
+ProcessingSourceExamples >> sourceRuntimeError [
+	<gtExample>
+	| source |
+	source := ProcessingSource fromString: self sourceCodeRuntimeError.
+	self assert: source asString equals: self sourceCodeRuntimeError.
 	self assert: source program isNotNil.
 	^ source
 ]

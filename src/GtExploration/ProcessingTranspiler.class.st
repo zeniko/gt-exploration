@@ -150,6 +150,17 @@ ProcessingTranspiler >> emit_circle: args [
 ]
 
 { #category : #emitting }
+ProcessingTranspiler >> emit_color: args [
+	self emit: '(gtCanvas colorWithR: '.
+	args first acceptVisitor: self.
+	self emit: ' G: '.
+	args second acceptVisitor: self.
+	self emit: ' B: '.
+	args third acceptVisitor: self.
+	self emit: ')'.
+]
+
+{ #category : #emitting }
 ProcessingTranspiler >> emit_cos: args [
 	args first acceptVisitor: self.
 	self emit: ' cos'.
@@ -475,6 +486,11 @@ ProcessingTranspiler >> transpile: ast [
 			self emit: '[ gtCanvas frameRate > 0 ] whileTrue: ['; cr.
 			indentation := indentation + 1.
 			self emit: 'mouseX := gtCanvas mouseX. mouseY := gtCanvas mouseY. mousePressed := gtCanvas mousePressed.'; cr.
+			userDefs at: 'mousePressed' ifPresent: [ :args2 |
+				args2 ifEmpty: [
+					self emit: 'mousePressed ifTrue: [ self mousePressed. ].'; cr.
+				].
+			].
 			self emit: 'self draw.'; cr.
 			self emit: 'gtCanvas endFrame.'; cr.
 			indentation := indentation - 1.

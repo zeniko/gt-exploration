@@ -46,7 +46,9 @@ ProcessingRunner >> debug: compilation [
 	worker schedule: promise.
 	promise wait.
 	
-	done ifFalse: [ ProcessingRunawayProgramException new signal: 'Endless loop detected.'. ].
+	done ifFalse: [
+		ProcessingRunawayProgramException new signal: 'Endless loop detected.'.
+	].
 	done := false.
 	
 	debugger := GtMoldableDebugger on: session.
@@ -81,8 +83,13 @@ ProcessingRunner >> run: compilation [
 	
 	done := false.
 	promise := AsyncFuturePromise new future: [
-		compilation gtRun.
-		done := true.
+		[ compilation gtRun. done := true. ]
+			on: Exception
+			do: [ :ex |
+				(ex isKindOf: AsyncFutureCancelled) ifFalse: [
+					canvas canvasElement addChild: ((GtSystemUtility freeze: ex) asDebuggableElement background: Color white).
+				].
+		].
 	] asAsyncFuture.
 	worker schedule: promise.
 	

@@ -183,6 +183,27 @@ draw
 ]
 
 { #category : #transpilation }
+ProcessingTranspilerExamples >> transpilationMouseEvents2 [
+	^ 'gtRun
+	self setup.
+	[ gtCanvas frameRate > 0 ] whileTrue: [
+		mouseX := gtCanvas mouseX. mouseY := gtCanvas mouseY. mousePressed := gtCanvas mousePressed.
+		mousePressed ifTrue: [ self mousePressed. ].
+		self draw.
+		gtCanvas endFrame.
+	].
+
+setup
+	width := 200. height := 200. gtCanvas size: width by: height.
+
+draw
+	PyEllipsis.
+
+mousePressed
+	gtCanvas backgroundR: 0 G: 255 B: 0.'
+]
+
+{ #category : #transpilation }
 ProcessingTranspilerExamples >> transpilationPrint [
 	^ 'gtRun
 	gtCanvas print: ''Hello, world!''.
@@ -504,6 +525,19 @@ ProcessingTranspilerExamples >> transpileMouseEvents [
 	self assert: transpiler variables size equals: 0.
 	self assert: transpiler userDefs size equals: 2.
 	self compare: (transpiler compile: ast) with: self transpilationMouseEvents.
+	^ transpiler compile: ast
+]
+
+{ #category : #example }
+ProcessingTranspilerExamples >> transpileMouseEvents2 [
+	<gtExample>
+	| ast transpiler |
+	ast := ProcessingSourceExamples new sourceMouseEvents2 program ast.
+	transpiler := self newTranspiler.
+	self assert: (transpiler transpile: ast) equals: self transpilationMouseEvents2.
+	self assert: transpiler variables size equals: 0.
+	self assert: transpiler userDefs size equals: 3.
+	self compare: (transpiler compile: ast) with: self transpilationMouseEvents2.
 	^ transpiler compile: ast
 ]
 

@@ -265,6 +265,22 @@ ProcessingRunnerExamples >> runRecursion [
 ]
 
 { #category : #example }
+ProcessingRunnerExamples >> runRuntimeError [
+	<gtExample>
+	| program runner canvas |
+	program := ProcessingSourceExamples new sourceRuntimeError program.
+	canvas := program canvas.
+	self assert: canvas canvasElement children size equals: 1.
+	self assert: (canvas canvasElement children first isKindOf: BrFrame).
+	
+	runner := self newRunner.
+	runner limitTo: 0.1 seconds; run: program compilation; wait.
+	self assert: runner isDone not.
+	self assert: runner canvas isNotNil.
+	^ runner
+]
+
+{ #category : #example }
 ProcessingRunnerExamples >> runShapesStepwise [
 	<gtExample>
 	| program runner steps |

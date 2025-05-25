@@ -31,6 +31,8 @@ ProcessingCanvas >> background: color [
 
 { #category : #shapes }
 ProcessingCanvas >> backgroundGray: gray [
+	"`gray` is a single number or a single Color"
+	(gray isKindOf: Color) ifTrue: [ ^ self background: gray ].
 	self backgroundR: gray G: gray B: gray.
 ]
 
@@ -63,7 +65,6 @@ ProcessingCanvas >> colorWithR: r G: g B: b [
 		((g / 255.5) roundTo: 0.005) .
 		((b / 255.5) roundTo: 0.005)
 	}
-
 ]
 
 { #category : #shapes }
@@ -104,6 +105,8 @@ ProcessingCanvas >> fillColor [
 
 { #category : #modifiers }
 ProcessingCanvas >> fillGray: gray [
+	"`gray` is a single number or a single Color"
+	(gray isKindOf: Color) ifTrue: [ ^ self fill: gray ].
 	self fillR: gray G: gray B: gray.
 ]
 
@@ -216,6 +219,11 @@ ProcessingCanvas >> loadImage: path [
 	(path beginsWith: 'http') ifTrue: [
 		| bytes |
 		bytes := ZnClient new get: path.
+		^ SkiaImage fromBuffer: bytes start: 0 end: bytes size
+	].
+	(path beginsWith: 'data:') ifTrue: [
+		| bytes |
+		bytes := (ZnDataUrl fromString: path) data.
 		^ SkiaImage fromBuffer: bytes start: 0 end: bytes size
 	].
 	(FileReference / path) exists ifTrue: [
@@ -369,6 +377,8 @@ ProcessingCanvas >> strokeColor [
 
 { #category : #modifiers }
 ProcessingCanvas >> strokeGray: gray [
+	"`gray` is a single number or a single Color"
+	(gray isKindOf: Color) ifTrue: [ ^ self stroke: gray ].
 	self strokeR: gray G: gray B: gray.
 ]
 
