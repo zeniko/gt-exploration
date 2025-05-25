@@ -108,7 +108,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-05-25T14:38:50.408+02:00"
+									"dateAndTimeString" : "2025-05-25T14:39:07.336+02:00"
 								}
 							},
 							"uid" : {
@@ -118,7 +118,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Processing API: `loadImage` and `image`, `mouseX`, `mouseY` and `mousePressed` inside `def draw()`, `str`, `PI`, `sqrt`, `circle`, `square`, `translate`, `rotate`, `scale`, `millis`, `color`, `def mousePressed()`, `noStroke`, `sq`, `def mouseReleased()`, `def"
+							"string" : "Processing API: `loadImage` and `image`, `mouseX`, `mouseY` and `mousePressed` inside `def draw()`, `str`, `PI`, `sqrt`, `circle`, `square`, `translate`, `rotate`, `scale`, `millis`, `color`, `def mousePressed()`, `noStroke`, `sq`, `def mouseReleased()`, `def mouseClicked()`, `def mouseMoved()`"
 						},
 						{
 							"__type" : "exampleSnippet",
@@ -384,6 +384,43 @@
 							"codeExpanded" : true,
 							"previewExpanded" : false,
 							"noCode" : true
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-05-25T18:31:43.196+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-05-25T18:31:59.305+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "wMeFGlryDQCIQ1P2Dyf3Ng=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Added {{gtClass:ProcessingAstCleaner}} for "
 						}
 					]
 				},

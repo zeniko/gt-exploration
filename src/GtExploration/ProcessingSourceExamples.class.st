@@ -107,7 +107,7 @@ text(x, 0, 20)'
 { #category : #source }
 ProcessingSourceExamples >> sourceCodeExample05 [
 	^ 'size(200, 100)
-gtA := width; gtB := height'
+(gtA := width); (gtB := height)'
 ]
 
 { #category : #source }

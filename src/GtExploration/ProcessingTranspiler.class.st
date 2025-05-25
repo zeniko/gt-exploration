@@ -446,7 +446,7 @@ ProcessingTranspiler >> isStringConcatenation: expr [
 
 { #category : #emitting }
 ProcessingTranspiler >> notImplemented: expr [
-	ProcessingNotImplementedException new tag: expr; signal.
+	ProcessingNotImplementedException signal: ((expr class name removePrefix: 'Py') removeSuffix: 'Node') withTag: expr.
 ]
 
 { #category : #emitting }
@@ -459,8 +459,11 @@ ProcessingTranspiler >> startEmit: node [
 ]
 
 { #category : #compiling }
-ProcessingTranspiler >> transpile: ast [
+ProcessingTranspiler >> transpile: anAst [
+	| ast |
 	"Turn the AST into a Smalltalk source string"
+	ast := ProcessingAstCleaner clean: anAst.
+	
 	globalVariables := Set new.
 	localVariables := Set new.
 	functions := ''.
@@ -648,31 +651,23 @@ ProcessingTranspiler >> visitAssignmentExpression: expr [
 ]
 
 { #category : #visiting }
-ProcessingTranspiler >> visitAssignmentStatement: expr [
+ProcessingTranspiler >> visitAssignmentStatement: stmt [
 	| name |
-	expr lhs nameToken ifNil: [ self notImplemented: expr ].
-	name := expr lhs nameToken value.
+	stmt lhs nameToken ifNil: [ self notImplemented: stmt ].
+	name := stmt lhs nameToken value.
 	(ProcessingTranspiler constants includesKey: name) ifTrue: [
-		ProcessingCompileTimeException signal: 'Can''t assign to constant.' withTag: expr.
+		ProcessingCompileTimeException signal: 'Can''t assign to constant.' withTag: stmt.
 	].
-	expr tos size > 1 ifTrue: [ self notImplemented: expr ].
-	self startEmit: expr.
-	name := self emitName: expr lhs nameToken value.
+	stmt tos size > 1 ifTrue: [ self notImplemented: stmt ].
+	stmt assigns first value = '=' ifFalse: [ self notImplemented: stmt ].
+	
+	self startEmit: stmt.
+	name := self emitName: stmt lhs nameToken value.
 	(globalVariables includes: name) ifFalse: [
 		localVariables add: name.
 	].
 	self emit: ' := '.
-	
-	"Handle += -= *= /= %="
-	(expr assigns first value size = 2) & (expr assigns first value last = $=) ifTrue: [ | op |
-		op := expr assigns first value first asString.
-		op = '%' ifTrue: [ op:= '\\'. ].
-		(op = '+' and: [ self isStringConcatenation: expr tos first ]) ifTrue: [ op := ','. ].
-		self emitName: expr lhs nameToken value.
-		self emit: ' ' , op , ' '.
-	].
-	
-	expr tos first acceptVisitor: self.
+	stmt tos first acceptVisitor: self.
 	^ self endEmit.
 ]
 
@@ -903,9 +898,6 @@ ProcessingTranspiler >> visitReturnStatement: expr [
 	].
 	self endEmit.
 	self cr.
-	expr parent children last = expr ifFalse: [
-		ProcessingCompileTimeException signal: 'No statements after a return are allowed!' withTag: expr.
-	].
 	"Explicitly not returning anything in order to prevent a trailing dot."
 ]
 
@@ -919,12 +911,6 @@ ProcessingTranspiler >> visitString: expr [
 	self startEmit: expr.
 	self emit: '''' , ('' join: (expr parts collect: [ :part | self unescape: part value ])) , ''''.
 	^ self endEmit
-]
-
-{ #category : #visiting }
-ProcessingTranspiler >> visitTupleExpression: expr [
-	expr expressions size = 1 ifFalse: [ self notImplemented: expr ].
-	expr expressions first acceptVisitor: self.
 ]
 
 { #category : #visiting }

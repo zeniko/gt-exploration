@@ -127,9 +127,9 @@ ProcessingTranspilerExamples >> transpilationExample06 [
 ProcessingTranspilerExamples >> transpilationExample07 [
 	^ 'gtRun
 	a := (gtCanvas random: 3 to: 7).
-	a := a + 2.
+	a := (a + 2).
 	[ (5 <= a and: [ a <= 9 ]) ] assert.
-	a := a - 5.
+	a := (a - 5).
 	[ (a < 4) ] assertWithDescription: ''Message''.
 	[ false ] assertWithDescription: ''Done!''.'
 ]

@@ -930,11 +930,13 @@ ProcessingProgram >> source: aSource [
 	
 	source := aSource.
 	ast := ProcessingParser parse: source asString.
-	compilation := ProcessingTranspiler new compile: ast.
+	"The transpiler cleans up the AST first, so use a copy instead."
+	compilation := ProcessingTranspiler new compile: (ProcessingParser parse: source asString).
 	
 	source announcer when: ProcessingSourceChanged do: [ :event |
 		[
-			compilation := ProcessingTranspiler new compile: event ast.
+			"The transpiler cleans up the AST first, so use a copy instead."
+			compilation := ProcessingTranspiler new compile: (ProcessingParser parse: source asString).
 			ast := event ast.
 			self announcer announce: (ProcessingProgramChanged new program: self).
 		] on: Error do: [ :error |
