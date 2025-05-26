@@ -69,8 +69,8 @@ ProcessingCanvasExamples >> container [
 	
 	self assert: canvas canvasElement background paint color equals: Color veryLightGray.
 	self assert: canvas canvasElement children size equals: 0.
-	self assert: (canvas asElement isKindOf: BlScalableElement).
-	self assert: canvas asElement children first equals: canvas canvasElement.
+	self assert: (canvas asElement children first isKindOf: BlScalableElement).
+	self assert: canvas asElement children first children first equals: canvas canvasElement.
 	self assert: canvas canvasElement constraints horizontal resizer size equals: 200.
 	self assert: canvas canvasElement constraints vertical resizer size equals: 200.
 	
@@ -135,12 +135,10 @@ ProcessingCanvasExamples >> examplePrint [
 	<gtExample>
 	| canvas |
 	canvas := ProcessingRunnerExamples new runPrint canvas.
-	self assert: canvas canvasElement children size equals: 2.
-	self assert: canvas asElement children size equals: 1.
-	self assert: (canvas canvasElement children first isKindOf: BlScalableElement).
-	self assert: canvas canvasElement children first children first children size equals: 0.
-	self assert: (canvas canvasElement children last isKindOf: GtTranscriptElement).
-	self assert: (canvas canvasElement children last transcript textDo: #asString) equals: 'Hello, world!
+	self assert: canvas canvasElement children size equals: 0.
+	self assert: canvas asElement children size equals: 2.
+	self assert: (canvas asElement children last isKindOf: GtTranscriptElement).
+	self assert: (canvas asElement children last transcript textDo: #asString) equals: 'Hello, world!
 2 + 3 = 5'.
 	^ canvas
 ]

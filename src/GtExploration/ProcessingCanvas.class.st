@@ -13,21 +13,21 @@ Class {
 		'mousePressed',
 		'transforms',
 		'startMilliseconds',
-		'canvas',
-		'events'
+		'events',
+		'containerElement'
 	],
 	#category : #'GtExploration-Processing'
 }
 
 { #category : #views }
 ProcessingCanvas >> asElement [
-	^ canvasElement asScalableElement
+	^ containerElement
 ]
 
 { #category : #shapes }
 ProcessingCanvas >> background: color [
-	canvas background: color.
-	canvas children do: #removeFromParent.
+	canvasElement background: color.
+	canvasElement children do: #removeFromParent.
 ]
 
 { #category : #shapes }
@@ -44,12 +44,12 @@ ProcessingCanvas >> backgroundR: r G: g B: b [
 
 { #category : #initialization }
 ProcessingCanvas >> border [
+	strokeColor ifNil: [ ^ BlBorder new width: 0 ].
 	^ BlBorder paint: strokeColor width: strokeWeight
 ]
 
 { #category : #accessing }
 ProcessingCanvas >> canvasElement [
-	"The canvas element also contains the transcript after the first use of `print`."
 	^ canvasElement
 ]
 
@@ -185,6 +185,7 @@ ProcessingCanvas >> image: image x: x y: y width: width height: height [
 { #category : #initialization }
 ProcessingCanvas >> initialize [
 	events := OrderedCollection new.
+	
 	canvasElement := BlElement new
 		background: Color veryLightGray;
 		size: 100 @ 100;
@@ -201,7 +202,15 @@ ProcessingCanvas >> initialize [
 			events add: event.
 		];
 		yourself.
-	canvas := canvasElement.
+	
+	containerElement := BlElement new
+		background: Color white;
+		layout: BlGridLayout vertical;
+		constraintsDo: [ :c |
+			c vertical matchParent.
+			c horizontal matchParent ];
+		addChild: canvasElement asScalableElement;
+		yourself.
 	
 	fillColor := Color white.
 	strokeColor := Color black.
@@ -213,12 +222,6 @@ ProcessingCanvas >> initialize [
 	mousePressed := false.
 	transforms := OrderedCollection new.
 	startMilliseconds := Time millisecondClockValue.
-]
-
-{ #category : #accessing }
-ProcessingCanvas >> innerCanvas [
-	"This is the same as `canvasElement` as long as `print` isn't called."
-	^ canvas
 ]
 
 { #category : #shapes }
@@ -285,7 +288,7 @@ ProcessingCanvas >> mouseY [
 
 { #category : #modifiers }
 ProcessingCanvas >> noStroke [
-	strokeWeight := 0.
+	strokeColor := nil.
 ]
 
 { #category : #initialization }
@@ -297,7 +300,7 @@ ProcessingCanvas >> place: shape at: position [
 	transforms reverseDo: [ :tf | tf cull: transform ].
 	transform apply.
 	
-	canvas addChild: shape.
+	canvasElement addChild: shape.
 	
 	"Note the caller for later backreferencing this shape with the creating code."
 	index := 1.
@@ -322,25 +325,8 @@ ProcessingCanvas >> polygon: vertices [
 { #category : #shapes }
 ProcessingCanvas >> print: text [
 	transcript ifNil: [
-		| shapes |
 		transcript := GtTranscript new.
-		canvas := BlElement new
-			background: canvasElement background;
-			size: canvasElement constraints horizontal resizer size @ canvasElement constraints vertical resizer size;
-			yourself.
-		shapes := canvasElement children collect: [ :el | el ].
-		shapes do: [ :el |
-			canvasElement removeChild: el.
-			canvas addChild: el.
-		].
-		canvasElement
-			background: Color white;
-			layout: BlGridLayout vertical;
-			constraintsDo: [ :c |
-				c vertical matchParent.
-				c horizontal matchParent ].
-		canvasElement addChild: canvas asScalableElement.
-		canvasElement addChild: transcript asElement.
+		containerElement addChild: transcript asElement.
 	] ifNotNil: [
 		transcript cr.
 	].
@@ -391,7 +377,7 @@ ProcessingCanvas >> scale: factor [
 
 { #category : #modifiers }
 ProcessingCanvas >> size: width by: height [
-	canvas size: width @ height.
+	canvasElement size: width @ height.
 ]
 
 { #category : #shapes }
