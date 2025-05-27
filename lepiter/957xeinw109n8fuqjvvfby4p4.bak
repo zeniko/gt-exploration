@@ -299,7 +299,7 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-05-25T22:20:52.64+02:00"
+												"dateAndTimeString" : "2025-05-26T00:06:06.902+02:00"
 											}
 										},
 										"uid" : {
@@ -309,7 +309,7 @@
 										"paragraphStyle" : {
 											"__type" : "textStyle"
 										},
-										"string" : "include content from [[SISTA Bytecode]]"
+										"string" : "include content from [[Smalltalk Bytecode (SISTA)]]"
 									}
 								]
 							},

@@ -71,7 +71,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-05-26T00:06:38.661+02:00"
+									"dateAndTimeString" : "2025-05-27T22:44:51.994+02:00"
 								}
 							},
 							"uid" : {
@@ -81,7 +81,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : ""
+							"string" : "Written thesis outline (see [gyminf-thesis](https://github.com/zeniko/gyminf-thesis))."
 						}
 					]
 				},

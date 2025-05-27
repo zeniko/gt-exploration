@@ -378,6 +378,13 @@ ProcessingCanvas >> scale: factor [
 { #category : #modifiers }
 ProcessingCanvas >> size: width by: height [
 	canvasElement size: width @ height.
+	canvasElement bounds inParent topRight = (0 @ 0) ifFalse: [
+		"TODO: the parent is a BlScalableElement and should fit the adjusted canvasElement automatically."
+		canvasElement parent
+			constraintsDo: [ :c |
+				c vertical matchParent.
+				c horizontal matchParent ].
+	].
 ]
 
 { #category : #shapes }

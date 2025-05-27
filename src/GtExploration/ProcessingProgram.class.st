@@ -342,14 +342,10 @@ ProcessingProgram >> gtExplain: aCanvas in: anEditor [
 	aCanvas firstCommonParent: anEditor ifFound: [ :el |
 		el explainer isExplanationHolder: true.
 	] ifNone: [ ^ nil ].
+	canvas := aCanvas children first.
 	
 	"TODO: this only gets children that have been drawn already (asynchronously!)"
 	0.1 seconds wait.
-	
-	canvas := aCanvas.
-	(canvas children size > 0 and: [ canvas children last isKindOf: GtTranscriptElement ]) ifTrue: [
-		canvas := canvas children first children first.
-	].
 	
 	seen := Set new.
 	canvas children do: [ :el |
@@ -358,7 +354,7 @@ ProcessingProgram >> gtExplain: aCanvas in: anEditor [
 		slice := compilation gtSliceFor: context method within: context sourceNodeExecuted sourceInterval.
 		marker := BlEllipseElement new
 			centerAnchor: (BlElementCenterAnchor element: el);
-			majorRadius: 2; minorRadius: 2;
+			majorRadius: 4; minorRadius: 4;
 			aptitude: (GtExplainerTargetAptitude new explanationModel: slice).
 		el addChild: marker.
 		(seen includes: slice) ifFalse: [
