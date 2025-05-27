@@ -5,6 +5,23 @@ Class {
 }
 
 { #category : #example }
+ProcessingProgramExamples >> allViews [
+	<gtExample>
+	| program |
+	program := self programMinimal.
+	program class methodDict keys select: [ :key |
+		(key beginsWith: 'gt') & (key endsWith: 'For:')
+	] thenCollect: [ :key |
+		| view element |
+		view := program perform: key with: GtPhlowView empty.
+		self assert: view isNotNil.
+		element := view asElement.
+		self assert: (element containerName = 'phlow--exception') equals: false.
+	].
+	^ program
+]
+
+{ #category : #example }
 ProcessingProgramExamples >> programAlpinerWanderweg [
 	<gtExample>
 	| program |

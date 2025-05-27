@@ -5,6 +5,23 @@ Class {
 }
 
 { #category : #example }
+ProcessingSourceExamples >> allViews [
+	<gtExample>
+	| source |
+	source := self sourceMinimal.
+	source class methodDict keys select: [ :key |
+		(key beginsWith: 'gt') & (key endsWith: 'For:')
+	] thenCollect: [ :key |
+		| view element |
+		view := source perform: key with: GtPhlowView empty.
+		self assert: view isNotNil.
+		element := view asElement.
+		self assert: (element containerName = 'phlow--exception') equals: false.
+	].
+	^ source
+]
+
+{ #category : #example }
 ProcessingSourceExamples >> render [
 	<gtExample>
 	| source element |

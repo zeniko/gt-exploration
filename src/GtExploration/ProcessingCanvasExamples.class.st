@@ -24,7 +24,7 @@ ProcessingCanvasExamples >> alpinerWanderweg [
 { #category : #example }
 ProcessingCanvasExamples >> alpinerWanderwegScripter [
 	<gtExample>
-	| canvas child |
+	| canvas |
 	canvas := self alpinerWanderweg.
 	^ BlScripter new
 		element: canvas canvasElement;
