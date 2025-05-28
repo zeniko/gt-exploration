@@ -7,11 +7,13 @@ Class {
 { #category : #example }
 ProcessingSourceExamples >> allViews [
 	<gtExample>
-	| source |
+	| source views |
 	source := self sourceMinimal.
-	source class methodDict keys select: [ :key |
+	views := source class methodDict keys select: [ :key |
 		(key beginsWith: 'gt') & (key endsWith: 'For:')
-	] thenCollect: [ :key |
+	].
+	self assert: views size equals: 7.
+	views do: [ :key |
 		| view element |
 		view := source perform: key with: GtPhlowView empty.
 		self assert: view isNotNil.

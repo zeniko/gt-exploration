@@ -7,11 +7,13 @@ Class {
 { #category : #example }
 ProcessingProgramExamples >> allViews [
 	<gtExample>
-	| program |
+	| program views |
 	program := self programMinimal.
-	program class methodDict keys select: [ :key |
+	views := program class methodDict keys select: [ :key |
 		(key beginsWith: 'gt') & (key endsWith: 'For:')
-	] thenCollect: [ :key |
+	].
+	self assert: views size equals: 21.
+	views do: [ :key |
 		| view element |
 		view := program perform: key with: GtPhlowView empty.
 		self assert: view isNotNil.
@@ -26,7 +28,6 @@ ProcessingProgramExamples >> programAlpinerWanderweg [
 	<gtExample>
 	| program |
 	program := ProcessingSourceExamples new sourceAlpinerWanderweg program.
-	self assert: program ast statements size equals: 4.
 	self assert: program compilation isNotNil.
 	^ program
 ]
@@ -45,7 +46,6 @@ ProcessingProgramExamples >> programEndlessLoop [
 	<gtExample>
 	| program |
 	program := ProcessingSourceExamples new sourceEndlessLoop program.
-	self assert: program ast statements size equals: 1.
 	self assert: program compilation isNotNil.
 	^ program
 ]

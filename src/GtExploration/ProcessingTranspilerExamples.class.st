@@ -5,6 +5,25 @@ Class {
 }
 
 { #category : #example }
+ProcessingTranspilerExamples >> allViews [
+	<gtExample>
+	| compilation views |
+	compilation := self transpileMinimal.
+	views := ProcessingCodeBase methodDict keys select: [ :key |
+		(key beginsWith: 'gt') & (key endsWith: 'For:')
+	].
+	self assert: views size equals: 6.
+	views do: [ :key |
+		| view element |
+		view := compilation perform: key with: GtPhlowView empty.
+		self assert: view isNotNil.
+		element := view asElement.
+		self assert: (element containerName = 'phlow--exception') equals: false.
+	].
+	^ compilation
+]
+
+{ #category : #example }
 ProcessingTranspilerExamples >> compare: anInstance with: aTranspilation [
 	| methods |
 	methods := OrderedCollection newFromArray: (anInstance class methods collect: #sourceCode).
@@ -388,7 +407,7 @@ turn: angle
 ProcessingTranspilerExamples >> transpileAlpinerWanderweg [
 	<gtExample>
 	| ast transpiler |
-	ast := ProcessingParserExamples new parseAlpinerWanderweg.
+	ast := ProcessingProgramExamples new programAlpinerWanderweg ast.
 	transpiler := self newTranspiler.
 	self assert: (transpiler transpile: ast) equals: self transpilationAlpinerWanderweg.
 	self assert: transpiler variables size equals: 0.
@@ -401,7 +420,7 @@ ProcessingTranspilerExamples >> transpileAlpinerWanderweg [
 ProcessingTranspilerExamples >> transpileAnimation [
 	<gtExample>
 	| ast transpiler |
-	ast := ProcessingParserExamples new parseAnimation.
+	ast := ProcessingProgramExamples new programAnimation ast.
 	transpiler := self newTranspiler.
 	self assert: (transpiler transpile: ast) equals: self transpilationAnimation.
 	self assert: transpiler variables size equals: 1.
@@ -415,7 +434,7 @@ ProcessingTranspilerExamples >> transpileAnimation [
 ProcessingTranspilerExamples >> transpileEndlessLoop [
 	<gtExample>
 	| ast transpiler |
-	ast := ProcessingParserExamples new parseEndlessLoop.
+	ast := ProcessingProgramExamples new programEndlessLoop ast.
 	transpiler := self newTranspiler.
 	self assert: (transpiler transpile: ast) equals: self transpilationEndlessLoop.
 	self assert: transpiler variables size equals: 0.
@@ -428,7 +447,7 @@ ProcessingTranspilerExamples >> transpileEndlessLoop [
 ProcessingTranspilerExamples >> transpileExample02 [
 	<gtExample>
 	| ast transpiler |
-	ast := ProcessingParserExamples new parseExample02.
+	ast := ProcessingProgramExamples new programExample02 ast.
 	transpiler := self newTranspiler.
 	self assert: (transpiler transpile: ast) equals: self transpilationExample02.
 	self assert: transpiler variables size equals: 1.
@@ -442,7 +461,7 @@ ProcessingTranspilerExamples >> transpileExample02 [
 ProcessingTranspilerExamples >> transpileExample03 [
 	<gtExample>
 	| ast transpiler |
-	ast := ProcessingParserExamples new parseExample03.
+	ast := ProcessingProgramExamples new programExample03 ast.
 	transpiler := self newTranspiler.
 	self assert: (transpiler transpile: ast) equals: self transpilationExample03.
 	self assert: transpiler variables size equals: 1.
@@ -456,7 +475,7 @@ ProcessingTranspilerExamples >> transpileExample03 [
 ProcessingTranspilerExamples >> transpileExample04 [
 	<gtExample>
 	| ast transpiler |
-	ast := ProcessingParserExamples new parseExample04.
+	ast := ProcessingProgramExamples new programExample04 ast.
 	transpiler := self newTranspiler.
 	self assert: (transpiler transpile: ast) equals: self transpilationExample04.
 	self assert: transpiler variables size equals: 1.
@@ -470,7 +489,7 @@ ProcessingTranspilerExamples >> transpileExample04 [
 ProcessingTranspilerExamples >> transpileExample05 [
 	<gtExample>
 	| ast transpiler |
-	ast := ProcessingParserExamples new parseExample05.
+	ast := ProcessingProgramExamples new programExample05 ast.
 	transpiler := self newTranspiler.
 	self assert: (transpiler transpile: ast) equals: self transpilationExample05.
 	self assert: transpiler variables size equals: 2.
@@ -484,7 +503,7 @@ ProcessingTranspilerExamples >> transpileExample05 [
 ProcessingTranspilerExamples >> transpileExample06 [
 	<gtExample>
 	| ast transpiler |
-	ast := ProcessingParserExamples new parseExample06.
+	ast := ProcessingProgramExamples new programExample06 ast.
 	transpiler := self newTranspiler.
 	self assert: (transpiler transpile: ast) equals: self transpilationExample06.
 	self assert: transpiler variables size equals: 2.
@@ -498,7 +517,7 @@ ProcessingTranspilerExamples >> transpileExample06 [
 ProcessingTranspilerExamples >> transpileExample07 [
 	<gtExample>
 	| ast transpiler |
-	ast := ProcessingParserExamples new parseExample07.
+	ast := ProcessingProgramExamples new programExample07 ast.
 	transpiler := self newTranspiler.
 	self assert: (transpiler transpile: ast) equals: self transpilationExample07.
 	self assert: transpiler variables size equals: 1.
@@ -512,7 +531,7 @@ ProcessingTranspilerExamples >> transpileExample07 [
 ProcessingTranspilerExamples >> transpileFibonacci [
 	<gtExample>
 	| ast transpiler |
-	ast := ProcessingParserExamples new parseFibonacci.
+	ast := ProcessingProgramExamples new programFibonacci ast.
 	transpiler := self newTranspiler.
 	self assert: (transpiler transpile: ast) equals: self transpilationFibonacci.
 	self assert: transpiler variables size equals: 0.
@@ -525,7 +544,7 @@ ProcessingTranspilerExamples >> transpileFibonacci [
 ProcessingTranspilerExamples >> transpileImage [
 	<gtExample>
 	| ast transpiler |
-	ast := ProcessingParserExamples new parseImage.
+	ast := ProcessingProgramExamples new programImage ast.
 	transpiler := self newTranspiler.
 	self assert: (transpiler transpile: ast) equals: self transpilationImage.
 	self assert: transpiler variables size equals: 1.
@@ -538,7 +557,7 @@ ProcessingTranspilerExamples >> transpileImage [
 ProcessingTranspilerExamples >> transpileMinimal [
 	<gtExample>
 	| ast transpiler |
-	ast := ProcessingParserExamples new parseMinimal.
+	ast := ProcessingProgramExamples new programMinimal ast.
 	transpiler := self newTranspiler.
 	self assert: (transpiler transpile: ast) equals: self transpilationMinimal.
 	self assert: transpiler variables size equals: 0.
@@ -551,7 +570,7 @@ ProcessingTranspilerExamples >> transpileMinimal [
 ProcessingTranspilerExamples >> transpileMouseEvents [
 	<gtExample>
 	| ast transpiler |
-	ast := ProcessingParserExamples new parseMouseEvents.
+	ast := ProcessingProgramExamples new programMouseEvents ast.
 	transpiler := self newTranspiler.
 	self assert: (transpiler transpile: ast) equals: self transpilationMouseEvents.
 	self assert: transpiler variables size equals: 0.
@@ -564,7 +583,7 @@ ProcessingTranspilerExamples >> transpileMouseEvents [
 ProcessingTranspilerExamples >> transpileMouseEvents2 [
 	<gtExample>
 	| ast transpiler |
-	ast := ProcessingParserExamples new parseMouseEvents2.
+	ast := ProcessingProgramExamples new programMouseEvents2 ast.
 	transpiler := self newTranspiler.
 	self assert: (transpiler transpile: ast) equals: self transpilationMouseEvents2.
 	self assert: transpiler variables size equals: 0.
@@ -577,7 +596,7 @@ ProcessingTranspilerExamples >> transpileMouseEvents2 [
 ProcessingTranspilerExamples >> transpilePrint [
 	<gtExample>
 	| ast transpiler |
-	ast := ProcessingParserExamples new parsePrint.
+	ast := ProcessingProgramExamples new programPrint ast.
 	transpiler := self newTranspiler.
 	self assert: (transpiler transpile: ast) equals: self transpilationPrint.
 	self assert: transpiler variables size equals: 1.
@@ -591,7 +610,7 @@ ProcessingTranspilerExamples >> transpilePrint [
 ProcessingTranspilerExamples >> transpileRecursion [
 	<gtExample>
 	| ast transpiler |
-	ast := ProcessingParserExamples new parseRecursion.
+	ast := ProcessingProgramExamples new programRecursion ast.
 	transpiler := self newTranspiler.
 	self assert: (transpiler transpile: ast) equals: self transpilationRecursion.
 	self assert: transpiler variables size equals: 0.
@@ -604,7 +623,7 @@ ProcessingTranspilerExamples >> transpileRecursion [
 ProcessingTranspilerExamples >> transpileShapes [
 	<gtExample>
 	| ast transpiler |
-	ast := ProcessingParserExamples new parseShapes.
+	ast := ProcessingProgramExamples new programShapes ast.
 	transpiler := self newTranspiler.
 	self assert: (transpiler transpile: ast) equals: self transpilationShapes.
 	self assert: transpiler variables size equals: 0.
@@ -617,7 +636,7 @@ ProcessingTranspilerExamples >> transpileShapes [
 ProcessingTranspilerExamples >> transpileSierpinski [
 	<gtExample>
 	| ast transpiler |
-	ast := ProcessingParserExamples new parseSierpinski.
+	ast := ProcessingProgramExamples new programSierpinski ast.
 	transpiler := self newTranspiler.
 	self assert: (transpiler transpile: ast) equals: self transpilationSierpinski.
 	self assert: transpiler variables size equals: 1.
@@ -631,7 +650,7 @@ ProcessingTranspilerExamples >> transpileSierpinski [
 ProcessingTranspilerExamples >> transpileSpiral [
 	<gtExample>
 	| ast transpiler |
-	ast := ProcessingParserExamples new parseSpiral.
+	ast := ProcessingProgramExamples new programSpiral ast.
 	transpiler := self newTranspiler.
 	self assert: (transpiler transpile: ast) equals: self transpilationSpiral.
 	self assert: transpiler variables size equals: 0.
@@ -644,7 +663,7 @@ ProcessingTranspilerExamples >> transpileSpiral [
 ProcessingTranspilerExamples >> transpileSwitzerland [
 	<gtExample>
 	| ast transpiler |
-	ast := ProcessingParserExamples new parseSwitzerland.
+	ast := ProcessingProgramExamples new programSwitzerland ast.
 	transpiler := self newTranspiler.
 	self assert: (transpiler transpile: ast) equals: self transpilationSwitzerland.
 	self assert: transpiler variables size equals: 0.
@@ -657,7 +676,7 @@ ProcessingTranspilerExamples >> transpileSwitzerland [
 ProcessingTranspilerExamples >> transpileTransforms [
 	<gtExample>
 	| ast transpiler |
-	ast := ProcessingParserExamples new parseTransforms.
+	ast := ProcessingProgramExamples new programTransforms ast.
 	transpiler := self newTranspiler.
 	self assert: (transpiler transpile: ast) equals: self transpilationTransforms.
 	self assert: transpiler variables size equals: 0.
@@ -670,7 +689,7 @@ ProcessingTranspilerExamples >> transpileTransforms [
 ProcessingTranspilerExamples >> transpileTurtleGraphics [
 	<gtExample>
 	| ast transpiler |
-	ast := ProcessingParserExamples new parseTurtleGraphics.
+	ast := ProcessingProgramExamples new programTurtleGraphics ast.
 	transpiler := self newTranspiler.
 	self assert: (transpiler transpile: ast) equals: self transpilationTurtleGraphics.
 	self assert: transpiler variables size equals: 3.

@@ -196,7 +196,28 @@ ProcessingCanvasExamples >> loadImage [
 ]
 
 { #category : #example }
-ProcessingCanvasExamples >> mouseEvents [
+ProcessingCanvasExamples >> mouseEvents2Scripter [
+	<gtExample>
+	| canvas |
+	canvas := ProcessingProgramExamples new programMouseEvents2 run canvas.
+	^ BlScripter new
+		element: canvas canvasElement;
+		substeps: 'Mouse move' do: [ :step |
+			step set key: [ #mousePosition ] value: [ 50 @ 30 ].
+			step mouseMove.
+			step check value: [ :el | 0.1 seconds wait. el background paint color ] equals: (canvas colorWithR: 50 G: 0 B: 30).
+		];
+		substeps: 'Mouse click' do: [ :step |
+			step mouseDown.
+			step check value: [ :el | 0.1 seconds wait. el background paint color ] equals: (canvas colorWithR: 0 G: 255 B: 0).
+			step mouseUp.
+			step check value: [ :el | 0.1 seconds wait. el background paint color ] equals: (canvas colorWithR: 192 G: 192 B: 192).
+		];
+		play
+]
+
+{ #category : #example }
+ProcessingCanvasExamples >> mouseEventsScripter [
 	<gtExample>
 	| canvas |
 	canvas := self container.
@@ -217,27 +238,6 @@ ProcessingCanvasExamples >> mouseEvents [
 			step check value: [:_| canvas mousePressed ] equals: false.
 			"Mouse clicks don't modify the mouse position"
 			step check value: [:_| canvas mouseX @ canvas mouseY ] equals: 50 @ 30.
-		];
-		play
-]
-
-{ #category : #example }
-ProcessingCanvasExamples >> mouseEvents2 [
-	<gtExample>
-	| canvas |
-	canvas := ProcessingProgramExamples new programMouseEvents2 run canvas.
-	^ BlScripter new
-		element: canvas canvasElement;
-		substeps: 'Mouse move' do: [ :step |
-			step set key: [ #mousePosition ] value: [ 50 @ 30 ].
-			step mouseMove.
-			step check value: [ :el | 0.1 seconds wait. el background paint color ] equals: (canvas colorWithR: 50 G: 0 B: 30).
-		];
-		substeps: 'Mouse click' do: [ :step |
-			step mouseDown.
-			step check value: [ :el | 0.1 seconds wait. el background paint color ] equals: (canvas colorWithR: 0 G: 255 B: 0).
-			step mouseUp.
-			step check value: [ :el | 0.1 seconds wait. el background paint color ] equals: (canvas colorWithR: 192 G: 192 B: 192).
 		];
 		play
 ]

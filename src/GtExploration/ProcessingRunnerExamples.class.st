@@ -24,6 +24,7 @@ ProcessingRunnerExamples >> runAlpinerWanderweg [
 	self assert: runner isDone not.
 	runner wait.
 	self assert: runner isDone.
+	self assert: runner wait equals: true.
 	^ runner
 ]
 
@@ -71,10 +72,11 @@ ProcessingRunnerExamples >> runExample02 [
 	| program runner |
 	program := ProcessingProgramExamples new programExample02.
 	runner := self newRunner.
-	runner run: program compilation; limitTo: 2 seconds; wait; yourself.
+	runner run: program compilation; limitTo: 2 seconds; wait.
 	self assert: runner canvas isNotNil.
 	self assert: runner isDone.
 	self assert: (program compilation instVarNamed: #a) equals: 200.
+	self assert: runner wait equals: true.
 	^ runner
 ]
 
@@ -101,6 +103,7 @@ ProcessingRunnerExamples >> runExample03 [
 	self assert: runner canvas isNotNil.
 	self assert: runner isDone.
 	self assert: (program compilation instVarNamed: #x) equals: 0.
+	self assert: runner wait equals: true.
 	^ runner
 ]
 
@@ -113,6 +116,9 @@ ProcessingRunnerExamples >> runExample04 [
 	runner run: program compilation; limitTo: 2 seconds; wait.
 	self assert: runner canvas isNotNil.
 	self assert: runner isDone.
+	self assert: 0 <= (program compilation instVarNamed: #x).
+	self assert: (program compilation instVarNamed: #x) < 3.
+	self assert: runner wait equals: true.
 	^ runner
 ]
 
@@ -127,6 +133,7 @@ ProcessingRunnerExamples >> runExample05 [
 	self assert: runner isDone.
 	self assert: (program compilation instVarNamed: #gt_A) equals: 200.
 	self assert: (program compilation instVarNamed: #gt_B) equals: 100.
+	self assert: runner wait equals: true.
 	^ runner
 ]
 
@@ -141,6 +148,7 @@ ProcessingRunnerExamples >> runExample06 [
 	self assert: runner isDone.
 	self assert: (program compilation instVarNamed: #var) equals: 5.
 	self assert: (program compilation instVarNamed: #cond) equals: true.
+	self assert: runner wait equals: true.
 	^ runner
 ]
 
@@ -178,6 +186,7 @@ ProcessingRunnerExamples >> runFibonacci [
 	runner run: program compilation; limitTo: 2 seconds; wait.
 	self assert: runner canvas isNotNil.
 	self assert: runner isDone.
+	self assert: runner wait equals: true.
 	^ runner
 ]
 
@@ -202,6 +211,7 @@ ProcessingRunnerExamples >> runImage [
 	runner run: program compilation; wait.
 	self assert: runner canvas isNotNil.
 	self assert: runner isDone.
+	self assert: runner wait equals: true.
 	^ runner
 ]
 
@@ -249,6 +259,7 @@ ProcessingRunnerExamples >> runMinimal [
 	runner run: program compilation; wait.
 	self assert: runner canvas isNotNil.
 	self assert: runner isDone.
+	self assert: runner wait equals: true.
 	^ runner
 ]
 
@@ -262,6 +273,8 @@ ProcessingRunnerExamples >> runPrint [
 	runner run: program compilation; wait.
 	self assert: runner canvas isNotNil.
 	self assert: runner isDone.
+	self assert: (program compilation instVarNamed: #var) equals: 5.
+	self assert: runner wait equals: true.
 	^ runner
 ]
 
@@ -275,6 +288,7 @@ ProcessingRunnerExamples >> runRecursion [
 	self assert: runner isDone not.
 	runner wait.
 	self assert: runner isDone.
+	self assert: runner wait equals: true.
 	^ runner
 ]
 
@@ -306,6 +320,7 @@ ProcessingRunnerExamples >> runShapesStepwise [
 	steps := runner limitTo: 2 seconds; runStepwise: program compilation.
 	self assert: steps size equals: 6.
 	self assert: runner isDone.
+	self assert: runner wait equals: true.
 	^ steps
 ]
 
@@ -318,6 +333,7 @@ ProcessingRunnerExamples >> runSierpinski [
 	runner run: program compilation; limitTo: 2 seconds; wait.
 	self assert: runner canvas isNotNil.
 	self assert: runner isDone.
+	self assert: runner wait equals: true.
 	^ runner
 ]
 
@@ -332,6 +348,19 @@ ProcessingRunnerExamples >> runSierpinskiStepwise [
 	self assert: steps size equals: 583.
 	self assert: runner isDone.
 	^ steps
+]
+
+{ #category : #example }
+ProcessingRunnerExamples >> runSpiral [
+	<gtExample>
+	| program runner |
+	program := ProcessingProgramExamples new programSpiral.
+	runner := self newRunner.
+	runner run: program compilation; limitTo: 2 seconds; wait.
+	self assert: runner canvas isNotNil.
+	self assert: runner isDone.
+	self assert: runner wait equals: true.
+	^ runner
 ]
 
 { #category : #example }
@@ -356,5 +385,9 @@ ProcessingRunnerExamples >> runTurtleGraphics [
 	runner run: program compilation; limitTo: 2 seconds; wait.
 	self assert: runner canvas isNotNil.
 	self assert: runner isDone.
+	self assert: (program compilation instVarNamed: #t_x) equals: 0.
+	self assert: (program compilation instVarNamed: #t_y) equals: 0.
+	self assert: (program compilation instVarNamed: #t_angle) equals: 0.
+	self assert: runner wait equals: true.
 	^ runner
 ]

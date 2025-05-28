@@ -112,7 +112,7 @@
 				},
 				"exampleSelector" : "programAlpinerWanderweg",
 				"previewHeight" : 320,
-				"previewShowSelector" : "gtBytecodePlusSourFor:",
+				"previewShowSelector" : "gtBytecodePlusSourceFor:",
 				"exampleBehaviorName" : "ProcessingProgramExamples",
 				"codeExpanded" : true,
 				"previewExpanded" : true,

@@ -73,10 +73,10 @@
 					"__type" : "uid",
 					"uidString" : "wL8PKanvDQC8/5xZA7u+Tw=="
 				},
-				"exampleSelector" : "sourceAlpinerWanderweg",
+				"exampleSelector" : "programAlpinerWanderweg",
 				"previewHeight" : 320,
 				"previewShowSelector" : "gtTreePlusSourceFor:",
-				"exampleBehaviorName" : "ProcessingSourceExamples",
+				"exampleBehaviorName" : "ProcessingProgramExamples",
 				"codeExpanded" : true,
 				"previewExpanded" : true,
 				"noCode" : true
