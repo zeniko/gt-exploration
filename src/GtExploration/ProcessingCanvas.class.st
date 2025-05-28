@@ -234,10 +234,11 @@ ProcessingCanvas >> initialize [
 	
 	containerElement := BlElement new
 		background: Color white;
-		layout: BlGridLayout vertical;
+		layout: BlFrameLayout new;
 		constraintsDo: [ :c |
 			c vertical matchParent.
-			c horizontal matchParent ];
+			c horizontal matchParent
+		];
 		addChild: canvasElement asScalableElement;
 		yourself.
 	
@@ -351,7 +352,15 @@ ProcessingCanvas >> polygon: vertices [
 ProcessingCanvas >> print: text [
 	transcript ifNil: [
 		transcript := GtTranscript new.
-		containerElement addChild: transcript asElement.
+		containerElement
+			addChild: (transcript asElement
+				constraintsDo: [ :c |
+					c frame vertical weight: 0.3.
+					c frame vertical alignBottom.
+				]).
+		canvasElement parent constraintsDo: [ :c |
+			c frame vertical weight: 0.7.
+		].
 	] ifNotNil: [
 		transcript cr.
 	].
@@ -405,14 +414,6 @@ ProcessingCanvas >> scale: factor [
 { #category : #modifiers }
 ProcessingCanvas >> size: width by: height [
 	canvasElement size: width @ height.
-	canvasElement requestLayout.
-	canvasElement bounds inParent topRight = (0 @ 0) ifFalse: [
-		"TODO: the parent is a BlScalableElement and should fit the adjusted canvasElement automatically."
-		canvasElement parent constraintsDo: [ :c |
-			c vertical matchParent.
-			c horizontal matchParent
-		].
-	].
 ]
 
 { #category : #shapes }
