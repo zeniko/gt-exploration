@@ -29,6 +29,7 @@ ProcessingProgramExamples >> programAlpinerWanderweg [
 	| program |
 	program := ProcessingSourceExamples new sourceAlpinerWanderweg program.
 	self assert: program compilation isNotNil.
+	self assert: program ast isNotNil.
 	^ program
 ]
 
@@ -38,6 +39,7 @@ ProcessingProgramExamples >> programAnimation [
 	| program |
 	program := ProcessingSourceExamples new sourceAnimation program.
 	self assert: program compilation isNotNil.
+	self assert: program ast isNotNil.
 	^ program
 ]
 
@@ -47,6 +49,7 @@ ProcessingProgramExamples >> programEndlessLoop [
 	| program |
 	program := ProcessingSourceExamples new sourceEndlessLoop program.
 	self assert: program compilation isNotNil.
+	self assert: program ast isNotNil.
 	^ program
 ]
 
@@ -56,6 +59,7 @@ ProcessingProgramExamples >> programExample02 [
 	| program |
 	program := ProcessingSourceExamples new sourceExample02 program.
 	self assert: program compilation isNotNil.
+	self assert: program ast isNotNil.
 	^ program
 ]
 
@@ -65,6 +69,7 @@ ProcessingProgramExamples >> programExample03 [
 	| program |
 	program := ProcessingSourceExamples new sourceExample03 program.
 	self assert: program compilation isNotNil.
+	self assert: program ast isNotNil.
 	^ program
 ]
 
@@ -74,6 +79,7 @@ ProcessingProgramExamples >> programExample04 [
 	| program |
 	program := ProcessingSourceExamples new sourceExample04 program.
 	self assert: program compilation isNotNil.
+	self assert: program ast isNotNil.
 	^ program
 ]
 
@@ -83,6 +89,7 @@ ProcessingProgramExamples >> programExample05 [
 	| program |
 	program := ProcessingSourceExamples new sourceExample05 program.
 	self assert: program compilation isNotNil.
+	self assert: program ast isNotNil.
 	^ program
 ]
 
@@ -92,6 +99,7 @@ ProcessingProgramExamples >> programExample06 [
 	| program |
 	program := ProcessingSourceExamples new sourceExample06 program.
 	self assert: program compilation isNotNil.
+	self assert: program ast isNotNil.
 	^ program
 ]
 
@@ -101,6 +109,7 @@ ProcessingProgramExamples >> programExample07 [
 	| program message |
 	program := ProcessingSourceExamples new sourceExample07 program.
 	self assert: program compilation isNotNil.
+	self assert: program ast isNotNil.
 	message := nil.
 	[
 		program compilation gtCanvas: ProcessingCanvas new; gtRun
@@ -115,6 +124,7 @@ ProcessingProgramExamples >> programFibonacci [
 	| program |
 	program := ProcessingSourceExamples new sourceFibonacci program.
 	self assert: program compilation isNotNil.
+	self assert: program ast isNotNil.
 	^ program
 ]
 
@@ -124,6 +134,7 @@ ProcessingProgramExamples >> programImage [
 	| program |
 	program := ProcessingSourceExamples new sourceImage program.
 	self assert: program compilation isNotNil.
+	self assert: program ast isNotNil.
 	^ program
 ]
 
@@ -133,6 +144,7 @@ ProcessingProgramExamples >> programMinimal [
 	| program |
 	program := ProcessingSourceExamples new sourceMinimal program.
 	self assert: program compilation isNotNil.
+	self assert: program ast isNotNil.
 	^ program
 ]
 
@@ -142,6 +154,7 @@ ProcessingProgramExamples >> programMouseEvents [
 	| program |
 	program := ProcessingSourceExamples new sourceMouseEvents program.
 	self assert: program compilation isNotNil.
+	self assert: program ast isNotNil.
 	^ program
 ]
 
@@ -151,6 +164,7 @@ ProcessingProgramExamples >> programMouseEvents2 [
 	| program |
 	program := ProcessingSourceExamples new sourceMouseEvents2 program.
 	self assert: program compilation isNotNil.
+	self assert: program ast isNotNil.
 	^ program
 ]
 
@@ -160,6 +174,7 @@ ProcessingProgramExamples >> programPrint [
 	| program |
 	program := ProcessingSourceExamples new sourcePrint program.
 	self assert: program compilation isNotNil.
+	self assert: program ast isNotNil.
 	^ program
 ]
 
@@ -169,6 +184,7 @@ ProcessingProgramExamples >> programRecursion [
 	| program |
 	program := ProcessingSourceExamples new sourceRecursion program.
 	self assert: program compilation isNotNil.
+	self assert: program ast isNotNil.
 	^ program
 ]
 
@@ -178,6 +194,7 @@ ProcessingProgramExamples >> programShapes [
 	| program |
 	program := ProcessingSourceExamples new sourceShapes program.
 	self assert: program compilation isNotNil.
+	self assert: program ast isNotNil.
 	^ program
 ]
 
@@ -187,6 +204,7 @@ ProcessingProgramExamples >> programSierpinski [
 	| program |
 	program := ProcessingSourceExamples new sourceSierpinski program.
 	self assert: program compilation isNotNil.
+	self assert: program ast isNotNil.
 	^ program
 ]
 
@@ -196,6 +214,7 @@ ProcessingProgramExamples >> programSpiral [
 	| program |
 	program := ProcessingSourceExamples new sourceSpiral program.
 	self assert: program compilation isNotNil.
+	self assert: program ast isNotNil.
 	^ program
 ]
 
@@ -205,6 +224,7 @@ ProcessingProgramExamples >> programSwitzerland [
 	| program |
 	program := ProcessingSourceExamples new sourceSwitzerland program.
 	self assert: program compilation isNotNil.
+	self assert: program ast isNotNil.
 	^ program
 ]
 
@@ -214,6 +234,7 @@ ProcessingProgramExamples >> programTransforms [
 	| program |
 	program := ProcessingSourceExamples new sourceTransforms program.
 	self assert: program compilation isNotNil.
+	self assert: program ast isNotNil.
 	^ program
 ]
 
@@ -223,5 +244,6 @@ ProcessingProgramExamples >> programTurtleGraphics [
 	| program |
 	program := ProcessingSourceExamples new sourceTurtleGraphics program.
 	self assert: program compilation isNotNil.
+	self assert: program ast isNotNil.
 	^ program
 ]

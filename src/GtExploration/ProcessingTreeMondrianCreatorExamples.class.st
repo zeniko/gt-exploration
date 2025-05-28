@@ -9,7 +9,7 @@ ProcessingTreeMondrianCreatorExamples >> astMondrianExample03 [
 	<gtExample>
 	| mondrian program |
 	program := ProcessingProgramExamples new programExample03.
-	mondrian := ProcessingTreeMondrianCreator mondrianFor: program.
+	mondrian := ProcessingTreeMondrianCreator mondrianFor: program ast.
 	^ mondrian
 ]
 
@@ -18,7 +18,7 @@ ProcessingTreeMondrianCreatorExamples >> astMondrianMinimal [
 	<gtExample>
 	| mondrian program |
 	program := ProcessingProgramExamples new programMinimal.
-	mondrian := ProcessingTreeMondrianCreator mondrianFor: program.
+	mondrian := ProcessingTreeMondrianCreator mondrianFor: program ast.
 	^ mondrian
 ]
 
@@ -27,7 +27,7 @@ ProcessingTreeMondrianCreatorExamples >> astMondrianSierpinski [
 	<gtExample>
 	| mondrian program |
 	program := ProcessingProgramExamples new programSierpinski.
-	mondrian := ProcessingTreeMondrianCreator mondrianFor: program.
+	mondrian := ProcessingTreeMondrianCreator mondrianFor: program ast.
 	^ mondrian
 ]
 
@@ -36,7 +36,7 @@ ProcessingTreeMondrianCreatorExamples >> astMondrianSpiral [
 	<gtExample>
 	| mondrian program |
 	program := ProcessingProgramExamples new programSpiral.
-	mondrian := ProcessingTreeMondrianCreator mondrianFor: program.
+	mondrian := ProcessingTreeMondrianCreator mondrianFor: program ast.
 	^ mondrian
 ]
 
@@ -45,6 +45,6 @@ ProcessingTreeMondrianCreatorExamples >> astMondrianTurtleGraphics [
 	<gtExample>
 	| mondrian program |
 	program := ProcessingProgramExamples new programTurtleGraphics.
-	mondrian := ProcessingTreeMondrianCreator mondrianFor: program.
+	mondrian := ProcessingTreeMondrianCreator mondrianFor: program ast.
 	^ mondrian
 ]
