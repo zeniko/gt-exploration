@@ -124,7 +124,7 @@ ProcessingProgram >> gtAbstractionsFor: aView [
 				background: Color white;
 				margin: (BlInsets all: 5).
 			element addChild: child.
-			canvas := child children first.
+			canvas := child.
 			
 			"Hook AST tree and source view:"
 			"self ast topParent gtHookEditor: editor toTree: astTree."
@@ -338,29 +338,21 @@ ProcessingProgram >> gtEditorHightlight: anEditor from: from to: to [
 
 { #category : #views }
 ProcessingProgram >> gtExplain: aCanvas in: anEditor [
-	| canvas seen |
+	| seen |
 	aCanvas firstCommonParent: anEditor ifFound: [ :el |
 		el explainer isExplanationHolder: true.
 	] ifNone: [ ^ nil ].
-	canvas := aCanvas children first.
-	
-	"TODO: this only gets children that have been drawn already (asynchronously!)"
-	0.1 seconds wait.
 	
 	seen := Set new.
-	canvas children do: [ :el |
-		| context slice marker |
-		context := el userData at: #context.
+	aCanvas model explainShape: [ :context |
+		| slice |
 		slice := compilation gtSliceFor: context method within: context sourceNodeExecuted sourceInterval.
-		marker := BlEllipseElement new
-			centerAnchor: (BlElementCenterAnchor element: el);
-			majorRadius: 4; minorRadius: 4;
-			aptitude: (GtExplainerTargetAptitude new explanationModel: slice).
-		el addChild: marker.
 		(seen includes: slice) ifFalse: [
+			"TODO: this block is called from a ProcessingRunner worker - pass the editor manipulation back to the UI thread"
 			(anEditor text from: slice astNode receiver startPosition to: slice astNode receiver stopPosition) glamorousExplanationFor: slice.
 			seen add: slice.
 		].
+		slice
 	].
 ]
 
@@ -510,7 +502,7 @@ ProcessingProgram >> gtOutputPlusSourceFor: aView [
 		title: 'Output++';
 		stencil: [ | element |
 			element := self gtCombineWithSource: (self gtOutputFor: GtPhlowView empty).
-			self gtExplain: element children second children first in: element children first.
+			self gtExplain: element children second in: element children first.
 			element
 		];
 		updateWhen: ProcessingProgramChanged in: self announcer

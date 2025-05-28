@@ -14,7 +14,8 @@ Class {
 		'transforms',
 		'startMilliseconds',
 		'events',
-		'containerElement'
+		'containerElement',
+		'explainShape'
 	],
 	#category : #'GtExploration-Processing'
 }
@@ -92,6 +93,37 @@ ProcessingCanvas >> endFrame [
 	"Transforms are reset at the end of a draw-cycle"
 	transforms := OrderedCollection new.
 	(1 / frameRate) seconds wait.
+]
+
+{ #category : #initialization }
+ProcessingCanvas >> explain: shape [
+	explainShape ifNotNil: [
+		| context explanation |
+		context := thisContext.
+		[ context receiver = self ] whileTrue: [ context := context sender ].
+		explanation := explainShape cull: context.
+		"Add a marker, if there isn't any for *this* explanation."
+		(shape children select: [ :child |
+			(child isKindOf: BlEllipseElement) and: [
+				(child aptitude isKindOf: GtExplainerTargetAptitude) and: [
+					child aptitude explanationModel = explanation
+				]
+			]
+		]) size = 0 ifTrue: [
+			| marker |
+			marker := BlEllipseElement new
+				centerAnchor: (BlElementCenterAnchor element: shape);
+				majorRadius: 4; minorRadius: 4;
+				aptitude: (GtExplainerTargetAptitude new explanationModel: explanation).
+			shape addChild: marker
+		].
+	].
+	^ shape
+]
+
+{ #category : #accessing }
+ProcessingCanvas >> explainShape: aBlock [
+	explainShape := aBlock.
 ]
 
 { #category : #modifiers }
@@ -203,7 +235,7 @@ ProcessingCanvas >> initialize [
 		];
 		yourself.
 	
-	containerElement := BlElement new
+	containerElement := (ProcessingCanvasElement newFor: self)
 		background: Color white;
 		layout: BlGridLayout vertical;
 		constraintsDo: [ :c |
@@ -212,6 +244,7 @@ ProcessingCanvas >> initialize [
 		addChild: canvasElement asScalableElement;
 		yourself.
 	
+	explainShape := nil.
 	fillColor := Color white.
 	strokeColor := Color black.
 	strokeWeight := 0.5.
@@ -293,21 +326,17 @@ ProcessingCanvas >> noStroke [
 
 { #category : #initialization }
 ProcessingCanvas >> place: shape at: position [
-	| transform index |
+	| transform |
 	transform := shape transform
 		topLeftOrigin;
 		translateBy: position.
 	transforms reverseDo: [ :tf | tf cull: transform ].
 	transform apply.
-	
+
 	canvasElement addChild: shape.
 	
-	"Note the caller for later backreferencing this shape with the creating code."
-	index := 1.
-	[ (thisContext stack at: index) receiver = self ] whileTrue: [ index := index + 1. ].
-	shape userData at: #context put: (thisContext stack at: index) copyStack.
-	
-	^ shape
+	"Add an explanation marker, if explaining has been enabled."
+	^ self explain: shape
 ]
 
 { #category : #shapes }
@@ -337,6 +366,8 @@ ProcessingCanvas >> print: text [
 	] ifFalse: [
 		transcript nextPut: text asString.
 	].
+	
+	self explain: containerElement children last.
 ]
 
 { #category : #initialization }
@@ -378,12 +409,13 @@ ProcessingCanvas >> scale: factor [
 { #category : #modifiers }
 ProcessingCanvas >> size: width by: height [
 	canvasElement size: width @ height.
+	canvasElement requestLayout.
 	canvasElement bounds inParent topRight = (0 @ 0) ifFalse: [
 		"TODO: the parent is a BlScalableElement and should fit the adjusted canvasElement automatically."
-		canvasElement parent
-			constraintsDo: [ :c |
-				c vertical matchParent.
-				c horizontal matchParent ].
+		canvasElement parent constraintsDo: [ :c |
+			c vertical matchParent.
+			c horizontal matchParent
+		].
 	].
 ]
 

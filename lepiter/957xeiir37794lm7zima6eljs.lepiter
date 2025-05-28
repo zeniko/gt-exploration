@@ -82,6 +82,43 @@
 								"__type" : "textStyle"
 							},
 							"string" : "Written thesis outline (see [gyminf-thesis](https://github.com/zeniko/gyminf-thesis))."
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-05-28T13:29:13.545+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-05-28T13:29:23.125+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "KEU+OpLyDQCGqhhpD7BKtw=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Enabled explanations for animations."
 						}
 					]
 				},
@@ -228,8 +265,8 @@
 								"uidString" : "sCsH3PrxDQC7RiBsBWhF1w=="
 							},
 							"exampleSelector" : "programMouseEvents",
-							"previewHeight" : 150,
-							"previewShowSelector" : "gtOutputFor:",
+							"previewHeight" : 250,
+							"previewShowSelector" : "gtOutputPlusSourceFor:",
 							"exampleBehaviorName" : "ProcessingProgramExamples",
 							"codeExpanded" : true,
 							"previewExpanded" : false,

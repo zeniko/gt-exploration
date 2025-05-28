@@ -48,8 +48,8 @@ ProcessingCanvasExamples >> blueBackground [
 	canvas background: Color blue.
 	self assert: canvas canvasElement background paint color equals: Color blue.
 	self assert: canvas canvasElement children size equals: 0.
-	^ canvas
 	
+	^ canvas
 ]
 
 { #category : #example }
@@ -291,12 +291,6 @@ ProcessingCanvasExamples >> singleCircle [
 	self assert: child border paint color equals: Color black.
 	self assert: child border width equals: 0.5.
 	
-	self assert: (child userData at: #context) method equals: thisContext method.
-	self assert: (child userData at: #context) sourceNodeExecuted asString equals: 'RBMessageNode(canvas
-	ellipse: 100
-	by: 100
-	at: 50 @ 50)'.
-	
 	^ canvas
 ]
 
@@ -310,9 +304,6 @@ ProcessingCanvasExamples >> singleLine [
 	self assert: child class equals: BlLineElement.
 	self assert: child border paint color equals: Color black.
 	self assert: child border width equals: 0.5.
-	
-	self assert: (child userData at: #context) method equals: thisContext method.
-	self assert: (child userData at: #context) sourceNodeExecuted asString equals: 'RBMessageNode(canvas line: 0 @ 100 to: 200 @ 0)'.
 	
 	^ canvas
 ]
@@ -331,12 +322,6 @@ ProcessingCanvasExamples >> singleSquare [
 	self assert: child border paint color equals: Color black.
 	self assert: child border width equals: 0.5.
 	
-	self assert: (child userData at: #context) method equals: thisContext method.
-	self assert: (child userData at: #context) sourceNodeExecuted asString equals: 'RBMessageNode(canvas
-	rect: 100
-	by: 100
-	at: 50 @ 50)'.
-	
 	^ canvas
 ]
 
@@ -351,12 +336,6 @@ ProcessingCanvasExamples >> singleTriangle [
 	self assert: child background paint color equals: Color white.
 	self assert: child border paint color equals: Color black.
 	self assert: child border width equals: 0.5.
-	
-	self assert: (child userData at: #context) method equals: thisContext method.
-	self assert: (child userData at: #context) sourceNodeExecuted asString equals: 'RBMessageNode(canvas
-	polygon: {0 @ 200.
-			200 @ 200.
-			100 @ 0})'.
 	
 	^ canvas
 ]
