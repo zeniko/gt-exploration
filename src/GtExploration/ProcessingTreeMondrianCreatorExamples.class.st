@@ -23,6 +23,15 @@ ProcessingTreeMondrianCreatorExamples >> astMondrianMinimal [
 ]
 
 { #category : #'as yet unclassified' }
+ProcessingTreeMondrianCreatorExamples >> astMondrianSierpinski [
+	<gtExample>
+	| mondrian program |
+	program := ProcessingProgramExamples new programSierpinski.
+	mondrian := ProcessingTreeMondrianCreator mondrianFor: program.
+	^ mondrian
+]
+
+{ #category : #'as yet unclassified' }
 ProcessingTreeMondrianCreatorExamples >> astMondrianSpiral [
 	<gtExample>
 	| mondrian program |

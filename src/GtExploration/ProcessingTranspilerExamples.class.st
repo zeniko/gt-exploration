@@ -263,8 +263,9 @@ ProcessingTranspilerExamples >> transpilationSierpinski [
 	gtCanvas strokeWeight: 1.
 	(self sierpinski: 4 x: 2 y: 2 side: (width - 4)).
 
-sierpinski: n x: x y: y side: side
+sierpinski: n x: x y: y side: gt0_side
 	| th side |
+	side := gt0_side.
 	th := (side * 60 degreesToRadians sin).
 	(n = 1) ifTrue: [
 		gtCanvas triangle: x y1: (y + th) x2: (x + side) y2: (y + th) x3: (x + (side / 2)) y3: y.

@@ -14,11 +14,28 @@ Class {
 		'transforms',
 		'startMilliseconds',
 		'events',
-		'containerElement',
-		'explainShape'
+		'containerElement'
 	],
 	#category : #'GtExploration-Processing'
 }
+
+{ #category : #initialization }
+ProcessingCanvas class >> explainShape: aShape as: aTag [
+	(aShape children select: [ :child |
+		(child isKindOf: BlEllipseElement) and: [
+			(child aptitude isKindOf: GtExplainerTargetAptitude) and: [
+				child aptitude explanationModel = aTag
+			]
+		]
+	]) size = 0 ifTrue: [
+		| marker |
+		marker := BlEllipseElement new
+			centerAnchor: (BlElementCenterAnchor element: aShape);
+			majorRadius: 4; minorRadius: 4;
+			aptitude: (GtExplainerTargetAptitude new explanationModel: aTag).
+		aShape addChild: marker
+	].
+]
 
 { #category : #views }
 ProcessingCanvas >> asElement [
@@ -97,33 +114,13 @@ ProcessingCanvas >> endFrame [
 
 { #category : #initialization }
 ProcessingCanvas >> explain: shape [
-	explainShape ifNotNil: [
-		| context explanation |
-		context := thisContext.
-		[ context receiver = self ] whileTrue: [ context := context sender ].
-		explanation := explainShape cull: context.
-		"Add a marker, if there isn't any for *this* explanation."
-		(shape children select: [ :child |
-			(child isKindOf: BlEllipseElement) and: [
-				(child aptitude isKindOf: GtExplainerTargetAptitude) and: [
-					child aptitude explanationModel = explanation
-				]
-			]
-		]) size = 0 ifTrue: [
-			| marker |
-			marker := BlEllipseElement new
-				centerAnchor: (BlElementCenterAnchor element: shape);
-				majorRadius: 4; minorRadius: 4;
-				aptitude: (GtExplainerTargetAptitude new explanationModel: explanation).
-			shape addChild: marker
-		].
-	].
+	| context |
+	context := thisContext.
+	[ context receiver = self ] whileTrue: [ context := context sender ].
+	containerElement dispatchEvent: (ProcessingExplainShape
+		newFor: shape createdBy: context sourceNodeExecuted).
+	
 	^ shape
-]
-
-{ #category : #accessing }
-ProcessingCanvas >> explainShape: aBlock [
-	explainShape := aBlock.
 ]
 
 { #category : #modifiers }
@@ -235,7 +232,7 @@ ProcessingCanvas >> initialize [
 		];
 		yourself.
 	
-	containerElement := (ProcessingCanvasElement newFor: self)
+	containerElement := BlElement new
 		background: Color white;
 		layout: BlGridLayout vertical;
 		constraintsDo: [ :c |
@@ -244,7 +241,6 @@ ProcessingCanvas >> initialize [
 		addChild: canvasElement asScalableElement;
 		yourself.
 	
-	explainShape := nil.
 	fillColor := Color white.
 	strokeColor := Color black.
 	strokeWeight := 0.5.

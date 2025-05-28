@@ -36,12 +36,12 @@ ProcessingTranspiler class >> initialize [
 	"When modifying these lists, run the following line (Ctrl+D):
 	ProcessingTranspiler initialize
 	"
-	constants := Dictionary newFrom: {
+	constants := {
 		'True' -> 'true'.
 		'False' -> 'false'.
 		'None' -> 'nil'.
 		'PI' -> Float pi asString.
-	}.
+	} asDictionary.
 	implicitVariables := #(
 		#width
 		#height
@@ -533,7 +533,7 @@ ProcessingTranspiler >> transpile: anAst [
 
 { #category : #compiling }
 ProcessingTranspiler >> transpileFunction: ast name: name args: args [
-	| saveLocalVariables saveGlobalVariables saveIndentation saveAstMap saveOutput res methodName |
+	| saveLocalVariables saveGlobalVariables saveIndentation saveAstMap saveOutput res methodName modifiedArgs |
 	"Preserve global state"
 	saveLocalVariables := localVariables.
 	saveGlobalVariables := globalVariables.
@@ -553,9 +553,23 @@ ProcessingTranspiler >> transpileFunction: ast name: name args: args [
 	output := ''.
 	astMap := OrderedCollection new.
 	self acceptStatements: ast.
-	"TODO: assigning to an argument yields a '... is shadowed' warning in the Transcript"
+	
+	"Python allows assigning to arguments whereas Smalltalk doesn't"
+	modifiedArgs := (userDefs at: name) select: [ :arg |
+		localVariables includes: arg
+	].
+	modifiedArgs do: [ :arg |
+		res := res
+			copyWithRegex: '\b' , arg , '\b(?!\:)'
+			matchesReplacedWith: 'gt0_' , arg.
+	].
+	
 	localVariables ifNotEmpty: [
 		res := res , Character tab asString , '| ' , (' ' join: localVariables) , ' |
+'.
+	].
+	modifiedArgs do: [ :arg |
+		res := res , '	' , arg , ' := gt0_' , arg , '.
 '.
 	].
 	astMap do: [ :node | node move: res size. ].
@@ -589,13 +603,13 @@ ProcessingTranspiler >> transpileFunction: ast name: name args: args [
 { #category : #emitting }
 ProcessingTranspiler >> unescape: str [
 	| special in |
-	special := Dictionary newFrom: {
+	special := {
 		$n -> Character lf.
 		$r -> Character cr.
 		$t -> Character tab.
 		$\ -> $\. $' -> $'. $" -> $".
 		"TODO: octal, hex and unicode escapes"
-	}.
+	} asDictionary.
 	in := str allButFirst allButLast readStream.
 	^ String new: str size streamContents: [ :out |
 		[ in atEnd ] whileFalse: [ | char |

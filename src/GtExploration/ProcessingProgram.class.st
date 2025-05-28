@@ -46,12 +46,13 @@ ProcessingProgram >> debug [
 
 { #category : #views }
 ProcessingProgram >> gtASTNodeNames [
-	^ Dictionary newFrom: {
+	^ {
 		PyAssertStatementNode -> 'Assert'.
 		PyAssignmentExpressionNode -> 'Assignment'.
 		PyAssignmentStatementNode -> 'Assignment'.
 		PyBinaryExpressionNode -> 'Binary Op'.
 		PyComparisonExpressionNode -> 'Binary Comparison'.
+		PyElifNode -> 'Else if'.
 		PyElseNode -> 'Else'.
 		PyExpressionStatementNode -> 'Expression'.
 		PyFileNode -> 'Root'.
@@ -70,7 +71,7 @@ ProcessingProgram >> gtASTNodeNames [
 		PyUnaryExpressionNode -> 'Unary Op'.
 		PyVariableExpressionNode -> 'Variable'.
 		PyWhileStatementNode -> 'While Loop'.
-	}
+	} asDictionary
 ]
 
 { #category : #views }
@@ -344,15 +345,16 @@ ProcessingProgram >> gtExplain: aCanvas in: anEditor [
 	] ifNone: [ ^ nil ].
 	
 	seen := Set new.
-	aCanvas model explainShape: [ :context |
+	aCanvas when: ProcessingExplainShape do: [ :event |
 		| slice |
-		slice := compilation gtSliceFor: context method within: context sourceNodeExecuted sourceInterval.
+		slice := compilation gtSliceFor: event sourceNode methodNode within: event sourceNode sourceInterval.
+		ProcessingCanvas explainShape: event source as: slice.
+		
 		(seen includes: slice) ifFalse: [
 			"TODO: this block is called from a ProcessingRunner worker - pass the editor manipulation back to the UI thread"
 			(anEditor text from: slice astNode receiver startPosition to: slice astNode receiver stopPosition) glamorousExplanationFor: slice.
 			seen add: slice.
 		].
-		slice
 	].
 ]
 
