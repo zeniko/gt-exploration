@@ -183,7 +183,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-05-15T14:13:30.417+02:00"
+						"dateAndTimeString" : "2025-05-15T14:13:33.824+02:00"
 					}
 				},
 				"uid" : {
@@ -193,7 +193,47 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "#"
+				"string" : "## Source Tokens"
+			},
+			{
+				"__type" : "exampleSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-05-15T14:13:41.852+02:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-05-15T14:13:41.852+02:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "YIdZVY3xDQCB+3cNBq9mAw=="
+				},
+				"exampleSelector" : "programExample02",
+				"previewHeight" : 160,
+				"previewShowSelector" : "gtTokensFor:",
+				"exampleBehaviorName" : "ProcessingProgramExamples",
+				"codeExpanded" : true,
+				"previewExpanded" : true,
+				"noCode" : true
 			},
 			{
 				"__type" : "textSnippet",

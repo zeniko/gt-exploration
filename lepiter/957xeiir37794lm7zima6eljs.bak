@@ -145,7 +145,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-05-28T22:18:08.606+02:00"
+									"dateAndTimeString" : "2025-05-28T22:18:21.656+02:00"
 								}
 							},
 							"uid" : {
@@ -155,7 +155,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Dropped {{gtClass:ProcessingParserExamples}} in favor of {{gtClass:ProcessingT"
+							"string" : "Dropped {{gtClass:ProcessingParserExamples}} in favor of {{gtClass:ProcessingTokenExtractorExamples}}, added more tests."
 						}
 					]
 				},

@@ -28,6 +28,7 @@ ProcessingProgramExamples >> programAlpinerWanderweg [
 	<gtExample>
 	| program |
 	program := ProcessingSourceExamples new sourceAlpinerWanderweg program.
+	self assert: program source isNotNil.
 	self assert: program compilation isNotNil.
 	self assert: program ast isNotNil.
 	^ program
@@ -38,6 +39,7 @@ ProcessingProgramExamples >> programAnimation [
 	<gtExample>
 	| program |
 	program := ProcessingSourceExamples new sourceAnimation program.
+	self assert: program source isNotNil.
 	self assert: program compilation isNotNil.
 	self assert: program ast isNotNil.
 	^ program
@@ -48,6 +50,7 @@ ProcessingProgramExamples >> programEndlessLoop [
 	<gtExample>
 	| program |
 	program := ProcessingSourceExamples new sourceEndlessLoop program.
+	self assert: program source isNotNil.
 	self assert: program compilation isNotNil.
 	self assert: program ast isNotNil.
 	^ program
@@ -58,6 +61,7 @@ ProcessingProgramExamples >> programExample02 [
 	<gtExample>
 	| program |
 	program := ProcessingSourceExamples new sourceExample02 program.
+	self assert: program source isNotNil.
 	self assert: program compilation isNotNil.
 	self assert: program ast isNotNil.
 	^ program
@@ -68,6 +72,7 @@ ProcessingProgramExamples >> programExample03 [
 	<gtExample>
 	| program |
 	program := ProcessingSourceExamples new sourceExample03 program.
+	self assert: program source isNotNil.
 	self assert: program compilation isNotNil.
 	self assert: program ast isNotNil.
 	^ program
@@ -78,6 +83,7 @@ ProcessingProgramExamples >> programExample04 [
 	<gtExample>
 	| program |
 	program := ProcessingSourceExamples new sourceExample04 program.
+	self assert: program source isNotNil.
 	self assert: program compilation isNotNil.
 	self assert: program ast isNotNil.
 	^ program
@@ -88,6 +94,7 @@ ProcessingProgramExamples >> programExample05 [
 	<gtExample>
 	| program |
 	program := ProcessingSourceExamples new sourceExample05 program.
+	self assert: program source isNotNil.
 	self assert: program compilation isNotNil.
 	self assert: program ast isNotNil.
 	^ program
@@ -98,6 +105,7 @@ ProcessingProgramExamples >> programExample06 [
 	<gtExample>
 	| program |
 	program := ProcessingSourceExamples new sourceExample06 program.
+	self assert: program source isNotNil.
 	self assert: program compilation isNotNil.
 	self assert: program ast isNotNil.
 	^ program
@@ -108,12 +116,13 @@ ProcessingProgramExamples >> programExample07 [
 	<gtExample>
 	| program message |
 	program := ProcessingSourceExamples new sourceExample07 program.
+	self assert: program source isNotNil.
 	self assert: program compilation isNotNil.
 	self assert: program ast isNotNil.
 	message := nil.
-	[
-		program compilation gtCanvas: ProcessingCanvas new; gtRun
-	] on: AssertionFailure do: [ :ex | message := ex asString. ].
+	[ program compilation gtCanvas: ProcessingCanvas new; gtRun ]
+		on: AssertionFailure
+		do: [ :ex | message := ex asString ].
 	self assert: message equals: 'AssertionFailure: Done!'.
 	^ program
 ]
@@ -123,6 +132,7 @@ ProcessingProgramExamples >> programFibonacci [
 	<gtExample>
 	| program |
 	program := ProcessingSourceExamples new sourceFibonacci program.
+	self assert: program source isNotNil.
 	self assert: program compilation isNotNil.
 	self assert: program ast isNotNil.
 	^ program
@@ -133,6 +143,7 @@ ProcessingProgramExamples >> programImage [
 	<gtExample>
 	| program |
 	program := ProcessingSourceExamples new sourceImage program.
+	self assert: program source isNotNil.
 	self assert: program compilation isNotNil.
 	self assert: program ast isNotNil.
 	^ program
@@ -143,6 +154,7 @@ ProcessingProgramExamples >> programMinimal [
 	<gtExample>
 	| program |
 	program := ProcessingSourceExamples new sourceMinimal program.
+	self assert: program source isNotNil.
 	self assert: program compilation isNotNil.
 	self assert: program ast isNotNil.
 	^ program
@@ -153,6 +165,7 @@ ProcessingProgramExamples >> programMouseEvents [
 	<gtExample>
 	| program |
 	program := ProcessingSourceExamples new sourceMouseEvents program.
+	self assert: program source isNotNil.
 	self assert: program compilation isNotNil.
 	self assert: program ast isNotNil.
 	^ program
@@ -163,6 +176,7 @@ ProcessingProgramExamples >> programMouseEvents2 [
 	<gtExample>
 	| program |
 	program := ProcessingSourceExamples new sourceMouseEvents2 program.
+	self assert: program source isNotNil.
 	self assert: program compilation isNotNil.
 	self assert: program ast isNotNil.
 	^ program
@@ -173,6 +187,7 @@ ProcessingProgramExamples >> programPrint [
 	<gtExample>
 	| program |
 	program := ProcessingSourceExamples new sourcePrint program.
+	self assert: program source isNotNil.
 	self assert: program compilation isNotNil.
 	self assert: program ast isNotNil.
 	^ program
@@ -183,6 +198,7 @@ ProcessingProgramExamples >> programRecursion [
 	<gtExample>
 	| program |
 	program := ProcessingSourceExamples new sourceRecursion program.
+	self assert: program source isNotNil.
 	self assert: program compilation isNotNil.
 	self assert: program ast isNotNil.
 	^ program
@@ -193,6 +209,7 @@ ProcessingProgramExamples >> programShapes [
 	<gtExample>
 	| program |
 	program := ProcessingSourceExamples new sourceShapes program.
+	self assert: program source isNotNil.
 	self assert: program compilation isNotNil.
 	self assert: program ast isNotNil.
 	^ program
@@ -203,6 +220,7 @@ ProcessingProgramExamples >> programSierpinski [
 	<gtExample>
 	| program |
 	program := ProcessingSourceExamples new sourceSierpinski program.
+	self assert: program source isNotNil.
 	self assert: program compilation isNotNil.
 	self assert: program ast isNotNil.
 	^ program
@@ -213,6 +231,7 @@ ProcessingProgramExamples >> programSpiral [
 	<gtExample>
 	| program |
 	program := ProcessingSourceExamples new sourceSpiral program.
+	self assert: program source isNotNil.
 	self assert: program compilation isNotNil.
 	self assert: program ast isNotNil.
 	^ program
@@ -223,6 +242,7 @@ ProcessingProgramExamples >> programSwitzerland [
 	<gtExample>
 	| program |
 	program := ProcessingSourceExamples new sourceSwitzerland program.
+	self assert: program source isNotNil.
 	self assert: program compilation isNotNil.
 	self assert: program ast isNotNil.
 	^ program
@@ -233,6 +253,7 @@ ProcessingProgramExamples >> programTransforms [
 	<gtExample>
 	| program |
 	program := ProcessingSourceExamples new sourceTransforms program.
+	self assert: program source isNotNil.
 	self assert: program compilation isNotNil.
 	self assert: program ast isNotNil.
 	^ program
@@ -243,6 +264,7 @@ ProcessingProgramExamples >> programTurtleGraphics [
 	<gtExample>
 	| program |
 	program := ProcessingSourceExamples new sourceTurtleGraphics program.
+	self assert: program source isNotNil.
 	self assert: program compilation isNotNil.
 	self assert: program ast isNotNil.
 	^ program
