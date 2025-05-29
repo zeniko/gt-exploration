@@ -55,6 +55,30 @@ ProcessingRunnerExamples >> runAnimation [
 ]
 
 { #category : #example }
+ProcessingRunnerExamples >> runAnimation2 [
+	<gtExample>
+	"The animation is currently considered to be an endless loop"
+	| program runner element detected |
+	program := ProcessingProgramExamples new programAnimation2.
+	runner := program runFor: 0.1 seconds.
+	detected := runner wait.
+	self assert: detected asString equals: 'AsyncFutureCancelled'.
+	
+	element := runner canvas canvasElement.
+	self assert: element constraints horizontal resizer size equals: 400.
+	self assert: element constraints vertical resizer size equals: 300.
+	element := (element parent parent children select: [ :el | (el contentElement = self) not ]) first contentElement.
+	self assert: element constraints horizontal resizer size equals: 400.
+	self assert: element constraints vertical resizer size equals: 300.
+	
+	runner := self newRunner.
+	runner limitTo: 0.1 seconds; run: program compilation; wait.
+	self assert: runner isDone not.
+	self assert: runner canvas isNotNil.
+	^ runner
+]
+
+{ #category : #example }
 ProcessingRunnerExamples >> runAnimationStepwise [
 	<gtExample>
 	"The animation is currently considered to be an endless loop"

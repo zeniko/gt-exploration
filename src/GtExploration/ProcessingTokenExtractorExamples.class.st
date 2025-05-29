@@ -52,6 +52,19 @@ ProcessingTokenExtractorExamples >> tokensAnimation [
 ]
 
 { #category : #example }
+ProcessingTokenExtractorExamples >> tokensAnimation2 [
+	<gtExample>
+	| ast tokens |
+	ast := ProcessingProgramExamples new programAnimation2 ast.
+	self assert: ast statements size equals: 6.
+	
+	tokens := self newExtractor extractTokens: ast.
+	self assert: tokens size equals: 98.
+	self assert: (tokens allSatisfy: [ :item | item isKindOf: SmaCCToken ]).
+	^ tokens
+]
+
+{ #category : #example }
 ProcessingTokenExtractorExamples >> tokensEndlessLoop [
 	<gtExample>
 	| ast tokens |

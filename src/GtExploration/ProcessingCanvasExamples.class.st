@@ -70,7 +70,7 @@ ProcessingCanvasExamples >> container [
 	self assert: canvas canvasElement background paint color equals: Color veryLightGray.
 	self assert: canvas canvasElement children size equals: 0.
 	self assert: (canvas asElement children first children first isKindOf: BlScalableElement).
-	self assert: canvas asElement children first children first children first equals: canvas canvasElement.
+	self assert: canvas asElement children first children first contentElement equals: canvas canvasElement.
 	self assert: canvas canvasElement constraints horizontal resizer size equals: 200.
 	self assert: canvas canvasElement constraints vertical resizer size equals: 200.
 	

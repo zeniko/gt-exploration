@@ -53,6 +53,16 @@ ProcessingSourceExamples >> sourceAnimation [
 	^ source
 ]
 
+{ #category : #example }
+ProcessingSourceExamples >> sourceAnimation2 [
+	<gtExample>
+	| source |
+	source := ProcessingSource fromString: self sourceCodeAnimation2.
+	self assert: source asString equals: self sourceCodeAnimation2.
+	self assert: source program isNotNil.
+	^ source
+]
+
 { #category : #source }
 ProcessingSourceExamples >> sourceCodeAlpinerWanderweg [
 	^ 'size(200, 200)
@@ -76,6 +86,33 @@ def draw():
 	var = var + 20
 	if var > height - 50:
 		var = 0
+'
+]
+
+{ #category : #source }
+ProcessingSourceExamples >> sourceCodeAnimation2 [
+	^ 'x = 200
+y = 100
+dx = 2
+dy = 0
+
+def setup():
+    size(400, 300)
+    noStroke()
+
+def draw():
+    global x, y, dx, dy
+    background(192)
+    circle(x, y, 50)
+    x += dx; y += dy
+    if x < 25:
+        dx = +2
+    elif x > width - 25:
+        dx = -2
+    dy += 1
+    if y > height - 25:
+        dy = -0.9 * dy
+        y = height - 25
 '
 ]
 

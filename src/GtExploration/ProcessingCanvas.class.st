@@ -68,7 +68,7 @@ ProcessingCanvas >> backgroundR: r G: g B: b [
 
 { #category : #initialization }
 ProcessingCanvas >> border [
-	strokeColor ifNil: [ ^ BlBorder new width: 0 ].
+	strokeColor ifNil: [ ^ BlBorder empty ].
 	^ BlBorder paint: strokeColor width: strokeWeight
 ]
 
@@ -116,7 +116,7 @@ ProcessingCanvas >> endFrame [
 	canvasBuffer ifNil: [
 		canvasBuffer := BlElement new
 			background: canvasElement background paint;
-			size: canvasElement constraints horizontal resizer size @ canvasElement constraints horizontal resizer size;
+			size: canvasElement constraints horizontal resizer size @ canvasElement constraints vertical resizer size;
 			when: BlMouseMoveEvent do: [ :event |
 				mousePosition := event localPosition.
 				events add: event.
@@ -467,7 +467,9 @@ ProcessingCanvas >> scale: factor [
 ProcessingCanvas >> size: width by: height [
 	canvasElement size: width @ height.
 	canvasBuffer ifNotNil: [
-		ProcessingRunTimeException signal: 'size() may not be called from draw()'
+		(canvasBuffer constraints horizontal resizer size = width) & (canvasBuffer constraints vertical resizer size = height) ifFalse: [
+			ProcessingRunTimeException signal: 'size() may not be called from draw()'.
+		].
 	].
 ]
 
