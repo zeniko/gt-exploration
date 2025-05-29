@@ -14,7 +14,9 @@ Class {
 		'transforms',
 		'startMilliseconds',
 		'events',
-		'containerElement'
+		'containerElement',
+		'canvasBuffer',
+		'canvasOutput'
 	],
 	#category : #'GtExploration-Processing'
 }
@@ -44,8 +46,12 @@ ProcessingCanvas >> asElement [
 
 { #category : #shapes }
 ProcessingCanvas >> background: color [
-	canvasElement background: color.
-	canvasElement children do: #removeFromParent.
+	"background() is used as a hint to buffer animations"
+	canvasBuffer ifNotNil: [
+		canvasOutput := canvasBuffer.
+	].
+	canvasOutput background: color.
+	canvasOutput children do: #removeFromParent.
 ]
 
 { #category : #shapes }
@@ -107,8 +113,40 @@ ProcessingCanvas >> ellipse: x y: y dx: dx dy: dy [
 
 { #category : #initialization }
 ProcessingCanvas >> endFrame [
+	canvasBuffer ifNil: [
+		canvasBuffer := BlElement new
+			background: canvasElement background paint;
+			size: canvasElement constraints horizontal resizer size @ canvasElement constraints horizontal resizer size;
+			when: BlMouseMoveEvent do: [ :event |
+				mousePosition := event localPosition.
+				events add: event.
+			];
+			when: BlMouseDownEvent do: [ :event |
+				mousePressed := true.
+				events add: event.
+			];
+			when: BlMouseUpEvent do: [ :event |
+				mousePressed := false.
+				events add: event.
+			];
+			yourself.
+		containerElement children first addChild:
+			(canvasBuffer asScalableElement zIndex: -1).
+	].
+	
+	canvasOutput = canvasElement ifFalse: [
+		| swap |
+		swap := canvasBuffer.
+		canvasBuffer := canvasElement.
+		canvasElement := swap.
+		canvasElement parent zIndex: 1.
+		canvasBuffer parent zIndex: -1.
+	].
+	
 	"Transforms are reset at the end of a draw-cycle"
 	transforms := OrderedCollection new.
+	
+	"The frame rate is adjustable through `frameRate()`"
 	(1 / frameRate) seconds wait.
 ]
 
@@ -213,6 +251,8 @@ ProcessingCanvas >> image: image x: x y: y width: width height: height [
 
 { #category : #initialization }
 ProcessingCanvas >> initialize [
+	| graphicalContainer |
+	
 	events := OrderedCollection new.
 	
 	canvasElement := BlElement new
@@ -232,6 +272,14 @@ ProcessingCanvas >> initialize [
 		];
 		yourself.
 	
+	graphicalContainer := BlElement new
+		constraintsDo: [ :c |
+			c vertical matchParent.
+			c horizontal matchParent
+		];
+		addChild: canvasElement asScalableElement;
+		yourself.
+	
 	containerElement := BlElement new
 		background: Color white;
 		layout: BlFrameLayout new;
@@ -239,8 +287,12 @@ ProcessingCanvas >> initialize [
 			c vertical matchParent.
 			c horizontal matchParent
 		];
-		addChild: canvasElement asScalableElement;
+		addChild: graphicalContainer;
 		yourself.
+	
+	"Animations are buffered starting with the second frame."
+	canvasBuffer := nil.
+	canvasOutput := canvasElement.
 	
 	fillColor := Color white.
 	strokeColor := Color black.
@@ -330,7 +382,7 @@ ProcessingCanvas >> place: shape at: position [
 	transforms reverseDo: [ :tf | tf cull: transform ].
 	transform apply.
 
-	canvasElement addChild: shape.
+	canvasOutput addChild: shape.
 	
 	"Add an explanation marker, if explaining has been enabled."
 	^ self explain: shape
@@ -358,7 +410,7 @@ ProcessingCanvas >> print: text [
 					c frame vertical weight: 0.3.
 					c frame vertical alignBottom.
 				]).
-		canvasElement parent constraintsDo: [ :c |
+		containerElement children first constraintsDo: [ :c |
 			c frame vertical weight: 0.7.
 		].
 	] ifNotNil: [
@@ -414,6 +466,9 @@ ProcessingCanvas >> scale: factor [
 { #category : #modifiers }
 ProcessingCanvas >> size: width by: height [
 	canvasElement size: width @ height.
+	canvasBuffer ifNotNil: [
+		ProcessingRunTimeException signal: 'size() may not be called from draw()'
+	].
 ]
 
 { #category : #shapes }

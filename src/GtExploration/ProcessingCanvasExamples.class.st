@@ -69,8 +69,8 @@ ProcessingCanvasExamples >> container [
 	
 	self assert: canvas canvasElement background paint color equals: Color veryLightGray.
 	self assert: canvas canvasElement children size equals: 0.
-	self assert: (canvas asElement children first isKindOf: BlScalableElement).
-	self assert: canvas asElement children first children first equals: canvas canvasElement.
+	self assert: (canvas asElement children first children first isKindOf: BlScalableElement).
+	self assert: canvas asElement children first children first children first equals: canvas canvasElement.
 	self assert: canvas canvasElement constraints horizontal resizer size equals: 200.
 	self assert: canvas canvasElement constraints vertical resizer size equals: 200.
 	
@@ -205,13 +205,13 @@ ProcessingCanvasExamples >> mouseEvents2Scripter [
 		substeps: 'Mouse move' do: [ :step |
 			step set key: [ #mousePosition ] value: [ 50 @ 30 ].
 			step mouseMove.
-			step check value: [ :el | 0.1 seconds wait. el background paint color ] equals: (canvas colorWithR: 50 G: 0 B: 30).
+			step check value: [:_| 0.1 seconds wait. canvas canvasElement background paint color ] equals: (canvas colorWithR: 50 G: 0 B: 30).
 		];
 		substeps: 'Mouse click' do: [ :step |
 			step mouseDown.
-			step check value: [ :el | 0.1 seconds wait. el background paint color ] equals: (canvas colorWithR: 0 G: 255 B: 0).
+			step check value: [:_| 0.1 seconds wait. canvas canvasElement background paint color ] equals: (canvas colorWithR: 0 G: 255 B: 0).
 			step mouseUp.
-			step check value: [ :el | 0.1 seconds wait. el background paint color ] equals: (canvas colorWithR: 192 G: 192 B: 192).
+			step check value: [:_| 0.1 seconds wait. canvas canvasElement background paint color ] equals: (canvas colorWithR: 192 G: 192 B: 192).
 		];
 		play
 ]
