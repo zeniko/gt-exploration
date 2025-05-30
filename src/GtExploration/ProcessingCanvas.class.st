@@ -3,7 +3,6 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'fillColor',
-		'canvasElement',
 		'textSize',
 		'strokeColor',
 		'strokeWeight',
@@ -13,38 +12,19 @@ Class {
 		'mousePressed',
 		'startMilliseconds',
 		'events',
-		'containerElement',
-		'canvasBuffer',
-		'canvasOutput',
 		'transform',
 		'canvasSize',
 		'backgroundColor',
-		'shapes'
+		'shapes',
+		'frameCount',
+		'presenter'
 	],
 	#category : #'GtExploration-Processing'
 }
 
-{ #category : #initialization }
-ProcessingCanvas class >> explainShape: aShape as: aTag [
-	(aShape children select: [ :child |
-		(child isKindOf: BlEllipseElement) and: [
-			(child aptitude isKindOf: GtExplainerTargetAptitude) and: [
-				child aptitude explanationModel = aTag
-			]
-		]
-	]) size = 0 ifTrue: [
-		| marker |
-		marker := BlEllipseElement new
-			centerAnchor: (BlElementCenterAnchor element: aShape);
-			majorRadius: 4; minorRadius: 4;
-			aptitude: (GtExplainerTargetAptitude new explanationModel: aTag).
-		aShape addChild: marker
-	].
-]
-
 { #category : #views }
 ProcessingCanvas >> asElement [
-	^ containerElement
+	^ presenter containerElement
 ]
 
 { #category : #accessing }
@@ -54,14 +34,8 @@ ProcessingCanvas >> background [
 
 { #category : #shapes }
 ProcessingCanvas >> background: color [
-	"background() is used as a hint to buffer animations"
-	canvasBuffer ifNotNil: [
-		canvasOutput := canvasBuffer.
-	].
-	backgroundColor := color.
-	canvasOutput background: color.
-	canvasOutput children do: #removeFromParent.
 	shapes removeAll.
+	presenter clearWithBackground: color.
 ]
 
 { #category : #shapes }
@@ -92,7 +66,7 @@ ProcessingCanvas >> callerSource [
 
 { #category : #accessing }
 ProcessingCanvas >> canvasElement [
-	^ canvasElement
+	^ presenter canvasElement
 ]
 
 { #category : #accessing }
@@ -102,7 +76,7 @@ ProcessingCanvas >> canvasSize [
 
 { #category : #shapes }
 ProcessingCanvas >> circle: x y: y d: d [
-	^ self ellipse: d by: d at: x @ y
+	self ellipse: d by: d at: x @ y.
 ]
 
 { #category : #initialization }
@@ -117,55 +91,25 @@ ProcessingCanvas >> colorWithR: r G: g B: b [
 
 { #category : #shapes }
 ProcessingCanvas >> ellipse: dx by: dy at: xy [
-	self place: (ProcessingCanvasEllipse new
+	self output: (ProcessingCanvasEllipse new
 		"Processing by default places ellipses based on their center"
 		position: xy - ((dx @ dy) / 2);
-		ellipseSize: dx @ dy;
-		fillColor: fillColor;
-		border: self border;
-		transform: transform;
-		context: self callerSource)
+		ellipseSize: dx @ dy).
 ]
 
 { #category : #shapes }
 ProcessingCanvas >> ellipse: x y: y dx: dx dy: dy [
-	^ self ellipse: dx by: dy at: x @ y
+	self ellipse: dx by: dy at: x @ y.
 ]
 
 { #category : #initialization }
 ProcessingCanvas >> endFrame [
-	canvasBuffer ifNil: [
-		canvasBuffer := (containerElement addVisualCanvasFor: self)
-			when: BlMouseMoveEvent do: [ :event |
-				mousePosition := event localPosition.
-				events add: event.
-			];
-			when: BlMouseDownEvent do: [ :event |
-				mousePressed := true.
-				events add: event.
-			];
-			when: BlMouseUpEvent do: [ :event |
-				mousePressed := false.
-				events add: event.
-			];
-			yourself.
-		canvasBuffer parent zIndex: -1.
-	].
-	
-	canvasOutput = canvasElement ifFalse: [
-		| swap |
-		swap := canvasBuffer.
-		canvasBuffer := canvasElement.
-		canvasElement := swap.
-		canvasElement parent zIndex: 1.
-		canvasBuffer parent zIndex: -1.
-	].
-	
-	"Transforms are reset at the end of a draw-cycle"
-	transform := #yourself.
-	
+	presenter updateOutput.
 	"The frame rate is adjustable through `frameRate()`"
 	(1 / frameRate) seconds wait.
+	frameCount := frameCount + 1.
+	"Transforms are reset at the end of a draw-cycle"
+	transform := #yourself.
 ]
 
 { #category : #modifiers }
@@ -187,7 +131,12 @@ ProcessingCanvas >> fillGray: gray [
 
 { #category : #modifiers }
 ProcessingCanvas >> fillR: r G: g B: b [
-	self fill: (self colorWithR: r G: g B: b)
+	self fill: (self colorWithR: r G: g B: b).
+]
+
+{ #category : #accessing }
+ProcessingCanvas >> frameCount [
+	^ frameCount
 ]
 
 { #category : #accessing }
@@ -202,7 +151,7 @@ ProcessingCanvas >> frameRate: aFrameRate [
 
 { #category : #views }
 ProcessingCanvas >> gtDisplayOn: aStream [
-	aStream nextPutAll: 'Processing Canvas (@' , self basicIdentityHash asString , ')'
+	aStream nextPutAll: 'Processing Canvas (@' , self basicIdentityHash asString , ')'.
 ]
 
 { #category : #views }
@@ -242,28 +191,25 @@ ProcessingCanvas >> handleEvents: aEvents for: aProgram [
 
 { #category : #shapes }
 ProcessingCanvas >> image: image at: xy [
-	^ self image: image at: xy sized: image width @ image height
+	self image: image at: xy sized: image width @ image height.
 ]
 
 { #category : #shapes }
 ProcessingCanvas >> image: image at: xy sized: size [
-	self place: (ProcessingCanvasImage new
+	self output: (ProcessingCanvasImage new
 		image: image;
 		position: xy;
-		rectSize: size;
-		fillColor: fillColor;
-		transform: transform;
-		context: self callerSource)
+		rectSize: size).
 ]
 
 { #category : #shapes }
 ProcessingCanvas >> image: image x: x y: y [
-	self image: image at: x @ y
+	self image: image at: x @ y.
 ]
 
 { #category : #shapes }
 ProcessingCanvas >> image: image x: x y: y width: width height: height [
-	self image: image at: x @ y sized: width @ height
+	self image: image at: x @ y sized: width @ height.
 ]
 
 { #category : #initialization }
@@ -280,42 +226,20 @@ ProcessingCanvas >> initialize [
 	mousePressed := false.
 	transform := #yourself.
 	startMilliseconds := Time millisecondClockValue.
+	frameCount := 0.
 	events := OrderedCollection new.
 	shapes := OrderedCollection new.
-	
-	containerElement := ProcessingCanvasElement new.
-	canvasElement := (containerElement addVisualCanvasFor: self)
-		when: BlMouseMoveEvent do: [ :event |
-			mousePosition := event localPosition.
-			events add: event.
-		];
-		when: BlMouseDownEvent do: [ :event |
-			mousePressed := true.
-			events add: event.
-		];
-		when: BlMouseUpEvent do: [ :event |
-			mousePressed := false.
-			events add: event.
-		];
-		yourself.
-	
-	"Animations are buffered starting with the second frame."
-	canvasBuffer := nil.
-	canvasOutput := canvasElement.
+	presenter := ProcessingCanvasPresenter newFor: self.
 ]
 
 { #category : #shapes }
 ProcessingCanvas >> line: fromXy to: toXy [
-	self place: (ProcessingCanvasLine new
-		fromXy: fromXy toXy: toXy;
-		border: self border;
-		transform: transform;
-		context: self callerSource)
+	self output: (ProcessingCanvasLine new fromXy: fromXy toXy: toXy).
 ]
 
 { #category : #shapes }
 ProcessingCanvas >> line: x1 y1: y1 x2: x2 y2: y2 [
-	^ self line: x1 @ y1 to: x2 @ y2
+	self line: x1 @ y1 to: x2 @ y2.
 ]
 
 { #category : #initialization }
@@ -368,35 +292,49 @@ ProcessingCanvas >> noStroke [
 	strokeColor := nil.
 ]
 
-{ #category : #initialization }
-ProcessingCanvas >> place: shape [
-	| element |
+{ #category : #events }
+ProcessingCanvas >> onMouseDown: anEvent [
+	mousePressed := true.
+	events add: anEvent.
+]
+
+{ #category : #events }
+ProcessingCanvas >> onMouseMove: anEvent [
+	mousePosition := anEvent localPosition.
+	events add: anEvent.
+]
+
+{ #category : #events }
+ProcessingCanvas >> onMouseUp: anEvent [
+	mousePressed := false.
+	events add: anEvent.
+]
+
+{ #category : #shapes }
+ProcessingCanvas >> output: shape [
+	shape
+		fillColor: fillColor;
+		border: self border;
+		transform: transform;
+		context: self callerSource.
 	shapes add: shape.
-	
-	element := shape asElementTransformed.
-	canvasOutput addChild: element.
-	"Add an explanation marker, if explaining has been enabled."
-	containerElement dispatchEvent: (ProcessingExplainShape
-		newFor: element createdBy: shape context).
-	
-	^ element
+	presenter display: shape.
 ]
 
 { #category : #shapes }
 ProcessingCanvas >> polygon: vertices [
-	self place: (ProcessingCanvasPolygon new
-		vertices: vertices;
-		fillColor: fillColor;
-		border: self border;
-		transform: transform;
-		context: self callerSource)
+	self output: (ProcessingCanvasPolygon new vertices: vertices).
+]
+
+{ #category : #accessing }
+ProcessingCanvas >> presenter [
+	^ presenter
 ]
 
 { #category : #shapes }
 ProcessingCanvas >> print: text [
 	transcript ifNil: [
 		transcript := GtTranscript new.
-		containerElement addTextCanvasFor: transcript.
 	] ifNotNil: [
 		transcript cr.
 	].
@@ -408,9 +346,7 @@ ProcessingCanvas >> print: text [
 		transcript nextPut: text asString.
 	].
 	
-	"Add an explanation marker, if explaining has been enabled."
-	containerElement dispatchEvent: (ProcessingExplainShape
-		newFor: containerElement children last createdBy: self callerSource).
+	presenter displayTranscript: transcript for: self callerSource.
 ]
 
 { #category : #initialization }
@@ -425,18 +361,14 @@ ProcessingCanvas >> random: lowerLimit to: upperLimit [
 
 { #category : #shapes }
 ProcessingCanvas >> rect: width by: height at: xy [
-	self place: (ProcessingCanvasRectangle new
+	self output: (ProcessingCanvasRectangle new
 		position: xy;
-		fillColor: fillColor;
-		rectSize: width @ height;
-		border: self border;
-		transform: transform;
-		context: self callerSource)
+		rectSize: width @ height).
 ]
 
 { #category : #shapes }
 ProcessingCanvas >> rect: x y: y width: width height: height [
-	^ self rect: width by: height at: x @ y
+	self rect: width by: height at: x @ y.
 ]
 
 { #category : #modifiers }
@@ -460,18 +392,16 @@ ProcessingCanvas >> shapes [
 
 { #category : #modifiers }
 ProcessingCanvas >> size: width by: height [
-	canvasSize := width @ height.
-	canvasElement size: canvasSize.
-	canvasBuffer ifNotNil: [
-		(canvasBuffer constraints horizontal resizer size = width) & (canvasBuffer constraints vertical resizer size = height) ifFalse: [
-			ProcessingRunTimeException signal: 'size() may not be called from draw()'.
-		].
+	(frameCount = 0 or: [ canvasSize = (width @ height) ]) ifFalse: [
+		ProcessingRunTimeException signal: 'size() may not be called from draw()'.
 	].
+	canvasSize := width @ height.
+	presenter outputSize: canvasSize.
 ]
 
 { #category : #shapes }
 ProcessingCanvas >> square: x y: y side: side [
-	^ self rect: side by: side at: x @ y
+	self rect: side by: side at: x @ y.
 ]
 
 { #category : #modifiers }
@@ -493,7 +423,7 @@ ProcessingCanvas >> strokeGray: gray [
 
 { #category : #modifiers }
 ProcessingCanvas >> strokeR: r G: g B: b [
-	self stroke: (self colorWithR: r G: g B: b)
+	self stroke: (self colorWithR: r G: g B: b).
 ]
 
 { #category : #accessing }
@@ -508,20 +438,17 @@ ProcessingCanvas >> strokeWeight: weight [
 
 { #category : #shapes }
 ProcessingCanvas >> text: text at: pos [
-	^ self place: (ProcessingCanvasText new
+	self output: (ProcessingCanvasText new
 		"y-position is of baseline"
 		position: pos - (0 @ textSize);
 		roped: (text asRopedText
 			fontSize: textSize;
-			foreground: fillColor);
-		fillColor: fillColor;
-		transform: transform;
-		context: self callerSource)
+			foreground: fillColor)).
 ]
 
 { #category : #shapes }
 ProcessingCanvas >> text: text x: x y: y [
-	^ self text: text at: x @ y
+	self text: text at: x @ y.
 ]
 
 { #category : #accessing }
@@ -548,5 +475,5 @@ ProcessingCanvas >> translate: x y: y [
 
 { #category : #shapes }
 ProcessingCanvas >> triangle: x1 y1: y1 x2: x2 y2: y2 x3: x3 y3: y3 [
-	^ self polygon: { x1 @ y1. x2 @ y2. x3 @ y3. }
+	self polygon: { x1 @ y1. x2 @ y2. x3 @ y3. }.
 ]

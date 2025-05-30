@@ -171,7 +171,7 @@ ProcessingRunStep >> gtOutputFor: aView [
 		| transcr |
 		transcr := GtTranscript new.
 		transcr nextPutAll: transcript.
-		containerElement addTextCanvasFor: transcr.
+		containerElement addTextCanvas: transcr.
 	].
 	
 	^ (containerElement gtLiveFor: aView)

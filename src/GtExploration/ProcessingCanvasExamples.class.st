@@ -209,13 +209,13 @@ ProcessingCanvasExamples >> mouseEvents2Scripter [
 		substeps: 'Mouse move' do: [ :step |
 			step set key: [ #mousePosition ] value: [ 50 @ 30 ].
 			step mouseMove.
-			step check value: [:_| 0.1 seconds wait. canvas canvasElement background paint color ] equals: (canvas colorWithR: 50 G: 0 B: 30).
+			step check value: [:_| 0.05 seconds wait. canvas canvasElement background paint color ] equals: (canvas colorWithR: 50 G: 0 B: 30).
 		];
 		substeps: 'Mouse click' do: [ :step |
 			step mouseDown.
-			step check value: [:_| 0.1 seconds wait. canvas canvasElement background paint color ] equals: (canvas colorWithR: 0 G: 255 B: 0).
+			step check value: [:_| 0.05 seconds wait. canvas canvasElement background paint color ] equals: (canvas colorWithR: 0 G: 255 B: 0).
 			step mouseUp.
-			step check value: [:_| 0.1 seconds wait. canvas canvasElement background paint color ] equals: (canvas colorWithR: 192 G: 192 B: 192).
+			step check value: [:_| 0.05 seconds wait. canvas canvasElement background paint color ] equals: (canvas colorWithR: 192 G: 192 B: 192).
 		];
 		play
 ]

@@ -318,7 +318,7 @@ ProcessingProgram >> gtExplain: aCanvas in: anEditor [
 	aCanvas when: ProcessingExplainShape do: [ :event |
 		| slice |
 		slice := compilation gtSliceFor: event sourceNode methodNode within: event sourceNode sourceInterval.
-		ProcessingCanvas explainShape: event source as: slice.
+		ProcessingCanvasElement explainShape: event source as: slice.
 		
 		(seen includes: slice) ifFalse: [
 			"TODO: this block is called from a ProcessingRunner worker - pass the editor manipulation back to the UI thread"
