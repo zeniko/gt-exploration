@@ -38,7 +38,8 @@ ProcessingAstCleaner >> visitAssignmentStatement: stmt [
 		stmt tos at: 1 put: (PyBinaryExpressionNode new
 			operator: (SmaCCToken value: op start: stmt assigns first startPosition ids: #());
 			left: stmt lhs clone;
-			right: stmt tos first
+			right: stmt tos first;
+			parent: stmt
 		).
 		stmt assigns at: 1 put: (SmaCCToken value: '=' start: stmt assigns first stopPosition ids: #()).
 	].
@@ -61,6 +62,9 @@ ProcessingAstCleaner >> visitBinaryExpression: expr [
 		expr left: a.
 		expr right left: b.
 		expr right right: c.
+		a parent: expr.
+		b parent: expr right.
+		c parent: expr right.
 	].
 	^ expr
 ]

@@ -79,6 +79,26 @@ ProcessingRunnerExamples >> runAnimation2 [
 ]
 
 { #category : #example }
+ProcessingRunnerExamples >> runAnimation2Stepwise [
+	<gtExample>
+	"The animation is currently considered to be an endless loop"
+	| program steps |
+	program := ProcessingProgramExamples new programAnimation2.
+	steps := program runStepsFor: 0.1 seconds.
+	self assert: steps isNotEmpty.
+	self assert: ((steps last instVarNamed: #slice) isKindOf: ProcessingRunawayProgramException).
+	steps allButLast do: [ :step |
+		(step gtAbstractionsFor: GtPhlowView empty)
+			asElementDo: [ :e |
+				e children do: [ :c |
+					self assert: (c containerName = 'phlow--exception') equals: false.
+				].
+			].
+	].
+	^ steps
+]
+
+{ #category : #example }
 ProcessingRunnerExamples >> runAnimationStepwise [
 	<gtExample>
 	"The animation is currently considered to be an endless loop"

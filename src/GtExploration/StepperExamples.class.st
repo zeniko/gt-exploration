@@ -5,6 +5,17 @@ Class {
 }
 
 { #category : #example }
+StepperExamples >> animation2Stepper [
+	<gtExample>
+	| stepper |
+	stepper := Stepper for: [ ProcessingRunnerExamples new runAnimation2Stepwise ] view: #gtAbstractionsFor:.
+	self assert: stepper index equals: 1.
+	stepper stepTo: 8.
+	self assert: stepper index equals: 8.
+	^ stepper
+]
+
+{ #category : #example }
 StepperExamples >> example02Stepper [
 	<gtExample>
 	| stepper |

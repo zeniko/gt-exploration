@@ -121,7 +121,7 @@ ProcessingRunStep >> gtBytecodeFor: aView [
 	<gtView>
 	^ aView columnedList
 		title: 'Bytecode' translated;
-		priority: 30;
+		priority: 20;
 		items: [
 			method methodNode method symbolicBytecodes select: [ :item |
 				slice interval includesAll: item sourceInterval
@@ -176,7 +176,7 @@ ProcessingRunStep >> gtOutputFor: aView [
 	
 	^ (containerElement gtLiveFor: aView)
 		title: 'Output' translated;
-		priority: 20
+		priority: 30
 ]
 
 { #category : #views }
