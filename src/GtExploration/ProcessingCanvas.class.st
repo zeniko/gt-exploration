@@ -11,12 +11,14 @@ Class {
 		'frameRate',
 		'mousePosition',
 		'mousePressed',
-		'transforms',
 		'startMilliseconds',
 		'events',
 		'containerElement',
 		'canvasBuffer',
-		'canvasOutput'
+		'canvasOutput',
+		'transform',
+		'canvasSize',
+		'backgroundColor'
 	],
 	#category : #'GtExploration-Processing'
 }
@@ -44,12 +46,18 @@ ProcessingCanvas >> asElement [
 	^ containerElement
 ]
 
+{ #category : #accessing }
+ProcessingCanvas >> background [
+	^ backgroundColor
+]
+
 { #category : #shapes }
 ProcessingCanvas >> background: color [
 	"background() is used as a hint to buffer animations"
 	canvasBuffer ifNotNil: [
 		canvasOutput := canvasBuffer.
 	].
+	backgroundColor := color.
 	canvasOutput background: color.
 	canvasOutput children do: #removeFromParent.
 ]
@@ -75,6 +83,11 @@ ProcessingCanvas >> border [
 { #category : #accessing }
 ProcessingCanvas >> canvasElement [
 	^ canvasElement
+]
+
+{ #category : #accessing }
+ProcessingCanvas >> canvasSize [
+	^ canvasSize
 ]
 
 { #category : #shapes }
@@ -114,9 +127,7 @@ ProcessingCanvas >> ellipse: x y: y dx: dx dy: dy [
 { #category : #initialization }
 ProcessingCanvas >> endFrame [
 	canvasBuffer ifNil: [
-		canvasBuffer := BlElement new
-			background: canvasElement background paint;
-			size: canvasElement constraints horizontal resizer size @ canvasElement constraints vertical resizer size;
+		canvasBuffer := (containerElement addVisualCanvasFor: self)
 			when: BlMouseMoveEvent do: [ :event |
 				mousePosition := event localPosition.
 				events add: event.
@@ -130,8 +141,7 @@ ProcessingCanvas >> endFrame [
 				events add: event.
 			];
 			yourself.
-		containerElement children first addChild:
-			(canvasBuffer asScalableElement zIndex: -1).
+		canvasBuffer parent zIndex: -1.
 	].
 	
 	canvasOutput = canvasElement ifFalse: [
@@ -144,7 +154,7 @@ ProcessingCanvas >> endFrame [
 	].
 	
 	"Transforms are reset at the end of a draw-cycle"
-	transforms := OrderedCollection new.
+	transform := #yourself.
 	
 	"The frame rate is adjustable through `frameRate()`"
 	(1 / frameRate) seconds wait.
@@ -251,13 +261,22 @@ ProcessingCanvas >> image: image x: x y: y width: width height: height [
 
 { #category : #initialization }
 ProcessingCanvas >> initialize [
-	| graphicalContainer |
-	
+	canvasSize := 100 @ 100.
+	backgroundColor := self colorWithR: 192 G: 192 B: 192.
+	fillColor := Color white.
+	strokeColor := Color black.
+	strokeWeight := 0.5.
+	textSize := 12.
+	transcript := nil.
+	frameRate := 30.
+	mousePosition := 0 @ 0.
+	mousePressed := false.
+	transform := #yourself.
+	startMilliseconds := Time millisecondClockValue.
 	events := OrderedCollection new.
 	
-	canvasElement := BlElement new
-		background: Color veryLightGray;
-		size: 100 @ 100;
+	containerElement := ProcessingCanvasElement new.
+	canvasElement := (containerElement addVisualCanvasFor: self)
 		when: BlMouseMoveEvent do: [ :event |
 			mousePosition := event localPosition.
 			events add: event.
@@ -272,38 +291,9 @@ ProcessingCanvas >> initialize [
 		];
 		yourself.
 	
-	graphicalContainer := BlElement new
-		constraintsDo: [ :c |
-			c vertical matchParent.
-			c horizontal matchParent
-		];
-		addChild: canvasElement asScalableElement;
-		yourself.
-	
-	containerElement := BlElement new
-		background: Color white;
-		layout: BlFrameLayout new;
-		constraintsDo: [ :c |
-			c vertical matchParent.
-			c horizontal matchParent
-		];
-		addChild: graphicalContainer;
-		yourself.
-	
 	"Animations are buffered starting with the second frame."
 	canvasBuffer := nil.
 	canvasOutput := canvasElement.
-	
-	fillColor := Color white.
-	strokeColor := Color black.
-	strokeWeight := 0.5.
-	textSize := 12.
-	transcript := nil.
-	frameRate := 30.
-	mousePosition := 0 @ 0.
-	mousePressed := false.
-	transforms := OrderedCollection new.
-	startMilliseconds := Time millisecondClockValue.
 ]
 
 { #category : #shapes }
@@ -375,13 +365,10 @@ ProcessingCanvas >> noStroke [
 
 { #category : #initialization }
 ProcessingCanvas >> place: shape at: position [
-	| transform |
-	transform := shape transform
+	(transform value: (shape transform
 		topLeftOrigin;
-		translateBy: position.
-	transforms reverseDo: [ :tf | tf cull: transform ].
-	transform apply.
-
+		translateBy: position)) apply.
+	
 	canvasOutput addChild: shape.
 	
 	"Add an explanation marker, if explaining has been enabled."
@@ -404,15 +391,7 @@ ProcessingCanvas >> polygon: vertices [
 ProcessingCanvas >> print: text [
 	transcript ifNil: [
 		transcript := GtTranscript new.
-		containerElement
-			addChild: (transcript asElement
-				constraintsDo: [ :c |
-					c frame vertical weight: 0.3.
-					c frame vertical alignBottom.
-				]).
-		containerElement children first constraintsDo: [ :c |
-			c frame vertical weight: 0.7.
-		].
+		containerElement addTextCanvasFor: transcript.
 	] ifNotNil: [
 		transcript cr.
 	].
@@ -455,17 +434,22 @@ ProcessingCanvas >> rect: x y: y width: width height: height [
 
 { #category : #modifiers }
 ProcessingCanvas >> rotate: angle [
-	transforms add: [ :trans | trans rotateBy: angle radiansToDegrees ].
+	| prev |
+	prev := transform.
+	transform := [ :trans | prev value: (trans rotateBy: angle radiansToDegrees) ].
 ]
 
 { #category : #modifiers }
 ProcessingCanvas >> scale: factor [
-	transforms add: [ :trans | trans scaleBy: factor ].
+	| prev |
+	prev := transform.
+	transform := [ :trans | prev value: (trans scaleBy: factor) ].
 ]
 
 { #category : #modifiers }
 ProcessingCanvas >> size: width by: height [
-	canvasElement size: width @ height.
+	canvasSize := width @ height.
+	canvasElement size: canvasSize.
 	canvasBuffer ifNotNil: [
 		(canvasBuffer constraints horizontal resizer size = width) & (canvasBuffer constraints vertical resizer size = height) ifFalse: [
 			ProcessingRunTimeException signal: 'size() may not be called from draw()'.
@@ -543,7 +527,9 @@ ProcessingCanvas >> transcript [
 
 { #category : #modifiers }
 ProcessingCanvas >> translate: x y: y [
-	transforms add: [ :trans | trans translateBy: x @ y ].
+	| prev |
+	prev := transform.
+	transform := [ :trans | prev value: (trans translateBy: x @ y) ].
 ]
 
 { #category : #shapes }

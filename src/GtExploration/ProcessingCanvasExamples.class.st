@@ -57,10 +57,13 @@ ProcessingCanvasExamples >> container [
 	<gtExample>
 	| canvas |
 	canvas := ProcessingCanvas new.
+	self assert: canvas canvasSize equals: 100 @ 100.
 	self assert: canvas canvasElement constraints horizontal resizer size equals: 100.
 	self assert: canvas canvasElement constraints vertical resizer size equals: 100.
 	
 	canvas size: 200 by: 200.
+	self assert: canvas canvasSize equals: 200 @ 200.
+	self assert: canvas background equals: Color veryLightGray.
 	self assert: canvas fillColor equals: Color white.
 	self assert: canvas strokeColor equals: Color black.
 	self assert: canvas strokeWeight equals: 0.5.
@@ -70,6 +73,7 @@ ProcessingCanvasExamples >> container [
 	self assert: canvas canvasElement background paint color equals: Color veryLightGray.
 	self assert: canvas canvasElement children size equals: 0.
 	self assert: (canvas asElement children first children first isKindOf: BlScalableElement).
+	self assert: (canvas asElement isKindOf: ProcessingCanvasElement).
 	self assert: canvas asElement children first children first contentElement equals: canvas canvasElement.
 	self assert: canvas canvasElement constraints horizontal resizer size equals: 200.
 	self assert: canvas canvasElement constraints vertical resizer size equals: 200.
