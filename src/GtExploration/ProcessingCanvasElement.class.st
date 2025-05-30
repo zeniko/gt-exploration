@@ -2,7 +2,7 @@ Class {
 	#name : #ProcessingCanvasElement,
 	#superclass : #BlElement,
 	#instVars : [
-		'graphicalContainer'
+		'visualContainer'
 	],
 	#category : #'GtExploration-Processing'
 }
@@ -14,7 +14,7 @@ ProcessingCanvasElement >> addTextCanvasFor: aTranscript [
 			c frame vertical weight: 0.3.
 			c frame vertical alignBottom.
 		]).
-	graphicalContainer constraintsDo: [ :c |
+	visualContainer constraintsDo: [ :c |
 		c frame vertical weight: 0.7.
 	].
 ]
@@ -26,7 +26,7 @@ ProcessingCanvasElement >> addVisualCanvasFor: aProcessingCanvas [
 		background: aProcessingCanvas background;
 		size: aProcessingCanvas canvasSize;
 		yourself.
-	graphicalContainer addChild: canvasElement asScalableElement.
+	visualContainer addChild: canvasElement asScalableElement.
 	^ canvasElement
 ]
 
@@ -34,7 +34,7 @@ ProcessingCanvasElement >> addVisualCanvasFor: aProcessingCanvas [
 ProcessingCanvasElement >> initialize [
 	super initialize.
 	
-	graphicalContainer := BlElement new
+	visualContainer := BlElement new
 		constraintsDo: [ :c |
 			c vertical matchParent.
 			c horizontal matchParent
@@ -48,5 +48,5 @@ ProcessingCanvasElement >> initialize [
 			c vertical matchParent.
 			c horizontal matchParent
 		];
-		addChild: graphicalContainer.
+		addChild: visualContainer.
 ]

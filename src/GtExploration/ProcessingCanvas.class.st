@@ -80,6 +80,14 @@ ProcessingCanvas >> border [
 	^ BlBorder paint: strokeColor width: strokeWeight
 ]
 
+{ #category : #initialization }
+ProcessingCanvas >> callerSource [
+	| context |
+	context := thisContext.
+	[ context receiver = self ] whileTrue: [ context := context sender ].
+	^ context sourceNodeExecuted
+]
+
 { #category : #accessing }
 ProcessingCanvas >> canvasElement [
 	^ canvasElement
@@ -107,16 +115,14 @@ ProcessingCanvas >> colorWithR: r G: g B: b [
 
 { #category : #shapes }
 ProcessingCanvas >> ellipse: dx by: dy at: xy [
-	| shape topLeft |
-	topLeft := xy - ((dx / 2) @ (dy / 2)).
-	shape := BlEllipseElement new
-		centerAnchor: (BlAbsolutePositionAnchor position: xy - topLeft);
-		majorRadius: dx / 2;
-		minorRadius: dy / 2;
-		background: fillColor;
+	self place: (ProcessingCanvasEllipse new
+		"Processing by default places ellipses based on their center"
+		position: xy - ((dx @ dy) / 2);
+		ellipseSize: dx @ dy;
+		fillColor: fillColor;
 		border: self border;
-		yourself.
-	^ self place: shape at: topLeft
+		transform: transform;
+		context: self callerSource)
 ]
 
 { #category : #shapes }
@@ -158,17 +164,6 @@ ProcessingCanvas >> endFrame [
 	
 	"The frame rate is adjustable through `frameRate()`"
 	(1 / frameRate) seconds wait.
-]
-
-{ #category : #initialization }
-ProcessingCanvas >> explain: shape [
-	| context |
-	context := thisContext.
-	[ context receiver = self ] whileTrue: [ context := context sender ].
-	containerElement dispatchEvent: (ProcessingExplainShape
-		newFor: shape createdBy: context sourceNodeExecuted).
-	
-	^ shape
 ]
 
 { #category : #modifiers }
@@ -241,12 +236,13 @@ ProcessingCanvas >> image: image at: xy [
 
 { #category : #shapes }
 ProcessingCanvas >> image: image at: xy sized: size [
-	| shape |
-	shape := image asElement
-		background: fillColor;
-		size: size;
-		yourself.
-	^ self place: shape at: xy
+	self place: (ProcessingCanvasImage new
+		image: image;
+		position: xy;
+		rectSize: size;
+		fillColor: fillColor;
+		transform: transform;
+		context: self callerSource)
 ]
 
 { #category : #shapes }
@@ -298,14 +294,11 @@ ProcessingCanvas >> initialize [
 
 { #category : #shapes }
 ProcessingCanvas >> line: fromXy to: toXy [
-	| shape topLeft |
-	topLeft := fromXy min: toXy.
-	shape := BlLineElement new
-		fromAnchor: (BlAbsolutePositionAnchor position: fromXy - topLeft);
-		toAnchor: (BlAbsolutePositionAnchor position: toXy - topLeft);
+	self place: (ProcessingCanvasLine new
+		fromXy: fromXy toXy: toXy;
 		border: self border;
-		yourself.
-	^ self place: shape at: topLeft
+		transform: transform;
+		context: self callerSource)
 ]
 
 { #category : #shapes }
@@ -364,27 +357,26 @@ ProcessingCanvas >> noStroke [
 ]
 
 { #category : #initialization }
-ProcessingCanvas >> place: shape at: position [
-	(transform value: (shape transform
-		topLeftOrigin;
-		translateBy: position)) apply.
+ProcessingCanvas >> place: shape [
+	| element |
+	element := shape asElementTransformed.
 	
-	canvasOutput addChild: shape.
-	
+	canvasOutput addChild: element.
 	"Add an explanation marker, if explaining has been enabled."
-	^ self explain: shape
+	containerElement dispatchEvent: (ProcessingExplainShape
+		newFor: element createdBy: shape context).
+	
+	^ element
 ]
 
 { #category : #shapes }
 ProcessingCanvas >> polygon: vertices [
-	| shape topLeft |
-	topLeft := vertices reduce: [ :a :b | a min: b ].
-	shape := BlPolygonElement new
-		anchors: (vertices collect: [ :xy | BlAbsolutePositionAnchor position: xy - topLeft ]);
-		background: fillColor;
+	self place: (ProcessingCanvasPolygon new
+		vertices: vertices;
+		fillColor: fillColor;
 		border: self border;
-		yourself.
-	^ self place: shape at: topLeft
+		transform: transform;
+		context: self callerSource)
 ]
 
 { #category : #shapes }
@@ -403,7 +395,9 @@ ProcessingCanvas >> print: text [
 		transcript nextPut: text asString.
 	].
 	
-	self explain: containerElement children last.
+	"Add an explanation marker, if explaining has been enabled."
+	containerElement dispatchEvent: (ProcessingExplainShape
+		newFor: containerElement children last createdBy: self callerSource).
 ]
 
 { #category : #initialization }
@@ -418,13 +412,13 @@ ProcessingCanvas >> random: lowerLimit to: upperLimit [
 
 { #category : #shapes }
 ProcessingCanvas >> rect: width by: height at: xy [
-	| shape |
-	shape := BlElement new
-		background: fillColor;
-		size: width @ height;
+	self place: (ProcessingCanvasRectangle new
+		position: xy;
+		fillColor: fillColor;
+		rectSize: width @ height;
 		border: self border;
-		yourself.
-	^ self place: shape at: xy
+		transform: transform;
+		context: self callerSource)
 ]
 
 { #category : #shapes }
@@ -496,13 +490,14 @@ ProcessingCanvas >> strokeWeight: weight [
 
 { #category : #shapes }
 ProcessingCanvas >> text: text at: pos [
-	| roped shape |
-	roped := text asRopedText
-		fontSize: textSize;
-		foreground: fillColor.
-	shape := BlTextElement new text: roped.
-	"y-position is of baseline"
-	^ self place: shape at: pos x @ (pos y - textSize)
+	^ self place: (ProcessingCanvasText new
+		"y-position is of baseline"
+		position: pos - (0 @ textSize);
+		roped: (text asRopedText
+			fontSize: textSize;
+			foreground: fillColor);
+		transform: transform;
+		context: self callerSource)
 ]
 
 { #category : #shapes }
