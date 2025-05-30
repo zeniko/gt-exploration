@@ -58,6 +58,14 @@ ProcessingCanvasShape >> fillColor: aColor [
 	fillColor := aColor.
 ]
 
+{ #category : #views }
+ProcessingCanvasShape >> gtLiveFor: aView [
+	<gtView>
+	^ (self asElementTransformed gtLiveFor: aView)
+		title: 'Live' translated;
+		priority: 10
+]
+
 { #category : #accessing }
 ProcessingCanvasShape >> position [
 	^ position

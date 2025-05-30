@@ -193,6 +193,83 @@
 								"__type" : "textStyle"
 							},
 							"string" : "Animations are now buffered for less flickering."
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-05-30T17:31:53.866+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-05-30T17:32:10.382+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "EOPJ2b3yDQCvKQvBDQi2oA=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Shapes are now individual objects:"
+						},
+						{
+							"__type" : "exampleSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-05-30T17:34:39.162+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-05-30T17:34:39.162+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "kBqk473yDQCv1z+lDQi2oA=="
+							},
+							"exampleSelector" : "example02",
+							"previewHeight" : 200,
+							"previewShowSelector" : "gtShapesFor:",
+							"exampleBehaviorName" : "ProcessingCanvasExamples",
+							"codeExpanded" : true,
+							"previewExpanded" : false,
+							"noCode" : true
 						}
 					]
 				},

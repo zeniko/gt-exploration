@@ -6,7 +6,8 @@ Class {
 		'view',
 		'index',
 		'announcer',
-		'reloader'
+		'reloader',
+		'background'
 	],
 	#category : #'GtExploration-GtExtensions'
 }
@@ -37,6 +38,11 @@ Stepper >> asElement [
 	^ (GtInspector forObject: self) asElement
 ]
 
+{ #category : #accessing }
+Stepper >> background: aBackground [
+	background := aBackground.
+]
+
 { #category : #initialization }
 Stepper >> for: aList view: aView [
 	(aList isKindOf: FullBlockClosure) ifTrue: [
@@ -62,8 +68,9 @@ Stepper >> gtContentFor: aView [
 		title: 'Step' translated;
 		stencil: [
 			| element |
-			((list at: index) perform: view with: GtPhlowView empty) asElementDo: [ :e | element := e ].
-			element asScalableElement
+			((list at: index) perform: view with: GtPhlowView empty) asElementDo: [ :e | element := e asScalableElement ].
+			background ifNotNil: [ element background: background. ].
+			element
 		];
 		updateWhen: StepperUpdate in: announcer)
 ]

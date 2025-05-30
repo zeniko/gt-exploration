@@ -18,7 +18,8 @@ Class {
 		'canvasOutput',
 		'transform',
 		'canvasSize',
-		'backgroundColor'
+		'backgroundColor',
+		'shapes'
 	],
 	#category : #'GtExploration-Processing'
 }
@@ -60,6 +61,7 @@ ProcessingCanvas >> background: color [
 	backgroundColor := color.
 	canvasOutput background: color.
 	canvasOutput children do: #removeFromParent.
+	shapes removeAll.
 ]
 
 { #category : #shapes }
@@ -204,10 +206,19 @@ ProcessingCanvas >> gtDisplayOn: aStream [
 ]
 
 { #category : #views }
+ProcessingCanvas >> gtShapesFor: aView [
+	<gtView>
+	^ ((Stepper for: shapes view: #gtLiveFor:) background: backgroundColor; gtListViewFor: aView)
+		title: 'Shapes' translated;
+		priority: 20
+]
+
+{ #category : #views }
 ProcessingCanvas >> gtViewFor: aView [
 	<gtView>
 	^ (self asElement gtLiveFor: aView)
-		title: 'Output' translated
+		title: 'Output' translated;
+		priority: 10
 ]
 
 { #category : #events }
@@ -270,6 +281,7 @@ ProcessingCanvas >> initialize [
 	transform := #yourself.
 	startMilliseconds := Time millisecondClockValue.
 	events := OrderedCollection new.
+	shapes := OrderedCollection new.
 	
 	containerElement := ProcessingCanvasElement new.
 	canvasElement := (containerElement addVisualCanvasFor: self)
@@ -359,8 +371,9 @@ ProcessingCanvas >> noStroke [
 { #category : #initialization }
 ProcessingCanvas >> place: shape [
 	| element |
-	element := shape asElementTransformed.
+	shapes add: shape.
 	
+	element := shape asElementTransformed.
 	canvasOutput addChild: element.
 	"Add an explanation marker, if explaining has been enabled."
 	containerElement dispatchEvent: (ProcessingExplainShape
@@ -440,6 +453,11 @@ ProcessingCanvas >> scale: factor [
 	transform := [ :trans | prev value: (trans scaleBy: factor) ].
 ]
 
+{ #category : #accessing }
+ProcessingCanvas >> shapes [
+	^ shapes
+]
+
 { #category : #modifiers }
 ProcessingCanvas >> size: width by: height [
 	canvasSize := width @ height.
@@ -496,6 +514,7 @@ ProcessingCanvas >> text: text at: pos [
 		roped: (text asRopedText
 			fontSize: textSize;
 			foreground: fillColor);
+		fillColor: fillColor;
 		transform: transform;
 		context: self callerSource)
 ]

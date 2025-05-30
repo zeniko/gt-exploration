@@ -12,7 +12,7 @@ ProcessingProgramExamples >> allViews [
 	views := program class methodDict keys select: [ :key |
 		(key beginsWith: 'gt') & (key endsWith: 'For:')
 	].
-	self assert: views size equals: 21.
+	self assert: views size equals: 22.
 	views do: [ :key |
 		| view element |
 		view := program perform: key with: GtPhlowView empty.

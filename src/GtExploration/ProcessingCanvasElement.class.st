@@ -20,11 +20,22 @@ ProcessingCanvasElement >> addTextCanvasFor: aTranscript [
 ]
 
 { #category : #initialization }
+ProcessingCanvasElement >> addVisualCanvas: aSize colored: aColor [
+	| canvasElement |
+	canvasElement := BlElement new
+		size: aSize;
+		background: aColor;
+		yourself.
+	visualContainer addChild: canvasElement asScalableElement.
+	^ canvasElement
+]
+
+{ #category : #initialization }
 ProcessingCanvasElement >> addVisualCanvasFor: aProcessingCanvas [
 	| canvasElement |
 	canvasElement := BlElement new
-		background: aProcessingCanvas background;
 		size: aProcessingCanvas canvasSize;
+		background: aProcessingCanvas background;
 		yourself.
 	visualContainer addChild: canvasElement asScalableElement.
 	^ canvasElement

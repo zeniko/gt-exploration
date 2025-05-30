@@ -3,13 +3,13 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'variables',
-		'canvas',
-		'visible',
 		'method',
 		'stack',
 		'slice',
 		'transcript',
-		'screenshot'
+		'shapes',
+		'canvasSize',
+		'canvasColor'
 	],
 	#category : #'GtExploration-Processing'
 }
@@ -21,19 +21,12 @@ ProcessingRunStep class >> create: aContext canvas: aCanvas slice: aSlice [
 
 { #category : #views }
 ProcessingRunStep >> asString [
-	^ 'Step: ' , slice asString
-]
-
-{ #category : #initalization }
-ProcessingRunStep >> canvasTranscript [
-	^ canvas transcript ifNotNil: [ canvas transcript textDo: #asString ] ifNil: [ '' ]
+	^ 'Step' translated , ': ' , slice asString
 ]
 
 { #category : #initalization }
 ProcessingRunStep >> create: aContext canvas: aCanvas slice: aSlice [
-	canvas := aCanvas.
-	visible := aCanvas canvasElement children collect: [ :child | child ].
-	transcript := self canvasTranscript.
+	self updateCanvas: aCanvas.
 	variables := Dictionary new.
 	aContext receiver ifNotNil: [
 		aContext receiver class slots do: [ :slot |
@@ -167,18 +160,21 @@ ProcessingRunStep >> gtBytecodeFor: aView [
 { #category : #views }
 ProcessingRunStep >> gtOutputFor: aView [
 	<gtView>
-	"since the canvas can't be (easily) cloned, reuse it and just show only elements visible at this step"
-	canvas canvasElement children do: [ :child |
-		child visibility: ((visible includes: child) ifTrue: [ BlVisibility visible ] ifFalse: [ BlVisibility hidden ]).
+	| containerElement visualOutput |
+	containerElement := ProcessingCanvasElement new.
+	visualOutput := containerElement addVisualCanvas: canvasSize colored: canvasColor.
+	visualOutput size: canvasSize; background: canvasColor.
+	
+	shapes do: [ :shape | visualOutput addChild: shape asElementTransformed. ].
+	
+	transcript ifNotNil: [
+		| transcr |
+		transcr := GtTranscript new.
+		transcr nextPutAll: transcript.
+		containerElement addTextCanvasFor: transcr.
 	].
-	canvas transcript ifNotNil: [
-		"TODO: Clearing an empty GtTranscript raises an exception."
-		self canvasTranscript ifNotEmpty: [
-			canvas transcript clear.
-		].
-		canvas transcript nextPutAll: transcript.
-	].
-	^ (canvas gtViewFor: aView) "(screenshot gtLiveFor: aView)"
+	
+	^ (containerElement gtLiveFor: aView)
 		title: 'Output' translated;
 		priority: 20
 ]
@@ -217,10 +213,8 @@ ProcessingRunStep >> gtVariablesFor: aView [
 
 { #category : #initalization }
 ProcessingRunStep >> updateCanvas: aCanvas [
-	visible := aCanvas canvasElement children collect: [ :child | child ].
-	transcript := self canvasTranscript.
-	"TODO: fix screenshot size"
-	"screenshot := BlExporter png
-		element: aCanvas canvasElement;
-		doExport: [ :cv | cv snapshot asElement asScalableElement ]."
+	shapes := aCanvas shapes clone.
+	transcript := aCanvas transcript ifNotNil: [ aCanvas transcript textDo: #asString ].
+	canvasSize := aCanvas canvasSize.
+	canvasColor := aCanvas background.
 ]

@@ -68,11 +68,13 @@ ProcessingTranspiler >> acceptStatements: expr [
 ProcessingTranspiler >> compile: ast [
 	| class source instance |
 	source := self transpile: ast.
+	
 	class := ProcessingCodeBase newAnonymousSubclass.
 	globalVariables do: [ :name | class addSlot: name ].
 	(source splitOn: '
 
 ') do: [ :method | class compile: method ].
+	
 	instance := class new.
 	class methodDict keysDo: [ :key |
 		(astMaps at: key asString) do: [ :slice |

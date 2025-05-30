@@ -465,6 +465,17 @@ ProcessingProgram >> gtOutputPlusSourceFor: aView [
 ]
 
 { #category : #views }
+ProcessingProgram >> gtOutputShapesFor: aView [
+	<gtView>
+	compilation gtIsAnimation ifTrue: [ ^ GtPhlowView empty ].
+	^ (self gtGetLiveView: aView for: [ :view | self canvas gtShapesFor: view ]
+		title: 'Shapes' translated
+		priority: 42)
+		asElementDo: [ :e | e margin: (BlInsets all: 0) ];
+		yourself
+]
+
+{ #category : #views }
 ProcessingProgram >> gtSelectBytecode: aList at: position [
 	| slices |
 	slices := compilation gtSlicesAround: position.

@@ -150,7 +150,7 @@
 				"exampleSelector" : "parseMinimal",
 				"previewHeight" : 200,
 				"previewShowSelector" : "gtViewsFor:",
-				"exampleBehaviorName" : "ProcessingParserExamples",
+				"exampleBehaviorName" : "ProcessingTokenExtractorExamples",
 				"codeExpanded" : true,
 				"previewExpanded" : false,
 				"noCode" : false
