@@ -2,22 +2,35 @@ Class {
 	#name : #ProcessingCanvasText,
 	#superclass : #ProcessingCanvasShape,
 	#instVars : [
-		'roped'
+		'text',
+		'textSize'
 	],
 	#category : #'GtExploration-Processing'
 }
 
 { #category : #views }
 ProcessingCanvasText >> asElement [
-	^ BlTextElement new text: roped
+	^ BlTextElement new text: (text asRopedText
+		fontSize: textSize;
+		foreground: fillColor)
 ]
 
 { #category : #accessing }
-ProcessingCanvasText >> roped [
-	^ roped
+ProcessingCanvasText >> text [
+	^ text
 ]
 
 { #category : #accessing }
-ProcessingCanvasText >> roped: someText [
-	roped := someText.
+ProcessingCanvasText >> text: aText [
+	text := aText.
+]
+
+{ #category : #accessing }
+ProcessingCanvasText >> textSize [
+	^ textSize
+]
+
+{ #category : #accessing }
+ProcessingCanvasText >> textSize: aTextSize [
+	textSize := aTextSize.
 ]

@@ -61,7 +61,13 @@ ProcessingCanvasShape >> fillColor: aColor [
 { #category : #views }
 ProcessingCanvasShape >> gtLiveFor: aView [
 	<gtView>
-	^ (self asElementTransformed gtLiveFor: aView)
+	^ aView explicit
+		stencil: [
+			GtInspectorElementLiveViewContainer new 
+				element: self asElementTransformed;
+				background: BlBackground transparent;
+				clipChildren: false
+		];
 		title: 'Live' translated;
 		priority: 10
 ]

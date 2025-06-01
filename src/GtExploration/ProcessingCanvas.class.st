@@ -441,9 +441,8 @@ ProcessingCanvas >> text: text at: pos [
 	self output: (ProcessingCanvasText new
 		"y-position is of baseline"
 		position: pos - (0 @ textSize);
-		roped: (text asRopedText
-			fontSize: textSize;
-			foreground: fillColor)).
+		text: text;
+		textSize: textSize).
 ]
 
 { #category : #shapes }

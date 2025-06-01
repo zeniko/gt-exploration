@@ -10,7 +10,7 @@ Class {
 { #category : #views }
 ProcessingCanvasImage >> asElement [
 	^ image asElement
-		background: fillColor;
+		background: BlBackground transparent;
 		size: rectSize;
 		yourself.
 ]
