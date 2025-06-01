@@ -9,27 +9,30 @@ ProcessingTranspilerExamples >> allViews [
 	<gtExample>
 	| compilation views |
 	compilation := self transpileMinimal.
-	views := ProcessingCodeBase methodDict keys select: [ :key |
-		(key beginsWith: 'gt') & (key endsWith: 'For:')
-	].
+	views := ProcessingCodeBase methodDict keys
+			select: [ :key | (key beginsWith: 'gt') & (key endsWith: 'For:') ].
 	self assert: views size equals: 6.
-	views do: [ :key |
-		| view element |
-		view := compilation perform: key with: GtPhlowView empty.
-		self assert: view isNotNil.
-		element := view asElement.
-		self assert: (element containerName = 'phlow--exception') equals: false.
-	].
+	views
+		do: [ :key | 
+			| view element |
+			view := compilation perform: key with: GtPhlowView empty.
+			self assert: view isNotNil.
+			element := view asElement.
+			self assert: element containerName = 'phlow--exception' equals: false ].
 	^ compilation
 ]
 
 { #category : #example }
 ProcessingTranspilerExamples >> compare: anInstance with: aTranspilation [
 	| methods |
-	methods := OrderedCollection newFromArray: (anInstance class methods collect: #sourceCode).
-	self assert: methods sorted equals: (aTranspilation splitOn: '
+	methods := OrderedCollection
+			newFromArray: (anInstance class methods collect: #sourceCode).
+	self
+		assert: methods sorted
+		equals: (aTranspilation
+				splitOn: '
 
-') sorted.
+') sorted
 ]
 
 { #category : #example }
@@ -446,10 +449,14 @@ ProcessingTranspilerExamples >> transpileAlpinerWanderweg [
 	| ast transpiler |
 	ast := ProcessingProgramExamples new programAlpinerWanderweg ast.
 	transpiler := self newTranspiler.
-	self assert: (transpiler transpile: ast) equals: self transpilationAlpinerWanderweg.
+	self
+		assert: (transpiler transpile: ast)
+		equals: self transpilationAlpinerWanderweg.
 	self assert: transpiler variables size equals: 0.
 	self assert: transpiler userDefs size equals: 0.
-	self compare: (transpiler compile: ast) with: self transpilationAlpinerWanderweg.
+	self
+		compare: (transpiler compile: ast)
+		with: self transpilationAlpinerWanderweg.
 	^ transpiler compile: ast
 ]
 
@@ -694,7 +701,7 @@ ProcessingTranspilerExamples >> transpileSierpinski [
 	self assert: transpiler variables size equals: 1.
 	self assert: (' ' join: transpiler variables sorted) equals: 'px'.
 	self assert: transpiler userDefs size equals: 1.
-	self compare: (transpiler compile: ast) with:self transpilationSierpinski.
+	self compare: (transpiler compile: ast) with: self transpilationSierpinski.
 	^ transpiler compile: ast
 ]
 
@@ -743,7 +750,9 @@ ProcessingTranspilerExamples >> transpileTurtleGraphics [
 	| ast transpiler |
 	ast := ProcessingProgramExamples new programTurtleGraphics ast.
 	transpiler := self newTranspiler.
-	self assert: (transpiler transpile: ast) equals: self transpilationTurtleGraphics.
+	self
+		assert: (transpiler transpile: ast)
+		equals: self transpilationTurtleGraphics.
 	self assert: transpiler variables size equals: 3.
 	self assert: (' ' join: transpiler variables sorted) equals: 't_angle t_x t_y'.
 	self assert: transpiler userDefs size equals: 5.

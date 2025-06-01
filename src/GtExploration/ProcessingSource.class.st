@@ -12,9 +12,10 @@ Class {
 ProcessingSource class >> fromFile: locator [
 	| source |
 	source := ProcessingSource new source: locator.
-	locator watcher startLoop announcer when: GtFileWatcherModificationAnnouncement do: [ :event |
-		source announceSourceChange.
-	] for: source.
+	locator watcher startLoop announcer
+		when: GtFileWatcherModificationAnnouncement
+		do: [ :event | source announceSourceChange ]
+		for: source.
 	^ source
 ]
 
@@ -25,7 +26,8 @@ ProcessingSource class >> fromPage: aPage [
 
 { #category : #initialization }
 ProcessingSource class >> fromPage: aPage at: anIndex [
-	^ self fromSnippet: ((aPage children select: [ :snip | snip isKindOf: LePythonSnippet ]) at: anIndex)
+	^ self
+		fromSnippet: ((aPage children select: [ :snip | snip isKindOf: LePythonSnippet ]) at: anIndex)
 ]
 
 { #category : #initialization }
@@ -35,28 +37,35 @@ ProcessingSource class >> fromSnippet: aSnippet [
 
 { #category : #initialization }
 ProcessingSource class >> fromString: code [
-	^ self fromFile: ((FileSystem memory workingDirectory / ('prog' , ((SharedRandom globalGenerator nextInteger: 89999) + 10000) asString , '.pyde')) writeStreamDo: [ :stream | stream nextPutAll: code ]; yourself)
+	^ self
+		fromFile: ((FileSystem memory workingDirectory
+				/ ('prog' , ((SharedRandom globalGenerator nextInteger: 89999) + 10000) asString
+						, '.pyde'))
+				writeStreamDo: [ :stream | stream nextPutAll: code ];
+				yourself)
 ]
 
 { #category : #initialization }
 ProcessingSource class >> fromViewModel: aViewModel [
 	| source |
 	source := self fromString: aViewModel coderModel currentSourceString.
-	aViewModel announcer when: GtTextualCoderViewModelTextChanged do: [ :event |
-		source onSourceChangedTo: event text asString.
-	] for: source.
+	aViewModel announcer
+		when: GtTextualCoderViewModelTextChanged
+		do: [ :event | source onSourceChangedTo: event text asString ]
+		for: source.
 	^ source
 ]
 
 { #category : #announcements }
 ProcessingSource >> announceSourceChange [
 	| ast |
-	[
-		ast := ProcessingParser parse: self asString.
-		self announcer announce: (ProcessingSourceChanged new source: self; ast: ast).
-	] on: SmaCCParserError do: [ :error |
-		"silently swallow errors on updates, as these happen intermittently during incomplete/slow typing"
-	].
+	[ ast := ProcessingParser parse: self asString.
+	self announcer
+		announce: (ProcessingSourceChanged new
+				source: self;
+				ast: ast) ]
+		on: SmaCCParserError
+		do: [ :error "silently swallow errors on updates, as these happen intermittently during incomplete/slow typing" |  ]
 ]
 
 { #category : #announcements }
@@ -128,7 +137,7 @@ ProcessingSource >> gtTreeFor: aView [
 { #category : #announcements }
 ProcessingSource >> onSourceChangedTo: aCode [
 	source writeStreamDo: [ :stream | stream nextPutAll: aCode ].
-	self announceSourceChange.
+	self announceSourceChange
 ]
 
 { #category : #initialization }
@@ -148,13 +157,12 @@ ProcessingSource >> renderLive [
 
 { #category : #runtime }
 ProcessingSource >> renderLiveView: aViewSelector [
-	(self class methodDict includesKey: aViewSelector) ifFalse: [
-		^ LiveViewWrapper createFor: self program view: aViewSelector
-	].
+	(self class methodDict includesKey: aViewSelector)
+		ifFalse: [ ^ LiveViewWrapper createFor: self program view: aViewSelector ].
 	^ LiveViewWrapper createFor: self view: aViewSelector
 ]
 
 { #category : #initialization }
 ProcessingSource >> source: aSource [
-	source := aSource.
+	source := aSource
 ]

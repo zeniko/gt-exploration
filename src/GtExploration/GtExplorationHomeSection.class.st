@@ -15,21 +15,19 @@ GtExplorationHomeSection class >> studentMode [
 { #category : #accessing }
 GtExplorationHomeSection class >> studentMode: aBoolean [
 	studentMode := aBoolean.
-	self updateGtWorld.
+	self updateGtWorld
 ]
 
 { #category : #initialization }
 GtExplorationHomeSection >> cardPriorities [
-	^ #(
-		explorationCard
-		processingAbstractionCard
-	)
+	^ #(explorationCard processingAbstractionCard)
 ]
 
 { #category : #card }
 GtExplorationHomeSection >> explorationCard [
-	<gtSectionCard>
 	"allow hiding this card in student distributions"
+
+	<gtSectionCard>
 	self class studentMode ifTrue: [ ^ GtEmptyHomeCard new ].
 	^ GtHomeCard lazy
 		title: 'Implementation and Tests';
@@ -37,14 +35,12 @@ GtExplorationHomeSection >> explorationCard [
 		databaseName: 'zeniko:gt-exploration';
 		pageName: 'Individual Project';
 		setPriority;
-		loadLepiter: [
-			Metacello new
+		loadLepiter: [ Metacello new
 				repository: 'github://zeniko/gt-exploration:main/src';
 				baseline: 'GtExploration';
 				load.
 			#BaselineOfGtExploration asClass loadLepiter.
-			self class updateGtWorld
-		];
+			self class updateGtWorld ];
 		assertInvariant;
 		yourself
 ]
@@ -58,14 +54,12 @@ GtExplorationHomeSection >> processingAbstractionCard [
 		databaseName: 'zeniko:processing-abstractions';
 		pageName: 'Einleitung';
 		setPriority;
-		loadLepiter: [
-			Metacello new
+		loadLepiter: [ Metacello new
 				repository: 'github://zeniko/processing-abstractions:main/src';
 				baseline: 'ProcessingAbstractions';
 				load.
 			#BaselineOfProcessingAbstractions asClass loadLepiter.
-			self class updateGtWorld
-		];
+			self class updateGtWorld ];
 		assertInvariant;
 		yourself
 ]

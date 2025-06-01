@@ -13,7 +13,7 @@ ProcessingCanvasPolygon >> asElement [
 		anchors: (vertices collect: [ :xy | BlAbsolutePositionAnchor position: xy - position ]);
 		background: fillColor;
 		border: border;
-		yourself.
+		yourself
 ]
 
 { #category : #accessing }
@@ -24,5 +24,5 @@ ProcessingCanvasPolygon >> vertices [
 { #category : #accessing }
 ProcessingCanvasPolygon >> vertices: someVertices [
 	vertices := someVertices.
-	position := vertices reduce: [ :a :b | a min: b ].
+	position := vertices reduce: [ :a :b | a min: b ]
 ]

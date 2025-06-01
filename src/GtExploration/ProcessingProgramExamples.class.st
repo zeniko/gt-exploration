@@ -9,17 +9,16 @@ ProcessingProgramExamples >> allViews [
 	<gtExample>
 	| program views |
 	program := self programMinimal.
-	views := program class methodDict keys select: [ :key |
-		(key beginsWith: 'gt') & (key endsWith: 'For:')
-	].
+	views := program class methodDict keys
+			select: [ :key | (key beginsWith: 'gt') & (key endsWith: 'For:') ].
 	self assert: views size equals: 22.
-	views do: [ :key |
-		| view element |
-		view := program perform: key with: GtPhlowView empty.
-		self assert: view isNotNil.
-		element := view asElement.
-		self assert: (element containerName = 'phlow--exception') equals: false.
-	].
+	views
+		do: [ :key | 
+			| view element |
+			view := program perform: key with: GtPhlowView empty.
+			self assert: view isNotNil.
+			element := view asElement.
+			self assert: element containerName = 'phlow--exception' equals: false ].
 	^ program
 ]
 
@@ -131,9 +130,9 @@ ProcessingProgramExamples >> programExample07 [
 	self assert: program compilation isNotNil.
 	self assert: program ast isNotNil.
 	message := nil.
-	[ program compilation gtCanvas: ProcessingCanvas new; gtRun ]
-		on: AssertionFailure
-		do: [ :ex | message := ex asString ].
+	[ program compilation
+		gtCanvas: ProcessingCanvas new;
+		gtRun ] on: AssertionFailure do: [ :ex | message := ex asString ].
 	self assert: message equals: 'AssertionFailure: Done!'.
 	^ program
 ]

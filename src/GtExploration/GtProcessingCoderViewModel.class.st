@@ -6,20 +6,20 @@ Class {
 
 { #category : #'api - actions' }
 GtProcessingCoderViewModel >> doIt [
-	self coder doIt: self evaluationContext.
+	self coder doIt: self evaluationContext
 ]
 
 { #category : #'api - actions' }
 GtProcessingCoderViewModel >> doItAndGo [
-	self coder doItAndGo: self evaluationContext.
+	self coder doItAndGo: self evaluationContext
 ]
 
 { #category : #'api - actions' }
 GtProcessingCoderViewModel >> doItAndGoAsynchronous [
-	self coder doItAndGoAsynchronous: self evaluationContext.
+	self coder doItAndGoAsynchronous: self evaluationContext
 ]
 
 { #category : #'api - actions' }
 GtProcessingCoderViewModel >> doItAndGoSerialized [
-	self coder doItAndGoSerialized: self evaluationContext.
+	self coder doItAndGoSerialized: self evaluationContext
 ]

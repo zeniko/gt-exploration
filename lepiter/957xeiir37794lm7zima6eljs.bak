@@ -264,8 +264,8 @@
 								"uidString" : "kBqk473yDQCv1z+lDQi2oA=="
 							},
 							"exampleSelector" : "example02",
-							"previewHeight" : 250,
-							"previewShowSelector" : "gtOutputPlusSourceFor:",
+							"previewHeight" : 200,
+							"previewShowSelector" : "gtShapesFor:",
 							"exampleBehaviorName" : "ProcessingCanvasExamples",
 							"codeExpanded" : true,
 							"previewExpanded" : false,

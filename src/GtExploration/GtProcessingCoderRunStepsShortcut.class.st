@@ -12,9 +12,9 @@ GtProcessingCoderRunStepsShortcut >> description [
 { #category : #initialization }
 GtProcessingCoderRunStepsShortcut >> initialize [
 	super initialize.
-	
+
 	combination := BlKeyCombination primaryG.
-	name := 'Run Steps'.
+	name := 'Run Steps'
 ]
 
 { #category : #evaluation }

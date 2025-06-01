@@ -26,7 +26,7 @@ ProcessingCanvasLine >> fromXy [
 ProcessingCanvasLine >> fromXy: aFromXy toXy: aToXy [
 	fromXy := aFromXy.
 	toXy := aToXy.
-	position := fromXy min: toXy.
+	position := fromXy min: toXy
 ]
 
 { #category : #accessing }

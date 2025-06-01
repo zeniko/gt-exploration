@@ -16,7 +16,10 @@ Class {
 
 { #category : #initalization }
 ProcessingRunStep class >> create: aContext canvas: aCanvas slice: aSlice [
-	^ ProcessingRunStep new create: aContext canvas: aCanvas slice: aSlice
+	^ ProcessingRunStep new
+		create: aContext
+		canvas: aCanvas
+		slice: aSlice
 ]
 
 { #category : #views }
@@ -28,31 +31,29 @@ ProcessingRunStep >> asString [
 ProcessingRunStep >> create: aContext canvas: aCanvas slice: aSlice [
 	self updateCanvas: aCanvas.
 	variables := Dictionary new.
-	aContext receiver ifNotNil: [
-		aContext receiver class slots do: [ :slot |
-			(slot name beginsWith: 'gt_') ifTrue: [
-				variables at: ('gt' , (slot name removePrefix: 'gt_')) asSymbol put: (aContext receiver instVarNamed: slot name)
-			].
-			(slot name beginsWith: 'gt') ifFalse: [
-				(ProcessingTranspiler implicitVariables includes: slot name) ifFalse: [
-					variables at: slot name put: (aContext receiver instVarNamed: slot name)
-				].
-			].
-		].
-	].
-	aContext tempNames do: [ :name | variables at: name put: (aContext tempNamed: name) ].
+	aContext receiver
+		ifNotNil: [ aContext receiver class slots
+				do: [ :slot | 
+					(slot name beginsWith: 'gt_')
+						ifTrue: [ variables
+								at: ('gt' , (slot name removePrefix: 'gt_')) asSymbol
+								put: (aContext receiver instVarNamed: slot name) ].
+					(slot name beginsWith: 'gt')
+						ifFalse: [ (ProcessingTranspiler implicitVariables includes: slot name)
+								ifFalse: [ variables at: slot name put: (aContext receiver instVarNamed: slot name) ] ] ] ].
+	aContext tempNames
+		do: [ :name | variables at: name put: (aContext tempNamed: name) ].
 	method := aContext sourceNodeExecuted.
 	stack := (1 to: aContext size) collect: [ :ix | aContext at: ix ].
-	slice := aSlice.
+	slice := aSlice
 ]
 
 { #category : #views }
 ProcessingRunStep >> gtAbstractionsFor: aView [
 	<gtView>
-	(slice isKindOf: ProcessingRunawayProgramException) ifTrue: [
-		"ProcessingProgram>>#runStepsFor: adds an unthrown exception as a last step, if the program runs too long"
-		^ aView forward object: [ slice signal ].
-	].
+	(slice isKindOf: ProcessingRunawayProgramException)
+		ifTrue: [  "ProcessingProgram>>#runStepsFor: adds an unthrown exception as a last step, if the program runs too long"^ aView
+				forward object: [ slice signal ] ].
 	^ aView explicit
 		priority: 1;
 		title: 'Abstractions' translated;
@@ -60,101 +61,88 @@ ProcessingRunStep >> gtAbstractionsFor: aView [
 			element := BlElement new.
 			element layout: (BlGridLayout new columnCount: 2).
 			element
-				constraintsDo: [ :c |
+				constraintsDo: [ :c | 
 					c vertical matchParent.
 					c horizontal matchParent ].
-			
+
 			child := BlElement new.
-			slice ifNotNil: [
-				(slice gtSourceFor: GtPhlowView empty)
-					asElementDo: [ :e | child := e ].
-				child
-					background: Color white;
-					margin: (BlInsets all: 5).
-			].
+			slice
+				ifNotNil: [ (slice gtSourceFor: GtPhlowView empty) asElementDo: [ :e | child := e ].
+					child
+						background: Color white;
+						margin: (BlInsets all: 5) ].
 			element addChild: child.
-			
-			(self gtBytecodeFor: GtPhlowView empty)
-				asElementDo: [ :e | child := e ].
+
+			(self gtBytecodeFor: GtPhlowView empty) asElementDo: [ :e | child := e ].
 			child
 				background: Color white;
 				margin: (BlInsets all: 5).
 			element addChild: child.
-			
+
 			inner := BlElement new.
 			inner layout: BlLinearLayout vertical.
 			inner
-				constraintsDo: [ :c |
+				constraintsDo: [ :c | 
 					c vertical matchParent.
 					c horizontal matchParent ].
-			
-			(self gtVariablesFor: GtPhlowView empty)
-				asElementDo: [ :e | child := e ].
+
+			(self gtVariablesFor: GtPhlowView empty) asElementDo: [ :e | child := e ].
 			child
 				background: Color white;
 				margin: (BlInsets all: 5).
 			inner addChild: child.
-			
-			(self gtStackFor: GtPhlowView empty)
-				asElementDo: [ :e | child := e ].
+
+			(self gtStackFor: GtPhlowView empty) asElementDo: [ :e | child := e ].
 			child
 				background: Color white;
 				margin: (BlInsets all: 5).
 			inner addChild: child.
 			element addChild: inner.
-			
-			(self gtOutputFor: GtPhlowView empty)
-				asElementDo: [ :e | child := e ].
+
+			(self gtOutputFor: GtPhlowView empty) asElementDo: [ :e | child := e ].
 			child
-				constraintsDo: [ :c |
+				constraintsDo: [ :c | 
 					c vertical matchParent.
 					c horizontal matchParent ];
 				margin: (BlInsets all: 5).
 			element addChild: child.
-			
+
 			element ]
 ]
 
 { #category : #views }
 ProcessingRunStep >> gtBytecodeFor: aView [
 	"Adapted from ProcessingCodeBase>>#gtBytecodeFor:"
+
 	<gtView>
 	^ aView columnedList
 		title: 'Bytecode' translated;
 		priority: 20;
-		items: [
-			method methodNode method symbolicBytecodes select: [ :item |
-				slice interval includesAll: item sourceInterval
-			]
-		];
+		items: [ method methodNode method symbolicBytecodes
+				select: [ :item | slice interval includesAll: item sourceInterval ] ];
 		column: 'Address' translated
-			text: [ :each |
-				((each isKindOf: CompiledMethod) ifTrue: [
-					'----'
-				] ifFalse: [
-					each offset
-				]) asRopedText foreground: Color gray
-			] width: 50;
+			text: [ :each | 
+				((each isKindOf: CompiledMethod) ifTrue: [ '----' ] ifFalse: [ each offset ])
+					asRopedText foreground: Color gray ]
+			width: 50;
 		column: 'Code' translated
-			text: [ :each |
-				((each isKindOf: CompiledMethod) ifTrue: [
-					'----'
-				] ifFalse: [
-					| byteStr |
-					byteStr := OrderedCollection new.
-					each bytes do: [ :byte | byteStr add: ((byte radix: 10) padLeftTo: 2 with: $0) ].
-					' ' join: byteStr
-				]) asRopedText foreground: Color blue
-			] width: 45;
+			text: [ :each | 
+				((each isKindOf: CompiledMethod)
+					ifTrue: [ '----' ]
+					ifFalse: [ | byteStr |
+						byteStr := OrderedCollection new.
+						each bytes
+							do: [ :byte | byteStr add: ((byte radix: 10) padLeftTo: 2 with: $0) ].
+						' ' join: byteStr ]) asRopedText foreground: Color blue ]
+			width: 45;
 		column: 'Mnemonic' translated
-			text: [ :each |
-				(each isKindOf: CompiledMethod) ifTrue: [
-					'FUNCTION ' , ((each sourceCode splitOn: '
-') first splitOn: ':') first
-				] ifFalse: [
-					each description
-				]
-			]
+			text: [ :each | 
+				(each isKindOf: CompiledMethod)
+					ifTrue: [ 'FUNCTION '
+							, ((each sourceCode
+									splitOn: '
+') first splitOn: ':') first ]
+					ifFalse: [ each description ] ]
 ]
 
 { #category : #views }
@@ -162,18 +150,20 @@ ProcessingRunStep >> gtOutputFor: aView [
 	<gtView>
 	| containerElement visualOutput |
 	containerElement := ProcessingCanvasElement new.
-	visualOutput := containerElement addVisualCanvas: canvasSize colored: canvasColor.
-	visualOutput size: canvasSize; background: canvasColor.
-	
-	shapes do: [ :shape | visualOutput addChild: shape asElementTransformed. ].
-	
-	transcript ifNotNil: [
-		| transcr |
-		transcr := GtTranscript new.
-		transcr nextPutAll: transcript.
-		containerElement addTextCanvas: transcr.
-	].
-	
+	visualOutput := containerElement
+			addVisualCanvas: canvasSize
+			colored: canvasColor.
+	visualOutput
+		size: canvasSize;
+		background: canvasColor.
+
+	shapes do: [ :shape | visualOutput addChild: shape asElementTransformed ].
+
+	transcript
+		ifNotNil: [ | transcr |
+			transcr := GtTranscript new.
+			transcr nextPutAll: transcript.
+			containerElement addTextCanvas: transcr ].
 	^ (containerElement gtLiveFor: aView)
 		title: 'Output' translated;
 		priority: 30
@@ -194,7 +184,9 @@ ProcessingRunStep >> gtStackFor: aView [
 		title: 'Stack';
 		priority: 15;
 		items: [ stack reverse ];
-		column: 'Stack' text: [ :each :index | index asRopedText foreground: Color gray ] width: 45;
+		column: 'Stack'
+			text: [ :each :index | index asRopedText foreground: Color gray ]
+			width: 45;
 		column: 'Value' translated text: [ :each | each gtDisplayText ];
 		column: '"Pointer"' text: [ :each | each basicIdentityHash asString ]
 ]
@@ -207,14 +199,17 @@ ProcessingRunStep >> gtVariablesFor: aView [
 		priority: 10;
 		items: [ variables associations sort: (#key collatedBy: #asString) ];
 		column: 'Name' translated text: [ :assoc | assoc key ];
-		column: 'Variable value' translated text: [ :assoc | assoc value ] weight: 3;
+		column: 'Variable value' translated
+			text: [ :assoc | assoc value ]
+			weight: 3;
 		send: [ :assoc | assoc value ]
 ]
 
 { #category : #initalization }
 ProcessingRunStep >> updateCanvas: aCanvas [
 	shapes := aCanvas shapes clone.
-	transcript := aCanvas transcript ifNotNil: [ aCanvas transcript textDo: #asString ].
+	transcript := aCanvas transcript
+			ifNotNil: [ aCanvas transcript textDo: #asString ].
 	canvasSize := aCanvas canvasSize.
-	canvasColor := aCanvas background.
+	canvasColor := aCanvas background
 ]

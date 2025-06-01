@@ -12,9 +12,9 @@ GtProcessingCoderDebugShortcut >> description [
 { #category : #initialization }
 GtProcessingCoderDebugShortcut >> initialize [
 	super initialize.
-	
+
 	combination := BlKeyCombination builder primary shift d build.
-	name := 'Debug'.
+	name := 'Debug'
 ]
 
 { #category : #evaluation }

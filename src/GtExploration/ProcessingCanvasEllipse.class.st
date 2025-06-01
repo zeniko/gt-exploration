@@ -25,5 +25,5 @@ ProcessingCanvasEllipse >> ellipseSize [
 
 { #category : #accessing }
 ProcessingCanvasEllipse >> ellipseSize: anEllipseSize [
-	ellipseSize := anEllipseSize.
+	ellipseSize := anEllipseSize
 ]

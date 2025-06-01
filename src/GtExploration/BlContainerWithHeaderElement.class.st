@@ -14,7 +14,7 @@ BlContainerWithHeaderElement >> headerText [
 
 { #category : #accessing }
 BlContainerWithHeaderElement >> headerText: aText [
-	header text: aText.
+	header text: aText
 ]
 
 { #category : #initialization }
@@ -22,21 +22,21 @@ BlContainerWithHeaderElement >> initialize [
 	| textWrapper |
 	super initialize.
 	header := BlAttributedTextElement new
-		padding: (BlInsets all: 15);
-		text: self asRopedText;
-		constraintsDo: [ :c |
-			c vertical fitContent.
-			c horizontal matchParent. ].
+			padding: (BlInsets all: 15);
+			text: self asRopedText;
+			constraintsDo: [ :c | 
+				c vertical fitContent.
+				c horizontal matchParent ].
 	textWrapper := BlElement new
-		addChild: header;
-		constraintsDo: [ :c |
-			c vertical exact: 40.
-			c horizontal matchParent. ];
-		background: BrGlamorousColors defaultHeaderBackgroundColor.
+			addChild: header;
+			constraintsDo: [ :c | 
+				c vertical exact: 40.
+				c horizontal matchParent ];
+			background: BrGlamorousColors defaultHeaderBackgroundColor.
 	self
-		constraintsDo: [ :c |
+		constraintsDo: [ :c | 
 			c vertical matchParent.
-			c horizontal matchParent. ];
+			c horizontal matchParent ];
 		layout: BlLinearLayout vertical;
-		addChild: textWrapper.
+		addChild: textWrapper
 ]

@@ -9,17 +9,16 @@ ProcessingSourceExamples >> allViews [
 	<gtExample>
 	| source views |
 	source := self sourceMinimal.
-	views := source class methodDict keys select: [ :key |
-		(key beginsWith: 'gt') & (key endsWith: 'For:')
-	].
+	views := source class methodDict keys
+			select: [ :key | (key beginsWith: 'gt') & (key endsWith: 'For:') ].
 	self assert: views size equals: 7.
-	views do: [ :key |
-		| view element |
-		view := source perform: key with: GtPhlowView empty.
-		self assert: view isNotNil.
-		element := view asElement.
-		self assert: (element containerName = 'phlow--exception') equals: false.
-	].
+	views
+		do: [ :key | 
+			| view element |
+			view := source perform: key with: GtPhlowView empty.
+			self assert: view isNotNil.
+			element := view asElement.
+			self assert: element containerName = 'phlow--exception' equals: false ].
 	^ source
 ]
 
@@ -329,6 +328,7 @@ for _ in range(20):
 { #category : #source }
 ProcessingSourceExamples >> sourceCodeSwitzerland [
 	"This is an example from the introductionary course and thus inaccurate in both color and proportion"
+
 	^ 'size(200, 200)
 background(255, 0, 0)
 rect(75, 25, 50, 150)

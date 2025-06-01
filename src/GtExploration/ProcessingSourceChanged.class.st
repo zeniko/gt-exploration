@@ -25,5 +25,5 @@ ProcessingSourceChanged >> source [
 
 { #category : #accessing }
 ProcessingSourceChanged >> source: aSource [
-	source := aSource.
+	source := aSource
 ]

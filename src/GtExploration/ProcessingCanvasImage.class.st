@@ -12,7 +12,7 @@ ProcessingCanvasImage >> asElement [
 	^ image asElement
 		background: BlBackground transparent;
 		size: rectSize;
-		yourself.
+		yourself
 ]
 
 { #category : #accessing }
@@ -22,5 +22,5 @@ ProcessingCanvasImage >> image [
 
 { #category : #accessing }
 ProcessingCanvasImage >> image: anImage [
-	image := anImage.
+	image := anImage
 ]

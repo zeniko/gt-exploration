@@ -75,7 +75,7 @@
 				},
 				"search" : "",
 				"replace" : "",
-				"scope" : "#(#('Class' 'ProcessingProgramExamples') )",
+				"scope" : "#(#('Package' 'GtExploration') )",
 				"isMethodPattern" : false
 			},
 			{
@@ -103,7 +103,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-05-29T01:08:11.436+02:00"
+						"dateAndTimeString" : "2025-06-01T17:03:07.878+02:00"
 					}
 				},
 				"uid" : {
@@ -113,7 +113,41 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : ""
+				"string" : "## Reformat Everything"
+			},
+			{
+				"__type" : "pharoSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-06-01T17:03:10.483+02:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-06-01T17:09:57.333+02:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "OOa/ruXyDQC8ZxbXCKFlPg=="
+				},
+				"code" : "classes := Smalltalk packages\r\t\tselect: [ :pkg | pkg name = #GtExploration ]\r\t\tthenFlatCollect: [ :pkg | pkg classes ].\rclasses do: [ :cls | cls reformatAll ]"
 			}
 		]
 	},

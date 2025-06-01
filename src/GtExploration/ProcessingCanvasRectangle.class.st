@@ -23,5 +23,5 @@ ProcessingCanvasRectangle >> rectSize [
 
 { #category : #accessing }
 ProcessingCanvasRectangle >> rectSize: aSize [
-	rectSize := aSize.
+	rectSize := aSize
 ]

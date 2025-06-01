@@ -6,8 +6,7 @@ Class {
 
 { #category : #tool }
 ProcessingParser class >> gtASTNodeNames [
-	^ {
-		PyAssertStatementNode -> 'Assert'.
+	^ {PyAssertStatementNode -> 'Assert'.
 		PyAssignmentExpressionNode -> 'Assignment'.
 		PyAssignmentStatementNode -> 'Assignment'.
 		PyBinaryExpressionNode -> 'Binary Op'.
@@ -30,21 +29,19 @@ ProcessingParser class >> gtASTNodeNames [
 		PyTupleExpressionNode -> 'Tuple'.
 		PyUnaryExpressionNode -> 'Unary Op'.
 		PyVariableExpressionNode -> 'Variable'.
-		PyWhileStatementNode -> 'While Loop'.
-	} asDictionary
+		PyWhileStatementNode -> 'While Loop'} asDictionary
 ]
 
 { #category : #tool }
 ProcessingParser class >> gtGetASTChildren: aNode [
 	| extractor nodes |
 	(aNode isKindOf: PyRootNode) ifFalse: [ ^ #() ].
-	
+
 	extractor := ProcessingTokenExtractor new.
 	nodes := aNode acceptVisitor: extractor.
-	[ nodes size = 1 and: [ nodes first isKindOf: PyRootNode ] ] whileTrue: [
-		nodes := nodes first acceptVisitor: extractor.
-	].
-	
+	[ nodes size = 1 and: [ nodes first isKindOf: PyRootNode ] ]
+		whileTrue: [ nodes := nodes first acceptVisitor: extractor ].
+
 	(nodes size = 1) not ifTrue: [ ^ nodes ].
 	(nodes first isKindOf: PyRootNode) ifTrue: [ ^ nodes ].
 	^ #()

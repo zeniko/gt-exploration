@@ -8,7 +8,9 @@ Class {
 StepperExamples >> animation2Stepper [
 	<gtExample>
 	| stepper |
-	stepper := Stepper for: [ ProcessingRunnerExamples new runAnimation2Stepwise ] view: #gtAbstractionsFor:.
+	stepper := Stepper
+			for: [ ProcessingRunnerExamples new runAnimation2Stepwise ]
+			view: #gtAbstractionsFor:.
 	self assert: stepper index equals: 1.
 	stepper stepTo: 8.
 	self assert: stepper index equals: 8.
@@ -19,7 +21,9 @@ StepperExamples >> animation2Stepper [
 StepperExamples >> example02Stepper [
 	<gtExample>
 	| stepper |
-	stepper := Stepper for: [ ProcessingRunnerExamples new runExample02Stepwise ] view: #gtAbstractionsFor:.
+	stepper := Stepper
+			for: [ ProcessingRunnerExamples new runExample02Stepwise ]
+			view: #gtAbstractionsFor:.
 	self assert: stepper index equals: 1.
 	stepper stepTo: 13.
 	self assert: stepper index equals: 13.
@@ -30,10 +34,14 @@ StepperExamples >> example02Stepper [
 
 { #category : #example }
 StepperExamples >> sierpinskiStepper [
+	"Collecting that many samples takes a few seconds"
+
 	<gtExample>
-	<noTest> "Collecting that many samples takes a few seconds"
+	<noTest>
 	| stepper |
-	stepper := Stepper for: ProcessingRunnerExamples new runSierpinskiStepwise view: #gtAbstractionsFor:.
+	stepper := Stepper
+			for: ProcessingRunnerExamples new runSierpinskiStepwise
+			view: #gtAbstractionsFor:.
 	self assert: stepper index equals: 1.
 	stepper stepTo: 211.
 	self assert: stepper index equals: 211.
@@ -42,10 +50,14 @@ StepperExamples >> sierpinskiStepper [
 
 { #category : #example }
 StepperExamples >> spiralStepper [
+	"Collecting that many samples takes a few seconds"
+
 	<gtExample>
-	<noTest> "Collecting that many samples takes a few seconds"
+	<noTest>
 	| stepper |
-	stepper := Stepper for: ProcessingRunnerExamples new runSpiralStepwise view: #gtAbstractionsFor:.
+	stepper := Stepper
+			for: ProcessingRunnerExamples new runSpiralStepwise
+			view: #gtAbstractionsFor:.
 	self assert: stepper index equals: 1.
 	stepper stepTo: 74.
 	self assert: stepper index equals: 74.

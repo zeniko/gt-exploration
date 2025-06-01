@@ -10,9 +10,10 @@ Class {
 
 { #category : #views }
 ProcessingCanvasText >> asElement [
-	^ BlTextElement new text: (text asRopedText
-		fontSize: textSize;
-		foreground: fillColor)
+	^ BlTextElement new
+		text: (text asRopedText
+				fontSize: textSize;
+				foreground: fillColor)
 ]
 
 { #category : #accessing }
@@ -22,7 +23,7 @@ ProcessingCanvasText >> text [
 
 { #category : #accessing }
 ProcessingCanvasText >> text: aText [
-	text := aText.
+	text := aText
 ]
 
 { #category : #accessing }
@@ -32,5 +33,5 @@ ProcessingCanvasText >> textSize [
 
 { #category : #accessing }
 ProcessingCanvasText >> textSize: aTextSize [
-	textSize := aTextSize.
+	textSize := aTextSize
 ]

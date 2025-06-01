@@ -21,5 +21,5 @@ ProcessingExplainShape >> sourceNode [
 
 { #category : #initialization }
 ProcessingExplainShape >> sourceNode: aSourceNode [
-	sourceNode := aSourceNode.
+	sourceNode := aSourceNode
 ]

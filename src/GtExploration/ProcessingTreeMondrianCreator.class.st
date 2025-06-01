@@ -12,22 +12,25 @@ ProcessingTreeMondrianCreator class >> addSubTree: aNode for: ast to: aMondrian 
 		and: [ (next := node acceptVisitor: ProcessingTokenExtractor new) size = 1 ] ]
 		whileTrue: [ node := next first ].
 	label := (node isKindOf: PyRootNode)
-			ifTrue: [ (ProcessingParser gtASTNodeNames at: node class) asRopedText foreground: Color lightGray ]
+			ifTrue: [ (ProcessingParser gtASTNodeNames at: node class) asRopedText
+					foreground: Color lightGray ]
 			ifFalse: [ node value asRopedText ].
-	
+
 	aMondrian nodes
-		shape: [ :n | BlTextElement new
-			text: label;
-			padding: (BlInsets all: 3) ];
-		with: { node. }.
-	
+		shape: [ :n | 
+			BlTextElement new
+				text: label;
+				padding: (BlInsets all: 3) ];
+		with: {node}.
+
 	(ProcessingParser gtGetASTChildren: node)
-		do: [ :childNode |
+		do: [ :childNode | 
 			| child |
-			child := self addSubTree: childNode for: ast to: aMondrian.
-			aMondrian edges connect: { child. } from: [ :x | node ].
-		].
-	
+			child := self
+					addSubTree: childNode
+					for: ast
+					to: aMondrian.
+			aMondrian edges connect: {child} from: [ :x | node ] ].
 	^ node
 ]
 
@@ -36,18 +39,21 @@ ProcessingTreeMondrianCreator class >> mondrianFor: ast [
 	| view |
 	view := GtMondrian new.
 	view nodes
-		shape: [ :n | BlTextElement new
-			text: ('Root' translated asRopedText foreground: Color lightGray);
-			padding: (BlInsets all: 5) ];
-		with: { ast. }.
-	
+		shape: [ :n | 
+			BlTextElement new
+				text: ('Root' translated asRopedText foreground: Color lightGray);
+				padding: (BlInsets all: 5) ];
+		with: {ast}.
+
 	(ast acceptVisitor: ProcessingTokenExtractor new)
-		do: [ :childNode |
+		do: [ :childNode | 
 			| child |
-			child := self addSubTree: childNode for: ast to: view.
-			view edges connect: { child. } from: [ :x | ast ].
-		].
-	
+			child := self
+					addSubTree: childNode
+					for: ast
+					to: view.
+			view edges connect: {child} from: [ :x | ast ] ].
+
 	view layout horizontalTree nodeDistance: 7.
 	^ view
 ]

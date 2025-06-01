@@ -12,12 +12,20 @@ Class {
 
 { #category : #initialization }
 ProcessingTranspilationSlice class >> link: aNode from: from [
-	^ self new link: aNode method: nil from: from to: from
+	^ self new
+		link: aNode
+		method: nil
+		from: from
+		to: from
 ]
 
 { #category : #initialization }
 ProcessingTranspilationSlice class >> link: aNode method: aName from: from to: to [
-	^ self new link: aNode method: aName from: from to: to
+	^ self new
+		link: aNode
+		method: aName
+		from: from
+		to: to
 ]
 
 { #category : #views }
@@ -32,16 +40,19 @@ ProcessingTranspilationSlice >> astNode [
 
 { #category : #initalization }
 ProcessingTranspilationSlice >> cloneFor: aMethod [
-	^ self class link: astNode method: aMethod from: startPos to: startPos + size
+	^ self class
+		link: astNode
+		method: aMethod
+		from: startPos
+		to: startPos + size
 ]
 
 { #category : #views }
 ProcessingTranspilationSlice >> gtComparisonFor: aView [
 	<gtView>
-	^ ((ViewComparison newFor: {
-		self -> #gtSourceFor:.
-		self -> #gtTranspilationFor:.
-	}) gtCompareFor: aView)
+	^ ((ViewComparison
+		newFor: {self -> #gtSourceFor:.
+				self -> #gtTranspilationFor:}) gtCompareFor: aView)
 		priority: 1;
 		title: 'Comparison' translated
 ]
@@ -52,11 +63,9 @@ ProcessingTranspilationSlice >> gtSourceFor: aView [
 	^ aView explicit
 		priority: 10;
 		title: 'Source' translated;
-		stencil: [
-			(astNode gtSourceEditorWithHighlight: BrGlamorousColors textHighlightColor)
+		stencil: [ (astNode gtSourceEditorWithHighlight: BrGlamorousColors textHighlightColor)
 				beMode: BrTextEditorReadonlyWithNavigationMode new;
-				yourself
-		]
+				yourself ]
 ]
 
 { #category : #views }
@@ -65,19 +74,16 @@ ProcessingTranspilationSlice >> gtTranspilationFor: aView [
 	^ aView explicit
 		title: 'Transpilation' translated;
 		priority: 11;
-		stencil: [
-			| element |
+		stencil: [ | element |
 			(GtPhlowView empty textEditor
 				aptitude: BrGlamorousCodeEditorAptitude;
 				styler: (BrRBTextStyler new classOrMetaClass: self method methodClass);
 				text: [ | text |
 					text := self method sourceCode asRopedText.
 					(text from: self startPos to: startPos + size)
-						attribute: (BlTextHighlightAttribute paint:
-							BrGlamorousColors textHighlightColor)
-							beNotOverwritableByStyler.
-					text ])
-				asElementDo: [ :e | element := e ].
+						attribute: (BlTextHighlightAttribute paint: BrGlamorousColors textHighlightColor)
+								beNotOverwritableByStyler.
+					text ]) asElementDo: [ :e | element := e ].
 			element children first
 				beMode: BrTextEditorReadonlyWithNavigationMode new;
 				padding: (BlInsets all: 5).
@@ -94,7 +100,7 @@ ProcessingTranspilationSlice >> link: aNode method: aName from: from to: to [
 	astNode := aNode.
 	method := aName.
 	startPos := from.
-	size := to - from.
+	size := to - from
 ]
 
 { #category : #accessing }
@@ -104,12 +110,12 @@ ProcessingTranspilationSlice >> method [
 
 { #category : #changing }
 ProcessingTranspilationSlice >> move: offset [
-	startPos := startPos + offset.
+	startPos := startPos + offset
 ]
 
 { #category : #accessing }
 ProcessingTranspilationSlice >> name: name [
-	method := name.
+	method := name
 ]
 
 { #category : #changing }

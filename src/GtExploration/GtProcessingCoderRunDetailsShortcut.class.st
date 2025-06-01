@@ -12,9 +12,9 @@ GtProcessingCoderRunDetailsShortcut >> description [
 { #category : #initialization }
 GtProcessingCoderRunDetailsShortcut >> initialize [
 	super initialize.
-	
+
 	combination := BlKeyCombination primaryD.
-	name := 'Abstractions'.
+	name := 'Abstractions'
 ]
 
 { #category : #evaluation }
