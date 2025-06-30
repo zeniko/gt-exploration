@@ -210,12 +210,12 @@
 		"__type" : "time",
 		"time" : {
 			"__type" : "dateAndTime",
-			"dateAndTimeString" : "2025-05-25T22:20:52.628+02:00"
+			"dateAndTimeString" : "2025-05-26T00:06:06.902+02:00"
 		}
 	},
 	"pageType" : {
 		"__type" : "namedPage",
-		"title" : "SISTA Bytecode"
+		"title" : "Smalltalk Bytecode (SISTA)"
 	},
 	"uid" : {
 		"__type" : "uuid",
