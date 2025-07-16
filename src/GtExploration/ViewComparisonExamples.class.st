@@ -15,20 +15,20 @@ ViewComparisonExamples >> compareExample02To03Bytecode [
 ]
 
 { #category : #example }
-ViewComparisonExamples >> compareExample02To03SourceBytes [
+ViewComparisonExamples >> compareExample02To03SourceChars [
 	<gtExample>
 	| comparer |
 	comparer := ViewComparison
-			newFor: {ProcessingProgramExamples new programExample02 -> #gtSourceBytesFor:.
-					ProcessingProgramExamples new programExample03 -> #gtSourceBytesFor:}.
+			newFor: {ProcessingProgramExamples new programExample02 -> #gtSourceCharsFor:.
+					ProcessingProgramExamples new programExample03 -> #gtSourceCharsFor:}.
 	^ comparer
 ]
 
 { #category : #example }
-ViewComparisonExamples >> compareExample02To03SourceBytesScripter [
+ViewComparisonExamples >> compareExample02To03SourceCharsScripter [
 	<gtExample>
 	| comparer |
-	comparer := self compareExample02To03SourceBytes.
+	comparer := self compareExample02To03SourceChars.
 	^ BlScripter new
 		element: comparer asElement;
 		substeps: 'Select Left Item #2'

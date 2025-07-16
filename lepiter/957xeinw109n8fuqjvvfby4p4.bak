@@ -39,7 +39,7 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-07-16T11:21:32.153+02:00"
+												"dateAndTimeString" : "2025-07-16T11:22:02.007+02:00"
 											}
 										},
 										"uid" : {
@@ -49,7 +49,7 @@
 										"paragraphStyle" : {
 											"__type" : "textStyle"
 										},
-										"string" : "Endless loop detection"
+										"string" : "Endless loop detection: {{gtMethod:ProcessingRunnerExamples>>#runAnimation2Stepwise}}"
 									}
 								]
 							},

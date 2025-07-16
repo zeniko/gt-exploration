@@ -159,8 +159,9 @@ ProcessingProgram >> gtBytecodePlusIRFor: aView [
 					c horizontal matchParent ];
 				margin: (BlInsets all: 5).
 			element addChild: child.
-			list := child children last.	"Prevent auto-selecting feedback changes."
-			skipOne := false.
+			list := child children last.
+
+			skipOne := false.	"Prevent auto-selecting feedback changes."
 			list
 				when: BrSelectionChanged
 				do: [ :event | 
@@ -555,6 +556,114 @@ ProcessingProgram >> gtSourceBytesFor: aView [
 	<gtView>
 	^ aView columnedList
 		title: 'Source Bytes' translated;
+		priority: 8;
+		items: [ ZnUTF8Encoder new encodeString: source asString ];
+		column: 'Index' translated
+			text: [ :each :index | index asRopedText foreground: Color gray ]
+			width: 45;
+		column: 'ASCII' text: [ :each | each asString ];
+		column: 'HEX' text: [ :each | (each radix: 16) padLeftTo: 2 with: $0 ];
+		column: 'Binary' text: [ :each | (each radix: 2) padLeftTo: 8 with: $0 ];
+		updateWhen: ProcessingSourceChanged in: source announcer
+]
+
+{ #category : #views }
+ProcessingProgram >> gtSourceBytesPlusCharsFor: aView [
+	<gtView>
+	^ aView explicit
+		title: 'Source Chars+Bytes';
+		priority: 7;
+		stencil: [ | element child list charList indices encoder |
+			element := BlElement new.
+			element layout: (BlGridLayout new columnCount: 2).
+			element
+				constraintsDo: [ :c | 
+					c vertical matchParent.
+					c horizontal matchParent ].
+
+			(self gtSourceCharsFor: GtPhlowView empty) asElementDo: [ :e | child := e ].
+			child
+				background: Color white;
+				margin: (BlInsets all: 5).
+			element addChild: child.
+			charList := child children last.
+
+			(self gtSourceBytesFor: GtPhlowView empty) asElementDo: [ :e | child := e ].
+			child
+				constraintsDo: [ :c | 
+					c vertical matchParent.
+					c horizontal matchParent ];
+				margin: (BlInsets all: 5).
+			element addChild: child.
+			list := child children last.
+
+			encoder := ZnUTF8Encoder new.
+			indices := OrderedCollection new.
+			self source asString
+				doWithIndex: [ :c :index | 1 to: (encoder encodeString: c asString) size do: [ :ix | indices add: index ] ].
+
+			list
+				when: BrSelectionChanged
+				do: [ :event | 
+					event selectedInterval
+						ifNotNil: [ charList selectOne: (indices at: event selectedInterval first).
+							charList scrollToSelection ] ].
+			charList
+				when: BrSelectionChanged
+				do: [ :event | 
+					event selectedInterval
+						ifNotNil: [ list selectOne: (indices indexOf: event selectedInterval first).
+							list scrollToSelection ] ].
+
+
+			element ];
+		updateWhen: ProcessingProgramChanged in: self announcer
+]
+
+{ #category : #views }
+ProcessingProgram >> gtSourceBytesPlusSourceFor: aView [
+	<gtView>
+	^ aView explicit
+		title: 'Source Bytes++';
+		priority: 9;
+		stencil: [ | element editor list indices encoder |
+			element := self
+					gtCombineWithSource: (self gtSourceBytesFor: GtPhlowView empty).
+
+			editor := element children first.
+			list := element children last children last.
+
+			encoder := ZnUTF8Encoder new.
+			indices := OrderedCollection new.
+			self source asString
+				doWithIndex: [ :c :index | 1 to: (encoder encodeString: c asString) size do: [ :ix | indices add: index ] ].
+
+			list
+				when: BrSelectionChanged
+				do: [ :event | 
+					event selectedInterval
+						ifNotNil: [ self
+								gtEditorHightlight: editor
+								from: (indices at: event selectedInterval first)
+								to: (indices at: event selectedInterval last) ] ].
+			self
+				gtOnEditorChange: editor
+				do: [ :position | 
+					| clamped |
+					clamped := indices
+							indexOf: (position + 1 clampBetween: 1 and: source asString size).
+					list selectOne: clamped.
+					list scrollToSelection ].
+
+			element ];
+		updateWhen: ProcessingProgramChanged in: self announcer
+]
+
+{ #category : #views }
+ProcessingProgram >> gtSourceCharsFor: aView [
+	<gtView>
+	^ aView columnedList
+		title: 'Source Chars' translated;
 		priority: 5;
 		items: [ source asString ];
 		column: 'Index' translated
@@ -569,14 +678,14 @@ ProcessingProgram >> gtSourceBytesFor: aView [
 ]
 
 { #category : #views }
-ProcessingProgram >> gtSourceBytesPlusSourceFor: aView [
+ProcessingProgram >> gtSourceCharsPlusSourceFor: aView [
 	<gtView>
 	^ aView explicit
-		title: 'Source Bytes++';
+		title: 'Source Chars++';
 		priority: 6;
 		stencil: [ | element editor list |
 			element := self
-					gtCombineWithSource: (self gtSourceBytesFor: GtPhlowView empty).
+					gtCombineWithSource: (self gtSourceCharsFor: GtPhlowView empty).
 
 			editor := element children first.
 			list := element children last children last.

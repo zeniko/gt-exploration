@@ -60,7 +60,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-07-16T11:16:35.65+02:00"
+									"dateAndTimeString" : "2025-07-16T11:16:56.86+02:00"
 								}
 							},
 							"editEmail" : {
@@ -71,7 +71,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-07-16T11:16:35.65+02:00"
+									"dateAndTimeString" : "2025-07-16T11:17:08.373+02:00"
 								}
 							},
 							"uid" : {
@@ -81,7 +81,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : ""
+							"string" : "First draft of Theory, Background (see [gyminf-thesis](https://github.com/zeniko/gyminf-thesis))."
 						},
 						{
 							"__type" : "textSnippet",
@@ -108,7 +108,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-07-16T11:16:34.327+02:00"
+									"dateAndTimeString" : "2025-07-16T19:37:16.761+02:00"
 								}
 							},
 							"uid" : {
@@ -119,6 +119,83 @@
 								"__type" : "textStyle"
 							},
 							"string" : "Meeting on 2025-07-16"
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-07-16T19:37:17.014+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-07-16T19:41:56.343+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "8KO+FHH2DQCwHaAmCBtj7w=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Distinguish clearer between {{gtMethod:ProcessingProgram>>gtSourceBytesFor:}} and {{gtMethod:ProcessingProgram>>#gtSourceCharsFor:}}, added {{gtMethod:ProcessingProgram>>gtSourceBytesPlusCharsFor:}}."
+						},
+						{
+							"__type" : "exampleSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-07-16T19:42:09.644+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-07-16T19:42:09.644+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "4NEvJnH2DQC0wkq4CBtj7w=="
+							},
+							"exampleSelector" : "programExample03",
+							"previewHeight" : 250,
+							"previewShowSelector" : "gtBytesPlusSourceFor:",
+							"exampleBehaviorName" : "ProcessingProgramExamples",
+							"codeExpanded" : true,
+							"previewExpanded" : false,
+							"noCode" : true
 						}
 					]
 				},
@@ -231,6 +308,43 @@
 								"__type" : "textStyle"
 							},
 							"string" : "Trial run with students on 2025-06-30."
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-07-16T11:16:40.446+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-07-16T11:16:50.092+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "MPxsFmr2DQCgaiTCBKjH2w=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Sketched out most thesis content (see [gyminf-thesis](https://github.com/zeniko/gyminf-thesis))."
 						}
 					]
 				},
