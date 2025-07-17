@@ -91,30 +91,31 @@ ProcessingProgram >> gtAbstractionsFor: aView [
 				background: Color white;
 				margin: (BlInsets all: 5).
 			element addChild: child.
-			canvas := child.	"Hook AST tree and source view:"	"self ast topParent gtHookEditor: editor toTree: astTree."
+			canvas := child.
+
 			self
 				gtOnTreeSelect: astTree
 				do: [ :astNode | 
 					self
 						gtEditorHightlight: editor
 						from: astNode startPosition
-						to: astNode stopPosition ].
+						to: astNode stopPosition ].	"Hook AST tree and source view"
 			self
 				gtOnEditorChange: editor
-				do: [ :position | self gtSelectTreeNode: astTree at: position ].	"Hook bytecode list and source view:"
+				do: [ :position | self gtSelectTreeNode: astTree at: position ].
 			self
 				gtOnListSelect: list
 				do: [ :astNode | 
 					self
 						gtEditorHightlight: editor
 						from: astNode startPosition
-						to: astNode stopPosition ].
+						to: astNode stopPosition ].	"Hook bytecode list and source view"
 			self
 				gtOnEditorChange: editor
 				do: [ :position | self gtSelectBytecode: list at: position ].	"Oneway hook bytecode list to AST tree"
 			self
 				gtOnListSelect: list
-				do: [ :astNode | self gtSelectTreeNode: astTree at: astNode startPosition	"astNode gtSelectItemIn: astTree at: astNode startPosition" ].	"Hook canvas into editor"	"self gtExplain: canvas in: editor."
+				do: [ :astNode | self gtSelectTreeNode: astTree at: astNode startPosition ].	"Hook canvas into editor -- self gtExplain: canvas in: editor."
 
 			element ];
 		updateWhen: ProcessingProgramChanged in: self announcer
@@ -553,6 +554,8 @@ ProcessingProgram >> gtSlicesFor: aView [
 
 { #category : #views }
 ProcessingProgram >> gtSourceBytesFor: aView [
+	"Bytes are displayed UTF-8 encoded"
+
 	<gtView>
 	^ aView columnedList
 		title: 'Source Bytes' translated;
@@ -622,6 +625,8 @@ ProcessingProgram >> gtSourceBytesPlusCharsFor: aView [
 
 { #category : #views }
 ProcessingProgram >> gtSourceBytesPlusSourceFor: aView [
+	"Bytes are displayed UTF-8 encoded"
+
 	<gtView>
 	^ aView explicit
 		title: 'Source Bytes++';
@@ -812,8 +817,9 @@ ProcessingProgram >> gtTokensPlusTreeFor: aView [
 					c horizontal matchParent ];
 				margin: (BlInsets all: 5).
 			element addChild: child.
-			tree := child children last.	"Prevent auto-selecting feedback changes."
-			skipOne := false.
+			tree := child children last.
+
+			skipOne := false.	"Prevent auto-selecting feedback changes."
 			self
 				gtOnListSelect: list
 				do: [ :astNode | 
@@ -997,15 +1003,15 @@ ProcessingProgram >> source: aSource [
 				signal: 'Reassigning ProcessingProgram>>#source isn''t supported!' ].
 
 	source := aSource.
-	ast := ProcessingParser parse: source asString.	"The transpiler cleans up the AST first, so use a copy instead."
+	ast := ProcessingParser parse: source asString.
 	compilation := ProcessingTranspiler new
-			compile: (ProcessingParser parse: source asString).
+			compile: (ProcessingParser parse: source asString).	"The transpiler cleans up the AST first, so use a copy instead."
 
 	source announcer
 		when: ProcessingSourceChanged
 		do: [ :event | 
-			[  "The transpiler cleans up the AST first, so use a copy instead."compilation := ProcessingTranspiler
-					new compile: (ProcessingParser parse: source asString).
+			[ compilation := ProcessingTranspiler new
+					compile: (ProcessingParser parse: source asString).	"The transpiler cleans up the AST first, so use a copy instead."
 			ast := event ast.
 			self announcer announce: (ProcessingProgramChanged new program: self) ]
 				on: Error

@@ -55,8 +55,7 @@ ViewComparison >> gtCompareFor: aView [
 { #category : #views }
 ViewComparison >> gtSynchronizeScrollstate: aList with: anotherList [
 	| skipScroll |
-	"Skip auto-scrolling when an item in the second list is selected, which causes the first list to scroll to it."
-	skipScroll := false.	"Selection is synchronized both ways."
+	skipScroll := false.	"Skip auto-scrolling when an item in the second list is selected, which causes the first list to scroll to it."
 	aList
 		when: BrSelectionChanged
 		do: [ :event | 
@@ -71,10 +70,10 @@ ViewComparison >> gtSynchronizeScrollstate: aList with: anotherList [
 				ifNotEmpty: [ aList
 						selectOne: (anotherList selectedIndices last clampBetween: 1 and: aList maxSelectionIndex).
 					skipScroll := true.
-					aList scrollToSelection ] ].	"Scrolling only works one-way, as when positions don't match up exactly, there's a feedback loop which causes a very noticeable lag"
+					aList scrollToSelection ] ].	"Selection is synchronized both ways."
 	aList children first
 		addEventHandlerOn: BlElementScrolledEvent
-		do: [ :event | 
+		do: [  "Scrolling only works one-way, as when positions don't match up exactly, there's a feedback loop which causes a very noticeable lag":event | 
 			| range |
 			range := aList children first instVarNamed: #layoutPositionsRange.
 			range

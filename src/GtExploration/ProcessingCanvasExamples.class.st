@@ -322,8 +322,8 @@ ProcessingCanvasExamples >> mouseEventsScripter [
 				step mouseDown.
 				step check value: [ :_ | canvas mousePressed ] equals: true.
 				step mouseUp.
-				step check value: [ :_ | canvas mousePressed ] equals: false.	"Mouse clicks don't modify the mouse position"
-				step check value: [ :_ | canvas mouseX @ canvas mouseY ] equals: 50 @ 30 ];
+				step check value: [ :_ | canvas mousePressed ] equals: false.
+				step check value: [ :_ | canvas mouseX @ canvas mouseY ] equals: 50 @ 30	"Mouse clicks don't modify the mouse position" ];
 		play
 ]
 
@@ -408,7 +408,7 @@ ProcessingCanvasExamples >> singleSquare [
 		at: 50 @ 50.
 	self assert: canvas canvasElement children size equals: 1.
 	child := canvas canvasElement children last.
-	self assert: (child isKindOf: BlElement).	"self assert: child measuredBounds position equals: 50 @ 50."
+	self assert: (child isKindOf: BlElement).
 	self assert: child background paint color equals: Color white.
 	self assert: child border paint color equals: Color black.
 	self assert: child border width equals: 0.5.

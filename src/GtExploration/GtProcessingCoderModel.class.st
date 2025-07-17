@@ -74,8 +74,8 @@ GtProcessingCoderModel >> doItAndPublish: aBlock with: anEvaluationContext [
 			do: [ :error | 
 				| location message |
 				location := anEvaluationContext requesterObject coderViewModel coderModel
-						currentSourceString size + 1.	"at the very end"	"TODO: nicer error messages"
-				message := error messageText.
+						currentSourceString size + 1.	"at the very end"
+				message := error messageText.	"TODO: nicer error messages"
 				message ifEmpty: [ message := error asString ].
 
 				(error isKindOf: SmaCCParserError)

@@ -1030,8 +1030,8 @@ ProcessingTranspiler >> visitBacktickExpression: aBacktickExpression [
 { #category : #visiting }
 ProcessingTranspiler >> visitBinaryExpression: expr [
 	| op |
-	op := expr operator value.	"Modulo is `%` in Python but `\\` in Smalltalk"
-	op = '%' ifTrue: [ op := '\\' ].	"`and` and `or` are short-circuiting in Python"
+	op := expr operator value.
+	op = '%' ifTrue: [ op := '\\' ].	"Modulo is `%` in Python but `\\` in Smalltalk"
 	op = 'and' | (op = 'or')
 		ifTrue: [ self startEmit: expr.
 			self emit: '('.
@@ -1039,7 +1039,7 @@ ProcessingTranspiler >> visitBinaryExpression: expr [
 			self emit: ' ' , op , ': [ '.
 			expr right acceptVisitor: self.
 			self emit: ' ])'.
-			^ self endEmit ].
+			^ self endEmit ].	"`and` and `or` are short-circuiting in Python"
 
 	(op = '+' and: [ self isStringConcatenation: expr ]) ifTrue: [ op := ',' ].
 
@@ -1065,8 +1065,8 @@ ProcessingTranspiler >> visitClassDefinition: aClassDefinition [
 { #category : #visiting }
 ProcessingTranspiler >> visitComparisonExpression: expr [
 	| op chain depth |
-	op := expr operator value.	"Python compares value equality with `==`, Smalltalk does with `=`"
-	op = '==' ifTrue: [ op := '=' ].
+	op := expr operator value.
+	op = '==' ifTrue: [ op := '=' ].	"Python compares value equality with `==`, Smalltalk does with `=`"
 
 	self startEmit: expr.
 	self emit: '('.
@@ -1075,8 +1075,7 @@ ProcessingTranspiler >> visitComparisonExpression: expr [
 	chain := expr right.
 	depth := 0.
 	[ chain isKindOf: PyComparisonExpressionNode ]
-		whileTrue: [  "TODO: for correctness, `chain left` should be stored in a temporary variable so that its value isn't calculated twice"chain
-				left acceptVisitor: self.
+		whileTrue: [ chain left acceptVisitor: self.	"TODO: for correctness, `chain left` should be stored in a temporary variable so that its value isn't calculated twice"
 			self emit: ' and: [ '.
 			chain left acceptVisitor: self.
 			self emit: ' ' , op , ' '.

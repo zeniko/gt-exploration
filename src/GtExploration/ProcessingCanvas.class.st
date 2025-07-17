@@ -290,9 +290,9 @@ ProcessingCanvas >> loadImage: path [
 				start: 0
 				end: bytes size ].
 	(FileReference / path) exists
-		ifTrue: [ ^ SkiaImage fromFile: FileReference / path ].	"Relative paths are relative to `FileLocator documents / 'lepiter'` or `FileLocator gtResource` for now (in that order)"
+		ifTrue: [ ^ SkiaImage fromFile: FileReference / path ].
 	(FileLocator documents / 'lepiter' / path) exists
-		ifTrue: [ ^ SkiaImage fromFile: FileLocator documents / 'lepiter' / path ].
+		ifTrue: [ ^ SkiaImage fromFile: FileLocator documents / 'lepiter' / path ].	"Relative paths are relative to `FileLocator documents / 'lepiter'` or `FileLocator gtResource` for now (in that order)"
 	(FileLocator gtResource / path) exists
 		ifTrue: [ ^ SkiaImage fromFile: FileLocator gtResource / path ].
 	^ nil

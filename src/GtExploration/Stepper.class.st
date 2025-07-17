@@ -101,8 +101,9 @@ Stepper >> gtListViewFor: aView [
 						column: 'Index' translated
 							text: [ :each :eachIndex | eachIndex asRopedText foreground: Color gray ]
 							width: 45;
-						column: 'Item' translated text: [ :each | each asString ];
-						asElementDo: [ :e | child := e ].	"TODO: use each gtDisplayText instead?"
+						column: 'Item' translated
+							text: [ :each | each asString	"TODO: use each gtDisplayText instead?" ];
+						asElementDo: [ :e | child := e ].
 					child
 						constraintsDo: [ :c | 
 							c vertical matchParent.
@@ -110,8 +111,8 @@ Stepper >> gtListViewFor: aView [
 							c linear weight: 0.5 ];
 						background: Color white;
 						margin: (BlInsets all: 5).
-					element addChild: child.	"TODO: less hacky way to get to the list (view)?"
-					listElement := child children last.
+					element addChild: child.
+					listElement := child children last.	"TODO: less hacky way to get to the list (view)?"
 
 					(self gtContentFor: GtPhlowView empty) asElementDo: [ :e | child := e ].
 					element addChild: child.
