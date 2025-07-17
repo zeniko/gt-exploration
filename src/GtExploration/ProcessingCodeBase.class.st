@@ -14,7 +14,7 @@ ProcessingCodeBase >> gtAbstractionsFor: aView [
 	^ aView explicit
 		title: 'Abstractions' translated;
 		priority: 1;
-		stencil: [ | element child |
+		stencil: [ | element |
 			element := BlElement new.
 			element layout: (BlGridLayout new columnCount: 2).
 			element
@@ -22,37 +22,8 @@ ProcessingCodeBase >> gtAbstractionsFor: aView [
 					c vertical matchParent.
 					c horizontal matchParent ].
 
-			(self gtSourceCodeFor: GtPhlowView empty) asElementDo: [ :e | child := e ].
-			child
-				background: Color white;
-				margin: (BlInsets all: 5).
-			element addChild: child.
-
-			(self gtIntermediaryRepresentationFor: GtPhlowView empty)
-				asElementDo: [ :e | child := e ].
-			child
-				constraintsDo: [ :c | 
-					c vertical matchParent.
-					c horizontal matchParent ];
-				margin: (BlInsets all: 5).
-			element addChild: child.
-
-			(self gtBytecodeFor: GtPhlowView empty) asElementDo: [ :e | child := e ].
-			child
-				constraintsDo: [ :c | 
-					c vertical matchParent.
-					c horizontal matchParent ];
-				margin: (BlInsets all: 5).
-			element addChild: child.
-
-			(self gtOutputFor: GtPhlowView empty) asElementDo: [ :e | child := e ].
-			child
-				constraintsDo: [ :c | 
-					c vertical matchParent.
-					c horizontal matchParent ];
-				background: Color white;
-				margin: (BlInsets all: 5).
-			element addChild: child.
+			#(gtSourceCodeFor: gtIntermediaryRepresentationFor: gtBytecodeFor: gtOutputFor:)
+				do: [ :view | element addChild: (self gtGetViewElement: view) ].
 
 			element ]
 ]
@@ -118,6 +89,20 @@ ProcessingCodeBase >> gtGenerateIR: aSourceCode [
 	ast := OpalCompiler new parse: aSourceCode.
 	ast acceptVisitor: trans.
 	^ trans privateMethodBuilder instVarNamed: #ir	"calling IRBuilder>>#ir performs some optimizations, so skip around it"
+]
+
+{ #category : #views }
+ProcessingCodeBase >> gtGetViewElement: aViewName [
+	| element |
+	(self perform: aViewName with: GtPhlowView empty)
+		asElementDo: [ :e | element := e ].
+	^ element
+		constraintsDo: [ :c | 
+			c vertical matchParent.
+			c horizontal matchParent ];
+		margin: (BlInsets all: 5);
+		background: Color white;
+		yourself
 ]
 
 { #category : #views }
@@ -220,8 +205,8 @@ ProcessingCodeBase >> gtSourceCodeFor: aView [
 	^ aView explicit
 		title: 'Smalltalk';
 		priority: 10;
-		stencil: [  "TODO: Find a better way of removing the filter bar"(GtPharoStreamingMethodsCoderElement
-				new streamingCodersViewModel: viewModel) children second removeFromParent ]
+		stencil: [ (GtPharoStreamingMethodsCoderElement new streamingCodersViewModel: viewModel)
+				children second removeFromParent	"TODO: Find a better way of removing the filter bar" ]
 ]
 
 { #category : #initialization }

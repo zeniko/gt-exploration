@@ -50,7 +50,7 @@ ProcessingProgram >> gtAbstractionsFor: aView [
 	^ aView explicit
 		priority: 1;
 		title: 'Abstractions' translated;
-		stencil: [ | element child editor astTree list canvas |
+		stencil: [ | element editor astTree bytecode canvas |
 			element := BlElement new.
 			element layout: (BlGridLayout new columnCount: 2).
 			element
@@ -58,40 +58,17 @@ ProcessingProgram >> gtAbstractionsFor: aView [
 					c vertical matchParent.
 					c horizontal matchParent ].
 
-			(self gtContentsFor: GtPhlowView empty) asElementDo: [ :e | child := e ].
-			child
-				background: Color white;
-				margin: (BlInsets all: 5).
-			element addChild: child.
-			editor := child.
+			editor := self gtGetViewElement: #gtContentsFor:.
+			element addChild: editor.
+			astTree := self gtGetViewElement: #gtTreeFor:.
+			element addChild: astTree.
+			bytecode := self gtGetViewElement: #gtBytecodeFor:.
+			element addChild: bytecode.
+			canvas := self gtGetViewElement: #gtOutputFor:.
+			element addChild: canvas.
 
-			(self gtTreeFor: GtPhlowView empty) asElementDo: [ :e | child := e ].
-			child
-				constraintsDo: [ :c | 
-					c vertical matchParent.
-					c horizontal matchParent ];
-				margin: (BlInsets all: 5).
-			element addChild: child.
-			astTree := child children last.
-
-			(self gtBytecodeFor: GtPhlowView empty) asElementDo: [ :e | child := e ].
-			child
-				constraintsDo: [ :c | 
-					c vertical matchParent.
-					c horizontal matchParent ];
-				margin: (BlInsets all: 5).
-			element addChild: child.
-			list := child children last.
-
-			(self gtOutputFor: GtPhlowView empty) asElementDo: [ :e | child := e ].
-			child
-				constraintsDo: [ :c | 
-					c vertical matchParent.
-					c horizontal matchParent ];
-				background: Color white;
-				margin: (BlInsets all: 5).
-			element addChild: child.
-			canvas := child.
+			astTree := astTree children last.
+			bytecode := bytecode children last.
 
 			self
 				gtOnTreeSelect: astTree
@@ -103,8 +80,9 @@ ProcessingProgram >> gtAbstractionsFor: aView [
 			self
 				gtOnEditorChange: editor
 				do: [ :position | self gtSelectTreeNode: astTree at: position ].
+
 			self
-				gtOnListSelect: list
+				gtOnListSelect: bytecode
 				do: [ :astNode | 
 					self
 						gtEditorHightlight: editor
@@ -112,10 +90,11 @@ ProcessingProgram >> gtAbstractionsFor: aView [
 						to: astNode stopPosition ].	"Hook bytecode list and source view"
 			self
 				gtOnEditorChange: editor
-				do: [ :position | self gtSelectBytecode: list at: position ].	"Oneway hook bytecode list to AST tree"
+				do: [ :position | self gtSelectBytecode: bytecode at: position ].
+
 			self
-				gtOnListSelect: list
-				do: [ :astNode | self gtSelectTreeNode: astTree at: astNode startPosition ].	"Hook canvas into editor -- self gtExplain: canvas in: editor."
+				gtOnListSelect: bytecode
+				do: [ :astNode | self gtSelectTreeNode: astTree at: astNode startPosition ].	"Oneway hook bytecode list to AST tree"	"Hook canvas into editor -- self gtExplain: canvas in: editor."
 
 			element ];
 		updateWhen: ProcessingProgramChanged in: self announcer
@@ -137,7 +116,7 @@ ProcessingProgram >> gtBytecodePlusIRFor: aView [
 	^ aView explicit
 		priority: 37;
 		title: 'Bytecode' translated , '+IR';
-		stencil: [ | element child list irList skipOne |
+		stencil: [ | element bytecode irList skipOne |
 			element := BlElement new.
 			element layout: (BlGridLayout new columnCount: 2).
 			element
@@ -145,30 +124,21 @@ ProcessingProgram >> gtBytecodePlusIRFor: aView [
 					c vertical matchParent.
 					c horizontal matchParent ].
 
-			(self gtIntermediaryRepresentationFor: GtPhlowView empty)
-				asElementDo: [ :e | child := e ].
-			child
-				background: Color white;
-				margin: (BlInsets all: 5).
-			element addChild: child.
-			irList := child children last.
-
-			(self gtBytecodeFor: GtPhlowView empty) asElementDo: [ :e | child := e ].
-			child
-				constraintsDo: [ :c | 
-					c vertical matchParent.
-					c horizontal matchParent ];
-				margin: (BlInsets all: 5).
-			element addChild: child.
-			list := child children last.
+			irList := self gtGetViewElement: #gtIntermediaryRepresentationFor:.
+			element addChild: irList.
+			bytecode := self gtGetViewElement: #gtBytecodeFor:.
+			element addChild: bytecode.
+			
+			irList := irList children last.
+			bytecode := bytecode children last.
 
 			skipOne := false.	"Prevent auto-selecting feedback changes."
-			list
+			bytecode
 				when: BrSelectionChanged
 				do: [ :event | 
 					skipOne
 						ifFalse: [ skipOne := true.
-							list
+							bytecode
 								selectedItemDo: [ :item | 
 									(item isKindOf: SymbolicBytecode)
 										ifTrue: [ self
@@ -188,7 +158,7 @@ ProcessingProgram >> gtBytecodePlusIRFor: aView [
 								selectedItemDo: [ :irItem | 
 									((irItem isKindOf: IRInstruction) and: [ irItem sourceNode isNotNil ])
 										ifTrue: [ self
-												gtSelectListItem: list
+												gtSelectListItem: bytecode
 												with: [ :item | 
 													(item isKindOf: SymbolicBytecode)
 														and: [ item method sourceCode = irItem sourceNode methodNode sourceCode
@@ -237,10 +207,7 @@ ProcessingProgram >> gtCombineWithSource: aView [
 			c vertical matchParent.
 			c horizontal matchParent ].
 
-	(self gtContentsFor: GtPhlowView empty) asElementDo: [ :e | child := e ].
-	child
-		background: Color white;
-		margin: (BlInsets all: 5).
+	child := self gtGetViewElement: #gtContentsFor:.
 	element addChild: child.
 
 	aView asElementDo: [ :e | child := e ].
@@ -339,6 +306,20 @@ ProcessingProgram >> gtGetLiveView: aView for: aBlock title: aTitle priority: aP
 					e horizontal matchParent ];
 				yourself ];
 		updateWhen: ProcessingProgramChanged in: self announcer
+]
+
+{ #category : #views }
+ProcessingProgram >> gtGetViewElement: aViewName [
+	| element |
+	(self perform: aViewName with: GtPhlowView empty)
+		asElementDo: [ :e | element := e ].
+	^ element
+		constraintsDo: [ :c | 
+			c vertical matchParent.
+			c horizontal matchParent ];
+		margin: (BlInsets all: 5);
+		background: Color white;
+		yourself
 ]
 
 { #category : #views }
@@ -576,7 +557,7 @@ ProcessingProgram >> gtSourceBytesPlusCharsFor: aView [
 	^ aView explicit
 		title: 'Source Chars+Bytes';
 		priority: 7;
-		stencil: [ | element child list charList indices encoder |
+		stencil: [ | element list charList indices encoder |
 			element := BlElement new.
 			element layout: (BlGridLayout new columnCount: 2).
 			element
@@ -584,21 +565,13 @@ ProcessingProgram >> gtSourceBytesPlusCharsFor: aView [
 					c vertical matchParent.
 					c horizontal matchParent ].
 
-			(self gtSourceCharsFor: GtPhlowView empty) asElementDo: [ :e | child := e ].
-			child
-				background: Color white;
-				margin: (BlInsets all: 5).
-			element addChild: child.
-			charList := child children last.
+			charList := self gtGetViewElement: #gtSourceCharsFor:.
+			element addChild: charList.
+			list := self gtGetViewElement: #gtSourceBytesFor:.
+			element addChild: list.
 
-			(self gtSourceBytesFor: GtPhlowView empty) asElementDo: [ :e | child := e ].
-			child
-				constraintsDo: [ :c | 
-					c vertical matchParent.
-					c horizontal matchParent ];
-				margin: (BlInsets all: 5).
-			element addChild: child.
-			list := child children last.
+			charList := charList children last.
+			list := list children last.
 
 			encoder := ZnUTF8Encoder new.
 			indices := OrderedCollection new.
@@ -748,7 +721,7 @@ ProcessingProgram >> gtTokensPlusSourceFor: aView [
 	^ aView explicit
 		priority: 11;
 		title: 'AST Tokens++';
-		stencil: [ | element child editor list |
+		stencil: [ | element editor list |
 			element := BlElement new.
 			element layout: BlLinearLayout horizontal.
 			element
@@ -756,21 +729,12 @@ ProcessingProgram >> gtTokensPlusSourceFor: aView [
 					c vertical matchParent.
 					c horizontal matchParent ].
 
-			(self gtContentsFor: GtPhlowView empty) asElementDo: [ :e | child := e ].
-			child
-				background: Color white;
-				margin: (BlInsets all: 5).
-			element addChild: child.
-			editor := child.
+			editor := self gtGetViewElement: #gtContentsFor:.
+			element addChild: editor.
+			list := self gtGetViewElement: #gtTokensFor:.
+			element addChild: list.
 
-			(self gtTokensFor: GtPhlowView empty) asElementDo: [ :e | child := e ].
-			child
-				constraintsDo: [ :c | 
-					c vertical matchParent.
-					c horizontal matchParent ];
-				margin: (BlInsets all: 5).
-			element addChild: child.
-			list := child children last.
+			list := list children last.
 
 			self
 				gtOnListSelect: list
@@ -793,7 +757,7 @@ ProcessingProgram >> gtTokensPlusTreeFor: aView [
 	^ aView explicit
 		priority: 17;
 		title: 'AST+Tokens';
-		stencil: [ | element child list tree skipOne |
+		stencil: [ | element list tree skipOne |
 			element := BlElement new.
 			element layout: BlLinearLayout horizontal.
 			element
@@ -801,23 +765,13 @@ ProcessingProgram >> gtTokensPlusTreeFor: aView [
 					c vertical matchParent.
 					c horizontal matchParent ].
 
-			(self gtTokensFor: GtPhlowView empty) asElementDo: [ :e | child := e ].
-			child
-				constraintsDo: [ :c | 
-					c vertical matchParent.
-					c horizontal matchParent ];
-				margin: (BlInsets all: 5).
-			element addChild: child.
-			list := child children last.
+			list := self gtGetViewElement: #gtTokensFor:.
+			element addChild: list.
+			tree := self gtGetViewElement: #gtTreeFor:.
+			element addChild: tree.
 
-			(self gtTreeFor: GtPhlowView empty) asElementDo: [ :e | child := e ].
-			child
-				constraintsDo: [ :c | 
-					c vertical matchParent.
-					c horizontal matchParent ];
-				margin: (BlInsets all: 5).
-			element addChild: child.
-			tree := child children last.
+			list := list children last.
+			tree := tree children last.
 
 			skipOne := false.	"Prevent auto-selecting feedback changes."
 			self
