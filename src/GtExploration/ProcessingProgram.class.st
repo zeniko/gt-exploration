@@ -50,7 +50,7 @@ ProcessingProgram >> gtAbstractionsFor: aView [
 	^ aView explicit
 		priority: 1;
 		title: 'Abstractions' translated;
-		stencil: [ | element editor astTree bytecode canvas |
+		stencil: [ | element events editor astTree bytecode canvas |
 			element := BlElement new.
 			element layout: (BlGridLayout new columnCount: 2).
 			element
@@ -58,43 +58,17 @@ ProcessingProgram >> gtAbstractionsFor: aView [
 					c vertical matchParent.
 					c horizontal matchParent ].
 
-			editor := self gtGetViewElement: #gtContentsFor:.
+			events := Announcer new.
+			editor := self sharedContentsViewElement: events.
 			element addChild: editor.
-			astTree := self gtGetViewElement: #gtTreeFor:.
+			astTree := self sharedTreeViewElement: events.
 			element addChild: astTree.
-			bytecode := self gtGetViewElement: #gtBytecodeFor:.
+			bytecode := self sharedBytecodeViewElement: events ignore: astTree.	"Oneway hook bytecode list to AST tree"
 			element addChild: bytecode.
 			canvas := self gtGetViewElement: #gtOutputFor:.
 			element addChild: canvas.
 
-			astTree := astTree children last.
-			bytecode := bytecode children last.
-
-			self
-				gtOnTreeSelect: astTree
-				do: [ :astNode | 
-					self
-						gtEditorHightlight: editor
-						from: astNode startPosition
-						to: astNode stopPosition ].	"Hook AST tree and source view"
-			self
-				gtOnEditorChange: editor
-				do: [ :position | self gtSelectTreeNode: astTree at: position ].
-
-			self
-				gtOnListSelect: bytecode
-				do: [ :astNode | 
-					self
-						gtEditorHightlight: editor
-						from: astNode startPosition
-						to: astNode stopPosition ].	"Hook bytecode list and source view"
-			self
-				gtOnEditorChange: editor
-				do: [ :position | self gtSelectBytecode: bytecode at: position ].
-
-			self
-				gtOnListSelect: bytecode
-				do: [ :astNode | self gtSelectTreeNode: astTree at: astNode startPosition ].	"Oneway hook bytecode list to AST tree"	"Hook canvas into editor -- self gtExplain: canvas in: editor."
+			false ifTrue: [ self gtExplain: canvas in: editor ].	"Disabled for performance reasons"
 
 			element ];
 		updateWhen: ProcessingProgramChanged in: self announcer
@@ -112,6 +86,8 @@ ProcessingProgram >> gtBytecodeFor: aView [
 
 { #category : #views }
 ProcessingProgram >> gtBytecodePlusIRFor: aView [
+	"Match bytecode and intermediary representation at the level of bytecode instructions (instead of using sharedBytecodeViewElement: and sharedIRViewElement: which match at the level of Processing tokens)"
+
 	<gtView>
 	^ aView explicit
 		priority: 37;
@@ -128,7 +104,7 @@ ProcessingProgram >> gtBytecodePlusIRFor: aView [
 			element addChild: irList.
 			bytecode := self gtGetViewElement: #gtBytecodeFor:.
 			element addChild: bytecode.
-			
+
 			irList := irList children last.
 			bytecode := bytecode children last.
 
@@ -175,49 +151,24 @@ ProcessingProgram >> gtBytecodePlusSourceFor: aView [
 	^ aView explicit
 		priority: 36;
 		title: 'Bytecode' translated , '++';
-		stencil: [ | element editor list |
-			element := self
-					gtCombineWithSource: (compilation gtBytecodeFor: GtPhlowView empty).
-
-			editor := element children first.
-			list := element children last children last.
-
+		stencil: [ | events |
+			events := Announcer new.
 			self
-				gtOnListSelect: list
-				do: [ :astNode | 
-					self
-						gtEditorHightlight: editor
-						from: astNode startPosition
-						to: astNode stopPosition ].
-			self
-				gtOnEditorChange: editor
-				do: [ :position | self gtSelectBytecode: list at: position ].
-
-			element ];
+				gtCombineWithSource: (self sharedBytecodeViewElement: events ignore: nil)
+				on: events ];
 		updateWhen: ProcessingProgramChanged in: self announcer
 ]
 
-{ #category : #views }
-ProcessingProgram >> gtCombineWithSource: aView [
-	| element child |
-	element := BlElement new.
-	element layout: BlLinearLayout horizontal.
-	element
-		constraintsDo: [ :c | 
-			c vertical matchParent.
-			c horizontal matchParent ].
-
-	child := self gtGetViewElement: #gtContentsFor:.
-	element addChild: child.
-
-	aView asElementDo: [ :e | child := e ].
-	child
+{ #category : #'views - tools' }
+ProcessingProgram >> gtCombineWithSource: anElement on: anAnnouncer [
+	^ BlElement new
+		layout: BlLinearLayout horizontal;
 		constraintsDo: [ :c | 
 			c vertical matchParent.
 			c horizontal matchParent ];
-		margin: (BlInsets all: 5).
-	element addChild: child.
-	^ element
+		addChild: (self sharedContentsViewElement: anAnnouncer);
+		addChild: anElement;
+		yourself
 ]
 
 { #category : #views }
@@ -256,7 +207,7 @@ ProcessingProgram >> gtDefaultInspectorTool [
 		addTool: super gtDefaultInspectorTool
 ]
 
-{ #category : #views }
+{ #category : #'views - tools' }
 ProcessingProgram >> gtEditorHightlight: anEditor from: from to: to [
 	anEditor editor text
 		clearAttributes: [ :each | each isKindOf: BlTextHighlightAttribute ].
@@ -267,7 +218,7 @@ ProcessingProgram >> gtEditorHightlight: anEditor from: from to: to [
 		scrollToPosition: (anEditor text asString lineNumberCorrespondingToIndex: from)
 ]
 
-{ #category : #views }
+{ #category : #'views - tools' }
 ProcessingProgram >> gtExplain: aCanvas in: anEditor [
 	| seen |
 	aCanvas
@@ -293,7 +244,7 @@ ProcessingProgram >> gtExplain: aCanvas in: anEditor [
 					seen add: slice ] ]
 ]
 
-{ #category : #views }
+{ #category : #'views - tools' }
 ProcessingProgram >> gtGetLiveView: aView for: aBlock title: aTitle priority: aPriority [
 	^ aView explicit
 		title: aTitle;
@@ -308,7 +259,7 @@ ProcessingProgram >> gtGetLiveView: aView for: aBlock title: aTitle priority: aP
 		updateWhen: ProcessingProgramChanged in: self announcer
 ]
 
-{ #category : #views }
+{ #category : #'views - tools' }
 ProcessingProgram >> gtGetViewElement: aViewName [
 	| element |
 	(self perform: aViewName with: GtPhlowView empty)
@@ -338,29 +289,13 @@ ProcessingProgram >> gtIntermediaryRepresentationPlusSourceFor: aView [
 	^ aView explicit
 		priority: 31;
 		title: 'IR++';
-		stencil: [ | element editor list |
-			element := self
-					gtCombineWithSource: (compilation gtIntermediaryRepresentationFor: GtPhlowView empty).
-
-			editor := element children first.
-			list := element children last children last.
-
-			self
-				gtOnListSelect: list
-				do: [ :astNode | 
-					self
-						gtEditorHightlight: editor
-						from: astNode startPosition
-						to: astNode stopPosition ].
-			self
-				gtOnEditorChange: editor
-				do: [ :position | self gtSelectIRNode: list at: position ].
-
-			element ];
+		stencil: [ | events |
+			events := Announcer new.
+			self gtCombineWithSource: (self sharedIRViewElement: events) on: events ];
 		updateWhen: ProcessingProgramChanged in: self announcer
 ]
 
-{ #category : #views }
+{ #category : #'views - tools' }
 ProcessingProgram >> gtOnEditorChange: anEditor do: aBlock [
 	anEditor editor
 		when: BrTextEditorCursorMovedEvent
@@ -375,7 +310,7 @@ ProcessingProgram >> gtOnEditorChange: anEditor do: aBlock [
 				position notNil ifTrue: [ aBlock cull: position ] ]
 ]
 
-{ #category : #views }
+{ #category : #'views - tools' }
 ProcessingProgram >> gtOnListSelect: aList do: aBlock [
 	aList
 		when: BrSelectionChanged
@@ -397,7 +332,7 @@ ProcessingProgram >> gtOnListSelect: aList do: aBlock [
 						ifTrue: [ aBlock cull: item ] ] ]
 ]
 
-{ #category : #views }
+{ #category : #'views - tools' }
 ProcessingProgram >> gtOnTreeSelect: aTree do: aBlock [
 	aTree
 		when: BrSelectionChanged
@@ -433,7 +368,7 @@ ProcessingProgram >> gtOutputPlusSourceFor: aView [
 		priority: 41;
 		title: 'Output++';
 		stencil: [ | element |
-			element := self gtCombineWithSource: (self gtOutputFor: GtPhlowView empty).
+			element := self gtCombineWithSource: (self gtGetViewElement: #gtOutputFor:) on: Announcer new.
 			self gtExplain: element children second in: element children first.
 			element ];
 		updateWhen: ProcessingProgramChanged in: self announcer
@@ -452,7 +387,7 @@ ProcessingProgram >> gtOutputShapesFor: aView [
 		yourself
 ]
 
-{ #category : #views }
+{ #category : #'views - tools' }
 ProcessingProgram >> gtSelectBytecode: aList at: position [
 	| slices |
 	slices := compilation gtSlicesAround: position.
@@ -465,7 +400,7 @@ ProcessingProgram >> gtSelectBytecode: aList at: position [
 						& (slices last interval includesAll: item sourceInterval) ] ]
 ]
 
-{ #category : #views }
+{ #category : #'views - tools' }
 ProcessingProgram >> gtSelectIRNode: aList at: position [
 	| slices |
 	slices := compilation gtSlicesAround: position.
@@ -479,7 +414,7 @@ ProcessingProgram >> gtSelectIRNode: aList at: position [
 								& (slices last interval includesAll: item sourceNode sourceInterval) ] ] ]
 ]
 
-{ #category : #views }
+{ #category : #'views - tools' }
 ProcessingProgram >> gtSelectListItem: aList with: aBlock [
 	| indices |
 	indices := (1 to: aList items size)
@@ -489,7 +424,7 @@ ProcessingProgram >> gtSelectListItem: aList with: aBlock [
 			aList scrollToSelection ]
 ]
 
-{ #category : #views }
+{ #category : #'views - tools' }
 ProcessingProgram >> gtSelectToken: aList at: aPosition [
 	1
 		to: aList items size
@@ -502,7 +437,7 @@ ProcessingProgram >> gtSelectToken: aList at: aPosition [
 					aList scrollToSelection ] ]
 ]
 
-{ #category : #views }
+{ #category : #'views - tools' }
 ProcessingProgram >> gtSelectTreeNode: aTree at: aPosition [
 	| treeNode nextNode |
 	nextNode := aTree viewModel itemAt: 1.
@@ -557,42 +492,16 @@ ProcessingProgram >> gtSourceBytesPlusCharsFor: aView [
 	^ aView explicit
 		title: 'Source Chars+Bytes';
 		priority: 7;
-		stencil: [ | element list charList indices encoder |
-			element := BlElement new.
-			element layout: (BlGridLayout new columnCount: 2).
-			element
+		stencil: [ | events |
+			events := Announcer new.
+			BlElement new
+				layout: (BlGridLayout new columnCount: 2);
 				constraintsDo: [ :c | 
 					c vertical matchParent.
-					c horizontal matchParent ].
-
-			charList := self gtGetViewElement: #gtSourceCharsFor:.
-			element addChild: charList.
-			list := self gtGetViewElement: #gtSourceBytesFor:.
-			element addChild: list.
-
-			charList := charList children last.
-			list := list children last.
-
-			encoder := ZnUTF8Encoder new.
-			indices := OrderedCollection new.
-			self source asString
-				doWithIndex: [ :c :index | 1 to: (encoder encodeString: c asString) size do: [ :ix | indices add: index ] ].
-
-			list
-				when: BrSelectionChanged
-				do: [ :event | 
-					event selectedInterval
-						ifNotNil: [ charList selectOne: (indices at: event selectedInterval first).
-							charList scrollToSelection ] ].
-			charList
-				when: BrSelectionChanged
-				do: [ :event | 
-					event selectedInterval
-						ifNotNil: [ list selectOne: (indices indexOf: event selectedInterval first).
-							list scrollToSelection ] ].
-
-
-			element ];
+					c horizontal matchParent ];
+				addChild: (self sharedSourceCharsViewElement: events);
+				addChild: (self sharedSourceBytesViewElement: events);
+				yourself ];
 		updateWhen: ProcessingProgramChanged in: self announcer
 ]
 
@@ -604,36 +513,11 @@ ProcessingProgram >> gtSourceBytesPlusSourceFor: aView [
 	^ aView explicit
 		title: 'Source Bytes++';
 		priority: 9;
-		stencil: [ | element editor list indices encoder |
-			element := self
-					gtCombineWithSource: (self gtSourceBytesFor: GtPhlowView empty).
-
-			editor := element children first.
-			list := element children last children last.
-
-			encoder := ZnUTF8Encoder new.
-			indices := OrderedCollection new.
-			self source asString
-				doWithIndex: [ :c :index | 1 to: (encoder encodeString: c asString) size do: [ :ix | indices add: index ] ].
-
-			list
-				when: BrSelectionChanged
-				do: [ :event | 
-					event selectedInterval
-						ifNotNil: [ self
-								gtEditorHightlight: editor
-								from: (indices at: event selectedInterval first)
-								to: (indices at: event selectedInterval last) ] ].
+		stencil: [ | events |
+			events := Announcer new.
 			self
-				gtOnEditorChange: editor
-				do: [ :position | 
-					| clamped |
-					clamped := indices
-							indexOf: (position + 1 clampBetween: 1 and: source asString size).
-					list selectOne: clamped.
-					list scrollToSelection ].
-
-			element ];
+				gtCombineWithSource: (self sharedSourceBytesViewElement: events)
+				on: events ];
 		updateWhen: ProcessingProgramChanged in: self announcer
 ]
 
@@ -661,30 +545,11 @@ ProcessingProgram >> gtSourceCharsPlusSourceFor: aView [
 	^ aView explicit
 		title: 'Source Chars++';
 		priority: 6;
-		stencil: [ | element editor list |
-			element := self
-					gtCombineWithSource: (self gtSourceCharsFor: GtPhlowView empty).
-
-			editor := element children first.
-			list := element children last children last.
-
-			list
-				when: BrSelectionChanged
-				do: [ :event | 
-					event selectedInterval
-						ifNotNil: [ self
-								gtEditorHightlight: editor
-								from: event selectedInterval first
-								to: event selectedInterval last ] ].
+		stencil: [ | events |
+			events := Announcer new.
 			self
-				gtOnEditorChange: editor
-				do: [ :position | 
-					| clamped |
-					clamped := position + 1 clampBetween: 1 and: source asString size.
-					list selectOne: clamped.
-					list scrollToSelection ].
-
-			element ];
+				gtCombineWithSource: (self sharedSourceCharsViewElement: events)
+				on: events ];
 		updateWhen: ProcessingProgramChanged in: self announcer
 ]
 
@@ -721,33 +586,16 @@ ProcessingProgram >> gtTokensPlusSourceFor: aView [
 	^ aView explicit
 		priority: 11;
 		title: 'AST Tokens++';
-		stencil: [ | element editor list |
-			element := BlElement new.
-			element layout: BlLinearLayout horizontal.
-			element
+		stencil: [ | events |
+			events := Announcer new.
+			BlElement new
+				layout: BlLinearLayout horizontal;
 				constraintsDo: [ :c | 
 					c vertical matchParent.
-					c horizontal matchParent ].
-
-			editor := self gtGetViewElement: #gtContentsFor:.
-			element addChild: editor.
-			list := self gtGetViewElement: #gtTokensFor:.
-			element addChild: list.
-
-			list := list children last.
-
-			self
-				gtOnListSelect: list
-				do: [ :astNode | 
-					self
-						gtEditorHightlight: editor
-						from: astNode startPosition
-						to: astNode stopPosition ].
-			self
-				gtOnEditorChange: editor
-				do: [ :position | self gtSelectToken: list at: position ].
-
-			element ];
+					c horizontal matchParent ];
+				addChild: (self sharedContentsViewElement: events);
+				addChild: (self sharedTokensViewElement: events);
+				yourself ];
 		updateWhen: ProcessingProgramChanged in: self announcer
 ]
 
@@ -757,39 +605,16 @@ ProcessingProgram >> gtTokensPlusTreeFor: aView [
 	^ aView explicit
 		priority: 17;
 		title: 'AST+Tokens';
-		stencil: [ | element list tree skipOne |
-			element := BlElement new.
-			element layout: BlLinearLayout horizontal.
-			element
+		stencil: [ | events |
+			events := Announcer new.
+			BlElement new
+				layout: BlLinearLayout horizontal;
 				constraintsDo: [ :c | 
 					c vertical matchParent.
-					c horizontal matchParent ].
-
-			list := self gtGetViewElement: #gtTokensFor:.
-			element addChild: list.
-			tree := self gtGetViewElement: #gtTreeFor:.
-			element addChild: tree.
-
-			list := list children last.
-			tree := tree children last.
-
-			skipOne := false.	"Prevent auto-selecting feedback changes."
-			self
-				gtOnListSelect: list
-				do: [ :astNode | 
-					skipOne
-						ifFalse: [ skipOne := true.
-							self gtSelectTreeNode: tree at: astNode startPosition.
-							skipOne := false ] ].
-			self
-				gtOnTreeSelect: tree
-				do: [ :astNode | 
-					skipOne
-						ifFalse: [ skipOne := true.
-							self gtSelectToken: list at: astNode startPosition.
-							skipOne := false ] ].
-
-			element ];
+					c horizontal matchParent ];
+				addChild: (self sharedTokensViewElement: events);
+				addChild: (self sharedTreeViewElement: events);
+				yourself ];
 		updateWhen: ProcessingProgramChanged in: self announcer
 ]
 
@@ -809,7 +634,9 @@ ProcessingProgram >> gtTranspilationPlusSourceFor: aView [
 	^ aView explicit
 		priority: 21;
 		title: 'Smalltalk++';
-		stencil: [ self gtCombineWithSource: (self gtTranspilationFor: GtPhlowView empty) ];
+		stencil: [ self
+				gtCombineWithSource: (self gtGetViewElement: #gtTranspilationFor:)
+				on: Announcer new ];
 		updateWhen: ProcessingProgramChanged in: self announcer
 ]
 
@@ -884,24 +711,9 @@ ProcessingProgram >> gtTreePlusSourceFor: aView [
 	^ aView explicit
 		priority: 16;
 		title: 'AST++';
-		stencil: [ | element editor tree |
-			element := self gtCombineWithSource: (self gtTreeFor: GtPhlowView empty).
-
-			editor := element children first.
-			tree := element children last children last.
-
-			self
-				gtOnTreeSelect: tree
-				do: [ :astNode | 
-					self
-						gtEditorHightlight: editor
-						from: astNode startPosition
-						to: astNode stopPosition ].
-			self
-				gtOnEditorChange: editor
-				do: [ :position | self gtSelectTreeNode: tree at: position ].
-
-			element ];
+		stencil: [ | events |
+			events := Announcer new.
+			self gtCombineWithSource: (self sharedTreeViewElement: events) on: events ];
 		updateWhen: ProcessingProgramChanged in: self announcer
 ]
 
@@ -943,6 +755,156 @@ ProcessingProgram >> runStepsFor: duration [
 						slice: (ProcessingRunawayProgramException new
 								messageText: 'Endless loop detected!')) ].
 	^ steps
+]
+
+{ #category : #views }
+ProcessingProgram >> sharedBytecodeViewElement: anAnnouncer ignore: anIgnorable [
+	| bytecode |
+	bytecode := self gtGetViewElement: #gtBytecodeFor:.
+	self
+		gtOnListSelect: bytecode children last
+		do: [ :astNode | 
+			anAnnouncer
+				announce: (ProcessingViewSelectionChanged new
+						interval: astNode sourceInterval;
+						source: bytecode) ].
+
+	anAnnouncer
+		when: ProcessingViewSelectionChanged
+		do: [ :event | 
+			event source = bytecode
+				ifFalse: [ event source = anIgnorable
+						ifFalse: [ self gtSelectBytecode: bytecode children last at: event interval first ] ] ].
+	^ bytecode
+]
+
+{ #category : #views }
+ProcessingProgram >> sharedContentsViewElement: anAnnouncer [
+	| editor |
+	editor := self gtGetViewElement: #gtContentsFor:.
+	self
+		gtOnEditorChange: editor
+		do: [ :position | 
+			| clamped |
+			clamped := position + 1 clampBetween: 1 and: source asString size.	"Default the empty selection to the right of the cursor."
+			anAnnouncer
+				announce: (ProcessingViewSelectionChanged new
+						interval: (clamped to: clamped);
+						source: editor) ].
+	anAnnouncer
+		when: ProcessingViewSelectionChanged
+		do: [ :event | 
+			event source = editor
+				ifFalse: [ self
+						gtEditorHightlight: editor
+						from: event interval first
+						to: event interval last ] ].
+	^ editor
+]
+
+{ #category : #views }
+ProcessingProgram >> sharedIRViewElement: anAnnouncer [
+	| irList |
+	irList := compilation gtGetViewElement: #gtIntermediaryRepresentationFor:.
+	self
+		gtOnListSelect: irList children last
+		do: [ :astNode | 
+			anAnnouncer
+				announce: (ProcessingViewSelectionChanged new
+						interval: astNode sourceInterval;
+						source: irList) ].
+
+	anAnnouncer
+		when: ProcessingViewSelectionChanged
+		do: [ :event | 
+			event source = irList
+				ifFalse: [ self gtSelectIRNode: irList children last at: event interval first ] ].
+	^ irList
+]
+
+{ #category : #views }
+ProcessingProgram >> sharedSourceBytesViewElement: anAnnouncer [
+	| bytesList encoder indices |
+	bytesList := self gtGetViewElement: #gtSourceBytesFor:.
+	encoder := ZnUTF8Encoder new.
+	indices := OrderedCollection new.
+	source asString
+		doWithIndex: [ :c :index | 1 to: (encoder encodeString: c asString) size do: [ :ix | indices add: index ] ].
+	bytesList children last
+		when: BrSelectionChanged
+		do: [ :event | 
+			event selectedInterval
+				ifNotNil: [ anAnnouncer
+						announce: (ProcessingViewSelectionChanged new
+								interval: ((indices at: event selectedInterval first)
+										to: (indices at: event selectedInterval last));
+								source: bytesList) ] ].
+	anAnnouncer
+		when: ProcessingViewSelectionChanged
+		do: [ :event | 
+			event source = bytesList
+				ifFalse: [ bytesList children last selectOne: (indices indexOf: event interval first).
+					bytesList children last scrollToSelection ] ].
+	^ bytesList
+]
+
+{ #category : #views }
+ProcessingProgram >> sharedSourceCharsViewElement: anAnnouncer [
+	| charsList |
+	charsList := self gtGetViewElement: #gtSourceCharsFor:.
+	charsList children last
+		when: BrSelectionChanged
+		do: [ :event | 
+			event selectedInterval
+				ifNotNil: [ anAnnouncer
+						announce: (ProcessingViewSelectionChanged new
+								interval: event selectedInterval;
+								source: charsList) ] ].
+	anAnnouncer
+		when: ProcessingViewSelectionChanged
+		do: [ :event | 
+			event source = charsList
+				ifFalse: [ charsList children last selectOne: event interval first.
+					charsList children last scrollToSelection ] ].
+	^ charsList
+]
+
+{ #category : #views }
+ProcessingProgram >> sharedTokensViewElement: anAnnouncer [
+	| tokens |
+	tokens := self gtGetViewElement: #gtTokensFor:.
+	self
+		gtOnListSelect: tokens children last
+		do: [ :astNode | 
+			anAnnouncer
+				announce: (ProcessingViewSelectionChanged new
+						interval: astNode sourceInterval;
+						source: tokens) ].
+	anAnnouncer
+		when: ProcessingViewSelectionChanged
+		do: [ :event | 
+			event source = tokens
+				ifFalse: [ self gtSelectToken: tokens children last at: event interval first ] ].
+	^ tokens
+]
+
+{ #category : #views }
+ProcessingProgram >> sharedTreeViewElement: anAnnouncer [
+	| astTree |
+	astTree := self gtGetViewElement: #gtTreeFor:.
+	self
+		gtOnTreeSelect: astTree children last
+		do: [ :astNode | 
+			anAnnouncer
+				announce: (ProcessingViewSelectionChanged new
+						interval: astNode sourceInterval;
+						source: astTree) ].
+	anAnnouncer
+		when: ProcessingViewSelectionChanged
+		do: [ :event | 
+			event source = astTree
+				ifFalse: [ self gtSelectTreeNode: astTree children last at: event interval first ] ].
+	^ astTree
 ]
 
 { #category : #accessing }

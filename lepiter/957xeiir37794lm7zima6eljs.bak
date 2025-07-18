@@ -191,7 +191,7 @@
 							},
 							"exampleSelector" : "programExample03",
 							"previewHeight" : 250,
-							"previewShowSelector" : "gtBytesPlusSourceFor:",
+							"previewShowSelector" : "gtSourceBytesPlusCharsFor:",
 							"exampleBehaviorName" : "ProcessingProgramExamples",
 							"codeExpanded" : true,
 							"previewExpanded" : false,
