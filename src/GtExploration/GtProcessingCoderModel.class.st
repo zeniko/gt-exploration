@@ -71,24 +71,7 @@ GtProcessingCoderModel >> doItAndPublish: aBlock with: anEvaluationContext [
 	| result |
 	result := aBlock
 			on: Error
-			do: [ :error | 
-				| location message |
-				location := anEvaluationContext requesterObject coderViewModel coderModel
-						currentSourceString size + 1.	"at the very end"
-				message := error messageText.	"TODO: nicer error messages"
-				message ifEmpty: [ message := error asString ].
-
-				(error isKindOf: SmaCCParserError)
-					ifTrue: [ location := error tag errorToken startPosition ].
-				(error isKindOf: ProcessingCompileTimeException)
-					ifTrue: [ location := error tag startPosition.
-						message ifEmpty: [ message := 'Unsupported: ' , error tag asString ] ].
-				^ self
-					announce: (GtCoderParseError new
-							errorMessage: message;
-							location: location;
-							exception: error;
-							requesterObject: anEvaluationContext requesterObject) ].
+			do: [ :error | ^ self handleError: error for: anEvaluationContext ].
 
 	anEvaluationContext evaluatedSourceString: ''.
 	result := GtSourceCoderEvaluationResultWithValue new
@@ -99,6 +82,45 @@ GtProcessingCoderModel >> doItAndPublish: aBlock with: anEvaluationContext [
 	self
 		notifyObjectSpawnFromEvaluationResult: result
 		requesterObject: anEvaluationContext requesterObject
+]
+
+{ #category : #'error handling' }
+GtProcessingCoderModel >> handleError: anError for: aContext [
+	| location message |
+	location := aContext requesterObject coderViewModel coderModel
+			currentSourceString size + 1.	"default to the very end"
+	message := anError messageText.	"TODO: nicer error messages"
+	message ifEmpty: [ message := anError asString ].
+
+	(anError isKindOf: SmaCCParserError)
+		ifTrue: [ | parser |
+			parser := anError tag.
+			parser errorToken startPosition = location
+				ifTrue: [ message := 'Incomplete code (open parenthesis or missing argument)' ]
+				ifFalse: [ location := parser errorToken startPosition ].
+
+			message = 'Token not expected'
+				ifTrue: [ | actions |
+					actions := self potentialStateActions: parser.
+					message := 'Expected: ' , (' or ' join: actions) ].
+			message = 'Expected: <INDENT>'
+				ifTrue: [ message := 'Expected indentation (press Tab)' ].
+			(self lookaheadToken: parser) = '<INDENT>'
+				ifTrue: [ message := 'Unexpected indentation (press Shift+Tab)' ] ].
+
+	(anError isKindOf: ProcessingNotImplementedException)
+		ifTrue: [ message := 'Unsupported: ' , message ].
+
+	(anError isKindOf: ProcessingCompileTimeException)
+		ifTrue: [ location := anError tag startPosition.
+			message ifEmpty: [ message := 'Unsupported: ' , anError tag asString ] ].
+
+	^ self
+		announce: (GtCoderParseError new
+				errorMessage: message;
+				location: location;
+				exception: anError;
+				requesterObject: aContext requesterObject)
 ]
 
 { #category : #'api - ast' }
@@ -163,6 +185,17 @@ GtProcessingCoderModel >> initializeShortcuts: addOns [
 		addShortcut: GtProcessingCoderDebugShortcut new
 ]
 
+{ #category : #'error handling' }
+GtProcessingCoderModel >> lookaheadToken: aParser [
+	| stream |
+	aParser currentToken ifNil: [ ^ nil ].
+	stream := WriteStream on: String new.
+	aParser currentToken ids
+		do: [ :each | stream nextPutAll: (aParser symbolNameFor: each) ]
+		separatedBy: [ stream nextPut: $; ].
+	^ stream contents
+]
+
 { #category : #'instance creation' }
 GtProcessingCoderModel >> newCompletionStrategy [
 	^ GtCompletionStrategy new
@@ -176,6 +209,20 @@ GtProcessingCoderModel >> pharoBindings [
 { #category : #accessing }
 GtProcessingCoderModel >> pharoBindings: anObject [
 	pharoBindings := anObject
+]
+
+{ #category : #'error handling' }
+GtProcessingCoderModel >> potentialStateActions: aParser [
+	"Adapted from SmaCCParserDebugSession>>#potentialStateActions"
+
+	| items ids |
+	ids := aParser currentToken ifNotNil: [ :token | token ids ] ifNil: [ #() ].
+	items := OrderedCollection new.
+	aParser
+		actionsAndSymbolsForState: aParser stateStack last
+		do: [ :action :symbol | items add: (aParser symbolNameFor: symbol) ].
+	^ items
+		asSortedCollection: [ :a :b | a third = b third ifTrue: [ a last < b last ] ifFalse: [ a third ] ]
 ]
 
 { #category : #'private - actions' }
