@@ -333,7 +333,7 @@ ProcessingAstCleaner >> acceptNodes: aCollection [
 { #category : #visiting }
 ProcessingAstCleaner >> notImplemented: expr [
 	ProcessingNotImplementedException
-		signal: ((expr class name removePrefix: 'Py') removeSuffix: 'Node')
+		signal: 'Unsupported expression type: ' , ((expr class name removePrefix: 'Py') removeSuffix: 'Node')
 		withTag: expr
 ]
 

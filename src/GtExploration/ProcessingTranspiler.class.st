@@ -450,6 +450,7 @@ ProcessingTranspiler >> emit_background: args [
 	args size = 1
 		ifTrue: [ self emit: 'gtCanvas backgroundGray: '.
 			^ args first acceptVisitor: self ].
+	self expect: 3 argumentsFor: args.
 	self emit: 'gtCanvas backgroundR: '.
 	args first acceptVisitor: self.
 	self emit: ' G: '.
@@ -460,6 +461,7 @@ ProcessingTranspiler >> emit_background: args [
 
 { #category : #emitting }
 ProcessingTranspiler >> emit_circle: args [
+	self expect: 3 argumentsFor: args.
 	self emit: 'gtCanvas circle: '.
 	args first acceptVisitor: self.
 	self emit: ' y: '.
@@ -470,6 +472,7 @@ ProcessingTranspiler >> emit_circle: args [
 
 { #category : #emitting }
 ProcessingTranspiler >> emit_color: args [
+	self expect: 3 argumentsFor: args.
 	self emit: '(gtCanvas colorWithR: '.
 	args first acceptVisitor: self.
 	self emit: ' G: '.
@@ -481,12 +484,14 @@ ProcessingTranspiler >> emit_color: args [
 
 { #category : #emitting }
 ProcessingTranspiler >> emit_cos: args [
+	self expect: 1 argumentsFor: args.
 	args first acceptVisitor: self.
 	self emit: ' cos'
 ]
 
 { #category : #emitting }
 ProcessingTranspiler >> emit_delay: args [
+	self expect: 1 argumentsFor: args.
 	self emit: '('.
 	args first acceptVisitor: self.
 	self emit: ' / 1000.0) seconds wait'
@@ -494,6 +499,7 @@ ProcessingTranspiler >> emit_delay: args [
 
 { #category : #emitting }
 ProcessingTranspiler >> emit_ellipse: args [
+	self expect: 4 argumentsFor: args.
 	self emit: 'gtCanvas ellipse: '.
 	args first acceptVisitor: self.
 	self emit: ' y: '.
@@ -509,6 +515,7 @@ ProcessingTranspiler >> emit_fill: args [
 	args size = 1
 		ifTrue: [ self emit: 'gtCanvas fillGray: '.
 			^ args first acceptVisitor: self ].
+	self expect: 3 argumentsFor: args.
 	self emit: 'gtCanvas fillR: '.
 	args first acceptVisitor: self.
 	self emit: ' G: '.
@@ -519,12 +526,14 @@ ProcessingTranspiler >> emit_fill: args [
 
 { #category : #emitting }
 ProcessingTranspiler >> emit_frameRate: args [
+	self expect: 1 argumentsFor: args.
 	self emit: 'gtCanvas frameRate: '.
 	args first acceptVisitor: self
 ]
 
 { #category : #emitting }
 ProcessingTranspiler >> emit_image: args [
+	self expect: (args size > 3 ifTrue: [ 5 ] ifFalse: [ 3 ]) argumentsFor: args.
 	self emit: 'gtCanvas image: '.
 	args first acceptVisitor: self.
 	self emit: ' x: '.
@@ -540,12 +549,14 @@ ProcessingTranspiler >> emit_image: args [
 
 { #category : #emitting }
 ProcessingTranspiler >> emit_int: args [
+	self expect: 1 argumentsFor: args.
 	args first acceptVisitor: self.
 	self emit: ' rounded'
 ]
 
 { #category : #emitting }
 ProcessingTranspiler >> emit_line: args [
+	self expect: 4 argumentsFor: args.
 	self emit: 'gtCanvas line: '.
 	args first acceptVisitor: self.
 	self emit: ' y1: '.
@@ -558,6 +569,7 @@ ProcessingTranspiler >> emit_line: args [
 
 { #category : #emitting }
 ProcessingTranspiler >> emit_loadImage: args [
+	self expect: 1 argumentsFor: args.
 	self emit: '(gtCanvas loadImage: '.
 	args first acceptVisitor: self.
 	self emit: ')'
@@ -565,11 +577,13 @@ ProcessingTranspiler >> emit_loadImage: args [
 
 { #category : #emitting }
 ProcessingTranspiler >> emit_millis: args [
+	self expect: 0 argumentsFor: args.
 	self emit: 'gtCanvas millis'
 ]
 
 { #category : #emitting }
 ProcessingTranspiler >> emit_noStroke: args [
+	self expect: 0 argumentsFor: args.
 	self emit: 'gtCanvas noStroke'
 ]
 
@@ -595,12 +609,14 @@ ProcessingTranspiler >> emit_println: args [
 
 { #category : #emitting }
 ProcessingTranspiler >> emit_radians: args [
+	self expect: 1 argumentsFor: args.
 	args first acceptVisitor: self.
 	self emit: ' degreesToRadians'
 ]
 
 { #category : #emitting }
 ProcessingTranspiler >> emit_random: args [
+	self expect: (args size > 1 ifTrue: [ 2 ] ifFalse: [ 1 ]) argumentsFor: args.
 	self emit: '(gtCanvas random: '.
 	args first acceptVisitor: self.
 	args size > 1
@@ -611,6 +627,7 @@ ProcessingTranspiler >> emit_random: args [
 
 { #category : #emitting }
 ProcessingTranspiler >> emit_rect: args [
+	self expect: 4 argumentsFor: args.
 	self emit: 'gtCanvas rect: '.
 	args first acceptVisitor: self.
 	self emit: ' y: '.
@@ -623,24 +640,28 @@ ProcessingTranspiler >> emit_rect: args [
 
 { #category : #emitting }
 ProcessingTranspiler >> emit_rotate: args [
+	self expect: 1 argumentsFor: args.
 	self emit: 'gtCanvas rotate: '.
 	args first acceptVisitor: self
 ]
 
 { #category : #emitting }
 ProcessingTranspiler >> emit_scale: args [
+	self expect: 1 argumentsFor: args.
 	self emit: 'gtCanvas scale: '.
 	args first acceptVisitor: self
 ]
 
 { #category : #emitting }
 ProcessingTranspiler >> emit_sin: args [
+	self expect: 1 argumentsFor: args.
 	args first acceptVisitor: self.
 	self emit: ' sin'
 ]
 
 { #category : #emitting }
 ProcessingTranspiler >> emit_size: args [
+	self expect: 2 argumentsFor: args.
 	self emit: 'width := '.
 	args first acceptVisitor: self.
 	self emit: '. height := '.
@@ -650,18 +671,21 @@ ProcessingTranspiler >> emit_size: args [
 
 { #category : #emitting }
 ProcessingTranspiler >> emit_sq: args [
+	self expect: 1 argumentsFor: args.
 	args first acceptVisitor: self.
 	self emit: ' squared'
 ]
 
 { #category : #emitting }
 ProcessingTranspiler >> emit_sqrt: args [
+	self expect: 1 argumentsFor: args.
 	args first acceptVisitor: self.
 	self emit: ' sqrt'
 ]
 
 { #category : #emitting }
 ProcessingTranspiler >> emit_square: args [
+	self expect: 3 argumentsFor: args.
 	self emit: 'gtCanvas square: '.
 	args first acceptVisitor: self.
 	self emit: ' y: '.
@@ -672,6 +696,7 @@ ProcessingTranspiler >> emit_square: args [
 
 { #category : #emitting }
 ProcessingTranspiler >> emit_str: args [
+	self expect: 1 argumentsFor: args.
 	args first acceptVisitor: self.
 	self emit: ' asString'
 ]
@@ -681,6 +706,7 @@ ProcessingTranspiler >> emit_stroke: args [
 	args size = 1
 		ifTrue: [ self emit: 'gtCanvas strokeGray: '.
 			^ args first acceptVisitor: self ].
+	self expect: 3 argumentsFor: args.
 	self emit: 'gtCanvas strokeR: '.
 	args first acceptVisitor: self.
 	self emit: ' G: '.
@@ -691,18 +717,21 @@ ProcessingTranspiler >> emit_stroke: args [
 
 { #category : #emitting }
 ProcessingTranspiler >> emit_strokeWeight: args [
+	self expect: 1 argumentsFor: args.
 	self emit: 'gtCanvas strokeWeight: '.
 	args first acceptVisitor: self
 ]
 
 { #category : #emitting }
 ProcessingTranspiler >> emit_tan: args [
+	self expect: 1 argumentsFor: args.
 	args first acceptVisitor: self.
 	self emit: ' tan'
 ]
 
 { #category : #emitting }
 ProcessingTranspiler >> emit_text: args [
+	self expect: 3 argumentsFor: args.
 	self emit: 'gtCanvas text: '.
 	args first acceptVisitor: self.
 	self emit: ' x: '.
@@ -713,12 +742,14 @@ ProcessingTranspiler >> emit_text: args [
 
 { #category : #emitting }
 ProcessingTranspiler >> emit_textSize: args [
+	self expect: 1 argumentsFor: args.
 	self emit: 'gtCanvas textSize: '.
 	args first acceptVisitor: self
 ]
 
 { #category : #emitting }
 ProcessingTranspiler >> emit_translate: args [
+	self expect: 2 argumentsFor: args.
 	self emit: 'gtCanvas translate: '.
 	args first acceptVisitor: self.
 	self emit: ' y: '.
@@ -727,6 +758,7 @@ ProcessingTranspiler >> emit_translate: args [
 
 { #category : #emitting }
 ProcessingTranspiler >> emit_triangle: args [
+	self expect: 6 argumentsFor: args.
 	self emit: 'gtCanvas triangle: '.
 	args first acceptVisitor: self.
 	self emit: ' y1: '.
@@ -749,6 +781,24 @@ ProcessingTranspiler >> endEmit [
 	^ node size
 ]
 
+{ #category : #'error handling' }
+ProcessingTranspiler >> expect: num argumentsFor: args [
+	num = args size
+		ifFalse: [ ProcessingCompileTimeException
+				signal: 'Expected ' , num asString , ' arguments but got ' , args size asString
+				withTag: (args ifNotEmpty: [ args first ] ifEmpty: [ nil ]) ]
+]
+
+{ #category : #'error handling' }
+ProcessingTranspiler >> expect: aClass for: expr [
+	(expr isKindOf: aClass)
+		ifFalse: [ ProcessingCompileTimeException
+				signal: 'Expected: ' , ((aClass name removePrefix: 'Py') removeSuffix: 'Node')
+						, ' but got: '
+						, ((expr class name removePrefix: 'Py') removeSuffix: 'Node')
+				withTag: expr ]
+]
+
 { #category : #visiting }
 ProcessingTranspiler >> isStringConcatenation: expr [
 	(expr isKindOf: PyStringNode) ifTrue: [ ^ true ].
@@ -760,10 +810,10 @@ ProcessingTranspiler >> isStringConcatenation: expr [
 		or: [ self isStringConcatenation: expr right ]
 ]
 
-{ #category : #emitting }
+{ #category : #'error handling' }
 ProcessingTranspiler >> notImplemented: expr [
 	ProcessingNotImplementedException
-		signal: ((expr class name removePrefix: 'Py') removeSuffix: 'Node')
+		signal: 'Unsupported expression type: ' , ((expr class name removePrefix: 'Py') removeSuffix: 'Node')
 		withTag: expr
 ]
 
@@ -1201,10 +1251,8 @@ ProcessingTranspiler >> visitFinally: aFinally [
 ProcessingTranspiler >> visitForStatement: expr [
 	| from to by |
 	"only `for ... in range(...):` is currently supported"
-	(expr inExpression isKindOf: PyFunctionCallExpressionNode)
-		ifFalse: [ self notImplemented: expr ].
-	(expr inExpression receiver isKindOf: PyVariableExpressionNode)
-		ifFalse: [ self notImplemented: expr ].
+	self expect: PyFunctionCallExpressionNode for: expr inExpression.
+	self expect: PyVariableExpressionNode for: expr inExpression receiver.
 	expr inExpression receiver nameToken value = 'range'
 		ifFalse: [ self notImplemented: expr ].
 	expr exprs size > 1 ifTrue: [ self notImplemented: expr ].
@@ -1242,6 +1290,7 @@ ProcessingTranspiler >> visitForStatement: expr [
 ProcessingTranspiler >> visitFunctionCallExpression: fnCall [
 	| name builtin |
 	self startEmit: fnCall.
+	self expect: PyVariableExpressionNode for: fnCall receiver.
 	name := fnCall receiver nameToken value.	"TODO: disallow overriding builtin functions?"
 	(userDefs includesKey: name)
 		ifTrue: [ self emit: '(self '.
@@ -1444,17 +1493,6 @@ ProcessingTranspiler >> visitSetExpression: aSetExpression [
 { #category : #generated }
 ProcessingTranspiler >> visitSlice: aSlice [
 	^ self visitRoot: aSlice
-]
-
-{ #category : #visiting }
-ProcessingTranspiler >> visitSmaCCError: aSmaCCError [
-	^ self visitSmaCCParseNode: aSmaCCError
-]
-
-{ #category : #visiting }
-ProcessingTranspiler >> visitSmaCCParseNode: aSmaCCParseNode [
-	self acceptNodes: aSmaCCParseNode sortedChildren.
-	^ aSmaCCParseNode
 ]
 
 { #category : #generated }

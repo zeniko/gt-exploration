@@ -93,27 +93,29 @@ GtProcessingCoderModel >> handleError: anError for: aContext [
 	message ifEmpty: [ message := anError asString ].
 
 	(anError isKindOf: SmaCCParserError)
-		ifTrue: [ | parser |
+		ifTrue: [ | parser stack expected found |
 			parser := anError tag.
-			parser errorToken startPosition = location
-				ifTrue: [ message := 'Incomplete code (open parenthesis or missing argument)' ]
-				ifFalse: [ location := parser errorToken startPosition ].
-
-			message = 'Token not expected'
-				ifTrue: [ | actions |
-					actions := self potentialStateActions: parser.
-					message := 'Expected: ' , (' or ' join: actions) ].
+			location := parser errorToken startPosition.
+			stack := self parserStack: parser.
+			expected := self potentialStateActions: parser.
+			found := self lookaheadToken: parser.
+			(expected includes: '<rparen>')
+				ifTrue: [ stack
+						do: [ :symbol_token | 
+							symbol_token first = '<lparen>'
+								ifTrue: [ location := symbol_token second startPosition.
+									message := 'Open parenthesis' ] ] ]
+				ifFalse: [ message := 'Expected: ' , (' or ' join: expected) ].
 			message = 'Expected: <INDENT>'
 				ifTrue: [ message := 'Expected indentation (press Tab)' ].
-			(self lookaheadToken: parser) = '<INDENT>'
+			found = 'E O F'
+				ifTrue: [ message := 'Incomplete code (open parenthesis or missing argument)' ].
+			found = '<INDENT>'
 				ifTrue: [ message := 'Unexpected indentation (press Shift+Tab)' ] ].
 
 	(anError isKindOf: ProcessingNotImplementedException)
-		ifTrue: [ message := 'Unsupported: ' , message ].
-
-	(anError isKindOf: ProcessingCompileTimeException)
-		ifTrue: [ location := anError tag startPosition.
-			message ifEmpty: [ message := 'Unsupported: ' , anError tag asString ] ].
+		| (anError isKindOf: ProcessingCompileTimeException)
+		ifTrue: [ anError tag ifNotNil: [ location := anError tag startPosition ] ].
 
 	^ self
 		announce: (GtCoderParseError new
@@ -201,6 +203,18 @@ GtProcessingCoderModel >> newCompletionStrategy [
 	^ GtCompletionStrategy new
 ]
 
+{ #category : #'error handling' }
+GtProcessingCoderModel >> parserStack: aParser [
+	| states nodes |
+	states := aParser stateStack.
+	nodes := aParser nodeStack.
+	^ ((1 to: states size - 1)
+		collect: [ :i | 
+			Array
+				with: (aParser symbolForTransitionFrom: (states at: i) to: (states at: i + 1))
+				with: (nodes at: i) ]) reversed
+]
+
 { #category : #accessing }
 GtProcessingCoderModel >> pharoBindings [
 	^ pharoBindings
@@ -221,8 +235,7 @@ GtProcessingCoderModel >> potentialStateActions: aParser [
 	aParser
 		actionsAndSymbolsForState: aParser stateStack last
 		do: [ :action :symbol | items add: (aParser symbolNameFor: symbol) ].
-	^ items
-		asSortedCollection: [ :a :b | a third = b third ifTrue: [ a last < b last ] ifFalse: [ a third ] ]
+	^ items sorted
 ]
 
 { #category : #'private - actions' }
