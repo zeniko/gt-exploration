@@ -568,6 +568,16 @@ ProcessingProgram >> gtSourceCharsPlusSourceFor: aView [
 ]
 
 { #category : #views }
+ProcessingProgram >> gtStepsFor: aView [
+	"The stepper isn't updated when the source changes, as that's too resource intensive for non-trivial programs"
+
+	<gtView>
+	^ ((Stepper for: self runSteps view: #gtAbstractionsFor:) gtListViewFor: aView)
+		priority: 45;
+		title: 'Steps'
+]
+
+{ #category : #views }
 ProcessingProgram >> gtTokensFor: aView [
 	<gtView>
 	^ aView columnedList
