@@ -736,6 +736,8 @@ ProcessingAstCleaner >> visitTupleExpression: expr [
 
 	expr expressions size = 1 ifFalse: [ self notImplemented: expr ].
 	expr expressions first acceptVisitor: self.
+	expr expressions first attributeNamed: #startPosition put: expr startPosition.
+	expr expressions first attributeNamed: #stopPosition put: expr stopPosition.
 	^ self replace: expr with: expr expressions first
 ]
 
