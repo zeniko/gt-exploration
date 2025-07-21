@@ -2,21 +2,10 @@ Class {
 	#name : #ProcessingSourceChanged,
 	#superclass : #Announcement,
 	#instVars : [
-		'source',
-		'ast'
+		'source'
 	],
 	#category : #'GtExploration-Processing'
 }
-
-{ #category : #accessing }
-ProcessingSourceChanged >> ast [
-	^ ast ifNil: [ ProcessingParser parse: source asString ]
-]
-
-{ #category : #accessing }
-ProcessingSourceChanged >> ast: anAst [
-	ast := anAst
-]
 
 { #category : #accessing }
 ProcessingSourceChanged >> source [

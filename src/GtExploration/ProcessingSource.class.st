@@ -61,11 +61,15 @@ ProcessingSource >> announceSourceChange [
 	| ast |
 	[ ast := ProcessingParser parse: self asString.
 	self announcer
-		announce: (ProcessingSourceChanged new
+		announce: (ProcessingASTChanged new
 				source: self;
 				ast: ast) ]
 		on: SmaCCParserError
-		do: [ :error "silently swallow errors on updates, as these happen intermittently during incomplete/slow typing" |  ]
+		do: [ :error | 
+			self announcer
+				announce: (ProcessingSourceChangedError new
+						source: self;
+						sourceError: error) ]
 ]
 
 { #category : #announcements }

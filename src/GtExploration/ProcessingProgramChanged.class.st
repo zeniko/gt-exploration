@@ -1,6 +1,6 @@
 Class {
 	#name : #ProcessingProgramChanged,
-	#superclass : #ProcessingSourceChanged,
+	#superclass : #ProcessingASTChanged,
 	#instVars : [
 		'program'
 	],

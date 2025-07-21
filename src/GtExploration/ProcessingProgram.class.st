@@ -10,7 +10,14 @@ Class {
 	#category : #'GtExploration-Processing'
 }
 
-{ #category : #announcements }
+{ #category : #'views - tools' }
+ProcessingProgram >> addHighlightOnError: anElement [
+	self announcer
+		when: ProcessingSourceChangedError
+		do: [ :event | anElement background: BrGlamorousColors paleFailureBackgroundColor ]
+]
+
+{ #category : #accessing }
 ProcessingProgram >> announcer [
 	^ announcer ifNil: [ announcer := Announcer new ]
 ]
@@ -67,6 +74,7 @@ ProcessingProgram >> gtAbstractionsFor: aView [
 			element addChild: bytecode.
 			canvas := self gtGetViewElement: #gtOutputFor:.
 			element addChild: canvas.
+			self addHighlightOnError: element.
 
 			false ifTrue: [ self gtExplain: canvas in: editor ].	"Disabled for performance reasons"
 
@@ -104,6 +112,7 @@ ProcessingProgram >> gtBytecodePlusIRFor: aView [
 			element addChild: irList.
 			bytecode := self gtGetViewElement: #gtBytecodeFor:.
 			element addChild: bytecode.
+			self addHighlightOnError: element.
 
 			irList := irList children last.
 			bytecode := bytecode children last.
@@ -151,11 +160,13 @@ ProcessingProgram >> gtBytecodePlusSourceFor: aView [
 	^ aView explicit
 		priority: 36;
 		title: 'Bytecode' translated , '++';
-		stencil: [ | events |
+		stencil: [ | events element |
 			events := Announcer new.
-			self
-				gtCombineWithSource: (self sharedBytecodeViewElement: events ignore: nil)
-				on: events ];
+			element := self
+					gtCombineWithSource: (self sharedBytecodeViewElement: events ignore: nil)
+					on: events.
+			self addHighlightOnError: element.
+			element ];
 		updateWhen: ProcessingProgramChanged in: self announcer
 ]
 
@@ -186,7 +197,7 @@ ProcessingProgram >> gtContentsFor: aView [
 				beMode: BrTextEditorReadonlyWithNavigationMode new;
 				background: Color white.
 			editor ];
-		updateWhen: ProcessingProgramChanged in: self announcer
+		updateWhen: ProcessingSourceChanged in: self announcer
 ]
 
 { #category : #views }
@@ -250,21 +261,19 @@ ProcessingProgram >> gtGetLiveView: aView for: aBlock title: aTitle priority: aP
 		title: aTitle;
 		priority: aPriority;
 		stencil: [ | element |
-			(aBlock cull: GtPhlowView empty) asElementDo: [ :e | element := e ].
+			element := (aBlock cull: GtPhlowView empty) asElement.
 			element
 				constraintsDo: [ :e | 
 					e vertical matchParent.
-					e horizontal matchParent ];
-				yourself ];
+					e horizontal matchParent ].
+			self addHighlightOnError: element.
+			element ];
 		updateWhen: ProcessingProgramChanged in: self announcer
 ]
 
 { #category : #'views - tools' }
 ProcessingProgram >> gtGetViewElement: aViewName [
-	| element |
-	(self perform: aViewName with: GtPhlowView empty)
-		asElementDo: [ :e | element := e ].
-	^ element
+	^ (self perform: aViewName with: GtPhlowView empty) asElement
 		constraintsDo: [ :c | 
 			c vertical matchParent.
 			c horizontal matchParent ];
@@ -289,9 +298,13 @@ ProcessingProgram >> gtIntermediaryRepresentationPlusSourceFor: aView [
 	^ aView explicit
 		priority: 31;
 		title: 'IR++';
-		stencil: [ | events |
+		stencil: [ | events element |
 			events := Announcer new.
-			self gtCombineWithSource: (self sharedIRViewElement: events) on: events ];
+			element := self
+					gtCombineWithSource: (self sharedIRViewElement: events)
+					on: events.
+			self addHighlightOnError: element.
+			element ];
 		updateWhen: ProcessingProgramChanged in: self announcer
 ]
 
@@ -369,6 +382,7 @@ ProcessingProgram >> gtOutputPlusSourceFor: aView [
 		title: 'Output++';
 		stencil: [ | element |
 			element := self gtCombineWithSource: (self gtGetViewElement: #gtOutputFor:) on: Announcer new.
+			self addHighlightOnError: element.
 			self gtExplain: element children second in: element children first.
 			element ];
 		updateWhen: ProcessingProgramChanged in: self announcer
@@ -483,7 +497,7 @@ ProcessingProgram >> gtSourceBytesFor: aView [
 		column: 'ASCII' text: [ :each | each asString ];
 		column: 'HEX' text: [ :each | (each radix: 16) padLeftTo: 2 with: $0 ];
 		column: 'Binary' text: [ :each | (each radix: 2) padLeftTo: 8 with: $0 ];
-		updateWhen: ProcessingSourceChanged in: source announcer
+		updateWhen: ProcessingSourceChanged in: self announcer
 ]
 
 { #category : #views }
@@ -502,7 +516,7 @@ ProcessingProgram >> gtSourceBytesPlusCharsFor: aView [
 				addChild: (self sharedSourceCharsViewElement: events);
 				addChild: (self sharedSourceBytesViewElement: events);
 				yourself ];
-		updateWhen: ProcessingProgramChanged in: self announcer
+		updateWhen: ProcessingSourceChanged in: self announcer
 ]
 
 { #category : #views }
@@ -518,7 +532,7 @@ ProcessingProgram >> gtSourceBytesPlusSourceFor: aView [
 			self
 				gtCombineWithSource: (self sharedSourceBytesViewElement: events)
 				on: events ];
-		updateWhen: ProcessingProgramChanged in: self announcer
+		updateWhen: ProcessingSourceChanged in: self announcer
 ]
 
 { #category : #views }
@@ -577,7 +591,9 @@ ProcessingProgram >> gtTokensFor: aView [
 				indent asRopedText foreground: Color gray ]
 			width: 45;
 		column: 'Token' text: [ :each | each value ];
-		updateWhen: ProcessingSourceChanged in: source announcer
+		updateWhen: ProcessingASTChanged in: self announcer;
+		asElementDo: [ :e | self addHighlightOnError: e ];
+		yourself
 ]
 
 { #category : #views }
@@ -586,17 +602,19 @@ ProcessingProgram >> gtTokensPlusSourceFor: aView [
 	^ aView explicit
 		priority: 11;
 		title: 'AST Tokens++';
-		stencil: [ | events |
+		stencil: [ | events element |
 			events := Announcer new.
-			BlElement new
+			element := BlElement new.
+			element
 				layout: BlLinearLayout horizontal;
 				constraintsDo: [ :c | 
 					c vertical matchParent.
 					c horizontal matchParent ];
 				addChild: (self sharedContentsViewElement: events);
-				addChild: (self sharedTokensViewElement: events);
-				yourself ];
-		updateWhen: ProcessingProgramChanged in: self announcer
+				addChild: (self sharedTokensViewElement: events).
+			self addHighlightOnError: element.
+			element ];
+		updateWhen: ProcessingASTChanged in: self announcer
 ]
 
 { #category : #views }
@@ -605,17 +623,19 @@ ProcessingProgram >> gtTokensPlusTreeFor: aView [
 	^ aView explicit
 		priority: 17;
 		title: 'AST+Tokens';
-		stencil: [ | events |
+		stencil: [ | events element |
 			events := Announcer new.
-			BlElement new
+			element := BlElement new.
+			element
 				layout: BlLinearLayout horizontal;
 				constraintsDo: [ :c | 
 					c vertical matchParent.
 					c horizontal matchParent ];
 				addChild: (self sharedTokensViewElement: events);
-				addChild: (self sharedTreeViewElement: events);
-				yourself ];
-		updateWhen: ProcessingProgramChanged in: self announcer
+				addChild: (self sharedTreeViewElement: events).
+			self addHighlightOnError: element.
+			element ];
+		updateWhen: ProcessingASTChanged in: self announcer
 ]
 
 { #category : #views }
@@ -634,9 +654,12 @@ ProcessingProgram >> gtTranspilationPlusSourceFor: aView [
 	^ aView explicit
 		priority: 21;
 		title: 'Smalltalk++';
-		stencil: [ self
-				gtCombineWithSource: (self gtGetViewElement: #gtTranspilationFor:)
-				on: Announcer new ];
+		stencil: [ | element |
+			element := self
+					gtCombineWithSource: (self gtGetViewElement: #gtTranspilationFor:)
+					on: Announcer new.
+			self addHighlightOnError: element.
+			element ];
 		updateWhen: ProcessingProgramChanged in: self announcer
 ]
 
@@ -675,7 +698,9 @@ ProcessingProgram >> gtTreeFor: aView [
 					ifFalse: [ 'Token' asRopedText
 							foreground: BrGlamorousColors disabledButtonTextColor ] ];
 		expandAll;
-		updateWhen: ProcessingProgramChanged in: self announcer
+		updateWhen: ProcessingASTChanged in: self announcer;
+		asElementDo: [ :e | self addHighlightOnError: e ];
+		yourself
 ]
 
 { #category : #views }
@@ -684,7 +709,9 @@ ProcessingProgram >> gtTreeMondrianFor: aView [
 	^ ((ProcessingTreeMondrianCreator mondrianFor: self ast) gtLiveFor: aView)
 		priority: 18;
 		title: 'AST Tree';
-		updateWhen: ProcessingProgramChanged in: self announcer
+		updateWhen: ProcessingASTChanged in: self announcer;
+		asElementDo: [ :e | self addHighlightOnError: e ];
+		yourself
 ]
 
 { #category : #views }
@@ -694,15 +721,17 @@ ProcessingProgram >> gtTreeOldFor: aView [
 		priority: 19;
 		title: 'AST (old)';
 		stencil: [ | tree |
-			(ast topParent gtTreeFor: GtPhlowView empty)
-				expandAll;
-				asElementDo: [ :e | tree := e ].
+			tree := (ast topParent gtTreeFor: GtPhlowView empty)
+					expandAll;
+					asElement.
 			tree
 				constraintsDo: [ :e | 
 					e vertical matchParent.
 					e horizontal matchParent ];
 				yourself ];
-		updateWhen: ProcessingProgramChanged in: self announcer
+		updateWhen: ProcessingASTChanged in: self announcer;
+		asElementDo: [ :e | self addHighlightOnError: e ];
+		yourself
 ]
 
 { #category : #views }
@@ -711,9 +740,13 @@ ProcessingProgram >> gtTreePlusSourceFor: aView [
 	^ aView explicit
 		priority: 16;
 		title: 'AST++';
-		stencil: [ | events |
+		stencil: [ | events element |
 			events := Announcer new.
-			self gtCombineWithSource: (self sharedTreeViewElement: events) on: events ];
+			element := self
+					gtCombineWithSource: (self sharedTreeViewElement: events)
+					on: events.
+			self addHighlightOnError: element.
+			element ];
 		updateWhen: ProcessingProgramChanged in: self announcer
 ]
 
@@ -924,13 +957,20 @@ ProcessingProgram >> source: aSource [
 			compile: (ProcessingParser parse: source asString).	"The transpiler cleans up the AST first, so use a copy instead."
 
 	source announcer
-		when: ProcessingSourceChanged
+		when: ProcessingASTChanged
 		do: [ :event | 
 			[ compilation := ProcessingTranspiler new
 					compile: (ProcessingParser parse: source asString).	"The transpiler cleans up the AST first, so use a copy instead."
 			ast := event ast.
 			self announcer announce: (ProcessingProgramChanged new program: self) ]
 				on: Error
-				do: [ :error "silently swallow errors on updates, as these happen intermittently during incomplete/slow typing" |  ] ]
-		for: self
+				do: [ :error | 
+					self announcer
+						announce: (ProcessingSourceChangedError new
+								source: source;
+								sourceError: error) ] ]
+		for: self.
+	source announcer
+		when: ProcessingSourceChangedError
+		do: [ :event | self announcer announce: event ]
 ]
