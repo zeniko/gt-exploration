@@ -368,7 +368,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-05-12T17:22:25.918+02:00"
+									"dateAndTimeString" : "2025-07-22T14:33:33.036+02:00"
 								}
 							},
 							"uid" : {
@@ -378,7 +378,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Students were sometimes out of their depth when changes to a Processing program were asked for. In a next round, this sequence would have to be placed closer to a programming sequence with Processing or at least a brief repetition of just using Processing would be helpful (unfortunately, this time around there wasn't enough time for {{gtPage:Wiederholung: Programmieren mit Processing|db=dl0rc62x02fk8k57e43hr8acw}})."
+							"string" : "Students were sometimes out of their depth when changes to a Processing program were asked for. In a next round, this sequence would have to be placed closer to a programming sequence with Processing or at least a brief repetition of just using Processing would be helpful (unfortunately, this time around there wasn't enough time for {{gtPage:Programmieren mit Processing|db=dl0rc62x02fk8k57e43hr8acw}})."
 						}
 					]
 				},

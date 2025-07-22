@@ -82,6 +82,80 @@
 								"__type" : "textStyle"
 							},
 							"string" : "Highlight live views with outdated content (due to parsing, transpiling or runtime errors)."
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-07-22T16:01:25.507+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-07-22T16:02:25.431+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "cOSIw+b2DQCSV0SjANio+g=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Added {{gtPage:Erste Programme|db=dl0rc62x02fk8k57e43hr8acw}}, {{gtPage:Runde Farben|db=dl0rc62x02fk8k57e43hr8acw}}, {{gtPage:Kommentare|db=dl0rc62x02fk8k57e43hr8acw}} und {{gtPage:Variablen|db=dl0rc62x02fk8k57e43hr8acw}}."
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-07-22T16:02:25.686+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-07-22T16:02:37.024+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "8NVox+b2DQCUuX73ANio+g=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "First draft on `Processing Abstractions`."
 						}
 					]
 				},
@@ -3972,7 +4046,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-05-08T22:45:11.532+02:00"
+									"dateAndTimeString" : "2025-07-22T14:33:33.036+02:00"
 								}
 							},
 							"uid" : {
@@ -3982,7 +4056,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Add sample curriculum content: {{gtPage:Wiederholung: Programmieren mit Processing|db=dl0rc62x02fk8k57e43hr8acw}} and {{gtPage:Lexer: Das Programm in \"Worte\" zerlegen|db=dl0rc62x02fk8k57e43hr8acw}}"
+							"string" : "Add sample curriculum content: {{gtPage:Programmieren mit Processing|db=dl0rc62x02fk8k57e43hr8acw}} and {{gtPage:Lexer: Das Programm in \"Worte\" zerlegen|db=dl0rc62x02fk8k57e43hr8acw}}"
 						},
 						{
 							"__type" : "textSnippet",
