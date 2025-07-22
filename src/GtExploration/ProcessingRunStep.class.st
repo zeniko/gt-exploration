@@ -49,6 +49,17 @@ ProcessingRunStep >> create: aContext canvas: aCanvas slice: aSlice [
 ]
 
 { #category : #views }
+ProcessingRunStep >> getInnerView: aView [
+	^ (self perform: aView with: GtPhlowView empty) asElement
+		background: Color white;
+		margin: (BlInsets all: 5);
+		constraintsDo: [ :c | 
+			c vertical matchParent.
+			c horizontal matchParent ];
+		yourself
+]
+
+{ #category : #views }
 ProcessingRunStep >> gtAbstractionsFor: aView [
 	<gtView>
 	(slice isKindOf: ProcessingRunawayProgramException)
@@ -57,57 +68,23 @@ ProcessingRunStep >> gtAbstractionsFor: aView [
 	^ aView explicit
 		priority: 1;
 		title: 'Abstractions' translated;
-		stencil: [ | element child inner |
-			element := BlElement new.
-			element layout: (BlGridLayout new columnCount: 2).
-			element
-				constraintsDo: [ :c | 
-					c vertical matchParent.
-					c horizontal matchParent ].
-
-			child := BlElement new.
-			slice
-				ifNotNil: [ (slice gtSourceFor: GtPhlowView empty) asElementDo: [ :e | child := e ].
-					child
-						background: Color white;
-						margin: (BlInsets all: 5) ].
-			element addChild: child.
-
-			(self gtBytecodeFor: GtPhlowView empty) asElementDo: [ :e | child := e ].
-			child
-				background: Color white;
-				margin: (BlInsets all: 5).
-			element addChild: child.
-
-			inner := BlElement new.
-			inner layout: BlLinearLayout vertical.
-			inner
-				constraintsDo: [ :c | 
-					c vertical matchParent.
-					c horizontal matchParent ].
-
-			(self gtVariablesFor: GtPhlowView empty) asElementDo: [ :e | child := e ].
-			child
-				background: Color white;
-				margin: (BlInsets all: 5).
-			inner addChild: child.
-
-			(self gtStackFor: GtPhlowView empty) asElementDo: [ :e | child := e ].
-			child
-				background: Color white;
-				margin: (BlInsets all: 5).
-			inner addChild: child.
-			element addChild: inner.
-
-			(self gtOutputFor: GtPhlowView empty) asElementDo: [ :e | child := e ].
-			child
+		stencil: [ BlElement new
+				layout: (BlGridLayout new columnCount: 2);
 				constraintsDo: [ :c | 
 					c vertical matchParent.
 					c horizontal matchParent ];
-				margin: (BlInsets all: 5).
-			element addChild: child.
-
-			element ]
+				addChild: (self getInnerView: #gtSourceCodeFor:);
+				addChild: (self getInnerView: #gtBytecodeFor:);
+				addChild: (BlElement new
+						layout: BlLinearLayout vertical;
+						constraintsDo: [ :c | 
+							c vertical matchParent.
+							c horizontal matchParent ];
+						addChild: (self getInnerView: #gtVariablesFor:);
+						addChild: (self getInnerView: #gtStackFor:);
+						yourself);
+				addChild: (self getInnerView: #gtOutputFor:);
+				yourself ]
 ]
 
 { #category : #views }
@@ -172,6 +149,7 @@ ProcessingRunStep >> gtOutputFor: aView [
 { #category : #views }
 ProcessingRunStep >> gtSourceCodeFor: aView [
 	<gtView>
+	slice ifNil: [ ^ GtPhlowView empty ].
 	^ (slice gtComparisonFor: aView)
 		title: 'Source' translated;
 		priority: 5
