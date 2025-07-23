@@ -223,14 +223,14 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-07-22T17:20:52.673+02:00"
+												"dateAndTimeString" : "2025-07-23T11:40:31.374+02:00"
 											}
 										},
 										"uid" : {
 											"__type" : "uid",
 											"uidString" : "gKQlVALyDQCzLuHuB36dsg=="
 										},
-										"code" : "Metacello new\r\n\trepository: 'github://zeniko/gt-exploration:main/src';\r\n\tbaseline: 'GtExploration';\r\n\tload.\r\n\r\nMetacello new\r\n\trepository: 'github://zeniko/processing-abstractions:main/src';\r\n\tbaseline: 'ProcessingAbstractions';\r\n\tload.\r\n\r\"Hide the 'Implementation and Tests' section.\"\r\nGtExplorationHomeSection studentMode: true.\r\n\r\"Make indenting keyboard shortcuts available to non-US-English keyboard layouts.\"\r\nLeSnippetElement keyboardShortcuts\r\n\tat: #IndentSnippet\r\n\t\tput: BlKeyCombinationBuilder new alt shift arrowRight build;\r\n\tat: #UnindentSnippet\r\n\t\tput: BlKeyCombinationBuilder new alt shift arrowLeft build.\r\r\"Patch unneeded addressbar out of YouTube snippet (cf. https://github.com/feenkcom/gtoolkit/issues/4560).\"\rLeYoutubeReferenceElement compile:\r\n\t((LeYoutubeReferenceElement methodNamed: #updatePicture) sourceCode\r\n\t\tcopyReplaceAll: '</iframe>'' ' with: '</iframe>''; removeChildAt: 1 ')."
+										"code" : "Metacello new\r\n\trepository: 'github://zeniko/gt-exploration:main/src';\r\n\tbaseline: 'GtExploration';\r\n\tload.\r\n\r\nMetacello new\r\n\trepository: 'github://zeniko/processing-abstractions:main/src';\r\n\tbaseline: 'ProcessingAbstractions';\r\n\tload.\r\n\r\n\"Hide the 'Implementation and Tests' section.\"\r\nGtExplorationHomeSection studentMode: true.\r\n\r\n\"Make indenting keyboard shortcuts available to non-US-English keyboard layouts\r(cf. https://github.com/feenkcom/gtoolkit/issues/3002).\"\r\nLeSnippetElement keyboardShortcuts\r\n\tat: #IndentSnippet\r\n\t\tput: BlKeyCombinationBuilder new alt shift arrowRight build;\r\n\tat: #UnindentSnippet\r\n\t\tput: BlKeyCombinationBuilder new alt shift arrowLeft build.\r\n\r\"Make the zoom in keyboard shortcut available to de-CH keyboard layouts\r(cf. https://github.com/feenkcom/gtoolkit/issues/4624).\"\rTLeWithFontSize compile:\r\t((TLeWithFontSize methodNamed: #initializeFontSizeShortcuts) sourceCode\r\t\tcopyReplaceAll: 'equal' with: 'shift minus').\r\r\n\"Patch unneeded addressbar out of YouTube snippet\r\n(cf. https://github.com/feenkcom/gtoolkit/issues/4560).\"\r\nLeYoutubeReferenceElement compile:\r\n\t((LeYoutubeReferenceElement methodNamed: #updatePicture) sourceCode\r\n\t\tcopyReplaceAll: '</iframe>'' ' with: '</iframe>''; removeChildAt: 1 ')."
 									}
 								]
 							},
