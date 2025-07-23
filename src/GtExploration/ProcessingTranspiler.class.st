@@ -1301,7 +1301,9 @@ ProcessingTranspiler >> visitFunctionCallExpression: fnCall [
 	(self class methodDict includesKey: builtin)
 		ifTrue: [ self perform: builtin with: fnCall arguments.
 			^ self endEmit ].
-	self notImplemented: fnCall
+	ProcessingNotImplementedException
+		signal: 'Unsupported function: ' , name
+		withTag: fnCall
 ]
 
 { #category : #visiting }
@@ -1560,7 +1562,13 @@ ProcessingTranspiler >> visitVariableExpression: var [
 	self startEmit: var.
 	(ProcessingTranspiler constants includesKey: var nameToken value)
 		ifTrue: [ self emit: (constants at: var nameToken value) ]
-		ifFalse: [ self emitName: var nameToken value ].
+		ifFalse: [ | name |
+			name := self emitName: var nameToken value.
+			(var parent isKindOf: PyExpressionStatementNode)
+				ifTrue: [ (globalVariables includes: name) | (localVariables includes: name)
+						ifFalse: [ ProcessingCompileTimeException
+								signal: 'Unknown variable name: ' , name
+								withTag: var ] ] ].	"Throw a compile time exception instead of a runtime exception so that live views aren't updated with an error message"
 	^ self endEmit
 ]
 
