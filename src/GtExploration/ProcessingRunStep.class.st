@@ -147,11 +147,40 @@ ProcessingRunStep >> gtOutputFor: aView [
 ]
 
 { #category : #views }
+ProcessingRunStep >> gtOverviewFor: aView [
+	<gtView>
+	(slice isKindOf: ProcessingRunawayProgramException)
+		ifTrue: [  "ProcessingProgram>>#runStepsFor: adds an unthrown exception as a last step, if the program runs too long"^ aView
+				forward object: [ slice signal ] ].
+	^ aView explicit
+		priority: 40;
+		title: 'Overview' translated;
+		stencil: [ BlElement new
+				layout: (BlGridLayout new columnCount: 2);
+				constraintsDo: [ :c | 
+					c vertical matchParent.
+					c horizontal matchParent ];
+				addChild: (self getInnerView: #gtSourceCodeFor:);
+				addChild: (self getInnerView: #gtVariablesFor:);
+				addChild: (self getInnerView: #gtOutputFor:);
+				yourself ]
+]
+
+{ #category : #views }
 ProcessingRunStep >> gtSourceCodeFor: aView [
+	"<gtView>"
+	slice ifNil: [ ^ GtPhlowView empty ].
+	^ (slice gtSourceFor: aView)
+		title: 'Source' translated;
+		priority: 5
+]
+
+{ #category : #views }
+ProcessingRunStep >> gtSourceCodesFor: aView [
 	<gtView>
 	slice ifNil: [ ^ GtPhlowView empty ].
 	^ (slice gtComparisonFor: aView)
-		title: 'Source' translated;
+		title: 'Sources' translated;
 		priority: 5
 ]
 

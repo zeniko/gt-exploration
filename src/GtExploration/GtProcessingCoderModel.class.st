@@ -62,7 +62,7 @@ GtProcessingCoderModel >> doItAndGoSerialized: anEvaluationContext [
 					ifEmpty: [ ProcessingRunTimeException new
 							signal: 'This program didn''t produce any run steps' ].
 				runsteps ].	"The stepper isn't updated when the source changes, as that's too resource intensive for non-trivial programs"
-			Stepper for: loader view: #gtAbstractionsFor: ]
+			Stepper for: loader view: #gtOverviewFor: ]
 		with: anEvaluationContext
 ]
 

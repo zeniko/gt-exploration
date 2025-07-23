@@ -30,7 +30,9 @@ ProcessingTranspilationSlice class >> link: aNode method: aName from: from to: t
 
 { #category : #views }
 ProcessingTranspilationSlice >> asString [
-	^ self slice: method sourceCode
+	^ astNode topParent completeSource asString
+		sliceFrom: astNode startPosition
+		to: astNode stopPosition	"^ self slice: method sourceCode"
 ]
 
 { #category : #accessing }
