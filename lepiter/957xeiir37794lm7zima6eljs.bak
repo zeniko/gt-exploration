@@ -256,7 +256,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-07-24T15:51:22.648+02:00"
+									"dateAndTimeString" : "2025-07-24T19:45:15.627+02:00"
 								}
 							},
 							"uid" : {
@@ -266,7 +266,84 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Prepared `thesis` branch o"
+							"string" : "Prepared `thesis` branch on GitHub which will remain stable once the thesis has been handed in."
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-07-24T19:45:15.934+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-07-24T19:45:54.468+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "MGEFIBL3DQCD8PcMByA0VA=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Added {{gtClass:ProcessingTranspilerVariant}} for producing prefix (lispy) and postfix (forthy) syntax transpilation variants:"
+						},
+						{
+							"__type" : "exampleSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-07-24T19:46:00.519+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-07-24T19:46:00.519+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "WLGtIhL3DQCGQmSLByA0VA=="
+							},
+							"exampleSelector" : "compareExample03AstToPostfix",
+							"previewHeight" : 200,
+							"previewShowSelector" : "gtCompareFor:",
+							"exampleBehaviorName" : "ViewComparisonExamples",
+							"codeExpanded" : true,
+							"previewExpanded" : false,
+							"noCode" : true
 						}
 					]
 				},

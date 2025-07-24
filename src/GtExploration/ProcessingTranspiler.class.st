@@ -1315,7 +1315,7 @@ ProcessingTranspiler >> visitFunctionDefinition: def [
 			, (self
 					transpileFunction: def
 					name: def fname value
-					args: (def parameters collect: [ :param | param ])).
+					args: def parameters).
 	^ 0
 ]
 

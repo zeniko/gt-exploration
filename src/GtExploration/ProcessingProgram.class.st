@@ -674,6 +674,26 @@ ProcessingProgram >> gtTranspilationPlusSourceFor: aView [
 ]
 
 { #category : #views }
+ProcessingProgram >> gtTranspilationPostfixFor: aView [
+	<gtView>
+	^ self
+		gtGetLiveView: aView
+		for: [ :view | (ProcessingTranspilerVariant postfix transpile: ast) gtStringFor: view ]
+		title: 'Postfix'
+		priority: 27
+]
+
+{ #category : #views }
+ProcessingProgram >> gtTranspilationPrefixFor: aView [
+	<gtView>
+	^ self
+		gtGetLiveView: aView
+		for: [ :view | (ProcessingTranspilerVariant prefix transpile: ast) gtStringFor: view ]
+		title: 'Prefix'
+		priority: 25
+]
+
+{ #category : #views }
 ProcessingProgram >> gtTreeFor: aView [
 	<gtView>
 	^ aView columnedTree

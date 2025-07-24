@@ -11,7 +11,7 @@ ProcessingProgramExamples >> allViews [
 	program := self programMinimal.
 	views := program class methodDict keys
 			select: [ :key | (key beginsWith: 'gt') & (key endsWith: 'For:') ].
-	self assert: views size equals: 26.
+	self assert: views size equals: 28.
 	views
 		do: [ :key | 
 			| view element |

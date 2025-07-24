@@ -102,3 +102,17 @@ ViewComparisonExamples >> compareExample02To03SourceCharsScripter [
 					equals: (19 to: 41) ];
 		play
 ]
+
+{ #category : #example }
+ViewComparisonExamples >> compareExample03PrefixAndPostfix [
+	<gtExample>
+	| comparer |
+	comparer := ViewComparison
+			newFor: {ProcessingProgramExamples new programExample03 -> #gtContentsFor:.
+					ProcessingProgramExamples new programExample03 -> #gtTreeFor:.
+					ProcessingProgramExamples new programExample03
+						-> #gtTranspilationPrefixFor:.
+					ProcessingProgramExamples new programExample03
+						-> #gtTranspilationPostfixFor:}.
+	^ comparer
+]

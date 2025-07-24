@@ -4,7 +4,7 @@ Class {
 	#category : #'GtExploration-Examples'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingTreeMondrianCreatorExamples >> astMondrianExample03 [
 	<gtExample>
 	| mondrian program |
@@ -13,7 +13,7 @@ ProcessingTreeMondrianCreatorExamples >> astMondrianExample03 [
 	^ mondrian
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingTreeMondrianCreatorExamples >> astMondrianMinimal [
 	<gtExample>
 	| mondrian program |
@@ -22,7 +22,7 @@ ProcessingTreeMondrianCreatorExamples >> astMondrianMinimal [
 	^ mondrian
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingTreeMondrianCreatorExamples >> astMondrianSierpinski [
 	<gtExample>
 	| mondrian program |
@@ -31,7 +31,7 @@ ProcessingTreeMondrianCreatorExamples >> astMondrianSierpinski [
 	^ mondrian
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingTreeMondrianCreatorExamples >> astMondrianSpiral [
 	<gtExample>
 	| mondrian program |
@@ -40,7 +40,7 @@ ProcessingTreeMondrianCreatorExamples >> astMondrianSpiral [
 	^ mondrian
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #example }
 ProcessingTreeMondrianCreatorExamples >> astMondrianTurtleGraphics [
 	<gtExample>
 	| mondrian program |
