@@ -573,9 +573,22 @@ ProcessingAstCleaner >> visitIfExpression: anIfExpression [
 	^ self visitExpression: anIfExpression
 ]
 
-{ #category : #generated }
-ProcessingAstCleaner >> visitIfStatement: anIfStatement [
-	^ self visitStatement: anIfStatement
+{ #category : #visiting }
+ProcessingAstCleaner >> visitIfStatement: expr [
+	"Turn a if: ... elif: ... else: ... chain into nested if: ... else: ... statements"
+
+	expr elsifs
+		ifNotEmpty: [ | inner |
+			inner := PyIfStatementNode new
+					condition: expr elsifs first condition;
+					statements: expr elsifs first statements;
+					elsifs: (expr elsifs size > 1 ifTrue: [ expr elsifs allButFirst ] ifFalse: [ #() ]);
+					else: expr else.
+			inner attributeNamed: #startPosition put: expr elsifs first startPosition.
+			expr elsifs: #().
+			expr else ifNil: [ expr else: PyElseNode new ].
+			expr else statements: (Array with: (inner acceptVisitor: self)) ].
+	^ expr
 ]
 
 { #category : #generated }

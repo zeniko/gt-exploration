@@ -1256,6 +1256,7 @@ ProcessingTranspiler >> visitForStatement: expr [
 	expr inExpression receiver nameToken value = 'range'
 		ifFalse: [ self notImplemented: expr ].
 	expr exprs size > 1 ifTrue: [ self notImplemented: expr ].
+	self expect: PyVariableExpressionNode for: expr exprs first.
 	expr else ifNotNil: [ self notImplemented: expr ].
 
 	from := expr inExpression arguments size > 1
@@ -1340,36 +1341,18 @@ ProcessingTranspiler >> visitIfExpression: expr [
 
 { #category : #visiting }
 ProcessingTranspiler >> visitIfStatement: expr [
+	self assert: expr elsifs isEmpty.	"cf. ProcessingAstCleaner>>visitIfStatement:"
 	self startEmit: expr.
 	expr condition acceptVisitor: self.
 	self
 		emit: ' ifTrue: [';
 		cr.
 	self acceptStatements: expr.
-	expr elsifs
-		ifNotNil: [ expr elsifs
-				do: [ :elif | 
-					self
-						emit: '] ifFalse: [';
-						cr.
-					indentation := indentation + 1.
-					elif condition acceptVisitor: self.
-					self
-						emit: ' ifTrue: [';
-						cr.
-					self acceptStatements: elif ] ].
 	expr else
 		ifNotNil: [ self
 				emit: '] ifFalse: [';
 				cr.
 			self acceptStatements: expr else ].
-	expr elsifs
-		ifNotNil: [ expr elsifs
-				do: [ :elif | 
-					self
-						emit: '].';
-						cr.
-					indentation := indentation - 1 ] ].
 	self emit: ']'.
 	^ self endEmit
 ]

@@ -380,6 +380,52 @@ ProcessingTranspilerVariant >> emitBlockDo: args [
 ]
 
 { #category : #emitting }
+ProcessingTranspilerVariant >> emitCall: name size: size [
+	| defaultSizes |
+	defaultSizes := {'background' -> 3.
+			'circle' -> 3.
+			'color' -> 3.
+			'cos' -> 1.
+			'delay' -> 1.
+			'ellipse' -> 4.
+			'fill' -> 3.
+			'frameRate' -> 1.
+			'image' -> 5.
+			'int' -> 1.
+			'line' -> 4.
+			'loadImage' -> 1.
+			'millis' -> 0.
+			'noStroke' -> 0.
+			'print' -> 1.
+			'println' -> 1.
+			'radians' -> 1.
+			'random' -> 1.
+			'rect' -> 4.
+			'rotate' -> 1.
+			'scale' -> 1.
+			'sin' -> 1.
+			'size' -> 2.
+			'sq' -> 1.
+			'sqrt' -> 1.
+			'square' -> 3.
+			'str' -> 1.
+			'stroke' -> 3.
+			'strokeWeight' -> 1.
+			'tan' -> 1.
+			'text' -> 3.
+			'textSize' -> 1.
+			'translate' -> 2.
+			'triangle' -> 6.
+			'assert' -> 1.
+			'global' -> 1.
+			'range' -> 2} asDictionary.
+	style = 'postfix'
+		ifTrue: [ size = (defaultSizes at: name ifAbsent: size)
+				ifFalse: [ ^ name , '_' , size asString ] ].
+	^ name
+]
+
+{ #category : #emitting }
 ProcessingTranspilerVariant >> emitSymbol: name [
 	^ style = 'postfix' ifTrue: [ '$' , name ] ifFalse: [ name ]
 ]
@@ -424,7 +470,9 @@ ProcessingTranspilerVariant >> visitAsName: anAsName [
 
 { #category : #visiting }
 ProcessingTranspilerVariant >> visitAssertStatement: stmt [
-	^ self emit: 'assert' args: (self acceptNodes: stmt values)
+	^ self
+		emit: (self emitCall: 'assert' size: stmt values size)
+		args: (self acceptNodes: stmt values)
 ]
 
 { #category : #visiting }
@@ -583,18 +631,22 @@ ProcessingTranspilerVariant >> visitFinally: aFinally [
 
 { #category : #visiting }
 ProcessingTranspilerVariant >> visitForStatement: expr [
-	expr exprs size > 1 ifTrue: [ self notImplemented: expr ].
+	expr exprs size = 1 ifFalse: [ self notImplemented: expr ].
+	(expr exprs first isKindOf: PyVariableExpressionNode)
+		ifFalse: [ self notImplemented: expr ].
+	expr else ifNotNil: [ self notImplemented: expr ].
 	^ self
-		emit: 'for'
+		emit: 'for_in'
 		args: (Array
-				with: (expr exprs first acceptVisitor: self)
+				with: (self emitSymbol: expr exprs first nameToken value)
+				with: (expr inExpression acceptVisitor: self)
 				with: (self emitBlockDo: (self acceptStatements: expr)))
 ]
 
 { #category : #visiting }
 ProcessingTranspilerVariant >> visitFunctionCallExpression: fnCall [
 	^ self
-		emit: fnCall receiver nameToken value
+		emit: (self emitCall: fnCall receiver nameToken value size: fnCall arguments size)
 		args: (self acceptNodes: fnCall arguments)
 ]
 
@@ -613,8 +665,8 @@ ProcessingTranspilerVariant >> visitFunctionDefinition: def [
 { #category : #visiting }
 ProcessingTranspilerVariant >> visitGlobalStatement: global [
 	^ self
-		emit: 'global'
-		args: (global nameTokens collect: [ :token | token value ])
+		emit: (self emitCall: 'global' size: global nameTokens size)
+		args: (global nameTokens collect: [ :token | self emitSymbol: token value ])
 ]
 
 { #category : #visiting }
@@ -629,22 +681,17 @@ ProcessingTranspilerVariant >> visitIfExpression: expr [
 
 { #category : #visiting }
 ProcessingTranspilerVariant >> visitIfStatement: expr [
-	| parts output |
-	parts := OrderedCollection new.
-	parts add: expr.
-	expr elsifs ifNotNil: [ expr elsifs do: [ :elif | parts add: elif ] ].
-	indentation := indentation + parts size.
+	| output |
+	self assert: expr elsifs isEmpty.	"cf. ProcessingAstCleaner>>visitIfStatement:"
 	output := expr else
 			ifNotNil: [ self emitBlockDo: (self acceptStatements: expr else) ]
-			ifNil: [ self emit: 'pass' args: #() ].
-	parts reversed
-		do: [ :part | 
-			indentation := indentation - 1.
-			output := self
-					emit: 'ifelse'
-					args: (Array
-							with: (self emitBlockCond: (part condition acceptVisitor: self))
-							with: (self emitBlockDo: (self acceptStatements: part))) ].
+			ifNil: [ style = 'postfix' ifTrue: [ self emitBlockCond: 'pass' ] ifFalse: [ '' ] ].
+	output := self
+			emit: 'ifelse'
+			args: (Array
+					with: (self emitBlockCond: (expr condition acceptVisitor: self))
+					with: (self emitBlockDo: (self acceptStatements: expr))
+					with: output).
 	^ output
 ]
 
@@ -801,9 +848,10 @@ ProcessingTranspilerVariant >> visitTypedVariableExpression: aTypedVariableExpre
 
 { #category : #visiting }
 ProcessingTranspilerVariant >> visitUnaryExpression: expr [
-	^ self
-		emit: 'u' , expr operator value
-		args: (Array with: (expr expression acceptVisitor: self))
+	| op |
+	op := expr operator value.
+	style = 'postfix' & (op size = 1) ifTrue: [ op := 'unary' , op ].
+	^ self emit: op args: (Array with: (expr expression acceptVisitor: self))
 ]
 
 { #category : #visiting }
