@@ -587,7 +587,7 @@ ProcessingAstCleaner >> visitIfStatement: expr [
 			inner attributeNamed: #startPosition put: expr elsifs first startPosition.
 			expr elsifs: #().
 			expr else ifNil: [ expr else: PyElseNode new ].
-			expr else statements: (Array with: (inner acceptVisitor: self)) ].
+			expr else statements: {inner acceptVisitor: self} ].
 	^ expr
 ]
 

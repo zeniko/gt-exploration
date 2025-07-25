@@ -446,6 +446,15 @@ ProcessingTranspiler >> emitName: var [
 ]
 
 { #category : #emitting }
+ProcessingTranspiler >> emit_append: args [
+	self expect: 2 argumentsFor: args.
+	args first acceptVisitor: self.
+	self emit: ' clone add: '.
+	args second acceptVisitor: self.
+	self emit: '; yourself'
+]
+
+{ #category : #emitting }
 ProcessingTranspiler >> emit_background: args [
 	args size = 1
 		ifTrue: [ self emit: 'gtCanvas backgroundGray: '.
@@ -480,6 +489,15 @@ ProcessingTranspiler >> emit_color: args [
 	self emit: ' B: '.
 	args third acceptVisitor: self.
 	self emit: ')'
+]
+
+{ #category : #emitting }
+ProcessingTranspiler >> emit_concat: args [
+	self expect: 2 argumentsFor: args.
+	args first acceptVisitor: self.
+	self emit: ' clone addAll: '.
+	args second acceptVisitor: self.
+	self emit: '; yourself'
 ]
 
 { #category : #emitting }
@@ -552,6 +570,13 @@ ProcessingTranspiler >> emit_int: args [
 	self expect: 1 argumentsFor: args.
 	args first acceptVisitor: self.
 	self emit: ' rounded'
+]
+
+{ #category : #emitting }
+ProcessingTranspiler >> emit_len: args [
+	self expect: 1 argumentsFor: args.
+	args first acceptVisitor: self.
+	self emit: ' size'
 ]
 
 { #category : #emitting }
@@ -639,6 +664,20 @@ ProcessingTranspiler >> emit_rect: args [
 ]
 
 { #category : #emitting }
+ProcessingTranspiler >> emit_reverse: args [
+	"`reverse` is to Processing what `reversed` is to Python."
+
+	^ self emit_reversed: args
+]
+
+{ #category : #emitting }
+ProcessingTranspiler >> emit_reversed: args [
+	self expect: 1 argumentsFor: args.
+	args first acceptVisitor: self.
+	self emit: ' reversed'
+]
+
+{ #category : #emitting }
 ProcessingTranspiler >> emit_rotate: args [
 	self expect: 1 argumentsFor: args.
 	self emit: 'gtCanvas rotate: '.
@@ -650,6 +689,13 @@ ProcessingTranspiler >> emit_scale: args [
 	self expect: 1 argumentsFor: args.
 	self emit: 'gtCanvas scale: '.
 	args first acceptVisitor: self
+]
+
+{ #category : #emitting }
+ProcessingTranspiler >> emit_shorten: args [
+	self expect: 1 argumentsFor: args.
+	args first acceptVisitor: self.
+	self emit: ' allButLast'
 ]
 
 { #category : #emitting }
@@ -667,6 +713,20 @@ ProcessingTranspiler >> emit_size: args [
 	self emit: '. height := '.
 	args second acceptVisitor: self.
 	self emit: '. gtCanvas size: width by: height'
+]
+
+{ #category : #emitting }
+ProcessingTranspiler >> emit_sort: args [
+	"`sort` is to Processing what `sorted` is to Python."
+
+	^ self emit_sorted: args
+]
+
+{ #category : #emitting }
+ProcessingTranspiler >> emit_sorted: args [
+	self expect: 1 argumentsFor: args.
+	args first acceptVisitor: self.
+	self emit: ' sorted'
 ]
 
 { #category : #emitting }
@@ -1377,9 +1437,16 @@ ProcessingTranspiler >> visitLambdaExpression: aLambdaExpression [
 	^ self visitExpression: aLambdaExpression
 ]
 
-{ #category : #generated }
-ProcessingTranspiler >> visitListExpression: aListExpression [
-	^ self visitExpression: aListExpression
+{ #category : #visiting }
+ProcessingTranspiler >> visitListExpression: list [
+	self startEmit: list.
+	self emit: 'OrderedCollection newFrom: { '.
+	list expressions
+		do: [ :expr | 
+			expr acceptVisitor: self.
+			self emit: '. ' ].
+	self emit: '}'.
+	^ self endEmit
 ]
 
 { #category : #generated }
@@ -1499,9 +1566,26 @@ ProcessingTranspiler >> visitString: expr [
 	^ self endEmit
 ]
 
-{ #category : #generated }
-ProcessingTranspiler >> visitSubscriptExpression: aSubscriptExpression [
-	^ self visitExpression: aSubscriptExpression
+{ #category : #visiting }
+ProcessingTranspiler >> visitSubscriptExpression: subscript [
+	subscript subscripts size = 1 ifFalse: [ self notImplemented: subscript ].
+	self startEmit: subscript.
+	subscript receiver acceptVisitor: self.
+	(subscript subscripts first isKindOf: PySliceNode)
+		ifTrue: [ subscript subscripts first colonTokens size = 1
+				ifFalse: [ self notImplemented: subscript ].
+			subscript subscripts first from
+				ifNotNil: [  "TODO: This breaks for negative indices!"self emit: ' sliceFrom: ('.
+					subscript subscripts first from acceptVisitor: self.
+					self emit: ' + 1)' ]
+				ifNil: [ self emit: ' sliceFrom: 1' ].
+			subscript subscripts first to
+				ifNotNil: [ self emit: ' to: '.
+					subscript subscripts first to acceptVisitor: self ] ]
+		ifFalse: [ self emit: ' at: ('.
+			subscript subscripts first acceptVisitor: self.
+			self emit: ' + 1)' ].	"Smalltalk is 1-based and right closed whereas Python is 0-based and right opened"
+	^ self endEmit
 ]
 
 { #category : #generated }

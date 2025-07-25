@@ -636,9 +636,18 @@ ProcessingTokenExtractor >> visitLambdaExpression: aLambdaExpression [
 	^ self visitExpression: aLambdaExpression
 ]
 
-{ #category : #generated }
-ProcessingTokenExtractor >> visitListExpression: aListExpression [
-	^ self visitExpression: aListExpression
+{ #category : #visiting }
+ProcessingTokenExtractor >> visitListExpression: list [
+	| tokens |
+	tokens := OrderedCollection new.
+	tokens add: list lbrackToken.
+	list expressions
+		ifNotEmpty: [ self
+				add: list expressions
+				separatedBy: list commaTokens
+				to: tokens ].
+	tokens add: list rbrackToken.
+	^ tokens
 ]
 
 { #category : #generated }
@@ -723,9 +732,14 @@ ProcessingTokenExtractor >> visitSetExpression: aSetExpression [
 	^ self visitExpression: aSetExpression
 ]
 
-{ #category : #generated }
-ProcessingTokenExtractor >> visitSlice: aSlice [
-	^ self visitRoot: aSlice
+{ #category : #visiting }
+ProcessingTokenExtractor >> visitSlice: slice [
+	| tokens |
+	tokens := OrderedCollection new.
+	slice from ifNotNil: [ tokens add: slice from ].
+	tokens add: slice colonTokens first.
+	slice to ifNotNil: [ tokens add: slice to ].
+	^ tokens
 ]
 
 { #category : #visiting }
@@ -756,9 +770,12 @@ ProcessingTokenExtractor >> visitString: expr [
 	^ expr parts
 ]
 
-{ #category : #generated }
-ProcessingTokenExtractor >> visitSubscriptExpression: aSubscriptExpression [
-	^ self visitExpression: aSubscriptExpression
+{ #category : #visiting }
+ProcessingTokenExtractor >> visitSubscriptExpression: subscript [
+	^ {subscript receiver.
+		subscript lbrackToken.
+		subscript subscripts first.
+		subscript rbrackToken}
 ]
 
 { #category : #generated }

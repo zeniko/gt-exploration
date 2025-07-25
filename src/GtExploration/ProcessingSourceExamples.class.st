@@ -212,6 +212,22 @@ image(img, 150, 150, 50, 50)'
 ]
 
 { #category : #source }
+ProcessingSourceExamples >> sourceCodeLists [
+	^ 'size(200, 200)
+a = [1, 2]
+a = append(a, 3) # -> [1, 2, 3]
+b = concat(a, a) # -> [1, 2, 3, 1, 2, 3]
+c = reverse(b)   # -> [3, 2, 1, 3, 2, 1]
+d = shorten(c)   # -> [3, 2, 1, 3, 2]
+e = sort(d)      # -> [1, 2, 2, 3, 3]
+f = e[1:4]       # -> [2, 2, 3]
+g = len(f)       # -> 3
+h = f[2]         # -> 3
+j = b[:-2]       # -> [1, 2, 3, 1]
+print(a, b, c, d, e, f, g, h, j)'
+]
+
+{ #category : #source }
 ProcessingSourceExamples >> sourceCodeMinimal [
 	^ 'size(200, 200)'
 ]
@@ -504,6 +520,16 @@ ProcessingSourceExamples >> sourceImage [
 	| source |
 	source := ProcessingSource fromString: self sourceCodeImage.
 	self assert: source asString equals: self sourceCodeImage.
+	self assert: source program isNotNil.
+	^ source
+]
+
+{ #category : #example }
+ProcessingSourceExamples >> sourceLists [
+	<gtExample>
+	| source |
+	source := ProcessingSource fromString: self sourceCodeLists.
+	self assert: source asString equals: self sourceCodeLists.
 	self assert: source program isNotNil.
 	^ source
 ]

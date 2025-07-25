@@ -140,6 +140,28 @@ $fibonacci ($n) {
 ]
 
 { #category : #example }
+ProcessingTranspilerVariantExamples >> postfixLists [
+	<gtExample>
+	| transpiler output |
+	transpiler := self postfixTranspiler.
+	output := transpiler transpile: ProcessingProgramExamples new programLists ast.
+	self assert: output equals: '200 200 size
+$a 1 2 list_2 =
+$a a 3 append =
+$b a a concat =
+$c b reverse =
+$d c shorten =
+$e d sort =
+$f e 1 4 slice =
+$g f len =
+$h f 2 item =
+$j b None 2 unary- slice =
+a b c d e f g h j print_9
+'.
+	^ output
+]
+
+{ #category : #example }
 ProcessingTranspilerVariantExamples >> postfixSierpinski [
 	<gtExample>
 	| transpiler output |
@@ -310,6 +332,28 @@ ProcessingTranspilerVariantExamples >> prefixFibonacci [
 (textSize 50)
 (fill 255 255 255)
 (text (fibonacci 10) 20 125)
+'.
+	^ output
+]
+
+{ #category : #example }
+ProcessingTranspilerVariantExamples >> prefixLists [
+	<gtExample>
+	| transpiler output |
+	transpiler := self prefixTranspiler.
+	output := transpiler transpile: ProcessingProgramExamples new programLists ast.
+	self assert: output equals: '(size 200 200)
+(= a (list 1 2))
+(= a (append a 3))
+(= b (concat a a))
+(= c (reverse b))
+(= d (shorten c))
+(= e (sort d))
+(= f (slice e 1 4))
+(= g (len f))
+(= h (item f 2))
+(= j (slice b None (- 2)))
+(print a b c d e f g h j)
 '.
 	^ output
 ]

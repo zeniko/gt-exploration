@@ -186,6 +186,19 @@ ProcessingTokenExtractorExamples >> tokensImage [
 ]
 
 { #category : #example }
+ProcessingTokenExtractorExamples >> tokensLists [
+	<gtExample>
+	| ast tokens |
+	ast := ProcessingProgramExamples new programLists ast.
+	self assert: ast statements size equals: 12.
+
+	tokens := self newExtractor extractTokens: ast.
+	self assert: tokens size equals: 95.
+	self assert: (tokens allSatisfy: [ :item | item isKindOf: SmaCCToken ]).
+	^ tokens
+]
+
+{ #category : #example }
 ProcessingTokenExtractorExamples >> tokensMinimal [
 	<gtExample>
 	| ast tokens |

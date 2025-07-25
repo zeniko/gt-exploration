@@ -347,6 +347,25 @@ ProcessingRunnerExamples >> runInterruptedStepwise [
 ]
 
 { #category : #example }
+ProcessingRunnerExamples >> runLists [
+	<gtExample>
+	| program runner |
+	program := ProcessingProgramExamples new programLists.
+	runner := self newRunner.
+	runner
+		run: program compilation;
+		limitTo: 2 seconds;
+		wait.
+	self assert: runner canvas isNotNil.
+	self assert: runner isDone.
+	self assert: runner wait equals: true.
+	self
+		assert: (runner canvas transcript textDo: [ :text | text asString ])
+		equals: '[1, 2, 3] [1, 2, 3, 1, 2, 3] [3, 2, 1, 3, 2, 1] [3, 2, 1, 3, 2] [1, 2, 2, 3, 3] [2, 2, 3] 3 3 [1, 2, 3, 1]'.
+	^ runner
+]
+
+{ #category : #example }
 ProcessingRunnerExamples >> runMinimal [
 	<gtExample>
 	| program runner |
@@ -375,6 +394,10 @@ ProcessingRunnerExamples >> runPrint [
 	self assert: runner isDone.
 	self assert: (program compilation instVarNamed: #var) equals: 5.
 	self assert: runner wait equals: true.
+	self
+		assert: (runner canvas transcript textDo: [ :text | text asString ])
+		equals: 'Hello, world!
+2 + 3 = 5'.
 	^ runner
 ]
 

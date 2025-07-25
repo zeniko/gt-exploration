@@ -369,11 +369,27 @@ ProcessingCanvas >> print: text [
 		ifNotNil: [ transcript cr ].
 
 	(text isKindOf: Array)
-		ifTrue: [ text allButLastDo: [ :part | transcript nextPut: part asString , ' ' ].
-			transcript nextPut: text last asString ]
-		ifFalse: [ transcript nextPut: text asString ].
+		ifTrue: [ text
+				allButLastDo: [ :part | 
+					self print_value: part.
+					transcript nextPut: ' ' ].
+			text ifNotEmpty: [ self print_value: text last ] ]
+		ifFalse: [ self print_value: text ].
 
 	presenter displayTranscript: transcript for: self callerSource
+]
+
+{ #category : #shapes }
+ProcessingCanvas >> print_value: value [
+	(value isKindOf: OrderedCollection)
+		ifTrue: [ transcript nextPut: '['.
+			value allButLast
+				do: [ :part | 
+					self print_value: part.
+					transcript nextPut: ', ' ].
+			value ifNotEmpty: [ self print_value: value last ].
+			transcript nextPut: ']' ]
+		ifFalse: [ transcript nextPut: value asString ]
 ]
 
 { #category : #initialization }

@@ -210,9 +210,8 @@ GtProcessingCoderModel >> parserStack: aParser [
 	nodes := aParser nodeStack.
 	^ ((1 to: states size - 1)
 		collect: [ :i | 
-			Array
-				with: (aParser symbolForTransitionFrom: (states at: i) to: (states at: i + 1))
-				with: (nodes at: i) ]) reversed
+			{aParser symbolForTransitionFrom: (states at: i) to: (states at: i + 1).
+				nodes at: i} ]) reversed
 ]
 
 { #category : #accessing }

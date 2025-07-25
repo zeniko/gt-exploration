@@ -382,9 +382,11 @@ ProcessingTranspilerVariant >> emitBlockDo: args [
 { #category : #emitting }
 ProcessingTranspilerVariant >> emitCall: name size: size [
 	| defaultSizes |
-	defaultSizes := {'background' -> 3.
+	defaultSizes := {'append' -> 2.
+			'background' -> 3.
 			'circle' -> 3.
 			'color' -> 3.
+			'concat' -> 2.
 			'cos' -> 1.
 			'delay' -> 1.
 			'ellipse' -> 4.
@@ -401,10 +403,15 @@ ProcessingTranspilerVariant >> emitCall: name size: size [
 			'radians' -> 1.
 			'random' -> 1.
 			'rect' -> 4.
+			'reverse' -> 1.
+			'reversed' -> 1.
 			'rotate' -> 1.
 			'scale' -> 1.
+			'shorten' -> 1.
 			'sin' -> 1.
 			'size' -> 2.
+			'sort' -> 1.
+			'sorted' -> 1.
 			'sq' -> 1.
 			'sqrt' -> 1.
 			'square' -> 3.
@@ -418,7 +425,10 @@ ProcessingTranspilerVariant >> emitCall: name size: size [
 			'triangle' -> 6.
 			'assert' -> 1.
 			'global' -> 1.
-			'range' -> 2} asDictionary.
+			'item' -> 2.
+			'list' -> 0.
+			'range' -> 2.
+			'slice' -> 3} asDictionary.
 	style = 'postfix'
 		ifTrue: [ size = (defaultSizes at: name ifAbsent: size)
 				ifFalse: [ ^ name , '_' , size asString ] ].
@@ -479,9 +489,8 @@ ProcessingTranspilerVariant >> visitAssertStatement: stmt [
 ProcessingTranspilerVariant >> visitAssignmentExpression: expr [
 	^ self
 		emit: '='
-		args: (Array
-				with: (self emitSymbol: expr variable nameToken value)
-				with: (expr value acceptVisitor: self))
+		args: {self emitSymbol: expr variable nameToken value.
+				expr value acceptVisitor: self}
 ]
 
 { #category : #visiting }
@@ -490,9 +499,8 @@ ProcessingTranspilerVariant >> visitAssignmentStatement: stmt [
 	stmt tos size > 1 ifTrue: [ self notImplemented: stmt ].
 	^ self
 		emit: stmt assigns first value
-		args: (Array
-				with: (self emitSymbol: stmt lhs nameToken value)
-				with: (stmt tos first acceptVisitor: self))
+		args: {self emitSymbol: stmt lhs nameToken value.
+				stmt tos first acceptVisitor: self}
 ]
 
 { #category : #generated }
@@ -509,9 +517,8 @@ ProcessingTranspilerVariant >> visitBacktickExpression: aBacktickExpression [
 ProcessingTranspilerVariant >> visitBinaryExpression: expr [
 	^ self
 		emit: expr operator value
-		args: (Array
-				with: (expr left acceptVisitor: self)
-				with: (expr right acceptVisitor: self))
+		args: {expr left acceptVisitor: self.
+				expr right acceptVisitor: self}
 ]
 
 { #category : #generated }
@@ -637,10 +644,9 @@ ProcessingTranspilerVariant >> visitForStatement: expr [
 	expr else ifNotNil: [ self notImplemented: expr ].
 	^ self
 		emit: 'for_in'
-		args: (Array
-				with: (self emitSymbol: expr exprs first nameToken value)
-				with: (expr inExpression acceptVisitor: self)
-				with: (self emitBlockDo: (self acceptStatements: expr)))
+		args: {self emitSymbol: expr exprs first nameToken value.
+				expr inExpression acceptVisitor: self.
+				self emitBlockDo: (self acceptStatements: expr)}
 ]
 
 { #category : #visiting }
@@ -654,12 +660,11 @@ ProcessingTranspilerVariant >> visitFunctionCallExpression: fnCall [
 ProcessingTranspilerVariant >> visitFunctionDefinition: def [
 	^ self
 		emit: 'deffun'
-		args: (Array
-				with: (self emitSymbol: def fname value)
-				with: '('
-						, (' ' join: (def parameters collect: [ :param | param acceptVisitor: self ]))
-						, ')'
-				with: (self emitBlockDo: (self acceptStatements: def)))
+		args: {self emitSymbol: def fname value.
+				'('
+					, (' ' join: (def parameters collect: [ :param | param acceptVisitor: self ]))
+					, ')'.
+				self emitBlockDo: (self acceptStatements: def)}
 ]
 
 { #category : #visiting }
@@ -673,10 +678,9 @@ ProcessingTranspilerVariant >> visitGlobalStatement: global [
 ProcessingTranspilerVariant >> visitIfExpression: expr [
 	^ self
 		emit: 'ifelse'
-		args: (Array
-				with: (expr condition acceptVisitor: self)
-				with: (expr if acceptVisitor: self)
-				with: (expr else acceptVisitor: self))
+		args: {expr condition acceptVisitor: self.
+				expr if acceptVisitor: self.
+				expr else acceptVisitor: self}
 ]
 
 { #category : #visiting }
@@ -688,10 +692,9 @@ ProcessingTranspilerVariant >> visitIfStatement: expr [
 			ifNil: [ style = 'postfix' ifTrue: [ self emitBlockCond: 'pass' ] ifFalse: [ '' ] ].
 	output := self
 			emit: 'ifelse'
-			args: (Array
-					with: (self emitBlockCond: (expr condition acceptVisitor: self))
-					with: (self emitBlockDo: (self acceptStatements: expr))
-					with: output).
+			args: {self emitBlockCond: (expr condition acceptVisitor: self).
+					self emitBlockDo: (self acceptStatements: expr).
+					output}.
 	^ output
 ]
 
@@ -715,9 +718,11 @@ ProcessingTranspilerVariant >> visitLambdaExpression: aLambdaExpression [
 	^ self visitExpression: aLambdaExpression
 ]
 
-{ #category : #generated }
-ProcessingTranspilerVariant >> visitListExpression: aListExpression [
-	^ self visitExpression: aListExpression
+{ #category : #visiting }
+ProcessingTranspilerVariant >> visitListExpression: list [
+	^ self
+		emit: (self emitCall: 'list' size: list expressions size)
+		args: (self acceptNodes: list expressions)
 ]
 
 { #category : #generated }
@@ -784,9 +789,7 @@ ProcessingTranspilerVariant >> visitRelativeName: aRelativeName [
 ProcessingTranspilerVariant >> visitReturnStatement: expr [
 	expr expressions size = 0 ifTrue: [ ^ self emit: 'return' args: #('None') ].
 	expr expressions size > 1 ifTrue: [ self notImplemented: expr ].
-	^ self
-		emit: 'return'
-		args: (Array with: (expr expressions first acceptVisitor: self))
+	^ self emit: 'return' args: {expr expressions first acceptVisitor: self}
 ]
 
 { #category : #generated }
@@ -826,9 +829,23 @@ ProcessingTranspilerVariant >> visitString: expr [
 		, '"'
 ]
 
-{ #category : #generated }
-ProcessingTranspilerVariant >> visitSubscriptExpression: aSubscriptExpression [
-	^ self visitExpression: aSubscriptExpression
+{ #category : #visiting }
+ProcessingTranspilerVariant >> visitSubscriptExpression: subscript [
+	(subscript subscripts first isKindOf: PySliceNode)
+		ifTrue: [ ^ self
+				emit: (self emitCall: 'slice' size: 3)
+				args: {subscript receiver acceptVisitor: self.
+						subscript subscripts first from
+							ifNotNil: [ subscript subscripts first from acceptVisitor: self ]
+							ifNil: [ 'None' ].
+						subscript subscripts first to
+							ifNotNil: [ subscript subscripts first to acceptVisitor: self ]
+							ifNil: [ 'None' ]} ].
+	^ self
+		emit: (self emitCall: 'item' size: 2)
+		args: (self
+				acceptNodes: {subscript receiver.
+						subscript subscripts first})
 ]
 
 { #category : #generated }
@@ -851,7 +868,7 @@ ProcessingTranspilerVariant >> visitUnaryExpression: expr [
 	| op |
 	op := expr operator value.
 	style = 'postfix' & (op size = 1) ifTrue: [ op := 'unary' , op ].
-	^ self emit: op args: (Array with: (expr expression acceptVisitor: self))
+	^ self emit: op args: {expr expression acceptVisitor: self}
 ]
 
 { #category : #visiting }
@@ -864,9 +881,8 @@ ProcessingTranspilerVariant >> visitWhileStatement: expr [
 	expr else ifNotNil: [ self notImplemented: expr ].
 	^ self
 		emit: 'while'
-		args: (Array
-				with: (self emitBlockCond: (expr condition acceptVisitor: self))
-				with: (self emitBlockDo: (self acceptStatements: expr)))
+		args: {self emitBlockCond: (expr condition acceptVisitor: self).
+				self emitBlockDo: (self acceptStatements: expr)}
 ]
 
 { #category : #generated }

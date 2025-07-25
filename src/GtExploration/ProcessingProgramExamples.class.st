@@ -160,6 +160,17 @@ ProcessingProgramExamples >> programImage [
 ]
 
 { #category : #example }
+ProcessingProgramExamples >> programLists [
+	<gtExample>
+	| program |
+	program := ProcessingSourceExamples new sourceLists program.
+	self assert: program source isNotNil.
+	self assert: program compilation isNotNil.
+	self assert: program ast isNotNil.
+	^ program
+]
+
+{ #category : #example }
 ProcessingProgramExamples >> programMinimal [
 	<gtExample>
 	| program |

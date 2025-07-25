@@ -337,13 +337,50 @@
 								"__type" : "uid",
 								"uidString" : "WLGtIhL3DQCGQmSLByA0VA=="
 							},
-							"exampleSelector" : "compareExample03AstToPostfix",
-							"previewHeight" : 200,
+							"exampleSelector" : "compareExample03PrefixAndPostfix",
+							"previewHeight" : 350,
 							"previewShowSelector" : "gtCompareFor:",
 							"exampleBehaviorName" : "ViewComparisonExamples",
 							"codeExpanded" : true,
 							"previewExpanded" : false,
 							"noCode" : true
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-07-25T15:31:38.834+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-07-25T16:39:10.433+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "UDzasiL3DQC2SjiFBgbCFw=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Added support for basic list APIs: `"
 						}
 					]
 				},
