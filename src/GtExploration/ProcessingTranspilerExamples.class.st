@@ -273,8 +273,8 @@ setup
 
 draw
 	gtCanvas backgroundGray: 192.
-	gtCanvas text: (''Mouse: '' , (mouseX asString , ('' @ '' , mouseY asString))) x: 10 y: 70.
-	gtCanvas text: (''('' , ((mousePressed not ifTrue: [ ''not '' ] ifFalse: [ '''' ]) , ''pressed)'')) x: 78 y: 100.
+	gtCanvas text: (((''Mouse: '' , mouseX asString) , '' @ '') , mouseY asString) x: 10 y: 70.
+	gtCanvas text: ((''('' , (mousePressed not ifTrue: [ ''not '' ] ifFalse: [ '''' ])) , ''pressed)'') x: 78 y: 100.
 	gtCanvas text: (''Time: '' , gtCanvas millis asString) x: 10 y: 190.'
 ]
 
@@ -303,6 +303,19 @@ mouseReleased
 
 mouseMoved
 	gtCanvas backgroundR: mouseX G: 0 B: mouseY.'
+]
+
+{ #category : #transpilation }
+ProcessingTranspilerExamples >> transpilationPrecedence [
+	^ 'gtRun
+	[ (((2 / 3) * 4) = (8 / 3)) ] assert.
+	[ (((2 - 3) + 4) = 3) ] assert.
+	[ (((2 * 3) + 4) = 10) ] assert.
+	[ ((2 + (3 * 4)) = 14) ] assert.
+	[ (((2 + 3) * 4) = 20) ] assert.
+	[ ((4 ** (3 ** 2)) = 262144) ] assert.
+	[ ((true and: [ false ]) or: [ true ]) ] assert.
+	[ ((true and: [ false ]) or: [ false ]) not ] assert.'
 ]
 
 { #category : #transpilation }
@@ -443,8 +456,8 @@ personen_bewegen
 	| p |
 	p := 0.
 	[ (p < anzahl_personen) ] whileTrue: [
-		(x_koordinaten at: (p + 1) put: ((((x_koordinaten at: (p + 1)) + (groesse / (2.0 * ((gtCanvas random: 2) - 1)))) max: 0) min: width)).
-		(y_koordinaten at: (p + 1) put: ((((y_koordinaten at: (p + 1)) + (groesse / (2.0 * ((gtCanvas random: 2) - 1)))) max: 0) min: height)).
+		(x_koordinaten at: (p + 1) put: ((((x_koordinaten at: (p + 1)) + ((groesse / 2.0) * ((gtCanvas random: 2) - 1))) max: 0) min: width)).
+		(y_koordinaten at: (p + 1) put: ((((y_koordinaten at: (p + 1)) + ((groesse / 2.0) * ((gtCanvas random: 2) - 1))) max: 0) min: height)).
 		p := (p + 1).
 	].
 
@@ -537,7 +550,7 @@ ProcessingTranspilerExamples >> transpilationTurtleGraphics [
 
 draw_n_eck: n
 	| w i |
-	w := (width / (n * 3)).
+	w := ((width / n) * 3).
 	(self move: ((width - w) / 2) y: 10 angle: 0).
 	i := 0.
 	[ (i < n) ] whileTrue: [
@@ -809,6 +822,19 @@ ProcessingTranspilerExamples >> transpileMouseEvents2 [
 	self assert: transpiler variables size equals: 0.
 	self assert: transpiler userDefs size equals: 5.
 	self compare: (transpiler compile: ast) with: self transpilationMouseEvents2.
+	^ transpiler compile: ast
+]
+
+{ #category : #example }
+ProcessingTranspilerExamples >> transpilePrecedence [
+	<gtExample>
+	| ast transpiler |
+	ast := ProcessingProgramExamples new programPrecedence ast.
+	transpiler := self newTranspiler.
+	self assert: (transpiler transpile: ast) equals: self transpilationPrecedence.
+	self assert: transpiler variables size equals: 0.
+	self assert: transpiler userDefs size equals: 0.
+	self compare: (transpiler compile: ast) with: self transpilationPrecedence.
 	^ transpiler compile: ast
 ]
 

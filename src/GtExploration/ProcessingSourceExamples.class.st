@@ -273,6 +273,18 @@ def mouseMoved():
 ]
 
 { #category : #source }
+ProcessingSourceExamples >> sourceCodePrecedence [
+	^ 'assert 2 / 3 * 4 == 8 / 3
+assert 2 - 3 + 4 == 3
+assert 2 * 3 + 4 == 10
+assert 2 + 3 * 4 == 14
+assert (2 + 3) * 4 == 20
+assert 4 ** 3 ** 2 == 262144
+assert True and False or True
+assert not (True and False or False)'
+]
+
+{ #category : #source }
 ProcessingSourceExamples >> sourceCodePrint [
 	^ 'print("Hello," '' world!'')
 var = 2 + 3
@@ -687,6 +699,16 @@ ProcessingSourceExamples >> sourceMouseEvents2 [
 	| source |
 	source := ProcessingSource fromString: self sourceCodeMouseEvents2.
 	self assert: source asString equals: self sourceCodeMouseEvents2.
+	self assert: source program isNotNil.
+	^ source
+]
+
+{ #category : #example }
+ProcessingSourceExamples >> sourcePrecedence [
+	<gtExample>
+	| source |
+	source := ProcessingSource fromString: self sourceCodePrecedence.
+	self assert: source asString equals: self sourceCodePrecedence.
 	self assert: source program isNotNil.
 	^ source
 ]

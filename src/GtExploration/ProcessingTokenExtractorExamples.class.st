@@ -249,6 +249,19 @@ ProcessingTokenExtractorExamples >> tokensMouseEvents2 [
 ]
 
 { #category : #example }
+ProcessingTokenExtractorExamples >> tokensPrecedence [
+	<gtExample>
+	| ast tokens |
+	ast := ProcessingProgramExamples new programPrecedence ast.
+	self assert: ast statements size equals: 8.
+
+	tokens := self newExtractor extractTokens: ast.
+	self assert: tokens size equals: 67.
+	self assert: (tokens allSatisfy: [ :item | item isKindOf: SmaCCToken ]).
+	^ tokens
+]
+
+{ #category : #example }
 ProcessingTokenExtractorExamples >> tokensPrint [
 	<gtExample>
 	| ast tokens |

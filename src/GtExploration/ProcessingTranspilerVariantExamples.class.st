@@ -176,6 +176,24 @@ a 2 * a None 0 slice a 1 unary- None slice a 0 * print_4
 ]
 
 { #category : #example }
+ProcessingTranspilerVariantExamples >> postfixPrecedence [
+	<gtExample>
+	| transpiler output |
+	transpiler := self postfixTranspiler.
+	output := transpiler transpile: ProcessingProgramExamples new programPrecedence ast.
+	self assert: output equals: '2 3 / 4 * 8 3 / == assert
+2 3 - 4 + 3 == assert
+2 3 * 4 + 10 == assert
+2 3 4 * + 14 == assert
+2 3 + 4 * 20 == assert
+4 3 2 ** ** 262144 == assert
+True False and True or assert
+True False and False or not assert
+'.
+	^ output
+]
+
+{ #category : #example }
 ProcessingTranspilerVariantExamples >> postfixRandom [
 	<gtExample>
 	| transpiler output |
@@ -395,6 +413,24 @@ ProcessingTranspilerVariantExamples >> prefixLists2 [
 (put_at a 1 6)
 (put_at a (- 2) 7)
 (print (* a 2) (slice a None 0) (slice a (- 1) None) (* a 0))
+'.
+	^ output
+]
+
+{ #category : #example }
+ProcessingTranspilerVariantExamples >> prefixPrecedence [
+	<gtExample>
+	| transpiler output |
+	transpiler := self prefixTranspiler.
+	output := transpiler transpile: ProcessingProgramExamples new programPrecedence ast.
+	self assert: output equals: '(assert (== (* (/ 2 3) 4) (/ 8 3)))
+(assert (== (+ (- 2 3) 4) 3))
+(assert (== (+ (* 2 3) 4) 10))
+(assert (== (+ 2 (* 3 4)) 14))
+(assert (== (* (+ 2 3) 4) 20))
+(assert (== (** 4 (** 3 2)) 262144))
+(assert (or (and True False) True))
+(assert (not (or (and True False) False)))
 '.
 	^ output
 ]

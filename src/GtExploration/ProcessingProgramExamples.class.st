@@ -215,6 +215,17 @@ ProcessingProgramExamples >> programMouseEvents2 [
 ]
 
 { #category : #example }
+ProcessingProgramExamples >> programPrecedence [
+	<gtExample>
+	| program |
+	program := ProcessingSourceExamples new sourcePrecedence program.
+	self assert: program source isNotNil.
+	self assert: program compilation isNotNil.
+	self assert: program ast isNotNil.
+	^ program
+]
+
+{ #category : #example }
 ProcessingProgramExamples >> programPrint [
 	<gtExample>
 	| program |

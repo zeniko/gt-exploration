@@ -370,7 +370,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-07-26T14:40:03.139+02:00"
+									"dateAndTimeString" : "2025-07-26T20:27:31.569+02:00"
 								}
 							},
 							"uid" : {
@@ -380,7 +380,44 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Added support for basic list API: `[]`, `append`, `concat`, `reverse`, `shorten`, `sort`, `+`, `*`."
+							"string" : "Added support for basic list API: `[]`, `append`, `concat`, `reverse`, `shorten`, `sort`, `+`, `*`, `max`, `min`."
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-07-27T00:30:09.563+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-07-27T00:31:28.055+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "eDWQVj73DQCcczECANV+tg=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Fixed various implementation bugs, added more tests (most notably {{gtMethod:ProcessingProgramExamples>>programSimulation}})."
 						}
 					]
 				},
