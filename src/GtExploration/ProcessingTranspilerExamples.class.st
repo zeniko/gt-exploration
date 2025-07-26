@@ -227,8 +227,7 @@ ProcessingTranspilerExamples >> transpilationImage [
 { #category : #transpilation }
 ProcessingTranspilerExamples >> transpilationLists [
 	^ 'gtRun
-	width := 200. height := 200. gtCanvas size: width by: height.
-	a := OrderedCollection newFrom: { 1. 2. }.
+	a := (ProcessingList newFrom: { 1. 2. }).
 	a := a clone add: 3; yourself.
 	b := a clone addAll: a; yourself.
 	c := b reversed.
@@ -239,6 +238,16 @@ ProcessingTranspilerExamples >> transpilationLists [
 	h := f at: (2 + 1).
 	j := b sliceFrom: 1 to: 2 negated.
 	gtCanvas print: { a. b. c. d. e. f. g. h. j. }.'
+]
+
+{ #category : #transpilation }
+ProcessingTranspilerExamples >> transpilationLists2 [
+	^ 'gtRun
+	a := (ProcessingList newFrom: { 1. 2. 3. }).
+	a := (a + (ProcessingList newFrom: { 4. 5. })).
+	a at: (1 + 1) put: 6.
+	a at: (2 negated + 1) put: 7.
+	gtCanvas print: { (a * 2). a sliceFrom: 1 to: 0. a sliceFrom: (1 negated + 1). (a * 0). }.'
 ]
 
 { #category : #transpilation }
@@ -640,6 +649,20 @@ ProcessingTranspilerExamples >> transpileLists [
 	self assert: (' ' join: transpiler variables sorted) equals: 'a b c d e f g h j'.
 	self assert: transpiler userDefs size equals: 0.
 	self compare: (transpiler compile: ast) with: self transpilationLists.
+	^ transpiler compile: ast
+]
+
+{ #category : #example }
+ProcessingTranspilerExamples >> transpileLists2 [
+	<gtExample>
+	| ast transpiler |
+	ast := ProcessingProgramExamples new programLists2 ast.
+	transpiler := self newTranspiler.
+	self assert: (transpiler transpile: ast) equals: self transpilationLists2.
+	self assert: transpiler variables size equals: 1.
+	self assert: (' ' join: transpiler variables sorted) equals: 'a'.
+	self assert: transpiler userDefs size equals: 0.
+	self compare: (transpiler compile: ast) with: self transpilationLists2.
 	^ transpiler compile: ast
 ]
 

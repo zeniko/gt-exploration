@@ -1094,33 +1094,36 @@ ProcessingTranspiler >> visitAssertStatement: stmt [
 
 { #category : #visiting }
 ProcessingTranspiler >> visitAssignmentExpression: expr [
-	| name |
-	(ProcessingTranspiler constants includesKey: expr variable nameToken value)
-		ifTrue: [ ProcessingCompileTimeException
-				signal: 'Can''t assign to constant.'
-				withTag: expr ].
-	self startEmit: expr.
-	name := self emitName: expr variable nameToken value.
-	(globalVariables includes: name) ifFalse: [ localVariables add: name ].
-	self emit: ' := '.
-	expr value acceptVisitor: self.
-	^ self endEmit
+	^ self
+		visitAssignmentStatement: (PyAssignmentStatementNode new
+				lhs: expr variable;
+				assigns: {expr assign};
+				tos: {expr value})
 ]
 
 { #category : #visiting }
 ProcessingTranspiler >> visitAssignmentStatement: stmt [
 	| name |
-	stmt lhs nameToken ifNil: [ self notImplemented: stmt ].
+	stmt tos size > 1 ifTrue: [ self notImplemented: stmt ].
+	(#('=' ':=') includes: stmt assigns first value)
+		ifFalse: [ self notImplemented: stmt ].
+
+	(stmt lhs isKindOf: PySubscriptExpressionNode)
+		ifTrue: [ self startEmit: stmt.
+			stmt lhs acceptVisitor: self.
+			self emit: ' put: '.
+			stmt tos first acceptVisitor: self.
+			^ self endEmit ].
+
+	self expect: PyVariableExpressionNode for: stmt lhs.
 	name := stmt lhs nameToken value.
 	(ProcessingTranspiler constants includesKey: name)
 		ifTrue: [ ProcessingCompileTimeException
 				signal: 'Can''t assign to constant.'
 				withTag: stmt ].
-	stmt tos size > 1 ifTrue: [ self notImplemented: stmt ].
-	stmt assigns first value = '=' ifFalse: [ self notImplemented: stmt ].
 
 	self startEmit: stmt.
-	name := self emitName: stmt lhs nameToken value.
+	name := self emitName: name.
 	(globalVariables includes: name) ifFalse: [ localVariables add: name ].
 	self emit: ' := '.
 	stmt tos first acceptVisitor: self.
@@ -1440,12 +1443,12 @@ ProcessingTranspiler >> visitLambdaExpression: aLambdaExpression [
 { #category : #visiting }
 ProcessingTranspiler >> visitListExpression: list [
 	self startEmit: list.
-	self emit: 'OrderedCollection newFrom: { '.
+	self emit: '(ProcessingList newFrom: { '.
 	list expressions
 		do: [ :expr | 
 			expr acceptVisitor: self.
 			self emit: '. ' ].
-	self emit: '}'.
+	self emit: '})'.
 	^ self endEmit
 ]
 

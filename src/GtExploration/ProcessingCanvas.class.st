@@ -368,28 +368,12 @@ ProcessingCanvas >> print: text [
 		ifNil: [ transcript := GtTranscript new ]
 		ifNotNil: [ transcript cr ].
 
-	(text isKindOf: Array)
-		ifTrue: [ text
-				allButLastDo: [ :part | 
-					self print_value: part.
-					transcript nextPut: ' ' ].
-			text ifNotEmpty: [ self print_value: text last ] ]
-		ifFalse: [ self print_value: text ].
+	transcript
+		nextPut: ((text isKindOf: Array)
+				ifTrue: [ ' ' join: (text collect: #asString) ]
+				ifFalse: [ text ]).
 
 	presenter displayTranscript: transcript for: self callerSource
-]
-
-{ #category : #shapes }
-ProcessingCanvas >> print_value: value [
-	(value isKindOf: OrderedCollection)
-		ifTrue: [ transcript nextPut: '['.
-			value allButLast
-				do: [ :part | 
-					self print_value: part.
-					transcript nextPut: ', ' ].
-			value ifNotEmpty: [ self print_value: value last ].
-			transcript nextPut: ']' ]
-		ifFalse: [ transcript nextPut: value asString ]
 ]
 
 { #category : #initialization }

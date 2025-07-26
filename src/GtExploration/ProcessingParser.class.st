@@ -21,11 +21,14 @@ ProcessingParser class >> gtASTNodeNames [
 		PyGlobalStatementNode -> 'Global Variables'.
 		PyIfExpressionNode -> 'If Conditional'.
 		PyIfStatementNode -> 'If Conditional'.
+		PyListExpressionNode -> 'List'.
 		PyNumberNode -> 'Number'.
 		PyParameterNode -> 'Parameter'.
 		PyPassStatementNode -> 'Pass'.
 		PyReturnStatementNode -> 'Return'.
+		PySliceNode -> 'Slice'.
 		PyStringNode -> 'String'.
+		PySubscriptExpressionNode -> 'Subscript'.
 		PyTupleExpressionNode -> 'Tuple'.
 		PyUnaryExpressionNode -> 'Unary Op'.
 		PyVariableExpressionNode -> 'Variable'.

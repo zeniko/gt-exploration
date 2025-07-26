@@ -145,8 +145,7 @@ ProcessingTranspilerVariantExamples >> postfixLists [
 	| transpiler output |
 	transpiler := self postfixTranspiler.
 	output := transpiler transpile: ProcessingProgramExamples new programLists ast.
-	self assert: output equals: '200 200 size
-$a 1 2 list_2 =
+	self assert: output equals: '$a 1 2 list_2 =
 $a a 3 append =
 $b a a concat =
 $c b reverse =
@@ -157,6 +156,21 @@ $g f len =
 $h f 2 item =
 $j b None 2 unary- slice =
 a b c d e f g h j print_9
+'.
+	^ output
+]
+
+{ #category : #example }
+ProcessingTranspilerVariantExamples >> postfixLists2 [
+	<gtExample>
+	| transpiler output |
+	transpiler := self postfixTranspiler.
+	output := transpiler transpile: ProcessingProgramExamples new programLists2 ast.
+	self assert: output equals: '$a 1 2 3 list_3 =
+$a a 4 5 list_2 + =
+a 1 6 put_at
+a 2 unary- 7 put_at
+a 2 * a None 0 slice a 1 unary- None slice a 0 * print_4
 '.
 	^ output
 ]
@@ -342,8 +356,7 @@ ProcessingTranspilerVariantExamples >> prefixLists [
 	| transpiler output |
 	transpiler := self prefixTranspiler.
 	output := transpiler transpile: ProcessingProgramExamples new programLists ast.
-	self assert: output equals: '(size 200 200)
-(= a (list 1 2))
+	self assert: output equals: '(= a (list 1 2))
 (= a (append a 3))
 (= b (concat a a))
 (= c (reverse b))
@@ -354,6 +367,21 @@ ProcessingTranspilerVariantExamples >> prefixLists [
 (= h (item f 2))
 (= j (slice b None (- 2)))
 (print a b c d e f g h j)
+'.
+	^ output
+]
+
+{ #category : #example }
+ProcessingTranspilerVariantExamples >> prefixLists2 [
+	<gtExample>
+	| transpiler output |
+	transpiler := self prefixTranspiler.
+	output := transpiler transpile: ProcessingProgramExamples new programLists2 ast.
+	self assert: output equals: '(= a (list 1 2 3))
+(= a (+ a (list 4 5)))
+(put_at a 1 6)
+(put_at a (- 2) 7)
+(print (* a 2) (slice a None 0) (slice a (- 1) None) (* a 0))
 '.
 	^ output
 ]

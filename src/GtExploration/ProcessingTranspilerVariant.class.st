@@ -425,10 +425,8 @@ ProcessingTranspilerVariant >> emitCall: name size: size [
 			'triangle' -> 6.
 			'assert' -> 1.
 			'global' -> 1.
-			'item' -> 2.
 			'list' -> 0.
-			'range' -> 2.
-			'slice' -> 3} asDictionary.
+			'range' -> 2} asDictionary.
 	style = 'postfix'
 		ifTrue: [ size = (defaultSizes at: name ifAbsent: size)
 				ifFalse: [ ^ name , '_' , size asString ] ].
@@ -495,8 +493,15 @@ ProcessingTranspilerVariant >> visitAssignmentExpression: expr [
 
 { #category : #visiting }
 ProcessingTranspilerVariant >> visitAssignmentStatement: stmt [
-	stmt lhs nameToken ifNil: [ self notImplemented: stmt ].
 	stmt tos size > 1 ifTrue: [ self notImplemented: stmt ].
+	(stmt lhs isKindOf: PySubscriptExpressionNode)
+		ifTrue: [ ^ self
+				emit: 'put_at'
+				args: {stmt lhs receiver acceptVisitor: self.
+						stmt lhs subscripts first acceptVisitor: self.
+						stmt tos first acceptVisitor: self} ].
+	(stmt lhs isKindOf: PyVariableExpressionNode)
+		ifFalse: [ self notImplemented: stmt ].
 	^ self
 		emit: stmt assigns first value
 		args: {self emitSymbol: stmt lhs nameToken value.
@@ -833,7 +838,7 @@ ProcessingTranspilerVariant >> visitString: expr [
 ProcessingTranspilerVariant >> visitSubscriptExpression: subscript [
 	(subscript subscripts first isKindOf: PySliceNode)
 		ifTrue: [ ^ self
-				emit: (self emitCall: 'slice' size: 3)
+				emit: 'slice'
 				args: {subscript receiver acceptVisitor: self.
 						subscript subscripts first from
 							ifNotNil: [ subscript subscripts first from acceptVisitor: self ]
@@ -842,7 +847,7 @@ ProcessingTranspilerVariant >> visitSubscriptExpression: subscript [
 							ifNotNil: [ subscript subscripts first to acceptVisitor: self ]
 							ifNil: [ 'None' ]} ].
 	^ self
-		emit: (self emitCall: 'item' size: 2)
+		emit: 'item'
 		args: (self
 				acceptNodes: {subscript receiver.
 						subscript subscripts first})

@@ -330,7 +330,7 @@ ProcessingRunnerExamples >> runInterruptedStepwise [
 
 	<gtExample>
 	<noTest>
-	| program runner steps detected |
+	| program runner steps |
 	program := ProcessingProgramExamples new programEndlessLoop.
 	steps := program runSteps.
 	self assert: steps size equals: 1.
@@ -362,6 +362,25 @@ ProcessingRunnerExamples >> runLists [
 	self
 		assert: (runner canvas transcript textDo: [ :text | text asString ])
 		equals: '[1, 2, 3] [1, 2, 3, 1, 2, 3] [3, 2, 1, 3, 2, 1] [3, 2, 1, 3, 2] [1, 2, 2, 3, 3] [2, 2, 3] 3 3 [1, 2, 3, 1]'.
+	^ runner
+]
+
+{ #category : #example }
+ProcessingRunnerExamples >> runLists2 [
+	<gtExample>
+	| program runner |
+	program := ProcessingProgramExamples new programLists2.
+	runner := self newRunner.
+	runner
+		run: program compilation;
+		limitTo: 2 seconds;
+		wait.
+	self assert: runner canvas isNotNil.
+	self assert: runner isDone.
+	self assert: runner wait equals: true.
+	self
+		assert: (runner canvas transcript textDo: [ :text | text asString ])
+		equals: '[1, 6, 3, 7, 5, 1, 6, 3, 7, 5] [] [5] []'.
 	^ runner
 ]
 

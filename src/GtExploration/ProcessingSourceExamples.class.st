@@ -213,8 +213,7 @@ image(img, 150, 150, 50, 50)'
 
 { #category : #source }
 ProcessingSourceExamples >> sourceCodeLists [
-	^ 'size(200, 200)
-a = [1, 2]
+	^ 'a = [1, 2]
 a = append(a, 3) # -> [1, 2, 3]
 b = concat(a, a) # -> [1, 2, 3, 1, 2, 3]
 c = reverse(b)   # -> [3, 2, 1, 3, 2, 1]
@@ -225,6 +224,15 @@ g = len(f)       # -> 3
 h = f[2]         # -> 3
 j = b[:-2]       # -> [1, 2, 3, 1]
 print(a, b, c, d, e, f, g, h, j)'
+]
+
+{ #category : #source }
+ProcessingSourceExamples >> sourceCodeLists2 [
+	^ 'a = [1, 2, 3]
+a += [4, 5]
+a[1] = 6
+a[-2] = 7
+print(a * 2, a[:0], a[-1:], a * 0)'
 ]
 
 { #category : #source }
@@ -530,6 +538,16 @@ ProcessingSourceExamples >> sourceLists [
 	| source |
 	source := ProcessingSource fromString: self sourceCodeLists.
 	self assert: source asString equals: self sourceCodeLists.
+	self assert: source program isNotNil.
+	^ source
+]
+
+{ #category : #example }
+ProcessingSourceExamples >> sourceLists2 [
+	<gtExample>
+	| source |
+	source := ProcessingSource fromString: self sourceCodeLists2.
+	self assert: source asString equals: self sourceCodeLists2.
 	self assert: source program isNotNil.
 	^ source
 ]

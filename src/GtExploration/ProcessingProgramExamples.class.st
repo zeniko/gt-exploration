@@ -171,6 +171,17 @@ ProcessingProgramExamples >> programLists [
 ]
 
 { #category : #example }
+ProcessingProgramExamples >> programLists2 [
+	<gtExample>
+	| program |
+	program := ProcessingSourceExamples new sourceLists2 program.
+	self assert: program source isNotNil.
+	self assert: program compilation isNotNil.
+	self assert: program ast isNotNil.
+	^ program
+]
+
+{ #category : #example }
 ProcessingProgramExamples >> programMinimal [
 	<gtExample>
 	| program |

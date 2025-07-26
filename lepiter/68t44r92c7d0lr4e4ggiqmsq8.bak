@@ -3292,7 +3292,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-07-25T15:36:46.132+02:00"
+									"dateAndTimeString" : "2025-07-26T14:37:53.158+02:00"
 								}
 							},
 							"uid" : {
@@ -3302,7 +3302,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Appends the value to the end of the list and returns *a new* list. (Note: `list + [value]`is *not yet* sup"
+							"string" : "Appends the value to the end of the list and returns *a new* list (equivalent to as `list + [value]`)."
 						}
 					]
 				},
@@ -3367,7 +3367,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-07-25T15:36:30.709+02:00"
+									"dateAndTimeString" : "2025-07-26T14:35:10.359+02:00"
 								}
 							},
 							"uid" : {
@@ -3377,7 +3377,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Combines the two lists to a single *new* list. (Note: `list + otherList` is *not* yet supported.)"
+							"string" : "Combines the two lists to a single *new* list (same as `list + otherList`)."
 						}
 					]
 				},
@@ -3442,7 +3442,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-07-25T15:34:41.146+02:00"
+									"dateAndTimeString" : "2025-07-26T14:35:52.543+02:00"
 								}
 							},
 							"uid" : {
@@ -3452,7 +3452,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Returns a *new* list with its content reversed."
+							"string" : "Returns a *new* list with its content reversed. (Note: `list[::-1]` is *not yet* supported.)"
 						}
 					]
 				},
@@ -3517,7 +3517,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-07-25T15:35:33.78+02:00"
+									"dateAndTimeString" : "2025-07-26T14:37:49.525+02:00"
 								}
 							},
 							"uid" : {

@@ -190,10 +190,23 @@ ProcessingTokenExtractorExamples >> tokensLists [
 	<gtExample>
 	| ast tokens |
 	ast := ProcessingProgramExamples new programLists ast.
-	self assert: ast statements size equals: 12.
+	self assert: ast statements size equals: 11.
 
 	tokens := self newExtractor extractTokens: ast.
-	self assert: tokens size equals: 95.
+	self assert: tokens size equals: 89.
+	self assert: (tokens allSatisfy: [ :item | item isKindOf: SmaCCToken ]).
+	^ tokens
+]
+
+{ #category : #example }
+ProcessingTokenExtractorExamples >> tokensLists2 [
+	<gtExample>
+	| ast tokens |
+	ast := ProcessingProgramExamples new programLists2 ast.
+	self assert: ast statements size equals: 5.
+
+	tokens := self newExtractor extractTokens: ast.
+	self assert: tokens size equals: 52.
 	self assert: (tokens allSatisfy: [ :item | item isKindOf: SmaCCToken ]).
 	^ tokens
 ]

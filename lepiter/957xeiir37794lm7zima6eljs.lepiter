@@ -370,7 +370,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-07-25T16:39:39.357+02:00"
+									"dateAndTimeString" : "2025-07-26T14:40:03.139+02:00"
 								}
 							},
 							"uid" : {
@@ -380,7 +380,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Added support for basic list APIs: `append`, `concat`, `reverse`, `shorten`, `sort`."
+							"string" : "Added support for basic list API: `[]`, `append`, `concat`, `reverse`, `shorten`, `sort`, `+`, `*`."
 						}
 					]
 				},
