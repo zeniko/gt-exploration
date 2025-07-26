@@ -396,12 +396,15 @@ ProcessingTranspilerVariant >> emitCall: name size: size [
 			'int' -> 1.
 			'line' -> 4.
 			'loadImage' -> 1.
+			'max' -> 2.
 			'millis' -> 0.
+			'min' -> 2.
 			'noStroke' -> 0.
 			'print' -> 1.
 			'println' -> 1.
 			'radians' -> 1.
 			'random' -> 1.
+			'randomSeed' -> 1.
 			'rect' -> 4.
 			'reverse' -> 1.
 			'reversed' -> 1.

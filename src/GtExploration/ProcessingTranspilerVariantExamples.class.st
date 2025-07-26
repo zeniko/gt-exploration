@@ -176,6 +176,19 @@ a 2 * a None 0 slice a 1 unary- None slice a 0 * print_4
 ]
 
 { #category : #example }
+ProcessingTranspilerVariantExamples >> postfixRandom [
+	<gtExample>
+	| transpiler output |
+	transpiler := self postfixTranspiler.
+	output := transpiler transpile: ProcessingProgramExamples new programRandom ast.
+	self assert: output equals: '100 randomSeed
+10 random 0.007826369259425611 == assert
+3 random 0.46133644294987264 == assert
+'.
+	^ output
+]
+
+{ #category : #example }
 ProcessingTranspilerVariantExamples >> postfixSierpinski [
 	<gtExample>
 	| transpiler output |
@@ -382,6 +395,19 @@ ProcessingTranspilerVariantExamples >> prefixLists2 [
 (put_at a 1 6)
 (put_at a (- 2) 7)
 (print (* a 2) (slice a None 0) (slice a (- 1) None) (* a 0))
+'.
+	^ output
+]
+
+{ #category : #example }
+ProcessingTranspilerVariantExamples >> prefixRandom [
+	<gtExample>
+	| transpiler output |
+	transpiler := self prefixTranspiler.
+	output := transpiler transpile: ProcessingProgramExamples new programRandom ast.
+	self assert: output equals: '(randomSeed 100)
+(assert (== (random 10) 0.007826369259425611))
+(assert (== (random 3) 0.46133644294987264))
 '.
 	^ output
 ]

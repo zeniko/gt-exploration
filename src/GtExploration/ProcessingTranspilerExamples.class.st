@@ -233,10 +233,10 @@ ProcessingTranspilerExamples >> transpilationLists [
 	c := b reversed.
 	d := c allButLast.
 	e := d sorted.
-	f := e sliceFrom: (1 + 1) to: 4.
+	f := (e sliceFrom: (1 + 1) to: 4).
 	g := f size.
-	h := f at: (2 + 1).
-	j := b sliceFrom: 1 to: 2 negated.
+	h := (f at: (2 + 1)).
+	j := (b sliceFrom: 1 to: 2 negated).
 	gtCanvas print: { a. b. c. d. e. f. g. h. j. }.'
 ]
 
@@ -245,9 +245,9 @@ ProcessingTranspilerExamples >> transpilationLists2 [
 	^ 'gtRun
 	a := (ProcessingList newFrom: { 1. 2. 3. }).
 	a := (a + (ProcessingList newFrom: { 4. 5. })).
-	a at: (1 + 1) put: 6.
-	a at: (2 negated + 1) put: 7.
-	gtCanvas print: { (a * 2). a sliceFrom: 1 to: 0. a sliceFrom: (1 negated + 1). (a * 0). }.'
+	(a at: (1 + 1) put: 6).
+	(a at: (2 negated + 1) put: 7).
+	gtCanvas print: { (a * 2). (a sliceFrom: 1 to: 0). (a sliceFrom: (1 negated + 1)). (a * 0). }.'
 ]
 
 { #category : #transpilation }
@@ -314,6 +314,14 @@ ProcessingTranspilerExamples >> transpilationPrint [
 ]
 
 { #category : #transpilation }
+ProcessingTranspilerExamples >> transpilationRandom [
+	^ 'gtRun
+	(gtCanvas randomSeed: 100).
+	[ ((gtCanvas random: 10) = 0.007826369259425611) ] assert.
+	[ ((gtCanvas random: 3) = 0.46133644294987264) ] assert.'
+]
+
+{ #category : #transpilation }
 ProcessingTranspilerExamples >> transpilationRecursion [
 	^ 'gtRun
 	width := 200. height := 200. gtCanvas size: width by: height.
@@ -363,6 +371,105 @@ sierpinski: n x: x y: y side: gt0_side
 			(self sierpinski: (n - 1) x: (x + side) y: (y + th) side: side).
 		].
 	].'
+]
+
+{ #category : #transpilation }
+ProcessingTranspilerExamples >> transpilationSimulation [
+	^ 'gtRun
+	anzahl_personen := 100.
+	anzahl_kranke := 1.
+	groesse := 30.
+	risiko := 0.25.
+	genesung := 0.05.
+	x_koordinaten := ((ProcessingList newFrom: { 1 negated. }) * anzahl_personen).
+	y_koordinaten := ((ProcessingList newFrom: { 1 negated. }) * anzahl_personen).
+	zustand := ((ProcessingList newFrom: { 1 negated. }) * anzahl_personen).
+	self setup.
+	[ gtCanvas frameRate > 0 ] whileTrue: [
+		mouseX := gtCanvas mouseX. mouseY := gtCanvas mouseY. mousePressed := gtCanvas mousePressed.
+		self draw.
+		gtCanvas endFrame.
+	].
+
+setup
+	width := 500. height := 500. gtCanvas size: width by: height.
+	gtCanvas frameRate: 10.
+	(self personen_platzieren).
+
+draw
+	(self krankheit_uebertragen).
+	(self personen_bewegen).
+	(self personen_anzeigen).
+
+personen_platzieren
+	| p |
+	p := 0.
+	[ (p < anzahl_personen) ] whileTrue: [
+		(x_koordinaten at: (p + 1) put: (gtCanvas random: width)).
+		(y_koordinaten at: (p + 1) put: (gtCanvas random: height)).
+		(zustand at: (p + 1) put: 0.0).
+		p := (p + 1).
+	].
+	p := 0.
+	[ (p < anzahl_kranke) ] whileTrue: [
+		(zustand at: (p + 1) put: 1.0).
+		p := (p + 1).
+	].
+
+krankheit_uebertragen
+	| p q |
+	p := 0.
+	[ (p < anzahl_personen) ] whileTrue: [
+		((zustand at: (p + 1)) < 1) ifTrue: [
+			q := 0.
+			[ (q < anzahl_personen) ] whileTrue: [
+				(((zustand at: (q + 1)) >= 1) and: [ ((zustand at: (q + 1)) < 2) ]) ifTrue: [
+					(((((x_koordinaten at: (p + 1)) - (x_koordinaten at: (q + 1))) ** 2) + (((y_koordinaten at: (p + 1)) - (y_koordinaten at: (q + 1))) ** 2)) < (groesse ** 2)) ifTrue: [
+						(zustand at: (p + 1) put: ((zustand at: (p + 1)) + risiko)).
+					].
+				].
+				q := (q + 1).
+			].
+			((zustand at: (p + 1)) > 1) ifTrue: [
+				(zustand at: (p + 1) put: 1).
+			].
+		] ifFalse: [
+			(zustand at: (p + 1) put: ((zustand at: (p + 1)) + (gtCanvas random: genesung))).
+		].
+		p := (p + 1).
+	].
+
+personen_bewegen
+	| p |
+	p := 0.
+	[ (p < anzahl_personen) ] whileTrue: [
+		(x_koordinaten at: (p + 1) put: ((((x_koordinaten at: (p + 1)) + (groesse / (2.0 * ((gtCanvas random: 2) - 1)))) max: 0) min: width)).
+		(y_koordinaten at: (p + 1) put: ((((y_koordinaten at: (p + 1)) + (groesse / (2.0 * ((gtCanvas random: 2) - 1)))) max: 0) min: height)).
+		p := (p + 1).
+	].
+
+personen_anzeigen
+	| p infizierte |
+	gtCanvas backgroundR: 0 G: 0 B: 0.
+	p := 0.
+	infizierte := 0.
+	[ (p < anzahl_personen) ] whileTrue: [
+		((zustand at: (p + 1)) < 1) ifTrue: [
+			gtCanvas fillR: 255 G: 255 B: 255.
+		] ifFalse: [
+			((zustand at: (p + 1)) < 2) ifTrue: [
+				gtCanvas fillR: 255 G: 0 B: 0.
+				infizierte := (infizierte + 1).
+			] ifFalse: [
+				gtCanvas fillR: 170 G: 170 B: 170.
+			].
+		].
+		gtCanvas ellipse: (x_koordinaten at: (p + 1)) y: (y_koordinaten at: (p + 1)) dx: groesse dy: groesse.
+		p := (p + 1).
+	].
+	gtCanvas fillR: 255 G: 0 B: 0.
+	gtCanvas textSize: 20.
+	gtCanvas text: (''Infizierte: '' , infizierte asString) x: 20 y: 30.'
 ]
 
 { #category : #transpilation }
@@ -720,6 +827,19 @@ ProcessingTranspilerExamples >> transpilePrint [
 ]
 
 { #category : #example }
+ProcessingTranspilerExamples >> transpileRandom [
+	<gtExample>
+	| ast transpiler |
+	ast := ProcessingProgramExamples new programRandom ast.
+	transpiler := self newTranspiler.
+	self assert: (transpiler transpile: ast) equals: self transpilationRandom.
+	self assert: transpiler variables size equals: 0.
+	self assert: transpiler userDefs size equals: 0.
+	self compare: (transpiler compile: ast) with: self transpilationRandom.
+	^ transpiler compile: ast
+]
+
+{ #category : #example }
 ProcessingTranspilerExamples >> transpileRecursion [
 	<gtExample>
 	| ast transpiler |
@@ -756,6 +876,20 @@ ProcessingTranspilerExamples >> transpileSierpinski [
 	self assert: (' ' join: transpiler variables sorted) equals: 'px'.
 	self assert: transpiler userDefs size equals: 1.
 	self compare: (transpiler compile: ast) with: self transpilationSierpinski.
+	^ transpiler compile: ast
+]
+
+{ #category : #example }
+ProcessingTranspilerExamples >> transpileSimulation [
+	<gtExample>
+	| ast transpiler |
+	ast := ProcessingProgramExamples new programSimulation ast.
+	transpiler := self newTranspiler.
+	self assert: (transpiler transpile: ast) equals: self transpilationSimulation.
+	self assert: transpiler variables size equals: 8.
+	self assert: (' ' join: transpiler variables sorted) equals: 'anzahl_kranke anzahl_personen genesung groesse risiko x_koordinaten y_koordinaten zustand'.
+	self assert: transpiler userDefs size equals: 6.
+	self compare: (transpiler compile: ast) with: self transpilationSimulation.
 	^ transpiler compile: ast
 ]
 

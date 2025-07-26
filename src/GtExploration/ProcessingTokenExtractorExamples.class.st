@@ -262,6 +262,19 @@ ProcessingTokenExtractorExamples >> tokensPrint [
 ]
 
 { #category : #example }
+ProcessingTokenExtractorExamples >> tokensRandom [
+	<gtExample>
+	| ast tokens |
+	ast := ProcessingProgramExamples new programRandom ast.
+	self assert: ast statements size equals: 3.
+
+	tokens := self newExtractor extractTokens: ast.
+	self assert: tokens size equals: 18.
+	self assert: (tokens allSatisfy: [ :item | item isKindOf: SmaCCToken ]).
+	^ tokens
+]
+
+{ #category : #example }
 ProcessingTokenExtractorExamples >> tokensRecurion [
 	<gtExample>
 	| ast tokens |
@@ -296,6 +309,19 @@ ProcessingTokenExtractorExamples >> tokensSierpinski [
 
 	tokens := self newExtractor extractTokens: ast.
 	self assert: tokens size equals: 172.
+	self assert: (tokens allSatisfy: [ :item | item isKindOf: SmaCCToken ]).
+	^ tokens
+]
+
+{ #category : #example }
+ProcessingTokenExtractorExamples >> tokensSimulation [
+	<gtExample>
+	| ast tokens |
+	ast := ProcessingProgramExamples new programSimulation ast.
+	self assert: ast statements size equals: 14.
+
+	tokens := self newExtractor extractTokens: ast.
+	self assert: tokens size equals: 459.
 	self assert: (tokens allSatisfy: [ :item | item isKindOf: SmaCCToken ]).
 	^ tokens
 ]

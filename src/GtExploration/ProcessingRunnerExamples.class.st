@@ -421,6 +421,22 @@ ProcessingRunnerExamples >> runPrint [
 ]
 
 { #category : #example }
+ProcessingRunnerExamples >> runRandom [
+	<gtExample>
+	| program runner |
+	program := ProcessingProgramExamples new programRandom.
+	runner := self newRunner.
+	runner
+		run: program compilation;
+		limitTo: 2 seconds;
+		wait.
+	self assert: runner canvas isNotNil.
+	self assert: runner isDone.
+	self assert: runner wait equals: true.
+	^ runner
+]
+
+{ #category : #example }
 ProcessingRunnerExamples >> runRecursion [
 	<gtExample>
 	| program runner |

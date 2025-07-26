@@ -601,9 +601,35 @@ ProcessingTranspiler >> emit_loadImage: args [
 ]
 
 { #category : #emitting }
+ProcessingTranspiler >> emit_max: args [
+	args size = 1
+		ifTrue: [ args first acceptVisitor: self.
+			^ self emit: ' max' ].
+	self expect: 2 argumentsFor: args.
+	self emit: '('.
+	args first acceptVisitor: self.
+	self emit: ' max: '.
+	args second acceptVisitor: self.
+	self emit: ')'
+]
+
+{ #category : #emitting }
 ProcessingTranspiler >> emit_millis: args [
 	self expect: 0 argumentsFor: args.
 	self emit: 'gtCanvas millis'
+]
+
+{ #category : #emitting }
+ProcessingTranspiler >> emit_min: args [
+	args size = 1
+		ifTrue: [ args first acceptVisitor: self.
+			^ self emit: ' min' ].
+	self expect: 2 argumentsFor: args.
+	self emit: '('.
+	args first acceptVisitor: self.
+	self emit: ' min: '.
+	args second acceptVisitor: self.
+	self emit: ')'
 ]
 
 { #category : #emitting }
@@ -647,6 +673,14 @@ ProcessingTranspiler >> emit_random: args [
 	args size > 1
 		ifTrue: [ self emit: ' to: '.
 			args second acceptVisitor: self ].
+	self emit: ')'
+]
+
+{ #category : #emitting }
+ProcessingTranspiler >> emit_randomSeed: args [
+	self expect: 1 argumentsFor: args.
+	self emit: '(gtCanvas randomSeed: '.
+	args first acceptVisitor: self.
 	self emit: ')'
 ]
 
@@ -1111,8 +1145,10 @@ ProcessingTranspiler >> visitAssignmentStatement: stmt [
 	(stmt lhs isKindOf: PySubscriptExpressionNode)
 		ifTrue: [ self startEmit: stmt.
 			stmt lhs acceptVisitor: self.
-			self emit: ' put: '.
+			output := output allButLast , ' '.	"TODO: self unemit:?"
+			self emit: 'put: '.
 			stmt tos first acceptVisitor: self.
+			self emit: ')'.
 			^ self endEmit ].
 
 	self expect: PyVariableExpressionNode for: stmt lhs.
@@ -1573,6 +1609,7 @@ ProcessingTranspiler >> visitString: expr [
 ProcessingTranspiler >> visitSubscriptExpression: subscript [
 	subscript subscripts size = 1 ifFalse: [ self notImplemented: subscript ].
 	self startEmit: subscript.
+	self emit: '('.
 	subscript receiver acceptVisitor: self.
 	(subscript subscripts first isKindOf: PySliceNode)
 		ifTrue: [ subscript subscripts first colonTokens size = 1
@@ -1588,6 +1625,7 @@ ProcessingTranspiler >> visitSubscriptExpression: subscript [
 		ifFalse: [ self emit: ' at: ('.
 			subscript subscripts first acceptVisitor: self.
 			self emit: ' + 1)' ].	"Smalltalk is 1-based and right closed whereas Python is 0-based and right opened"
+	self emit: ')'.
 	^ self endEmit
 ]
 

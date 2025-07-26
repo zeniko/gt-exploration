@@ -414,8 +414,8 @@ ProcessingAstCleaner >> visitBacktickExpression: aBacktickExpression [
 ProcessingAstCleaner >> visitBinaryExpression: expr [
 	"GtUnoptimizedConditionalAdvice suggests (a and (b and c)) instead of ((a and b) and c)"
 
-	expr left acceptVisitor: self.
-	expr right acceptVisitor: self.
+	expr left: (expr left acceptVisitor: self).
+	expr right: (expr right acceptVisitor: self).
 	[ (#('and' 'or') includes: expr operator value)
 		and: [ (expr left isKindOf: PyBinaryExpressionNode)
 				and: [ expr left operator value = expr operator value ] ] ]
@@ -586,9 +586,10 @@ ProcessingAstCleaner >> visitIfStatement: expr [
 					else: expr else.
 			inner attributeNamed: #startPosition put: expr elsifs first startPosition.
 			expr elsifs: #().
-			expr else ifNil: [ expr else: PyElseNode new ].
-			expr else statements: {inner acceptVisitor: self} ].
-	^ expr
+			expr else: PyElseNode new.
+			expr else statements: {inner} ].
+
+	^ self visitExpression: expr
 ]
 
 { #category : #generated }

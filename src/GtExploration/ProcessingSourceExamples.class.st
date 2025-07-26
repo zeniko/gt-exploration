@@ -280,6 +280,13 @@ print("2 + 3 =", var)'
 ]
 
 { #category : #source }
+ProcessingSourceExamples >> sourceCodeRandom [
+	^ 'randomSeed(100)
+assert random(10) == 0.007826369259425611
+assert random(3) == 0.46133644294987264'
+]
+
+{ #category : #source }
 ProcessingSourceExamples >> sourceCodeRecursion [
 	^ 'size(200, 200)
 
@@ -328,6 +335,108 @@ stroke(0, 0, 0)
 strokeWeight(1)
 
 sierpinski(4, 2, 2, width - 4)'
+]
+
+{ #category : #source }
+ProcessingSourceExamples >> sourceCodeSimulation [
+	^ '# Agenten-basierte Epidemiesimulation
+# BÜS
+
+# Anzahl Personen in der Simulation (Startwert: 100)
+anzahl_personen = 100
+# Anzahl ursprünglich kranker Personen (Startwert: 1)
+anzahl_kranke = 1
+# Grösse einer "Person" (bzw. Ansteckungsradius; Startwert: 30)
+groesse = 30
+# Ansteckungsrisiko bei enger Begegnung (Startwert: 0.25 d.h. 25%)
+risiko = 0.25
+# Ungefähre Genesung pro Zeitschritt (Startwert: 0.05 d.h. 5%)
+genesung = 0.05
+
+# Koordinaten der Personen (eine Liste pro Eigenschaft)
+x_koordinaten = [-1] * anzahl_personen
+y_koordinaten = [-1] * anzahl_personen
+# Personen mit Zustand zwischen 1 und 2 sind krank
+# (jene unter 1 sind noch gesund, jene über 2 sind genesen)
+zustand = [-1] * anzahl_personen
+
+def setup():
+	size(500, 500)
+	frameRate(10)
+	# randomSeed setzt einen Startwert für den Zufallsgenerator
+	# (ein gleicher "Seed" ergibt immer denselben Verlauf) 
+	# randomSeed(100)
+	personen_platzieren()
+
+def draw():
+	krankheit_uebertragen()
+	personen_bewegen()
+	personen_anzeigen()
+
+def personen_platzieren():
+	# Personen an zufällige Positionen setzen
+	p = 0
+	while p < anzahl_personen:
+		x_koordinaten[p] = random(width)
+		y_koordinaten[p] = random(height)
+		zustand[p] = 0.0 # gesund
+		p = p + 1
+	
+	# einzelne Personen erkranken lassen
+	p = 0
+	while p < anzahl_kranke:
+		zustand[p] = 1.0 # krank
+		p = p + 1
+
+def krankheit_uebertragen():
+	p = 0
+	while p < anzahl_personen:
+		# gesunde Personen können krank(er) werden
+		if zustand[p] < 1:
+			# jede kranke Person in der Nähe erhöht das Ansteckungsrisiko
+			q = 0
+			while q < anzahl_personen:
+				if zustand[q] >= 1 and zustand[q] < 2:
+					# Abstand mit Hilfe des Satzes von Pythagoras berechnen (** = hoch)
+					if (x_koordinaten[p] - x_koordinaten[q]) ** 2 + (y_koordinaten[p] - y_koordinaten[q]) ** 2 < groesse ** 2:
+						zustand[p] = zustand[p] + risiko
+				q = q + 1
+			if zustand[p] > 1:
+				zustand[p] = 1
+		# kranke Personen genesen über Zeit
+		else:
+			zustand[p] = zustand[p] + random(genesung)
+		p = p + 1
+
+def personen_bewegen():
+	# Personen zufällig bewegen (innerhalb eines Ansteckungsradius'')
+	p = 0
+	while p < anzahl_personen:
+		# min und max werden verwendet, um ein Davonrennen zu verhindern
+		x_koordinaten[p] = min(max(x_koordinaten[p] + groesse / 2.0 * (random(2) - 1), 0), width)
+		y_koordinaten[p] = min(max(y_koordinaten[p] + groesse / 2.0 * (random(2) - 1), 0), height)
+		p = p + 1
+
+def personen_anzeigen():
+	# Schwarzer Hintergrund
+	background(0, 0, 0)
+	p = 0
+	infizierte = 0
+	while p < anzahl_personen:
+		if zustand[p] < 1:
+			fill(255, 255, 255) # weiss (gesund)
+		elif zustand[p] < 2:
+			fill(255, 0, 0) # rot (ansteckend)
+			infizierte = infizierte + 1
+		else:
+			fill(170, 170, 170) # grau (genesen)
+		ellipse(x_koordinaten[p], y_koordinaten[p], groesse, groesse)
+		p = p + 1
+	# Anteil Infizierte anzeigen
+	fill(255, 0, 0)
+	textSize(20)
+	text("Infizierte: " + str(infizierte), 20, 30)
+'
 ]
 
 { #category : #source }
@@ -593,6 +702,16 @@ ProcessingSourceExamples >> sourcePrint [
 ]
 
 { #category : #example }
+ProcessingSourceExamples >> sourceRandom [
+	<gtExample>
+	| source |
+	source := ProcessingSource fromString: self sourceCodeRandom.
+	self assert: source asString equals: self sourceCodeRandom.
+	self assert: source program isNotNil.
+	^ source
+]
+
+{ #category : #example }
 ProcessingSourceExamples >> sourceRecursion [
 	<gtExample>
 	| source |
@@ -628,6 +747,16 @@ ProcessingSourceExamples >> sourceSierpinski [
 	| source |
 	source := ProcessingSource fromString: self sourceCodeSierpinski.
 	self assert: source asString equals: self sourceCodeSierpinski.
+	self assert: source program isNotNil.
+	^ source
+]
+
+{ #category : #example }
+ProcessingSourceExamples >> sourceSimulation [
+	<gtExample>
+	| source |
+	source := ProcessingSource fromString: self sourceCodeSimulation.
+	self assert: source asString equals: self sourceCodeSimulation.
 	self assert: source program isNotNil.
 	^ source
 ]

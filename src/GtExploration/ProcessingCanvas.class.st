@@ -17,7 +17,8 @@ Class {
 		'backgroundColor',
 		'shapes',
 		'frameCount',
-		'presenter'
+		'presenter',
+		'randomGenerator'
 	],
 	#category : #'GtExploration-Processing'
 }
@@ -260,6 +261,7 @@ ProcessingCanvas >> initialize [
 	frameCount := 0.
 	events := OrderedCollection new.
 	shapes := OrderedCollection new.
+	randomGenerator := SharedRandom globalGenerator.
 	presenter := ProcessingCanvasPresenter newFor: self
 ]
 
@@ -383,7 +385,12 @@ ProcessingCanvas >> random: limit [
 
 { #category : #initialization }
 ProcessingCanvas >> random: lowerLimit to: upperLimit [
-	^ SharedRandom globalGenerator next * (upperLimit - lowerLimit) + lowerLimit
+	^ randomGenerator next * (upperLimit - lowerLimit) + lowerLimit
+]
+
+{ #category : #initialization }
+ProcessingCanvas >> randomSeed: seed [
+	randomGenerator := Random seed: seed
 ]
 
 { #category : #shapes }

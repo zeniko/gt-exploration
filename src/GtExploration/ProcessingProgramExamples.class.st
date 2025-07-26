@@ -226,6 +226,17 @@ ProcessingProgramExamples >> programPrint [
 ]
 
 { #category : #example }
+ProcessingProgramExamples >> programRandom [
+	<gtExample>
+	| program |
+	program := ProcessingSourceExamples new sourceRandom program.
+	self assert: program source isNotNil.
+	self assert: program compilation isNotNil.
+	self assert: program ast isNotNil.
+	^ program
+]
+
+{ #category : #example }
 ProcessingProgramExamples >> programRecursion [
 	<gtExample>
 	| program |
@@ -252,6 +263,17 @@ ProcessingProgramExamples >> programSierpinski [
 	<gtExample>
 	| program |
 	program := ProcessingSourceExamples new sourceSierpinski program.
+	self assert: program source isNotNil.
+	self assert: program compilation isNotNil.
+	self assert: program ast isNotNil.
+	^ program
+]
+
+{ #category : #example }
+ProcessingProgramExamples >> programSimulation [
+	<gtExample>
+	| program |
+	program := ProcessingSourceExamples new sourceSimulation program.
 	self assert: program source isNotNil.
 	self assert: program compilation isNotNil.
 	self assert: program ast isNotNil.
