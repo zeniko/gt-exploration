@@ -407,7 +407,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-07-27T00:31:28.055+02:00"
+									"dateAndTimeString" : "2025-07-27T00:32:22.634+02:00"
 								}
 							},
 							"uid" : {
@@ -417,7 +417,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Fixed various implementation bugs, added more tests (most notably {{gtMethod:ProcessingProgramExamples>>programSimulation}})."
+							"string" : "Fixed various implementation bugs, added more tests (most notably {{gtMethod:ProcessingSourceExamples>>sourceSimulation}})."
 						}
 					]
 				},

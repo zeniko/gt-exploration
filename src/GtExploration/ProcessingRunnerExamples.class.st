@@ -147,6 +147,9 @@ ProcessingRunnerExamples >> runExample02Stepwise [
 	steps := runner runStepwise: program compilation.
 	self assert: steps size equals: 25.
 	self assert: runner isDone.
+	self
+		assert: (steps collect: [ :s | s variables at: 'a' ])
+		equals: #(nil nil 0 0 0 0 0 50 50 50 50 50 100 100 100 100 100 150 150 150 150 150 200 200 200) asOrderedCollection.
 	^ steps
 ]
 
@@ -382,6 +385,61 @@ ProcessingRunnerExamples >> runLists2 [
 		assert: (runner canvas transcript textDo: [ :text | text asString ])
 		equals: '[1, 6, 3, 7, 5, 1, 6, 3, 7, 5] [] [5] []'.
 	^ runner
+]
+
+{ #category : #example }
+ProcessingRunnerExamples >> runLists2Stepwise [
+	<gtExample>
+	| program runner steps |
+	program := ProcessingProgramExamples new programLists2.
+	runner := self newRunner.
+	steps := runner
+			limitTo: 2 seconds;
+			runStepwise: program compilation.
+	self assert: steps size equals: 16.
+	self assert: runner isDone.
+	self assert: runner wait equals: true.
+	self
+		assert: (steps at: 4) stack first
+		equals: (ProcessingList
+				newFrom: {1.
+						2.
+						3}).
+	self
+		assert: (steps at: 5) stack first
+		equals: (ProcessingList
+				newFrom: {1.
+						2.
+						3.
+						4.
+						5}).
+	self
+		assert: ((steps at: 5) variables at: 'a')
+		equals: (ProcessingList
+				newFrom: {1.
+						2.
+						3}).
+	self
+		assert: ((steps at: 6) variables at: 'a')
+		equals: (ProcessingList
+				newFrom: {1.
+						2.
+						3.
+						4.
+						5}).
+	self
+		assert: ((steps at: 8) variables at: 'a')
+		equals: (ProcessingList
+				newFrom: {1.
+						6.
+						3.
+						4.
+						5}).
+	self assert: (steps at: 15) transcript equals: nil.
+	self
+		assert: (steps at: 16) transcript
+		equals: '[1, 6, 3, 7, 5, 1, 6, 3, 7, 5] [] [5] []'.
+	^ steps
 ]
 
 { #category : #example }

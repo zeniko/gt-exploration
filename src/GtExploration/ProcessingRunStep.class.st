@@ -9,7 +9,8 @@ Class {
 		'transcript',
 		'shapes',
 		'canvasSize',
-		'canvasColor'
+		'canvasColor',
+		'copies'
 	],
 	#category : #'GtExploration-Processing'
 }
@@ -28,8 +29,18 @@ ProcessingRunStep >> asString [
 ]
 
 { #category : #initalization }
+ProcessingRunStep >> copyObj: anObject [
+	"Makes a copy of mutable objects (for now: lists), reuses that copy in case the object occurs multiple times in a single step (different variables or on the stack)"
+
+	(anObject isKindOf: ProcessingList)
+		ifTrue: [ ^ copies at: anObject ifAbsentPut: [ anObject copy ] ].
+	^ anObject	"assume that the object is immutable (or doesn't matter)"
+]
+
+{ #category : #initalization }
 ProcessingRunStep >> create: aContext canvas: aCanvas slice: aSlice [
 	self updateCanvas: aCanvas.
+	copies := Dictionary new.
 	variables := Dictionary new.
 	aContext receiver
 		ifNotNil: [ aContext receiver class slots
@@ -37,14 +48,17 @@ ProcessingRunStep >> create: aContext canvas: aCanvas slice: aSlice [
 					(slot name beginsWith: 'gt_')
 						ifTrue: [ variables
 								at: ('gt' , (slot name removePrefix: 'gt_')) asSymbol
-								put: (aContext receiver instVarNamed: slot name) ].
+								put: (self copyObj: (aContext receiver instVarNamed: slot name)) ].
 					(slot name beginsWith: 'gt')
 						ifFalse: [ (ProcessingTranspiler implicitVariables includes: slot name)
-								ifFalse: [ variables at: slot name put: (aContext receiver instVarNamed: slot name) ] ] ] ].
+								ifFalse: [ variables
+										at: slot name
+										put: (self copyObj: (aContext receiver instVarNamed: slot name)) ] ] ] ].
 	aContext tempNames
-		do: [ :name | variables at: name put: (aContext tempNamed: name) ].
+		do: [ :name | variables at: name put: (self copyObj: (aContext tempNamed: name)) ].
 	method := aContext sourceNodeExecuted.
-	stack := (1 to: aContext size) collect: [ :ix | aContext at: ix ].
+	stack := (1 to: aContext size)
+			collect: [ :ix | self copyObj: (aContext at: ix) ].
 	slice := aSlice
 ]
 
@@ -212,6 +226,16 @@ ProcessingRunStep >> gtVariablesFor: aView [
 		send: [ :assoc | assoc value ]
 ]
 
+{ #category : #accessing }
+ProcessingRunStep >> stack [
+	^ stack
+]
+
+{ #category : #accessing }
+ProcessingRunStep >> transcript [
+	^ transcript
+]
+
 { #category : #initalization }
 ProcessingRunStep >> updateCanvas: aCanvas [
 	shapes := aCanvas shapes clone.
@@ -219,4 +243,9 @@ ProcessingRunStep >> updateCanvas: aCanvas [
 			ifNotNil: [ aCanvas transcript textDo: #asString ].
 	canvasSize := aCanvas canvasSize.
 	canvasColor := aCanvas background
+]
+
+{ #category : #accessing }
+ProcessingRunStep >> variables [
+	^ variables
 ]
