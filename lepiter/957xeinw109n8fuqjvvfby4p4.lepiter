@@ -34,7 +34,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-07-16T11:17:24.901+02:00"
+									"dateAndTimeString" : "2025-07-28T11:52:21.176+02:00"
 								}
 							},
 							"uid" : {
@@ -44,7 +44,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Evaluate [[Student Feedback]]"
+							"string" : "Evaluate student feedback"
 						},
 						{
 							"__type" : "textSnippet",
@@ -182,7 +182,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-07-16T11:17:57.089+02:00"
+									"dateAndTimeString" : "2025-07-28T11:52:34.394+02:00"
 								}
 							},
 							"uid" : {
@@ -192,7 +192,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : " Spell and grammar check (automate, if possible)"
+							"string" : "Spell and grammar check (automate, if possible)"
 						}
 					]
 				},
