@@ -274,7 +274,8 @@ def mouseMoved():
 
 { #category : #source }
 ProcessingSourceExamples >> sourceCodePrecedence [
-	^ 'assert 2 / 3 * 4 == 8 / 3
+	^ '# as of GT v1.0.1991, PythonParser parses these correctly
+assert 2 / 3 * 4 == 8 / 3
 assert 2 - 3 + 4 == 3
 assert 2 * 3 + 4 == 10
 assert 2 + 3 * 4 == 14

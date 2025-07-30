@@ -49,8 +49,3 @@ ProcessingParser class >> gtGetASTChildren: aNode [
 	(nodes first isKindOf: PyRootNode) ifTrue: [ ^ nodes ].
 	^ #()
 ]
-
-{ #category : #parsing }
-ProcessingParser class >> parse: aString [
-	^ (super parse: aString) acceptVisitor: ProcessingParserFixer new
-]
