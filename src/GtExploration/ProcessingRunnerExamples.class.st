@@ -122,6 +122,22 @@ ProcessingRunnerExamples >> runAnimationStepwise [
 ]
 
 { #category : #example }
+ProcessingRunnerExamples >> runColors [
+	<gtExample>
+	| program runner |
+	program := ProcessingProgramExamples new programColors.
+	runner := self newRunner.
+	runner
+		run: program compilation;
+		limitTo: 2 seconds;
+		wait.
+	self assert: runner canvas isNotNil.
+	self assert: runner isDone.
+	self assert: runner wait equals: true.
+	^ runner
+]
+
+{ #category : #example }
 ProcessingRunnerExamples >> runExample02 [
 	<gtExample>
 	| program runner |

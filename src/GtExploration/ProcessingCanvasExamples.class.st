@@ -18,6 +18,8 @@ ProcessingCanvasExamples >> alpinerWanderweg [
 	self assert: child border width equals: 0.5.
 
 	self assert: canvas canvasElement children size equals: 2.
+	self assert: (canvas shapes first isKindOf: ProcessingCanvasRectangle).
+	self assert: (canvas shapes second isKindOf: ProcessingCanvasRectangle).
 	^ canvas
 ]
 
@@ -85,6 +87,7 @@ ProcessingCanvasExamples >> container [
 		assert: canvas canvasElement background paint color
 		equals: Color veryLightGray.
 	self assert: canvas canvasElement children size equals: 0.
+	self assert: canvas shapes size equals: 0.
 	self
 		assert: (canvas asElement children first children first isKindOf: BlScalableElement).
 	self assert: (canvas asElement isKindOf: ProcessingCanvasElement).
@@ -244,6 +247,7 @@ ProcessingCanvasExamples >> image [
 		sized: 100 @ 100.
 	self assert: canvas canvasElement children size equals: 1.
 	self assert: (canvas canvasElement children last isKindOf: BlSkiaImageElement).
+	self assert: (canvas shapes last isKindOf: ProcessingCanvasImage).
 	^ canvas
 ]
 
@@ -351,9 +355,13 @@ ProcessingCanvasExamples >> shapes [
 	self assert: canvas strokeWeight equals: 0.5.
 	self assert: canvas canvasElement children size equals: 4.
 	self assert: (canvas canvasElement children first isKindOf: BlElement).
+	self assert: (canvas shapes first isKindOf: ProcessingCanvasRoundedRectangle).
 	self assert: (canvas canvasElement children second isKindOf: BlEllipseElement).
+	self assert: (canvas shapes second isKindOf: ProcessingCanvasEllipse).
 	self assert: (canvas canvasElement children third isKindOf: BlLineElement).
+	self assert: (canvas shapes third isKindOf: ProcessingCanvasLine).
 	self assert: (canvas canvasElement children fourth isKindOf: BlPolygonElement).
+	self assert: (canvas shapes fourth isKindOf: ProcessingCanvasPolygon).
 	^ canvas
 ]
 

@@ -481,6 +481,10 @@ ProcessingTranspiler >> emit_circle: args [
 
 { #category : #emitting }
 ProcessingTranspiler >> emit_color: args [
+	args size = 1
+		ifTrue: [ self emit: '(gtCanvas colorWithGray: '.
+			args first acceptVisitor: self.
+			^ self emit: ')' ].
 	self expect: 3 argumentsFor: args.
 	self emit: '(gtCanvas colorWithR: '.
 	args first acceptVisitor: self.
@@ -686,7 +690,7 @@ ProcessingTranspiler >> emit_randomSeed: args [
 
 { #category : #emitting }
 ProcessingTranspiler >> emit_rect: args [
-	self expect: 4 argumentsFor: args.
+	self expect: (args size = 5 ifTrue: [ 5 ] ifFalse: [ 4 ]) argumentsFor: args.
 	self emit: 'gtCanvas rect: '.
 	args first acceptVisitor: self.
 	self emit: ' y: '.
@@ -694,14 +698,10 @@ ProcessingTranspiler >> emit_rect: args [
 	self emit: ' width: '.
 	args third acceptVisitor: self.
 	self emit: ' height: '.
-	args fourth acceptVisitor: self
-]
-
-{ #category : #emitting }
-ProcessingTranspiler >> emit_reverse: args [
-	"`reverse` is to Processing what `reversed` is to Python."
-
-	^ self emit_reversed: args
+	args fourth acceptVisitor: self.
+	args size = 5
+		ifTrue: [ self emit: ' cornerRadius: '.
+			args fifth acceptVisitor: self ]
 ]
 
 { #category : #emitting }
@@ -747,13 +747,6 @@ ProcessingTranspiler >> emit_size: args [
 	self emit: '. height := '.
 	args second acceptVisitor: self.
 	self emit: '. gtCanvas size: width by: height'
-]
-
-{ #category : #emitting }
-ProcessingTranspiler >> emit_sort: args [
-	"`sort` is to Processing what `sorted` is to Python."
-
-	^ self emit_sorted: args
 ]
 
 { #category : #emitting }

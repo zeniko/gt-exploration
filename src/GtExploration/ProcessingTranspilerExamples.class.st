@@ -115,6 +115,17 @@ draw
 ]
 
 { #category : #transpilation }
+ProcessingTranspilerExamples >> transpilationColors [
+	^ 'gtRun
+	width := 200. height := 200. gtCanvas size: width by: height.
+	c := (gtCanvas colorWithR: 224 G: 224 B: 224).
+	[ (c = (gtCanvas colorWithGray: 224)) ] assert.
+	gtCanvas fillGray: c.
+	gtCanvas strokeGray: (gtCanvas colorWithGray: 192).
+	gtCanvas rect: 50 y: 50 width: 100 height: 100.'
+]
+
+{ #category : #transpilation }
 ProcessingTranspilerExamples >> transpilationEndlessLoop [
 	^ 'gtRun
 	[ true ] whileTrue: [
@@ -352,7 +363,7 @@ ProcessingTranspilerExamples >> transpilationShapes [
 	^ 'gtRun
 	width := 200. height := 200. gtCanvas size: width by: height.
 	gtCanvas strokeR: 255 G: 255 B: 255.
-	gtCanvas rect: 20 y: 30 width: 60 height: 40.
+	gtCanvas rect: 20 y: 30 width: 60 height: 40 cornerRadius: 5.
 	gtCanvas ellipse: 150 y: 50 dx: 60 dy: 40.
 	gtCanvas line: 25 y1: 150 x2: 75 y2: 125.
 	gtCanvas triangle: 125 y1: 125 x2: 150 y2: 175 x3: 175 y3: 150.'
@@ -631,6 +642,20 @@ ProcessingTranspilerExamples >> transpileAnimation2 [
 	self assert: (' ' join: transpiler variables sorted) equals: 'dx dy x y'.
 	self assert: transpiler userDefs size equals: 2.
 	self compare: (transpiler compile: ast) with: self transpilationAnimation2.
+	^ transpiler compile: ast
+]
+
+{ #category : #example }
+ProcessingTranspilerExamples >> transpileColors [
+	<gtExample>
+	| ast transpiler |
+	ast := ProcessingProgramExamples new programColors ast.
+	transpiler := self newTranspiler.
+	self assert: (transpiler transpile: ast) equals: self transpilationColors.
+	self assert: transpiler variables size equals: 1.
+	self assert: (' ' join: transpiler variables sorted) equals: 'c'.
+	self assert: transpiler userDefs size equals: 0.
+	self compare: (transpiler compile: ast) with: self transpilationColors.
 	^ transpiler compile: ast
 ]
 

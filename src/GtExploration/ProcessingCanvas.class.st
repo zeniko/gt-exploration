@@ -92,6 +92,14 @@ ProcessingCanvas >> circle: x y: y d: d [
 ]
 
 { #category : #initialization }
+ProcessingCanvas >> colorWithGray: gray [
+	^ self
+		colorWithR: gray
+		G: gray
+		B: gray
+]
+
+{ #category : #initialization }
 ProcessingCanvas >> colorWithR: r G: g B: b [
 	"Map 64 to 0.25, 128 to 0.5, 192 to 0.75 but 255 to 1.0 exactly."
 
@@ -402,11 +410,29 @@ ProcessingCanvas >> rect: width by: height at: xy [
 ]
 
 { #category : #shapes }
+ProcessingCanvas >> rect: width by: height at: xy cornerRadius: radius [
+	self
+		output: (ProcessingCanvasRoundedRectangle new
+				position: xy;
+				rectSize: width @ height;
+				cornerRadius: radius)
+]
+
+{ #category : #shapes }
 ProcessingCanvas >> rect: x y: y width: width height: height [
 	self
 		rect: width
 		by: height
 		at: x @ y
+]
+
+{ #category : #shapes }
+ProcessingCanvas >> rect: x y: y width: width height: height cornerRadius: radius [
+	self
+		rect: width
+		by: height
+		at: x @ y
+		cornerRadius: radius
 ]
 
 { #category : #modifiers }

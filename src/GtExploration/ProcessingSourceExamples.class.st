@@ -116,6 +116,16 @@ def draw():
 ]
 
 { #category : #source }
+ProcessingSourceExamples >> sourceCodeColors [
+	^ 'size(200, 200)
+c = color(224, 224, 224)
+assert c == color(224)
+fill(c)
+stroke(color(192))
+rect(50, 50, 100, 100)'
+]
+
+{ #category : #source }
 ProcessingSourceExamples >> sourceCodeEndlessLoop [
 	^ 'while True: pass'
 ]
@@ -216,9 +226,9 @@ ProcessingSourceExamples >> sourceCodeLists [
 	^ 'a = [1, 2]
 a = append(a, 3) # -> [1, 2, 3]
 b = concat(a, a) # -> [1, 2, 3, 1, 2, 3]
-c = reverse(b)   # -> [3, 2, 1, 3, 2, 1]
+c = reversed(b)  # -> [3, 2, 1, 3, 2, 1]
 d = shorten(c)   # -> [3, 2, 1, 3, 2]
-e = sort(d)      # -> [1, 2, 2, 3, 3]
+e = sorted(d)    # -> [1, 2, 2, 3, 3]
 f = e[1:4]       # -> [2, 2, 3]
 g = len(f)       # -> 3
 h = f[2]         # -> 3
@@ -320,7 +330,7 @@ ProcessingSourceExamples >> sourceCodeRuntimeError [
 ProcessingSourceExamples >> sourceCodeShapes [
 	^ 'size(200, 200)
 stroke(255, 255, 255)
-rect(20, 30, 60, 40)
+rect(20, 30, 60, 40, 5)
 ellipse(150, 50, 60, 40)
 line(25, 150, 75, 125)
 triangle(125, 125, 150, 175, 175, 150)'
@@ -562,6 +572,16 @@ def fwd(d):
 def turn(angle):
 	global t_angle
 	t_angle = t_angle + angle'
+]
+
+{ #category : #example }
+ProcessingSourceExamples >> sourceColors [
+	<gtExample>
+	| source |
+	source := ProcessingSource fromString: self sourceCodeColors.
+	self assert: source asString equals: self sourceCodeColors.
+	self assert: source program isNotNil.
+	^ source
 ]
 
 { #category : #example }

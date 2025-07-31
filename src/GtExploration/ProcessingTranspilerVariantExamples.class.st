@@ -148,9 +148,9 @@ ProcessingTranspilerVariantExamples >> postfixLists [
 	self assert: output equals: '$a 1 2 list_2 =
 $a a 3 append =
 $b a a concat =
-$c b reverse =
+$c b reversed =
 $d c shorten =
-$e d sort =
+$e d sorted =
 $f e 1 4 slice =
 $g f len =
 $h f 2 item =
@@ -390,9 +390,9 @@ ProcessingTranspilerVariantExamples >> prefixLists [
 	self assert: output equals: '(= a (list 1 2))
 (= a (append a 3))
 (= b (concat a a))
-(= c (reverse b))
+(= c (reversed b))
 (= d (shorten c))
-(= e (sort d))
+(= e (sorted d))
 (= f (slice e 1 4))
 (= g (len f))
 (= h (item f 2))

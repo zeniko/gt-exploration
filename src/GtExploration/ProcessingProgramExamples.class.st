@@ -56,6 +56,17 @@ ProcessingProgramExamples >> programAnimation2 [
 ]
 
 { #category : #example }
+ProcessingProgramExamples >> programColors [
+	<gtExample>
+	| program |
+	program := ProcessingSourceExamples new sourceColors program.
+	self assert: program source isNotNil.
+	self assert: program compilation isNotNil.
+	self assert: program ast isNotNil.
+	^ program
+]
+
+{ #category : #example }
 ProcessingProgramExamples >> programEndlessLoop [
 	<gtExample>
 	| program |
