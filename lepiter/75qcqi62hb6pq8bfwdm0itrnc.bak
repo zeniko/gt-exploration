@@ -140,14 +140,14 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-03-12T10:08:32.09+01:00"
+						"dateAndTimeString" : "2025-03-12T10:14:39.697+01:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
 					"uidString" : "QGN/iILsDQCbJ4zOBYrteA=="
 				},
-				"code" : "size(200, 200)\r\nrect(50, 50, 100, 100)\r\nfill(255, 250, 0)\r\nrect(50, 50 + 100 / 3, 100, 100 / 3)"
+				"code" : "size(200, 200)\r\nrect(50, 50, 100, 100)\r\nfill(255, 0, 0)\r\nrect(50, 50 + 100 / 3, 100, 100 / 3)"
 			},
 			{
 				"__type" : "textSnippet",

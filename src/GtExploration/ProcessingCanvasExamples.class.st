@@ -8,16 +8,17 @@ Class {
 ProcessingCanvasExamples >> alpinerWanderweg [
 	<gtExample>
 	| canvas child |
-	canvas := ProcessingRunnerExamples new runAlpinerWanderweg canvas.
+	canvas := self
+			synchronousCanvas: ProcessingProgramExamples new programAlpinerWanderweg.
 
 	self assert: canvas fillColor equals: Color red.
-
+	self assert: canvas canvasElement children size equals: 2.
+	
 	child := canvas canvasElement children last.
 	self assert: child background paint color equals: Color red.
 	self assert: child border paint color equals: Color black.
 	self assert: child border width equals: 0.5.
 
-	self assert: canvas canvasElement children size equals: 2.
 	self assert: (canvas shapes first isKindOf: ProcessingCanvasRectangle).
 	self assert: (canvas shapes second isKindOf: ProcessingCanvasRectangle).
 	^ canvas
@@ -136,7 +137,8 @@ ProcessingCanvasExamples >> createColor [
 ProcessingCanvasExamples >> example02 [
 	<gtExample>
 	| canvas |
-	canvas := ProcessingRunnerExamples new runExample02 canvas.
+	canvas := self
+			synchronousCanvas: ProcessingProgramExamples new programExample02.
 	self assert: canvas canvasElement children size equals: 5.
 	self
 		assert: (canvas canvasElement children select: [ :el | el isKindOf: BlEllipseElement ])
@@ -149,7 +151,7 @@ ProcessingCanvasExamples >> example02 [
 ProcessingCanvasExamples >> example02Scripter [
 	<gtExample>
 	| canvas scripter |
-	canvas := ProcessingCanvasExamples new example02.
+	canvas := self example02.
 	scripter := BlScripter new.
 	scripter element: canvas canvasElement.
 	#(1 2 3 4)
@@ -191,12 +193,16 @@ ProcessingCanvasExamples >> example02Scripter [
 ProcessingCanvasExamples >> examplePrint [
 	<gtExample>
 	| canvas |
-	canvas := ProcessingRunnerExamples new runPrint canvas.
+	canvas := self synchronousCanvas: ProcessingProgramExamples new programPrint.
 	self assert: canvas canvasElement children size equals: 0.
 	self assert: canvas asElement children size equals: 2.
 	self assert: (canvas asElement children last isKindOf: GtTranscriptElement).
 	self
 		assert: (canvas asElement children last transcript textDo: #asString)
+		equals: 'Hello, world!
+2 + 3 = 5'.
+	self
+		assert: (canvas transcript textDo: #asString)
 		equals: 'Hello, world!
 2 + 3 = 5'.
 	^ canvas
@@ -206,7 +212,8 @@ ProcessingCanvasExamples >> examplePrint [
 ProcessingCanvasExamples >> fibonacci [
 	<gtExample>
 	| canvas |
-	canvas := ProcessingRunnerExamples new runFibonacci canvas.
+	canvas := self
+			synchronousCanvas: ProcessingProgramExamples new programFibonacci.
 	self assert: canvas textSize equals: 50.
 	self assert: canvas canvasElement children size equals: 2.
 	self assert: (canvas canvasElement children first isKindOf: BlTextElement).
@@ -268,7 +275,8 @@ ProcessingCanvasExamples >> loadImage [
 ProcessingCanvasExamples >> mouseEvents2Scripter [
 	<gtExample>
 	| canvas |
-	canvas := ProcessingProgramExamples new programMouseEvents2 run canvas.
+	canvas := self
+			synchronousCanvas: ProcessingProgramExamples new programMouseEvents2.
 	^ BlScripter new
 		element: canvas canvasElement;
 		substeps: 'Mouse move'
@@ -335,7 +343,8 @@ ProcessingCanvasExamples >> mouseEventsScripter [
 ProcessingCanvasExamples >> recursion [
 	<gtExample>
 	| canvas |
-	canvas := ProcessingRunnerExamples new runRecursion canvas.
+	canvas := self
+			synchronousCanvas: ProcessingProgramExamples new programRecursion.
 	self assert: canvas canvasElement children size equals: 19.
 	self
 		assert: (canvas canvasElement children select: [ :el | el isKindOf: BlEllipseElement ])
@@ -348,7 +357,7 @@ ProcessingCanvasExamples >> recursion [
 ProcessingCanvasExamples >> shapes [
 	<gtExample>
 	| canvas |
-	canvas := ProcessingProgramExamples new programShapes canvas.
+	canvas := self synchronousCanvas: ProcessingProgramExamples new programShapes.
 
 	self assert: canvas fillColor equals: Color white.
 	self assert: canvas strokeColor equals: Color white.
@@ -369,7 +378,9 @@ ProcessingCanvasExamples >> shapes [
 ProcessingCanvasExamples >> sierpinski [
 	<gtExample>
 	| canvas |
-	canvas := ProcessingRunnerExamples new runSierpinski canvas.
+	canvas := self
+			synchronousCanvas: ProcessingProgramExamples new programSierpinski.
+	self assert: canvas shapes size equals: 27.
 	self assert: canvas canvasElement children size equals: 27.
 	^ canvas
 ]
@@ -438,6 +449,21 @@ ProcessingCanvasExamples >> singleTriangle [
 	self assert: child border paint color equals: Color black.
 	self assert: child border width equals: 0.5.
 	^ canvas
+]
+
+{ #category : #runtime }
+ProcessingCanvasExamples >> synchronousCanvas: aProgram [
+	| compilation |
+	compilation := aProgram compilation.
+	compilation gtCanvas: self container.
+	compilation gtIsAnimation
+		ifTrue: [ | worker |
+			worker := AsyncFutureThreadPoolWorker new.
+			worker startup wait.
+			worker
+				schedule: (AsyncFuturePromise new future: [ compilation gtRun ] asAsyncFuture) ]
+		ifFalse: [ compilation gtRun ].
+	^ compilation gtCanvas
 ]
 
 { #category : #example }

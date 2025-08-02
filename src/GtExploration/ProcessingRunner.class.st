@@ -76,6 +76,7 @@ ProcessingRunner >> run: compilation [
 	worker startup wait.
 
 	canvas isNil ifTrue: [ canvas := ProcessingCanvas new ].
+	canvas presenter threadSafe: true.
 	compilation gtCanvas: canvas.
 
 	done := false.
@@ -99,6 +100,7 @@ ProcessingRunner >> runStepwise: compilation [
 	worker startup wait.
 
 	canvas isNil ifTrue: [ canvas := ProcessingCanvas new ].
+	canvas presenter threadSafe: true.
 	compilation gtCanvas: canvas.
 	steps := OrderedCollection new.	"TODO: this is a flattened tree - unflatten it?"
 

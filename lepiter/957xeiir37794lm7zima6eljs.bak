@@ -182,7 +182,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-07-31T11:06:05.263+02:00"
+									"dateAndTimeString" : "2025-07-31T11:06:33.711+02:00"
 								}
 							},
 							"uid" : {
@@ -192,7 +192,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Adjusted [[Processing API]]"
+							"string" : "Adjusted [[Processing API]] to Processing's [Python Mode](https://py.processing.org/reference/): removed `sort`, `reverse`, allowed for rounded rectangles."
 						}
 					]
 				},

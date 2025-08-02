@@ -480,14 +480,14 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-03-11T23:45:18.957+01:00"
+						"dateAndTimeString" : "2025-08-02T12:37:04.654+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
 					"uidString" : "qJRLlHrsDQC0ZLl1Bcghnw=="
 				},
-				"code" : "canvas render",
+				"code" : "canvas asElement",
 				"elementHeight" : 200,
 				"codeHeight" : 41,
 				"codeVisible" : true

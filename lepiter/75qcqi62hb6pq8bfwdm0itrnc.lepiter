@@ -211,14 +211,14 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-03-12T10:14:34.81+01:00"
+						"dateAndTimeString" : "2025-08-02T12:36:59.364+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
 					"uidString" : "GAjJmYLsDQCqBiInBYrteA=="
 				},
-				"code" : "\"Instantiate output and interpreter\"\rcanvas := ProcessingCanvas new.\r(runner := ProcessingExecTest1 new) canvas: canvas.\r\r\"Load the code from the above Python snippet\"\rsource := (thisSnippet parent children select: [ :snip | snip isKindOf: LePythonSnippet ]) first code.\r\r\"Load the API (into the global PythonBridge instance for simplicity)\"\rapi := '\r# Processing built-ins and a way to pass them back to GT\r_commands = []\rdef size(width, height): _commands.append((\"size\", width, height))\rdef rect(x, y, w, h): _commands.append((\"rect\", x, y, w, h))\rdef fill(r, g, b): _commands.append((\"fill\", r, g, b))\r'.\rPBApplication do: [ :app | app newCommandStringFactory script: api; sendAndWait ].\r\r\"Run the code line by line (this will eventually requiring proper parsing)\"\rsource lines do: [ :line |\r\t| cmds |\r\tcmds := PBApplication do: [ :app |\r\t\tapp newCommandStringFactory\r\t\t\t\"_commands is always reset first\"\r\t\t\tscript: ('_commands = []; ' ,line);\r\t\t\tresultExpression: '_commands';\r\t\t\tsendAndWait\r\t].\r\tcmds do: [ :cmd | runner exec: cmd ].\r].\r\rcanvas render"
+				"code" : "\"Instantiate output and interpreter\"\rcanvas := ProcessingCanvas new.\r(runner := ProcessingExecTest1 new) canvas: canvas.\r\r\"Load the code from the above Python snippet\"\rsource := (thisSnippet parent children select: [ :snip | snip isKindOf: LePythonSnippet ]) first code.\r\r\"Load the API (into the global PythonBridge instance for simplicity)\"\rapi := '\r# Processing built-ins and a way to pass them back to GT\r_commands = []\rdef size(width, height): _commands.append((\"size\", width, height))\rdef rect(x, y, w, h): _commands.append((\"rect\", x, y, w, h))\rdef fill(r, g, b): _commands.append((\"fill\", r, g, b))\r'.\rPBApplication do: [ :app | app newCommandStringFactory script: api; sendAndWait ].\r\r\"Run the code line by line (this will eventually requiring proper parsing)\"\rsource lines do: [ :line |\r\t| cmds |\r\tcmds := PBApplication do: [ :app |\r\t\tapp newCommandStringFactory\r\t\t\t\"_commands is always reset first\"\r\t\t\tscript: ('_commands = []; ' ,line);\r\t\t\tresultExpression: '_commands';\r\t\t\tsendAndWait\r\t].\r\tcmds do: [ :cmd | runner exec: cmd ].\r].\r\rcanvas asElement"
 			},
 			{
 				"__type" : "textSnippet",

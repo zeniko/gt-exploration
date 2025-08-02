@@ -7,7 +7,8 @@ Class {
 		'canvasBuffer',
 		'canvasOutput',
 		'model',
-		'transcriptElement'
+		'transcriptElement',
+		'threadSafe'
 	],
 	#category : #'GtExploration-Processing'
 }
@@ -27,8 +28,9 @@ ProcessingCanvasPresenter >> clearWithBackground: aColor [
 	"background() is used as a hint to buffer animations"
 
 	canvasBuffer ifNotNil: [ canvasOutput := canvasBuffer ].
-	canvasOutput background: aColor.
-	canvasOutput children do: #removeFromParent
+	self
+		uiActionDo: [ canvasOutput background: aColor.
+			canvasOutput children do: #removeFromParent ]
 ]
 
 { #category : #accessing }
@@ -40,17 +42,19 @@ ProcessingCanvasPresenter >> containerElement [
 ProcessingCanvasPresenter >> display: aShape [
 	| element |
 	element := aShape asElementTransformed.
-	canvasOutput addChild: element.
-	containerElement
-		dispatchEvent: (ProcessingExplainShape newFor: element createdBy: aShape context)	"Allow adding an explanation marker."
+	self
+		uiActionDo: [ canvasOutput addChild: element.
+			containerElement
+				dispatchEvent: (ProcessingExplainShape newFor: element createdBy: aShape context)	"Allow adding an explanation marker." ]
 ]
 
 { #category : #outputting }
 ProcessingCanvasPresenter >> displayTranscript: aTranscript for: aSource [
-	transcriptElement
-		ifNil: [ transcriptElement := containerElement addTextCanvas: aTranscript ].
-	containerElement
-		dispatchEvent: (ProcessingExplainShape newFor: transcriptElement createdBy: aSource)	"Allow adding an explanation marker."
+	self
+		uiActionDo: [ transcriptElement
+				ifNil: [ transcriptElement := containerElement addTextCanvas: aTranscript ].
+			containerElement
+				dispatchEvent: (ProcessingExplainShape newFor: transcriptElement createdBy: aSource)	"Allow adding an explanation marker." ]
 ]
 
 { #category : #initialization }
@@ -67,7 +71,8 @@ ProcessingCanvasPresenter >> initialize [
 			yourself.
 	transcriptElement := nil.
 	canvasBuffer := nil.	"Animations are buffered starting with the second frame."
-	canvasOutput := canvasElement
+	canvasOutput := canvasElement.
+	threadSafe := false
 ]
 
 { #category : #accessing }
@@ -82,26 +87,44 @@ ProcessingCanvasPresenter >> model: aModel [
 
 { #category : #outputting }
 ProcessingCanvasPresenter >> outputSize: aSize [
-	canvasElement size: aSize
+	self uiActionDo: [ canvasElement size: aSize ]
+]
+
+{ #category : #accessing }
+ProcessingCanvasPresenter >> threadSafe [
+	^ threadSafe
+]
+
+{ #category : #accessing }
+ProcessingCanvasPresenter >> threadSafe: anObject [
+	threadSafe := anObject
+]
+
+{ #category : #processing }
+ProcessingCanvasPresenter >> uiActionDo: aBlock [
+	^ threadSafe
+		ifTrue: [ containerElement inUIProcessDo: aBlock ]
+		ifFalse: [ aBlock value ]
 ]
 
 { #category : #outputting }
 ProcessingCanvasPresenter >> updateOutput [
-	canvasBuffer
-		ifNil: [ canvasBuffer := (containerElement
-					addVisualCanvas: model canvasSize
-					colored: model background)
-					when: BlMouseMoveEvent do: [ :event | model onMouseMove: event ];
-					when: BlMouseDownEvent do: [ :event | model onMouseDown: event ];
-					when: BlMouseUpEvent do: [ :event | model onMouseUp: event ];
-					yourself.
-			canvasBuffer parent zIndex: -1 ].
+	self
+		uiActionDo: [ canvasBuffer
+				ifNil: [ canvasBuffer := (containerElement
+							addVisualCanvas: model canvasSize
+							colored: model background)
+							when: BlMouseMoveEvent do: [ :event | model onMouseMove: event ];
+							when: BlMouseDownEvent do: [ :event | model onMouseDown: event ];
+							when: BlMouseUpEvent do: [ :event | model onMouseUp: event ];
+							yourself.
+					canvasBuffer parent zIndex: -1 ].
 
-	canvasOutput = canvasElement
-		ifFalse: [ | swap |
-			swap := canvasBuffer.
-			canvasBuffer := canvasElement.
-			canvasElement := swap.
-			canvasElement parent zIndex: 1.
-			canvasBuffer parent zIndex: -1 ]
+			canvasOutput = canvasElement
+				ifFalse: [ | swap |
+					swap := canvasBuffer.
+					canvasBuffer := canvasElement.
+					canvasElement := swap.
+					canvasElement parent zIndex: 1.
+					canvasBuffer parent zIndex: -1 ] ]
 ]
