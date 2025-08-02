@@ -193,6 +193,43 @@
 								"__type" : "textStyle"
 							},
 							"string" : "Adjusted [[Processing API]] to Processing's [Python Mode](https://py.processing.org/reference/): removed `sort`, `reverse`, allowed for rounded rectangles."
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-08-02T14:01:58.687+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-08-02T14:02:30.754+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "SK3mYML3DQC/Q79pBApu7w=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Fixed UI thread related issue (see {{gtMethod:ProcessingCanvasPresenter>>uiActionDo:}}."
 						}
 					]
 				},

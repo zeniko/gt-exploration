@@ -248,8 +248,7 @@ ProcessingProgram >> gtExplain: aCanvas in: anEditor [
 			ProcessingCanvasElement explainShape: event source as: slice.
 
 			(seen includes: slice)
-				ifFalse: [  "TODO: this block is called from a ProcessingRunner worker - pass the editor manipulation back to the UI thread"(anEditor
-						text
+				ifFalse: [ (anEditor text
 						from: slice astNode receiver startPosition
 						to: slice astNode receiver stopPosition) glamorousExplanationFor: slice.
 					seen add: slice ] ]

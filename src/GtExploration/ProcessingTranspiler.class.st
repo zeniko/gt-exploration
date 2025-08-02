@@ -1608,7 +1608,7 @@ ProcessingTranspiler >> visitSubscriptExpression: subscript [
 		ifTrue: [ subscript subscripts first colonTokens size = 1
 				ifFalse: [ self notImplemented: subscript ].
 			subscript subscripts first from
-				ifNotNil: [  "TODO: This breaks for negative indices!"self emit: ' sliceFrom: ('.
+				ifNotNil: [ self emit: ' sliceFrom: ('.
 					subscript subscripts first from acceptVisitor: self.
 					self emit: ' + 1)' ]
 				ifNil: [ self emit: ' sliceFrom: 1' ].
