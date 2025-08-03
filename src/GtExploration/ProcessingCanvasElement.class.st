@@ -21,6 +21,8 @@ ProcessingCanvasElement class >> explainShape: aShape as: aTag [
 					majorRadius: 4;
 					minorRadius: 4;
 					aptitude: (GtExplainerTargetAptitude new explanationModel: aTag).
+			(aShape isMemberOf: BlElement) | (aShape isKindOf: BlSkiaImageElement)
+				ifTrue: [ marker centerAnchor: (BlElementTopLeftAnchor element: aShape) ].
 			aShape addChild: marker ]
 ]
 

@@ -76,7 +76,7 @@ ProcessingProgram >> gtAbstractionsFor: aView [
 			element addChild: canvas.
 			self addHighlightOnError: element.
 
-			false ifTrue: [ self gtExplain: canvas in: editor ].	"Disabled for performance reasons"
+			compilation gtIsAnimation ifFalse: [ self gtExplain: canvas in: editor ].	"Disabled for animations for performance reasons"
 
 			element ];
 		updateWhen: ProcessingProgramChanged in: self announcer
