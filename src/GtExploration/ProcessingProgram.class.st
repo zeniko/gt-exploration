@@ -744,26 +744,6 @@ ProcessingProgram >> gtTreeMondrianFor: aView [
 ]
 
 { #category : #views }
-ProcessingProgram >> gtTreeOldFor: aView [
-	<gtView>
-	^ aView explicit
-		priority: 19;
-		title: 'AST (old)';
-		stencil: [ | tree |
-			tree := (ast topParent gtTreeFor: GtPhlowView empty)
-					expandAll;
-					asElement.
-			tree
-				constraintsDo: [ :e | 
-					e vertical matchParent.
-					e horizontal matchParent ];
-				yourself ];
-		updateWhen: ProcessingASTChanged in: self announcer;
-		asElementDo: [ :e | self addHighlightOnError: e ];
-		yourself
-]
-
-{ #category : #views }
 ProcessingProgram >> gtTreePlusSourceFor: aView [
 	<gtView>
 	^ aView explicit
