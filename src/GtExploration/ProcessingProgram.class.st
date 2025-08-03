@@ -493,7 +493,7 @@ ProcessingProgram >> gtSourceBytesFor: aView [
 		column: 'Index' translated
 			text: [ :each :index | index asRopedText foreground: Color gray ]
 			width: 45;
-		column: 'ASCII' text: [ :each | each asString ];
+		column: 'UTF-8 Byte' text: [ :each | each asString ];
 		column: 'HEX' text: [ :each | (each radix: 16) padLeftTo: 2 with: $0 ];
 		column: 'Binary' text: [ :each | (each radix: 2) padLeftTo: 8 with: $0 ];
 		updateWhen: ProcessingSourceChanged in: self announcer
@@ -546,7 +546,7 @@ ProcessingProgram >> gtSourceCharsFor: aView [
 			width: 45;
 		column: 'Character' translated
 			text: [ :each | (each gtDisplayString removePrefix: 'Character ') removePrefix: '$' ];
-		column: 'ASCII' text: [ :each | each asciiValue ];
+		column: 'Unicode' text: [ :each | each asciiValue ];
 		column: 'HEX'
 			text: [ :each | (each asciiValue radix: 16) padLeftTo: 2 with: $0 ];
 		updateWhen: ProcessingSourceChanged in: source announcer
