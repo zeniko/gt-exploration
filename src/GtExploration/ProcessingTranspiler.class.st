@@ -380,7 +380,7 @@ ProcessingTranspiler >> acceptStatements: expr [
 
 { #category : #compiling }
 ProcessingTranspiler >> compile: ast [
-	| class source instance |
+	| class source instance lastInterval |
 	source := self transpile: ast.
 
 	class := ProcessingCodeBase newAnonymousSubclass.
@@ -390,11 +390,15 @@ ProcessingTranspiler >> compile: ast [
 
 ') do: [ :method | class compile: method ].
 
+	lastInterval := nil.
 	instance := class new.
 	class methodDict
 		keysDo: [ :key | 
 			(astMaps at: key asString)
-				do: [ :slice | instance gtAstMaps add: (slice cloneFor: class >> key) ] ].
+				do: [ :slice | 
+					slice astNodeInterval = lastInterval
+						ifFalse: [ instance gtAstMaps add: (slice cloneFor: class >> key).
+							lastInterval := slice astNodeInterval ] ] ].
 	^ instance
 ]
 

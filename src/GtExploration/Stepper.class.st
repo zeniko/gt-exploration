@@ -141,6 +141,11 @@ Stepper >> index [
 ]
 
 { #category : #accessing }
+Stepper >> list [
+	^ list
+]
+
+{ #category : #accessing }
 Stepper >> stepTo: anIndex [
 	index := anIndex clampBetween: 1 and: list size.
 	announcer announce: StepperUpdate new

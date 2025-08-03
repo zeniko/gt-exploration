@@ -264,6 +264,18 @@ ProcessingRunnerExamples >> runExample07 [
 ]
 
 { #category : #example }
+ProcessingRunnerExamples >> runExample07Stepwise [
+	<gtExample>
+	| program runner steps |
+	program := ProcessingProgramExamples new programExample07.
+	runner := self newRunner.
+	steps := runner runStepwise: program compilation.
+	self assert: steps size equals: 7.
+	self assert: runner isDone.
+	^ steps
+]
+
+{ #category : #example }
 ProcessingRunnerExamples >> runFibonacci [
 	<gtExample>
 	| program runner |

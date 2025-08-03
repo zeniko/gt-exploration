@@ -40,6 +40,11 @@ ProcessingTranspilationSlice >> astNode [
 	^ astNode
 ]
 
+{ #category : #accessing }
+ProcessingTranspilationSlice >> astNodeInterval [
+	^ astNode startPosition to: astNode stopPosition
+]
+
 { #category : #initalization }
 ProcessingTranspilationSlice >> cloneFor: aMethod [
 	^ self class

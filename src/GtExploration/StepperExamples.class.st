@@ -11,6 +11,7 @@ StepperExamples >> animation2Stepper [
 	stepper := Stepper
 			for: [ ProcessingRunnerExamples new runAnimation2Stepwise ]
 			view: #gtAbstractionsFor:.
+	self assert: stepper list size equals: 29.
 	self assert: stepper index equals: 1.
 	stepper stepTo: 8.
 	self assert: stepper index equals: 8.
@@ -24,10 +25,23 @@ StepperExamples >> example02Stepper [
 	stepper := Stepper
 			for: [ ProcessingRunnerExamples new runExample02Stepwise ]
 			view: #gtAbstractionsFor:.
+	self assert: stepper list size equals: 25.
 	self assert: stepper index equals: 1.
 	stepper stepTo: 13.
 	self assert: stepper index equals: 13.
 	stepper stepTo: 0.
+	self assert: stepper index equals: 1.
+	^ stepper
+]
+
+{ #category : #example }
+StepperExamples >> example07Stepper [
+	<gtExample>
+	| stepper |
+	stepper := Stepper
+			for: [ ProcessingRunnerExamples new runExample07Stepwise ]
+			view: #gtAbstractionsFor:.
+	self assert: stepper list size equals: 7.
 	self assert: stepper index equals: 1.
 	^ stepper
 ]
@@ -42,6 +56,7 @@ StepperExamples >> sierpinskiStepper [
 	stepper := Stepper
 			for: ProcessingRunnerExamples new runSierpinskiStepwise
 			view: #gtAbstractionsFor:.
+	self assert: stepper list size equals: 583.
 	self assert: stepper index equals: 1.
 	stepper stepTo: 211.
 	self assert: stepper index equals: 211.
@@ -58,6 +73,7 @@ StepperExamples >> spiralStepper [
 	stepper := Stepper
 			for: ProcessingRunnerExamples new runSpiralStepwise
 			view: #gtAbstractionsFor:.
+	self assert: stepper list size equals: 488.
 	self assert: stepper index equals: 1.
 	stepper stepTo: 74.
 	self assert: stepper index equals: 74.
