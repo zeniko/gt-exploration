@@ -209,7 +209,13 @@ ProcessingRunStep >> gtStackFor: aView [
 			text: [ :each :index | index asRopedText foreground: Color gray ]
 			width: 45;
 		column: 'Value' translated text: [ :each | each gtDisplayText ];
-		column: '"Pointer"' text: [ :each | each basicIdentityHash asString ]
+		column: '"Pointer"'
+			text: [ :each | 
+				| pointer |
+				pointer := each basicIdentityHash.	"Fake pointers with a hash (except for small, unsigned integers)."
+				(pointer = (pointer clampBetween: 0 and: 2 ** 16)
+					ifTrue: [ pointer ]
+					ifFalse: [ each identityHash ]) asString ]
 ]
 
 { #category : #views }

@@ -416,7 +416,7 @@ ProcessingRunnerExamples >> runLists2Stepwise [
 	steps := runner
 			limitTo: 2 seconds;
 			runStepwise: program compilation.
-	self assert: steps size equals: 16.
+	self assert: steps size equals: 15.
 	self assert: runner isDone.
 	self assert: runner wait equals: true.
 	self
@@ -434,7 +434,7 @@ ProcessingRunnerExamples >> runLists2Stepwise [
 						4.
 						5}).
 	self
-		assert: ((steps at: 5) variables at: 'a')
+		assert: ((steps at: 4) variables at: 'a')
 		equals: (ProcessingList
 				newFrom: {1.
 						2.
@@ -455,9 +455,9 @@ ProcessingRunnerExamples >> runLists2Stepwise [
 						3.
 						4.
 						5}).
-	self assert: (steps at: 15) transcript equals: nil.
+	self assert: (steps at: 14) transcript equals: nil.
 	self
-		assert: (steps at: 16) transcript
+		assert: (steps at: 15) transcript
 		equals: '[1, 6, 3, 7, 5, 1, 6, 3, 7, 5] [] [5] []'.
 	^ steps
 ]
