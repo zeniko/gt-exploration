@@ -384,7 +384,6 @@ ProcessingTranspilerVariant >> emitCall: name size: size [
 	| defaultSizes |
 	defaultSizes := {'append' -> 2.
 			'background' -> 3.
-			'circle' -> 3.
 			'color' -> 3.
 			'concat' -> 2.
 			'cos' -> 1.
@@ -417,7 +416,6 @@ ProcessingTranspilerVariant >> emitCall: name size: size [
 			'sorted' -> 1.
 			'sq' -> 1.
 			'sqrt' -> 1.
-			'square' -> 3.
 			'str' -> 1.
 			'stroke' -> 3.
 			'strokeWeight' -> 1.

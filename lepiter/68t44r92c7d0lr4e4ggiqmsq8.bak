@@ -29,7 +29,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-07-31T11:10:07.709+02:00"
+						"dateAndTimeString" : "2025-07-31T11:10:09.674+02:00"
 					}
 				},
 				"uid" : {
@@ -39,7 +39,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "This is the API which is currently supported by GtProcessing. For comparison, the full Processing API is documented at "
+				"string" : "This is the API which is currently supported by GtProcessing. For comparison, the full Processing API is documented at <https://py.processing.org/reference/>."
 			},
 			{
 				"__type" : "textSnippet",
@@ -344,81 +344,6 @@
 								"__type" : "textStyle"
 							},
 							"string" : "## Shapes"
-						},
-						{
-							"__type" : "textSnippet",
-							"children" : {
-								"__type" : "snippets",
-								"items" : [
-									{
-										"__type" : "textSnippet",
-										"children" : {
-											"__type" : "snippets",
-											"items" : [ ]
-										},
-										"createEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"createTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-05-21T15:35:53.6+02:00"
-											}
-										},
-										"editEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"editTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-05-21T15:38:05.225+02:00"
-											}
-										},
-										"uid" : {
-											"__type" : "uid",
-											"uidString" : "AEhaLgfyDQCdiXCKA62o/Q=="
-										},
-										"paragraphStyle" : {
-											"__type" : "textStyle"
-										},
-										"string" : "Draws a circle with the given diameter and its center at `(x; y)`. Short for `ellipse(x, y, d, d)`."
-									}
-								]
-							},
-							"createEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"createTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-05-21T15:35:46.524+02:00"
-								}
-							},
-							"editEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"editTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-05-21T15:36:11.793+02:00"
-								}
-							},
-							"uid" : {
-								"__type" : "uid",
-								"uidString" : "YE/uLQfyDQCdMCOgA62o/Q=="
-							},
-							"paragraphStyle" : {
-								"__type" : "textStyle"
-							},
-							"string" : "`circle(x, y, d)`"
 						},
 						{
 							"__type" : "textSnippet",
@@ -824,7 +749,7 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-07-31T11:07:14.196+02:00"
+												"dateAndTimeString" : "2025-08-03T17:43:16.237+02:00"
 											}
 										},
 										"uid" : {
@@ -834,7 +759,7 @@
 										"paragraphStyle" : {
 											"__type" : "textStyle"
 										},
-										"string" : "Draws a rectangle of the given width and height, parallel to the coordinate axes with its top left corner at `(x; y)`. Optionally round the corners, if a fifth argument is given."
+										"string" : "Draws a rectangle of the given width and height, parallel to the coordinate axes with its top left corner at `(x; y)`. If an optional fifth argument is given, corners are rounded by that many pixels."
 									}
 								]
 							},
@@ -857,7 +782,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-07-31T11:07:01.966+02:00"
+									"dateAndTimeString" : "2025-08-03T17:42:53.536+02:00"
 								}
 							},
 							"uid" : {
@@ -867,82 +792,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "`rect(x, y, width, height)`, `rect(x, y, width, height, cornerRadius)`"
-						},
-						{
-							"__type" : "textSnippet",
-							"children" : {
-								"__type" : "snippets",
-								"items" : [
-									{
-										"__type" : "textSnippet",
-										"children" : {
-											"__type" : "snippets",
-											"items" : [ ]
-										},
-										"createEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"createTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-05-21T15:38:21.016+02:00"
-											}
-										},
-										"editEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"editTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-05-21T15:38:43.795+02:00"
-											}
-										},
-										"uid" : {
-											"__type" : "uid",
-											"uidString" : "wKsjNwfyDQCfZl7OA62o/Q=="
-										},
-										"paragraphStyle" : {
-											"__type" : "textStyle"
-										},
-										"string" : "Draws a square with the given side length, parallel to the coordinate axes with its top left corner at `(x; y)`. Short for `rect(x, y, side, side)`."
-									}
-								]
-							},
-							"createEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"createTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-05-21T15:38:14.422+02:00"
-								}
-							},
-							"editEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"editTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-05-21T15:38:20.751+02:00"
-								}
-							},
-							"uid" : {
-								"__type" : "uid",
-								"uidString" : "8A2/NgfyDQCfEjCoA62o/Q=="
-							},
-							"paragraphStyle" : {
-								"__type" : "textStyle"
-							},
-							"string" : "`square(x, y, side)`"
+							"string" : "`rect(x, y, width, height)`"
 						},
 						{
 							"__type" : "textSnippet",

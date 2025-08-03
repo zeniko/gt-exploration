@@ -473,17 +473,6 @@ ProcessingTranspiler >> emit_background: args [
 ]
 
 { #category : #emitting }
-ProcessingTranspiler >> emit_circle: args [
-	self expect: 3 argumentsFor: args.
-	self emit: 'gtCanvas circle: '.
-	args first acceptVisitor: self.
-	self emit: ' y: '.
-	args second acceptVisitor: self.
-	self emit: ' d: '.
-	args third acceptVisitor: self
-]
-
-{ #category : #emitting }
 ProcessingTranspiler >> emit_color: args [
 	args size = 1
 		ifTrue: [ self emit: '(gtCanvas colorWithGray: '.
@@ -772,17 +761,6 @@ ProcessingTranspiler >> emit_sqrt: args [
 	self expect: 1 argumentsFor: args.
 	args first acceptVisitor: self.
 	self emit: ' sqrt'
-]
-
-{ #category : #emitting }
-ProcessingTranspiler >> emit_square: args [
-	self expect: 3 argumentsFor: args.
-	self emit: 'gtCanvas square: '.
-	args first acceptVisitor: self.
-	self emit: ' y: '.
-	args second acceptVisitor: self.
-	self emit: ' side: '.
-	args third acceptVisitor: self
 ]
 
 { #category : #emitting }

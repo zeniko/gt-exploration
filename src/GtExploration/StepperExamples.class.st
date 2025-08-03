@@ -11,10 +11,10 @@ StepperExamples >> animation2Stepper [
 	stepper := Stepper
 			for: [ ProcessingRunnerExamples new runAnimation2Stepwise ]
 			view: #gtAbstractionsFor:.
-	self assert: stepper list size equals: 29.
 	self assert: stepper index equals: 1.
 	stepper stepTo: 8.
 	self assert: stepper index equals: 8.
+	self assert: stepper list last asString equals: 'Step: ProcessingRunawayProgramException: Endless loop detected!'.
 	^ stepper
 ]
 

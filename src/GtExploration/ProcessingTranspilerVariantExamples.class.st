@@ -45,7 +45,7 @@ $setup () {
 $draw () {
 	$x $y $dx $dy global_4
 	192 background_1
-	x y 50 circle
+	x y 50 50 ellipse
 	$x x dx + =
 	$y y dy + =
 	{ x 25 < } {
@@ -287,7 +287,7 @@ ProcessingTranspilerVariantExamples >> prefixAnimation2 [
 (deffun draw () (do
 	(global x y dx dy)
 	(background 192)
-	(circle x y 50)
+	(ellipse x y 50 50)
 	(= x (+ x dx))
 	(= y (+ y dy))
 	(ifelse (< x 25) (do

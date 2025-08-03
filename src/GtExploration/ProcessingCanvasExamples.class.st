@@ -474,9 +474,9 @@ ProcessingCanvasExamples >> transforms [
 	canvas rotate: 20 degreesToRadians.
 	canvas scale: 0.5.
 	canvas
-		square: 50
-		y: 50
-		side: 100.
+		rect: 100
+		by: 100
+		at: 50 @ 50.
 	canvas
 		ellipse: 100
 		y: 125

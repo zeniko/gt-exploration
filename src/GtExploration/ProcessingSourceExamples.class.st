@@ -102,7 +102,7 @@ def setup():
 def draw():
     global x, y, dx, dy
     background(192)
-    circle(x, y, 50)
+    ellipse(x, y, 50, 50)
     x += dx; y += dy
     if x < 25:
         dx = +2
@@ -136,10 +136,10 @@ ProcessingSourceExamples >> sourceCodeExample02 [
 a = 0
 while a < 200:
 	fill(a, 128, 0)
-	square(a, a, 100)
+	rect(a, a, 100, 100)
 	a = a + 50
 if a >= 200:
-	circle(10, 10, 20)'
+	ellipse(10, 10, 20, 20)'
 ]
 
 { #category : #source }

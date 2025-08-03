@@ -97,7 +97,7 @@ setup
 
 draw
 	gtCanvas backgroundGray: 192.
-	gtCanvas circle: x y: y d: 50.
+	gtCanvas ellipse: x y: y dx: 50 dy: 50.
 	x := (x + dx).
 	y := (y + dy).
 	(x < 25) ifTrue: [
@@ -139,11 +139,11 @@ ProcessingTranspilerExamples >> transpilationExample02 [
 	a := 0.
 	[ (a < 200) ] whileTrue: [
 		gtCanvas fillR: a G: 128 B: 0.
-		gtCanvas square: a y: a side: 100.
+		gtCanvas rect: a y: a width: 100 height: 100.
 		a := (a + 50).
 	].
 	(a >= 200) ifTrue: [
-		gtCanvas circle: 10 y: 10 d: 20.
+		gtCanvas ellipse: 10 y: 10 dx: 20 dy: 20.
 	].'
 ]
 

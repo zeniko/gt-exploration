@@ -83,14 +83,6 @@ ProcessingCanvas >> canvasSize [
 	^ canvasSize
 ]
 
-{ #category : #shapes }
-ProcessingCanvas >> circle: x y: y d: d [
-	self
-		ellipse: d
-		by: d
-		at: x @ y
-]
-
 { #category : #initialization }
 ProcessingCanvas >> colorWithGray: gray [
 	^ self
@@ -460,14 +452,6 @@ ProcessingCanvas >> size: width by: height [
 		ifFalse: [ ProcessingRunTimeException signal: 'size() may not be called from draw()' ].
 	canvasSize := width @ height.
 	presenter outputSize: canvasSize
-]
-
-{ #category : #shapes }
-ProcessingCanvas >> square: x y: y side: side [
-	self
-		rect: side
-		by: side
-		at: x @ y
 ]
 
 { #category : #modifiers }
