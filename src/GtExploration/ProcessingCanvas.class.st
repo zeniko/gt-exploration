@@ -179,21 +179,21 @@ ProcessingCanvas >> gtDisplayOn: aStream [
 ]
 
 { #category : #views }
-ProcessingCanvas >> gtShapesFor: aView [
+ProcessingCanvas >> gtOutputFor: aView [
+	<gtView>
+	^ (self asElement gtLiveFor: aView)
+		title: 'Output' translated;
+		priority: 10
+]
+
+{ #category : #views }
+ProcessingCanvas >> gtOutputShapesFor: aView [
 	<gtView>
 	^ ((Stepper for: shapes view: #gtLiveFor:)
 		background: backgroundColor;
 		gtListViewFor: aView)
 		title: 'Shapes' translated;
 		priority: 20
-]
-
-{ #category : #views }
-ProcessingCanvas >> gtViewFor: aView [
-	<gtView>
-	^ (self asElement gtLiveFor: aView)
-		title: 'Output' translated;
-		priority: 10
 ]
 
 { #category : #events }

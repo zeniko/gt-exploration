@@ -19,6 +19,9 @@ ProcessingSourceExamples >> allViews [
 			self assert: view isNotNil.
 			element := view asElement.
 			self assert: element containerName = 'phlow--exception' equals: false ].
+	self
+		assert: (' ' join: views sorted)
+		equals: 'gtAbstractionsFor: gtBytecodeFor: gtIntermediaryRepresentationFor: gtOutputFor: gtSourceCodeFor: gtTranspilationFor: gtTreeFor:'.
 	^ source
 ]
 

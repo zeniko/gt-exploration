@@ -375,7 +375,7 @@ ProcessingProgram >> gtOutputShapesFor: aView [
 	compilation gtIsAnimation ifTrue: [ ^ GtPhlowView empty ].
 	^ (self
 		gtGetLiveView: aView
-		for: [ :view | self canvas gtShapesFor: view ]
+		for: [ :view | self canvas gtOutputShapesFor: view ]
 		title: 'Shapes' translated
 		priority: 42)
 		asElementDo: [ :e | e margin: (BlInsets all: 0) ];

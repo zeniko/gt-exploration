@@ -1830,7 +1830,7 @@
 							},
 							"exampleSelector" : "example02",
 							"previewHeight" : 200,
-							"previewShowSelector" : "gtShapesFor:",
+							"previewShowSelector" : "gtOutputShapesFor:",
 							"exampleBehaviorName" : "ProcessingCanvasExamples",
 							"codeExpanded" : true,
 							"previewExpanded" : false,
