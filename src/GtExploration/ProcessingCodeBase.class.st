@@ -184,7 +184,7 @@ ProcessingCodeBase >> gtSlicesAround: aPosition [
 { #category : #views }
 ProcessingCodeBase >> gtSlicesFor: aView [
 	<gtView>
-	^ ((Stepper for: gtAstMaps view: #gtComparisonFor:) gtListViewFor: aView)
+	^ ((Stepper for: gtAstMaps view: #gtTranspilationPlusSourceFor:) gtListViewFor: aView)
 		title: 'Slices' translated;
 		priority: 12
 ]

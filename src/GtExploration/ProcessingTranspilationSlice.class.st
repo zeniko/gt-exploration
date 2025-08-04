@@ -55,16 +55,6 @@ ProcessingTranspilationSlice >> cloneFor: aMethod [
 ]
 
 { #category : #views }
-ProcessingTranspilationSlice >> gtComparisonFor: aView [
-	<gtView>
-	^ ((ViewComparison
-		newFor: {self -> #gtSourceCodeFor:.
-				self -> #gtTranspilationFor:}) gtCompareFor: aView)
-		priority: 1;
-		title: 'Comparison' translated
-]
-
-{ #category : #views }
 ProcessingTranspilationSlice >> gtSourceCodeFor: aView [
 	<gtView>
 	^ aView explicit
@@ -95,6 +85,16 @@ ProcessingTranspilationSlice >> gtTranspilationFor: aView [
 				beMode: BrTextEditorReadonlyWithNavigationMode new;
 				padding: (BlInsets all: 5).
 			element ]
+]
+
+{ #category : #views }
+ProcessingTranspilationSlice >> gtTranspilationPlusSourceFor: aView [
+	<gtView>
+	^ ((ViewComparison
+		newFor: {self -> #gtSourceCodeFor:.
+				self -> #gtTranspilationFor:}) gtCompareFor: aView)
+		priority: 1;
+		title: 'Comparison' translated
 ]
 
 { #category : #accessing }

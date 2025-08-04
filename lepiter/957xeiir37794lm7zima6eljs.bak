@@ -71,7 +71,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-08-04T17:11:29.915+02:00"
+									"dateAndTimeString" : "2025-08-04T17:36:25.823+02:00"
 								}
 							},
 							"uid" : {
@@ -81,7 +81,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Naming consistency fixes, e.g. always use `gtSourceCodeFor:` for accessing Processing source code."
+							"string" : "Naming consistency fixes: always use `gtSourceCodeFor:` for accessing Processing source code and `gtTranspilationFor:` for accessing transpiled Smalltalk ."
 						}
 					]
 				},

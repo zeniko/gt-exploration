@@ -190,15 +190,6 @@ ProcessingRunStep >> gtSourceCodeFor: aView [
 ]
 
 { #category : #views }
-ProcessingRunStep >> gtSourceCodesFor: aView [
-	<gtView>
-	slice ifNil: [ ^ GtPhlowView empty ].
-	^ (slice gtComparisonFor: aView)
-		title: 'Sources' translated;
-		priority: 5
-]
-
-{ #category : #views }
 ProcessingRunStep >> gtStackFor: aView [
 	<gtView>
 	^ aView columnedList
@@ -216,6 +207,15 @@ ProcessingRunStep >> gtStackFor: aView [
 				(pointer = (pointer clampBetween: 0 and: 2 ** 16)
 					ifTrue: [ pointer ]
 					ifFalse: [ each identityHash ]) asString ]
+]
+
+{ #category : #views }
+ProcessingRunStep >> gtTranspilationPlusSourceFor: aView [
+	<gtView>
+	slice ifNil: [ ^ GtPhlowView empty ].
+	^ (slice gtTranspilationPlusSourceFor: aView)
+		title: 'Sources' translated;
+		priority: 5
 ]
 
 { #category : #views }
