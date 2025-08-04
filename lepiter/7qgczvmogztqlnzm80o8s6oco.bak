@@ -75,7 +75,7 @@
 				},
 				"exampleSelector" : "sourceAlpinerWanderweg",
 				"previewHeight" : 120,
-				"previewShowSelector" : "gtContentsFor:",
+				"previewShowSelector" : "gtSourceCodeFor:",
 				"exampleBehaviorName" : "ProcessingSourceExamples",
 				"codeExpanded" : true,
 				"previewExpanded" : true,

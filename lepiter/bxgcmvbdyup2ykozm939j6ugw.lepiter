@@ -152,7 +152,7 @@
 				},
 				"exampleSelector" : "programExample02",
 				"previewHeight" : 160,
-				"previewShowSelector" : "gtContentsFor:",
+				"previewShowSelector" : "gtSourceCodeFor:",
 				"exampleBehaviorName" : "ProcessingProgramExamples",
 				"codeExpanded" : true,
 				"previewExpanded" : true,

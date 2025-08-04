@@ -99,14 +99,6 @@ ProcessingSource >> gtBytecodeFor: aView [
 ]
 
 { #category : #views }
-ProcessingSource >> gtContentsFor: aView [
-	<gtView>
-	^ (self program gtContentsFor: aView)
-		title: 'Source' translated;
-		priority: 2
-]
-
-{ #category : #views }
 ProcessingSource >> gtIntermediaryRepresentationFor: aView [
 	<gtView>
 	^ (self program gtIntermediaryRepresentationFor: aView)
@@ -120,6 +112,14 @@ ProcessingSource >> gtOutputFor: aView [
 	^ (self program gtOutputFor: aView)
 		title: 'Output' translated;
 		priority: 20
+]
+
+{ #category : #views }
+ProcessingSource >> gtSourceCodeFor: aView [
+	<gtView>
+	^ (self program gtSourceCodeFor: aView)
+		title: 'Source' translated;
+		priority: 2
 ]
 
 { #category : #views }

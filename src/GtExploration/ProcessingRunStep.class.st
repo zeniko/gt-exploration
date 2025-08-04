@@ -184,7 +184,7 @@ ProcessingRunStep >> gtOverviewFor: aView [
 ProcessingRunStep >> gtSourceCodeFor: aView [
 	"<gtView>"
 	slice ifNil: [ ^ GtPhlowView empty ].
-	^ (slice gtSourceFor: aView)
+	^ (slice gtSourceCodeFor: aView)
 		title: 'Source' translated;
 		priority: 5
 ]

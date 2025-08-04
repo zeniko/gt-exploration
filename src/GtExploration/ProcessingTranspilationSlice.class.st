@@ -58,14 +58,14 @@ ProcessingTranspilationSlice >> cloneFor: aMethod [
 ProcessingTranspilationSlice >> gtComparisonFor: aView [
 	<gtView>
 	^ ((ViewComparison
-		newFor: {self -> #gtSourceFor:.
+		newFor: {self -> #gtSourceCodeFor:.
 				self -> #gtTranspilationFor:}) gtCompareFor: aView)
 		priority: 1;
 		title: 'Comparison' translated
 ]
 
 { #category : #views }
-ProcessingTranspilationSlice >> gtSourceFor: aView [
+ProcessingTranspilationSlice >> gtSourceCodeFor: aView [
 	<gtView>
 	^ aView explicit
 		priority: 10;

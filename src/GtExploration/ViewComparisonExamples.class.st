@@ -108,7 +108,7 @@ ViewComparisonExamples >> compareExample03PrefixAndPostfix [
 	<gtExample>
 	| comparer |
 	comparer := ViewComparison
-			newFor: {ProcessingProgramExamples new programExample03 -> #gtContentsFor:.
+			newFor: {ProcessingProgramExamples new programExample03 -> #gtSourceCodeFor:.
 					ProcessingProgramExamples new programExample03 -> #gtTreeFor:.
 					ProcessingProgramExamples new programExample03
 						-> #gtTranspilationPrefixFor:.

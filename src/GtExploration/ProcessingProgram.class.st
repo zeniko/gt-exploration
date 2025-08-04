@@ -66,7 +66,7 @@ ProcessingProgram >> gtAbstractionsFor: aView [
 					c horizontal matchParent ].
 
 			events := Announcer new.
-			editor := self sharedContentsViewElement: events.
+			editor := self sharedSourceCodeViewElement: events.
 			element addChild: editor.
 			astTree := self sharedTreeViewElement: events.
 			element addChild: astTree.
@@ -177,27 +177,9 @@ ProcessingProgram >> gtCombineWithSource: anElement on: anAnnouncer [
 		constraintsDo: [ :c | 
 			c vertical matchParent.
 			c horizontal matchParent ];
-		addChild: (self sharedContentsViewElement: anAnnouncer);
+		addChild: (self sharedSourceCodeViewElement: anAnnouncer);
 		addChild: anElement;
 		yourself
-]
-
-{ #category : #views }
-ProcessingProgram >> gtContentsFor: aView [
-	<gtView>
-	^ aView explicit
-		priority: 2;
-		title: 'Source' translated;
-		stencil: [ | editor |
-			editor := ast gtSourceEditorWithHighlight: Color white.
-			editor
-				constraintsDo: [ :e | 
-					e vertical matchParent.
-					e horizontal matchParent ];
-				beMode: BrTextEditorReadonlyWithNavigationMode new;
-				background: Color white.
-			editor ];
-		updateWhen: ProcessingSourceChanged in: self announcer
 ]
 
 { #category : #views }
@@ -567,6 +549,24 @@ ProcessingProgram >> gtSourceCharsPlusSourceFor: aView [
 ]
 
 { #category : #views }
+ProcessingProgram >> gtSourceCodeFor: aView [
+	<gtView>
+	^ aView explicit
+		priority: 2;
+		title: 'Source' translated;
+		stencil: [ | editor |
+			editor := ast gtSourceEditorWithHighlight: Color white.
+			editor
+				constraintsDo: [ :e | 
+					e vertical matchParent.
+					e horizontal matchParent ];
+				beMode: BrTextEditorReadonlyWithNavigationMode new;
+				background: Color white.
+			editor ];
+		updateWhen: ProcessingSourceChanged in: self announcer
+]
+
+{ #category : #views }
 ProcessingProgram >> gtStepsFor: aView [
 	"The stepper isn't updated when the source changes, as that's too resource intensive for non-trivial programs"
 
@@ -619,7 +619,7 @@ ProcessingProgram >> gtTokensPlusSourceFor: aView [
 				constraintsDo: [ :c | 
 					c vertical matchParent.
 					c horizontal matchParent ];
-				addChild: (self sharedContentsViewElement: events);
+				addChild: (self sharedSourceCodeViewElement: events);
 				addChild: (self sharedTokensViewElement: events).
 			self addHighlightOnError: element.
 			element ];
@@ -821,30 +821,6 @@ ProcessingProgram >> sharedBytecodeViewElement: anAnnouncer ignore: anIgnorable 
 ]
 
 { #category : #views }
-ProcessingProgram >> sharedContentsViewElement: anAnnouncer [
-	| editor |
-	editor := self gtGetViewElement: #gtContentsFor:.
-	self
-		gtOnEditorChange: editor
-		do: [ :position | 
-			| clamped |
-			clamped := position + 1 clampBetween: 1 and: source asString size.	"Default the empty selection to the right of the cursor."
-			anAnnouncer
-				announce: (ProcessingViewSelectionChanged new
-						interval: (clamped to: clamped);
-						source: editor) ].
-	anAnnouncer
-		when: ProcessingViewSelectionChanged
-		do: [ :event | 
-			event source = editor
-				ifFalse: [ self
-						gtEditorHightlight: editor
-						from: event interval first
-						to: event interval last ] ].
-	^ editor
-]
-
-{ #category : #views }
 ProcessingProgram >> sharedIRViewElement: anAnnouncer [
 	| irList |
 	irList := compilation gtGetViewElement: #gtIntermediaryRepresentationFor:.
@@ -909,6 +885,30 @@ ProcessingProgram >> sharedSourceCharsViewElement: anAnnouncer [
 				ifFalse: [ charsList children last selectOne: event interval first.
 					charsList children last scrollToSelection ] ].
 	^ charsList
+]
+
+{ #category : #views }
+ProcessingProgram >> sharedSourceCodeViewElement: anAnnouncer [
+	| editor |
+	editor := self gtGetViewElement: #gtSourceCodeFor:.
+	self
+		gtOnEditorChange: editor
+		do: [ :position | 
+			| clamped |
+			clamped := position + 1 clampBetween: 1 and: source asString size.	"Default the empty selection to the right of the cursor."
+			anAnnouncer
+				announce: (ProcessingViewSelectionChanged new
+						interval: (clamped to: clamped);
+						source: editor) ].
+	anAnnouncer
+		when: ProcessingViewSelectionChanged
+		do: [ :event | 
+			event source = editor
+				ifFalse: [ self
+						gtEditorHightlight: editor
+						from: event interval first
+						to: event interval last ] ].
+	^ editor
 ]
 
 { #category : #views }

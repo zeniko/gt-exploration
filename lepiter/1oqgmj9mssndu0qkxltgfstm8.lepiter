@@ -629,7 +629,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-05-12T17:08:19.445+02:00"
+									"dateAndTimeString" : "2025-08-04T17:15:22.866+02:00"
 								}
 							},
 							"uid" : {
@@ -639,7 +639,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Students were sometimes confused as to what version of the Processing source code was actually editable, as {{gtMethod:ProcessingProgram>>#gtContentsFor:}} is not editable."
+							"string" : "Students were sometimes confused as to what version of the Processing source code was actually editable, as {{gtMethod:ProcessingProgram>>#gtSourceCodeFor:}} is not editable."
 						},
 						{
 							"__type" : "textSnippet",

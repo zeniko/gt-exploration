@@ -19,7 +19,7 @@ ProcessingProgramExamples >> allViews [
 			self assert: view isNotNil.
 			element := view asElement.
 			self assert: element containerName = 'phlow--exception' equals: false ].
-	self assert: (' ' join: views sorted) equals: 'gtAbstractionsFor: gtBytecodeFor: gtBytecodePlusIRFor: gtBytecodePlusSourceFor: gtContentsFor: gtIntermediaryRepresentationFor: gtIntermediaryRepresentationPlusSourceFor: gtOutputFor: gtOutputPlusSourceFor: gtOutputShapesFor: gtSlicesFor: gtSourceBytesFor: gtSourceBytesPlusCharsFor: gtSourceBytesPlusSourceFor: gtSourceCharsFor: gtSourceCharsPlusSourceFor: gtStepsFor: gtTokensFor: gtTokensPlusSourceFor: gtTokensPlusTreeFor: gtTranspilationFor: gtTranspilationPlusSourceFor: gtTranspilationPostfixFor: gtTranspilationPrefixFor: gtTreeFor: gtTreeMondrianFor: gtTreePlusSourceFor:'.
+	self assert: (' ' join: views sorted) equals: 'gtAbstractionsFor: gtBytecodeFor: gtBytecodePlusIRFor: gtBytecodePlusSourceFor: gtIntermediaryRepresentationFor: gtIntermediaryRepresentationPlusSourceFor: gtOutputFor: gtOutputPlusSourceFor: gtOutputShapesFor: gtSlicesFor: gtSourceBytesFor: gtSourceBytesPlusCharsFor: gtSourceBytesPlusSourceFor: gtSourceCharsFor: gtSourceCharsPlusSourceFor: gtSourceCodeFor: gtStepsFor: gtTokensFor: gtTokensPlusSourceFor: gtTokensPlusTreeFor: gtTranspilationFor: gtTranspilationPlusSourceFor: gtTranspilationPostfixFor: gtTranspilationPrefixFor: gtTreeFor: gtTreeMondrianFor: gtTreePlusSourceFor:'.
 	^ program
 ]
 
