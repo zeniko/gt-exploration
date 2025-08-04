@@ -652,7 +652,7 @@ ProcessingProgram >> gtTranspilationFor: aView [
 	<gtView>
 	^ self
 		gtGetLiveView: aView
-		for: [ :view | compilation gtSourceCodeFor: view ]
+		for: [ :view | compilation gtTranspilationFor: view ]
 		title: 'Smalltalk'
 		priority: 20
 ]

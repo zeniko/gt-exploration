@@ -22,7 +22,7 @@ ProcessingCodeBase >> gtAbstractionsFor: aView [
 					c vertical matchParent.
 					c horizontal matchParent ].
 
-			#(gtSourceCodeFor: gtIntermediaryRepresentationFor: gtBytecodeFor: gtOutputFor:)
+			#(gtTranspilationFor: gtIntermediaryRepresentationFor: gtBytecodeFor: gtOutputFor:)
 				do: [ :view | element addChild: (self gtGetViewElement: view) ].
 
 			element ]
@@ -190,7 +190,7 @@ ProcessingCodeBase >> gtSlicesFor: aView [
 ]
 
 { #category : #views }
-ProcessingCodeBase >> gtSourceCodeFor: aView [
+ProcessingCodeBase >> gtTranspilationFor: aView [
 	"Adapted from GtPharoMethodsCoderView>>#gtMethodsFor"
 
 	<gtView>

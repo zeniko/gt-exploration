@@ -11,7 +11,7 @@ ProcessingProgramExamples >> allViews [
 	program := self programMinimal.
 	views := program class methodDict keys
 			select: [ :key | (key beginsWith: 'gt') & (key endsWith: 'For:') ].
-	self assert: views size equals: 28.
+	self assert: views size equals: 27.
 	views
 		do: [ :key | 
 			| view element |
@@ -19,6 +19,7 @@ ProcessingProgramExamples >> allViews [
 			self assert: view isNotNil.
 			element := view asElement.
 			self assert: element containerName = 'phlow--exception' equals: false ].
+	self assert: (' ' join: views sorted) equals: 'gtAbstractionsFor: gtBytecodeFor: gtBytecodePlusIRFor: gtBytecodePlusSourceFor: gtContentsFor: gtIntermediaryRepresentationFor: gtIntermediaryRepresentationPlusSourceFor: gtOutputFor: gtOutputPlusSourceFor: gtOutputShapesFor: gtSlicesFor: gtSourceBytesFor: gtSourceBytesPlusCharsFor: gtSourceBytesPlusSourceFor: gtSourceCharsFor: gtSourceCharsPlusSourceFor: gtStepsFor: gtTokensFor: gtTokensPlusSourceFor: gtTokensPlusTreeFor: gtTranspilationFor: gtTranspilationPlusSourceFor: gtTranspilationPostfixFor: gtTranspilationPrefixFor: gtTreeFor: gtTreeMondrianFor: gtTreePlusSourceFor:'.
 	^ program
 ]
 

@@ -226,7 +226,7 @@
 				},
 				"exampleSelector" : "transpileExample02",
 				"previewHeight" : 200,
-				"previewShowSelector" : "gtSourceCodeFor:",
+				"previewShowSelector" : "gtTranspilationFor:",
 				"exampleBehaviorName" : "ProcessingTranspilerExamples",
 				"codeExpanded" : true,
 				"previewExpanded" : true,
