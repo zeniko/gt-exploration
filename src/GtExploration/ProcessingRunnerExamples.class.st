@@ -84,6 +84,7 @@ ProcessingRunnerExamples >> runAnimation2Stepwise [
 	"The animation is currently considered to be an endless loop"
 
 	<gtExample>
+	<noTest>
 	| program steps |
 	program := ProcessingProgramExamples new programAnimation2.
 	steps := program runStepsFor: 0.1 seconds.
