@@ -14,6 +14,7 @@ ProcessingParser class >> gtASTNodeNames [
 		PyElifNode -> 'Else if'.
 		PyElseNode -> 'Else'.
 		PyExpressionStatementNode -> 'Expression'.
+		PyFieldAccessExpressionNode -> 'Field Access'.
 		PyFileNode -> 'Root'.
 		PyForStatementNode -> 'For Loop'.
 		PyFunctionCallExpressionNode -> 'Function Call'.

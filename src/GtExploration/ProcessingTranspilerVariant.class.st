@@ -326,9 +326,9 @@ ProcessingTranspilerVariant >> visitExpressionStatement: stmt [
 	^ ' ' join: (stmt children collect: [ :part | part acceptVisitor: self ])
 ]
 
-{ #category : #generated }
-ProcessingTranspilerVariant >> visitFieldAccessExpression: aFieldAccessExpression [
-	^ self visitExpression: aFieldAccessExpression
+{ #category : #visiting }
+ProcessingTranspilerVariant >> visitFieldAccessExpression: expr [
+	^ self emit: expr nameToken value args: {expr receiver acceptVisitor: self}
 ]
 
 { #category : #visiting }
@@ -357,7 +357,9 @@ ProcessingTranspilerVariant >> visitForStatement: expr [
 { #category : #visiting }
 ProcessingTranspilerVariant >> visitFunctionCallExpression: fnCall [
 	^ self
-		emit: (self emitCall: fnCall receiver nameToken value size: fnCall arguments size)
+		emit: (self
+				emitCall: (fnCall receiver acceptVisitor: self)
+				size: fnCall arguments size)
 		args: (self acceptNodes: fnCall arguments)
 ]
 

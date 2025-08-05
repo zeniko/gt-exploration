@@ -172,7 +172,7 @@ setX
 	x := ((((gtCanvas random: 2) ** 2) * 270 degreesToRadians sin) \\ 3).
 
 setY
-	PyEllipsis.'
+	ProcessingEllipsis.'
 ]
 
 { #category : #transpilation }
@@ -304,7 +304,7 @@ setup
 	width := 200. height := 200. gtCanvas size: width by: height.
 
 draw
-	PyEllipsis.
+	ProcessingEllipsis.
 
 mousePressed
 	gtCanvas backgroundR: 0 G: 255 B: 0.

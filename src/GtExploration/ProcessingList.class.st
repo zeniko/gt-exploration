@@ -19,6 +19,11 @@ ProcessingList >> + arg [
 		yourself
 ]
 
+{ #category : #adding }
+ProcessingList >> append: value [
+	self add: value
+]
+
 { #category : #converting }
 ProcessingList >> asString [
 	^ '[' , (', ' join: (self collect: #asString)) , ']'
@@ -37,9 +42,24 @@ ProcessingList >> at: anInteger put: anObject [
 		put: anObject
 ]
 
+{ #category : #removing }
+ProcessingList >> pop [
+	^ self removeLast
+]
+
+{ #category : #converting }
+ProcessingList >> reverse [
+	self setContents: self reversed
+]
+
 { #category : #accessing }
 ProcessingList >> sliceFrom: startIndex to: endIndex [
 	^ super
 		sliceFrom: (startIndex <= 0 ifTrue: [ self size + startIndex ] ifFalse: [ startIndex ])
 		to: endIndex
+]
+
+{ #category : #sorting }
+ProcessingList >> sort [
+	self setContents: self sorted
 ]

@@ -963,7 +963,7 @@ ProcessingTranspiler >> visitElif: anElif [
 { #category : #visiting }
 ProcessingTranspiler >> visitEllipsis: expr [
 	self startEmit: expr.
-	self emit: 'PyEllipsis'.
+	self emit: 'ProcessingEllipsis'.
 	^ self endEmit
 ]
 
@@ -1005,9 +1005,13 @@ ProcessingTranspiler >> visitExpressionStatement: stmt [
 								cr ] ] ]
 ]
 
-{ #category : #generated }
-ProcessingTranspiler >> visitFieldAccessExpression: aFieldAccessExpression [
-	^ self visitExpression: aFieldAccessExpression
+{ #category : #visiting }
+ProcessingTranspiler >> visitFieldAccessExpression: expr [
+	self startEmit: expr.
+	expr receiver acceptVisitor: self.
+	self emit: ' '.
+	self emitName: expr nameToken value.
+	^ self endEmit
 ]
 
 { #category : #visiting }
@@ -1064,6 +1068,15 @@ ProcessingTranspiler >> visitForStatement: expr [
 ProcessingTranspiler >> visitFunctionCallExpression: fnCall [
 	| name builtin |
 	self startEmit: fnCall.
+	(fnCall receiver isKindOf: PyFieldAccessExpressionNode)
+		ifTrue: [ self emit: '('.
+			fnCall receiver acceptVisitor: self.
+			fnCall arguments size = 1
+				ifTrue: [ self emit: ': '.
+					fnCall arguments first acceptVisitor: self ]
+				ifFalse: [ self expect: 0 argumentsFor: fnCall arguments ].
+			self emit: ')'.
+			^ self endEmit ].
 	self expect: PyVariableExpressionNode for: fnCall receiver.
 	name := fnCall receiver nameToken value.	"TODO: disallow overriding builtin functions?"
 	(userDefs includesKey: name)

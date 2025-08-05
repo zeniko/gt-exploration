@@ -217,9 +217,11 @@ ProcessingTokenExtractor >> visitExpressionStatement: stmt [
 	^ stmt children
 ]
 
-{ #category : #generated }
-ProcessingTokenExtractor >> visitFieldAccessExpression: aFieldAccessExpression [
-	^ self visitExpression: aFieldAccessExpression
+{ #category : #visiting }
+ProcessingTokenExtractor >> visitFieldAccessExpression: expr [
+	^ {expr receiver.
+		expr periodToken.
+		expr nameToken}
 ]
 
 { #category : #visiting }
