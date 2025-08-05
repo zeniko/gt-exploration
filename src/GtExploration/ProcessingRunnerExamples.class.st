@@ -215,6 +215,9 @@ ProcessingRunnerExamples >> runExample05 [
 	self assert: (program compilation instVarNamed: #gt_A) equals: 200.
 	self assert: (program compilation instVarNamed: #gt_B) equals: 100.
 	self assert: runner wait equals: true.
+	self
+		assert: (runner canvas transcript textDo: [ :text | text asString ])
+		equals: 'None True False String ["Nested"]'.
 	^ runner
 ]
 
@@ -385,7 +388,7 @@ ProcessingRunnerExamples >> runLists [
 	self assert: runner wait equals: true.
 	self
 		assert: (runner canvas transcript textDo: [ :text | text asString ])
-		equals: '[1, 2, 3] [1, 2, 3, 1, 2, 3] [3, 2, 1, 3, 2, 1] [3, 2, 1, 3, 2] [1, 2, 2, 3, 3] [2, 2, 3] 3 3 [1, 2, 3, 1]'.
+		equals: '[1, 2, 3] [1, 2, 3, 1, 2, 3] [3, 2, 1, 3, 2] 1 [1, 2, 2, 3, 3] [2, 2, 3] 3 3 [1, 2, 3, 1] [3, 3, 2, 2, 1, 1] [3, 1, 2]'.
 	^ runner
 ]
 

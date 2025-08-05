@@ -175,7 +175,8 @@ text(x, 0, 20)'
 { #category : #source }
 ProcessingSourceExamples >> sourceCodeExample05 [
 	^ 'size(200, 100)
-(gtA := width); (gtB := height)'
+(gtA := width); (gtB := height)
+print(None, True, False, "String", ["Nested"])'
 ]
 
 { #category : #source }
@@ -227,16 +228,20 @@ image(img, 150, 150, 50, 50)'
 { #category : #source }
 ProcessingSourceExamples >> sourceCodeLists [
 	^ 'a = [1, 2]
-a = append(a, 3) # -> [1, 2, 3]
-b = concat(a, a) # -> [1, 2, 3, 1, 2, 3]
-c = reversed(b)  # -> [3, 2, 1, 3, 2, 1]
-d = shorten(c)   # -> [3, 2, 1, 3, 2]
-e = sorted(d)    # -> [1, 2, 2, 3, 3]
-f = e[1:4]       # -> [2, 2, 3]
-g = len(f)       # -> 3
-h = f[2]         # -> 3
-j = b[:-2]       # -> [1, 2, 3, 1]
-print(a, b, c, d, e, f, g, h, j)'
+a.append(3)    # -> [1, 2, 3]
+b = a + a      # -> [1, 2, 3, 1, 2, 3]
+c = b[::-1]    # -> [3, 2, 1, 3, 2, 1]
+d = c.pop()    # -> 1 (and c == [3, 2, 1, 3, 2])
+e = sorted(c)  # -> [1, 2, 2, 3, 3]
+f = e[1:4]     # -> [2, 2, 3]
+g = len(f)     # -> 3
+h = f[2]       # -> 3
+j = b[:-2]     # -> [1, 2, 3, 1]
+k = b[:]
+k.sort()
+k.reverse()    # -> [3, 3, 2, 2, 1, 1]
+l = b[::-2]    # -> [3, 1, 2]
+print(a, b, c, d, e, f, g, h, j, k, l)'
 ]
 
 { #category : #source }

@@ -440,6 +440,9 @@ ProcessingTokenExtractor >> visitSlice: slice [
 	slice from ifNotNil: [ tokens add: slice from ].
 	tokens add: slice colonTokens first.
 	slice to ifNotNil: [ tokens add: slice to ].
+	slice colonTokens size = 2
+		ifTrue: [ tokens add: slice colonTokens second.
+			slice step ifNotNil: [ tokens add: slice step ] ].
 	^ tokens
 ]
 

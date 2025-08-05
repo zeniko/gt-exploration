@@ -127,6 +127,30 @@ ProcessingCanvas >> endFrame [
 	transform := #yourself	"Transforms are reset at the end of a draw-cycle"
 ]
 
+{ #category : #printing }
+ProcessingCanvas >> escape: str [
+	"Reverse of ProcessingTranspiler>>unescape:"
+
+	| special in |
+	special := {Character lf -> $n.
+			Character cr -> $r.
+			Character tab -> $t.
+			$\ -> $\.
+			$' -> $'.
+			$" -> $"} asDictionary.
+	in := str readStream.
+	^ String
+		new: str size
+		streamContents: [ :out | 
+			[ in atEnd ]
+				whileFalse: [ | char |
+					(special includesKey: (char := in next))
+						ifTrue: [ out
+								nextPut: $\;
+								nextPut: (special at: char) ]
+						ifFalse: [ out nextPut: char ] ] ]
+]
+
 { #category : #modifiers }
 ProcessingCanvas >> fill: color [
 	fillColor := color
@@ -364,7 +388,7 @@ ProcessingCanvas >> presenter [
 	^ presenter
 ]
 
-{ #category : #shapes }
+{ #category : #printing }
 ProcessingCanvas >> print: text [
 	transcript
 		ifNil: [ transcript := GtTranscript new ]
@@ -372,8 +396,8 @@ ProcessingCanvas >> print: text [
 
 	transcript
 		nextPut: ((text isKindOf: Array)
-				ifTrue: [ ' ' join: (text collect: #asString) ]
-				ifFalse: [ text ]).
+				ifTrue: [ ' ' join: (text collect: [ :part | self serialize: part nested: false ]) ]
+				ifFalse: [ self serialize: text nested: false ]).
 
 	presenter displayTranscript: transcript for: self callerSource
 ]
@@ -439,6 +463,19 @@ ProcessingCanvas >> scale: factor [
 	| prev |
 	prev := transform.
 	transform := [ :trans | prev value: (trans scaleBy: factor) ]
+]
+
+{ #category : #printing }
+ProcessingCanvas >> serialize: obj nested: nested [
+	obj = nil ifTrue: [ ^ 'None' ].
+	obj = true ifTrue: [ ^ 'True' ].
+	obj = false ifTrue: [ ^ 'False' ].
+	(obj isKindOf: ProcessingList)
+		ifTrue: [ ^ '[' , (', ' join: (obj collect: [ :item | self serialize: item nested: true ]))
+				, ']' ].
+	(obj isKindOf: String)
+		ifTrue: [ ^ nested ifTrue: [ '"' , (self escape: obj) , '"' ] ifFalse: [ obj ] ].
+	^ obj asString
 ]
 
 { #category : #accessing }

@@ -14,6 +14,15 @@ ProcessingTreeMondrianCreatorExamples >> astMondrianExample03 [
 ]
 
 { #category : #example }
+ProcessingTreeMondrianCreatorExamples >> astMondrianLists [
+	<gtExample>
+	| mondrian program |
+	program := ProcessingProgramExamples new programLists.
+	mondrian := ProcessingTreeMondrianCreator mondrianFor: program ast.
+	^ mondrian
+]
+
+{ #category : #example }
 ProcessingTreeMondrianCreatorExamples >> astMondrianMinimal [
 	<gtExample>
 	| mondrian program |

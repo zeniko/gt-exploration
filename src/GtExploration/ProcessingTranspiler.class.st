@@ -149,15 +149,6 @@ ProcessingTranspiler >> emitName: var [
 ]
 
 { #category : #emitting }
-ProcessingTranspiler >> emit_append: args [
-	self expect: 2 argumentsFor: args.
-	args first acceptVisitor: self.
-	self emit: ' clone add: '.
-	args second acceptVisitor: self.
-	self emit: '; yourself'
-]
-
-{ #category : #emitting }
 ProcessingTranspiler >> emit_background: args [
 	args size = 1
 		ifTrue: [ self emit: 'gtCanvas backgroundGray: '.
@@ -185,15 +176,6 @@ ProcessingTranspiler >> emit_color: args [
 	self emit: ' B: '.
 	args third acceptVisitor: self.
 	self emit: ')'
-]
-
-{ #category : #emitting }
-ProcessingTranspiler >> emit_concat: args [
-	self expect: 2 argumentsFor: args.
-	args first acceptVisitor: self.
-	self emit: ' clone addAll: '.
-	args second acceptVisitor: self.
-	self emit: '; yourself'
 ]
 
 { #category : #emitting }
@@ -418,13 +400,6 @@ ProcessingTranspiler >> emit_scale: args [
 ]
 
 { #category : #emitting }
-ProcessingTranspiler >> emit_shorten: args [
-	self expect: 1 argumentsFor: args.
-	args first acceptVisitor: self.
-	self emit: ' allButLast'
-]
-
-{ #category : #emitting }
 ProcessingTranspiler >> emit_sin: args [
 	self expect: 1 argumentsFor: args.
 	args first acceptVisitor: self.
@@ -446,13 +421,6 @@ ProcessingTranspiler >> emit_sorted: args [
 	self expect: 1 argumentsFor: args.
 	args first acceptVisitor: self.
 	self emit: ' sorted'
-]
-
-{ #category : #emitting }
-ProcessingTranspiler >> emit_sq: args [
-	self expect: 1 argumentsFor: args.
-	args first acceptVisitor: self.
-	self emit: ' squared'
 ]
 
 { #category : #emitting }
@@ -1299,7 +1267,7 @@ ProcessingTranspiler >> visitSubscriptExpression: subscript [
 	self emit: '('.
 	subscript receiver acceptVisitor: self.
 	(subscript subscripts first isKindOf: PySliceNode)
-		ifTrue: [ subscript subscripts first colonTokens size = 1
+		ifTrue: [ (#(1 2) includes: subscript subscripts first colonTokens size)
 				ifFalse: [ self notImplemented: subscript ].
 			subscript subscripts first from
 				ifNotNil: [ self emit: ' sliceFrom: ('.
@@ -1308,7 +1276,10 @@ ProcessingTranspiler >> visitSubscriptExpression: subscript [
 				ifNil: [ self emit: ' sliceFrom: 1' ].
 			subscript subscripts first to
 				ifNotNil: [ self emit: ' to: '.
-					subscript subscripts first to acceptVisitor: self ] ]
+					subscript subscripts first to acceptVisitor: self ].
+			subscript subscripts first colonTokens size = 2
+				ifTrue: [ self emit: ' stepBy: '.
+					subscript subscripts first step acceptVisitor: self ] ]
 		ifFalse: [ self emit: ' at: ('.
 			subscript subscripts first acceptVisitor: self.
 			self emit: ' + 1)' ].	"Smalltalk is 1-based and right closed whereas Python is 0-based and right opened"

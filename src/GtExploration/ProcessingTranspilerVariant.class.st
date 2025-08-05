@@ -81,10 +81,8 @@ ProcessingTranspilerVariant >> emitBlockDo: args [
 { #category : #emitting }
 ProcessingTranspilerVariant >> emitCall: name size: size [
 	| defaultSizes |
-	defaultSizes := {'append' -> 2.
-			'background' -> 3.
+	defaultSizes := {'background' -> 3.
 			'color' -> 3.
-			'concat' -> 2.
 			'cos' -> 1.
 			'delay' -> 1.
 			'ellipse' -> 4.
@@ -108,12 +106,10 @@ ProcessingTranspilerVariant >> emitCall: name size: size [
 			'reversed' -> 1.
 			'rotate' -> 1.
 			'scale' -> 1.
-			'shorten' -> 1.
 			'sin' -> 1.
 			'size' -> 2.
 			'sort' -> 1.
 			'sorted' -> 1.
-			'sq' -> 1.
 			'sqrt' -> 1.
 			'str' -> 1.
 			'stroke' -> 3.
@@ -131,6 +127,13 @@ ProcessingTranspilerVariant >> emitCall: name size: size [
 		ifTrue: [ size = (defaultSizes at: name ifAbsent: size)
 				ifFalse: [ ^ name , '_' , size asString ] ].
 	^ name
+]
+
+{ #category : #emitting }
+ProcessingTranspilerVariant >> emitField: field of: obj [
+	^ style = 'postfix'
+		ifTrue: [ obj , ' ' , field ]
+		ifFalse: [ '(' , obj , ' ' , field , ')' ]
 ]
 
 { #category : #emitting }
@@ -328,7 +331,7 @@ ProcessingTranspilerVariant >> visitExpressionStatement: stmt [
 
 { #category : #visiting }
 ProcessingTranspilerVariant >> visitFieldAccessExpression: expr [
-	^ self emit: expr nameToken value args: {expr receiver acceptVisitor: self}
+	^ self emitField: expr nameToken value of: (expr receiver acceptVisitor: self)
 ]
 
 { #category : #visiting }
@@ -547,6 +550,9 @@ ProcessingTranspilerVariant >> visitSubscriptExpression: subscript [
 							ifNil: [ 'None' ].
 						subscript subscripts first to
 							ifNotNil: [ subscript subscripts first to acceptVisitor: self ]
+							ifNil: [ 'None' ].
+						subscript subscripts first step
+							ifNotNil: [ subscript subscripts first step acceptVisitor: self ]
 							ifNil: [ 'None' ]} ].
 	^ self
 		emit: 'item'
