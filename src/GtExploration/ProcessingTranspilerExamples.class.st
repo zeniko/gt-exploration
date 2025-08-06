@@ -11,7 +11,7 @@ ProcessingTranspilerExamples >> allViews [
 	compilation := self transpileMinimal.
 	views := ProcessingCodeBase methodDict keys
 			select: [ :key | (key beginsWith: 'gt') & (key endsWith: 'For:') ].
-	self assert: views size equals: 6.
+	self assert: views size equals: 7.
 	views
 		do: [ :key | 
 			| view element |
@@ -19,6 +19,7 @@ ProcessingTranspilerExamples >> allViews [
 			self assert: view isNotNil.
 			element := view asElement.
 			self assert: element containerName = 'phlow--exception' equals: false ].
+	self assert: (' ' join: views sorted) equals: 'gtAbstractionsFor: gtBytecodeFor: gtHexDumpFor: gtIntermediaryRepresentationFor: gtOutputFor: gtSlicesFor: gtTranspilationFor:'.
 	^ compilation
 ]
 

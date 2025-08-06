@@ -264,6 +264,18 @@ ProcessingProgram >> gtGetViewElement: aViewName [
 ]
 
 { #category : #views }
+ProcessingProgram >> gtHexDumpFor: aView [
+	<gtView>
+	^ (self
+		gtGetLiveView: aView
+		for: [ :view | compilation gtHexDumpFor: view ]
+		title: 'Hex Dump'
+		priority: 38)
+		asElementDo: [ :e | e margin: (BlInsets all: 0) ];
+		yourself
+]
+
+{ #category : #views }
 ProcessingProgram >> gtIntermediaryRepresentationFor: aView [
 	<gtView>
 	^ self
@@ -554,15 +566,13 @@ ProcessingProgram >> gtSourceCodeFor: aView [
 	^ aView explicit
 		priority: 2;
 		title: 'Source' translated;
-		stencil: [ | editor |
-			editor := ast gtSourceEditorWithHighlight: Color white.
-			editor
+		stencil: [ (ast gtSourceEditorWithHighlight: Color white)
 				constraintsDo: [ :e | 
 					e vertical matchParent.
 					e horizontal matchParent ];
 				beMode: BrTextEditorReadonlyWithNavigationMode new;
-				background: Color white.
-			editor ];
+				background: Color white;
+				yourself ];
 		updateWhen: ProcessingSourceChanged in: self announcer
 ]
 
@@ -571,6 +581,7 @@ ProcessingProgram >> gtStepsFor: aView [
 	"The stepper isn't updated when the source changes, as that's too resource intensive for non-trivial programs"
 
 	<gtView>
+	compilation gtIsAnimation ifTrue: [ ^ GtPhlowEmptyView new ].	"Run step calculation is currently too expensive for animations."
 	^ ((Stepper for: self runSteps view: #gtAbstractionsFor:) gtListViewFor: aView)
 		priority: 45;
 		title: 'Steps'
@@ -675,21 +686,35 @@ ProcessingProgram >> gtTranspilationPlusSourceFor: aView [
 { #category : #views }
 ProcessingProgram >> gtTranspilationPostfixFor: aView [
 	<gtView>
-	^ self
-		gtGetLiveView: aView
-		for: [ :view | (ProcessingTranspilerVariant postfix transpile: ast) gtStringFor: view ]
-		title: 'Postfix'
-		priority: 27
+	^ aView explicit
+		priority: 27;
+		title: 'Postfix';
+		stencil: [ BrEditor new
+				text: (ProcessingTranspilerVariant postfix transpile: ast) asRopedText;
+				aptitude: BrGlamorousCodeEditorAptitude + BrGlamorousEditorSearchTextAptitude;
+				constraintsDo: [ :e | 
+					e vertical matchParent.
+					e horizontal matchParent ];
+				beMode: BrTextEditorReadonlyWithNavigationMode new;
+				yourself ];
+		updateWhen: ProcessingSourceChanged in: self announcer
 ]
 
 { #category : #views }
 ProcessingProgram >> gtTranspilationPrefixFor: aView [
 	<gtView>
-	^ self
-		gtGetLiveView: aView
-		for: [ :view | (ProcessingTranspilerVariant prefix transpile: ast) gtStringFor: view ]
-		title: 'Prefix'
-		priority: 25
+	^ aView explicit
+		priority: 25;
+		title: 'Prefix';
+		stencil: [ BrEditor new
+				text: (ProcessingTranspilerVariant prefix transpile: ast) asRopedText;
+				aptitude: BrGlamorousCodeEditorAptitude + BrGlamorousEditorSearchTextAptitude;
+				constraintsDo: [ :e | 
+					e vertical matchParent.
+					e horizontal matchParent ];
+				beMode: BrTextEditorReadonlyWithNavigationMode new;
+				yourself ];
+		updateWhen: ProcessingSourceChanged in: self announcer
 ]
 
 { #category : #views }

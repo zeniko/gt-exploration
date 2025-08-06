@@ -91,7 +91,7 @@ ProcessingCodeBase >> gtGenerateIR: aSourceCode [
 	^ trans privateMethodBuilder instVarNamed: #ir	"calling IRBuilder>>#ir performs some optimizations, so skip around it"
 ]
 
-{ #category : #views }
+{ #category : #'views - tools' }
 ProcessingCodeBase >> gtGetViewElement: aViewName [
 	| element |
 	(self perform: aViewName with: GtPhlowView empty)
@@ -103,6 +103,31 @@ ProcessingCodeBase >> gtGetViewElement: aViewName [
 		margin: (BlInsets all: 5);
 		background: Color white;
 		yourself
+]
+
+{ #category : #views }
+ProcessingCodeBase >> gtHexDumpFor: aView [
+	<gtView>
+	^ aView explicit
+		title: 'Hex Dump';
+		priority: 35;
+		stencil: [ | aDisplayStream |
+			aDisplayStream := String new writeStream.
+			self class methodDict
+				keysAndValuesDo: [ :key :value | 
+					aDisplayStream
+						nextPutAll: '---- ' , key , ' ----';
+						cr.
+					((1 to: value size) collect: [ :i | (value char8AtOffset: i - 1) charCode ])
+						asByteArray hexDumpOn: aDisplayStream max: value size ].
+			BrEditor new
+				text: aDisplayStream contents asString asRopedText;
+				aptitude: BrGlamorousCodeEditorAptitude + BrGlamorousEditorSearchTextAptitude;
+				constraintsDo: [ :e | 
+					e vertical matchParent.
+					e horizontal matchParent ];
+				beMode: BrTextEditorReadonlyWithNavigationMode new;
+				yourself ]
 ]
 
 { #category : #views }
