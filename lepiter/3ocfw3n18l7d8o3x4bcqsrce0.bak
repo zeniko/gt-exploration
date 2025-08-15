@@ -66,7 +66,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-05-11T18:53:26.857+02:00"
+						"dateAndTimeString" : "2025-08-15T17:19:38.248+02:00"
 					}
 				},
 				"uid" : {
@@ -76,7 +76,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "After looking into several options for [[Running Python/Processing]], it was decided to pursue [[Transpiling Processing]] to Smalltalk as a first step. This gives us another form of [[Assembly]] in the form of Smalltalk bytecodes (in a variant of those mentioned on page 596 in the [Blue Book](http://stephane.ducasse.free.fr/FreeBooks/BlueBook/Bluebook.pdf)). For a "
+				"string" : "After looking into several options for [[Running Python/Processing]], it was decided to pursue [[Transpiling Processing]] to Smalltalk as a first step. This gives us another form of [[Assembly]] in the form of Smalltalk bytecodes (as documented in [[Smalltalk Bytecode (SISTA)]] For a full translation pass see [[Processing Program]]."
 			}
 		]
 	},

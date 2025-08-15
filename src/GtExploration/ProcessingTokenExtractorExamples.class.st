@@ -282,7 +282,7 @@ ProcessingTokenExtractorExamples >> tokensPrint [
 	self assert: ast statements size equals: 3.
 
 	tokens := self newExtractor extractTokens: ast.
-	self assert: tokens size equals: 16.
+	self assert: tokens size equals: 18.
 	self assert: (tokens allSatisfy: [ :item | item isKindOf: SmaCCToken ]).
 	^ tokens
 ]

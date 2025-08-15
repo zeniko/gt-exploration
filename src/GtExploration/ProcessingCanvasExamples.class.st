@@ -200,11 +200,11 @@ ProcessingCanvasExamples >> examplePrint [
 	self
 		assert: (canvas asElement children last transcript textDo: #asString)
 		equals: 'Hello, world!
-2 + 3 = 5'.
+2 + 3 / 4 = 2.75'.
 	self
 		assert: (canvas transcript textDo: #asString)
 		equals: 'Hello, world!
-2 + 3 = 5'.
+2 + 3 / 4 = 2.75'.
 	^ canvas
 ]
 

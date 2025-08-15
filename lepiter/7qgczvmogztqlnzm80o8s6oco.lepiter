@@ -29,7 +29,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-08-04T17:18:34.446+02:00"
+						"dateAndTimeString" : "2025-08-15T17:22:10.294+02:00"
 					}
 				},
 				"uid" : {
@@ -39,7 +39,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "Show the file's contents (editable!) ({{gtMethod:ProcessingSource>>gtSourceCodeFor:}})"
+				"string" : "Show the file's contents (read only) ({{gtMethod:ProcessingSource>>gtSourceCodeFor:}})"
 			},
 			{
 				"__type" : "exampleSnippet",
@@ -80,43 +80,6 @@
 				"codeExpanded" : true,
 				"previewExpanded" : true,
 				"noCode" : true
-			},
-			{
-				"__type" : "textSnippet",
-				"children" : {
-					"__type" : "snippets",
-					"items" : [ ]
-				},
-				"createEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"createTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T09:53:12.78+01:00"
-					}
-				},
-				"editEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"editTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T09:53:13.241+01:00"
-					}
-				},
-				"uid" : {
-					"__type" : "uid",
-					"uidString" : "SPoBgsjqDQCoL7qnCZ6mgg=="
-				},
-				"paragraphStyle" : {
-					"__type" : "textStyle"
-				},
-				"string" : "{{gtTodo:label=add syntax highlighting (through Python snippet}}) ({{gtClass:LePythonSnippet}})"
 			}
 		]
 	},

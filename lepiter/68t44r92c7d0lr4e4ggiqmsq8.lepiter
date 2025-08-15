@@ -1086,7 +1086,7 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-05-25T02:26:01.004+02:00"
+												"dateAndTimeString" : "2025-08-15T17:15:43.59+02:00"
 											}
 										},
 										"uid" : {
@@ -1096,7 +1096,7 @@
 										"paragraphStyle" : {
 											"__type" : "textStyle"
 										},
-										"string" : "Generates a color object which can be stored in a variable also be used with `fill(...)`, `stroke(...)` and `background(...)`."
+										"string" : "Generates a color value, which can be stored in a variable and can also be used as an argument for `fill(...)`, `stroke(...)` and `background(...)`."
 									}
 								]
 							},
@@ -2494,6 +2494,81 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-08-15T17:04:53.463+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-08-15T17:05:19.991+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "8Fv8csr4DQCWoBp9BbC6tQ=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Ensures that the value is a floating-point number ("
+						}
+					]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-08-15T17:04:45.985+02:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-08-15T17:04:51.593+02:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "AEGKcsr4DQCWJtHeBbC6tQ=="
+				},
+				"paragraphStyle" : {
+					"__type" : "textStyle"
+				},
+				"string" : "`float(value)`"
+			},
+			{
+				"__type" : "textSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
 									"dateAndTimeString" : "2025-04-30T00:18:25.656+02:00"
 								}
 							},
@@ -2549,81 +2624,6 @@
 					"__type" : "textStyle"
 				},
 				"string" : "`int(value)`"
-			},
-			{
-				"__type" : "textSnippet",
-				"children" : {
-					"__type" : "snippets",
-					"items" : [
-						{
-							"__type" : "textSnippet",
-							"children" : {
-								"__type" : "snippets",
-								"items" : [ ]
-							},
-							"createEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"createTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-05-21T15:21:43.518+02:00"
-								}
-							},
-							"editEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"editTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-05-21T15:22:49.442+02:00"
-								}
-							},
-							"uid" : {
-								"__type" : "uid",
-								"uidString" : "GKmW+wbyDQCZZix4A62o/Q=="
-							},
-							"paragraphStyle" : {
-								"__type" : "textStyle"
-							},
-							"string" : "The value of the mathematical constant π."
-						}
-					]
-				},
-				"createEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"createTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-05-21T15:21:37.793+02:00"
-					}
-				},
-				"editEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"editTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-05-21T15:21:40.938+02:00"
-					}
-				},
-				"uid" : {
-					"__type" : "uid",
-					"uidString" : "6LNX+wbyDQCZThSgA62o/Q=="
-				},
-				"paragraphStyle" : {
-					"__type" : "textStyle"
-				},
-				"string" : "`PI`"
 			},
 			{
 				"__type" : "textSnippet",
@@ -2794,6 +2794,81 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-05-21T15:21:43.518+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-05-21T15:22:49.442+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "GKmW+wbyDQCZZix4A62o/Q=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "The value of the mathematical constant π."
+						}
+					]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-05-21T15:21:37.793+02:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-05-21T15:21:40.938+02:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "6LNX+wbyDQCZThSgA62o/Q=="
+				},
+				"paragraphStyle" : {
+					"__type" : "textStyle"
+				},
+				"string" : "`PI`"
+			},
+			{
+				"__type" : "textSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
 									"dateAndTimeString" : "2025-04-19T23:35:54.176+02:00"
 								}
 							},
@@ -2880,7 +2955,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-04-19T23:31:22.838+02:00"
+									"dateAndTimeString" : "2025-08-15T17:03:41.371+02:00"
 								}
 							},
 							"uid" : {
@@ -2890,7 +2965,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Returns a random floating point number between 0 and limit (inclusive)."
+							"string" : "Returns a random floating-point number between 0 and limit (inclusive)."
 						}
 					]
 				},
@@ -3287,7 +3362,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-08-05T19:24:20.13+02:00"
+						"dateAndTimeString" : "2025-08-15T17:14:10.19+02:00"
 					}
 				},
 				"uid" : {
@@ -3297,7 +3372,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "Lists are objects which provide their own methods. Note that for the following commands, `list` is a variable referencing a `list`."
+				"string" : "Lists are objects that provide their own methods.\r\nNote that for the following commands, `list` is a variable referencing a list."
 			},
 			{
 				"__type" : "textSnippet",

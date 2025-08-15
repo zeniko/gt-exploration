@@ -140,7 +140,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T16:04:15.401+01:00"
+						"dateAndTimeString" : "2025-08-15T17:18:21.384+02:00"
 					}
 				},
 				"uid" : {
@@ -150,7 +150,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "Build an inspectable, interactive [Processing](https://processing.org/) (in [Python Mode](https://py.processing.org/)) compiler which allows highschool students to write, debug and inspect programs from high-level Python down to bytecode; compare the different levels of abstraction; and gain insights into the inner workings of a microprocessor."
+				"string" : "Build an inspectable, interactive [Processing](https://processing.org/) (in [Python Mode](https://py.processing.org/)) compiler which allows highschool students to write, debug and inspect programs from high-level Python down to bytecode, compare the different levels of abstraction, and gain insights into the inner workings of a microprocessor."
 			},
 			{
 				"__type" : "textSnippet",
@@ -288,7 +288,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T16:28:01.748+01:00"
+						"dateAndTimeString" : "2025-08-15T17:18:44.352+02:00"
 					}
 				},
 				"uid" : {
@@ -298,7 +298,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "Python is chosen as a base language since it has become the *defacto* language of choice at highschool. Processing on top of that has the advantage of allowing students to quickly achieve visually interesting programs which increases motivation. Most highschool students at 9th grade are able to complete a small game project on their own within two months (one month teaching the language, one month working by themselves)."
+				"string" : "Python is chosen as a base language since it has become the *de facto* language of choice at highschool. Processing on top of that has the advantage of allowing students to quickly achieve visually interesting programs which increases motivation. Most highschool students at 9th grade are able to complete a small game project on their own within two months (one month teaching the language, one month working by themselves)."
 			},
 			{
 				"__type" : "textSnippet",

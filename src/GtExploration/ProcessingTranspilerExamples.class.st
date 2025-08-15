@@ -339,8 +339,8 @@ ProcessingTranspilerExamples >> transpilationPrecedence [
 ProcessingTranspilerExamples >> transpilationPrint [
 	^ 'gtRun
 	gtCanvas print: ''Hello, world!''.
-	var := (2 + 3).
-	gtCanvas print: { ''2 + 3 =''. var. }.'
+	var := (2 + (3 / 4)).
+	gtCanvas print: { ''2 + 3 / 4 =''. var. }.'
 ]
 
 { #category : #transpilation }

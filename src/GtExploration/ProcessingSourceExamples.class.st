@@ -306,8 +306,8 @@ assert not (True and False or False)'
 { #category : #source }
 ProcessingSourceExamples >> sourceCodePrint [
 	^ 'print("Hello," '' world!'')
-var = 2 + 3
-print("2 + 3 =", var)'
+var = 2 + 3 / 4
+print("2 + 3 / 4 =", var)'
 ]
 
 { #category : #source }

@@ -60,6 +60,81 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-08-15T17:16:50.406+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-08-15T17:16:53.282+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "YLkenMr4DQCZAM+NBbC6tQ=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Language polish."
+						}
+					]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-08-15T17:16:23.578+02:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-08-15T17:16:23.578+02:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "kLEenMr4DQCY/2GSBbC6tQ=="
+				},
+				"paragraphStyle" : {
+					"__type" : "textStyle"
+				},
+				"string" : "# Week 33"
+			},
+			{
+				"__type" : "textSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
 									"dateAndTimeString" : "2025-08-04T17:11:00.68+02:00"
 								}
 							},
@@ -82,6 +157,43 @@
 								"__type" : "textStyle"
 							},
 							"string" : "Naming consistency fixes: always use `gtSourceCodeFor:` for accessing Processing source code and `gtTranspilationFor:` for accessing transpiled Smalltalk code."
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-08-06T11:35:34.326+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-08-06T11:35:38.149+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "8H6tzBD4DQCdIgQYAzfSKg=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Finished first draft."
 						},
 						{
 							"__type" : "textSnippet",
@@ -145,7 +257,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-08-06T11:35:18.758+02:00"
+									"dateAndTimeString" : "2025-08-06T11:35:27.079+02:00"
 								}
 							},
 							"uid" : {
@@ -155,7 +267,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Meeting on "
+							"string" : "Meeting on 2025-08-06"
 						},
 						{
 							"__type" : "textSnippet",

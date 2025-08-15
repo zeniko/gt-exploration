@@ -509,12 +509,12 @@ ProcessingRunnerExamples >> runPrint [
 		wait.
 	self assert: runner canvas isNotNil.
 	self assert: runner isDone.
-	self assert: (program compilation instVarNamed: #var) equals: 5.
+	self assert: (program compilation instVarNamed: #var) equals: 11 / 4.
 	self assert: runner wait equals: true.
 	self
 		assert: (runner canvas transcript textDo: [ :text | text asString ])
 		equals: 'Hello, world!
-2 + 3 = 5'.
+2 + 3 / 4 = 2.75'.
 	^ runner
 ]
 

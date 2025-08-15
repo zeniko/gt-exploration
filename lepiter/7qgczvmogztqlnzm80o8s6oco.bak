@@ -29,7 +29,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T09:53:02.354+01:00"
+						"dateAndTimeString" : "2025-08-15T17:22:10.294+02:00"
 					}
 				},
 				"uid" : {
@@ -39,7 +39,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "Show the file's contents (editable!) ({{gtMethod:ProcessingSource>>gtContentsFor:}})"
+				"string" : "Show the file's contents (read only) ({{gtMethod:ProcessingSource>>gtSourceCodeFor:}})"
 			},
 			{
 				"__type" : "exampleSnippet",
@@ -95,7 +95,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T09:53:12.78+01:00"
+						"dateAndTimeString" : "2025-08-15T17:22:14.253+02:00"
 					}
 				},
 				"editEmail" : {
@@ -106,7 +106,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-18T09:53:13.241+01:00"
+						"dateAndTimeString" : "2025-08-15T17:22:14.253+02:00"
 					}
 				},
 				"uid" : {
@@ -116,7 +116,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "{{gtTodo:label=add syntax highlighting (through Python snippet}}) ({{gtClass:LePythonSnippet}})"
+				"string" : ""
 			}
 		]
 	},

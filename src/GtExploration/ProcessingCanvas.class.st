@@ -471,10 +471,12 @@ ProcessingCanvas >> serialize: obj nested: nested [
 	obj = true ifTrue: [ ^ 'True' ].
 	obj = false ifTrue: [ ^ 'False' ].
 	(obj isKindOf: ProcessingList)
-		ifTrue: [ ^ '[' , (', ' join: (obj collect: [ :item | self serialize: item nested: true ]))
+		ifTrue: [ ^ '['
+				, (', ' join: (obj collect: [ :item | self serialize: item nested: true ]))
 				, ']' ].
 	(obj isKindOf: String)
 		ifTrue: [ ^ nested ifTrue: [ '"' , (self escape: obj) , '"' ] ifFalse: [ obj ] ].
+	(obj isKindOf: Fraction) ifTrue: [ ^ obj asFloat asString ].
 	^ obj asString
 ]
 
