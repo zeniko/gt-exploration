@@ -29,7 +29,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-07-31T11:10:09.674+02:00"
+						"dateAndTimeString" : "2025-08-17T18:29:50.389+02:00"
 					}
 				},
 				"uid" : {
@@ -39,7 +39,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "This is the API which is currently supported by GtProcessing. For comparison, the full Processing API is documented at <https://py.processing.org/reference/>."
+				"string" : "This is the API that is currently supported by GtProcessing. For comparison, the full Processing API is documented at <https://py.processing.org/reference/>."
 			},
 			{
 				"__type" : "textSnippet",
@@ -1943,7 +1943,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-08-17T18:21:15.053+02:00"
+									"dateAndTimeString" : "2025-08-18T21:41:36.308+02:00"
 								}
 							},
 							"uid" : {
@@ -1953,7 +1953,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Is called repeatedly (up to `frameRate` times per second) for drawing the output."
+							"string" : "Is called repeatedly (up to `frameRate` times per second) to drawing the output."
 						}
 					]
 				},
