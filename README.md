@@ -8,7 +8,7 @@ Developed as part of a [thesis](https://github.com/zeniko/gyminf-thesis) at [Sof
 
 ```st
 Metacello new
-	repository: 'github://zeniko/gt-exploration:main/src';
+	repository: 'github://zeniko/gt-exploration:thesis/src';
 	baseline: 'GtExploration';
 	load
 ```
