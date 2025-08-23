@@ -212,6 +212,22 @@ True False and False or not assert
 ]
 
 { #category : #example }
+ProcessingTranspilerVariantExamples >> postfixPresentationDemo [
+	<gtExample>
+	| transpiler output |
+	transpiler := self postfixTranspiler.
+	output := transpiler transpile: ProcessingProgramExamples new programPresentationDemo ast.
+	self assert: output equals: '$a $b 1 = =
+{ a 15 < } {
+	$a a b + =
+	$b a b - =
+} while
+a print
+'.
+	^ output
+]
+
+{ #category : #example }
 ProcessingTranspilerVariantExamples >> postfixRandom [
 	<gtExample>
 	| transpiler output |
@@ -467,6 +483,22 @@ ProcessingTranspilerVariantExamples >> prefixPrecedence [
 (assert (== (** 4 (** 3 2)) 262144))
 (assert (or (and True False) True))
 (assert (not (or (and True False) False)))
+'.
+	^ output
+]
+
+{ #category : #example }
+ProcessingTranspilerVariantExamples >> prefixPresentationDemo [
+	<gtExample>
+	| transpiler output |
+	transpiler := self prefixTranspiler.
+	output := transpiler transpile: ProcessingProgramExamples new programPresentationDemo ast.
+	self assert: output equals: '(= a (= b 1))
+(while (< a 15) (do
+	(= a (+ a b))
+	(= b (- a b))
+))
+(print a)
 '.
 	^ output
 ]

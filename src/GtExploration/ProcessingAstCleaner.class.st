@@ -74,9 +74,20 @@ ProcessingAstCleaner >> visitAssignmentExpression: anAssignmentExpression [
 
 { #category : #visiting }
 ProcessingAstCleaner >> visitAssignmentStatement: stmt [
-	"Rewrite a += b and friends to a = a + b for Smalltalk"
+	"Rewrite `a += b` and friends to `a = a + b` for Smalltalk compatibility.
+	Rewrite `a = b = x` to `a = (b := x)`, as `b` isn't a rhs expression
+	(cf. https://github.com/feenkcom/gtoolkit/issues/4669)."
 
-	stmt assigns size > 1 ifTrue: [ self notImplemented: stmt ].
+	[ stmt assigns size > 1 ]
+		whileTrue: [ stmt assigns last value = '=' ifFalse: [ self notImplemented: stmt ].
+			stmt tos
+				add: (PyAssignmentExpressionNode new
+						value: stmt tos removeLast;
+						variable: stmt tos removeLast;
+						assign: stmt assigns removeLast).
+			stmt tos last value parent: stmt tos last.
+			stmt tos last parent: stmt. ].
+
 	stmt assigns first value size = 2 & (stmt assigns first value last = $=)
 		ifTrue: [ | op |
 			op := stmt assigns first value first asString.

@@ -72,9 +72,15 @@ ProcessingTokenExtractor >> visitAssignmentExpression: expr [
 
 { #category : #visiting }
 ProcessingTokenExtractor >> visitAssignmentStatement: stmt [
-	^ {stmt lhs.
-		stmt assigns first.
-		stmt tos first}
+	| tokens |
+	tokens := OrderedCollection new.
+	tokens add: stmt lhs.
+	1
+		to: stmt tos size
+		do: [ :i | 
+			tokens add: (stmt assigns at: i).
+			tokens add: (stmt tos at: i) ].
+	^ tokens
 ]
 
 { #category : #generated }

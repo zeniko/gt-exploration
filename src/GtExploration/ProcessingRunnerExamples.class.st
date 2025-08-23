@@ -498,6 +498,37 @@ ProcessingRunnerExamples >> runPrecendence [
 ]
 
 { #category : #example }
+ProcessingRunnerExamples >> runPresentationDemo [
+	<gtExample>
+	| program runner |
+	program := ProcessingProgramExamples new programPresentationDemo.
+	runner := self newRunner.
+	runner
+		run: program compilation;
+		limitTo: 2 seconds;
+		wait.
+	self assert: runner canvas isNotNil.
+	self assert: runner isDone.
+	self assert: runner wait equals: true.
+	self
+		assert: (runner canvas transcript textDo: [ :text | text asString ])
+		equals: '21'.
+	^ runner
+]
+
+{ #category : #example }
+ProcessingRunnerExamples >> runPresentationDemoStepwise [
+	<gtExample>
+	| program runner steps |
+	program := ProcessingProgramExamples new programPresentationDemo.
+	runner := self newRunner.
+	steps := runner runStepwise: program compilation.
+	self assert: steps size equals: 28.
+	self assert: runner isDone.
+	^ steps
+]
+
+{ #category : #example }
 ProcessingRunnerExamples >> runPrint [
 	<gtExample>
 	| program runner |

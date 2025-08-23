@@ -336,6 +336,17 @@ ProcessingTranspilerExamples >> transpilationPrecedence [
 ]
 
 { #category : #transpilation }
+ProcessingTranspilerExamples >> transpilationPresentationDemo [
+	^ 'gtRun
+	a := b := 1.
+	[ (a < 15) ] whileTrue: [
+		a := (a + b).
+		b := (a - b).
+	].
+	gtCanvas print: a.'
+]
+
+{ #category : #transpilation }
 ProcessingTranspilerExamples >> transpilationPrint [
 	^ 'gtRun
 	gtCanvas print: ''Hello, world!''.
@@ -866,6 +877,20 @@ ProcessingTranspilerExamples >> transpilePrecedence [
 	self assert: transpiler variables size equals: 0.
 	self assert: transpiler userDefs size equals: 0.
 	self compare: (transpiler compile: ast) with: self transpilationPrecedence.
+	^ transpiler compile: ast
+]
+
+{ #category : #example }
+ProcessingTranspilerExamples >> transpilePresentationDemo [
+	<gtExample>
+	| ast transpiler |
+	ast := ProcessingProgramExamples new programPresentationDemo ast.
+	transpiler := self newTranspiler.
+	self assert: (transpiler transpile: ast) equals: self transpilationPresentationDemo.
+	self assert: transpiler variables size equals: 2.
+	self assert: (' ' join: transpiler variables sorted) equals: 'a b'.
+	self assert: transpiler userDefs size equals: 0.
+	self compare: (transpiler compile: ast) with: self transpilationPresentationDemo.
 	^ transpiler compile: ast
 ]
 

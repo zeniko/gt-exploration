@@ -32,6 +32,15 @@ ProcessingTreeMondrianCreatorExamples >> astMondrianMinimal [
 ]
 
 { #category : #example }
+ProcessingTreeMondrianCreatorExamples >> astMondrianPresentationDemo [
+	<gtExample>
+	| mondrian program |
+	program := ProcessingProgramExamples new programPresentationDemo.
+	mondrian := ProcessingTreeMondrianCreator mondrianFor: program ast.
+	^ mondrian
+]
+
+{ #category : #example }
 ProcessingTreeMondrianCreatorExamples >> astMondrianSierpinski [
 	<gtExample>
 	| mondrian program |

@@ -304,6 +304,17 @@ assert not (True and False or False)'
 ]
 
 { #category : #source }
+ProcessingSourceExamples >> sourceCodePresentationDemo [
+	"cf. https://github.com/zeniko/gyminf-thesis/blob/main/presentation.mpx"
+
+	^ 'a = b = 1
+while a < 15:
+	a += b
+	b = a - b
+print(a)'
+]
+
+{ #category : #source }
 ProcessingSourceExamples >> sourceCodePrint [
 	^ 'print("Hello," '' world!'')
 var = 2 + 3 / 4
@@ -738,6 +749,16 @@ ProcessingSourceExamples >> sourcePrecedence [
 	| source |
 	source := ProcessingSource fromString: self sourceCodePrecedence.
 	self assert: source asString equals: self sourceCodePrecedence.
+	self assert: source program isNotNil.
+	^ source
+]
+
+{ #category : #example }
+ProcessingSourceExamples >> sourcePresentationDemo [
+	<gtExample>
+	| source |
+	source := ProcessingSource fromString: self sourceCodePresentationDemo.
+	self assert: source asString equals: self sourceCodePresentationDemo.
 	self assert: source program isNotNil.
 	^ source
 ]

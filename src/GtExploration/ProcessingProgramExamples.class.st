@@ -238,6 +238,17 @@ ProcessingProgramExamples >> programPrecedence [
 ]
 
 { #category : #example }
+ProcessingProgramExamples >> programPresentationDemo [
+	<gtExample>
+	| program |
+	program := ProcessingSourceExamples new sourcePresentationDemo program.
+	self assert: program source isNotNil.
+	self assert: program compilation isNotNil.
+	self assert: program ast isNotNil.
+	^ program
+]
+
+{ #category : #example }
 ProcessingProgramExamples >> programPrint [
 	<gtExample>
 	| program |
