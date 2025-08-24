@@ -106,13 +106,12 @@ ViewComparisonExamples >> compareExample02To03SourceCharsScripter [
 { #category : #example }
 ViewComparisonExamples >> compareExample03PrefixAndPostfix [
 	<gtExample>
-	| comparer |
+	| program comparer |
+	program := ProcessingProgramExamples new programExample03.
 	comparer := ViewComparison
-			newFor: {ProcessingProgramExamples new programExample03 -> #gtSourceCodeFor:.
-					ProcessingProgramExamples new programExample03 -> #gtTreeFor:.
-					ProcessingProgramExamples new programExample03
-						-> #gtTranspilationPrefixFor:.
-					ProcessingProgramExamples new programExample03
-						-> #gtTranspilationPostfixFor:}.
+			newFor: {program -> #gtSourceCodeFor:.
+					program -> #gtTreeFor:.
+					program -> #gtTranspilationPrefixFor:.
+					program -> #gtTranspilationPostfixFor:}.
 	^ comparer
 ]

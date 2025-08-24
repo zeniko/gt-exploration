@@ -5,268 +5,20 @@ Class {
 }
 
 { #category : #example }
-ProcessingTranspilerVariantExamples >> postfixAnimation [
-	<gtExample>
-	| transpiler output |
-	transpiler := self postfixTranspiler.
-	output := transpiler transpile: ProcessingProgramExamples new programAnimation ast.
-	self assert: output equals: '$var 0 =
-$setup () {
-	200 200 size
-	2 frameRate
-} deffun
-$draw () {
-	$var global
-	192 background_1
-	var var 50 50 rect
-	$var var 20 + =
-	{ var height 50 - > } {
-		$var 0 =
-	} { pass } ifelse
-} deffun
-'.
-	^ output
-]
-
-{ #category : #example }
-ProcessingTranspilerVariantExamples >> postfixAnimation2 [
-	<gtExample>
-	| transpiler output |
-	transpiler := self postfixTranspiler.
-	output := transpiler transpile: ProcessingProgramExamples new programAnimation2 ast.
-	self assert: output equals: '$x 200 =
-$y 100 =
-$dx 2 =
-$dy 0 =
-$setup () {
-	400 300 size
-	noStroke
-} deffun
-$draw () {
-	$x $y $dx $dy global_4
-	192 background_1
-	x y 50 50 ellipse
-	$x x dx + =
-	$y y dy + =
-	{ x 25 < } {
-		$dx 2 unary+ =
-	} {
-		{ x width 25 - > } {
-			$dx 2 unary- =
-		} { pass } ifelse
-	} ifelse
-	$dy dy 1 + =
-	{ y height 25 - > } {
-		$dy 0.9 unary- dy * =
-		$y height 25 - =
-	} { pass } ifelse
-} deffun
-'.
-	^ output
-]
-
-{ #category : #example }
-ProcessingTranspilerVariantExamples >> postfixExample03 [
-	<gtExample>
-	| transpiler output |
-	transpiler := self postfixTranspiler.
-	output := transpiler transpile: ProcessingProgramExamples new programExample03 ast.
-	self assert: output equals: '200 200 size
-$x 200 =
-{ x 0 > } {
-	200 x - 128 x fill
-	100 100 x x ellipse
-	$x x 20 - =
-	50 delay
-} while
-'.
-	^ output
-]
-
-{ #category : #example }
-ProcessingTranspilerVariantExamples >> postfixExample05 [
-	<gtExample>
-	| transpiler output |
-	transpiler := self postfixTranspiler.
-	output := transpiler transpile: ProcessingProgramExamples new programExample05 ast.
-	self assert: output equals: '200 100 size
-$gtA width =
-$gtB height =
-None True False "String" "Nested" list_1 print_5
-'.
-	^ output
-]
-
-{ #category : #example }
-ProcessingTranspilerVariantExamples >> postfixExample06 [
-	<gtExample>
-	| transpiler output |
-	transpiler := self postfixTranspiler.
-	output := transpiler transpile: ProcessingProgramExamples new programExample06 ast.
-	self assert: output equals: '$cond True False and 1 2 3 > == not or =
-$var cond 5 3 ifelse =
-$x 1 var range {
-	x print
-} for_in
-'.
-	^ output
-]
-
-{ #category : #example }
-ProcessingTranspilerVariantExamples >> postfixExample07 [
-	<gtExample>
-	| transpiler output |
-	transpiler := self postfixTranspiler.
-	output := transpiler transpile: ProcessingProgramExamples new programExample07 ast.
-	self assert: output equals: '$a 3 7 random_2 =
-$a a 2 + =
-5 a 9 < <= assert
-$a a 5 - =
-a 4 < "Message" assert_2
-False "Done!" assert_2
-'.
-	^ output
-]
-
-{ #category : #example }
-ProcessingTranspilerVariantExamples >> postfixFibonacci [
-	<gtExample>
-	| transpiler output |
-	transpiler := self postfixTranspiler.
-	output := transpiler transpile: ProcessingProgramExamples new programFibonacci ast.
-	self assert: output equals: '200 200 size
-$fibonacci ($n) {
-	{ n 2 > } {
-		$a n 1 - fibonacci =
-		a n 2 - fibonacci + return
-	} {
-		1 return
-	} ifelse
-} deffun
-30 textSize
-0 0 0 fill
-"Fibonacci" 20 75 text
-50 textSize
-255 255 255 fill
-10 fibonacci 20 125 text
-'.
-	^ output
-]
-
-{ #category : #example }
-ProcessingTranspilerVariantExamples >> postfixLists [
-	<gtExample>
-	| transpiler output |
-	transpiler := self postfixTranspiler.
-	output := transpiler transpile: ProcessingProgramExamples new programLists ast.
-	self assert: output equals: '$a 1 2 list_2 =
-3 a append
-$b a a + =
-$c b None None 1 unary- slice =
-$d c pop =
-$e c sorted =
-$f e 1 4 None slice =
-$g f len =
-$h f 2 item =
-$j b None 2 unary- None slice =
-$k b None None None slice =
-k sort
-k reverse
-$l b None None 2 unary- slice =
-a b c d e f g h j k l print_11
-'.
-	^ output
-]
-
-{ #category : #example }
-ProcessingTranspilerVariantExamples >> postfixLists2 [
-	<gtExample>
-	| transpiler output |
-	transpiler := self postfixTranspiler.
-	output := transpiler transpile: ProcessingProgramExamples new programLists2 ast.
-	self assert: output equals: '$a 1 2 3 list_3 =
-$a a 4 5 list_2 + =
-a 1 6 put_at
-a 2 unary- 7 put_at
-a 2 * a None 0 None slice a 1 unary- None None slice a 0 * print_4
-'.
-	^ output
-]
-
-{ #category : #example }
-ProcessingTranspilerVariantExamples >> postfixPrecedence [
-	<gtExample>
-	| transpiler output |
-	transpiler := self postfixTranspiler.
-	output := transpiler transpile: ProcessingProgramExamples new programPrecedence ast.
-	self assert: output equals: '2 3 / 4 * 8 3 / == assert
-2 3 - 4 + 3 == assert
-2 3 * 4 + 10 == assert
-2 3 4 * + 14 == assert
-2 3 + 4 * 20 == assert
-4 3 2 ** ** 262144 == assert
-True False and True or assert
-True False and False or not assert
-'.
-	^ output
-]
-
-{ #category : #example }
 ProcessingTranspilerVariantExamples >> postfixPresentationDemo [
 	<gtExample>
 	| transpiler output |
 	transpiler := self postfixTranspiler.
-	output := transpiler transpile: ProcessingProgramExamples new programPresentationDemo ast.
-	self assert: output equals: '$a $b 1 = =
+	output := transpiler
+			transpile: ProcessingSourceExamples new sourcePresentationDemo program ast.
+	self
+		assert: output
+		equals: '$a $b 1 = =
 { a 15 < } {
 	$a a b + =
 	$b a b - =
 } while
 a print
-'.
-	^ output
-]
-
-{ #category : #example }
-ProcessingTranspilerVariantExamples >> postfixRandom [
-	<gtExample>
-	| transpiler output |
-	transpiler := self postfixTranspiler.
-	output := transpiler transpile: ProcessingProgramExamples new programRandom ast.
-	self assert: output equals: '100 randomSeed
-10 random 0.007826369259425611 == assert
-3 random 0.46133644294987264 == assert
-'.
-	^ output
-]
-
-{ #category : #example }
-ProcessingTranspilerVariantExamples >> postfixSierpinski [
-	<gtExample>
-	| transpiler output |
-	transpiler := self postfixTranspiler.
-	output := transpiler transpile: ProcessingProgramExamples new programSierpinski ast.
-	self assert: output equals: '$px 300 =
-px px 60 radians sin * 2 + size
-$sierpinski ($n $x $y $side) {
-	$th side 60 radians sin * =
-	{ n 1 == } {
-		x y th + x side + y th + x side 2 / + y triangle
-	} {
-		{ n 1 > } {
-			$side side 2 / =
-			$th th 2 / =
-			n 1 - x side 2 / + y side sierpinski
-			n 1 - x y th + side sierpinski
-			n 1 - x side + y th + side sierpinski
-		} { pass } ifelse
-	} ifelse
-} deffun
-255 255 255 background
-0 0 0 fill
-0 0 0 stroke
-1 strokeWeight
-4 2 2 width 4 - sierpinski
 '.
 	^ output
 ]
@@ -281,12 +33,43 @@ ProcessingTranspilerVariantExamples >> postfixTranspiler [
 ]
 
 { #category : #example }
-ProcessingTranspilerVariantExamples >> prefixAnimation [
+ProcessingTranspilerVariantExamples >> prefixPresentationDemo [
 	<gtExample>
 	| transpiler output |
 	transpiler := self prefixTranspiler.
-	output := transpiler transpile: ProcessingProgramExamples new programAnimation ast.
-	self assert: output equals: '(= var 0)
+	output := transpiler
+			transpile: ProcessingSourceExamples new sourcePresentationDemo program ast.
+	self
+		assert: output
+		equals: '(= a (= b 1))
+(while (< a 15) (do
+	(= a (+ a b))
+	(= b (- a b))
+))
+(print a)
+'.
+	^ output
+]
+
+{ #category : #example }
+ProcessingTranspilerVariantExamples >> prefixTranspiler [
+	<gtExample>
+	| transpiler |
+	transpiler := ProcessingTranspilerVariant prefix.
+	self assert: transpiler style equals: 'prefix'.
+	^ transpiler
+]
+
+{ #category : #example }
+ProcessingTranspilerVariantExamples >> transpileAnimation [
+	<gtExample>
+	| ast postfix prefix |
+	ast := ProcessingSourceExamples new sourceAnimation program ast.
+
+	prefix := self prefixTranspiler transpile: ast.
+	self
+		assert: prefix
+		equals: '(= var 0)
 (deffun setup () (do
 	(size 200 200)
 	(frameRate 2)
@@ -301,16 +84,39 @@ ProcessingTranspilerVariantExamples >> prefixAnimation [
 	) )
 ))
 '.
-	^ output
+
+	postfix := self postfixTranspiler transpile: ast.
+	self
+		assert: postfix
+		equals: '$var 0 =
+$setup () {
+	200 200 size
+	2 frameRate
+} deffun
+$draw () {
+	$var global
+	192 background_1
+	var var 50 50 rect
+	$var var 20 + =
+	{ var height 50 - > } {
+		$var 0 =
+	} { pass } ifelse
+} deffun
+'.
+
+	^ prefix
 ]
 
 { #category : #example }
-ProcessingTranspilerVariantExamples >> prefixAnimation2 [
+ProcessingTranspilerVariantExamples >> transpileAnimation2 [
 	<gtExample>
-	| transpiler output |
-	transpiler := self prefixTranspiler.
-	output := transpiler transpile: ProcessingProgramExamples new programAnimation2 ast.
-	self assert: output equals: '(= x 200)
+	| ast postfix prefix |
+	ast := ProcessingSourceExamples new sourceAnimation2 program ast.
+
+	prefix := self prefixTranspiler transpile: ast.
+	self
+		assert: prefix
+		equals: '(= x 200)
 (= y 100)
 (= dx 2)
 (= dy 0)
@@ -338,16 +144,52 @@ ProcessingTranspilerVariantExamples >> prefixAnimation2 [
 	) )
 ))
 '.
-	^ output
+
+	postfix := self postfixTranspiler transpile: ast.
+	self
+		assert: postfix
+		equals: '$x 200 =
+$y 100 =
+$dx 2 =
+$dy 0 =
+$setup () {
+	400 300 size
+	noStroke
+} deffun
+$draw () {
+	$x $y $dx $dy global_4
+	192 background_1
+	x y 50 50 ellipse
+	$x x dx + =
+	$y y dy + =
+	{ x 25 < } {
+		$dx 2 unary+ =
+	} {
+		{ x width 25 - > } {
+			$dx 2 unary- =
+		} { pass } ifelse
+	} ifelse
+	$dy dy 1 + =
+	{ y height 25 - > } {
+		$dy 0.9 unary- dy * =
+		$y height 25 - =
+	} { pass } ifelse
+} deffun
+'.
+
+	^ prefix
 ]
 
 { #category : #example }
-ProcessingTranspilerVariantExamples >> prefixExample03 [
+ProcessingTranspilerVariantExamples >> transpileExample03 [
 	<gtExample>
-	| transpiler output |
-	transpiler := self prefixTranspiler.
-	output := transpiler transpile: ProcessingProgramExamples new programExample03 ast.
-	self assert: output equals: '(size 200 200)
+	| ast postfix prefix |
+	ast := ProcessingSourceExamples new sourceExample03 program ast.
+
+	prefix := self prefixTranspiler transpile: ast.
+	self
+		assert: prefix
+		equals: '(size 200 200)
 (= x 200)
 (while (> x 0) (do
 	(fill (- 200 x) 128 x)
@@ -356,61 +198,120 @@ ProcessingTranspilerVariantExamples >> prefixExample03 [
 	(delay 50)
 ))
 '.
-	^ output
+
+	postfix := self postfixTranspiler transpile: ast.
+	self
+		assert: postfix
+		equals: '200 200 size
+$x 200 =
+{ x 0 > } {
+	200 x - 128 x fill
+	100 100 x x ellipse
+	$x x 20 - =
+	50 delay
+} while
+'.
+
+	^ prefix
 ]
 
 { #category : #example }
-ProcessingTranspilerVariantExamples >> prefixExample05 [
+ProcessingTranspilerVariantExamples >> transpileExample05 [
 	<gtExample>
-	| transpiler output |
-	transpiler := self prefixTranspiler.
-	output := transpiler transpile: ProcessingProgramExamples new programExample05 ast.
-	self assert: output equals: '(size 200 100)
+	| ast postfix prefix |
+	ast := ProcessingSourceExamples new sourceExample05 program ast.
+
+	prefix := self prefixTranspiler transpile: ast.
+	self
+		assert: prefix
+		equals: '(size 200 100)
 (= gtA width)
 (= gtB height)
 (print None True False "String" (list "Nested"))
 '.
-	^ output
+
+	postfix := self postfixTranspiler transpile: ast.
+	self
+		assert: postfix
+		equals: '200 100 size
+$gtA width =
+$gtB height =
+None True False "String" "Nested" list_1 print_5
+'.
+
+	^ prefix
 ]
 
 { #category : #example }
-ProcessingTranspilerVariantExamples >> prefixExample06 [
+ProcessingTranspilerVariantExamples >> transpileExample06 [
 	<gtExample>
-	| transpiler output |
-	transpiler := self prefixTranspiler.
-	output := transpiler transpile: ProcessingProgramExamples new programExample06 ast.
-	self assert: output equals: '(= cond (or (and True False) (not (== 1 (> 2 3)))))
+	| ast postfix prefix |
+	ast := ProcessingSourceExamples new sourceExample06 program ast.
+
+	prefix := self prefixTranspiler transpile: ast.
+	self
+		assert: prefix
+		equals: '(= cond (or (and True False) (not (== 1 (> 2 3)))))
 (= var (ifelse cond 5 3))
 (for_in x (range 1 var) (do
 	(print x)
 ))
 '.
-	^ output
+
+	postfix := self postfixTranspiler transpile: ast.
+	self
+		assert: postfix
+		equals: '$cond True False and 1 2 3 > == not or =
+$var cond 5 3 ifelse =
+$x 1 var range {
+	x print
+} for_in
+'.
+
+	^ prefix
 ]
 
 { #category : #example }
-ProcessingTranspilerVariantExamples >> prefixExample07 [
+ProcessingTranspilerVariantExamples >> transpileExample07 [
 	<gtExample>
-	| transpiler output |
-	transpiler := self prefixTranspiler.
-	output := transpiler transpile: ProcessingProgramExamples new programExample07 ast.
-	self assert: output equals: '(= a (random 3 7))
+	| ast postfix prefix |
+	ast := ProcessingSourceExamples new sourceExample07 program ast.
+
+	prefix := self prefixTranspiler transpile: ast.
+	self
+		assert: prefix
+		equals: '(= a (random 3 7))
 (= a (+ a 2))
 (assert (<= 5 (< a 9)))
 (= a (- a 5))
 (assert (< a 4) "Message")
 (assert False "Done!")
 '.
-	^ output
+
+	postfix := self postfixTranspiler transpile: ast.
+	self
+		assert: postfix
+		equals: '$a 3 7 random_2 =
+$a a 2 + =
+5 a 9 < <= assert
+$a a 5 - =
+a 4 < "Message" assert_2
+False "Done!" assert_2
+'.
+
+	^ prefix
 ]
 
 { #category : #example }
-ProcessingTranspilerVariantExamples >> prefixFibonacci [
+ProcessingTranspilerVariantExamples >> transpileFibonacci [
 	<gtExample>
-	| transpiler output |
-	transpiler := self prefixTranspiler.
-	output := transpiler transpile: ProcessingProgramExamples new programFibonacci ast.
-	self assert: output equals: '(size 200 200)
+	| ast postfix prefix |
+	ast := ProcessingSourceExamples new sourceFibonacci program ast.
+
+	prefix := self prefixTranspiler transpile: ast.
+	self
+		assert: prefix
+		equals: '(size 200 200)
 (deffun fibonacci (n) (do
 	(ifelse (> n 2) (do
 		(= a (fibonacci (- n 1)))
@@ -426,16 +327,40 @@ ProcessingTranspilerVariantExamples >> prefixFibonacci [
 (fill 255 255 255)
 (text (fibonacci 10) 20 125)
 '.
-	^ output
+
+	postfix := self postfixTranspiler transpile: ast.
+	self
+		assert: postfix
+		equals: '200 200 size
+$fibonacci ($n) {
+	{ n 2 > } {
+		$a n 1 - fibonacci =
+		a n 2 - fibonacci + return
+	} {
+		1 return
+	} ifelse
+} deffun
+30 textSize
+0 0 0 fill
+"Fibonacci" 20 75 text
+50 textSize
+255 255 255 fill
+10 fibonacci 20 125 text
+'.
+
+	^ prefix
 ]
 
 { #category : #example }
-ProcessingTranspilerVariantExamples >> prefixLists [
+ProcessingTranspilerVariantExamples >> transpileLists [
 	<gtExample>
-	| transpiler output |
-	transpiler := self prefixTranspiler.
-	output := transpiler transpile: ProcessingProgramExamples new programLists ast.
-	self assert: output equals: '(= a (list 1 2))
+	| ast postfix prefix |
+	ast := ProcessingSourceExamples new sourceLists program ast.
+
+	prefix := self prefixTranspiler transpile: ast.
+	self
+		assert: prefix
+		equals: '(= a (list 1 2))
 ((a append) 3)
 (= b (+ a a))
 (= c (slice b None None (- 1)))
@@ -451,31 +376,69 @@ ProcessingTranspilerVariantExamples >> prefixLists [
 (= l (slice b None None (- 2)))
 (print a b c d e f g h j k l)
 '.
-	^ output
+
+	postfix := self postfixTranspiler transpile: ast.
+	self
+		assert: postfix
+		equals: '$a 1 2 list_2 =
+3 a append
+$b a a + =
+$c b None None 1 unary- slice =
+$d c pop =
+$e c sorted =
+$f e 1 4 None slice =
+$g f len =
+$h f 2 item =
+$j b None 2 unary- None slice =
+$k b None None None slice =
+k sort
+k reverse
+$l b None None 2 unary- slice =
+a b c d e f g h j k l print_11
+'.
+
+	^ prefix
 ]
 
 { #category : #example }
-ProcessingTranspilerVariantExamples >> prefixLists2 [
+ProcessingTranspilerVariantExamples >> transpileLists2 [
 	<gtExample>
-	| transpiler output |
-	transpiler := self prefixTranspiler.
-	output := transpiler transpile: ProcessingProgramExamples new programLists2 ast.
-	self assert: output equals: '(= a (list 1 2 3))
+	| ast postfix prefix |
+	ast := ProcessingSourceExamples new sourceLists2 program ast.
+
+	prefix := self prefixTranspiler transpile: ast.
+	self
+		assert: prefix
+		equals: '(= a (list 1 2 3))
 (= a (+ a (list 4 5)))
 (put_at a 1 6)
 (put_at a (- 2) 7)
 (print (* a 2) (slice a None 0 None) (slice a (- 1) None None) (* a 0))
 '.
-	^ output
+
+	postfix := self postfixTranspiler transpile: ast.
+	self
+		assert: postfix
+		equals: '$a 1 2 3 list_3 =
+$a a 4 5 list_2 + =
+a 1 6 put_at
+a 2 unary- 7 put_at
+a 2 * a None 0 None slice a 1 unary- None None slice a 0 * print_4
+'.
+
+	^ prefix
 ]
 
 { #category : #example }
-ProcessingTranspilerVariantExamples >> prefixPrecedence [
+ProcessingTranspilerVariantExamples >> transpilePrecedence [
 	<gtExample>
-	| transpiler output |
-	transpiler := self prefixTranspiler.
-	output := transpiler transpile: ProcessingProgramExamples new programPrecedence ast.
-	self assert: output equals: '(assert (== (* (/ 2 3) 4) (/ 8 3)))
+	| ast postfix prefix |
+	ast := ProcessingSourceExamples new sourcePrecedence program ast.
+
+	prefix := self prefixTranspiler transpile: ast.
+	self
+		assert: prefix
+		equals: '(assert (== (* (/ 2 3) 4) (/ 8 3)))
 (assert (== (+ (- 2 3) 4) 3))
 (assert (== (+ (* 2 3) 4) 10))
 (assert (== (+ 2 (* 3 4)) 14))
@@ -484,45 +447,58 @@ ProcessingTranspilerVariantExamples >> prefixPrecedence [
 (assert (or (and True False) True))
 (assert (not (or (and True False) False)))
 '.
-	^ output
-]
 
-{ #category : #example }
-ProcessingTranspilerVariantExamples >> prefixPresentationDemo [
-	<gtExample>
-	| transpiler output |
-	transpiler := self prefixTranspiler.
-	output := transpiler transpile: ProcessingProgramExamples new programPresentationDemo ast.
-	self assert: output equals: '(= a (= b 1))
-(while (< a 15) (do
-	(= a (+ a b))
-	(= b (- a b))
-))
-(print a)
+	postfix := self postfixTranspiler transpile: ast.
+	self
+		assert: postfix
+		equals: '2 3 / 4 * 8 3 / == assert
+2 3 - 4 + 3 == assert
+2 3 * 4 + 10 == assert
+2 3 4 * + 14 == assert
+2 3 + 4 * 20 == assert
+4 3 2 ** ** 262144 == assert
+True False and True or assert
+True False and False or not assert
 '.
-	^ output
+
+	^ prefix
 ]
 
 { #category : #example }
-ProcessingTranspilerVariantExamples >> prefixRandom [
+ProcessingTranspilerVariantExamples >> transpileRandom [
 	<gtExample>
-	| transpiler output |
-	transpiler := self prefixTranspiler.
-	output := transpiler transpile: ProcessingProgramExamples new programRandom ast.
-	self assert: output equals: '(randomSeed 100)
+	| ast postfix prefix |
+	ast := ProcessingSourceExamples new sourceRandom program ast.
+
+	prefix := self prefixTranspiler transpile: ast.
+	self
+		assert: prefix
+		equals: '(randomSeed 100)
 (assert (== (random 10) 0.007826369259425611))
 (assert (== (random 3) 0.46133644294987264))
 '.
-	^ output
+
+	postfix := self postfixTranspiler transpile: ast.
+	self
+		assert: postfix
+		equals: '100 randomSeed
+10 random 0.007826369259425611 == assert
+3 random 0.46133644294987264 == assert
+'.
+
+	^ prefix
 ]
 
 { #category : #example }
-ProcessingTranspilerVariantExamples >> prefixSierpinski [
+ProcessingTranspilerVariantExamples >> transpileSierpinski [
 	<gtExample>
-	| transpiler output |
-	transpiler := self prefixTranspiler.
-	output := transpiler transpile: ProcessingProgramExamples new programSierpinski ast.
-	self assert: output equals: '(= px 300)
+	| ast postfix prefix |
+	ast := ProcessingSourceExamples new sourceSierpinski program ast.
+
+	prefix := self prefixTranspiler transpile: ast.
+	self
+		assert: prefix
+		equals: '(= px 300)
 (size px (+ (* px (sin (radians 60))) 2))
 (deffun sierpinski (n x y side) (do
 	(= th (* side (sin (radians 60))))
@@ -544,14 +520,32 @@ ProcessingTranspilerVariantExamples >> prefixSierpinski [
 (strokeWeight 1)
 (sierpinski 4 2 2 (- width 4))
 '.
-	^ output
-]
 
-{ #category : #example }
-ProcessingTranspilerVariantExamples >> prefixTranspiler [
-	<gtExample>
-	| transpiler |
-	transpiler := ProcessingTranspilerVariant prefix.
-	self assert: transpiler style equals: 'prefix'.
-	^ transpiler
+	postfix := self postfixTranspiler transpile: ast.
+	self
+		assert: postfix
+		equals: '$px 300 =
+px px 60 radians sin * 2 + size
+$sierpinski ($n $x $y $side) {
+	$th side 60 radians sin * =
+	{ n 1 == } {
+		x y th + x side + y th + x side 2 / + y triangle
+	} {
+		{ n 1 > } {
+			$side side 2 / =
+			$th th 2 / =
+			n 1 - x side 2 / + y side sierpinski
+			n 1 - x y th + side sierpinski
+			n 1 - x side + y th + side sierpinski
+		} { pass } ifelse
+	} ifelse
+} deffun
+255 255 255 background
+0 0 0 fill
+0 0 0 stroke
+1 strokeWeight
+4 2 2 width 4 - sierpinski
+'.
+
+	^ prefix
 ]

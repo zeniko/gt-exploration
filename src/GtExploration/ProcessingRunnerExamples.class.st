@@ -18,7 +18,7 @@ ProcessingRunnerExamples >> newRunner [
 ProcessingRunnerExamples >> runAlpinerWanderweg [
 	<gtExample>
 	| program runner |
-	program := ProcessingProgramExamples new programAlpinerWanderweg.
+	program := ProcessingSourceExamples new sourceAlpinerWanderweg program.
 	runner := program run.
 	self assert: runner canvas isNotNil.
 	self assert: runner isDone not.
@@ -32,7 +32,7 @@ ProcessingRunnerExamples >> runAlpinerWanderweg [
 ProcessingRunnerExamples >> runAlpinerWanderwegStepwise [
 	<gtExample>
 	| program steps |
-	program := ProcessingProgramExamples new programAlpinerWanderweg.
+	program := ProcessingSourceExamples new sourceAlpinerWanderweg program.
 	steps := program runSteps.
 	self assert: steps size equals: 7.
 	^ steps
@@ -44,7 +44,7 @@ ProcessingRunnerExamples >> runAnimation [
 
 	<gtExample>
 	| program runner detected |
-	program := ProcessingProgramExamples new programAnimation.
+	program := ProcessingSourceExamples new sourceAnimation program.
 	detected := (program runFor: 0.1 seconds) wait.
 	self assert: detected asString equals: 'AsyncFutureCancelled'.
 
@@ -64,7 +64,7 @@ ProcessingRunnerExamples >> runAnimation2 [
 
 	<gtExample>
 	| program runner detected |
-	program := ProcessingProgramExamples new programAnimation2.
+	program := ProcessingSourceExamples new sourceAnimation2 program.
 	runner := program runFor: 0.1 seconds.
 	detected := runner wait.
 	self assert: detected asString equals: 'AsyncFutureCancelled'.
@@ -86,7 +86,7 @@ ProcessingRunnerExamples >> runAnimation2Stepwise [
 	<gtExample>
 	<noTest>
 	| program steps |
-	program := ProcessingProgramExamples new programAnimation2.
+	program := ProcessingSourceExamples new sourceAnimation2 program.
 	steps := program runStepsFor: 0.1 seconds.
 	self assert: steps isNotEmpty.
 	self
@@ -106,7 +106,7 @@ ProcessingRunnerExamples >> runAnimationStepwise [
 
 	<gtExample>
 	| program steps |
-	program := ProcessingProgramExamples new programAnimation.
+	program := ProcessingSourceExamples new sourceAnimation program.
 	steps := program runStepsFor: 0.1 seconds.
 	self assert: steps isNotEmpty.
 	self
@@ -118,7 +118,7 @@ ProcessingRunnerExamples >> runAnimationStepwise [
 ProcessingRunnerExamples >> runColors [
 	<gtExample>
 	| program runner |
-	program := ProcessingProgramExamples new programColors.
+	program := ProcessingSourceExamples new sourceColors program.
 	runner := self newRunner.
 	runner
 		run: program compilation;
@@ -134,7 +134,7 @@ ProcessingRunnerExamples >> runColors [
 ProcessingRunnerExamples >> runExample02 [
 	<gtExample>
 	| program runner |
-	program := ProcessingProgramExamples new programExample02.
+	program := ProcessingSourceExamples new sourceExample02 program.
 	runner := self newRunner.
 	runner
 		run: program compilation;
@@ -151,14 +151,15 @@ ProcessingRunnerExamples >> runExample02 [
 ProcessingRunnerExamples >> runExample02Stepwise [
 	<gtExample>
 	| program runner steps |
-	program := ProcessingProgramExamples new programExample02.
+	program := ProcessingSourceExamples new sourceExample02 program.
 	runner := self newRunner.
 	steps := runner runStepwise: program compilation.
 	self assert: steps size equals: 25.
 	self assert: runner isDone.
 	self
 		assert: (steps collect: [ :s | s variables at: 'a' ])
-		equals: #(nil nil 0 0 0 0 0 50 50 50 50 50 100 100 100 100 100 150 150 150 150 150 200 200 200) asOrderedCollection.
+		equals: #(nil nil 0 0 0 0 0 50 50 50 50 50 100 100 100 100 100 150 150 150 150 150 200 200 200)
+				asOrderedCollection.
 	^ steps
 ]
 
@@ -169,7 +170,7 @@ ProcessingRunnerExamples >> runExample03 [
 	<gtExample>
 	<noTest>
 	| program runner |
-	program := ProcessingProgramExamples new programExample03.
+	program := ProcessingSourceExamples new sourceExample03 program.
 	runner := self newRunner.
 	runner
 		run: program compilation;
@@ -186,7 +187,7 @@ ProcessingRunnerExamples >> runExample03 [
 ProcessingRunnerExamples >> runExample04 [
 	<gtExample>
 	| program runner |
-	program := ProcessingProgramExamples new programExample04.
+	program := ProcessingSourceExamples new sourceExample04 program.
 	runner := self newRunner.
 	runner
 		run: program compilation;
@@ -204,7 +205,7 @@ ProcessingRunnerExamples >> runExample04 [
 ProcessingRunnerExamples >> runExample05 [
 	<gtExample>
 	| program runner |
-	program := ProcessingProgramExamples new programExample05.
+	program := ProcessingSourceExamples new sourceExample05 program.
 	runner := self newRunner.
 	runner
 		run: program compilation;
@@ -225,7 +226,7 @@ ProcessingRunnerExamples >> runExample05 [
 ProcessingRunnerExamples >> runExample06 [
 	<gtExample>
 	| program runner |
-	program := ProcessingProgramExamples new programExample06.
+	program := ProcessingSourceExamples new sourceExample06 program.
 	runner := self newRunner.
 	runner
 		run: program compilation;
@@ -243,7 +244,7 @@ ProcessingRunnerExamples >> runExample06 [
 ProcessingRunnerExamples >> runExample06Stepwise [
 	<gtExample>
 	| program runner steps |
-	program := ProcessingProgramExamples new programExample06.
+	program := ProcessingSourceExamples new sourceExample06 program.
 	runner := self newRunner.
 	steps := runner runStepwise: program compilation.
 	self assert: steps size equals: 13.
@@ -255,7 +256,7 @@ ProcessingRunnerExamples >> runExample06Stepwise [
 ProcessingRunnerExamples >> runExample07 [
 	<gtExample>
 	| program runner |
-	program := ProcessingProgramExamples new programExample07.
+	program := ProcessingSourceExamples new sourceExample07 program.
 	runner := self newRunner.
 	runner
 		run: program compilation;
@@ -271,7 +272,7 @@ ProcessingRunnerExamples >> runExample07 [
 ProcessingRunnerExamples >> runExample07Stepwise [
 	<gtExample>
 	| program runner steps |
-	program := ProcessingProgramExamples new programExample07.
+	program := ProcessingSourceExamples new sourceExample07 program.
 	runner := self newRunner.
 	steps := runner runStepwise: program compilation.
 	self assert: steps size equals: 7.
@@ -283,7 +284,7 @@ ProcessingRunnerExamples >> runExample07Stepwise [
 ProcessingRunnerExamples >> runFibonacci [
 	<gtExample>
 	| program runner |
-	program := ProcessingProgramExamples new programFibonacci.
+	program := ProcessingSourceExamples new sourceFibonacci program.
 	runner := self newRunner.
 	runner
 		run: program compilation;
@@ -299,7 +300,7 @@ ProcessingRunnerExamples >> runFibonacci [
 ProcessingRunnerExamples >> runFibonacciStepwise [
 	<gtExample>
 	| program runner steps |
-	program := ProcessingProgramExamples new programFibonacci.
+	program := ProcessingSourceExamples new sourceFibonacci program.
 	runner := self newRunner.
 	steps := runner
 			limitTo: 2 seconds;
@@ -313,7 +314,7 @@ ProcessingRunnerExamples >> runFibonacciStepwise [
 ProcessingRunnerExamples >> runImage [
 	<gtExample>
 	| program runner |
-	program := ProcessingProgramExamples new programImage.
+	program := ProcessingSourceExamples new sourceImage program.
 	runner := self newRunner.
 	runner
 		run: program compilation;
@@ -331,7 +332,7 @@ ProcessingRunnerExamples >> runInterrupted [
 	<gtExample>
 	<noTest>
 	| program runner detected |
-	program := ProcessingProgramExamples new programEndlessLoop.
+	program := ProcessingSourceExamples new sourceEndlessLoop program.
 	detected := nil.
 	[ program canvas ]
 		on: ProcessingRunawayProgramException
@@ -358,7 +359,7 @@ ProcessingRunnerExamples >> runInterruptedStepwise [
 	<gtExample>
 	<noTest>
 	| program runner steps |
-	program := ProcessingProgramExamples new programEndlessLoop.
+	program := ProcessingSourceExamples new sourceEndlessLoop program.
 	steps := program runSteps.
 	self assert: steps size equals: 1.
 	self
@@ -377,7 +378,7 @@ ProcessingRunnerExamples >> runInterruptedStepwise [
 ProcessingRunnerExamples >> runLists [
 	<gtExample>
 	| program runner |
-	program := ProcessingProgramExamples new programLists.
+	program := ProcessingSourceExamples new sourceLists program.
 	runner := self newRunner.
 	runner
 		run: program compilation;
@@ -396,7 +397,7 @@ ProcessingRunnerExamples >> runLists [
 ProcessingRunnerExamples >> runLists2 [
 	<gtExample>
 	| program runner |
-	program := ProcessingProgramExamples new programLists2.
+	program := ProcessingSourceExamples new sourceLists2 program.
 	runner := self newRunner.
 	runner
 		run: program compilation;
@@ -415,7 +416,7 @@ ProcessingRunnerExamples >> runLists2 [
 ProcessingRunnerExamples >> runLists2Stepwise [
 	<gtExample>
 	| program runner steps |
-	program := ProcessingProgramExamples new programLists2.
+	program := ProcessingSourceExamples new sourceLists2 program.
 	runner := self newRunner.
 	steps := runner
 			limitTo: 2 seconds;
@@ -470,7 +471,7 @@ ProcessingRunnerExamples >> runLists2Stepwise [
 ProcessingRunnerExamples >> runMinimal [
 	<gtExample>
 	| program runner |
-	program := ProcessingProgramExamples new programMinimal.
+	program := ProcessingSourceExamples new sourceMinimal program.
 	runner := self newRunner.
 	runner
 		run: program compilation;
@@ -485,7 +486,7 @@ ProcessingRunnerExamples >> runMinimal [
 ProcessingRunnerExamples >> runPrecendence [
 	<gtExample>
 	| program runner |
-	program := ProcessingProgramExamples new programPrecedence.
+	program := ProcessingSourceExamples new sourcePrecedence program.
 	runner := self newRunner.
 	runner
 		run: program compilation;
@@ -501,7 +502,7 @@ ProcessingRunnerExamples >> runPrecendence [
 ProcessingRunnerExamples >> runPresentationDemo [
 	<gtExample>
 	| program runner |
-	program := ProcessingProgramExamples new programPresentationDemo.
+	program := ProcessingSourceExamples new sourcePresentationDemo program.
 	runner := self newRunner.
 	runner
 		run: program compilation;
@@ -520,7 +521,7 @@ ProcessingRunnerExamples >> runPresentationDemo [
 ProcessingRunnerExamples >> runPresentationDemoStepwise [
 	<gtExample>
 	| program runner steps |
-	program := ProcessingProgramExamples new programPresentationDemo.
+	program := ProcessingSourceExamples new sourcePresentationDemo program.
 	runner := self newRunner.
 	steps := runner runStepwise: program compilation.
 	self assert: steps size equals: 28.
@@ -532,7 +533,7 @@ ProcessingRunnerExamples >> runPresentationDemoStepwise [
 ProcessingRunnerExamples >> runPrint [
 	<gtExample>
 	| program runner |
-	program := ProcessingProgramExamples new programPrint.
+	program := ProcessingSourceExamples new sourcePrint program.
 	runner := self newRunner.
 	self assert: runner canvas isNil.
 	runner
@@ -553,7 +554,7 @@ ProcessingRunnerExamples >> runPrint [
 ProcessingRunnerExamples >> runRandom [
 	<gtExample>
 	| program runner |
-	program := ProcessingProgramExamples new programRandom.
+	program := ProcessingSourceExamples new sourceRandom program.
 	runner := self newRunner.
 	runner
 		run: program compilation;
@@ -569,7 +570,7 @@ ProcessingRunnerExamples >> runRandom [
 ProcessingRunnerExamples >> runRecursion [
 	<gtExample>
 	| program runner |
-	program := ProcessingProgramExamples new programRecursion.
+	program := ProcessingSourceExamples new sourceRecursion program.
 	runner := program runFor: 2 seconds.
 	self assert: runner canvas isNotNil.
 	self assert: runner isDone not.
@@ -607,7 +608,7 @@ ProcessingRunnerExamples >> runRuntimeError [
 ProcessingRunnerExamples >> runShapesStepwise [
 	<gtExample>
 	| program runner steps |
-	program := ProcessingProgramExamples new programShapes.
+	program := ProcessingSourceExamples new sourceShapes program.
 	runner := self newRunner.
 	steps := runner
 			limitTo: 2 seconds;
@@ -622,7 +623,7 @@ ProcessingRunnerExamples >> runShapesStepwise [
 ProcessingRunnerExamples >> runSierpinski [
 	<gtExample>
 	| program runner |
-	program := ProcessingProgramExamples new programSierpinski.
+	program := ProcessingSourceExamples new sourceSierpinski program.
 	runner := self newRunner.
 	runner
 		run: program compilation;
@@ -641,7 +642,7 @@ ProcessingRunnerExamples >> runSierpinskiStepwise [
 	<gtExample>
 	<noTest>
 	| program runner steps |
-	program := ProcessingProgramExamples new programSierpinski.
+	program := ProcessingSourceExamples new sourceSierpinski program.
 	runner := self newRunner.
 	steps := runner runStepwise: program compilation.
 	self assert: steps size equals: 583.
@@ -653,7 +654,7 @@ ProcessingRunnerExamples >> runSierpinskiStepwise [
 ProcessingRunnerExamples >> runSpiral [
 	<gtExample>
 	| program runner |
-	program := ProcessingProgramExamples new programSpiral.
+	program := ProcessingSourceExamples new sourceSpiral program.
 	runner := self newRunner.
 	runner
 		run: program compilation;
@@ -670,7 +671,7 @@ ProcessingRunnerExamples >> runSpiralStepwise [
 	<gtExample>
 	<noTest>
 	| program runner steps |
-	program := ProcessingProgramExamples new programSpiral.
+	program := ProcessingSourceExamples new sourceSpiral program.
 	runner := self newRunner.
 	steps := runner runStepwise: program compilation.
 	self assert: steps size equals: 488.
@@ -682,7 +683,7 @@ ProcessingRunnerExamples >> runSpiralStepwise [
 ProcessingRunnerExamples >> runTurtleGraphics [
 	<gtExample>
 	| program runner |
-	program := ProcessingProgramExamples new programTurtleGraphics.
+	program := ProcessingSourceExamples new sourceTurtleGraphics program.
 	runner := self newRunner.
 	runner
 		run: program compilation;

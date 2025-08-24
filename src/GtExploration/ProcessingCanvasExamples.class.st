@@ -9,7 +9,7 @@ ProcessingCanvasExamples >> alpinerWanderweg [
 	<gtExample>
 	| canvas child |
 	canvas := self
-			synchronousCanvas: ProcessingProgramExamples new programAlpinerWanderweg.
+			synchronousCanvas: ProcessingSourceExamples new sourceAlpinerWanderweg program.
 
 	self assert: canvas fillColor equals: Color red.
 	self assert: canvas canvasElement children size equals: 2.
@@ -138,7 +138,7 @@ ProcessingCanvasExamples >> example02 [
 	<gtExample>
 	| canvas |
 	canvas := self
-			synchronousCanvas: ProcessingProgramExamples new programExample02.
+			synchronousCanvas: ProcessingSourceExamples new sourceExample02 program.
 	self assert: canvas canvasElement children size equals: 5.
 	self
 		assert: (canvas canvasElement children select: [ :el | el isKindOf: BlEllipseElement ])
@@ -193,7 +193,8 @@ ProcessingCanvasExamples >> example02Scripter [
 ProcessingCanvasExamples >> examplePrint [
 	<gtExample>
 	| canvas |
-	canvas := self synchronousCanvas: ProcessingProgramExamples new programPrint.
+	canvas := self
+			synchronousCanvas: ProcessingSourceExamples new sourcePrint program.
 	self assert: canvas canvasElement children size equals: 0.
 	self assert: canvas asElement children size equals: 2.
 	self assert: (canvas asElement children last isKindOf: GtTranscriptElement).
@@ -213,7 +214,7 @@ ProcessingCanvasExamples >> fibonacci [
 	<gtExample>
 	| canvas |
 	canvas := self
-			synchronousCanvas: ProcessingProgramExamples new programFibonacci.
+			synchronousCanvas: ProcessingSourceExamples new sourceFibonacci program.
 	self assert: canvas textSize equals: 50.
 	self assert: canvas canvasElement children size equals: 2.
 	self assert: (canvas canvasElement children first isKindOf: BlTextElement).
@@ -276,7 +277,7 @@ ProcessingCanvasExamples >> mouseEvents2Scripter [
 	<gtExample>
 	| canvas |
 	canvas := self
-			synchronousCanvas: ProcessingProgramExamples new programMouseEvents2.
+			synchronousCanvas: ProcessingSourceExamples new sourceMouseEvents2 program.
 	^ BlScripter new
 		element: canvas canvasElement;
 		substeps: 'Mouse move'
@@ -340,11 +341,27 @@ ProcessingCanvasExamples >> mouseEventsScripter [
 ]
 
 { #category : #example }
+ProcessingCanvasExamples >> presentationDemo [
+	<gtExample>
+	| canvas |
+	canvas := self
+			synchronousCanvas: ProcessingSourceExamples new sourcePresentationDemo program.
+	self assert: canvas canvasElement children size equals: 0.
+	self assert: canvas asElement children size equals: 2.
+	self assert: (canvas asElement children last isKindOf: GtTranscriptElement).
+	self
+		assert: (canvas asElement children last transcript textDo: #asString)
+		equals: '21'.
+	self assert: (canvas transcript textDo: #asString) equals: '21'.
+	^ canvas
+]
+
+{ #category : #example }
 ProcessingCanvasExamples >> recursion [
 	<gtExample>
 	| canvas |
 	canvas := self
-			synchronousCanvas: ProcessingProgramExamples new programRecursion.
+			synchronousCanvas: ProcessingSourceExamples new sourceRecursion program.
 	self assert: canvas canvasElement children size equals: 19.
 	self
 		assert: (canvas canvasElement children select: [ :el | el isKindOf: BlEllipseElement ])
@@ -357,7 +374,8 @@ ProcessingCanvasExamples >> recursion [
 ProcessingCanvasExamples >> shapes [
 	<gtExample>
 	| canvas |
-	canvas := self synchronousCanvas: ProcessingProgramExamples new programShapes.
+	canvas := self
+			synchronousCanvas: ProcessingSourceExamples new sourceShapes program.
 
 	self assert: canvas fillColor equals: Color white.
 	self assert: canvas strokeColor equals: Color white.
@@ -379,7 +397,7 @@ ProcessingCanvasExamples >> sierpinski [
 	<gtExample>
 	| canvas |
 	canvas := self
-			synchronousCanvas: ProcessingProgramExamples new programSierpinski.
+			synchronousCanvas: ProcessingSourceExamples new sourceSierpinski program.
 	self assert: canvas shapes size equals: 27.
 	self assert: canvas canvasElement children size equals: 27.
 	^ canvas

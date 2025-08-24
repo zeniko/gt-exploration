@@ -5,10 +5,31 @@ Class {
 }
 
 { #category : #example }
+ProcessingTranspilerExamples >> allTranspilations [
+	<gtExample>
+	| compilations |
+	compilations := OrderedCollection new.
+	self testData
+		keysAndValuesDo: [ :name :data | 
+			| ast transpiler compilation |
+			ast := ProcessingSourceExamples astFor: name.
+			transpiler := self newTranspiler.
+			self
+				assert: (transpiler transpile: ast)
+				equals: (self perform: #transpilation , name).
+			self assert: (' ' join: transpiler variables sorted) equals: data first.
+			self assert: (' ' join: transpiler userDefs keys sorted) equals: data second.
+			compilation := transpiler compile: ast.
+			self compare: compilation with: (self perform: #transpilation , name).
+			compilations add: compilation ].
+	^ compilations
+]
+
+{ #category : #example }
 ProcessingTranspilerExamples >> allViews [
 	<gtExample>
 	| compilation views |
-	compilation := self transpileMinimal.
+	compilation := self transpilePresentationDemo.
 	views := ProcessingCodeBase methodDict keys
 			select: [ :key | (key beginsWith: 'gt') & (key endsWith: 'For:') ].
 	self assert: views size equals: 7.
@@ -43,6 +64,51 @@ ProcessingTranspilerExamples >> newTranspiler [
 	transpiler := ProcessingTranspiler new.
 	self assert: transpiler variables equals: nil.
 	^ transpiler
+]
+
+{ #category : #example }
+ProcessingTranspilerExamples >> testData [
+	"Map source code from ProgramSourceExamples to global variables and user defined functions"
+
+	<gtExample>
+	| testData |
+	testData := {#AlpinerWanderweg -> #('' '').
+			#Animation -> #('var' 'draw setup').
+			#Animation2 -> #('dx dy x y' 'draw setup').
+			#Colors -> #('c' '').
+			#EndlessLoop -> #('' '').
+			#Example02 -> #('a' '').
+			#Example03 -> #('x' '').
+			#Example04 -> #('x' 'setX setY').
+			#Example05 -> #('gt_A gt_B' '').
+			#Example06 -> #('cond var' '').
+			#Example07 -> #('a' '').
+			#Fibonacci -> #('' 'fibonacci').
+			#Image -> #('img' '').
+			#Lists -> #('a b c d e f g h j k l' '').
+			#Lists2 -> #('a' '').
+			#Minimal -> #('' '').
+			#MouseEvents -> #('' 'draw setup').
+			#MouseEvents2 -> #('' 'draw mouseMoved mousePressed mouseReleased setup').
+			#Precedence -> #('' '').
+			#PresentationDemo -> #('a b' '').
+			#Print -> #('var' '').
+			#Random -> #('' '').
+			#Recursion -> #('' 'recursion').
+			#RuntimeError -> #('' '').
+			#Shapes -> #('' '').
+			#Sierpinski -> #('px' 'sierpinski').
+			#Simulation
+				-> #('anzahl_kranke anzahl_personen genesung groesse risiko x_koordinaten y_koordinaten zustand' 'draw krankheit_uebertragen personen_anzeigen personen_bewegen personen_platzieren setup').
+			#Spiral -> #('' '').
+			#Switzerland -> #('' '').
+			#Transforms -> #('' '').
+			#TurtleGraphics -> #('t_angle t_x t_y' 'draw_n_eck fwd kochpart move turn')}
+			asDictionary.
+	self
+		assert: testData keys sorted
+		equals: ProcessingSourceExamples new sourceNames.
+	^ testData
 ]
 
 { #category : #transpilation }
@@ -376,6 +442,12 @@ recursion: n
 ]
 
 { #category : #transpilation }
+ProcessingTranspilerExamples >> transpilationRuntimeError [
+	^ 'gtRun
+	(1 / 0).'
+]
+
+{ #category : #transpilation }
 ProcessingTranspilerExamples >> transpilationShapes [
 	^ 'gtRun
 	width := 200. height := 200. gtCanvas size: width by: height.
@@ -618,265 +690,20 @@ turn: angle
 ]
 
 { #category : #example }
-ProcessingTranspilerExamples >> transpileAlpinerWanderweg [
-	<gtExample>
-	| ast transpiler |
-	ast := ProcessingProgramExamples new programAlpinerWanderweg ast.
-	transpiler := self newTranspiler.
-	self
-		assert: (transpiler transpile: ast)
-		equals: self transpilationAlpinerWanderweg.
-	self assert: transpiler variables size equals: 0.
-	self assert: transpiler userDefs size equals: 0.
-	self
-		compare: (transpiler compile: ast)
-		with: self transpilationAlpinerWanderweg.
-	^ transpiler compile: ast
-]
-
-{ #category : #example }
-ProcessingTranspilerExamples >> transpileAnimation [
-	<gtExample>
-	| ast transpiler |
-	ast := ProcessingProgramExamples new programAnimation ast.
-	transpiler := self newTranspiler.
-	self assert: (transpiler transpile: ast) equals: self transpilationAnimation.
-	self assert: transpiler variables size equals: 1.
-	self assert: (' ' join: transpiler variables sorted) equals: 'var'.
-	self assert: transpiler userDefs size equals: 2.
-	self compare: (transpiler compile: ast) with: self transpilationAnimation.
-	^ transpiler compile: ast
-]
-
-{ #category : #example }
-ProcessingTranspilerExamples >> transpileAnimation2 [
-	<gtExample>
-	| ast transpiler |
-	ast := ProcessingProgramExamples new programAnimation2 ast.
-	transpiler := self newTranspiler.
-	self assert: (transpiler transpile: ast) equals: self transpilationAnimation2.
-	self assert: transpiler variables size equals: 4.
-	self assert: (' ' join: transpiler variables sorted) equals: 'dx dy x y'.
-	self assert: transpiler userDefs size equals: 2.
-	self compare: (transpiler compile: ast) with: self transpilationAnimation2.
-	^ transpiler compile: ast
-]
-
-{ #category : #example }
-ProcessingTranspilerExamples >> transpileColors [
-	<gtExample>
-	| ast transpiler |
-	ast := ProcessingProgramExamples new programColors ast.
-	transpiler := self newTranspiler.
-	self assert: (transpiler transpile: ast) equals: self transpilationColors.
-	self assert: transpiler variables size equals: 1.
-	self assert: (' ' join: transpiler variables sorted) equals: 'c'.
-	self assert: transpiler userDefs size equals: 0.
-	self compare: (transpiler compile: ast) with: self transpilationColors.
-	^ transpiler compile: ast
-]
-
-{ #category : #example }
-ProcessingTranspilerExamples >> transpileEndlessLoop [
-	<gtExample>
-	| ast transpiler |
-	ast := ProcessingProgramExamples new programEndlessLoop ast.
-	transpiler := self newTranspiler.
-	self assert: (transpiler transpile: ast) equals: self transpilationEndlessLoop.
-	self assert: transpiler variables size equals: 0.
-	self assert: transpiler userDefs size equals: 0.
-	self compare: (transpiler compile: ast) with: self transpilationEndlessLoop.
-	^ transpiler compile: ast
-]
-
-{ #category : #example }
 ProcessingTranspilerExamples >> transpileExample02 [
 	<gtExample>
 	| ast transpiler |
-	ast := ProcessingProgramExamples new programExample02 ast.
+	ast := ProcessingSourceExamples new sourceExample02 program ast.
 	transpiler := self newTranspiler.
-	self assert: (transpiler transpile: ast) equals: self transpilationExample02.
+	self
+		assert: (transpiler transpile: ast)
+		equals: self transpilationExample02.
 	self assert: transpiler variables size equals: 1.
 	self assert: (' ' join: transpiler variables sorted) equals: 'a'.
 	self assert: transpiler userDefs size equals: 0.
-	self compare: (transpiler compile: ast) with: self transpilationExample02.
-	^ transpiler compile: ast
-]
-
-{ #category : #example }
-ProcessingTranspilerExamples >> transpileExample03 [
-	<gtExample>
-	| ast transpiler |
-	ast := ProcessingProgramExamples new programExample03 ast.
-	transpiler := self newTranspiler.
-	self assert: (transpiler transpile: ast) equals: self transpilationExample03.
-	self assert: transpiler variables size equals: 1.
-	self assert: (' ' join: transpiler variables sorted) equals: 'x'.
-	self assert: transpiler userDefs size equals: 0.
-	self compare: (transpiler compile: ast) with: self transpilationExample03.
-	^ transpiler compile: ast
-]
-
-{ #category : #example }
-ProcessingTranspilerExamples >> transpileExample04 [
-	<gtExample>
-	| ast transpiler |
-	ast := ProcessingProgramExamples new programExample04 ast.
-	transpiler := self newTranspiler.
-	self assert: (transpiler transpile: ast) equals: self transpilationExample04.
-	self assert: transpiler variables size equals: 1.
-	self assert: (' ' join: transpiler variables sorted) equals: 'x'.
-	self assert: transpiler userDefs size equals: 2.
-	self compare: (transpiler compile: ast) with: self transpilationExample04.
-	^ transpiler compile: ast
-]
-
-{ #category : #example }
-ProcessingTranspilerExamples >> transpileExample05 [
-	<gtExample>
-	| ast transpiler |
-	ast := ProcessingProgramExamples new programExample05 ast.
-	transpiler := self newTranspiler.
-	self assert: (transpiler transpile: ast) equals: self transpilationExample05.
-	self assert: transpiler variables size equals: 2.
-	self assert: (' ' join: transpiler variables sorted) equals: 'gt_A gt_B'.
-	self assert: transpiler userDefs size equals: 0.
-	self compare: (transpiler compile: ast) with: self transpilationExample05.
-	^ transpiler compile: ast
-]
-
-{ #category : #example }
-ProcessingTranspilerExamples >> transpileExample06 [
-	<gtExample>
-	| ast transpiler |
-	ast := ProcessingProgramExamples new programExample06 ast.
-	transpiler := self newTranspiler.
-	self assert: (transpiler transpile: ast) equals: self transpilationExample06.
-	self assert: transpiler variables size equals: 2.
-	self assert: (' ' join: transpiler variables sorted) equals: 'cond var'.
-	self assert: transpiler userDefs size equals: 0.
-	self compare: (transpiler compile: ast) with: self transpilationExample06.
-	^ transpiler compile: ast
-]
-
-{ #category : #example }
-ProcessingTranspilerExamples >> transpileExample07 [
-	<gtExample>
-	| ast transpiler |
-	ast := ProcessingProgramExamples new programExample07 ast.
-	transpiler := self newTranspiler.
-	self assert: (transpiler transpile: ast) equals: self transpilationExample07.
-	self assert: transpiler variables size equals: 1.
-	self assert: (' ' join: transpiler variables sorted) equals: 'a'.
-	self assert: transpiler userDefs size equals: 0.
-	self compare: (transpiler compile: ast) with: self transpilationExample07.
-	^ transpiler compile: ast
-]
-
-{ #category : #example }
-ProcessingTranspilerExamples >> transpileFibonacci [
-	<gtExample>
-	| ast transpiler |
-	ast := ProcessingProgramExamples new programFibonacci ast.
-	transpiler := self newTranspiler.
-	self assert: (transpiler transpile: ast) equals: self transpilationFibonacci.
-	self assert: transpiler variables size equals: 0.
-	self assert: transpiler userDefs size equals: 1.
-	self compare: (transpiler compile: ast) with: self transpilationFibonacci.
-	^ transpiler compile: ast
-]
-
-{ #category : #example }
-ProcessingTranspilerExamples >> transpileImage [
-	<gtExample>
-	| ast transpiler |
-	ast := ProcessingProgramExamples new programImage ast.
-	transpiler := self newTranspiler.
-	self assert: (transpiler transpile: ast) equals: self transpilationImage.
-	self assert: transpiler variables size equals: 1.
-	self assert: (' ' join: transpiler variables sorted) equals: 'img'.
-	self assert: transpiler userDefs size equals: 0.
-	self compare: (transpiler compile: ast) with: self transpilationImage.
-	^ transpiler compile: ast
-]
-
-{ #category : #example }
-ProcessingTranspilerExamples >> transpileLists [
-	<gtExample>
-	| ast transpiler |
-	ast := ProcessingProgramExamples new programLists ast.
-	transpiler := self newTranspiler.
-	self assert: (transpiler transpile: ast) equals: self transpilationLists.
-	self assert: transpiler variables size equals: 11.
-	self assert: (' ' join: transpiler variables sorted) equals: 'a b c d e f g h j k l'.
-	self assert: transpiler userDefs size equals: 0.
-	self compare: (transpiler compile: ast) with: self transpilationLists.
-	^ transpiler compile: ast
-]
-
-{ #category : #example }
-ProcessingTranspilerExamples >> transpileLists2 [
-	<gtExample>
-	| ast transpiler |
-	ast := ProcessingProgramExamples new programLists2 ast.
-	transpiler := self newTranspiler.
-	self assert: (transpiler transpile: ast) equals: self transpilationLists2.
-	self assert: transpiler variables size equals: 1.
-	self assert: (' ' join: transpiler variables sorted) equals: 'a'.
-	self assert: transpiler userDefs size equals: 0.
-	self compare: (transpiler compile: ast) with: self transpilationLists2.
-	^ transpiler compile: ast
-]
-
-{ #category : #example }
-ProcessingTranspilerExamples >> transpileMinimal [
-	<gtExample>
-	| ast transpiler |
-	ast := ProcessingProgramExamples new programMinimal ast.
-	transpiler := self newTranspiler.
-	self assert: (transpiler transpile: ast) equals: self transpilationMinimal.
-	self assert: transpiler variables size equals: 0.
-	self assert: transpiler userDefs size equals: 0.
-	self compare: (transpiler compile: ast) with: self transpilationMinimal.
-	^ transpiler compile: ast
-]
-
-{ #category : #example }
-ProcessingTranspilerExamples >> transpileMouseEvents [
-	<gtExample>
-	| ast transpiler |
-	ast := ProcessingProgramExamples new programMouseEvents ast.
-	transpiler := self newTranspiler.
-	self assert: (transpiler transpile: ast) equals: self transpilationMouseEvents.
-	self assert: transpiler variables size equals: 0.
-	self assert: transpiler userDefs size equals: 2.
-	self compare: (transpiler compile: ast) with: self transpilationMouseEvents.
-	^ transpiler compile: ast
-]
-
-{ #category : #example }
-ProcessingTranspilerExamples >> transpileMouseEvents2 [
-	<gtExample>
-	| ast transpiler |
-	ast := ProcessingProgramExamples new programMouseEvents2 ast.
-	transpiler := self newTranspiler.
-	self assert: (transpiler transpile: ast) equals: self transpilationMouseEvents2.
-	self assert: transpiler variables size equals: 0.
-	self assert: transpiler userDefs size equals: 5.
-	self compare: (transpiler compile: ast) with: self transpilationMouseEvents2.
-	^ transpiler compile: ast
-]
-
-{ #category : #example }
-ProcessingTranspilerExamples >> transpilePrecedence [
-	<gtExample>
-	| ast transpiler |
-	ast := ProcessingProgramExamples new programPrecedence ast.
-	transpiler := self newTranspiler.
-	self assert: (transpiler transpile: ast) equals: self transpilationPrecedence.
-	self assert: transpiler variables size equals: 0.
-	self assert: transpiler userDefs size equals: 0.
-	self compare: (transpiler compile: ast) with: self transpilationPrecedence.
+	self
+		compare: (transpiler compile: ast)
+		with: self transpilationExample02.
 	^ transpiler compile: ast
 ]
 
@@ -884,40 +711,17 @@ ProcessingTranspilerExamples >> transpilePrecedence [
 ProcessingTranspilerExamples >> transpilePresentationDemo [
 	<gtExample>
 	| ast transpiler |
-	ast := ProcessingProgramExamples new programPresentationDemo ast.
+	ast := ProcessingSourceExamples new sourcePresentationDemo program ast.
 	transpiler := self newTranspiler.
-	self assert: (transpiler transpile: ast) equals: self transpilationPresentationDemo.
+	self
+		assert: (transpiler transpile: ast)
+		equals: self transpilationPresentationDemo.
 	self assert: transpiler variables size equals: 2.
 	self assert: (' ' join: transpiler variables sorted) equals: 'a b'.
 	self assert: transpiler userDefs size equals: 0.
-	self compare: (transpiler compile: ast) with: self transpilationPresentationDemo.
-	^ transpiler compile: ast
-]
-
-{ #category : #example }
-ProcessingTranspilerExamples >> transpilePrint [
-	<gtExample>
-	| ast transpiler |
-	ast := ProcessingProgramExamples new programPrint ast.
-	transpiler := self newTranspiler.
-	self assert: (transpiler transpile: ast) equals: self transpilationPrint.
-	self assert: transpiler variables size equals: 1.
-	self assert: (' ' join: transpiler variables sorted) equals: 'var'.
-	self assert: transpiler userDefs size equals: 0.
-	self compare: (transpiler compile: ast) with: self transpilationPrint.
-	^ transpiler compile: ast
-]
-
-{ #category : #example }
-ProcessingTranspilerExamples >> transpileRandom [
-	<gtExample>
-	| ast transpiler |
-	ast := ProcessingProgramExamples new programRandom ast.
-	transpiler := self newTranspiler.
-	self assert: (transpiler transpile: ast) equals: self transpilationRandom.
-	self assert: transpiler variables size equals: 0.
-	self assert: transpiler userDefs size equals: 0.
-	self compare: (transpiler compile: ast) with: self transpilationRandom.
+	self
+		compare: (transpiler compile: ast)
+		with: self transpilationPresentationDemo.
 	^ transpiler compile: ast
 ]
 
@@ -925,107 +729,11 @@ ProcessingTranspilerExamples >> transpileRandom [
 ProcessingTranspilerExamples >> transpileRecursion [
 	<gtExample>
 	| ast transpiler |
-	ast := ProcessingProgramExamples new programRecursion ast.
+	ast := ProcessingSourceExamples new sourceRecursion program ast.
 	transpiler := self newTranspiler.
 	self assert: (transpiler transpile: ast) equals: self transpilationRecursion.
 	self assert: transpiler variables size equals: 0.
 	self assert: transpiler userDefs size equals: 1.
 	self compare: (transpiler compile: ast) with: self transpilationRecursion.
-	^ transpiler compile: ast
-]
-
-{ #category : #example }
-ProcessingTranspilerExamples >> transpileShapes [
-	<gtExample>
-	| ast transpiler |
-	ast := ProcessingProgramExamples new programShapes ast.
-	transpiler := self newTranspiler.
-	self assert: (transpiler transpile: ast) equals: self transpilationShapes.
-	self assert: transpiler variables size equals: 0.
-	self assert: transpiler userDefs size equals: 0.
-	self compare: (transpiler compile: ast) with: self transpilationShapes.
-	^ transpiler compile: ast
-]
-
-{ #category : #example }
-ProcessingTranspilerExamples >> transpileSierpinski [
-	<gtExample>
-	| ast transpiler |
-	ast := ProcessingProgramExamples new programSierpinski ast.
-	transpiler := self newTranspiler.
-	self assert: (transpiler transpile: ast) equals: self transpilationSierpinski.
-	self assert: transpiler variables size equals: 1.
-	self assert: (' ' join: transpiler variables sorted) equals: 'px'.
-	self assert: transpiler userDefs size equals: 1.
-	self compare: (transpiler compile: ast) with: self transpilationSierpinski.
-	^ transpiler compile: ast
-]
-
-{ #category : #example }
-ProcessingTranspilerExamples >> transpileSimulation [
-	<gtExample>
-	| ast transpiler |
-	ast := ProcessingProgramExamples new programSimulation ast.
-	transpiler := self newTranspiler.
-	self assert: (transpiler transpile: ast) equals: self transpilationSimulation.
-	self assert: transpiler variables size equals: 8.
-	self assert: (' ' join: transpiler variables sorted) equals: 'anzahl_kranke anzahl_personen genesung groesse risiko x_koordinaten y_koordinaten zustand'.
-	self assert: transpiler userDefs size equals: 6.
-	self compare: (transpiler compile: ast) with: self transpilationSimulation.
-	^ transpiler compile: ast
-]
-
-{ #category : #example }
-ProcessingTranspilerExamples >> transpileSpiral [
-	<gtExample>
-	| ast transpiler |
-	ast := ProcessingProgramExamples new programSpiral ast.
-	transpiler := self newTranspiler.
-	self assert: (transpiler transpile: ast) equals: self transpilationSpiral.
-	self assert: transpiler variables size equals: 0.
-	self assert: transpiler userDefs size equals: 0.
-	self compare: (transpiler compile: ast) with: self transpilationSpiral.
-	^ transpiler compile: ast
-]
-
-{ #category : #example }
-ProcessingTranspilerExamples >> transpileSwitzerland [
-	<gtExample>
-	| ast transpiler |
-	ast := ProcessingProgramExamples new programSwitzerland ast.
-	transpiler := self newTranspiler.
-	self assert: (transpiler transpile: ast) equals: self transpilationSwitzerland.
-	self assert: transpiler variables size equals: 0.
-	self assert: transpiler userDefs size equals: 0.
-	self compare: (transpiler compile: ast) with: self transpilationSwitzerland.
-	^ transpiler compile: ast
-]
-
-{ #category : #example }
-ProcessingTranspilerExamples >> transpileTransforms [
-	<gtExample>
-	| ast transpiler |
-	ast := ProcessingProgramExamples new programTransforms ast.
-	transpiler := self newTranspiler.
-	self assert: (transpiler transpile: ast) equals: self transpilationTransforms.
-	self assert: transpiler variables size equals: 0.
-	self assert: transpiler userDefs size equals: 0.
-	self compare: (transpiler compile: ast) with: self transpilationTransforms.
-	^ transpiler compile: ast
-]
-
-{ #category : #example }
-ProcessingTranspilerExamples >> transpileTurtleGraphics [
-	<gtExample>
-	| ast transpiler |
-	ast := ProcessingProgramExamples new programTurtleGraphics ast.
-	transpiler := self newTranspiler.
-	self
-		assert: (transpiler transpile: ast)
-		equals: self transpilationTurtleGraphics.
-	self assert: transpiler variables size equals: 3.
-	self assert: (' ' join: transpiler variables sorted) equals: 't_angle t_x t_y'.
-	self assert: transpiler userDefs size equals: 5.
-	self compare: (transpiler compile: ast) with: self transpilationTurtleGraphics.
 	^ transpiler compile: ast
 ]

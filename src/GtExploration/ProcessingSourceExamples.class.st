@@ -4,11 +4,16 @@ Class {
 	#category : #'GtExploration-Examples'
 }
 
+{ #category : #initialization }
+ProcessingSourceExamples class >> astFor: aName [
+	^ (ProcessingSourceExamples new perform: #source , aName) program ast
+]
+
 { #category : #example }
 ProcessingSourceExamples >> allViews [
 	<gtExample>
 	| source views |
-	source := self sourceMinimal.
+	source := self sourcePresentationDemo.
 	views := source class methodDict keys
 			select: [ :key | (key beginsWith: 'gt') & (key endsWith: 'For:') ].
 	self assert: views size equals: 7.
@@ -741,6 +746,19 @@ ProcessingSourceExamples >> sourceMouseEvents2 [
 	self assert: source asString equals: self sourceCodeMouseEvents2.
 	self assert: source program isNotNil.
 	^ source
+]
+
+{ #category : #example }
+ProcessingSourceExamples >> sourceNames [
+	<gtExample>
+	| names |
+	names := (self class methodDict keys
+			select: [ :key | key beginsWith: #sourceCode ]
+			thenCollect: [ :key | key removePrefix: #sourceCode ]) sorted.
+	self assert: names size equals: 31.
+	names
+		do: [ :name | self assert: (self class methodDict includesKey: #source , name) ].
+	^ names
 ]
 
 { #category : #example }

@@ -5,30 +5,14 @@ Class {
 }
 
 { #category : #example }
-ProcessingTreeMondrianCreatorExamples >> astMondrianExample03 [
+ProcessingTreeMondrianCreatorExamples >> allMondrianTrees [
 	<gtExample>
-	| mondrian program |
-	program := ProcessingProgramExamples new programExample03.
-	mondrian := ProcessingTreeMondrianCreator mondrianFor: program ast.
-	^ mondrian
-]
-
-{ #category : #example }
-ProcessingTreeMondrianCreatorExamples >> astMondrianLists [
-	<gtExample>
-	| mondrian program |
-	program := ProcessingProgramExamples new programLists.
-	mondrian := ProcessingTreeMondrianCreator mondrianFor: program ast.
-	^ mondrian
-]
-
-{ #category : #example }
-ProcessingTreeMondrianCreatorExamples >> astMondrianMinimal [
-	<gtExample>
-	| mondrian program |
-	program := ProcessingProgramExamples new programMinimal.
-	mondrian := ProcessingTreeMondrianCreator mondrianFor: program ast.
-	^ mondrian
+	^ #(#Example03 #Lists #Minimal #PresentationDemo #Print #Sierpinski #Spiral #TurtleGraphics)
+		collect: [ :name | 
+			| ast mondrian |
+			ast := ProcessingSourceExamples astFor: name.
+			mondrian := ProcessingTreeMondrianCreator mondrianFor: ast.
+			mondrian ]
 ]
 
 { #category : #example }
@@ -36,33 +20,6 @@ ProcessingTreeMondrianCreatorExamples >> astMondrianPresentationDemo [
 	<gtExample>
 	| mondrian program |
 	program := ProcessingProgramExamples new programPresentationDemo.
-	mondrian := ProcessingTreeMondrianCreator mondrianFor: program ast.
-	^ mondrian
-]
-
-{ #category : #example }
-ProcessingTreeMondrianCreatorExamples >> astMondrianSierpinski [
-	<gtExample>
-	| mondrian program |
-	program := ProcessingProgramExamples new programSierpinski.
-	mondrian := ProcessingTreeMondrianCreator mondrianFor: program ast.
-	^ mondrian
-]
-
-{ #category : #example }
-ProcessingTreeMondrianCreatorExamples >> astMondrianSpiral [
-	<gtExample>
-	| mondrian program |
-	program := ProcessingProgramExamples new programSpiral.
-	mondrian := ProcessingTreeMondrianCreator mondrianFor: program ast.
-	^ mondrian
-]
-
-{ #category : #example }
-ProcessingTreeMondrianCreatorExamples >> astMondrianTurtleGraphics [
-	<gtExample>
-	| mondrian program |
-	program := ProcessingProgramExamples new programTurtleGraphics.
 	mondrian := ProcessingTreeMondrianCreator mondrianFor: program ast.
 	^ mondrian
 ]
