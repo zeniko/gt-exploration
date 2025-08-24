@@ -28,12 +28,14 @@ ProcessingCanvasElement class >> explainShape: aShape as: aTag [
 
 { #category : #initialization }
 ProcessingCanvasElement >> addTextCanvas: aTranscript [
-	self
-		addChild: (aTranscript asElement
-				constraintsDo: [ :c | 
-					c frame vertical weight: 0.3.
-					c frame vertical alignBottom ]).
-	visualContainer constraintsDo: [ :c | c frame vertical weight: 0.7 ]
+	| textCanvas |
+	textCanvas := aTranscript asElement
+			constraintsDo: [ :c | 
+				c frame vertical weight: 0.3.
+				c frame vertical alignBottom ].
+	self addChild: textCanvas.
+	visualContainer constraintsDo: [ :c | c frame vertical weight: 0.7 ].
+	^ textCanvas
 ]
 
 { #category : #initialization }
