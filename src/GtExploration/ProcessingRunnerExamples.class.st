@@ -5,6 +5,19 @@ Class {
 }
 
 { #category : #example }
+ProcessingRunnerExamples >> doAllRun [
+	<gtExample>
+	| sourceNames runNames missing |
+	sourceNames := ProcessingSourceExamples new sourceNames.
+	runNames := self class methodDict keys
+			select: [ :name | name beginsWith: #run ]
+			thenCollect: [ :name | name removePrefix: #run ].
+	missing := sourceNames select: [ :name | (runNames includes: name) not ].
+	self assert: missing equals: #().
+	^ runNames sorted
+]
+
+{ #category : #example }
 ProcessingRunnerExamples >> newRunner [
 	<gtExample>
 	| runner |
@@ -128,6 +141,55 @@ ProcessingRunnerExamples >> runColors [
 	self assert: runner isDone.
 	self assert: runner wait equals: true.
 	^ runner
+]
+
+{ #category : #example }
+ProcessingRunnerExamples >> runEndlessLoop [
+	"Runaway detection currently takes a few seconds"
+
+	<gtExample>
+	<noTest>
+	| program runner detected |
+	program := ProcessingSourceExamples new sourceEndlessLoop program.
+	detected := nil.
+	[ program canvas ]
+		on: ProcessingRunawayProgramException
+		do: [ :ex | detected := ex ].
+	self
+		assert: detected asString
+		equals: 'ProcessingRunawayProgramException: Endless loop detected.'.
+
+	runner := self newRunner.
+	runner
+		limitTo: 0.1 seconds;
+		run: program compilation;
+		wait.
+	self assert: runner isDone not.
+	self assert: runner canvas isNotNil.
+	self assert: (runner wait isKindOf: AsyncFutureCancelled).
+	^ runner wait
+]
+
+{ #category : #example }
+ProcessingRunnerExamples >> runEndlessLoopStepwise [
+	"Runaway detection currently takes a few seconds"
+
+	<gtExample>
+	<noTest>
+	| program runner steps |
+	program := ProcessingSourceExamples new sourceEndlessLoop program.
+	steps := program runSteps.
+	self assert: steps size equals: 1.
+	self
+		assert: ((steps last instVarNamed: #slice) isKindOf: ProcessingRunawayProgramException).
+
+	runner := self newRunner.
+	steps := runner
+			limitTo: 0.1 seconds;
+			runStepwise: program compilation.
+	self assert: steps size equals: 0.
+	self assert: runner isDone not.
+	^ steps
 ]
 
 { #category : #example }
@@ -326,55 +388,6 @@ ProcessingRunnerExamples >> runImage [
 ]
 
 { #category : #example }
-ProcessingRunnerExamples >> runInterrupted [
-	"Runaway detection currently takes a few seconds"
-
-	<gtExample>
-	<noTest>
-	| program runner detected |
-	program := ProcessingSourceExamples new sourceEndlessLoop program.
-	detected := nil.
-	[ program canvas ]
-		on: ProcessingRunawayProgramException
-		do: [ :ex | detected := ex ].
-	self
-		assert: detected asString
-		equals: 'ProcessingRunawayProgramException: Endless loop detected.'.
-
-	runner := self newRunner.
-	runner
-		limitTo: 0.1 seconds;
-		run: program compilation;
-		wait.
-	self assert: runner isDone not.
-	self assert: runner canvas isNotNil.
-	self assert: (runner wait isKindOf: AsyncFutureCancelled).
-	^ runner wait
-]
-
-{ #category : #example }
-ProcessingRunnerExamples >> runInterruptedStepwise [
-	"Runaway detection currently takes a few seconds"
-
-	<gtExample>
-	<noTest>
-	| program runner steps |
-	program := ProcessingSourceExamples new sourceEndlessLoop program.
-	steps := program runSteps.
-	self assert: steps size equals: 1.
-	self
-		assert: ((steps last instVarNamed: #slice) isKindOf: ProcessingRunawayProgramException).
-
-	runner := self newRunner.
-	steps := runner
-			limitTo: 0.1 seconds;
-			runStepwise: program compilation.
-	self assert: steps size equals: 0.
-	self assert: runner isDone not.
-	^ steps
-]
-
-{ #category : #example }
 ProcessingRunnerExamples >> runLists [
 	<gtExample>
 	| program runner |
@@ -483,7 +496,47 @@ ProcessingRunnerExamples >> runMinimal [
 ]
 
 { #category : #example }
-ProcessingRunnerExamples >> runPrecendence [
+ProcessingRunnerExamples >> runMouseEvents [
+	"The animation is currently considered to be an endless loop"
+
+	<gtExample>
+	| program runner detected |
+	program := ProcessingSourceExamples new sourceMouseEvents program.
+	detected := (program runFor: 0.1 seconds) wait.
+	self assert: detected asString equals: 'AsyncFutureCancelled'.
+
+	runner := self newRunner.
+	runner
+		limitTo: 0.1 seconds;
+		run: program compilation;
+		wait.
+	self assert: runner isDone not.
+	self assert: runner canvas isNotNil.
+	^ runner
+]
+
+{ #category : #example }
+ProcessingRunnerExamples >> runMouseEvents2 [
+	"The animation is currently considered to be an endless loop"
+
+	<gtExample>
+	| program runner detected |
+	program := ProcessingSourceExamples new sourceMouseEvents2 program.
+	detected := (program runFor: 0.1 seconds) wait.
+	self assert: detected asString equals: 'AsyncFutureCancelled'.
+
+	runner := self newRunner.
+	runner
+		limitTo: 0.1 seconds;
+		run: program compilation;
+		wait.
+	self assert: runner isDone not.
+	self assert: runner canvas isNotNil.
+	^ runner
+]
+
+{ #category : #example }
+ProcessingRunnerExamples >> runPrecedence [
 	<gtExample>
 	| program runner |
 	program := ProcessingSourceExamples new sourcePrecedence program.
@@ -605,6 +658,21 @@ ProcessingRunnerExamples >> runRuntimeError [
 ]
 
 { #category : #example }
+ProcessingRunnerExamples >> runShapes [
+	<gtExample>
+	| program runner |
+	program := ProcessingSourceExamples new sourceShapes program.
+	runner := self newRunner.
+	runner
+		run: program compilation;
+		wait.
+	self assert: runner canvas isNotNil.
+	self assert: runner isDone.
+	self assert: runner wait equals: true.
+	^ runner
+]
+
+{ #category : #example }
 ProcessingRunnerExamples >> runShapesStepwise [
 	<gtExample>
 	| program runner steps |
@@ -651,6 +719,26 @@ ProcessingRunnerExamples >> runSierpinskiStepwise [
 ]
 
 { #category : #example }
+ProcessingRunnerExamples >> runSimulation [
+	"The animation is currently considered to be an endless loop"
+
+	<gtExample>
+	| program runner detected |
+	program := ProcessingSourceExamples new sourceSimulation program.
+	detected := (program runFor: 0.1 seconds) wait.
+	self assert: detected asString equals: 'AsyncFutureCancelled'.
+
+	runner := self newRunner.
+	runner
+		limitTo: 0.1 seconds;
+		run: program compilation;
+		wait.
+	self assert: runner isDone not.
+	self assert: runner canvas isNotNil.
+	^ runner
+]
+
+{ #category : #example }
 ProcessingRunnerExamples >> runSpiral [
 	<gtExample>
 	| program runner |
@@ -677,6 +765,36 @@ ProcessingRunnerExamples >> runSpiralStepwise [
 	self assert: steps size equals: 488.
 	self assert: runner isDone.
 	^ steps
+]
+
+{ #category : #example }
+ProcessingRunnerExamples >> runSwitzerland [
+	<gtExample>
+	| program runner |
+	program := ProcessingSourceExamples new sourceSwitzerland program.
+	runner := self newRunner.
+	runner
+		run: program compilation;
+		wait.
+	self assert: runner canvas isNotNil.
+	self assert: runner isDone.
+	self assert: runner wait equals: true.
+	^ runner
+]
+
+{ #category : #example }
+ProcessingRunnerExamples >> runTransforms [
+	<gtExample>
+	| program runner |
+	program := ProcessingSourceExamples new sourceTransforms program.
+	runner := self newRunner.
+	runner
+		run: program compilation;
+		wait.
+	self assert: runner canvas isNotNil.
+	self assert: runner isDone.
+	self assert: runner wait equals: true.
+	^ runner
 ]
 
 { #category : #example }

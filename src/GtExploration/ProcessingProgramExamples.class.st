@@ -12,18 +12,17 @@ ProcessingProgramExamples >> allPrograms [
 			| program |
 			program := (ProcessingSourceExamples new perform: #source , name) program.
 			self assert: program source isNotNil.
-			self assert: program compilation isNotNil.
 			self assert: program ast isNotNil.
+			self assert: program compilation isNotNil.
 			program ]
 ]
 
 { #category : #example }
 ProcessingProgramExamples >> allProgramsLepiter [
-	"All programs linked from Lepiter pages (for reference)"
+	"All programs linked from Lepiter pages (for reference, due to https://github.com/feenkcom/gtoolkit/issues/4671)"
 
 	<gtExample>
 	self programAlpinerWanderweg.
-	self programAnimation.
 	self programExample02.
 	self programExample03.
 	self programPrint.
@@ -59,17 +58,6 @@ ProcessingProgramExamples >> programAlpinerWanderweg [
 	<gtExample>
 	| program |
 	program := ProcessingSourceExamples new sourceAlpinerWanderweg program.
-	self assert: program source isNotNil.
-	self assert: program compilation isNotNil.
-	self assert: program ast isNotNil.
-	^ program
-]
-
-{ #category : #example }
-ProcessingProgramExamples >> programAnimation [
-	<gtExample>
-	| program |
-	program := ProcessingSourceExamples new sourceAnimation program.
 	self assert: program source isNotNil.
 	self assert: program compilation isNotNil.
 	self assert: program ast isNotNil.

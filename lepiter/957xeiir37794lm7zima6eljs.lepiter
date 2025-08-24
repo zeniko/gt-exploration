@@ -3251,10 +3251,10 @@
 								"__type" : "uid",
 								"uidString" : "qPZA49TwDQCcRx1VCeKGxg=="
 							},
-							"exampleSelector" : "programAnimation",
+							"exampleSelector" : "sourceAnimation",
 							"previewHeight" : 150,
 							"previewShowSelector" : "gtOutputFor:",
-							"exampleBehaviorName" : "ProcessingProgramExamples",
+							"exampleBehaviorName" : "ProcessingSourceExamples",
 							"codeExpanded" : true,
 							"previewExpanded" : false,
 							"noCode" : true
