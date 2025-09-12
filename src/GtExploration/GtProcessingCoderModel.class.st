@@ -29,7 +29,8 @@ GtProcessingCoderModel >> doIt: anEvaluationContext [
 	self
 		doItAndPublish: [ (ProcessingSource
 				fromViewModel: anEvaluationContext requesterObject coderViewModel)
-				renderLive ]
+				program;
+				renderLive	"force compilation before rendering so that errors are shown in the snippet" ]
 		with: anEvaluationContext
 ]
 
