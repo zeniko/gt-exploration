@@ -79,14 +79,14 @@ ProcessingAstCleaner >> visitAssignmentStatement: stmt [
 	(cf. https://github.com/feenkcom/gtoolkit/issues/4669)."
 
 	[ stmt assigns size > 1 ]
-		whileTrue: [ stmt assigns last value = '=' ifFalse: [ self notImplemented: stmt ].
-			stmt tos
-				add: (PyAssignmentExpressionNode new
-						value: stmt tos removeLast;
-						variable: stmt tos removeLast;
-						assign: stmt assigns removeLast).
-			stmt tos last value parent: stmt tos last.
-			stmt tos last parent: stmt. ].
+		whileTrue: [ | node |
+			stmt assigns last value = '=' ifFalse: [ self notImplemented: stmt ].
+			node := PyAssignmentExpressionNode new
+					parent: stmt;
+					value: stmt tos removeLast;
+					variable: stmt tos removeLast;
+					assign: stmt assigns removeLast.
+			stmt tos add: node ].
 
 	stmt assigns first value size = 2 & (stmt assigns first value last = $=)
 		ifTrue: [ | op |
@@ -140,7 +140,7 @@ ProcessingAstCleaner >> visitBinaryExpression: expr [
 			a parent: expr.
 			b parent: expr right.
 			c parent: expr right ].
-	^ expr
+	^ self visitExpression: expr
 ]
 
 { #category : #generated }
@@ -287,19 +287,22 @@ ProcessingAstCleaner >> visitIfExpression: anIfExpression [
 ProcessingAstCleaner >> visitIfStatement: expr [
 	"Turn a if: ... elif: ... else: ... chain into nested if: ... else: ... statements"
 
-	expr elsifs
-		ifNotEmpty: [ | inner |
-			inner := PyIfStatementNode new
-					condition: expr elsifs first condition;
-					statements: expr elsifs first statements;
-					elsifs: (expr elsifs size > 1 ifTrue: [ expr elsifs allButFirst ] ifFalse: [ #() ]);
-					else: expr else.
-			inner attributeNamed: #startPosition put: expr elsifs first startPosition.
-			expr elsifs: #().
+	[ expr elsifs notEmpty ]
+		whileTrue: [ | node last innerElse |
+			last := expr elsifs removeLast.
+			innerElse := expr else.
 			expr else: PyElseNode new.
-			expr else statements: {inner} ].
+			node := PyIfStatementNode new
+					condition: last condition;
+					statements: last statements;
+					ifToken: last elifToken;
+					colonToken: last colonToken;
+					else: innerElse;
+					attributeNamed: #startPosition put: last startPosition;
+					yourself.
+			expr else statements: {node} ].
 
-	^ self visitExpression: expr
+	^ self visitStatement: expr
 ]
 
 { #category : #generated }
