@@ -227,8 +227,9 @@ ProcessingRunStep >> gtVariablesFor: aView [
 		items: [ variables associations sort: (#key collatedBy: #asString) ];
 		column: 'Name' translated text: [ :assoc | assoc key ];
 		column: 'Variable value' translated
-			text: [ :assoc | assoc value ]
+			text: [ :assoc | assoc value asString ]
 			weight: 3;
+		column: 'Type' translated text: [ :assoc | self typeName: assoc value ];
 		send: [ :assoc | assoc value ]
 ]
 
@@ -240,6 +241,19 @@ ProcessingRunStep >> stack [
 { #category : #accessing }
 ProcessingRunStep >> transcript [
 	^ transcript
+]
+
+{ #category : #accessing }
+ProcessingRunStep >> typeName: obj [
+	obj = nil ifTrue: [ ^ '?' ].	"undefined; most likely an unitialized slot (or rarely an explicit use of None)"
+	(obj isKindOf: Integer) ifTrue: [ ^ 'int' ].
+	(obj isKindOf: Float) ifTrue: [ ^ 'float' ].
+	(obj isKindOf: String) ifTrue: [ ^ 'str' ].
+	(obj isKindOf: Boolean) ifTrue: [ ^ 'bool' ].
+	(obj isKindOf: ProcessingList) ifTrue: [ ^ 'list' ].
+	(obj isKindOf: Dictionary) ifTrue: [ ^ 'dict' ].
+	(obj isKindOf: SkiaImage) ifTrue: [ ^ 'Image' ].
+	^ obj class name
 ]
 
 { #category : #initalization }
