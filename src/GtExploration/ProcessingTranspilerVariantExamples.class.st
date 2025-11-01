@@ -410,8 +410,8 @@ ProcessingTranspilerVariantExamples >> transpileLists2 [
 	self
 		assert: prefix
 		equals: '(= a (list 1 2 3))
-(= a (+ a (list 4 5)))
-(put_at a 1 6)
+(= a (+ a (list 4 5 6)))
+(put_at a 1 (put_at a 5 8))
 (put_at a (- 2) 7)
 (print (* a 2) (slice a None 0 None) (slice a (- 1) None None) (* a 0))
 '.
@@ -420,8 +420,8 @@ ProcessingTranspilerVariantExamples >> transpileLists2 [
 	self
 		assert: postfix
 		equals: '$a 1 2 3 list_3 =
-$a a 4 5 list_2 + =
-a 1 6 put_at
+$a a 4 5 6 list_3 + =
+a 1 a 5 8 put_at put_at
 a 2 unary- 7 put_at
 a 2 * a None 0 None slice a 1 unary- None None slice a 0 * print_4
 '.

@@ -38,10 +38,9 @@ ProcessingList >> at: anInteger [
 
 { #category : #accessing }
 ProcessingList >> at: anInteger put: anObject [
-	super
+	^ super
 		at: (anInteger <= 0 ifTrue: [ self size + anInteger ] ifFalse: [ anInteger ])
-		put: anObject.
-	^ nil
+		put: anObject
 ]
 
 { #category : #removing }

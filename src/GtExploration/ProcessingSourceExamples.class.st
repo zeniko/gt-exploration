@@ -252,8 +252,8 @@ print(a, b, c, d, e, f, g, h, j, k, l)'
 { #category : #source }
 ProcessingSourceExamples >> sourceCodeLists2 [
 	^ 'a = [1, 2, 3]
-a += [4, 5]
-a[1] = 6
+a += [4, 5, 6]
+a[1] = a[5] = 8
 a[-2] = 7
 print(a * 2, a[:0], a[-1:], a * 0)'
 ]

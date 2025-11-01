@@ -327,8 +327,8 @@ ProcessingTranspilerExamples >> transpilationLists [
 ProcessingTranspilerExamples >> transpilationLists2 [
 	^ 'gtRun
 	a := (ProcessingList newFrom: { 1. 2. 3. }).
-	a := (a + (ProcessingList newFrom: { 4. 5. })).
-	(a at: (1 + 1) put: 6).
+	a := (a + (ProcessingList newFrom: { 4. 5. 6. })).
+	(a at: (1 + 1) put: (a at: (5 + 1) put: 8)).
 	(a at: (2 negated + 1) put: 7).
 	gtCanvas print: { (a * 2). (a sliceFrom: 1 to: 0). (a sliceFrom: (1 negated + 1)). (a * 0). }.'
 ]

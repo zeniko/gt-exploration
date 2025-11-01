@@ -421,7 +421,7 @@ ProcessingRunnerExamples >> runLists2 [
 	self assert: runner wait equals: true.
 	self
 		assert: (runner canvas transcript textDo: [ :text | text asString ])
-		equals: '[1, 6, 3, 7, 5, 1, 6, 3, 7, 5] [] [5] []'.
+		equals: '[1, 8, 3, 4, 7, 8, 1, 8, 3, 4, 7, 8] [] [8] []'.
 	^ runner
 ]
 
@@ -434,7 +434,7 @@ ProcessingRunnerExamples >> runLists2Stepwise [
 	steps := runner
 			limitTo: 2 seconds;
 			runStepwise: program compilation.
-	self assert: steps size equals: 15.
+	self assert: steps size equals: 17.
 	self assert: runner isDone.
 	self assert: runner wait equals: true.
 	self
@@ -450,7 +450,8 @@ ProcessingRunnerExamples >> runLists2Stepwise [
 						2.
 						3.
 						4.
-						5}).
+						5.
+						6}).
 	self
 		assert: ((steps at: 4) variables at: 'a')
 		equals: (ProcessingList
@@ -464,19 +465,21 @@ ProcessingRunnerExamples >> runLists2Stepwise [
 						2.
 						3.
 						4.
-						5}).
+						5.
+						6}).
 	self
 		assert: ((steps at: 8) variables at: 'a')
 		equals: (ProcessingList
 				newFrom: {1.
-						6.
+						2.
 						3.
 						4.
-						5}).
-	self assert: (steps at: 14) transcript equals: nil.
+						5.
+						8}).
+	self assert: (steps at: 16) transcript equals: nil.
 	self
-		assert: (steps at: 15) transcript
-		equals: '[1, 6, 3, 7, 5, 1, 6, 3, 7, 5] [] [5] []'.
+		assert: (steps at: 17) transcript
+		equals: '[1, 8, 3, 4, 7, 8, 1, 8, 3, 4, 7, 8] [] [8] []'.
 	^ steps
 ]
 

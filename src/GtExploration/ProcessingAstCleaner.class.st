@@ -81,11 +81,11 @@ ProcessingAstCleaner >> visitAssignmentStatement: stmt [
 	[ stmt assigns size > 1 ]
 		whileTrue: [ | node |
 			stmt assigns last value = '=' ifFalse: [ self notImplemented: stmt ].
-			node := PyAssignmentExpressionNode new
-					parent: stmt;
-					value: stmt tos removeLast;
-					variable: stmt tos removeLast;
-					assign: stmt assigns removeLast.
+			node := PyAssignmentStatementNode new
+					tos: {stmt tos removeLast};
+					lhs: stmt tos removeLast;
+					assigns: {stmt assigns removeLast};
+					parent: stmt.
 			stmt tos add: node ].
 
 	stmt assigns first value size = 2 & (stmt assigns first value last = $=)

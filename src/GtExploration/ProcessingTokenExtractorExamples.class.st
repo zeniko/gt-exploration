@@ -64,7 +64,7 @@ ProcessingTokenExtractorExamples >> testData [
 			#Fibonacci -> #(8 81).
 			#Image -> #(5 36).
 			#Lists -> #(15 117).
-			#Lists2 -> #(5 52).
+			#Lists2 -> #(5 59).
 			#Minimal -> #(1 6).
 			#MouseEvents -> #(2 82).
 			#MouseEvents2 -> #(5 52).

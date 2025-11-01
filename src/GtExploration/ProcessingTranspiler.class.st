@@ -771,15 +771,6 @@ ProcessingTranspiler >> visitAssertStatement: stmt [
 { #category : #visiting }
 ProcessingTranspiler >> visitAssignment: stmt lhs: lhs rhs: rhs [
 	| name |
-	(lhs isKindOf: PySubscriptExpressionNode)
-		ifTrue: [ self startEmit: stmt.
-			lhs acceptVisitor: self.
-			output := output allButLast , ' '.	"TODO: self unemit:?"
-			self emit: 'put: '.
-			rhs acceptVisitor: self.
-			self emit: ')'.
-			^ self endEmit ].
-
 	self expect: PyVariableExpressionNode for: lhs.
 	name := lhs nameToken value.
 	(ProcessingTranspiler constants includesKey: name)
@@ -807,6 +798,16 @@ ProcessingTranspiler >> visitAssignmentExpression: expr [
 ProcessingTranspiler >> visitAssignmentStatement: stmt [
 	stmt tos size > 1 ifTrue: [ self notImplemented: stmt ].
 	stmt assigns first value = '=' ifFalse: [ self notImplemented: stmt ].
+
+	(stmt lhs isKindOf: PySubscriptExpressionNode)
+		ifTrue: [ self startEmit: stmt.
+			stmt lhs acceptVisitor: self.
+			output := output allButLast , ' '.	"TODO: self unemit:?"
+			self emit: 'put: '.
+			stmt tos first acceptVisitor: self.
+			self emit: ')'.
+			^ self endEmit ].
+
 	^ self
 		visitAssignment: stmt
 		lhs: stmt lhs
