@@ -18,6 +18,20 @@ ProcessingRunnerExamples >> doAllRun [
 ]
 
 { #category : #example }
+ProcessingRunnerExamples >> doRun: aProgram [
+	| runner |
+	runner := self newRunner.
+	runner
+		run: aProgram compilation;
+		limitTo: 2 seconds;
+		wait.
+	self assert: runner canvas isNotNil.
+	self assert: runner isDone.
+	self assert: runner wait equals: true.
+	^ runner
+]
+
+{ #category : #example }
 ProcessingRunnerExamples >> newRunner [
 	<gtExample>
 	| runner |
@@ -132,14 +146,7 @@ ProcessingRunnerExamples >> runColors [
 	<gtExample>
 	| program runner |
 	program := ProcessingSourceExamples new sourceColors program.
-	runner := self newRunner.
-	runner
-		run: program compilation;
-		limitTo: 2 seconds;
-		wait.
-	self assert: runner canvas isNotNil.
-	self assert: runner isDone.
-	self assert: runner wait equals: true.
+	runner := self doRun: program.
 	^ runner
 ]
 
@@ -197,15 +204,8 @@ ProcessingRunnerExamples >> runExample02 [
 	<gtExample>
 	| program runner |
 	program := ProcessingSourceExamples new sourceExample02 program.
-	runner := self newRunner.
-	runner
-		run: program compilation;
-		limitTo: 2 seconds;
-		wait.
-	self assert: runner canvas isNotNil.
-	self assert: runner isDone.
+	runner := self doRun: program.
 	self assert: (program compilation instVarNamed: #a) equals: 200.
-	self assert: runner wait equals: true.
 	^ runner
 ]
 
@@ -233,15 +233,8 @@ ProcessingRunnerExamples >> runExample03 [
 	<noTest>
 	| program runner |
 	program := ProcessingSourceExamples new sourceExample03 program.
-	runner := self newRunner.
-	runner
-		run: program compilation;
-		limitTo: 2 seconds;
-		wait.
-	self assert: runner canvas isNotNil.
-	self assert: runner isDone.
+	runner := self doRun: program.
 	self assert: (program compilation instVarNamed: #x) equals: 0.
-	self assert: runner wait equals: true.
 	^ runner
 ]
 
@@ -250,16 +243,9 @@ ProcessingRunnerExamples >> runExample04 [
 	<gtExample>
 	| program runner |
 	program := ProcessingSourceExamples new sourceExample04 program.
-	runner := self newRunner.
-	runner
-		run: program compilation;
-		limitTo: 2 seconds;
-		wait.
-	self assert: runner canvas isNotNil.
-	self assert: runner isDone.
+	runner := self doRun: program.
 	self assert: 0 <= (program compilation instVarNamed: #x).
 	self assert: (program compilation instVarNamed: #x) < 3.
-	self assert: runner wait equals: true.
 	^ runner
 ]
 
@@ -268,16 +254,9 @@ ProcessingRunnerExamples >> runExample05 [
 	<gtExample>
 	| program runner |
 	program := ProcessingSourceExamples new sourceExample05 program.
-	runner := self newRunner.
-	runner
-		run: program compilation;
-		limitTo: 2 seconds;
-		wait.
-	self assert: runner canvas isNotNil.
-	self assert: runner isDone.
+	runner := self doRun: program.
 	self assert: (program compilation instVarNamed: #gt_A) equals: 200.
 	self assert: (program compilation instVarNamed: #gt_B) equals: 100.
-	self assert: runner wait equals: true.
 	self
 		assert: (runner canvas transcript textDo: [ :text | text asString ])
 		equals: 'None True False String ["Nested"]'.
@@ -289,16 +268,9 @@ ProcessingRunnerExamples >> runExample06 [
 	<gtExample>
 	| program runner |
 	program := ProcessingSourceExamples new sourceExample06 program.
-	runner := self newRunner.
-	runner
-		run: program compilation;
-		limitTo: 2 seconds;
-		wait.
-	self assert: runner canvas isNotNil.
-	self assert: runner isDone.
+	runner := self doRun: program.
 	self assert: (program compilation instVarNamed: #var) equals: 5.
 	self assert: (program compilation instVarNamed: #cond) equals: true.
-	self assert: runner wait equals: true.
 	^ runner
 ]
 
@@ -322,7 +294,6 @@ ProcessingRunnerExamples >> runExample07 [
 	runner := self newRunner.
 	runner
 		run: program compilation;
-		limitTo: 2 seconds;
 		wait.
 	self assert: runner canvas isNotNil.
 	self assert: runner isDone not.
@@ -347,14 +318,7 @@ ProcessingRunnerExamples >> runFibonacci [
 	<gtExample>
 	| program runner |
 	program := ProcessingSourceExamples new sourceFibonacci program.
-	runner := self newRunner.
-	runner
-		run: program compilation;
-		limitTo: 2 seconds;
-		wait.
-	self assert: runner canvas isNotNil.
-	self assert: runner isDone.
-	self assert: runner wait equals: true.
+	runner := self doRun: program.
 	^ runner
 ]
 
@@ -373,17 +337,23 @@ ProcessingRunnerExamples >> runFibonacciStepwise [
 ]
 
 { #category : #example }
+ProcessingRunnerExamples >> runForLoop [
+	<gtExample>
+	| program runner |
+	program := ProcessingSourceExamples new sourceForLoop program.
+	runner := self doRun: program.
+	self
+		assert: (runner canvas transcript textDo: [ :text | text asString ])
+		equals: '[2, 5, 8, 11, 14] 3 14'.
+	^ runner
+]
+
+{ #category : #example }
 ProcessingRunnerExamples >> runImage [
 	<gtExample>
 	| program runner |
 	program := ProcessingSourceExamples new sourceImage program.
-	runner := self newRunner.
-	runner
-		run: program compilation;
-		wait.
-	self assert: runner canvas isNotNil.
-	self assert: runner isDone.
-	self assert: runner wait equals: true.
+	runner := self doRun: program.
 	^ runner
 ]
 
@@ -392,14 +362,7 @@ ProcessingRunnerExamples >> runLists [
 	<gtExample>
 	| program runner |
 	program := ProcessingSourceExamples new sourceLists program.
-	runner := self newRunner.
-	runner
-		run: program compilation;
-		limitTo: 2 seconds;
-		wait.
-	self assert: runner canvas isNotNil.
-	self assert: runner isDone.
-	self assert: runner wait equals: true.
+	runner := self doRun: program.
 	self
 		assert: (runner canvas transcript textDo: [ :text | text asString ])
 		equals: '[1, 2, 3] [1, 2, 3, 1, 2, 3] [3, 2, 1, 3, 2] 1 [1, 2, 2, 3, 3] [2, 2, 3] 3 3 [1, 2, 3, 1] [3, 3, 2, 2, 1, 1] [3, 1, 2]'.
@@ -411,14 +374,7 @@ ProcessingRunnerExamples >> runLists2 [
 	<gtExample>
 	| program runner |
 	program := ProcessingSourceExamples new sourceLists2 program.
-	runner := self newRunner.
-	runner
-		run: program compilation;
-		limitTo: 2 seconds;
-		wait.
-	self assert: runner canvas isNotNil.
-	self assert: runner isDone.
-	self assert: runner wait equals: true.
+	runner := self doRun: program.
 	self
 		assert: (runner canvas transcript textDo: [ :text | text asString ])
 		equals: '[1, 8, 3, 4, 7, 8, 1, 8, 3, 4, 7, 8] [] [8] []'.
@@ -488,13 +444,7 @@ ProcessingRunnerExamples >> runMinimal [
 	<gtExample>
 	| program runner |
 	program := ProcessingSourceExamples new sourceMinimal program.
-	runner := self newRunner.
-	runner
-		run: program compilation;
-		wait.
-	self assert: runner canvas isNotNil.
-	self assert: runner isDone.
-	self assert: runner wait equals: true.
+	runner := self doRun: program.
 	^ runner
 ]
 
@@ -543,14 +493,7 @@ ProcessingRunnerExamples >> runPrecedence [
 	<gtExample>
 	| program runner |
 	program := ProcessingSourceExamples new sourcePrecedence program.
-	runner := self newRunner.
-	runner
-		run: program compilation;
-		limitTo: 2 seconds;
-		wait.
-	self assert: runner canvas isNotNil.
-	self assert: runner isDone.
-	self assert: runner wait equals: true.
+	runner := self doRun: program.
 	^ runner
 ]
 
@@ -559,14 +502,7 @@ ProcessingRunnerExamples >> runPresentationDemo [
 	<gtExample>
 	| program runner |
 	program := ProcessingSourceExamples new sourcePresentationDemo program.
-	runner := self newRunner.
-	runner
-		run: program compilation;
-		limitTo: 2 seconds;
-		wait.
-	self assert: runner canvas isNotNil.
-	self assert: runner isDone.
-	self assert: runner wait equals: true.
+	runner := self doRun: program.
 	self
 		assert: (runner canvas transcript textDo: [ :text | text asString ])
 		equals: '21'.
@@ -611,14 +547,7 @@ ProcessingRunnerExamples >> runRandom [
 	<gtExample>
 	| program runner |
 	program := ProcessingSourceExamples new sourceRandom program.
-	runner := self newRunner.
-	runner
-		run: program compilation;
-		limitTo: 2 seconds;
-		wait.
-	self assert: runner canvas isNotNil.
-	self assert: runner isDone.
-	self assert: runner wait equals: true.
+	runner := self doRun: program.
 	^ runner
 ]
 
@@ -665,13 +594,7 @@ ProcessingRunnerExamples >> runShapes [
 	<gtExample>
 	| program runner |
 	program := ProcessingSourceExamples new sourceShapes program.
-	runner := self newRunner.
-	runner
-		run: program compilation;
-		wait.
-	self assert: runner canvas isNotNil.
-	self assert: runner isDone.
-	self assert: runner wait equals: true.
+	runner := self doRun: program.
 	^ runner
 ]
 
@@ -746,14 +669,7 @@ ProcessingRunnerExamples >> runSpiral [
 	<gtExample>
 	| program runner |
 	program := ProcessingSourceExamples new sourceSpiral program.
-	runner := self newRunner.
-	runner
-		run: program compilation;
-		limitTo: 2 seconds;
-		wait.
-	self assert: runner canvas isNotNil.
-	self assert: runner isDone.
-	self assert: runner wait equals: true.
+	runner := self doRun: program.
 	^ runner
 ]
 
@@ -775,13 +691,7 @@ ProcessingRunnerExamples >> runSwitzerland [
 	<gtExample>
 	| program runner |
 	program := ProcessingSourceExamples new sourceSwitzerland program.
-	runner := self newRunner.
-	runner
-		run: program compilation;
-		wait.
-	self assert: runner canvas isNotNil.
-	self assert: runner isDone.
-	self assert: runner wait equals: true.
+	runner := self doRun: program.
 	^ runner
 ]
 
@@ -790,13 +700,7 @@ ProcessingRunnerExamples >> runTransforms [
 	<gtExample>
 	| program runner |
 	program := ProcessingSourceExamples new sourceTransforms program.
-	runner := self newRunner.
-	runner
-		run: program compilation;
-		wait.
-	self assert: runner canvas isNotNil.
-	self assert: runner isDone.
-	self assert: runner wait equals: true.
+	runner := self doRun: program.
 	^ runner
 ]
 
@@ -805,16 +709,9 @@ ProcessingRunnerExamples >> runTurtleGraphics [
 	<gtExample>
 	| program runner |
 	program := ProcessingSourceExamples new sourceTurtleGraphics program.
-	runner := self newRunner.
-	runner
-		run: program compilation;
-		limitTo: 2 seconds;
-		wait.
-	self assert: runner canvas isNotNil.
-	self assert: runner isDone.
+	runner := self doRun: program.
 	self assert: (program compilation instVarNamed: #t_x) equals: 0.
 	self assert: (program compilation instVarNamed: #t_y) equals: 0.
 	self assert: (program compilation instVarNamed: #t_angle) equals: 0.
-	self assert: runner wait equals: true.
 	^ runner
 ]

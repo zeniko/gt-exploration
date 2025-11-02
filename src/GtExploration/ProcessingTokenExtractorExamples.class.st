@@ -62,6 +62,7 @@ ProcessingTokenExtractorExamples >> testData [
 			#Example06 -> #(3 33).
 			#Example07 -> #(6 28).
 			#Fibonacci -> #(8 81).
+			#ForLoop -> #(4 45).
 			#Image -> #(5 36).
 			#Lists -> #(15 117).
 			#Lists2 -> #(5 59).

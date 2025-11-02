@@ -125,6 +125,15 @@ ProcessingTranspiler >> emit: part [
 ]
 
 { #category : #emitting }
+ProcessingTranspiler >> emitAuxVar: aTag [
+	| name |
+	name := 'gt' , (localVariables size + 1) asString , '_' , aTag.
+	self emit: name.
+	localVariables add: name.
+	^ name
+]
+
+{ #category : #emitting }
 ProcessingTranspiler >> emitFunctionDef: name with: args [
 	self emitName: name.
 	args
@@ -145,6 +154,20 @@ ProcessingTranspiler >> emitName: var [
 	name := var.
 	(name beginsWith: 'gt') ifTrue: [ name := 'gt_' , (name removePrefix: 'gt') ].	"Internal variables of ProcessingCodeBase start with a the letters 'gt'. Make sure that there's no accidental leakage by inserting an underscore ('gtVar' -> 'gt_Var')."
 	self emit: name.
+	^ name
+]
+
+{ #category : #emitting }
+ProcessingTranspiler >> emitNewVar: aExpr [
+	| name |
+	name := aExpr nameToken value.
+	(ProcessingTranspiler constants includesKey: name)
+		ifTrue: [ ProcessingCompileTimeException
+				signal: 'Can''t assign to constant.'
+				withTag: aExpr ].
+
+	name := self emitName: name.
+	(globalVariables includes: name) ifFalse: [ localVariables add: name ].
 	^ name
 ]
 
@@ -772,15 +795,8 @@ ProcessingTranspiler >> visitAssertStatement: stmt [
 ProcessingTranspiler >> visitAssignment: stmt lhs: lhs rhs: rhs [
 	| name |
 	self expect: PyVariableExpressionNode for: lhs.
-	name := lhs nameToken value.
-	(ProcessingTranspiler constants includesKey: name)
-		ifTrue: [ ProcessingCompileTimeException
-				signal: 'Can''t assign to constant.'
-				withTag: stmt ].
-
 	self startEmit: stmt.
-	name := self emitName: name.
-	(globalVariables includes: name) ifFalse: [ localVariables add: name ].
+	name := self emitNewVar: lhs.
 	self emit: ' := '.
 	rhs acceptVisitor: self.
 	^ self endEmit
@@ -1000,7 +1016,7 @@ ProcessingTranspiler >> visitFinally: aFinally [
 
 { #category : #visiting }
 ProcessingTranspiler >> visitForStatement: expr [
-	| from to by |
+	| from to by name fromVar toVar byVar countVar |
 	"only `for ... in range(...):` is currently supported"
 	self expect: PyFunctionCallExpressionNode for: expr inExpression.
 	self expect: PyVariableExpressionNode for: expr inExpression receiver.
@@ -1019,19 +1035,43 @@ ProcessingTranspiler >> visitForStatement: expr [
 			ifTrue: [ expr inExpression arguments third ].
 
 	self startEmit: expr.
-	from ifNotNil: [ from acceptVisitor: self ] ifNil: [ self emit: '0' ].
-	self emit: ' to: ('.
-	to acceptVisitor: self.
+	from
+		ifNotNil: [ (from isKindOf: PyNumberNode)
+				ifTrue: [ fromVar := from numberToken value ]
+				ifFalse: [ fromVar := self emitAuxVar: 'from'.
+					self emit: ' := '.
+					from acceptVisitor: self.
+					self
+						emit: '.';
+						cr ] ]
+		ifNil: [ fromVar := '0' ].
+	(to isKindOf: PyNumberNode)
+		ifTrue: [ toVar := to numberToken value ]
+		ifFalse: [ toVar := self emitAuxVar: 'to'.
+			self emit: ' := '.
+			to acceptVisitor: self.
+			self
+				emit: '.';
+				cr ].
 	by
-		ifNil: [ self emit: ' - 1)' ]
-		ifNotNil: [ self emit: ' - '.	"TODO: omit double-evaluationg step expression"
-			by acceptVisitor: self.
-			self emit: ' sign) by: '.
-			by acceptVisitor: self ].
+		ifNotNil: [ (by isKindOf: PyNumberNode)
+				ifTrue: [ byVar := by numberToken value ]
+				ifFalse: [ byVar := self emitAuxVar: 'step'.
+					self emit: ' := '.
+					by acceptVisitor: self.
+					self
+						emit: '.';
+						cr ] ]
+		ifNil: [ byVar := '1' ].
+
+	self emit: fromVar , ' to: (' , toVar , ' - ' , byVar , ')'.
+	by ifNotNil: [ self emit: ' by: ' , byVar ].
 	self emit: ' do: [ :'.
-	expr exprs first acceptVisitor: self.
+	countVar := (self emitAuxVar: '') , 'loop'.
+	self emit: 'loop | '.
+	name := self emitNewVar: expr exprs first.
 	self
-		emit: ' |';
+		emit: ' := ' , countVar , '.';
 		cr.
 	self acceptStatements: expr.
 	self emit: ']'.

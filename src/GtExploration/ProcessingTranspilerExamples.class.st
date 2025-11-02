@@ -81,9 +81,10 @@ ProcessingTranspilerExamples >> testData [
 			#Example03 -> #('x' '').
 			#Example04 -> #('x' 'setX setY').
 			#Example05 -> #('gt_A gt_B' '').
-			#Example06 -> #('cond var' '').
+			#Example06 -> #('cond gt3_to gt4_ var x' '').
 			#Example07 -> #('a' '').
 			#Fibonacci -> #('' 'fibonacci').
+			#ForLoop -> #('a gt3_from gt4_to gt5_step gt6_ res x' '').
 			#Image -> #('img' '').
 			#Lists -> #('a b c d e f g h j k l' '').
 			#Lists2 -> #('a' '').
@@ -100,7 +101,7 @@ ProcessingTranspilerExamples >> testData [
 			#Sierpinski -> #('px' 'sierpinski').
 			#Simulation
 				-> #('anzahl_kranke anzahl_personen genesung groesse risiko x_koordinaten y_koordinaten zustand' 'draw krankheit_uebertragen personen_anzeigen personen_bewegen personen_platzieren setup').
-			#Spiral -> #('' '').
+			#Spiral -> #('_ gt1_' '').
 			#Switzerland -> #('' '').
 			#Transforms -> #('' '').
 			#TurtleGraphics -> #('t_angle t_x t_y' 'draw_n_eck fwd kochpart move turn')}
@@ -256,7 +257,8 @@ ProcessingTranspilerExamples >> transpilationExample06 [
 	^ 'gtRun
 	cond := ((true and: [ false ]) or: [ (1 = 2 and: [ 2 = 3 ]) not ]).
 	var := (cond ifTrue: [ 5 ] ifFalse: [ 3 ]).
-	1 to: (var - 1) do: [ :x |
+	gt3_to := var.
+	1 to: (gt3_to - 1) do: [ :gt4_loop | x := gt4_loop.
 		gtCanvas print: x.
 	].'
 ]
@@ -291,6 +293,20 @@ fibonacci: n
 	] ifFalse: [
 		^ 1
 	].'
+]
+
+{ #category : #transpilation }
+ProcessingTranspilerExamples >> transpilationForLoop [
+	^ 'gtRun
+	a := 1.
+	res := (ProcessingList newFrom: { }).
+	gt3_from := a := (a + 1).
+	gt4_to := a := (a + 15).
+	gt5_step := a := (a - 14).
+	gt3_from to: (gt4_to - gt5_step) by: gt5_step do: [ :gt6_loop | x := gt6_loop.
+		(res append: x).
+	].
+	gtCanvas print: { res. a. x. }.'
 ]
 
 { #category : #transpilation }
@@ -593,7 +609,7 @@ ProcessingTranspilerExamples >> transpilationSpiral [
 	gtCanvas translate: (width / 2) y: (height / 2).
 	gtCanvas scale: 0.95.
 	gtCanvas strokeWeight: 2.
-	0 to: (20 - 1) do: [ :_ |
+	0 to: (20 - 1) do: [ :gt1_loop | _ := gt1_loop.
 		gtCanvas fillGray: 255.
 		gtCanvas strokeGray: 0.
 		gtCanvas rect: (width negated / 2) y: (width negated / 2) width: width height: width.

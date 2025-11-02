@@ -222,6 +222,15 @@ text(fibonacci(10), 20, 125)'
 ]
 
 { #category : #source }
+ProcessingSourceExamples >> sourceCodeForLoop [
+	^ 'a = 1
+res = []
+for x in range(a := a + 1, a := a + 15, a := a - 14):
+	res.append(x)
+print(res, a, x)'
+]
+
+{ #category : #source }
 ProcessingSourceExamples >> sourceCodeImage [
 	^ 'size(200, 200)
 img = loadImage("zeniko/gt-exploration/data/sample/thumbs-up.png")
@@ -689,6 +698,16 @@ ProcessingSourceExamples >> sourceFibonacci [
 ]
 
 { #category : #example }
+ProcessingSourceExamples >> sourceForLoop [
+	<gtExample>
+	| source |
+	source := ProcessingSource fromString: self sourceCodeForLoop.
+	self assert: source asString equals: self sourceCodeForLoop.
+	self assert: source program isNotNil.
+	^ source
+]
+
+{ #category : #example }
 ProcessingSourceExamples >> sourceImage [
 	<gtExample>
 	| source |
@@ -755,7 +774,7 @@ ProcessingSourceExamples >> sourceNames [
 	names := (self class methodDict keys
 			select: [ :key | key beginsWith: #sourceCode ]
 			thenCollect: [ :key | key removePrefix: #sourceCode ]) sorted.
-	self assert: names size equals: 31.
+	self assert: names size equals: 32.
 	names
 		do: [ :name | self assert: (self class methodDict includesKey: #source , name) ].
 	^ names
