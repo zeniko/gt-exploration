@@ -1,3 +1,16 @@
+"
+This is the core class for handling Processing programs and provides a plethora of views into a program.
+
+`ProcessingProgram` is created through {{gtClass:ProcessingSource}} and allows access to the compiled program, its runsteps and its output:
+```
+(ProcessingSource fromString: 'size(200, 200); rect(50, 50, 100, 100)')
+	program
+```
+
+The Processing/Python Lepiter snippet returns a `ProcessingProgram` when running the program in Details mode (`▶a`).
+
+In order to hide most complexity, the default view only shows an overview of four views (source, AST, bytecode and output), hiding all other views behind **`i`**. Use this, if you want to find the name for a specific view to embed (hint: `Alt+Click` on a view title to find its name and implementation).
+"
 Class {
 	#name : #ProcessingProgram,
 	#superclass : #Object,

@@ -440,6 +440,36 @@ ProcessingRunnerExamples >> runLists2Stepwise [
 ]
 
 { #category : #example }
+ProcessingRunnerExamples >> runLists3 [
+	<gtExample>
+	| program runner |
+	program := ProcessingSourceExamples new sourceLists3 program.
+	runner := self doRun: program.
+	self
+		assert: (runner canvas transcript textDo: [ :text | text asString ])
+		equals: '[[...], 1]'.
+	^ runner
+]
+
+{ #category : #example }
+ProcessingRunnerExamples >> runLists3Stepwise [
+	<gtExample>
+	| program runner steps |
+	program := ProcessingSourceExamples new sourceLists3 program.
+	runner := self newRunner.
+	steps := runner
+			limitTo: 2 seconds;
+			runStepwise: program compilation.
+	self assert: steps size equals: 7.
+	self assert: runner isDone.
+	self assert: runner wait equals: true.
+	self
+		assert: (steps at: 7) transcript
+		equals: '[[...], 1]'.
+	^ steps
+]
+
+{ #category : #example }
 ProcessingRunnerExamples >> runMinimal [
 	<gtExample>
 	| program runner |
@@ -518,6 +548,7 @@ ProcessingRunnerExamples >> runPresentationDemoStepwise [
 	steps := runner runStepwise: program compilation.
 	self assert: steps size equals: 28.
 	self assert: runner isDone.
+	steps do: [ :step | self assert: step asString size > 6 ].
 	^ steps
 ]
 

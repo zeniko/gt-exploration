@@ -1,3 +1,6 @@
+"
+This is a helper class used for extracting individual tokens from a Processing/Python AST produced by {{gtClass:ProcessingParser}}.
+"
 Class {
 	#name : #ProcessingTokenExtractor,
 	#superclass : #Object,

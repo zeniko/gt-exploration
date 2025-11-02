@@ -1,6 +1,25 @@
+"
+This is a subclass of {{gtClass:OrderedCollection}} modified to behave more closely as Python's lists:
+- `sort` and `reverse` happen in place
+- accessing items allows for negative indices (which access from the back)
+- slicing may also happen in reverse with negative steps
+
+Note that `ProcessingList` remains 1-based.
+
+```
+list := ProcessingList new.
+list append: 1; append: 2; append: 4.
+list reverse.
+list at: -2 ""this returns the third(!) last item (the last item being at index 0)""
+```
+
+"
 Class {
 	#name : #ProcessingList,
 	#superclass : #OrderedCollection,
+	#instVars : [
+		'recursionCheck'
+	],
 	#category : #'GtExploration-Processing'
 }
 
@@ -27,7 +46,12 @@ ProcessingList >> append: value [
 
 { #category : #converting }
 ProcessingList >> asString [
-	^ '[' , (', ' join: (self collect: #asString)) , ']'
+	| str |
+	recursionCheck ifNotNil: [ ^ '[...]' ].
+	recursionCheck := self.
+	str := '[' , (', ' join: (self collect: #asString)) , ']'.
+	recursionCheck := nil.
+	^ str
 ]
 
 { #category : #accessing }
@@ -46,6 +70,16 @@ ProcessingList >> at: anInteger put: anObject [
 { #category : #removing }
 ProcessingList >> pop [
 	^ self removeLast
+]
+
+{ #category : #accessing }
+ProcessingList >> recursionCheck [
+	^ recursionCheck
+]
+
+{ #category : #accessing }
+ProcessingList >> recursionCheck: anObject [
+	recursionCheck := anObject
 ]
 
 { #category : #converting }

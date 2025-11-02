@@ -66,6 +66,7 @@ ProcessingTokenExtractorExamples >> testData [
 			#Image -> #(5 36).
 			#Lists -> #(15 117).
 			#Lists2 -> #(5 59).
+			#Lists3 -> #(6 34).
 			#Minimal -> #(1 6).
 			#MouseEvents -> #(2 82).
 			#MouseEvents2 -> #(5 52).

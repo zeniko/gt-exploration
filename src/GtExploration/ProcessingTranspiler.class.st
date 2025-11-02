@@ -1,3 +1,6 @@
+"
+This translates a Processing/Python AST into Smalltalk code and is used by {{gtClass:ProcessingProgram}} for compiling Processing code to a runnable subclass of {{gtClass:ProcessingCodeBase}}.
+"
 Class {
 	#name : #ProcessingTranspiler,
 	#superclass : #Object,

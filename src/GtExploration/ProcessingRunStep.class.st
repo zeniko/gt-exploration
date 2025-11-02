@@ -1,3 +1,11 @@
+"
+This contains data for a single runstep and is produced by {{gtClass:ProcessingRunner}}.
+
+```
+(ProcessingSource fromString: 's = ""Hello""; print(s)')
+	program runSteps last
+```
+"
 Class {
 	#name : #ProcessingRunStep,
 	#superclass : #Object,
@@ -33,7 +41,7 @@ ProcessingRunStep >> copyObj: anObject [
 	"Makes a copy of mutable objects (for now: lists), reuses that copy in case the object occurs multiple times in a single step (different variables or on the stack)"
 
 	(anObject isKindOf: ProcessingList)
-		ifTrue: [ ^ copies at: anObject ifAbsentPut: [ anObject copy ] ].
+		ifTrue: [ ^ copies at: anObject asString ifAbsentPut: [ ProcessingList newFrom: anObject ] ].
 	^ anObject	"assume that the object is immutable (or doesn't matter)"
 ]
 
@@ -253,6 +261,7 @@ ProcessingRunStep >> typeName: obj [
 	(obj isKindOf: ProcessingList) ifTrue: [ ^ 'list' ].
 	(obj isKindOf: Dictionary) ifTrue: [ ^ 'dict' ].
 	(obj isKindOf: SkiaImage) ifTrue: [ ^ 'Image' ].
+	(obj isKindOf: ProcessingEllipsis) ifTrue: [ ^ 'Ellipsis' ].
 	^ obj class name
 ]
 

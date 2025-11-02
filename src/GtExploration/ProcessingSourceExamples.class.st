@@ -268,6 +268,16 @@ print(a * 2, a[:0], a[-1:], a * 0)'
 ]
 
 { #category : #source }
+ProcessingSourceExamples >> sourceCodeLists3 [
+	^ 'a = [1]
+a.append(a)
+assert len(a) == 2
+assert str(a) == "[1, [...]]"
+a.reverse()
+print(a)'
+]
+
+{ #category : #source }
 ProcessingSourceExamples >> sourceCodeMinimal [
 	^ 'size(200, 200)'
 ]
@@ -738,6 +748,16 @@ ProcessingSourceExamples >> sourceLists2 [
 ]
 
 { #category : #example }
+ProcessingSourceExamples >> sourceLists3 [
+	<gtExample>
+	| source |
+	source := ProcessingSource fromString: self sourceCodeLists3.
+	self assert: source asString equals: self sourceCodeLists3.
+	self assert: source program isNotNil.
+	^ source
+]
+
+{ #category : #example }
 ProcessingSourceExamples >> sourceMinimal [
 	<gtExample>
 	| source |
@@ -774,7 +794,7 @@ ProcessingSourceExamples >> sourceNames [
 	names := (self class methodDict keys
 			select: [ :key | key beginsWith: #sourceCode ]
 			thenCollect: [ :key | key removePrefix: #sourceCode ]) sorted.
-	self assert: names size equals: 32.
+	self assert: names size equals: 33.
 	names
 		do: [ :name | self assert: (self class methodDict includesKey: #source , name) ].
 	^ names

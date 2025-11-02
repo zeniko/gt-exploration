@@ -1,3 +1,6 @@
+"
+This helper class creates a Mondrian tree from a Processing/Python AST.
+"
 Class {
 	#name : #ProcessingTreeMondrianCreator,
 	#superclass : #Object,

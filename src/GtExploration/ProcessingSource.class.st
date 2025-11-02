@@ -1,3 +1,21 @@
+"
+This is the **main class** for handling Processing programs.
+
+- It produces a {{gtClass:ProcessingProgram}}, which
+  - parses the program with {{gtClass:ProcessingParser}}
+  - compiles it with {{gtClass:ProcessingTranspiler}} into a subclass of {{gtClass:ProcessingCodeBase}}
+  - runs programs through {{gtClass:ProcessingRunner}}, yielding output into a {{gtClass:ProcessingCanvas}}
+- It provides the main views of ""Processing Abstractions""
+  - some of which are provided by {{gtClass:ProcessingCodeBase}}
+  - many of which are provided by {{gtClass:ProcessingProgram}}
+- It allows direct embedding of the various views into Lepiter pages:
+```(ProcessingSource fromPage: thisSnippet page) render```
+```(ProcessingSource fromPage: thisSnippet page) renderLiveView: #gtAbstractionsFor:```
+
+```
+ProcessingSource fromString: 'print(""Hello, world!"")'
+```
+"
 Class {
 	#name : #ProcessingSource,
 	#superclass : #Object,

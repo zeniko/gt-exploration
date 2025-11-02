@@ -1,3 +1,6 @@
+"
+This is a thin subclass of {{gtClass:PythonParser}} for parsing Processing programs in Python syntax.
+"
 Class {
 	#name : #ProcessingParser,
 	#superclass : #PythonParser,
@@ -11,6 +14,7 @@ ProcessingParser class >> gtASTNodeNames [
 		PyAssignmentStatementNode -> 'Assignment'.
 		PyBinaryExpressionNode -> 'Binary Op'.
 		PyComparisonExpressionNode -> 'Binary Comparison'.
+		PyEllipsisNode -> 'Ellipsis'.
 		PyElifNode -> 'Else if'.
 		PyElseNode -> 'Else'.
 		PyExpressionStatementNode -> 'Expression'.

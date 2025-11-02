@@ -1,3 +1,6 @@
+"
+This is the base class of all shapes rendered by {{gtClass:ProcessingCanvas}} onto a {{gtClass:ProcessingCanvasElement}}.
+"
 Class {
 	#name : #ProcessingCanvasShape,
 	#superclass : #Object,

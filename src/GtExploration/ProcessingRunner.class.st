@@ -1,3 +1,14 @@
+"
+This class is responsible for setting up compiled Processing programs for running and tracing.
+
+It ensures that a program has an assigned {{gtClass:ProcessingCanvas}} runtime and intercepts runaway programs by limiting their allowed runtime duration.
+
+`ProcessingRunner` is mainly used through {{gtClass:ProcessingProgram}}:
+```
+(ProcessingSource fromString: 'print(42)')
+	program run
+```
+"
 Class {
 	#name : #ProcessingRunner,
 	#superclass : #Object,

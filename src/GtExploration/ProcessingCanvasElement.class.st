@@ -1,3 +1,21 @@
+"
+Processing programs render their output through canvas elements. Embed such elements e.g. in Lepiter's Element snippet.
+
+To create such an element, use {{gtClass:ProcessingCanvas}}:
+```
+ProcessingCanvas new
+	size: 200 by: 200;
+	rect: 100 by: 100 at: 50 @ 50;
+	asElement
+```
+or rather one provided through {{gtClass:ProcessingSource}}:
+```
+(ProcessingSource fromString: 'size(200, 200); rect(50, 50, 100, 100)')
+	program canvas asElement
+```
+
+This is the view in the model-view-presenter pattern implemented by {{gtClass:ProcessingCanvas}}, {{gtClass:ProcessingCanvasElement}} and {{gtClass:ProcessingCanvasPresenter}}.
+"
 Class {
 	#name : #ProcessingCanvasElement,
 	#superclass : #BlElement,

@@ -88,6 +88,7 @@ ProcessingTranspilerExamples >> testData [
 			#Image -> #('img' '').
 			#Lists -> #('a b c d e f g h j k l' '').
 			#Lists2 -> #('a' '').
+			#Lists3 -> #('a' '').
 			#Minimal -> #('' '').
 			#MouseEvents -> #('' 'draw setup').
 			#MouseEvents2 -> #('' 'draw mouseMoved mousePressed mouseReleased setup').
@@ -347,6 +348,17 @@ ProcessingTranspilerExamples >> transpilationLists2 [
 	(a at: (1 + 1) put: (a at: (5 + 1) put: 8)).
 	(a at: (2 negated + 1) put: 7).
 	gtCanvas print: { (a * 2). (a sliceFrom: 1 to: 0). (a sliceFrom: (1 negated + 1)). (a * 0). }.'
+]
+
+{ #category : #transpilation }
+ProcessingTranspilerExamples >> transpilationLists3 [
+	^ 'gtRun
+	a := (ProcessingList newFrom: { 1. }).
+	(a append: a).
+	[ (a size = 2) ] assert.
+	[ (a asString = ''[1, [...]]'') ] assert.
+	(a reverse).
+	gtCanvas print: a.'
 ]
 
 { #category : #transpilation }

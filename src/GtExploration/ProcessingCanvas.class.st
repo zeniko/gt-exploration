@@ -1,3 +1,20 @@
+"
+This class provides the runtime environment for compiled Processing programs and must be assigned to a compiled program before running it.
+
+It implements the basis of most methods of the implemented {{gtPage:Processing API|db=5rgxfv9r684digmpw7ph7kbt4}}, such as drawing shapes (rectangles, ellipses, lines, images), handling color (background, fill, stroke) and interaction (mouse movement and clicks).
+
+```
+ProcessingCanvas new
+	size: 200 by: 200;
+	rect: 100 by: 100 at: 50 @ 50;
+	fill: Color red;
+	rect: 100 by: 100/3 at: 50 @ (50 + (100 / 3));
+	print: 'Alpiner Wanderweg';
+	yourself
+```
+
+This is the model in the model-view-presenter pattern implemented by {{gtClass:ProcessingCanvas}}, {{gtClass:ProcessingCanvasElement}} and {{gtClass:ProcessingCanvasPresenter}}.
+"
 Class {
 	#name : #ProcessingCanvas,
 	#superclass : #Object,
@@ -471,9 +488,14 @@ ProcessingCanvas >> serialize: obj nested: nested [
 	obj = true ifTrue: [ ^ 'True' ].
 	obj = false ifTrue: [ ^ 'False' ].
 	(obj isKindOf: ProcessingList)
-		ifTrue: [ ^ '['
-				, (', ' join: (obj collect: [ :item | self serialize: item nested: true ]))
-				, ']' ].
+		ifTrue: [ | str |
+			obj recursionCheck ifNotNil: [ ^ '[...]' ].
+			obj recursionCheck: self.
+			str := '['
+					, (', ' join: (obj collect: [ :item | self serialize: item nested: true ]))
+					, ']'.
+			obj recursionCheck: nil.
+			^ str ].
 	(obj isKindOf: String)
 		ifTrue: [ ^ nested ifTrue: [ '"' , (self escape: obj) , '"' ] ifFalse: [ obj ] ].
 	(obj isKindOf: Fraction) ifTrue: [ ^ obj asFloat asString ].

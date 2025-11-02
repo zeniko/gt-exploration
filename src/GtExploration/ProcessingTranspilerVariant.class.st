@@ -1,3 +1,8 @@
+"
+This translates a Processing/Python AST into an artificial Lisp-like prefix or Postscript-like postfix language for educational purposes.
+
+E.g. `print(22)` is translated to either `22 print` (postfix) or `(print 22)` (prefix).
+"
 Class {
 	#name : #ProcessingTranspilerVariant,
 	#superclass : #Object,

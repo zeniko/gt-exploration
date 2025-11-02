@@ -1,3 +1,6 @@
+"
+This is the presenter in the model-view-presenter pattern implemented by {{gtClass:ProcessingCanvas}}, {{gtClass:ProcessingCanvasElement}} and {{gtClass:ProcessingCanvasPresenter}}.
+"
 Class {
 	#name : #ProcessingCanvasPresenter,
 	#superclass : #Object,

@@ -1,3 +1,6 @@
+"
+This class connects Processing/Python AST nodes with transpiled Smalltalk source code ranges and is used for mapping between both.
+"
 Class {
 	#name : #ProcessingTranspilationSlice,
 	#superclass : #Object,
