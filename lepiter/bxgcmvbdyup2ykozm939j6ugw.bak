@@ -106,7 +106,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-04-21T11:46:34.404+02:00"
+						"dateAndTimeString" : "2025-11-03T18:58:11.072+01:00"
 					}
 				},
 				"uid" : {
@@ -152,7 +152,47 @@
 				},
 				"exampleSelector" : "programExample02",
 				"previewHeight" : 160,
-				"previewShowSelector" : "gtContentsFor:",
+				"previewShowSelector" : "gtSourceCodeFor:",
+				"exampleBehaviorName" : "ProcessingProgramExamples",
+				"codeExpanded" : true,
+				"previewExpanded" : true,
+				"noCode" : true
+			},
+			{
+				"__type" : "exampleSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-11-03T18:55:00.09+01:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-11-03T18:55:00.09+01:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "kCSnJhb/DQCNWLqYA4ChZw=="
+				},
+				"exampleSelector" : "programExample02",
+				"previewHeight" : 160,
+				"previewShowSelector" : "gtSourceBytesPlusCharsFor:",
 				"exampleBehaviorName" : "ProcessingProgramExamples",
 				"codeExpanded" : true,
 				"previewExpanded" : true,
@@ -183,7 +223,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-05-15T14:13:33.824+02:00"
+						"dateAndTimeString" : "2025-11-03T19:55:00.235+01:00"
 					}
 				},
 				"uid" : {
@@ -228,7 +268,7 @@
 					"uidString" : "YIdZVY3xDQCB+3cNBq9mAw=="
 				},
 				"exampleSelector" : "programExample02",
-				"previewHeight" : 160,
+				"previewHeight" : 200,
 				"previewShowSelector" : "gtTokensFor:",
 				"exampleBehaviorName" : "ProcessingProgramExamples",
 				"codeExpanded" : true,
@@ -249,7 +289,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-05-15T14:13:24.817+02:00"
+						"dateAndTimeString" : "2025-11-03T19:54:23.469+01:00"
 					}
 				},
 				"editEmail" : {
@@ -260,12 +300,12 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-05-15T14:13:25.407+02:00"
+						"dateAndTimeString" : "2025-11-03T19:54:29.383+01:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "0F1VVI3xDQCBf5DTBq9mAw=="
+					"uidString" : "yP0L+xb/DQCODiSuA4ChZw=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
@@ -286,7 +326,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-04-01T16:39:06.845+02:00"
+						"dateAndTimeString" : "2025-11-03T19:54:33.7+01:00"
 					}
 				},
 				"editEmail" : {
@@ -297,12 +337,12 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-04-01T16:39:06.845+02:00"
+						"dateAndTimeString" : "2025-11-03T19:54:33.7+01:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "eNNhPBruDQC9KuKtAft/yQ=="
+					"uidString" : "oBqo+xb/DQCOgiPbA4ChZw=="
 				},
 				"exampleSelector" : "programExample02",
 				"previewHeight" : 250,
@@ -578,6 +618,46 @@
 				"exampleSelector" : "programExample02",
 				"previewHeight" : 250,
 				"previewShowSelector" : "gtBytecodeFor:",
+				"exampleBehaviorName" : "ProcessingProgramExamples",
+				"codeExpanded" : true,
+				"previewExpanded" : true,
+				"noCode" : true
+			},
+			{
+				"__type" : "exampleSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-11-03T19:55:27.744+01:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-11-03T19:55:27.744+01:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "AMDg/hb/DQCOsTIZA4ChZw=="
+				},
+				"exampleSelector" : "programExample02",
+				"previewHeight" : 250,
+				"previewShowSelector" : "gtHexDumpFor:",
 				"exampleBehaviorName" : "ProcessingProgramExamples",
 				"codeExpanded" : true,
 				"previewExpanded" : true,

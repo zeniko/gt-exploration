@@ -463,6 +463,8 @@ ProcessingRunnerExamples >> runLists3Stepwise [
 	self assert: steps size equals: 7.
 	self assert: runner isDone.
 	self assert: runner wait equals: true.
+	self assert: ((steps at: 4) variables at: #a) asString equals: '[1, [...]]'.
+	self assert: ((steps at: 7) variables at: #a) asString equals: '[[...], 1]'.
 	self
 		assert: (steps at: 7) transcript
 		equals: '[[...], 1]'.

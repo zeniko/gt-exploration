@@ -502,7 +502,7 @@ ProcessingProgram >> gtSourceBytesFor: aView [
 			width: 45;
 		column: 'UTF-8 Byte' text: [ :each | each asString ];
 		column: 'HEX' text: [ :each | (each radix: 16) padLeftTo: 2 with: $0 ];
-		column: 'Binary' text: [ :each | (each radix: 2) padLeftTo: 8 with: $0 ];
+		column: 'Binary' text: [ :each | self textWithUtf8Highlight: each ];
 		updateWhen: ProcessingSourceChanged in: self announcer
 ]
 
@@ -1020,4 +1020,18 @@ ProcessingProgram >> source: aSource [
 	source announcer
 		when: ProcessingSourceChangedError
 		do: [ :event | self announcer announce: event ]
+]
+
+{ #category : #'views - tools' }
+ProcessingProgram >> textWithUtf8Highlight: aByte [
+	"adapted from UnicodeCharacterData>>asTextWithUtf8EncodedBinary"
+
+	| string prefix text |
+	string := (aByte radix: 2) padLeftTo: 8 with: $0.
+	prefix := string findString: '0'.
+	text := string asRopedText glamorousCodeFont.
+	(text from: 1 to: prefix) foreground: Color veryLightGray.
+	(text from: prefix + 1 to: string size)
+		highlight: (Color veryVeryLightGray alpha: 0.5).
+	^ text
 ]

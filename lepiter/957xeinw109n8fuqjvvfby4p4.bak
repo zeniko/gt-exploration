@@ -395,6 +395,43 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-11-03T18:45:13.421+01:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-11-03T18:47:48.256+01:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "IEpgAxb/DQCJ4g+FA4ChZw=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Add a view showing compile time type information ([inferring types](https://en.wikipedia.org/wiki/Hindley%E2%80%93Milner_type_system#Algorithm_J), as Processing is generally used without explicit type information)"
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
 									"dateAndTimeString" : "2025-08-23T13:16:57.821+02:00"
 								}
 							},
@@ -406,7 +443,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-08-23T13:17:12.231+02:00"
+									"dateAndTimeString" : "2025-08-23T13:17:33.66+02:00"
 								}
 							},
 							"uid" : {
@@ -416,7 +453,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Make page links such as [[Por"
+							"string" : "Make page links such as [[Processing API]] open in-place"
 						},
 						{
 							"__type" : "textSnippet",
