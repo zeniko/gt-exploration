@@ -81,32 +81,20 @@ ProcessingAstCleaner >> visitAssignmentExpression: anAssignmentExpression [
 
 { #category : #visiting }
 ProcessingAstCleaner >> visitAssignmentStatement: stmt [
-	"Rewrite `a += b` and friends to `a = a + b` for Smalltalk compatibility.
-	Rewrite `a = b = x` to `a = (b := x)`, as `b` isn't a rhs expression
-	(cf. https://github.com/feenkcom/gtoolkit/issues/4669)."
+	"Rewrite `a += b` and friends to `a = a + b` for Smalltalk compatibility."
 
-	[ stmt assigns size > 1 ]
-		whileTrue: [ | node |
-			stmt assigns last value = '=' ifFalse: [ self notImplemented: stmt ].
-			node := PyAssignmentStatementNode new
-					tos: {stmt tos removeLast};
-					lhs: stmt tos removeLast;
-					assigns: {stmt assigns removeLast};
-					parent: stmt.
-			stmt tos add: node ].
-
-	stmt assigns first value size = 2 & (stmt assigns first value last = $=)
+	stmt assigns size = 1 & (stmt assigns first value size = 2)
+		& (stmt assigns first value last = $=)
 		ifTrue: [ | op |
 			op := stmt assigns first value first asString.
-			stmt tos
-				at: 1
-				put: (PyBinaryExpressionNode new
+			stmt
+				value: (PyBinaryExpressionNode new
 						operator: (SmaCCToken
 								value: op
 								start: stmt assigns first startPosition
 								ids: #());
-						left: stmt lhs clone;
-						right: stmt tos first;
+						left: stmt variables first clone;
+						right: stmt value;
 						parent: stmt).
 			stmt assigns
 				at: 1

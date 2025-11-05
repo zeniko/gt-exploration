@@ -795,42 +795,38 @@ ProcessingTranspiler >> visitAssertStatement: stmt [
 ]
 
 { #category : #visiting }
-ProcessingTranspiler >> visitAssignment: stmt lhs: lhs rhs: rhs [
-	| name |
-	self expect: PyVariableExpressionNode for: lhs.
-	self startEmit: stmt.
-	name := self emitNewVar: lhs.
+ProcessingTranspiler >> visitAssignmentExpression: expr [
+	self startEmit: expr.
+	self expect: PyVariableExpressionNode for: expr variable.
+	self emitNewVar: expr variable.
 	self emit: ' := '.
-	rhs acceptVisitor: self.
+	expr value acceptVisitor: self.
 	^ self endEmit
 ]
 
 { #category : #visiting }
-ProcessingTranspiler >> visitAssignmentExpression: expr [
-	^ self
-		visitAssignment: expr
-		lhs: expr variable
-		rhs: expr value
-]
-
-{ #category : #visiting }
 ProcessingTranspiler >> visitAssignmentStatement: stmt [
-	stmt tos size > 1 ifTrue: [ self notImplemented: stmt ].
-	stmt assigns first value = '=' ifFalse: [ self notImplemented: stmt ].
+	| closers |
+	self startEmit: stmt.
+	closers := ''.
+	1
+		to: stmt variables size
+		do: [ :ix | 
+			| varExpr |
+			(stmt assigns at: ix) value = '=' ifFalse: [ self notImplemented: stmt ].
 
-	(stmt lhs isKindOf: PySubscriptExpressionNode)
-		ifTrue: [ self startEmit: stmt.
-			stmt lhs acceptVisitor: self.
-			output := output allButLast , ' '.	"TODO: self unemit:?"
-			self emit: 'put: '.
-			stmt tos first acceptVisitor: self.
-			self emit: ')'.
-			^ self endEmit ].
-
-	^ self
-		visitAssignment: stmt
-		lhs: stmt lhs
-		rhs: stmt tos first
+			varExpr := stmt variables at: ix.
+			(varExpr isKindOf: PySubscriptExpressionNode)
+				ifTrue: [ varExpr acceptVisitor: self.
+					closers := closers , output last asString.
+					output := output allButLast , ' '.	"TODO: self unemit:?"
+					self emit: 'put: ' ]
+				ifFalse: [ self expect: PyVariableExpressionNode for: varExpr.
+					self emitNewVar: varExpr.
+					self emit: ' := ' ] ].
+	stmt value acceptVisitor: self.
+	self emit: closers.
+	^ self endEmit
 ]
 
 { #category : #generated }

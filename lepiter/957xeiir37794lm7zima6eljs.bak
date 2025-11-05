@@ -71,7 +71,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-11-03T21:00:38.981+01:00"
+									"dateAndTimeString" : "2025-11-03T21:01:08.599+01:00"
 								}
 							},
 							"uid" : {
@@ -81,7 +81,44 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Adapted UTF-8 byte presentation to {{gtMethod"
+							"string" : "Adapted UTF-8 byte presentation to {{gtMethod:UnicodeCharacterData>>#asTextWithUtf8EncodedBinary}}"
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-11-06T00:02:40.96+01:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-11-06T00:06:31.187+01:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "AGqwrkL/DQCDuvyjBBpTPw=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Got a [left/right hand side mismatch issue](https://github.com/feenkcom/gtoolkit/issues/4669) fixed in {{gtClass:PythonParser}}"
 						}
 					]
 				},

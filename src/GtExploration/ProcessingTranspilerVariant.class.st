@@ -201,19 +201,28 @@ ProcessingTranspilerVariant >> visitAssignmentExpression: expr [
 
 { #category : #visiting }
 ProcessingTranspilerVariant >> visitAssignmentStatement: stmt [
-	stmt tos size > 1 ifTrue: [ self notImplemented: stmt ].
-	(stmt lhs isKindOf: PySubscriptExpressionNode)
+	^ self visitAssignmentStatement: stmt part: 1
+]
+
+{ #category : #visiting }
+ProcessingTranspilerVariant >> visitAssignmentStatement: stmt part: ix [
+	| varExpr |
+	ix > stmt variables size ifTrue: [ ^ stmt value acceptVisitor: self ].
+
+	varExpr := stmt variables at: ix.
+	(varExpr isKindOf: PySubscriptExpressionNode)
 		ifTrue: [ ^ self
 				emit: 'put_at'
-				args: {stmt lhs receiver acceptVisitor: self.
-						stmt lhs subscripts first acceptVisitor: self.
-						stmt tos first acceptVisitor: self} ].
-	(stmt lhs isKindOf: PyVariableExpressionNode)
+				args: {varExpr receiver acceptVisitor: self.
+						varExpr subscripts first acceptVisitor: self.
+						self visitAssignmentStatement: stmt part: ix + 1} ].
+
+	(varExpr isKindOf: PyVariableExpressionNode)
 		ifFalse: [ self notImplemented: stmt ].
 	^ self
-		emit: stmt assigns first value
-		args: {self emitSymbol: stmt lhs nameToken value.
-				stmt tos first acceptVisitor: self}
+		emit: (stmt assigns at: ix) value
+		args: {self emitSymbol: varExpr nameToken value.
+				self visitAssignmentStatement: stmt part: ix + 1}
 ]
 
 { #category : #generated }
