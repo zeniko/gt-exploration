@@ -1,3 +1,6 @@
+"
+This announcement is sent by various views whenever the selection changed, allowing other views to adjust their selection to the corresponding items.
+"
 Class {
 	#name : #ProcessingViewSelectionChanged,
 	#superclass : #Announcement,

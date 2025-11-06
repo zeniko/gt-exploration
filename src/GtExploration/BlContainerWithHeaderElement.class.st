@@ -1,3 +1,6 @@
+"
+This class imitates a {{gtClass:GtInspector}}'s object header for when a view is displayed alone but the header is still desired.
+"
 Class {
 	#name : #BlContainerWithHeaderElement,
 	#superclass : #BlElement,

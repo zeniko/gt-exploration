@@ -1,3 +1,8 @@
+"
+This class provides two cards in the GT start screen for accessing either the student materials (from {{gtPackage:ProcessingAbstractions}}) or the implementation details (from {{gtPackage:GtExploration}}).
+
+Use `studentMode:` to disable the implementation card.
+"
 Class {
 	#name : #GtExplorationHomeSection,
 	#superclass : #GtHomeMultiCardSection,

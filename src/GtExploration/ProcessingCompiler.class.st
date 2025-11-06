@@ -1,3 +1,6 @@
+"
+This is a discarded, very basic compiler for Processing code, which directly produces an intermediary representation through {{gtClass:IRBuilder}} (see {{gtPage:Compiling Processing|db=5rgxfv9r684digmpw7ph7kbt4}}).
+"
 Class {
 	#name : #ProcessingCompiler,
 	#superclass : #Object,

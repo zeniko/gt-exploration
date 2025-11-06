@@ -1,12 +1,13 @@
 "
-This is the base class which all compiled Processing programs are subclasses of. It provides
+This is the abstract base class that all compiled Processing programs are subclasses of. It provides
 - the entry point `gtRun` to be overriden by the subclasss
 - access to the program's `canvas` (must be assigned before running it)
 - various views
 
 A Processing program can be compiled with {{gtClass:ProcessingSource}}:
 ```
-ProcessingSource fromString: 'print(""Hello, world!"")'
+(ProcessingSource fromString: 'print(""Hello, world!"")')
+	program compilation
 ```
 which internally uses {{gtClass:ProcessingParser}} and {{gtClass:ProcessingTranspiler}} as so:
 ```

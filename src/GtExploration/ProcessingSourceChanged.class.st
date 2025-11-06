@@ -1,3 +1,6 @@
+"
+A subclass of this announcement is sent by {{gtClass:ProcessingSource}} whenever the source code has changed.
+"
 Class {
 	#name : #ProcessingSourceChanged,
 	#superclass : #Announcement,

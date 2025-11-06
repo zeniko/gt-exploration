@@ -1,3 +1,6 @@
+"
+This is a discarded, very basic tree walking interpreter for Processing (see {{gtPage:Interpreting Processing|db=5rgxfv9r684digmpw7ph7kbt4}}).
+"
 Class {
 	#name : #ProcessingInterpreter,
 	#superclass : #Object,

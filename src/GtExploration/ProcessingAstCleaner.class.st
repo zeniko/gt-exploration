@@ -1,6 +1,8 @@
 "
-This class is called by {{gtClass:ProcessingTranspiler}} before transpiling. It takes an AST as produced by {{gtClass:ProcessingParser}} and rewrites it to better match Python to Smalltalk syntax:
-- assigning to multiple variables is converted into nested form (`a = b = 1` to `a = (b = 1)`)
+This class is called by {{gtClass:ProcessingTranspiler}} before transpiling.
+
+It takes an AST as produced by {{gtClass:ProcessingParser}} and rewrites it, in order to better match Python to Smalltalk syntax:
+- mutating assignments are expanded (`a += 1` to `a = a + 1`)
 - `if ...: ... elif ...: ... else: ...` chains are rewritten as nested `if ...: else: ...` chains
 - chained boolean `and` and `or` operators are swapped from being left- to being right-associative
 - commands after `return` are removed

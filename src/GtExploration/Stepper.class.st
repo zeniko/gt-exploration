@@ -1,3 +1,12 @@
+"
+This class provides a stepper interface, allowing to step through the same view of multiple objects.
+
+```
+source := ProcessingSource fromString: 's = ""Hello, world""; print(s)'.
+Stepper for: [ source program runSteps ] view: #gtAbstractionsFor:
+```
+
+"
 Class {
 	#name : #Stepper,
 	#superclass : #Object,

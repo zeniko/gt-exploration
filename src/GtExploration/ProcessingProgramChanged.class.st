@@ -1,3 +1,6 @@
+"
+This event is sent by {{gtClass:ProcessingProgram}} whenever the program's source changed and resulted in a successful recompilation.
+"
 Class {
 	#name : #ProcessingProgramChanged,
 	#superclass : #ProcessingASTChanged,

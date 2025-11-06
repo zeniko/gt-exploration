@@ -1,5 +1,7 @@
 "
-This is the base class of all shapes rendered by {{gtClass:ProcessingCanvas}} onto a {{gtClass:ProcessingCanvasElement}}.
+This is the abstract base class of all shapes rendered by {{gtClass:ProcessingCanvas}} onto a {{gtClass:ProcessingCanvasElement}}.
+
+Implementors must override `asElement` to return the actual shape {{gtClass:BlElement}} to be displayed.
 "
 Class {
 	#name : #ProcessingCanvasShape,

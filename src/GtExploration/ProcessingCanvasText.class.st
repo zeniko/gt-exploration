@@ -1,3 +1,6 @@
+"
+This class represents text rendered onto a {{gtClass:ProcessingCanvas}} (e.g. through {{gtMethod:ProcessingCanvas>>text:x:y:}}).
+"
 Class {
 	#name : #ProcessingCanvasText,
 	#superclass : #ProcessingCanvasShape,

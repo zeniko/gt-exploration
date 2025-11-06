@@ -1,3 +1,13 @@
+"
+This class displays multiple views (of multiple objects) side-by-side. If two views displayed and both are {{gtClass:BrColumnedList}}s, their scrolling state is synchronized.
+
+```
+ex := ProcessingProgramExamples new.
+ViewComparison
+	newFor: {ex programExample02 -> #gtBytecodeFor:.
+	 		ex programExample03 -> #gtBytecodeFor:}
+```
+"
 Class {
 	#name : #ViewComparison,
 	#superclass : #Object,

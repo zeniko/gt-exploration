@@ -1,3 +1,6 @@
+"
+This class represents a polygon drawn onto a {{gtClass:ProcessingCanvas}} (e.g. through {{gtMethod:ProcessingCanvas>>triangle:y1:x2:y2:x3:y3:}}).
+"
 Class {
 	#name : #ProcessingCanvasPolygon,
 	#superclass : #ProcessingCanvasShape,

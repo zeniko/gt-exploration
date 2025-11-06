@@ -1,3 +1,6 @@
+"
+This class represents an ellipse drawn onto a {{gtClass:ProcessingCanvas}} (e.g. through {{gtMethod:ProcessingCanvas>>ellipse:y:dx:dy:}}).
+"
 Class {
 	#name : #ProcessingCanvasEllipse,
 	#superclass : #ProcessingCanvasShape,

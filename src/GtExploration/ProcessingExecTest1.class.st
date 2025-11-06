@@ -1,3 +1,6 @@
+"
+This is a discarded, very basic command forwarder meant to pass serialized commands from a Python interpreter to {{gtClass:ProcessingCanvas}} (see {{gtPage:Running Python Step-by-Step|db=5rgxfv9r684digmpw7ph7kbt4}}).
+"
 Class {
 	#name : #ProcessingExecTest1,
 	#superclass : #Object,

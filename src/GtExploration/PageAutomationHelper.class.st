@@ -1,3 +1,9 @@
+"
+This class contains three tools used in the Lepiter notebooks:
+- `sistaV1BytecodeList` extracts bytecode documentation from {{gtClass:EncoderForSistaV1}} (see e.g. {{gtPage:Smalltalk Bytecode (SISTA)|db=5rgxfv9r684digmpw7ph7kbt4}})
+- `updateProcessingAPI` synchronizes {{gtPage:Processing API|db=5rgxfv9r684digmpw7ph7kbt4}} into another database
+- `addWeekSection:` adds a new section at the top of {{gtPage:Progress - History|db=5rgxfv9r684digmpw7ph7kbt4}}
+"
 Class {
 	#name : #PageAutomationHelper,
 	#superclass : #Object,

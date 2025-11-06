@@ -1,3 +1,6 @@
+"
+This class represents a rounded rectangle drawn onto a {{gtClass:ProcessingCanvas}} (e.g. through {{gtMethod:ProcessingCanvas>>rect:y:width:height:cornerRadius:}}).
+"
 Class {
 	#name : #ProcessingCanvasRoundedRectangle,
 	#superclass : #ProcessingCanvasRectangle,

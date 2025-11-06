@@ -1,3 +1,6 @@
+"
+This class represents a line drawn onto a {{gtClass:ProcessingCanvas}} (e.g. through {{gtMethod:ProcessingCanvas>>line:y1:x2:y2:}}).
+"
 Class {
 	#name : #ProcessingCanvasLine,
 	#superclass : #ProcessingCanvasShape,

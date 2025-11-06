@@ -1,3 +1,6 @@
+"
+This text editor mode enables keyboard navigation without enabling editing.
+"
 Class {
 	#name : #BrTextEditorReadonlyWithNavigationMode,
 	#superclass : #BrTextEditorReadonlyWithSelectionMode,

@@ -1,3 +1,6 @@
+"
+This announcement is sent by {{gtClass:ProcessingSource}} whenever the source code has changed to contain a syntax error.
+"
 Class {
 	#name : #ProcessingSourceChangedError,
 	#superclass : #ProcessingSourceChanged,

@@ -1,3 +1,6 @@
+"
+This announcement is sent by {{gtClass:ProcessingSource}} whenever the source changed and is syntactically valid.
+"
 Class {
 	#name : #ProcessingASTChanged,
 	#superclass : #ProcessingSourceChanged,

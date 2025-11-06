@@ -1,3 +1,6 @@
+"
+This event is signaled by {{gtClass:ProcessingCanvasPresenter}} to allow a model such as {{gtClass:ProcessingProgram}} to add {{gtClass:GtExplainerActorAptitude}}s to link output to its reason (such as source code).
+"
 Class {
 	#name : #ProcessingExplainShape,
 	#superclass : #BlEvent,

@@ -1,3 +1,6 @@
+"
+This class represents a rectangle drawn onto a {{gtClass:ProcessingCanvas}} (e.g. through {{gtMethod:ProcessingCanvas>>rect:y:width:height:}}).
+"
 Class {
 	#name : #ProcessingCanvasRectangle,
 	#superclass : #ProcessingCanvasShape,

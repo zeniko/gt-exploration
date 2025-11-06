@@ -1,3 +1,6 @@
+"
+This class wraps a view inside a {{gtClass:GtInspector}} so that it can be updated when it's needed in a {{gtClass:BlElement}} context (such as a Lepiter notebook).
+"
 Class {
 	#name : #LiveViewWrapper,
 	#superclass : #Object,
