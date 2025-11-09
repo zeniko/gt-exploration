@@ -326,17 +326,17 @@ ProcessingTranspilerExamples >> transpilationLists [
 	a := (ProcessingList newFrom: { 1. 2. }).
 	(a append: 3).
 	b := (a + a).
-	c := (b sliceFrom: 1 stepBy: 1 negated).
+	c := (b sliceFrom0: 0 stepBy: 1 negated).
 	d := (c pop).
 	e := c sorted.
-	f := (e sliceFrom: (1 + 1) to: 4).
+	f := (e sliceFrom0: 1 to: 4).
 	g := f size.
-	h := (f at: (2 + 1)).
-	j := (b sliceFrom: 1 to: 2 negated).
-	k := (b sliceFrom: 1).
+	h := (f at0: 2).
+	j := (b sliceFrom0: 0 to: 2 negated).
+	k := (b sliceFrom0: 0).
 	(k sort).
 	(k reverse).
-	l := (b sliceFrom: 1 stepBy: 2 negated).
+	l := (b sliceFrom0: 0 stepBy: 2 negated).
 	gtCanvas print: { a. b. c. d. e. f. g. h. j. k. l. }.'
 ]
 
@@ -345,9 +345,9 @@ ProcessingTranspilerExamples >> transpilationLists2 [
 	^ 'gtRun
 	a := (ProcessingList newFrom: { 1. 2. 3. }).
 	a := (a + (ProcessingList newFrom: { 4. 5. 6. })).
-	(a at: (1 + 1) put: (a at: (5 + 1) put: 8)).
-	(a at: (2 negated + 1) put: 7).
-	gtCanvas print: { (a * 2). (a sliceFrom: 1 to: 0). (a sliceFrom: (1 negated + 1)). (a * 0). }.'
+	(a at0: 1 put: (a at0: 5 put: 8)).
+	(a at0: 2 negated put: 7).
+	gtCanvas print: { (a * 2). (a sliceFrom0: 0 to: 0). (a sliceFrom0: 1 negated). (a * 0). }.'
 ]
 
 { #category : #transpilation }
@@ -546,14 +546,14 @@ personen_platzieren
 	| p |
 	p := 0.
 	[ (p < anzahl_personen) ] whileTrue: [
-		(x_koordinaten at: (p + 1) put: (gtCanvas random: width)).
-		(y_koordinaten at: (p + 1) put: (gtCanvas random: height)).
-		(zustand at: (p + 1) put: 0.0).
+		(x_koordinaten at0: p put: (gtCanvas random: width)).
+		(y_koordinaten at0: p put: (gtCanvas random: height)).
+		(zustand at0: p put: 0.0).
 		p := (p + 1).
 	].
 	p := 0.
 	[ (p < anzahl_kranke) ] whileTrue: [
-		(zustand at: (p + 1) put: 1.0).
+		(zustand at0: p put: 1.0).
 		p := (p + 1).
 	].
 
@@ -561,21 +561,21 @@ krankheit_uebertragen
 	| p q |
 	p := 0.
 	[ (p < anzahl_personen) ] whileTrue: [
-		((zustand at: (p + 1)) < 1) ifTrue: [
+		((zustand at0: p) < 1) ifTrue: [
 			q := 0.
 			[ (q < anzahl_personen) ] whileTrue: [
-				(((zustand at: (q + 1)) >= 1) and: [ ((zustand at: (q + 1)) < 2) ]) ifTrue: [
-					(((((x_koordinaten at: (p + 1)) - (x_koordinaten at: (q + 1))) ** 2) + (((y_koordinaten at: (p + 1)) - (y_koordinaten at: (q + 1))) ** 2)) < (groesse ** 2)) ifTrue: [
-						(zustand at: (p + 1) put: ((zustand at: (p + 1)) + risiko)).
+				(((zustand at0: q) >= 1) and: [ ((zustand at0: q) < 2) ]) ifTrue: [
+					(((((x_koordinaten at0: p) - (x_koordinaten at0: q)) ** 2) + (((y_koordinaten at0: p) - (y_koordinaten at0: q)) ** 2)) < (groesse ** 2)) ifTrue: [
+						(zustand at0: p put: ((zustand at0: p) + risiko)).
 					].
 				].
 				q := (q + 1).
 			].
-			((zustand at: (p + 1)) > 1) ifTrue: [
-				(zustand at: (p + 1) put: 1).
+			((zustand at0: p) > 1) ifTrue: [
+				(zustand at0: p put: 1).
 			].
 		] ifFalse: [
-			(zustand at: (p + 1) put: ((zustand at: (p + 1)) + (gtCanvas random: genesung))).
+			(zustand at0: p put: ((zustand at0: p) + (gtCanvas random: genesung))).
 		].
 		p := (p + 1).
 	].
@@ -584,8 +584,8 @@ personen_bewegen
 	| p |
 	p := 0.
 	[ (p < anzahl_personen) ] whileTrue: [
-		(x_koordinaten at: (p + 1) put: ((((x_koordinaten at: (p + 1)) + ((groesse / 2.0) * ((gtCanvas random: 2) - 1))) max: 0) min: width)).
-		(y_koordinaten at: (p + 1) put: ((((y_koordinaten at: (p + 1)) + ((groesse / 2.0) * ((gtCanvas random: 2) - 1))) max: 0) min: height)).
+		(x_koordinaten at0: p put: ((((x_koordinaten at0: p) + ((groesse / 2.0) * ((gtCanvas random: 2) - 1))) max: 0) min: width)).
+		(y_koordinaten at0: p put: ((((y_koordinaten at0: p) + ((groesse / 2.0) * ((gtCanvas random: 2) - 1))) max: 0) min: height)).
 		p := (p + 1).
 	].
 
@@ -595,17 +595,17 @@ personen_anzeigen
 	p := 0.
 	infizierte := 0.
 	[ (p < anzahl_personen) ] whileTrue: [
-		((zustand at: (p + 1)) < 1) ifTrue: [
+		((zustand at0: p) < 1) ifTrue: [
 			gtCanvas fillR: 255 G: 255 B: 255.
 		] ifFalse: [
-			((zustand at: (p + 1)) < 2) ifTrue: [
+			((zustand at0: p) < 2) ifTrue: [
 				gtCanvas fillR: 255 G: 0 B: 0.
 				infizierte := (infizierte + 1).
 			] ifFalse: [
 				gtCanvas fillR: 170 G: 170 B: 170.
 			].
 		].
-		gtCanvas ellipse: (x_koordinaten at: (p + 1)) y: (y_koordinaten at: (p + 1)) dx: groesse dy: groesse.
+		gtCanvas ellipse: (x_koordinaten at0: p) y: (y_koordinaten at0: p) dx: groesse dy: groesse.
 		p := (p + 1).
 	].
 	gtCanvas fillR: 255 G: 0 B: 0.

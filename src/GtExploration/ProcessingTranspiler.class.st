@@ -1307,6 +1307,9 @@ ProcessingTranspiler >> visitString: expr [
 
 { #category : #visiting }
 ProcessingTranspiler >> visitSubscriptExpression: subscript [
+	"Note: Processing is 0-based and right opened
+	(whereas Smalltalk prefers 1-based, right closed indexing)"
+
 	subscript subscripts size = 1 ifFalse: [ self notImplemented: subscript ].
 	self startEmit: subscript.
 	self emit: '('.
@@ -1315,19 +1318,17 @@ ProcessingTranspiler >> visitSubscriptExpression: subscript [
 		ifTrue: [ (#(1 2) includes: subscript subscripts first colonTokens size)
 				ifFalse: [ self notImplemented: subscript ].
 			subscript subscripts first from
-				ifNotNil: [ self emit: ' sliceFrom: ('.
-					subscript subscripts first from acceptVisitor: self.
-					self emit: ' + 1)' ]
-				ifNil: [ self emit: ' sliceFrom: 1' ].
+				ifNotNil: [ self emit: ' sliceFrom0: '.
+					subscript subscripts first from acceptVisitor: self ]
+				ifNil: [ self emit: ' sliceFrom0: 0' ].
 			subscript subscripts first to
 				ifNotNil: [ self emit: ' to: '.
 					subscript subscripts first to acceptVisitor: self ].
 			subscript subscripts first colonTokens size = 2
 				ifTrue: [ self emit: ' stepBy: '.
 					subscript subscripts first step acceptVisitor: self ] ]
-		ifFalse: [ self emit: ' at: ('.
-			subscript subscripts first acceptVisitor: self.
-			self emit: ' + 1)' ].	"Smalltalk is 1-based and right closed whereas Python is 0-based and right opened"
+		ifFalse: [ self emit: ' at0: '.
+			subscript subscripts first acceptVisitor: self ].
 	self emit: ')'.
 	^ self endEmit
 ]

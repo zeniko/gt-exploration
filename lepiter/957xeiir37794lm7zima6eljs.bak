@@ -108,7 +108,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-11-06T00:06:31.187+01:00"
+									"dateAndTimeString" : "2025-11-06T00:06:51.382+01:00"
 								}
 							},
 							"uid" : {
@@ -118,7 +118,44 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Got a [left/right hand side mismatch issue](https://github.com/feenkcom/gtoolkit/issues/4669) fixed in {{gtClass:PythonParser}}"
+							"string" : "Got a [left/right hand side mismatch issue](https://github.com/feenkcom/gtoolkit/issues/4669) fixed in {{gtClass:PythonParser}} (required code changes)"
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-11-09T12:09:05.913+01:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2025-11-09T12:10:06.654+01:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "MJA7LIn/DQCq40qnBoFA/g=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Added 0-based indexing accessors to {{gtClass:ProcessingList}} (simplifies produced bytecode)"
 						}
 					]
 				},

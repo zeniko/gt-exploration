@@ -2,15 +2,15 @@
 This is a subclass of {{gtClass:OrderedCollection}} modified to behave more closely as Python's lists:
 - `sort` and `reverse` happen in place
 - accessing items allows for negative indices (which access from the back)
+- slicing is right opened instead of right closed (i.e. the end index is excluded instead of included)
 - slicing may also happen in reverse with negative steps
-
-Note that `ProcessingList` remains 1-based.
+- accessing may also happen 0-based
 
 ```
 list := ProcessingList new.
 list append: 1; append: 2; append: 4.
 list reverse.
-list at: -2 ""this returns the third(!) last item (the last item being at index 0)""
+list at0: -3 ""this returns the third last item""
 ```
 
 "
@@ -55,6 +55,20 @@ ProcessingList >> asString [
 ]
 
 { #category : #accessing }
+ProcessingList >> at0: anInteger [
+	"0-based accessor"
+
+	^ self at: anInteger + 1
+]
+
+{ #category : #accessing }
+ProcessingList >> at0: anInteger put: anObject [
+	"0-based accessor"
+
+	^ self at: anInteger + 1 put: anObject
+]
+
+{ #category : #accessing }
 ProcessingList >> at: anInteger [
 	^ super
 		at: (anInteger <= 0 ifTrue: [ self size + anInteger ] ifFalse: [ anInteger ])
@@ -65,6 +79,18 @@ ProcessingList >> at: anInteger put: anObject [
 	^ super
 		at: (anInteger <= 0 ifTrue: [ self size + anInteger ] ifFalse: [ anInteger ])
 		put: anObject
+]
+
+{ #category : #comparing }
+ProcessingList >> hash [
+	"SequenceableCollection>>hash doesn't take into account recursion"
+
+	| hash |
+	recursionCheck ifNotNil: [ ^ self identityHash ].
+	recursionCheck := self.
+	hash := super hash hashMultiply + self class hash.
+	recursionCheck := nil.
+	^ hash
 ]
 
 { #category : #removing }
@@ -86,6 +112,40 @@ ProcessingList >> recursionCheck: anObject [
 ProcessingList >> reverse [
 	self setContents: self asArray reversed.
 	^ nil
+]
+
+{ #category : #accessing }
+ProcessingList >> sliceFrom0: startIndex [
+	"0-based accessor"
+
+	^ self sliceFrom: startIndex + 1
+]
+
+{ #category : #accessing }
+ProcessingList >> sliceFrom0: startIndex stepBy: step [
+	"0-based accessor"
+
+	^ self
+		sliceFrom: startIndex + 1
+		to: self size
+		stepBy: step
+]
+
+{ #category : #accessing }
+ProcessingList >> sliceFrom0: startIndex to: endIndex [
+	"0-based accessor (right openend, i.e. endIndex is excluded)"
+
+	^ self sliceFrom: startIndex + 1 to: endIndex
+]
+
+{ #category : #accessing }
+ProcessingList >> sliceFrom0: startIndex to: endIndex stepBy: step [
+	"0-based accessor (right openend, i.e. endIndex is excluded)"
+
+	^ self
+		sliceFrom: startIndex + 1
+		to: endIndex
+		stepBy: step
 ]
 
 { #category : #accessing }

@@ -41,7 +41,7 @@ ProcessingRunStep >> copyObj: anObject [
 	"Makes a copy of mutable objects (for now: lists), reuses that copy in case the object occurs multiple times in a single step (different variables or on the stack)"
 
 	(anObject isKindOf: ProcessingList)
-		ifTrue: [ ^ copies at: anObject asString ifAbsentPut: [ anObject veryDeepCopy ] ].
+		ifTrue: [ ^ copies at: anObject ifAbsentPut: [ anObject veryDeepCopy ] ].
 	^ anObject	"assume that the object is immutable (or doesn't matter)"
 ]
 
