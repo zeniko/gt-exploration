@@ -1,1 +1,1 @@
-Package { #name : #GtExploration }
+Package { #name : 'GtExploration' }

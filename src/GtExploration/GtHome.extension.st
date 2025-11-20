@@ -1,6 +1,6 @@
-Extension { #name : #GtHome }
+Extension { #name : 'GtHome' }
 
-{ #category : #'*GtExploration' }
+{ #category : '*GtExploration' }
 GtHome >> gtZenikoExplorationSection [
 	<gtHomeSection>
 	^ GtExplorationHomeSection new

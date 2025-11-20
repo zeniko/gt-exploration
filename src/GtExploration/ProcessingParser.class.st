@@ -2,12 +2,14 @@
 This is a thin subclass of {{gtClass:PythonParser}} for parsing Processing programs in Python syntax.
 "
 Class {
-	#name : #ProcessingParser,
-	#superclass : #PythonParser,
-	#category : #'GtExploration-Processing'
+	#name : 'ProcessingParser',
+	#superclass : 'PythonParser',
+	#category : 'GtExploration-Processing',
+	#package : 'GtExploration',
+	#tag : 'Processing'
 }
 
-{ #category : #tool }
+{ #category : 'tool' }
 ProcessingParser class >> gtASTNodeNames [
 	^ {PyAssertStatementNode -> 'Assert'.
 		PyAssignmentExpressionNode -> 'Assignment'.
@@ -40,7 +42,7 @@ ProcessingParser class >> gtASTNodeNames [
 		PyWhileStatementNode -> 'While Loop'} asDictionary
 ]
 
-{ #category : #tool }
+{ #category : 'tool' }
 ProcessingParser class >> gtGetASTChildren: aNode [
 	| extractor nodes |
 	(aNode isKindOf: PyRootNode) ifFalse: [ ^ #() ].

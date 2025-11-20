@@ -2,20 +2,22 @@
 This event is sent by {{gtClass:ProcessingProgram}} whenever the program's source changed and resulted in a successful recompilation.
 "
 Class {
-	#name : #ProcessingProgramChanged,
-	#superclass : #ProcessingASTChanged,
+	#name : 'ProcessingProgramChanged',
+	#superclass : 'ProcessingASTChanged',
 	#instVars : [
 		'program'
 	],
-	#category : #'GtExploration-Processing'
+	#category : 'GtExploration-Processing',
+	#package : 'GtExploration',
+	#tag : 'Processing'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingProgramChanged >> program [
 	^ program
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingProgramChanged >> program: aProgram [
 	program := aProgram
 ]

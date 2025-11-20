@@ -8,8 +8,8 @@ Stepper for: [ source program runSteps ] view: #gtAbstractionsFor:
 
 "
 Class {
-	#name : #Stepper,
-	#superclass : #Object,
+	#name : 'Stepper',
+	#superclass : 'Object',
 	#instVars : [
 		'list',
 		'view',
@@ -18,15 +18,17 @@ Class {
 		'reloader',
 		'background'
 	],
-	#category : #'GtExploration-GtExtensions'
+	#category : 'GtExploration-GtExtensions',
+	#package : 'GtExploration',
+	#tag : 'GtExtensions'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 Stepper class >> for: aList view: aView [
 	^ Stepper new for: aList view: aView
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 Stepper >> addActionButtons: aView [
 	reloader
 		ifNotNil: [ aView
@@ -44,17 +46,17 @@ Stepper >> addActionButtons: aView [
 			action: [ :button | self stepTo: index + 1 ]
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 Stepper >> asElement [
 	^ (GtInspector forObject: self) asElement
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Stepper >> background: aBackground [
 	background := aBackground
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 Stepper >> for: aList view: aView [
 	(aList isKindOf: FullBlockClosure)
 		ifTrue: [ reloader := aList.
@@ -66,7 +68,7 @@ Stepper >> for: aList view: aView [
 	announcer := Announcer new
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 Stepper >> gtContentFor: aView [
 	<gtView>
 	list ifNil: [ ^ aView empty ].
@@ -83,7 +85,7 @@ Stepper >> gtContentFor: aView [
 				updateWhen: StepperUpdate in: announcer)
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 Stepper >> gtListViewFor: aView [
 	<gtView>
 	list ifNil: [ ^ aView empty ].
@@ -144,17 +146,17 @@ Stepper >> gtListViewFor: aView [
 					element ])
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Stepper >> index [
 	^ index
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Stepper >> list [
 	^ list
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Stepper >> stepTo: anIndex [
 	index := anIndex clampBetween: 1 and: list size.
 	announcer announce: StepperUpdate new

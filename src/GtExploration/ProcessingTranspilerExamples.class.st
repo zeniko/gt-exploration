@@ -1,10 +1,12 @@
 Class {
-	#name : #ProcessingTranspilerExamples,
-	#superclass : #Object,
-	#category : #'GtExploration-Examples'
+	#name : 'ProcessingTranspilerExamples',
+	#superclass : 'Object',
+	#category : 'GtExploration-Examples',
+	#package : 'GtExploration',
+	#tag : 'Examples'
 }
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingTranspilerExamples >> allTranspilations [
 	<gtExample>
 	| compilations |
@@ -25,7 +27,7 @@ ProcessingTranspilerExamples >> allTranspilations [
 	^ compilations
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingTranspilerExamples >> allViews [
 	<gtExample>
 	| compilation views |
@@ -44,7 +46,7 @@ ProcessingTranspilerExamples >> allViews [
 	^ compilation
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingTranspilerExamples >> compare: anInstance with: aTranspilation [
 	| methods |
 	methods := OrderedCollection
@@ -57,7 +59,7 @@ ProcessingTranspilerExamples >> compare: anInstance with: aTranspilation [
 ') sorted
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingTranspilerExamples >> newTranspiler [
 	<gtExample>
 	| transpiler |
@@ -66,7 +68,7 @@ ProcessingTranspilerExamples >> newTranspiler [
 	^ transpiler
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingTranspilerExamples >> testData [
 	"Map source code from ProgramSourceExamples to global variables and user defined functions"
 
@@ -113,7 +115,7 @@ ProcessingTranspilerExamples >> testData [
 	^ testData
 ]
 
-{ #category : #transpilation }
+{ #category : 'transpilation' }
 ProcessingTranspilerExamples >> transpilationAlpinerWanderweg [
 	^ 'gtRun
 	width := 200. height := 200. gtCanvas size: width by: height.
@@ -122,7 +124,7 @@ ProcessingTranspilerExamples >> transpilationAlpinerWanderweg [
 	gtCanvas rect: 50 y: (50 + (100 / 3)) width: 100 height: (100 / 3).'
 ]
 
-{ #category : #transpilation }
+{ #category : 'transpilation' }
 ProcessingTranspilerExamples >> transpilationAnimation [
 	^ 'gtRun
 	var := 0.
@@ -146,7 +148,7 @@ draw
 	].'
 ]
 
-{ #category : #transpilation }
+{ #category : 'transpilation' }
 ProcessingTranspilerExamples >> transpilationAnimation2 [
 	^ 'gtRun
 	x := 200.
@@ -183,7 +185,7 @@ draw
 	].'
 ]
 
-{ #category : #transpilation }
+{ #category : 'transpilation' }
 ProcessingTranspilerExamples >> transpilationColors [
 	^ 'gtRun
 	width := 200. height := 200. gtCanvas size: width by: height.
@@ -194,14 +196,14 @@ ProcessingTranspilerExamples >> transpilationColors [
 	gtCanvas rect: 50 y: 50 width: 100 height: 100.'
 ]
 
-{ #category : #transpilation }
+{ #category : 'transpilation' }
 ProcessingTranspilerExamples >> transpilationEndlessLoop [
 	^ 'gtRun
 	[ true ] whileTrue: [
 	].'
 ]
 
-{ #category : #transpilation }
+{ #category : 'transpilation' }
 ProcessingTranspilerExamples >> transpilationExample02 [
 	^ 'gtRun
 	width := 200. height := 200. gtCanvas size: width by: height.
@@ -216,7 +218,7 @@ ProcessingTranspilerExamples >> transpilationExample02 [
 	].'
 ]
 
-{ #category : #transpilation }
+{ #category : 'transpilation' }
 ProcessingTranspilerExamples >> transpilationExample03 [
 	^ 'gtRun
 	width := 200. height := 200. gtCanvas size: width by: height.
@@ -229,7 +231,7 @@ ProcessingTranspilerExamples >> transpilationExample03 [
 	].'
 ]
 
-{ #category : #transpilation }
+{ #category : 'transpilation' }
 ProcessingTranspilerExamples >> transpilationExample04 [
 	^ 'gtRun
 	width := 30. height := 20. gtCanvas size: width by: height.
@@ -244,7 +246,7 @@ setY
 	ProcessingEllipsis.'
 ]
 
-{ #category : #transpilation }
+{ #category : 'transpilation' }
 ProcessingTranspilerExamples >> transpilationExample05 [
 	^ 'gtRun
 	width := 200. height := 100. gtCanvas size: width by: height.
@@ -253,7 +255,7 @@ ProcessingTranspilerExamples >> transpilationExample05 [
 	gtCanvas print: { nil. true. false. ''String''. (ProcessingList newFrom: { ''Nested''. }). }.'
 ]
 
-{ #category : #transpilation }
+{ #category : 'transpilation' }
 ProcessingTranspilerExamples >> transpilationExample06 [
 	^ 'gtRun
 	cond := ((true and: [ false ]) or: [ (1 = 2 and: [ 2 = 3 ]) not ]).
@@ -264,7 +266,7 @@ ProcessingTranspilerExamples >> transpilationExample06 [
 	].'
 ]
 
-{ #category : #transpilation }
+{ #category : 'transpilation' }
 ProcessingTranspilerExamples >> transpilationExample07 [
 	^ 'gtRun
 	a := (gtCanvas random: 3 to: 7).
@@ -275,7 +277,7 @@ ProcessingTranspilerExamples >> transpilationExample07 [
 	[ false ] assertWithDescription: ''Done!''.'
 ]
 
-{ #category : #transpilation }
+{ #category : 'transpilation' }
 ProcessingTranspilerExamples >> transpilationFibonacci [
 	^ 'gtRun
 	width := 200. height := 200. gtCanvas size: width by: height.
@@ -296,7 +298,7 @@ fibonacci: n
 	].'
 ]
 
-{ #category : #transpilation }
+{ #category : 'transpilation' }
 ProcessingTranspilerExamples >> transpilationForLoop [
 	^ 'gtRun
 	a := 1.
@@ -310,7 +312,7 @@ ProcessingTranspilerExamples >> transpilationForLoop [
 	gtCanvas print: { res. a. x. }.'
 ]
 
-{ #category : #transpilation }
+{ #category : 'transpilation' }
 ProcessingTranspilerExamples >> transpilationImage [
 	^ 'gtRun
 	width := 200. height := 200. gtCanvas size: width by: height.
@@ -320,7 +322,7 @@ ProcessingTranspilerExamples >> transpilationImage [
 	gtCanvas image: img x: 150 y: 150 width: 50 height: 50.'
 ]
 
-{ #category : #transpilation }
+{ #category : 'transpilation' }
 ProcessingTranspilerExamples >> transpilationLists [
 	^ 'gtRun
 	a := (ProcessingList newFrom: { 1. 2. }).
@@ -340,7 +342,7 @@ ProcessingTranspilerExamples >> transpilationLists [
 	gtCanvas print: { a. b. c. d. e. f. g. h. j. k. l. }.'
 ]
 
-{ #category : #transpilation }
+{ #category : 'transpilation' }
 ProcessingTranspilerExamples >> transpilationLists2 [
 	^ 'gtRun
 	a := (ProcessingList newFrom: { 1. 2. 3. }).
@@ -350,7 +352,7 @@ ProcessingTranspilerExamples >> transpilationLists2 [
 	gtCanvas print: { (a * 2). (a sliceFrom0: 0 to: 0). (a sliceFrom0: 1 negated). (a * 0). }.'
 ]
 
-{ #category : #transpilation }
+{ #category : 'transpilation' }
 ProcessingTranspilerExamples >> transpilationLists3 [
 	^ 'gtRun
 	a := (ProcessingList newFrom: { 1. }).
@@ -361,13 +363,13 @@ ProcessingTranspilerExamples >> transpilationLists3 [
 	gtCanvas print: a.'
 ]
 
-{ #category : #transpilation }
+{ #category : 'transpilation' }
 ProcessingTranspilerExamples >> transpilationMinimal [
 	^ 'gtRun
 	width := 200. height := 200. gtCanvas size: width by: height.'
 ]
 
-{ #category : #transpilation }
+{ #category : 'transpilation' }
 ProcessingTranspilerExamples >> transpilationMouseEvents [
 	^ 'gtRun
 	self setup.
@@ -389,7 +391,7 @@ draw
 	gtCanvas text: (''Time: '' , gtCanvas millis asString) x: 10 y: 190.'
 ]
 
-{ #category : #transpilation }
+{ #category : 'transpilation' }
 ProcessingTranspilerExamples >> transpilationMouseEvents2 [
 	^ 'gtRun
 	self setup.
@@ -416,7 +418,7 @@ mouseMoved
 	gtCanvas backgroundR: mouseX G: 0 B: mouseY.'
 ]
 
-{ #category : #transpilation }
+{ #category : 'transpilation' }
 ProcessingTranspilerExamples >> transpilationPrecedence [
 	^ 'gtRun
 	[ (((2 / 3) * 4) = (8 / 3)) ] assert.
@@ -429,7 +431,7 @@ ProcessingTranspilerExamples >> transpilationPrecedence [
 	[ ((true and: [ false ]) or: [ false ]) not ] assert.'
 ]
 
-{ #category : #transpilation }
+{ #category : 'transpilation' }
 ProcessingTranspilerExamples >> transpilationPresentationDemo [
 	^ 'gtRun
 	a := b := 1.
@@ -440,7 +442,7 @@ ProcessingTranspilerExamples >> transpilationPresentationDemo [
 	gtCanvas print: a.'
 ]
 
-{ #category : #transpilation }
+{ #category : 'transpilation' }
 ProcessingTranspilerExamples >> transpilationPrint [
 	^ 'gtRun
 	gtCanvas print: ''Hello, world!''.
@@ -448,7 +450,7 @@ ProcessingTranspilerExamples >> transpilationPrint [
 	gtCanvas print: { ''2 + 3 / 4 =''. var. }.'
 ]
 
-{ #category : #transpilation }
+{ #category : 'transpilation' }
 ProcessingTranspilerExamples >> transpilationRandom [
 	^ 'gtRun
 	(gtCanvas randomSeed: 100).
@@ -456,7 +458,7 @@ ProcessingTranspilerExamples >> transpilationRandom [
 	[ ((gtCanvas random: 3) = 0.46133644294987264) ] assert.'
 ]
 
-{ #category : #transpilation }
+{ #category : 'transpilation' }
 ProcessingTranspilerExamples >> transpilationRecursion [
 	^ 'gtRun
 	width := 200. height := 200. gtCanvas size: width by: height.
@@ -469,13 +471,13 @@ recursion: n
 	].'
 ]
 
-{ #category : #transpilation }
+{ #category : 'transpilation' }
 ProcessingTranspilerExamples >> transpilationRuntimeError [
 	^ 'gtRun
 	(1 / 0).'
 ]
 
-{ #category : #transpilation }
+{ #category : 'transpilation' }
 ProcessingTranspilerExamples >> transpilationShapes [
 	^ 'gtRun
 	width := 200. height := 200. gtCanvas size: width by: height.
@@ -486,7 +488,7 @@ ProcessingTranspilerExamples >> transpilationShapes [
 	gtCanvas triangle: 125 y1: 125 x2: 150 y2: 175 x3: 175 y3: 150.'
 ]
 
-{ #category : #transpilation }
+{ #category : 'transpilation' }
 ProcessingTranspilerExamples >> transpilationSierpinski [
 	^ 'gtRun
 	px := 300.
@@ -514,7 +516,7 @@ sierpinski: n x: x y: y side: gt0_side
 	].'
 ]
 
-{ #category : #transpilation }
+{ #category : 'transpilation' }
 ProcessingTranspilerExamples >> transpilationSimulation [
 	^ 'gtRun
 	anzahl_personen := 100.
@@ -613,7 +615,7 @@ personen_anzeigen
 	gtCanvas text: (''Infizierte: '' , infizierte asString) x: 20 y: 30.'
 ]
 
-{ #category : #transpilation }
+{ #category : 'transpilation' }
 ProcessingTranspilerExamples >> transpilationSpiral [
 	^ 'gtRun
 	width := 600. height := 600. gtCanvas size: width by: height.
@@ -633,7 +635,7 @@ ProcessingTranspilerExamples >> transpilationSpiral [
 	].'
 ]
 
-{ #category : #transpilation }
+{ #category : 'transpilation' }
 ProcessingTranspilerExamples >> transpilationSwitzerland [
 	^ 'gtRun
 	width := 200. height := 200. gtCanvas size: width by: height.
@@ -642,7 +644,7 @@ ProcessingTranspilerExamples >> transpilationSwitzerland [
 	gtCanvas rect: 25 y: 75 width: 150 height: 50.'
 ]
 
-{ #category : #transpilation }
+{ #category : 'transpilation' }
 ProcessingTranspilerExamples >> transpilationTransforms [
 	^ 'gtRun
 	width := 200. height := 200. gtCanvas size: width by: height.
@@ -665,7 +667,7 @@ ProcessingTranspilerExamples >> transpilationTransforms [
 	gtCanvas rect: 15 y: 70 negated width: 20 height: 20.'
 ]
 
-{ #category : #transpilation }
+{ #category : 'transpilation' }
 ProcessingTranspilerExamples >> transpilationTurtleGraphics [
 	^ 'gtRun
 	width := 400. height := 400. gtCanvas size: width by: height.
@@ -717,7 +719,7 @@ turn: angle
 	t_angle := (t_angle + angle).'
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingTranspilerExamples >> transpileExample02 [
 	<gtExample>
 	| ast transpiler |
@@ -735,7 +737,7 @@ ProcessingTranspilerExamples >> transpileExample02 [
 	^ transpiler compile: ast
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingTranspilerExamples >> transpilePresentationDemo [
 	<gtExample>
 	| ast transpiler |
@@ -753,7 +755,7 @@ ProcessingTranspilerExamples >> transpilePresentationDemo [
 	^ transpiler compile: ast
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingTranspilerExamples >> transpileRecursion [
 	<gtExample>
 	| ast transpiler |

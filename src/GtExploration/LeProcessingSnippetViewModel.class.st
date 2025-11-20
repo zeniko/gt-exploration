@@ -1,15 +1,17 @@
 Class {
-	#name : #LeProcessingSnippetViewModel,
-	#superclass : #LePythonSnippetViewModel,
-	#category : #'GtExploration-Snippet'
+	#name : 'LeProcessingSnippetViewModel',
+	#superclass : 'LePythonSnippetViewModel',
+	#category : 'GtExploration-Snippet',
+	#package : 'GtExploration',
+	#tag : 'Snippet'
 }
 
-{ #category : #'filter view' }
+{ #category : 'filter view' }
 LeProcessingSnippetViewModel >> parserClass [
 	^ ProcessingParser
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeProcessingSnippetViewModel >> snippetElementClass [
 	^ LeProcessingSnippetElement
 ]

@@ -2,8 +2,8 @@
 This is the presenter in the model-view-presenter pattern implemented by {{gtClass:ProcessingCanvas}}, {{gtClass:ProcessingCanvasElement}} and {{gtClass:ProcessingCanvasPresenter}}.
 "
 Class {
-	#name : #ProcessingCanvasPresenter,
-	#superclass : #Object,
+	#name : 'ProcessingCanvasPresenter',
+	#superclass : 'Object',
 	#instVars : [
 		'containerElement',
 		'canvasElement',
@@ -13,20 +13,22 @@ Class {
 		'transcriptElement',
 		'threadSafe'
 	],
-	#category : #'GtExploration-Processing'
+	#category : 'GtExploration-Processing',
+	#package : 'GtExploration',
+	#tag : 'Processing'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ProcessingCanvasPresenter class >> newFor: aModel [
 	^ ProcessingCanvasPresenter new model: aModel
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingCanvasPresenter >> canvasElement [
 	^ canvasElement
 ]
 
-{ #category : #outputting }
+{ #category : 'outputting' }
 ProcessingCanvasPresenter >> clearWithBackground: aColor [
 	"background() is used as a hint to buffer animations"
 
@@ -36,12 +38,12 @@ ProcessingCanvasPresenter >> clearWithBackground: aColor [
 			canvasOutput children do: #removeFromParent ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingCanvasPresenter >> containerElement [
 	^ containerElement
 ]
 
-{ #category : #outputting }
+{ #category : 'outputting' }
 ProcessingCanvasPresenter >> display: aShape [
 	| element |
 	element := aShape asElementTransformed.
@@ -51,7 +53,7 @@ ProcessingCanvasPresenter >> display: aShape [
 				dispatchEvent: (ProcessingExplainShape newFor: element createdBy: aShape context)	"Allow adding an explanation marker." ]
 ]
 
-{ #category : #outputting }
+{ #category : 'outputting' }
 ProcessingCanvasPresenter >> displayTranscript: aTranscript for: aSource [
 	self
 		uiActionDo: [ transcriptElement
@@ -60,7 +62,7 @@ ProcessingCanvasPresenter >> displayTranscript: aTranscript for: aSource [
 				dispatchEvent: (ProcessingExplainShape newFor: transcriptElement createdBy: aSource)	"Allow adding an explanation marker." ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ProcessingCanvasPresenter >> initialize [
 	containerElement := ProcessingCanvasElement new
 			presenter: self;
@@ -78,39 +80,39 @@ ProcessingCanvasPresenter >> initialize [
 	threadSafe := false
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingCanvasPresenter >> model [
 	^ model
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingCanvasPresenter >> model: aModel [
 	model := aModel
 ]
 
-{ #category : #outputting }
+{ #category : 'outputting' }
 ProcessingCanvasPresenter >> outputSize: aSize [
 	self uiActionDo: [ canvasElement size: aSize ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingCanvasPresenter >> threadSafe [
 	^ threadSafe
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingCanvasPresenter >> threadSafe: anObject [
 	threadSafe := anObject
 ]
 
-{ #category : #processing }
+{ #category : 'processing' }
 ProcessingCanvasPresenter >> uiActionDo: aBlock [
 	^ threadSafe
 		ifTrue: [ containerElement inUIProcessDo: aBlock ]
 		ifFalse: [ aBlock value ]
 ]
 
-{ #category : #outputting }
+{ #category : 'outputting' }
 ProcessingCanvasPresenter >> updateOutput [
 	self
 		uiActionDo: [ canvasBuffer

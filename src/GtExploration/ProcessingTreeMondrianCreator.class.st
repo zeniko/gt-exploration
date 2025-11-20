@@ -2,12 +2,14 @@
 This helper class creates a Mondrian tree from a Processing/Python AST.
 "
 Class {
-	#name : #ProcessingTreeMondrianCreator,
-	#superclass : #Object,
-	#category : #'GtExploration-Processing'
+	#name : 'ProcessingTreeMondrianCreator',
+	#superclass : 'Object',
+	#category : 'GtExploration-Processing',
+	#package : 'GtExploration',
+	#tag : 'Processing'
 }
 
-{ #category : #creating }
+{ #category : 'creating' }
 ProcessingTreeMondrianCreator class >> addSubTree: aNode for: ast to: aMondrian [
 	| node next label |
 	node := aNode.
@@ -37,7 +39,7 @@ ProcessingTreeMondrianCreator class >> addSubTree: aNode for: ast to: aMondrian 
 	^ node
 ]
 
-{ #category : #creating }
+{ #category : 'creating' }
 ProcessingTreeMondrianCreator class >> mondrianFor: ast [
 	| view |
 	view := GtMondrian new.

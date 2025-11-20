@@ -1,10 +1,12 @@
 Class {
-	#name : #ProcessingTranspilerVariantExamples,
-	#superclass : #Object,
-	#category : #'GtExploration-Examples'
+	#name : 'ProcessingTranspilerVariantExamples',
+	#superclass : 'Object',
+	#category : 'GtExploration-Examples',
+	#package : 'GtExploration',
+	#tag : 'Examples'
 }
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingTranspilerVariantExamples >> postfixPresentationDemo [
 	<gtExample>
 	| transpiler output |
@@ -23,7 +25,7 @@ a print
 	^ output
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingTranspilerVariantExamples >> postfixTranspiler [
 	<gtExample>
 	| transpiler |
@@ -32,7 +34,7 @@ ProcessingTranspilerVariantExamples >> postfixTranspiler [
 	^ transpiler
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingTranspilerVariantExamples >> prefixPresentationDemo [
 	<gtExample>
 	| transpiler output |
@@ -51,7 +53,7 @@ ProcessingTranspilerVariantExamples >> prefixPresentationDemo [
 	^ output
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingTranspilerVariantExamples >> prefixTranspiler [
 	<gtExample>
 	| transpiler |
@@ -60,7 +62,7 @@ ProcessingTranspilerVariantExamples >> prefixTranspiler [
 	^ transpiler
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingTranspilerVariantExamples >> transpileAnimation [
 	<gtExample>
 	| ast postfix prefix |
@@ -107,7 +109,7 @@ $draw () {
 	^ prefix
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingTranspilerVariantExamples >> transpileAnimation2 [
 	<gtExample>
 	| ast postfix prefix |
@@ -180,7 +182,7 @@ $draw () {
 	^ prefix
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingTranspilerVariantExamples >> transpileExample03 [
 	<gtExample>
 	| ast postfix prefix |
@@ -215,7 +217,7 @@ $x 200 =
 	^ prefix
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingTranspilerVariantExamples >> transpileExample05 [
 	<gtExample>
 	| ast postfix prefix |
@@ -242,7 +244,7 @@ None True False "String" "Nested" list_1 print_5
 	^ prefix
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingTranspilerVariantExamples >> transpileExample06 [
 	<gtExample>
 	| ast postfix prefix |
@@ -271,7 +273,7 @@ $x 1 var range {
 	^ prefix
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingTranspilerVariantExamples >> transpileExample07 [
 	<gtExample>
 	| ast postfix prefix |
@@ -302,7 +304,7 @@ False "Done!" assert_2
 	^ prefix
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingTranspilerVariantExamples >> transpileFibonacci [
 	<gtExample>
 	| ast postfix prefix |
@@ -351,7 +353,7 @@ $fibonacci ($n) {
 	^ prefix
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingTranspilerVariantExamples >> transpileLists [
 	<gtExample>
 	| ast postfix prefix |
@@ -400,7 +402,7 @@ a b c d e f g h j k l print_11
 	^ prefix
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingTranspilerVariantExamples >> transpileLists2 [
 	<gtExample>
 	| ast postfix prefix |
@@ -429,7 +431,7 @@ a 2 * a None 0 None slice a 1 unary- None None slice a 0 * print_4
 	^ prefix
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingTranspilerVariantExamples >> transpilePrecedence [
 	<gtExample>
 	| ast postfix prefix |
@@ -464,7 +466,7 @@ True False and False or not assert
 	^ prefix
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingTranspilerVariantExamples >> transpileRandom [
 	<gtExample>
 	| ast postfix prefix |
@@ -489,7 +491,7 @@ ProcessingTranspilerVariantExamples >> transpileRandom [
 	^ prefix
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingTranspilerVariantExamples >> transpileSierpinski [
 	<gtExample>
 	| ast postfix prefix |

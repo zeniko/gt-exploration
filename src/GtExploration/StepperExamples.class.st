@@ -1,10 +1,12 @@
 Class {
-	#name : #StepperExamples,
-	#superclass : #Object,
-	#category : #'GtExploration-Examples'
+	#name : 'StepperExamples',
+	#superclass : 'Object',
+	#category : 'GtExploration-Examples',
+	#package : 'GtExploration',
+	#tag : 'Examples'
 }
 
-{ #category : #example }
+{ #category : 'example' }
 StepperExamples >> animation2Stepper [
 	<gtExample>
 	| stepper |
@@ -18,7 +20,7 @@ StepperExamples >> animation2Stepper [
 	^ stepper
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 StepperExamples >> example02Stepper [
 	<gtExample>
 	| stepper |
@@ -34,7 +36,7 @@ StepperExamples >> example02Stepper [
 	^ stepper
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 StepperExamples >> example07Stepper [
 	<gtExample>
 	| stepper |
@@ -46,7 +48,7 @@ StepperExamples >> example07Stepper [
 	^ stepper
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 StepperExamples >> sierpinskiStepper [
 	"Collecting that many samples takes a few seconds"
 
@@ -63,7 +65,7 @@ StepperExamples >> sierpinskiStepper [
 	^ stepper
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 StepperExamples >> spiralStepper [
 	"Collecting that many samples takes a few seconds"
 

@@ -1,15 +1,17 @@
 Class {
-	#name : #GtProcessingCoderDebugShortcut,
-	#superclass : #GtSourceCoderShortcut,
-	#category : #'GtExploration-Snippet'
+	#name : 'GtProcessingCoderDebugShortcut',
+	#superclass : 'GtSourceCoderShortcut',
+	#category : 'GtExploration-Snippet',
+	#package : 'GtExploration',
+	#tag : 'Snippet'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtProcessingCoderDebugShortcut >> description [
 	^ 'Starts a GT debugger on the transpiled code.'
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtProcessingCoderDebugShortcut >> initialize [
 	super initialize.
 
@@ -17,7 +19,7 @@ GtProcessingCoderDebugShortcut >> initialize [
 	name := 'Debug'
 ]
 
-{ #category : #evaluation }
+{ #category : 'evaluation' }
 GtProcessingCoderDebugShortcut >> performOnEditor: aBrTextEditor element: aBrEditorElement coderViewModel: aSourceCoderViewModel dueTo: aShortcutEvent [
 	GtCoderExecutionContextVariable
 		element: aBrEditorElement

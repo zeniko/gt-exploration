@@ -8,44 +8,46 @@ It takes an AST as produced by {{gtClass:ProcessingParser}} and rewrites it, in 
 - commands after `return` are removed
 "
 Class {
-	#name : #ProcessingAstCleaner,
-	#superclass : #Object,
+	#name : 'ProcessingAstCleaner',
+	#superclass : 'Object',
 	#classTraits : 'TPyRootNodeVisitor classTrait',
-	#category : #'GtExploration-Processing'
+	#category : 'GtExploration-Processing',
+	#package : 'GtExploration',
+	#tag : 'Processing'
 }
 
-{ #category : #cleaning }
+{ #category : 'cleaning' }
 ProcessingAstCleaner class >> clean: anAst [
 	^ anAst acceptVisitor: ProcessingAstCleaner new
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingAstCleaner >> accept: anObject [
 	(anObject isKindOf: SmaCCParseNode) ifTrue: [ ^ self acceptNode: anObject ].
 	(anObject isKindOf: Collection) ifTrue: [ ^ self acceptNodes: anObject ].
 	^ anObject
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingAstCleaner >> acceptNode: aSmaCCParseNode [
 	aSmaCCParseNode isNil ifTrue: [ ^ nil ].
 	^ aSmaCCParseNode acceptVisitor: self
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingAstCleaner >> acceptNodes: aCollection [
 	aCollection do: [ :each | self acceptNode: each ].
 	^ aCollection
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingAstCleaner >> notImplemented: expr [
 	ProcessingNotImplementedException
 		signal: 'Unsupported expression type: ' , ((expr class name removePrefix: 'Py') removeSuffix: 'Node')
 		withTag: expr
 ]
 
-{ #category : #cleaning }
+{ #category : 'cleaning' }
 ProcessingAstCleaner >> replace: anExpr with: anotherExpr [
 	| parent |
 	parent := anExpr parent.
@@ -61,27 +63,27 @@ ProcessingAstCleaner >> replace: anExpr with: anotherExpr [
 	^ anotherExpr
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitArgument: anArgument [
 	^ self visitRoot: anArgument
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitAsName: anAsName [
 	^ self visitName: anAsName
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitAssertStatement: anAssertStatement [
 	^ self visitStatement: anAssertStatement
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitAssignmentExpression: anAssignmentExpression [
 	^ self visitExpression: anAssignmentExpression
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingAstCleaner >> visitAssignmentStatement: stmt [
 	"Rewrite `a += b` and friends to `a = a + b` for Smalltalk compatibility."
 
@@ -107,17 +109,17 @@ ProcessingAstCleaner >> visitAssignmentStatement: stmt [
 	^ self visitStatement: stmt
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitAwaitExpression: anAwaitExpression [
 	^ self visitExpression: anAwaitExpression
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitBacktickExpression: aBacktickExpression [
 	^ self visitExpression: aBacktickExpression
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingAstCleaner >> visitBinaryExpression: expr [
 	"GtUnoptimizedConditionalAdvice suggests (a and (b and c)) instead of ((a and b) and c)"
 
@@ -140,147 +142,147 @@ ProcessingAstCleaner >> visitBinaryExpression: expr [
 	^ self visitExpression: expr
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitBreakStatement: aBreakStatement [
 	^ self visitStatement: aBreakStatement
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitClassDefinition: aClassDefinition [
 	^ self visitStatement: aClassDefinition
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitComparisonExpression: aComparisonExpression [
 	^ self visitBinaryExpression: aComparisonExpression
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitComprehension: aComprehension [
 	^ self visitRoot: aComprehension
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitComprehensionDictionaryItem: aComprehensionDictionaryItem [
 	^ self visitRoot: aComprehensionDictionaryItem
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitComprehensionFor: aComprehensionFor [
 	^ self visitRoot: aComprehensionFor
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitComprehensionIf: aComprehensionIf [
 	^ self visitRoot: aComprehensionIf
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitContinueStatement: aContinueStatement [
 	^ self visitStatement: aContinueStatement
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitDecoratorExpression: aDecoratorExpression [
 	^ self visitFunctionCallExpression: aDecoratorExpression
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitDelStatement: aDelStatement [
 	^ self visitStatement: aDelStatement
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitDictionaryExpression: aDictionaryExpression [
 	^ self visitExpression: aDictionaryExpression
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitDictionaryItem: aDictionaryItem [
 	^ self visitRoot: aDictionaryItem
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitElif: anElif [
 	^ self visitRoot: anElif
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitEllipsis: anEllipsis [
 	^ self visitExpression: anEllipsis
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitElse: anElse [
 	^ self visitRoot: anElse
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitEval: anEval [
 	^ self visitRoot: anEval
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitExceptClause: anExceptClause [
 	^ self visitRoot: anExceptClause
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitExecStatement: anExecStatement [
 	^ self visitStatement: anExecStatement
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitExpression: anExpression [
 	^ self visitRoot: anExpression
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitExpressionStatement: anExpressionStatement [
 	^ self visitStatement: anExpressionStatement
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitFieldAccessExpression: aFieldAccessExpression [
 	^ self visitExpression: aFieldAccessExpression
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitFile: aFile [
 	^ self visitRoot: aFile
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitFinally: aFinally [
 	^ self visitRoot: aFinally
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitForStatement: aForStatement [
 	^ self visitStatement: aForStatement
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitFunctionCallExpression: aFunctionCallExpression [
 	^ self visitExpression: aFunctionCallExpression
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitFunctionDefinition: aFunctionDefinition [
 	^ self visitStatement: aFunctionDefinition
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitGlobalStatement: aGlobalStatement [
 	^ self visitStatement: aGlobalStatement
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitIfExpression: anIfExpression [
 	^ self visitExpression: anIfExpression
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingAstCleaner >> visitIfStatement: expr [
 	"Turn a if: ... elif: ... else: ... chain into nested if: ... else: ... statements"
 
@@ -302,92 +304,92 @@ ProcessingAstCleaner >> visitIfStatement: expr [
 	^ self visitStatement: expr
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitImportStatement: anImportStatement [
 	^ self visitStatement: anImportStatement
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitInit: anInit [
 	^ self visitRoot: anInit
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitKeywordParameter: aKeywordParameter [
 	^ self visitParameter: aKeywordParameter
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitLambdaExpression: aLambdaExpression [
 	^ self visitExpression: aLambdaExpression
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitListExpression: aListExpression [
 	^ self visitExpression: aListExpression
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitListFor: aListFor [
 	^ self visitRoot: aListFor
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitListIf: aListIf [
 	^ self visitRoot: aListIf
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitListParameter: aListParameter [
 	^ self visitParameter: aListParameter
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitMetaclass: aMetaclass [
 	^ self visitRoot: aMetaclass
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitName: aName [
 	^ self visitRoot: aName
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitNumber: aNumber [
 	^ self visitExpression: aNumber
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitParameter: aParameter [
 	^ self visitRoot: aParameter
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitParameterList: aParameterList [
 	^ self visitRoot: aParameterList
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitPassStatement: aPassStatement [
 	^ self visitStatement: aPassStatement
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitPrintStatement: aPrintStatement [
 	^ self visitStatement: aPrintStatement
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitRaiseStatement: aRaiseStatement [
 	^ self visitStatement: aRaiseStatement
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitRelativeName: aRelativeName [
 	^ self visitRoot: aRelativeName
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingAstCleaner >> visitReturnStatement: stmt [
 	"Smalltalk doesn't expect statements after a return, so we omit them."
 
@@ -398,63 +400,63 @@ ProcessingAstCleaner >> visitReturnStatement: stmt [
 	^ self visitStatement: stmt
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitReturnTypeAnnotation: aReturnTypeAnnotation [
 	^ self visitRoot: aReturnTypeAnnotation
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitRoot: aRoot [
 	^ self visitSmaCCParseNode: aRoot
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitSetExpression: aSetExpression [
 	^ self visitExpression: aSetExpression
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitSlice: aSlice [
 	^ self visitRoot: aSlice
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingAstCleaner >> visitSmaCCError: aSmaCCError [
 	^ self visitSmaCCParseNode: aSmaCCError
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingAstCleaner >> visitSmaCCParseNode: aSmaCCParseNode [
 	self acceptNodes: aSmaCCParseNode sortedChildren.
 	^ aSmaCCParseNode
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitSpreadExpression: aSpreadExpression [
 	^ self visitExpression: aSpreadExpression
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitStatement: aStatement [
 	^ self visitRoot: aStatement
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitString: aString [
 	^ self visitExpression: aString
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitSubscriptExpression: aSubscriptExpression [
 	^ self visitExpression: aSubscriptExpression
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitTryStatement: aTryStatement [
 	^ self visitStatement: aTryStatement
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingAstCleaner >> visitTupleExpression: expr [
 	"PythonParser produces PyTupleExpressionNodes for parenthesized expressions. These nodes aren't necessary for the AST"
 
@@ -465,42 +467,42 @@ ProcessingAstCleaner >> visitTupleExpression: expr [
 	^ self replace: expr with: expr expressions first
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitTypedVariableExpression: aTypedVariableExpression [
 	^ self visitVariableExpression: aTypedVariableExpression
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitUnaryExpression: anUnaryExpression [
 	^ self visitExpression: anUnaryExpression
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitVariableExpression: aVariableExpression [
 	^ self visitExpression: aVariableExpression
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitWhileStatement: aWhileStatement [
 	^ self visitStatement: aWhileStatement
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitWithItem: aWithItem [
 	^ self visitRoot: aWithItem
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitWithStatement: aWithStatement [
 	^ self visitStatement: aWithStatement
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitYieldExpression: aYieldExpression [
 	^ self visitExpression: aYieldExpression
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingAstCleaner >> visitYieldStatement: aYieldStatement [
 	^ self visitStatement: aYieldStatement
 ]

@@ -5,12 +5,14 @@ This class contains three tools used in the Lepiter notebooks:
 - `addWeekSection:` adds a new section at the top of {{gtPage:Progress - History|db=5rgxfv9r684digmpw7ph7kbt4}}
 "
 Class {
-	#name : #PageAutomationHelper,
-	#superclass : #Object,
-	#category : #'GtExploration-Experiments'
+	#name : 'PageAutomationHelper',
+	#superclass : 'Object',
+	#category : 'GtExploration-Experiments',
+	#package : 'GtExploration',
+	#tag : 'Experiments'
 }
 
-{ #category : #tool }
+{ #category : 'tool' }
 PageAutomationHelper class >> addWeekSection: aSnippet [
 	| isoweek header snip |
 	"Inverse to {{gtMethod:Week class>>#week:}}"
@@ -26,7 +28,7 @@ PageAutomationHelper class >> addWeekSection: aSnippet [
 	^ snip
 ]
 
-{ #category : #tool }
+{ #category : 'tool' }
 PageAutomationHelper class >> sistaV1BytecodeList [
 	| bytecodes rx data list |
 	bytecodes := OrderedCollection new.
@@ -94,7 +96,7 @@ PageAutomationHelper class >> sistaV1BytecodeList [
 	^ list
 ]
 
-{ #category : #tool }
+{ #category : 'tool' }
 PageAutomationHelper class >> updateProcessingAPI [
 	| dbs exploreDB unterrichtDB exploreAPI unterrichtAPI |
 	dbs := LeDatabasesRegistry uniqueInstance defaultLogicalDatabase databases.

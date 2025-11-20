@@ -2,20 +2,22 @@
 This announcement is sent by {{gtClass:ProcessingSource}} whenever the source changed and is syntactically valid.
 "
 Class {
-	#name : #ProcessingASTChanged,
-	#superclass : #ProcessingSourceChanged,
+	#name : 'ProcessingASTChanged',
+	#superclass : 'ProcessingSourceChanged',
 	#instVars : [
 		'ast'
 	],
-	#category : #'GtExploration-Processing'
+	#category : 'GtExploration-Processing',
+	#package : 'GtExploration',
+	#tag : 'Processing'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingASTChanged >> ast [
 	^ ast ifNil: [ ProcessingParser parse: source asString ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingASTChanged >> ast: anAst [
 	ast := anAst
 ]

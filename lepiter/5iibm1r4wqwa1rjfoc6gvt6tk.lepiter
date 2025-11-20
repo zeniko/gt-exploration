@@ -29,7 +29,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-02-25T22:02:44.521+01:00"
+						"dateAndTimeString" : "2025-11-20T23:11:04.385+01:00"
 					}
 				},
 				"uid" : {
@@ -39,7 +39,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "Shows a colloquial description of the input commands, the output or an intermediary interpretation of the program (derived through a LLM, provided by {{gtClass:name=GtLlmTutor}})."
+				"string" : "Shows a colloquial description of the input commands, the output or an intermediary interpretation of the program (derived through a LLM, provided by {{gtClass:name=GtLlmChat}})."
 			},
 			{
 				"__type" : "textSnippet",
@@ -151,6 +151,111 @@
 					"__type" : "textStyle"
 				},
 				"string" : "Might help students struggling with the abstractions to understand their code in a different fashion."
+			},
+			{
+				"__type" : "textSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-11-20T23:11:12.088+01:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-11-20T23:11:16.924+01:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "iD+NwNRlgkG7HiaEe7mR4w=="
+				},
+				"paragraphStyle" : {
+					"__type" : "textStyle"
+				},
+				"string" : "## Sample"
+			},
+			{
+				"__type" : "processingSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-11-20T23:11:30.837+01:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-11-20T23:11:32.966+01:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "kilPRbGAFEialG9QczE2zw=="
+				},
+				"code" : "size(200, 200)\rrect(50, 50, 100, 100)\rfill(255, 0, 0)\rrect(50, 50 + 100 / 3, 100, 100 / 3)"
+			},
+			{
+				"__type" : "pharoSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-11-20T23:11:35.099+01:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-11-20T23:12:06.546+01:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "ZTFrothV9kOK/7MbNn3GVA=="
+				},
+				"code" : "systemMessage := GtLlmSystemMessage new\r\t\tcontent: 'You are a tutor for the Python-based Processing programming language. You''ll be given code. Explain briefly what the code intends to do and how it achieves its output. (The user sees the program''s output, so you may refer to that).'.\r\ruserMessage := GtLlmUserMessage new\r\t\tcontent: thisSnippet previousSibling code asString.\r\rGtOllamaClient new\r\tcompleteChatWithModel: 'llama3.2:latest'\r\tandMessages: {systemMessage.\r\t\t\tuserMessage}"
 			}
 		]
 	},

@@ -9,25 +9,27 @@ ViewComparison
 ```
 "
 Class {
-	#name : #ViewComparison,
-	#superclass : #Object,
+	#name : 'ViewComparison',
+	#superclass : 'Object',
 	#instVars : [
 		'mapping'
 	],
-	#category : #'GtExploration-GtExtensions'
+	#category : 'GtExploration-GtExtensions',
+	#package : 'GtExploration',
+	#tag : 'GtExtensions'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ViewComparison class >> newFor: aMapping [
 	^ ViewComparison new mapping: aMapping
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ViewComparison >> asElement [
 	^ (GtInspector forObject: self viewSelector: #gtCompareFor:) asElement
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ViewComparison >> gtCompareFor: aView [
 	<gtView>
 	^ aView explicit
@@ -62,7 +64,7 @@ ViewComparison >> gtCompareFor: aView [
 			element ]
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ViewComparison >> gtSynchronizeScrollstate: aList with: anotherList [
 	| skipScroll |
 	skipScroll := false.	"Skip auto-scrolling when an item in the second list is selected, which causes the first list to scroll to it."
@@ -95,7 +97,7 @@ ViewComparison >> gtSynchronizeScrollstate: aList with: anotherList [
 										offset: range last - range first - 1 ] ] ] ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ViewComparison >> mapping: aMapping [
 	mapping := aMapping
 ]

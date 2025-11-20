@@ -11,50 +11,52 @@ or prefix
 
 "
 Class {
-	#name : #ProcessingTranspilerVariant,
-	#superclass : #Object,
+	#name : 'ProcessingTranspilerVariant',
+	#superclass : 'Object',
 	#classTraits : 'TPyRootNodeVisitor classTrait',
 	#instVars : [
 		'indentation',
 		'style'
 	],
-	#category : #'GtExploration-Processing'
+	#category : 'GtExploration-Processing',
+	#package : 'GtExploration',
+	#tag : 'Processing'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ProcessingTranspilerVariant class >> postfix [
 	^ ProcessingTranspilerVariant new style: 'postfix'
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ProcessingTranspilerVariant class >> prefix [
 	^ ProcessingTranspilerVariant new style: 'prefix'
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ProcessingTranspilerVariant class >> smalltalk [
 	^ ProcessingTranspiler new
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspilerVariant >> accept: anObject [
 	(anObject isKindOf: SmaCCParseNode) ifTrue: [ ^ self acceptNode: anObject ].
 	(anObject isKindOf: Collection) ifTrue: [ ^ self acceptNodes: anObject ].
 	^ anObject
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspilerVariant >> acceptNode: aSmaCCParseNode [
 	aSmaCCParseNode isNil ifTrue: [ ^ nil ].
 	^ aSmaCCParseNode acceptVisitor: self
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspilerVariant >> acceptNodes: aCollection [
 	^ aCollection collect: [ :each | self acceptNode: each ]
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspilerVariant >> acceptStatements: expr [
 	| output |
 	output := ''.
@@ -69,19 +71,19 @@ ProcessingTranspilerVariant >> acceptStatements: expr [
 	^ output
 ]
 
-{ #category : #emitting }
+{ #category : 'emitting' }
 ProcessingTranspilerVariant >> emit: op args: args [
 	^ style = 'postfix'
 		ifTrue: [ ('' join: (args collect: [ :arg | arg , ' ' ])) , op ]
 		ifFalse: [ '(' , op , ('' join: (args collect: [ :arg | ' ' , arg ])) , ')' ]
 ]
 
-{ #category : #emitting }
+{ #category : 'emitting' }
 ProcessingTranspilerVariant >> emitBlockCond: args [
 	^ style = 'postfix' ifTrue: [ '{ ' , args , ' }' ] ifFalse: [ args ]
 ]
 
-{ #category : #emitting }
+{ #category : 'emitting' }
 ProcessingTranspilerVariant >> emitBlockDo: args [
 	^ style = 'postfix'
 		ifTrue: [ '{
@@ -90,7 +92,7 @@ ProcessingTranspilerVariant >> emitBlockDo: args [
 ' , args , self indent , ')' ]
 ]
 
-{ #category : #emitting }
+{ #category : 'emitting' }
 ProcessingTranspilerVariant >> emitCall: name size: size [
 	| defaultSizes |
 	defaultSizes := {'background' -> 3.
@@ -141,64 +143,64 @@ ProcessingTranspilerVariant >> emitCall: name size: size [
 	^ name
 ]
 
-{ #category : #emitting }
+{ #category : 'emitting' }
 ProcessingTranspilerVariant >> emitField: field of: obj [
 	^ style = 'postfix'
 		ifTrue: [ obj , ' ' , field ]
 		ifFalse: [ '(' , obj , ' ' , field , ')' ]
 ]
 
-{ #category : #emitting }
+{ #category : 'emitting' }
 ProcessingTranspilerVariant >> emitSymbol: name [
 	^ style = 'postfix' ifTrue: [ '$' , name ] ifFalse: [ name ]
 ]
 
-{ #category : #emitting }
+{ #category : 'emitting' }
 ProcessingTranspilerVariant >> indent [
 	^ String new: indentation - 1 withAll: Character tab
 ]
 
-{ #category : #'error handling' }
+{ #category : 'error handling' }
 ProcessingTranspilerVariant >> notImplemented: expr [
 	ProcessingNotImplementedException
 		signal: 'Unsupported expression type: ' , ((expr class name removePrefix: 'Py') removeSuffix: 'Node')
 		withTag: expr
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingTranspilerVariant >> style [
 	^ style
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingTranspilerVariant >> style: anObject [
 	style := anObject
 ]
 
-{ #category : #emitting }
+{ #category : 'emitting' }
 ProcessingTranspilerVariant >> transpile: anAst [
 	indentation := 0.
 	^ (ProcessingAstCleaner clean: anAst) acceptVisitor: self
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspilerVariant >> visitArgument: anArgument [
 	^ self visitRoot: anArgument
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspilerVariant >> visitAsName: anAsName [
 	^ self visitName: anAsName
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspilerVariant >> visitAssertStatement: stmt [
 	^ self
 		emit: (self emitCall: 'assert' size: stmt values size)
 		args: (self acceptNodes: stmt values)
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspilerVariant >> visitAssignmentExpression: expr [
 	^ self
 		emit: '='
@@ -206,12 +208,12 @@ ProcessingTranspilerVariant >> visitAssignmentExpression: expr [
 				expr value acceptVisitor: self}
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspilerVariant >> visitAssignmentStatement: stmt [
 	^ self visitAssignmentStatement: stmt part: 1
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspilerVariant >> visitAssignmentStatement: stmt part: ix [
 	| varExpr |
 	ix > stmt variables size ifTrue: [ ^ stmt value acceptVisitor: self ].
@@ -232,17 +234,17 @@ ProcessingTranspilerVariant >> visitAssignmentStatement: stmt part: ix [
 				self visitAssignmentStatement: stmt part: ix + 1}
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspilerVariant >> visitAwaitExpression: anAwaitExpression [
 	^ self visitExpression: anAwaitExpression
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspilerVariant >> visitBacktickExpression: aBacktickExpression [
 	^ self visitExpression: aBacktickExpression
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspilerVariant >> visitBinaryExpression: expr [
 	^ self
 		emit: expr operator value
@@ -250,122 +252,122 @@ ProcessingTranspilerVariant >> visitBinaryExpression: expr [
 				expr right acceptVisitor: self}
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspilerVariant >> visitBreakStatement: aBreakStatement [
 	^ self visitStatement: aBreakStatement
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspilerVariant >> visitClassDefinition: aClassDefinition [
 	^ self visitStatement: aClassDefinition
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspilerVariant >> visitComparisonExpression: expr [
 	^ self visitBinaryExpression: expr
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspilerVariant >> visitComprehension: aComprehension [
 	^ self visitRoot: aComprehension
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspilerVariant >> visitComprehensionDictionaryItem: aComprehensionDictionaryItem [
 	^ self visitRoot: aComprehensionDictionaryItem
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspilerVariant >> visitComprehensionFor: aComprehensionFor [
 	^ self visitRoot: aComprehensionFor
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspilerVariant >> visitComprehensionIf: aComprehensionIf [
 	^ self visitRoot: aComprehensionIf
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspilerVariant >> visitContinueStatement: aContinueStatement [
 	^ self visitStatement: aContinueStatement
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspilerVariant >> visitDecoratorExpression: aDecoratorExpression [
 	^ self visitFunctionCallExpression: aDecoratorExpression
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspilerVariant >> visitDelStatement: aDelStatement [
 	^ self visitStatement: aDelStatement
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspilerVariant >> visitDictionaryExpression: aDictionaryExpression [
 	^ self visitExpression: aDictionaryExpression
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspilerVariant >> visitDictionaryItem: aDictionaryItem [
 	^ self visitRoot: aDictionaryItem
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspilerVariant >> visitElif: anElif [
 	^ self visitRoot: anElif
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspilerVariant >> visitEllipsis: expr [
 	^ '...'
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspilerVariant >> visitElse: anElse [
 	^ self visitRoot: anElse
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspilerVariant >> visitEval: anEval [
 	^ self visitRoot: anEval
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspilerVariant >> visitExceptClause: anExceptClause [
 	^ self visitRoot: anExceptClause
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspilerVariant >> visitExecStatement: anExecStatement [
 	^ self visitStatement: anExecStatement
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspilerVariant >> visitExpression: expr [
 	self notImplemented: expr
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspilerVariant >> visitExpressionStatement: stmt [
 	^ ' ' join: (stmt children collect: [ :part | part acceptVisitor: self ])
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspilerVariant >> visitFieldAccessExpression: expr [
 	^ self emitField: expr nameToken value of: (expr receiver acceptVisitor: self)
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspilerVariant >> visitFile: file [
 	^ self acceptStatements: file
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspilerVariant >> visitFinally: aFinally [
 	^ self visitRoot: aFinally
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspilerVariant >> visitForStatement: expr [
 	expr exprs size = 1 ifFalse: [ self notImplemented: expr ].
 	(expr exprs first isKindOf: PyVariableExpressionNode)
@@ -378,7 +380,7 @@ ProcessingTranspilerVariant >> visitForStatement: expr [
 				self emitBlockDo: (self acceptStatements: expr)}
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspilerVariant >> visitFunctionCallExpression: fnCall [
 	^ self
 		emit: (self
@@ -387,7 +389,7 @@ ProcessingTranspilerVariant >> visitFunctionCallExpression: fnCall [
 		args: (self acceptNodes: fnCall arguments)
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspilerVariant >> visitFunctionDefinition: def [
 	^ self
 		emit: 'deffun'
@@ -398,14 +400,14 @@ ProcessingTranspilerVariant >> visitFunctionDefinition: def [
 				self emitBlockDo: (self acceptStatements: def)}
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspilerVariant >> visitGlobalStatement: global [
 	^ self
 		emit: (self emitCall: 'global' size: global nameTokens size)
 		args: (global nameTokens collect: [ :token | self emitSymbol: token value ])
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspilerVariant >> visitIfExpression: expr [
 	^ self
 		emit: 'ifelse'
@@ -414,7 +416,7 @@ ProcessingTranspilerVariant >> visitIfExpression: expr [
 				expr else acceptVisitor: self}
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspilerVariant >> visitIfStatement: expr [
 	| output |
 	self assert: expr elsifs isEmpty.	"cf. ProcessingAstCleaner>>visitIfStatement:"
@@ -429,138 +431,138 @@ ProcessingTranspilerVariant >> visitIfStatement: expr [
 	^ output
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspilerVariant >> visitImportStatement: anImportStatement [
 	^ self visitStatement: anImportStatement
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspilerVariant >> visitInit: anInit [
 	^ self visitRoot: anInit
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspilerVariant >> visitKeywordParameter: aKeywordParameter [
 	^ self visitParameter: aKeywordParameter
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspilerVariant >> visitLambdaExpression: aLambdaExpression [
 	^ self visitExpression: aLambdaExpression
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspilerVariant >> visitListExpression: list [
 	^ self
 		emit: (self emitCall: 'list' size: list expressions size)
 		args: (self acceptNodes: list expressions)
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspilerVariant >> visitListFor: aListFor [
 	^ self visitRoot: aListFor
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspilerVariant >> visitListIf: aListIf [
 	^ self visitRoot: aListIf
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspilerVariant >> visitListParameter: aListParameter [
 	^ self visitParameter: aListParameter
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspilerVariant >> visitMetaclass: aMetaclass [
 	^ self visitRoot: aMetaclass
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspilerVariant >> visitName: aName [
 	^ self visitRoot: aName
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspilerVariant >> visitNumber: num [
 	^ num numberToken value
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspilerVariant >> visitParameter: param [
 	^ self emitSymbol: param name nameToken value
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspilerVariant >> visitParameterList: aParameterList [
 	^ self visitRoot: aParameterList
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspilerVariant >> visitPassStatement: pass [
 	^ self emit: 'pass' args: #()
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspilerVariant >> visitPrintStatement: aPrintStatement [
 	^ self visitStatement: aPrintStatement
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspilerVariant >> visitRaiseStatement: aRaiseStatement [
 	^ self visitStatement: aRaiseStatement
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspilerVariant >> visitRelativeName: aRelativeName [
 	^ self visitRoot: aRelativeName
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspilerVariant >> visitReturnStatement: expr [
 	expr expressions size = 0 ifTrue: [ ^ self emit: 'return' args: #('None') ].
 	expr expressions size > 1 ifTrue: [ self notImplemented: expr ].
 	^ self emit: 'return' args: {expr expressions first acceptVisitor: self}
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspilerVariant >> visitReturnTypeAnnotation: aReturnTypeAnnotation [
 	^ self visitRoot: aReturnTypeAnnotation
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspilerVariant >> visitRoot: aRoot [
 	^ self visitSmaCCParseNode: aRoot
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspilerVariant >> visitSetExpression: aSetExpression [
 	^ self visitExpression: aSetExpression
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspilerVariant >> visitSlice: aSlice [
 	^ self visitRoot: aSlice
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspilerVariant >> visitSpreadExpression: aSpreadExpression [
 	^ self visitExpression: aSpreadExpression
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspilerVariant >> visitStatement: stmt [
 	self notImplemented: stmt
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspilerVariant >> visitString: expr [
 	^ '"'
 		, ('' join: (expr parts collect: [ :part | part value allButFirst allButLast ]))
 		, '"'
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspilerVariant >> visitSubscriptExpression: subscript [
 	(subscript subscripts first isKindOf: PySliceNode)
 		ifTrue: [ ^ self
@@ -582,22 +584,22 @@ ProcessingTranspilerVariant >> visitSubscriptExpression: subscript [
 						subscript subscripts first})
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspilerVariant >> visitTryStatement: aTryStatement [
 	^ self visitStatement: aTryStatement
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspilerVariant >> visitTupleExpression: aTupleExpression [
 	^ self visitExpression: aTupleExpression
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspilerVariant >> visitTypedVariableExpression: aTypedVariableExpression [
 	^ self visitVariableExpression: aTypedVariableExpression
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspilerVariant >> visitUnaryExpression: expr [
 	| op |
 	op := expr operator value.
@@ -605,12 +607,12 @@ ProcessingTranspilerVariant >> visitUnaryExpression: expr [
 	^ self emit: op args: {expr expression acceptVisitor: self}
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspilerVariant >> visitVariableExpression: var [
 	^ var nameToken value
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspilerVariant >> visitWhileStatement: expr [
 	expr else ifNotNil: [ self notImplemented: expr ].
 	^ self
@@ -619,22 +621,22 @@ ProcessingTranspilerVariant >> visitWhileStatement: expr [
 				self emitBlockDo: (self acceptStatements: expr)}
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspilerVariant >> visitWithItem: aWithItem [
 	^ self visitRoot: aWithItem
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspilerVariant >> visitWithStatement: aWithStatement [
 	^ self visitStatement: aWithStatement
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspilerVariant >> visitYieldExpression: aYieldExpression [
 	^ self visitExpression: aYieldExpression
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspilerVariant >> visitYieldStatement: aYieldStatement [
 	^ self visitStatement: aYieldStatement
 ]

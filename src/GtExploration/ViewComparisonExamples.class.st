@@ -1,10 +1,12 @@
 Class {
-	#name : #ViewComparisonExamples,
-	#superclass : #Object,
-	#category : #'GtExploration-Examples'
+	#name : 'ViewComparisonExamples',
+	#superclass : 'Object',
+	#category : 'GtExploration-Examples',
+	#package : 'GtExploration',
+	#tag : 'Examples'
 }
 
-{ #category : #example }
+{ #category : 'example' }
 ViewComparisonExamples >> compareExample02To03Bytecode [
 	<gtExample>
 	| comparer |
@@ -14,7 +16,7 @@ ViewComparisonExamples >> compareExample02To03Bytecode [
 	^ comparer
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ViewComparisonExamples >> compareExample02To03SourceChars [
 	<gtExample>
 	| comparer |
@@ -24,7 +26,7 @@ ViewComparisonExamples >> compareExample02To03SourceChars [
 	^ comparer
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ViewComparisonExamples >> compareExample02To03SourceCharsScripter [
 	<gtExample>
 	| comparer |
@@ -103,7 +105,7 @@ ViewComparisonExamples >> compareExample02To03SourceCharsScripter [
 		play
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ViewComparisonExamples >> compareExample03PrefixAndPostfix [
 	<gtExample>
 	| program comparer |

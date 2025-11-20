@@ -2,15 +2,17 @@
 This class represents an ellipse drawn onto a {{gtClass:ProcessingCanvas}} (e.g. through {{gtMethod:ProcessingCanvas>>ellipse:y:dx:dy:}}).
 "
 Class {
-	#name : #ProcessingCanvasEllipse,
-	#superclass : #ProcessingCanvasShape,
+	#name : 'ProcessingCanvasEllipse',
+	#superclass : 'ProcessingCanvasShape',
 	#instVars : [
 		'ellipseSize'
 	],
-	#category : #'GtExploration-Processing'
+	#category : 'GtExploration-Processing',
+	#package : 'GtExploration',
+	#tag : 'Processing'
 }
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingCanvasEllipse >> asElement [
 	^ BlEllipseElement new
 		centerAnchor: (BlAbsolutePositionAnchor position: ellipseSize / 2);
@@ -21,12 +23,12 @@ ProcessingCanvasEllipse >> asElement [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingCanvasEllipse >> ellipseSize [
 	^ ellipseSize
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingCanvasEllipse >> ellipseSize: anEllipseSize [
 	ellipseSize := anEllipseSize
 ]

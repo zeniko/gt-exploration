@@ -4,8 +4,8 @@ This is the abstract base class of all shapes rendered by {{gtClass:ProcessingCa
 Implementors must override `asElement` to return the actual shape {{gtClass:BlElement}} to be displayed.
 "
 Class {
-	#name : #ProcessingCanvasShape,
-	#superclass : #Object,
+	#name : 'ProcessingCanvasShape',
+	#superclass : 'Object',
 	#instVars : [
 		'fillColor',
 		'border',
@@ -13,15 +13,17 @@ Class {
 		'position',
 		'context'
 	],
-	#category : #'GtExploration-Processing'
+	#category : 'GtExploration-Processing',
+	#package : 'GtExploration',
+	#tag : 'Processing'
 }
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingCanvasShape >> asElement [
 	self subclassResponsibility
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingCanvasShape >> asElementTransformed [
 	| element |
 	element := self asElement.
@@ -33,37 +35,37 @@ ProcessingCanvasShape >> asElementTransformed [
 	^ element
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingCanvasShape >> border [
 	^ border
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingCanvasShape >> border: aBorder [
 	border := aBorder
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingCanvasShape >> context [
 	^ context
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingCanvasShape >> context: aContext [
 	context := aContext
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingCanvasShape >> fillColor [
 	^ fillColor
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingCanvasShape >> fillColor: aColor [
 	fillColor := aColor
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingCanvasShape >> gtLiveFor: aView [
 	<gtView>
 	^ aView explicit
@@ -75,22 +77,22 @@ ProcessingCanvasShape >> gtLiveFor: aView [
 		priority: 10
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingCanvasShape >> position [
 	^ position
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingCanvasShape >> position: aPosition [
 	position := aPosition
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingCanvasShape >> transform [
 	^ transform
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingCanvasShape >> transform: aTransform [
 	transform := aTransform
 ]

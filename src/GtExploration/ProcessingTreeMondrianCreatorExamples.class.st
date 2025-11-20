@@ -1,10 +1,12 @@
 Class {
-	#name : #ProcessingTreeMondrianCreatorExamples,
-	#superclass : #Object,
-	#category : #'GtExploration-Examples'
+	#name : 'ProcessingTreeMondrianCreatorExamples',
+	#superclass : 'Object',
+	#category : 'GtExploration-Examples',
+	#package : 'GtExploration',
+	#tag : 'Examples'
 }
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingTreeMondrianCreatorExamples >> allMondrianTrees [
 	<gtExample>
 	^ #(#Example03 #Lists #Minimal #PresentationDemo #Print #Sierpinski #Spiral #TurtleGraphics)
@@ -15,7 +17,7 @@ ProcessingTreeMondrianCreatorExamples >> allMondrianTrees [
 			mondrian ]
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingTreeMondrianCreatorExamples >> astMondrianPresentationDemo [
 	<gtExample>
 	| mondrian program |

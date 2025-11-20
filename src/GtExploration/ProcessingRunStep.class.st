@@ -7,8 +7,8 @@ This contains data for a single runstep and is produced by {{gtClass:ProcessingR
 ```
 "
 Class {
-	#name : #ProcessingRunStep,
-	#superclass : #Object,
+	#name : 'ProcessingRunStep',
+	#superclass : 'Object',
 	#instVars : [
 		'variables',
 		'method',
@@ -20,10 +20,12 @@ Class {
 		'canvasColor',
 		'copies'
 	],
-	#category : #'GtExploration-Processing'
+	#category : 'GtExploration-Processing',
+	#package : 'GtExploration',
+	#tag : 'Processing'
 }
 
-{ #category : #initalization }
+{ #category : 'initalization' }
 ProcessingRunStep class >> create: aContext canvas: aCanvas slice: aSlice [
 	^ ProcessingRunStep new
 		create: aContext
@@ -31,12 +33,12 @@ ProcessingRunStep class >> create: aContext canvas: aCanvas slice: aSlice [
 		slice: aSlice
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingRunStep >> asString [
 	^ 'Step' translated , ': ' , slice asString
 ]
 
-{ #category : #initalization }
+{ #category : 'initalization' }
 ProcessingRunStep >> copyObj: anObject [
 	"Makes a copy of mutable objects (for now: lists), reuses that copy in case the object occurs multiple times in a single step (different variables or on the stack)"
 
@@ -45,7 +47,7 @@ ProcessingRunStep >> copyObj: anObject [
 	^ anObject	"assume that the object is immutable (or doesn't matter)"
 ]
 
-{ #category : #initalization }
+{ #category : 'initalization' }
 ProcessingRunStep >> create: aContext canvas: aCanvas slice: aSlice [
 	self updateCanvas: aCanvas.
 	copies := Dictionary new.
@@ -70,7 +72,7 @@ ProcessingRunStep >> create: aContext canvas: aCanvas slice: aSlice [
 	slice := aSlice
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingRunStep >> getInnerView: aView [
 	^ (self perform: aView with: GtPhlowView empty) asElement
 		background: Color white;
@@ -81,7 +83,7 @@ ProcessingRunStep >> getInnerView: aView [
 		yourself
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingRunStep >> gtAbstractionsFor: aView [
 	<gtView>
 	(slice isKindOf: ProcessingRunawayProgramException)
@@ -109,7 +111,7 @@ ProcessingRunStep >> gtAbstractionsFor: aView [
 				yourself ]
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingRunStep >> gtBytecodeFor: aView [
 	"Adapted from ProcessingCodeBase>>#gtBytecodeFor:"
 
@@ -117,7 +119,7 @@ ProcessingRunStep >> gtBytecodeFor: aView [
 	^ aView columnedList
 		title: 'Bytecode' translated;
 		priority: 20;
-		items: [ method methodNode method symbolicBytecodes
+		items: [ method methodNode compiledMethod symbolicBytecodes
 				select: [ :item | slice interval includesAll: item sourceInterval ] ];
 		column: 'Address' translated
 			text: [ :each | 
@@ -144,7 +146,7 @@ ProcessingRunStep >> gtBytecodeFor: aView [
 					ifFalse: [ each description ] ]
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingRunStep >> gtOutputFor: aView [
 	<gtView>
 	| containerElement visualOutput |
@@ -168,7 +170,7 @@ ProcessingRunStep >> gtOutputFor: aView [
 		priority: 30
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingRunStep >> gtOverviewFor: aView [
 	<gtView>
 	(slice isKindOf: ProcessingRunawayProgramException)
@@ -188,7 +190,7 @@ ProcessingRunStep >> gtOverviewFor: aView [
 				yourself ]
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingRunStep >> gtSourceCodeFor: aView [
 	"<gtView>"
 	slice ifNil: [ ^ GtPhlowView empty ].
@@ -197,7 +199,7 @@ ProcessingRunStep >> gtSourceCodeFor: aView [
 		priority: 5
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingRunStep >> gtStackFor: aView [
 	<gtView>
 	^ aView columnedList
@@ -217,7 +219,7 @@ ProcessingRunStep >> gtStackFor: aView [
 					ifFalse: [ each identityHash ]) asString ]
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingRunStep >> gtTranspilationPlusSourceFor: aView [
 	<gtView>
 	slice ifNil: [ ^ GtPhlowView empty ].
@@ -226,7 +228,7 @@ ProcessingRunStep >> gtTranspilationPlusSourceFor: aView [
 		priority: 5
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingRunStep >> gtVariablesFor: aView [
 	<gtView>
 	^ aView columnedTree
@@ -241,17 +243,17 @@ ProcessingRunStep >> gtVariablesFor: aView [
 		send: [ :assoc | assoc value ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingRunStep >> stack [
 	^ stack
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingRunStep >> transcript [
 	^ transcript
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingRunStep >> typeName: obj [
 	obj = nil ifTrue: [ ^ '?' ].	"undefined; most likely an unitialized slot (or rarely an explicit use of None)"
 	(obj isKindOf: Integer) ifTrue: [ ^ 'int' ].
@@ -265,7 +267,7 @@ ProcessingRunStep >> typeName: obj [
 	^ obj class name
 ]
 
-{ #category : #initalization }
+{ #category : 'initalization' }
 ProcessingRunStep >> updateCanvas: aCanvas [
 	shapes := aCanvas shapes clone.
 	transcript := aCanvas transcript
@@ -274,7 +276,7 @@ ProcessingRunStep >> updateCanvas: aCanvas [
 	canvasColor := aCanvas background
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingRunStep >> variables [
 	^ variables
 ]

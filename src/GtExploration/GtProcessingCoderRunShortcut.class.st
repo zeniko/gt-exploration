@@ -1,15 +1,17 @@
 Class {
-	#name : #GtProcessingCoderRunShortcut,
-	#superclass : #GtSourceCoderShortcut,
-	#category : #'GtExploration-Snippet'
+	#name : 'GtProcessingCoderRunShortcut',
+	#superclass : 'GtSourceCoderShortcut',
+	#category : 'GtExploration-Snippet',
+	#package : 'GtExploration',
+	#tag : 'Snippet'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtProcessingCoderRunShortcut >> description [
 	^ 'Evaluates the whole source code (method) and show only its visual output.'
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtProcessingCoderRunShortcut >> initialize [
 	super initialize.
 
@@ -17,7 +19,7 @@ GtProcessingCoderRunShortcut >> initialize [
 	name := 'Run'
 ]
 
-{ #category : #evaluation }
+{ #category : 'evaluation' }
 GtProcessingCoderRunShortcut >> performOnEditor: aBrTextEditor element: aBrEditorElement coderViewModel: aSourceCoderViewModel dueTo: aShortcutEvent [
 	GtCoderExecutionContextVariable
 		element: aBrEditorElement

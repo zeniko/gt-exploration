@@ -1,15 +1,17 @@
 Class {
-	#name : #LeProcessingSnippetElement,
-	#superclass : #LePythonSnippetElement,
-	#category : #'GtExploration-Snippet'
+	#name : 'LeProcessingSnippetElement',
+	#superclass : 'LePythonSnippetElement',
+	#category : 'GtExploration-Snippet',
+	#package : 'GtExploration',
+	#tag : 'Snippet'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeProcessingSnippetElement >> coderEditorElementClass [
 	^ LeLSPSourceCoderEditorElement
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeProcessingSnippetElement >> initializeLanguageElement [
 	^ BrButton new
 		aptitude: BrGlamorousButtonWithLabelAptitude - BrGlamorousButtonExteriorAptitude;
@@ -18,12 +20,12 @@ LeProcessingSnippetElement >> initializeLanguageElement [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeProcessingSnippetElement >> serverStrategy [
 	^ nil
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeProcessingSnippetElement >> updateLanguageLabel [
 	| label |
 	label := 'Processing'.

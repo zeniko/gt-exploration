@@ -2,20 +2,22 @@
 This is a discarded, very basic command forwarder meant to pass serialized commands from a Python interpreter to {{gtClass:ProcessingCanvas}} (see {{gtPage:Running Python Step-by-Step|db=5rgxfv9r684digmpw7ph7kbt4}}).
 "
 Class {
-	#name : #ProcessingExecTest1,
-	#superclass : #Object,
+	#name : 'ProcessingExecTest1',
+	#superclass : 'Object',
 	#instVars : [
 		'canvas'
 	],
-	#category : #'GtExploration-Experiments'
+	#category : 'GtExploration-Experiments',
+	#package : 'GtExploration',
+	#tag : 'Experiments'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 ProcessingExecTest1 >> canvas: canv [
 	canvas := canv
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 ProcessingExecTest1 >> exec: cmd [
 	| op args |
 	op := cmd at: 1.

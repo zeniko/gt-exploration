@@ -16,8 +16,8 @@ ProcessingCanvas new
 This is the model in the model-view-presenter pattern implemented by {{gtClass:ProcessingCanvas}}, {{gtClass:ProcessingCanvasElement}} and {{gtClass:ProcessingCanvasPresenter}}.
 "
 Class {
-	#name : #ProcessingCanvas,
-	#superclass : #Object,
+	#name : 'ProcessingCanvas',
+	#superclass : 'Object',
 	#instVars : [
 		'fillColor',
 		'textSize',
@@ -37,26 +37,28 @@ Class {
 		'presenter',
 		'randomGenerator'
 	],
-	#category : #'GtExploration-Processing'
+	#category : 'GtExploration-Processing',
+	#package : 'GtExploration',
+	#tag : 'Processing'
 }
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingCanvas >> asElement [
 	^ presenter containerElement
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingCanvas >> background [
 	^ backgroundColor
 ]
 
-{ #category : #shapes }
+{ #category : 'shapes' }
 ProcessingCanvas >> background: color [
 	shapes removeAll.
 	presenter clearWithBackground: color
 ]
 
-{ #category : #shapes }
+{ #category : 'shapes' }
 ProcessingCanvas >> backgroundGray: gray [
 	"`gray` is a single number or a single Color"
 
@@ -67,7 +69,7 @@ ProcessingCanvas >> backgroundGray: gray [
 		B: gray
 ]
 
-{ #category : #shapes }
+{ #category : 'shapes' }
 ProcessingCanvas >> backgroundR: r G: g B: b [
 	self
 		background: (self
@@ -76,13 +78,13 @@ ProcessingCanvas >> backgroundR: r G: g B: b [
 				B: b)
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ProcessingCanvas >> border [
 	strokeColor ifNil: [ ^ BlBorder empty ].
 	^ BlBorder paint: strokeColor width: strokeWeight
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ProcessingCanvas >> callerSource [
 	| context |
 	context := thisContext.
@@ -90,17 +92,17 @@ ProcessingCanvas >> callerSource [
 	^ context sourceNodeExecuted
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingCanvas >> canvasElement [
 	^ presenter canvasElement
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingCanvas >> canvasSize [
 	^ canvasSize
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ProcessingCanvas >> colorWithGray: gray [
 	^ self
 		colorWithR: gray
@@ -108,7 +110,7 @@ ProcessingCanvas >> colorWithGray: gray [
 		B: gray
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ProcessingCanvas >> colorWithR: r G: g B: b [
 	"Map 64 to 0.25, 128 to 0.5, 192 to 0.75 but 255 to 1.0 exactly."
 
@@ -118,7 +120,7 @@ ProcessingCanvas >> colorWithR: r G: g B: b [
 				b / 255.5 roundTo: 0.005}
 ]
 
-{ #category : #shapes }
+{ #category : 'shapes' }
 ProcessingCanvas >> ellipse: dx by: dy at: xy [
 	"Processing by default places ellipses based on their center"
 
@@ -128,7 +130,7 @@ ProcessingCanvas >> ellipse: dx by: dy at: xy [
 				ellipseSize: dx @ dy)
 ]
 
-{ #category : #shapes }
+{ #category : 'shapes' }
 ProcessingCanvas >> ellipse: x y: y dx: dx dy: dy [
 	self
 		ellipse: dx
@@ -136,7 +138,7 @@ ProcessingCanvas >> ellipse: x y: y dx: dx dy: dy [
 		at: x @ y
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ProcessingCanvas >> endFrame [
 	presenter updateOutput.
 	(1 / frameRate) seconds wait.	"The frame rate is adjustable through `frameRate()`"
@@ -144,7 +146,7 @@ ProcessingCanvas >> endFrame [
 	transform := #yourself	"Transforms are reset at the end of a draw-cycle"
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 ProcessingCanvas >> escape: str [
 	"Reverse of ProcessingTranspiler>>unescape:"
 
@@ -168,17 +170,17 @@ ProcessingCanvas >> escape: str [
 						ifFalse: [ out nextPut: char ] ] ]
 ]
 
-{ #category : #modifiers }
+{ #category : 'modifiers' }
 ProcessingCanvas >> fill: color [
 	fillColor := color
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingCanvas >> fillColor [
 	^ fillColor
 ]
 
-{ #category : #modifiers }
+{ #category : 'modifiers' }
 ProcessingCanvas >> fillGray: gray [
 	"`gray` is a single number or a single Color"
 
@@ -189,7 +191,7 @@ ProcessingCanvas >> fillGray: gray [
 		B: gray
 ]
 
-{ #category : #modifiers }
+{ #category : 'modifiers' }
 ProcessingCanvas >> fillR: r G: g B: b [
 	self
 		fill: (self
@@ -198,28 +200,28 @@ ProcessingCanvas >> fillR: r G: g B: b [
 				B: b)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingCanvas >> frameCount [
 	^ frameCount
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingCanvas >> frameRate [
 	^ frameRate
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingCanvas >> frameRate: aFrameRate [
 	frameRate := aFrameRate
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingCanvas >> gtDisplayOn: aStream [
 	aStream
 		nextPutAll: 'Processing Canvas (@' , self basicIdentityHash asString , ')'
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingCanvas >> gtOutputFor: aView [
 	<gtView>
 	^ (self asElement gtLiveFor: aView)
@@ -227,7 +229,7 @@ ProcessingCanvas >> gtOutputFor: aView [
 		priority: 10
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingCanvas >> gtOutputShapesFor: aView [
 	<gtView>
 	^ ((Stepper for: shapes view: #gtLiveFor:)
@@ -237,7 +239,7 @@ ProcessingCanvas >> gtOutputShapesFor: aView [
 		priority: 20
 ]
 
-{ #category : #events }
+{ #category : 'events' }
 ProcessingCanvas >> handleEvents: aEvents for: aProgram [
 	events
 		do: [ :event | 
@@ -252,7 +254,7 @@ ProcessingCanvas >> handleEvents: aEvents for: aProgram [
 	events removeAll
 ]
 
-{ #category : #shapes }
+{ #category : 'shapes' }
 ProcessingCanvas >> image: image at: xy [
 	self
 		image: image
@@ -260,7 +262,7 @@ ProcessingCanvas >> image: image at: xy [
 		sized: image width @ image height
 ]
 
-{ #category : #shapes }
+{ #category : 'shapes' }
 ProcessingCanvas >> image: image at: xy sized: size [
 	self
 		output: (ProcessingCanvasImage new
@@ -269,12 +271,12 @@ ProcessingCanvas >> image: image at: xy sized: size [
 				rectSize: size)
 ]
 
-{ #category : #shapes }
+{ #category : 'shapes' }
 ProcessingCanvas >> image: image x: x y: y [
 	self image: image at: x @ y
 ]
 
-{ #category : #shapes }
+{ #category : 'shapes' }
 ProcessingCanvas >> image: image x: x y: y width: width height: height [
 	self
 		image: image
@@ -282,7 +284,7 @@ ProcessingCanvas >> image: image x: x y: y width: width height: height [
 		sized: width @ height
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ProcessingCanvas >> initialize [
 	canvasSize := 100 @ 100.
 	backgroundColor := self
@@ -306,17 +308,17 @@ ProcessingCanvas >> initialize [
 	presenter := ProcessingCanvasPresenter newFor: self
 ]
 
-{ #category : #shapes }
+{ #category : 'shapes' }
 ProcessingCanvas >> line: fromXy to: toXy [
 	self output: (ProcessingCanvasLine new fromXy: fromXy toXy: toXy)
 ]
 
-{ #category : #shapes }
+{ #category : 'shapes' }
 ProcessingCanvas >> line: x1 y1: y1 x2: x2 y2: y2 [
 	self line: x1 @ y1 to: x2 @ y2
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ProcessingCanvas >> loadImage: path [
 	(path beginsWith: 'http')
 		ifTrue: [ | bytes |
@@ -341,50 +343,50 @@ ProcessingCanvas >> loadImage: path [
 	^ nil
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingCanvas >> millis [
 	^ Time millisecondClockValue - startMilliseconds
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingCanvas >> mousePressed [
 	^ mousePressed
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingCanvas >> mouseX [
 	^ mousePosition x rounded
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingCanvas >> mouseY [
 	^ mousePosition y rounded
 ]
 
-{ #category : #modifiers }
+{ #category : 'modifiers' }
 ProcessingCanvas >> noStroke [
 	strokeColor := nil
 ]
 
-{ #category : #events }
+{ #category : 'events' }
 ProcessingCanvas >> onMouseDown: anEvent [
 	mousePressed := true.
 	events add: anEvent
 ]
 
-{ #category : #events }
+{ #category : 'events' }
 ProcessingCanvas >> onMouseMove: anEvent [
 	mousePosition := anEvent localPosition.
 	events add: anEvent
 ]
 
-{ #category : #events }
+{ #category : 'events' }
 ProcessingCanvas >> onMouseUp: anEvent [
 	mousePressed := false.
 	events add: anEvent
 ]
 
-{ #category : #shapes }
+{ #category : 'shapes' }
 ProcessingCanvas >> output: shape [
 	shape
 		fillColor: fillColor;
@@ -395,17 +397,17 @@ ProcessingCanvas >> output: shape [
 	presenter display: shape
 ]
 
-{ #category : #shapes }
+{ #category : 'shapes' }
 ProcessingCanvas >> polygon: vertices [
 	self output: (ProcessingCanvasPolygon new vertices: vertices)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingCanvas >> presenter [
 	^ presenter
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 ProcessingCanvas >> print: text [
 	transcript
 		ifNil: [ transcript := GtTranscript new ]
@@ -419,22 +421,22 @@ ProcessingCanvas >> print: text [
 	presenter displayTranscript: transcript for: self callerSource
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ProcessingCanvas >> random: limit [
 	^ self random: 0 to: limit
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ProcessingCanvas >> random: lowerLimit to: upperLimit [
 	^ randomGenerator next * (upperLimit - lowerLimit) + lowerLimit
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ProcessingCanvas >> randomSeed: seed [
 	randomGenerator := Random seed: seed
 ]
 
-{ #category : #shapes }
+{ #category : 'shapes' }
 ProcessingCanvas >> rect: width by: height at: xy [
 	self
 		output: (ProcessingCanvasRectangle new
@@ -442,7 +444,7 @@ ProcessingCanvas >> rect: width by: height at: xy [
 				rectSize: width @ height)
 ]
 
-{ #category : #shapes }
+{ #category : 'shapes' }
 ProcessingCanvas >> rect: width by: height at: xy cornerRadius: radius [
 	self
 		output: (ProcessingCanvasRoundedRectangle new
@@ -451,7 +453,7 @@ ProcessingCanvas >> rect: width by: height at: xy cornerRadius: radius [
 				cornerRadius: radius)
 ]
 
-{ #category : #shapes }
+{ #category : 'shapes' }
 ProcessingCanvas >> rect: x y: y width: width height: height [
 	self
 		rect: width
@@ -459,7 +461,7 @@ ProcessingCanvas >> rect: x y: y width: width height: height [
 		at: x @ y
 ]
 
-{ #category : #shapes }
+{ #category : 'shapes' }
 ProcessingCanvas >> rect: x y: y width: width height: height cornerRadius: radius [
 	self
 		rect: width
@@ -468,21 +470,21 @@ ProcessingCanvas >> rect: x y: y width: width height: height cornerRadius: radiu
 		cornerRadius: radius
 ]
 
-{ #category : #modifiers }
+{ #category : 'modifiers' }
 ProcessingCanvas >> rotate: angle [
 	| prev |
 	prev := transform.
 	transform := [ :trans | prev value: (trans rotateBy: angle radiansToDegrees) ]
 ]
 
-{ #category : #modifiers }
+{ #category : 'modifiers' }
 ProcessingCanvas >> scale: factor [
 	| prev |
 	prev := transform.
 	transform := [ :trans | prev value: (trans scaleBy: factor) ]
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 ProcessingCanvas >> serialize: obj nested: nested [
 	obj = nil ifTrue: [ ^ 'None' ].
 	obj = true ifTrue: [ ^ 'True' ].
@@ -502,12 +504,12 @@ ProcessingCanvas >> serialize: obj nested: nested [
 	^ obj asString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingCanvas >> shapes [
 	^ shapes
 ]
 
-{ #category : #modifiers }
+{ #category : 'modifiers' }
 ProcessingCanvas >> size: width by: height [
 	(frameCount = 0 or: [ canvasSize = (width @ height) ])
 		ifFalse: [ ProcessingRunTimeException signal: 'size() may not be called from draw()' ].
@@ -515,17 +517,17 @@ ProcessingCanvas >> size: width by: height [
 	presenter outputSize: canvasSize
 ]
 
-{ #category : #modifiers }
+{ #category : 'modifiers' }
 ProcessingCanvas >> stroke: color [
 	strokeColor := color
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingCanvas >> strokeColor [
 	^ strokeColor
 ]
 
-{ #category : #modifiers }
+{ #category : 'modifiers' }
 ProcessingCanvas >> strokeGray: gray [
 	"`gray` is a single number or a single Color"
 
@@ -536,7 +538,7 @@ ProcessingCanvas >> strokeGray: gray [
 		B: gray
 ]
 
-{ #category : #modifiers }
+{ #category : 'modifiers' }
 ProcessingCanvas >> strokeR: r G: g B: b [
 	self
 		stroke: (self
@@ -545,17 +547,17 @@ ProcessingCanvas >> strokeR: r G: g B: b [
 				B: b)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingCanvas >> strokeWeight [
 	^ strokeWeight
 ]
 
-{ #category : #modifiers }
+{ #category : 'modifiers' }
 ProcessingCanvas >> strokeWeight: weight [
 	strokeWeight := weight
 ]
 
-{ #category : #shapes }
+{ #category : 'shapes' }
 ProcessingCanvas >> text: text at: pos [
 	self
 		output: (ProcessingCanvasText new
@@ -564,34 +566,34 @@ ProcessingCanvas >> text: text at: pos [
 				textSize: textSize)	"y-position is of baseline"
 ]
 
-{ #category : #shapes }
+{ #category : 'shapes' }
 ProcessingCanvas >> text: text x: x y: y [
 	self text: text at: x @ y
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingCanvas >> textSize [
 	^ textSize
 ]
 
-{ #category : #modifiers }
+{ #category : 'modifiers' }
 ProcessingCanvas >> textSize: size [
 	textSize := size
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingCanvas >> transcript [
 	^ transcript
 ]
 
-{ #category : #modifiers }
+{ #category : 'modifiers' }
 ProcessingCanvas >> translate: x y: y [
 	| prev |
 	prev := transform.
 	transform := [ :trans | prev value: (trans translateBy: x @ y) ]
 ]
 
-{ #category : #shapes }
+{ #category : 'shapes' }
 ProcessingCanvas >> triangle: x1 y1: y1 x2: x2 y2: y2 x3: x3 y3: y3 [
 	self
 		polygon: {x1 @ y1.

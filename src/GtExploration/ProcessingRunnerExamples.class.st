@@ -1,10 +1,12 @@
 Class {
-	#name : #ProcessingRunnerExamples,
-	#superclass : #Object,
-	#category : #'GtExploration-Examples'
+	#name : 'ProcessingRunnerExamples',
+	#superclass : 'Object',
+	#category : 'GtExploration-Examples',
+	#package : 'GtExploration',
+	#tag : 'Examples'
 }
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingRunnerExamples >> doAllRun [
 	<gtExample>
 	| sourceNames runNames missing |
@@ -17,7 +19,7 @@ ProcessingRunnerExamples >> doAllRun [
 	^ runNames sorted
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingRunnerExamples >> doRun: aProgram [
 	| runner |
 	runner := self newRunner.
@@ -31,7 +33,7 @@ ProcessingRunnerExamples >> doRun: aProgram [
 	^ runner
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingRunnerExamples >> newRunner [
 	<gtExample>
 	| runner |
@@ -41,7 +43,7 @@ ProcessingRunnerExamples >> newRunner [
 	^ runner
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingRunnerExamples >> runAlpinerWanderweg [
 	<gtExample>
 	| program runner |
@@ -55,7 +57,7 @@ ProcessingRunnerExamples >> runAlpinerWanderweg [
 	^ runner
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingRunnerExamples >> runAlpinerWanderwegStepwise [
 	<gtExample>
 	| program steps |
@@ -65,7 +67,7 @@ ProcessingRunnerExamples >> runAlpinerWanderwegStepwise [
 	^ steps
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingRunnerExamples >> runAnimation [
 	"The animation is currently considered to be an endless loop"
 
@@ -85,7 +87,7 @@ ProcessingRunnerExamples >> runAnimation [
 	^ runner
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingRunnerExamples >> runAnimation2 [
 	"The animation is currently considered to be an endless loop"
 
@@ -106,7 +108,7 @@ ProcessingRunnerExamples >> runAnimation2 [
 	^ runner
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingRunnerExamples >> runAnimation2Stepwise [
 	"The animation is currently considered to be an endless loop"
 
@@ -127,7 +129,7 @@ ProcessingRunnerExamples >> runAnimation2Stepwise [
 	^ steps
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingRunnerExamples >> runAnimationStepwise [
 	"The animation is currently considered to be an endless loop"
 
@@ -141,7 +143,7 @@ ProcessingRunnerExamples >> runAnimationStepwise [
 	^ steps
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingRunnerExamples >> runColors [
 	<gtExample>
 	| program runner |
@@ -150,7 +152,7 @@ ProcessingRunnerExamples >> runColors [
 	^ runner
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingRunnerExamples >> runEndlessLoop [
 	"Runaway detection currently takes a few seconds"
 
@@ -177,7 +179,7 @@ ProcessingRunnerExamples >> runEndlessLoop [
 	^ runner wait
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingRunnerExamples >> runEndlessLoopStepwise [
 	"Runaway detection currently takes a few seconds"
 
@@ -199,7 +201,7 @@ ProcessingRunnerExamples >> runEndlessLoopStepwise [
 	^ steps
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingRunnerExamples >> runExample02 [
 	<gtExample>
 	| program runner |
@@ -209,7 +211,7 @@ ProcessingRunnerExamples >> runExample02 [
 	^ runner
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingRunnerExamples >> runExample02Stepwise [
 	<gtExample>
 	| program runner steps |
@@ -225,7 +227,7 @@ ProcessingRunnerExamples >> runExample02Stepwise [
 	^ steps
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingRunnerExamples >> runExample03 [
 	"Example03 contains deliberate `delay` calls"
 
@@ -238,7 +240,7 @@ ProcessingRunnerExamples >> runExample03 [
 	^ runner
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingRunnerExamples >> runExample04 [
 	<gtExample>
 	| program runner |
@@ -249,7 +251,7 @@ ProcessingRunnerExamples >> runExample04 [
 	^ runner
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingRunnerExamples >> runExample05 [
 	<gtExample>
 	| program runner |
@@ -263,7 +265,7 @@ ProcessingRunnerExamples >> runExample05 [
 	^ runner
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingRunnerExamples >> runExample06 [
 	<gtExample>
 	| program runner |
@@ -274,7 +276,7 @@ ProcessingRunnerExamples >> runExample06 [
 	^ runner
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingRunnerExamples >> runExample06Stepwise [
 	<gtExample>
 	| program runner steps |
@@ -286,7 +288,7 @@ ProcessingRunnerExamples >> runExample06Stepwise [
 	^ steps
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingRunnerExamples >> runExample07 [
 	<gtExample>
 	| program runner |
@@ -301,7 +303,7 @@ ProcessingRunnerExamples >> runExample07 [
 	^ runner
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingRunnerExamples >> runExample07Stepwise [
 	<gtExample>
 	| program runner steps |
@@ -313,7 +315,7 @@ ProcessingRunnerExamples >> runExample07Stepwise [
 	^ steps
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingRunnerExamples >> runFibonacci [
 	<gtExample>
 	| program runner |
@@ -322,7 +324,7 @@ ProcessingRunnerExamples >> runFibonacci [
 	^ runner
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingRunnerExamples >> runFibonacciStepwise [
 	<gtExample>
 	| program runner steps |
@@ -336,7 +338,7 @@ ProcessingRunnerExamples >> runFibonacciStepwise [
 	^ steps
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingRunnerExamples >> runForLoop [
 	<gtExample>
 	| program runner |
@@ -348,7 +350,7 @@ ProcessingRunnerExamples >> runForLoop [
 	^ runner
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingRunnerExamples >> runImage [
 	<gtExample>
 	| program runner |
@@ -357,7 +359,7 @@ ProcessingRunnerExamples >> runImage [
 	^ runner
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingRunnerExamples >> runLists [
 	<gtExample>
 	| program runner |
@@ -369,7 +371,7 @@ ProcessingRunnerExamples >> runLists [
 	^ runner
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingRunnerExamples >> runLists2 [
 	<gtExample>
 	| program runner |
@@ -381,7 +383,7 @@ ProcessingRunnerExamples >> runLists2 [
 	^ runner
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingRunnerExamples >> runLists2Stepwise [
 	<gtExample>
 	| program runner steps |
@@ -440,7 +442,7 @@ ProcessingRunnerExamples >> runLists2Stepwise [
 	^ steps
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingRunnerExamples >> runLists3 [
 	<gtExample>
 	| program runner |
@@ -452,7 +454,7 @@ ProcessingRunnerExamples >> runLists3 [
 	^ runner
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingRunnerExamples >> runLists3Stepwise [
 	<gtExample>
 	| program runner steps |
@@ -472,7 +474,7 @@ ProcessingRunnerExamples >> runLists3Stepwise [
 	^ steps
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingRunnerExamples >> runMinimal [
 	<gtExample>
 	| program runner |
@@ -481,7 +483,7 @@ ProcessingRunnerExamples >> runMinimal [
 	^ runner
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingRunnerExamples >> runMouseEvents [
 	"The animation is currently considered to be an endless loop"
 
@@ -501,7 +503,7 @@ ProcessingRunnerExamples >> runMouseEvents [
 	^ runner
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingRunnerExamples >> runMouseEvents2 [
 	"The animation is currently considered to be an endless loop"
 
@@ -521,7 +523,7 @@ ProcessingRunnerExamples >> runMouseEvents2 [
 	^ runner
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingRunnerExamples >> runPrecedence [
 	<gtExample>
 	| program runner |
@@ -530,7 +532,7 @@ ProcessingRunnerExamples >> runPrecedence [
 	^ runner
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingRunnerExamples >> runPresentationDemo [
 	<gtExample>
 	| program runner |
@@ -542,7 +544,7 @@ ProcessingRunnerExamples >> runPresentationDemo [
 	^ runner
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingRunnerExamples >> runPresentationDemoStepwise [
 	<gtExample>
 	| program runner steps |
@@ -555,7 +557,7 @@ ProcessingRunnerExamples >> runPresentationDemoStepwise [
 	^ steps
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingRunnerExamples >> runPrint [
 	<gtExample>
 	| program runner |
@@ -576,7 +578,7 @@ ProcessingRunnerExamples >> runPrint [
 	^ runner
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingRunnerExamples >> runRandom [
 	<gtExample>
 	| program runner |
@@ -585,7 +587,7 @@ ProcessingRunnerExamples >> runRandom [
 	^ runner
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingRunnerExamples >> runRecursion [
 	<gtExample>
 	| program runner |
@@ -599,7 +601,7 @@ ProcessingRunnerExamples >> runRecursion [
 	^ runner
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingRunnerExamples >> runRuntimeError [
 	<gtExample>
 	| program runner detected |
@@ -623,7 +625,7 @@ ProcessingRunnerExamples >> runRuntimeError [
 	^ runner
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingRunnerExamples >> runShapes [
 	<gtExample>
 	| program runner |
@@ -632,7 +634,7 @@ ProcessingRunnerExamples >> runShapes [
 	^ runner
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingRunnerExamples >> runShapesStepwise [
 	<gtExample>
 	| program runner steps |
@@ -647,7 +649,7 @@ ProcessingRunnerExamples >> runShapesStepwise [
 	^ steps
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingRunnerExamples >> runSierpinski [
 	<gtExample>
 	| program runner |
@@ -663,7 +665,7 @@ ProcessingRunnerExamples >> runSierpinski [
 	^ runner
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingRunnerExamples >> runSierpinskiStepwise [
 	"Collecting that many samples takes a few seconds"
 
@@ -678,7 +680,7 @@ ProcessingRunnerExamples >> runSierpinskiStepwise [
 	^ steps
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingRunnerExamples >> runSimulation [
 	"The animation is currently considered to be an endless loop"
 
@@ -698,7 +700,7 @@ ProcessingRunnerExamples >> runSimulation [
 	^ runner
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingRunnerExamples >> runSpiral [
 	<gtExample>
 	| program runner |
@@ -707,7 +709,7 @@ ProcessingRunnerExamples >> runSpiral [
 	^ runner
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingRunnerExamples >> runSpiralStepwise [
 	<gtExample>
 	<noTest>
@@ -720,7 +722,7 @@ ProcessingRunnerExamples >> runSpiralStepwise [
 	^ steps
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingRunnerExamples >> runSwitzerland [
 	<gtExample>
 	| program runner |
@@ -729,7 +731,7 @@ ProcessingRunnerExamples >> runSwitzerland [
 	^ runner
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingRunnerExamples >> runTransforms [
 	<gtExample>
 	| program runner |
@@ -738,7 +740,7 @@ ProcessingRunnerExamples >> runTransforms [
 	^ runner
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingRunnerExamples >> runTurtleGraphics [
 	<gtExample>
 	| program runner |

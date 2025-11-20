@@ -2,8 +2,8 @@
 This translates a Processing/Python AST into Smalltalk code and is used by {{gtClass:ProcessingProgram}} for compiling Processing code to a runnable subclass of {{gtClass:ProcessingCodeBase}}.
 "
 Class {
-	#name : #ProcessingTranspiler,
-	#superclass : #Object,
+	#name : 'ProcessingTranspiler',
+	#superclass : 'Object',
 	#classTraits : 'TPyRootNodeVisitor classTrait',
 	#instVars : [
 		'globalVariables',
@@ -20,20 +20,22 @@ Class {
 		'constants',
 		'implicitVariables'
 	],
-	#category : #'GtExploration-Processing'
+	#category : 'GtExploration-Processing',
+	#package : 'GtExploration',
+	#tag : 'Processing'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingTranspiler class >> constants [
 	^ constants
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingTranspiler class >> implicitVariables [
 	^ implicitVariables
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ProcessingTranspiler class >> initialize [
 	"When modifying these lists, run the following line (Ctrl+D):
 	ProcessingTranspiler initialize
@@ -46,26 +48,26 @@ ProcessingTranspiler class >> initialize [
 	implicitVariables := #(#width #height #mouseX #mouseY #mousePressed)
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspiler >> accept: anObject [
 	(anObject isKindOf: SmaCCParseNode) ifTrue: [ ^ self acceptNode: anObject ].
 	(anObject isKindOf: Collection) ifTrue: [ ^ self acceptNodes: anObject ].
 	^ anObject
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspiler >> acceptNode: aSmaCCParseNode [
 	aSmaCCParseNode isNil ifTrue: [ ^ nil ].
 	^ aSmaCCParseNode acceptVisitor: self
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspiler >> acceptNodes: aCollection [
 	aCollection do: [ :each | self acceptNode: each ].
 	^ aCollection
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspiler >> acceptStatements: expr [
 	indentation := indentation + 1.
 	expr statements
@@ -80,7 +82,7 @@ ProcessingTranspiler >> acceptStatements: expr [
 	indentation := indentation - 1
 ]
 
-{ #category : #compiling }
+{ #category : 'compiling' }
 ProcessingTranspiler >> compile: ast [
 	| class source instance lastInterval |
 	source := self transpile: ast.
@@ -104,14 +106,14 @@ ProcessingTranspiler >> compile: ast [
 	^ instance
 ]
 
-{ #category : #emitting }
+{ #category : 'emitting' }
 ProcessingTranspiler >> cr [
 	self
 		emit: '
 '
 ]
 
-{ #category : #emitting }
+{ #category : 'emitting' }
 ProcessingTranspiler >> emit: part [
 	"Indent new lines."
 
@@ -127,7 +129,7 @@ ProcessingTranspiler >> emit: part [
 	output := output , part
 ]
 
-{ #category : #emitting }
+{ #category : 'emitting' }
 ProcessingTranspiler >> emitAuxVar: aTag [
 	| name |
 	name := 'gt' , (localVariables size + 1) asString , '_' , aTag.
@@ -136,7 +138,7 @@ ProcessingTranspiler >> emitAuxVar: aTag [
 	^ name
 ]
 
-{ #category : #emitting }
+{ #category : 'emitting' }
 ProcessingTranspiler >> emitFunctionDef: name with: args [
 	self emitName: name.
 	args
@@ -151,7 +153,7 @@ ProcessingTranspiler >> emitFunctionDef: name with: args [
 					(args at: argNo) acceptVisitor: self ] ]
 ]
 
-{ #category : #emitting }
+{ #category : 'emitting' }
 ProcessingTranspiler >> emitName: var [
 	| name |
 	name := var.
@@ -160,7 +162,7 @@ ProcessingTranspiler >> emitName: var [
 	^ name
 ]
 
-{ #category : #emitting }
+{ #category : 'emitting' }
 ProcessingTranspiler >> emitNewVar: aExpr [
 	| name |
 	name := aExpr nameToken value.
@@ -174,7 +176,7 @@ ProcessingTranspiler >> emitNewVar: aExpr [
 	^ name
 ]
 
-{ #category : #emitting }
+{ #category : 'emitting' }
 ProcessingTranspiler >> emit_background: args [
 	args size = 1
 		ifTrue: [ self emit: 'gtCanvas backgroundGray: '.
@@ -188,7 +190,7 @@ ProcessingTranspiler >> emit_background: args [
 	args third acceptVisitor: self
 ]
 
-{ #category : #emitting }
+{ #category : 'emitting' }
 ProcessingTranspiler >> emit_color: args [
 	args size = 1
 		ifTrue: [ self emit: '(gtCanvas colorWithGray: '.
@@ -204,14 +206,14 @@ ProcessingTranspiler >> emit_color: args [
 	self emit: ')'
 ]
 
-{ #category : #emitting }
+{ #category : 'emitting' }
 ProcessingTranspiler >> emit_cos: args [
 	self expect: 1 argumentsFor: args.
 	args first acceptVisitor: self.
 	self emit: ' cos'
 ]
 
-{ #category : #emitting }
+{ #category : 'emitting' }
 ProcessingTranspiler >> emit_delay: args [
 	self expect: 1 argumentsFor: args.
 	self emit: '('.
@@ -219,7 +221,7 @@ ProcessingTranspiler >> emit_delay: args [
 	self emit: ' / 1000.0) seconds wait'
 ]
 
-{ #category : #emitting }
+{ #category : 'emitting' }
 ProcessingTranspiler >> emit_ellipse: args [
 	self expect: 4 argumentsFor: args.
 	self emit: 'gtCanvas ellipse: '.
@@ -232,7 +234,7 @@ ProcessingTranspiler >> emit_ellipse: args [
 	args fourth acceptVisitor: self
 ]
 
-{ #category : #emitting }
+{ #category : 'emitting' }
 ProcessingTranspiler >> emit_fill: args [
 	args size = 1
 		ifTrue: [ self emit: 'gtCanvas fillGray: '.
@@ -246,14 +248,14 @@ ProcessingTranspiler >> emit_fill: args [
 	args third acceptVisitor: self
 ]
 
-{ #category : #emitting }
+{ #category : 'emitting' }
 ProcessingTranspiler >> emit_frameRate: args [
 	self expect: 1 argumentsFor: args.
 	self emit: 'gtCanvas frameRate: '.
 	args first acceptVisitor: self
 ]
 
-{ #category : #emitting }
+{ #category : 'emitting' }
 ProcessingTranspiler >> emit_image: args [
 	self expect: (args size > 3 ifTrue: [ 5 ] ifFalse: [ 3 ]) argumentsFor: args.
 	self emit: 'gtCanvas image: '.
@@ -269,21 +271,21 @@ ProcessingTranspiler >> emit_image: args [
 			args fifth acceptVisitor: self ]
 ]
 
-{ #category : #emitting }
+{ #category : 'emitting' }
 ProcessingTranspiler >> emit_int: args [
 	self expect: 1 argumentsFor: args.
 	args first acceptVisitor: self.
 	self emit: ' rounded'
 ]
 
-{ #category : #emitting }
+{ #category : 'emitting' }
 ProcessingTranspiler >> emit_len: args [
 	self expect: 1 argumentsFor: args.
 	args first acceptVisitor: self.
 	self emit: ' size'
 ]
 
-{ #category : #emitting }
+{ #category : 'emitting' }
 ProcessingTranspiler >> emit_line: args [
 	self expect: 4 argumentsFor: args.
 	self emit: 'gtCanvas line: '.
@@ -296,7 +298,7 @@ ProcessingTranspiler >> emit_line: args [
 	args fourth acceptVisitor: self
 ]
 
-{ #category : #emitting }
+{ #category : 'emitting' }
 ProcessingTranspiler >> emit_loadImage: args [
 	self expect: 1 argumentsFor: args.
 	self emit: '(gtCanvas loadImage: '.
@@ -304,7 +306,7 @@ ProcessingTranspiler >> emit_loadImage: args [
 	self emit: ')'
 ]
 
-{ #category : #emitting }
+{ #category : 'emitting' }
 ProcessingTranspiler >> emit_max: args [
 	args size = 1
 		ifTrue: [ args first acceptVisitor: self.
@@ -317,13 +319,13 @@ ProcessingTranspiler >> emit_max: args [
 	self emit: ')'
 ]
 
-{ #category : #emitting }
+{ #category : 'emitting' }
 ProcessingTranspiler >> emit_millis: args [
 	self expect: 0 argumentsFor: args.
 	self emit: 'gtCanvas millis'
 ]
 
-{ #category : #emitting }
+{ #category : 'emitting' }
 ProcessingTranspiler >> emit_min: args [
 	args size = 1
 		ifTrue: [ args first acceptVisitor: self.
@@ -336,13 +338,13 @@ ProcessingTranspiler >> emit_min: args [
 	self emit: ')'
 ]
 
-{ #category : #emitting }
+{ #category : 'emitting' }
 ProcessingTranspiler >> emit_noStroke: args [
 	self expect: 0 argumentsFor: args.
 	self emit: 'gtCanvas noStroke'
 ]
 
-{ #category : #emitting }
+{ #category : 'emitting' }
 ProcessingTranspiler >> emit_print: args [
 	args size > 1
 		ifTrue: [ self emit: 'gtCanvas print: { '.
@@ -355,21 +357,21 @@ ProcessingTranspiler >> emit_print: args [
 			args first acceptVisitor: self ]
 ]
 
-{ #category : #emitting }
+{ #category : 'emitting' }
 ProcessingTranspiler >> emit_println: args [
 	"`println` is to Processing what `print` is to Python."
 
 	self emit_print: args
 ]
 
-{ #category : #emitting }
+{ #category : 'emitting' }
 ProcessingTranspiler >> emit_radians: args [
 	self expect: 1 argumentsFor: args.
 	args first acceptVisitor: self.
 	self emit: ' degreesToRadians'
 ]
 
-{ #category : #emitting }
+{ #category : 'emitting' }
 ProcessingTranspiler >> emit_random: args [
 	self expect: (args size > 1 ifTrue: [ 2 ] ifFalse: [ 1 ]) argumentsFor: args.
 	self emit: '(gtCanvas random: '.
@@ -380,7 +382,7 @@ ProcessingTranspiler >> emit_random: args [
 	self emit: ')'
 ]
 
-{ #category : #emitting }
+{ #category : 'emitting' }
 ProcessingTranspiler >> emit_randomSeed: args [
 	self expect: 1 argumentsFor: args.
 	self emit: '(gtCanvas randomSeed: '.
@@ -388,7 +390,7 @@ ProcessingTranspiler >> emit_randomSeed: args [
 	self emit: ')'
 ]
 
-{ #category : #emitting }
+{ #category : 'emitting' }
 ProcessingTranspiler >> emit_rect: args [
 	self expect: (args size = 5 ifTrue: [ 5 ] ifFalse: [ 4 ]) argumentsFor: args.
 	self emit: 'gtCanvas rect: '.
@@ -404,35 +406,35 @@ ProcessingTranspiler >> emit_rect: args [
 			args fifth acceptVisitor: self ]
 ]
 
-{ #category : #emitting }
+{ #category : 'emitting' }
 ProcessingTranspiler >> emit_reversed: args [
 	self expect: 1 argumentsFor: args.
 	args first acceptVisitor: self.
 	self emit: ' reversed'
 ]
 
-{ #category : #emitting }
+{ #category : 'emitting' }
 ProcessingTranspiler >> emit_rotate: args [
 	self expect: 1 argumentsFor: args.
 	self emit: 'gtCanvas rotate: '.
 	args first acceptVisitor: self
 ]
 
-{ #category : #emitting }
+{ #category : 'emitting' }
 ProcessingTranspiler >> emit_scale: args [
 	self expect: 1 argumentsFor: args.
 	self emit: 'gtCanvas scale: '.
 	args first acceptVisitor: self
 ]
 
-{ #category : #emitting }
+{ #category : 'emitting' }
 ProcessingTranspiler >> emit_sin: args [
 	self expect: 1 argumentsFor: args.
 	args first acceptVisitor: self.
 	self emit: ' sin'
 ]
 
-{ #category : #emitting }
+{ #category : 'emitting' }
 ProcessingTranspiler >> emit_size: args [
 	self expect: 2 argumentsFor: args.
 	self emit: 'width := '.
@@ -442,28 +444,28 @@ ProcessingTranspiler >> emit_size: args [
 	self emit: '. gtCanvas size: width by: height'
 ]
 
-{ #category : #emitting }
+{ #category : 'emitting' }
 ProcessingTranspiler >> emit_sorted: args [
 	self expect: 1 argumentsFor: args.
 	args first acceptVisitor: self.
 	self emit: ' sorted'
 ]
 
-{ #category : #emitting }
+{ #category : 'emitting' }
 ProcessingTranspiler >> emit_sqrt: args [
 	self expect: 1 argumentsFor: args.
 	args first acceptVisitor: self.
 	self emit: ' sqrt'
 ]
 
-{ #category : #emitting }
+{ #category : 'emitting' }
 ProcessingTranspiler >> emit_str: args [
 	self expect: 1 argumentsFor: args.
 	args first acceptVisitor: self.
 	self emit: ' asString'
 ]
 
-{ #category : #emitting }
+{ #category : 'emitting' }
 ProcessingTranspiler >> emit_stroke: args [
 	args size = 1
 		ifTrue: [ self emit: 'gtCanvas strokeGray: '.
@@ -477,21 +479,21 @@ ProcessingTranspiler >> emit_stroke: args [
 	args third acceptVisitor: self
 ]
 
-{ #category : #emitting }
+{ #category : 'emitting' }
 ProcessingTranspiler >> emit_strokeWeight: args [
 	self expect: 1 argumentsFor: args.
 	self emit: 'gtCanvas strokeWeight: '.
 	args first acceptVisitor: self
 ]
 
-{ #category : #emitting }
+{ #category : 'emitting' }
 ProcessingTranspiler >> emit_tan: args [
 	self expect: 1 argumentsFor: args.
 	args first acceptVisitor: self.
 	self emit: ' tan'
 ]
 
-{ #category : #emitting }
+{ #category : 'emitting' }
 ProcessingTranspiler >> emit_text: args [
 	self expect: 3 argumentsFor: args.
 	self emit: 'gtCanvas text: '.
@@ -502,14 +504,14 @@ ProcessingTranspiler >> emit_text: args [
 	args third acceptVisitor: self
 ]
 
-{ #category : #emitting }
+{ #category : 'emitting' }
 ProcessingTranspiler >> emit_textSize: args [
 	self expect: 1 argumentsFor: args.
 	self emit: 'gtCanvas textSize: '.
 	args first acceptVisitor: self
 ]
 
-{ #category : #emitting }
+{ #category : 'emitting' }
 ProcessingTranspiler >> emit_translate: args [
 	self expect: 2 argumentsFor: args.
 	self emit: 'gtCanvas translate: '.
@@ -518,7 +520,7 @@ ProcessingTranspiler >> emit_translate: args [
 	args second acceptVisitor: self
 ]
 
-{ #category : #emitting }
+{ #category : 'emitting' }
 ProcessingTranspiler >> emit_triangle: args [
 	self expect: 6 argumentsFor: args.
 	self emit: 'gtCanvas triangle: '.
@@ -535,7 +537,7 @@ ProcessingTranspiler >> emit_triangle: args [
 	args sixth acceptVisitor: self
 ]
 
-{ #category : #emitting }
+{ #category : 'emitting' }
 ProcessingTranspiler >> endEmit [
 	| node |
 	node := nodeStack removeLast.
@@ -543,7 +545,7 @@ ProcessingTranspiler >> endEmit [
 	^ node size
 ]
 
-{ #category : #'error handling' }
+{ #category : 'error handling' }
 ProcessingTranspiler >> expect: num argumentsFor: args [
 	num = args size
 		ifFalse: [ ProcessingCompileTimeException
@@ -551,7 +553,7 @@ ProcessingTranspiler >> expect: num argumentsFor: args [
 				withTag: (args ifNotEmpty: [ args first ] ifEmpty: [ nil ]) ]
 ]
 
-{ #category : #'error handling' }
+{ #category : 'error handling' }
 ProcessingTranspiler >> expect: aClass for: expr [
 	(expr isKindOf: aClass)
 		ifFalse: [ ProcessingCompileTimeException
@@ -561,7 +563,7 @@ ProcessingTranspiler >> expect: aClass for: expr [
 				withTag: expr ]
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspiler >> isStringConcatenation: expr [
 	(expr isKindOf: PyStringNode) ifTrue: [ ^ true ].
 	(expr isKindOf: PyFunctionCallExpressionNode)
@@ -572,14 +574,14 @@ ProcessingTranspiler >> isStringConcatenation: expr [
 		or: [ self isStringConcatenation: expr right ]
 ]
 
-{ #category : #'error handling' }
+{ #category : 'error handling' }
 ProcessingTranspiler >> notImplemented: expr [
 	ProcessingNotImplementedException
 		signal: 'Unsupported expression type: ' , ((expr class name removePrefix: 'Py') removeSuffix: 'Node')
 		withTag: expr
 ]
 
-{ #category : #emitting }
+{ #category : 'emitting' }
 ProcessingTranspiler >> startEmit: node [
 	| slice |
 	slice := ProcessingTranspilationSlice link: node from: output size + 1.
@@ -588,7 +590,7 @@ ProcessingTranspiler >> startEmit: node [
 	^ slice
 ]
 
-{ #category : #compiling }
+{ #category : 'compiling' }
 ProcessingTranspiler >> transpile: anAst [
 	| ast |
 	"Turn the AST into a Smalltalk source string"
@@ -671,7 +673,7 @@ ProcessingTranspiler >> transpile: anAst [
 	^ output allButLast , functions
 ]
 
-{ #category : #compiling }
+{ #category : 'compiling' }
 ProcessingTranspiler >> transpileFunction: ast name: name args: args [
 	| saveLocalVariables saveGlobalVariables saveIndentation saveAstMap saveOutput res methodName modifiedArgs |
 	"Preserve global state"
@@ -735,7 +737,7 @@ ProcessingTranspiler >> transpileFunction: ast name: name args: args [
 	^ res
 ]
 
-{ #category : #emitting }
+{ #category : 'emitting' }
 ProcessingTranspiler >> unescape: str [
 	| special in |
 	special := {$n -> Character lf.
@@ -759,29 +761,29 @@ ProcessingTranspiler >> unescape: str [
 								ifFalse: [ char ]) ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingTranspiler >> userDefs [
 	^ userDefs
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingTranspiler >> variables [
 	"This doesn't contain implicit globals such as `width` and `height` (cf. implicitVariables)."
 
 	^ localVariables
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspiler >> visitArgument: anArgument [
 	^ self visitRoot: anArgument
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspiler >> visitAsName: anAsName [
 	^ self visitName: anAsName
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspiler >> visitAssertStatement: stmt [
 	self startEmit: stmt.
 	self emit: '[ '.
@@ -794,7 +796,7 @@ ProcessingTranspiler >> visitAssertStatement: stmt [
 	^ self endEmit
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspiler >> visitAssignmentExpression: expr [
 	self startEmit: expr.
 	self expect: PyVariableExpressionNode for: expr variable.
@@ -804,7 +806,7 @@ ProcessingTranspiler >> visitAssignmentExpression: expr [
 	^ self endEmit
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspiler >> visitAssignmentStatement: stmt [
 	| closers |
 	self startEmit: stmt.
@@ -829,17 +831,17 @@ ProcessingTranspiler >> visitAssignmentStatement: stmt [
 	^ self endEmit
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspiler >> visitAwaitExpression: anAwaitExpression [
 	^ self visitExpression: anAwaitExpression
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspiler >> visitBacktickExpression: aBacktickExpression [
 	^ self visitExpression: aBacktickExpression
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspiler >> visitBinaryExpression: expr [
 	| op |
 	op := expr operator value.
@@ -864,17 +866,17 @@ ProcessingTranspiler >> visitBinaryExpression: expr [
 	^ self endEmit
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspiler >> visitBreakStatement: aBreakStatement [
 	^ self visitStatement: aBreakStatement
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspiler >> visitClassDefinition: aClassDefinition [
 	^ self visitStatement: aClassDefinition
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspiler >> visitComparisonExpression: expr [
 	| op chain depth |
 	op := expr operator value.
@@ -899,89 +901,89 @@ ProcessingTranspiler >> visitComparisonExpression: expr [
 	^ self endEmit
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspiler >> visitComprehension: aComprehension [
 	^ self visitRoot: aComprehension
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspiler >> visitComprehensionDictionaryItem: aComprehensionDictionaryItem [
 	^ self visitRoot: aComprehensionDictionaryItem
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspiler >> visitComprehensionFor: aComprehensionFor [
 	^ self visitRoot: aComprehensionFor
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspiler >> visitComprehensionIf: aComprehensionIf [
 	^ self visitRoot: aComprehensionIf
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspiler >> visitContinueStatement: aContinueStatement [
 	^ self visitStatement: aContinueStatement
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspiler >> visitDecoratorExpression: aDecoratorExpression [
 	^ self visitFunctionCallExpression: aDecoratorExpression
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspiler >> visitDelStatement: aDelStatement [
 	^ self visitStatement: aDelStatement
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspiler >> visitDictionaryExpression: aDictionaryExpression [
 	^ self visitExpression: aDictionaryExpression
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspiler >> visitDictionaryItem: aDictionaryItem [
 	^ self visitRoot: aDictionaryItem
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspiler >> visitElif: anElif [
 	^ self visitRoot: anElif
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspiler >> visitEllipsis: expr [
 	self startEmit: expr.
 	self emit: 'ProcessingEllipsis'.
 	^ self endEmit
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspiler >> visitElse: anElse [
 	^ self visitRoot: anElse
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspiler >> visitEval: anEval [
 	^ self visitRoot: anEval
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspiler >> visitExceptClause: anExceptClause [
 	^ self visitRoot: anExceptClause
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspiler >> visitExecStatement: anExecStatement [
 	^ self visitStatement: anExecStatement
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspiler >> visitExpression: expr [
 	self notImplemented: expr
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspiler >> visitExpressionStatement: stmt [
 	stmt children
 		do: [ :part | 
@@ -994,7 +996,7 @@ ProcessingTranspiler >> visitExpressionStatement: stmt [
 								cr ] ] ]
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspiler >> visitFieldAccessExpression: expr [
 	self startEmit: expr.
 	expr receiver acceptVisitor: self.
@@ -1003,17 +1005,17 @@ ProcessingTranspiler >> visitFieldAccessExpression: expr [
 	^ self endEmit
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspiler >> visitFile: file [
 	self visitExpressionStatement: file
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspiler >> visitFinally: aFinally [
 	^ self visitRoot: aFinally
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspiler >> visitForStatement: expr [
 	| from to by name fromVar toVar byVar countVar |
 	"only `for ... in range(...):` is currently supported"
@@ -1077,7 +1079,7 @@ ProcessingTranspiler >> visitForStatement: expr [
 	^ self endEmit
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspiler >> visitFunctionCallExpression: fnCall [
 	| name builtin |
 	self startEmit: fnCall.
@@ -1106,7 +1108,7 @@ ProcessingTranspiler >> visitFunctionCallExpression: fnCall [
 		withTag: fnCall
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspiler >> visitFunctionDefinition: def [
 	functions := functions
 			, '
@@ -1119,13 +1121,13 @@ ProcessingTranspiler >> visitFunctionDefinition: def [
 	^ 0
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspiler >> visitGlobalStatement: global [
 	global nameTokens do: [ :token | globalVariables add: token value ].
 	^ 0
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspiler >> visitIfExpression: expr [
 	self startEmit: expr.
 	self emit: '('.
@@ -1138,7 +1140,7 @@ ProcessingTranspiler >> visitIfExpression: expr [
 	^ self endEmit
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspiler >> visitIfStatement: expr [
 	self assert: expr elsifs isEmpty.	"cf. ProcessingAstCleaner>>visitIfStatement:"
 	self startEmit: expr.
@@ -1156,27 +1158,27 @@ ProcessingTranspiler >> visitIfStatement: expr [
 	^ self endEmit
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspiler >> visitImportStatement: anImportStatement [
 	^ self visitStatement: anImportStatement
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspiler >> visitInit: anInit [
 	^ self visitRoot: anInit
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspiler >> visitKeywordParameter: aKeywordParameter [
 	^ self visitParameter: aKeywordParameter
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspiler >> visitLambdaExpression: aLambdaExpression [
 	^ self visitExpression: aLambdaExpression
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspiler >> visitListExpression: list [
 	self startEmit: list.
 	self emit: '(ProcessingList newFrom: { '.
@@ -1188,73 +1190,73 @@ ProcessingTranspiler >> visitListExpression: list [
 	^ self endEmit
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspiler >> visitListFor: aListFor [
 	^ self visitRoot: aListFor
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspiler >> visitListIf: aListIf [
 	^ self visitRoot: aListIf
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspiler >> visitListParameter: aListParameter [
 	^ self visitParameter: aListParameter
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspiler >> visitMetaclass: aMetaclass [
 	^ self visitRoot: aMetaclass
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspiler >> visitName: aName [
 	^ self visitRoot: aName
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspiler >> visitNumber: num [
 	self startEmit: num.
 	self emit: num numberToken value.
 	^ self endEmit
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspiler >> visitParameter: param [
 	self startEmit: param.
 	self emit: param name nameToken value.
 	^ self endEmit
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspiler >> visitParameterList: aParameterList [
 	^ self visitRoot: aParameterList
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspiler >> visitPassStatement: pass [
 	"no-op"
 
 	^ 0
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspiler >> visitPrintStatement: aPrintStatement [
 	^ self visitStatement: aPrintStatement
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspiler >> visitRaiseStatement: aRaiseStatement [
 	^ self visitStatement: aRaiseStatement
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspiler >> visitRelativeName: aRelativeName [
 	^ self visitRoot: aRelativeName
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspiler >> visitReturnStatement: expr [
 	self startEmit: expr.
 	self emit: '^ '.
@@ -1266,37 +1268,37 @@ ProcessingTranspiler >> visitReturnStatement: expr [
 	self cr	"Explicitly not returning anything in order to prevent a trailing dot."
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspiler >> visitReturnTypeAnnotation: aReturnTypeAnnotation [
 	^ self visitRoot: aReturnTypeAnnotation
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspiler >> visitRoot: aRoot [
 	^ self visitSmaCCParseNode: aRoot
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspiler >> visitSetExpression: aSetExpression [
 	^ self visitExpression: aSetExpression
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspiler >> visitSlice: aSlice [
 	^ self visitRoot: aSlice
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspiler >> visitSpreadExpression: aSpreadExpression [
 	^ self visitExpression: aSpreadExpression
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspiler >> visitStatement: stmt [
 	self notImplemented: stmt
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspiler >> visitString: expr [
 	self startEmit: expr.
 	self
@@ -1305,7 +1307,7 @@ ProcessingTranspiler >> visitString: expr [
 	^ self endEmit
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspiler >> visitSubscriptExpression: subscript [
 	"Note: Processing is 0-based and right opened
 	(whereas Smalltalk prefers 1-based, right closed indexing)"
@@ -1333,22 +1335,22 @@ ProcessingTranspiler >> visitSubscriptExpression: subscript [
 	^ self endEmit
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspiler >> visitTryStatement: aTryStatement [
 	^ self visitStatement: aTryStatement
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspiler >> visitTupleExpression: aTupleExpression [
 	^ self visitExpression: aTupleExpression
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspiler >> visitTypedVariableExpression: aTypedVariableExpression [
 	^ self visitVariableExpression: aTypedVariableExpression
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspiler >> visitUnaryExpression: expr [
 	expr operator value = '-'
 		ifTrue: [ self startEmit: expr.
@@ -1369,7 +1371,7 @@ ProcessingTranspiler >> visitUnaryExpression: expr [
 	self notImplemented: expr
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspiler >> visitVariableExpression: var [
 	self startEmit: var.
 	(ProcessingTranspiler constants includesKey: var nameToken value)
@@ -1384,7 +1386,7 @@ ProcessingTranspiler >> visitVariableExpression: var [
 	^ self endEmit
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTranspiler >> visitWhileStatement: expr [
 	expr else ifNotNil: [ self notImplemented: expr ].
 	self startEmit: expr.
@@ -1398,22 +1400,22 @@ ProcessingTranspiler >> visitWhileStatement: expr [
 	^ self endEmit
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspiler >> visitWithItem: aWithItem [
 	^ self visitRoot: aWithItem
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspiler >> visitWithStatement: aWithStatement [
 	^ self visitStatement: aWithStatement
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspiler >> visitYieldExpression: aYieldExpression [
 	^ self visitExpression: aYieldExpression
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTranspiler >> visitYieldStatement: aYieldStatement [
 	^ self visitStatement: aYieldStatement
 ]

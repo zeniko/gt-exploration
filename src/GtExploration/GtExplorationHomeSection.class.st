@@ -4,31 +4,33 @@ This class provides two cards in the GT start screen for accessing either the st
 Use `studentMode:` to disable the implementation card.
 "
 Class {
-	#name : #GtExplorationHomeSection,
-	#superclass : #GtHomeMultiCardSection,
+	#name : 'GtExplorationHomeSection',
+	#superclass : 'GtHomeMultiCardSection',
 	#classInstVars : [
 		'studentMode'
 	],
-	#category : #'GtExploration-GtExtensions'
+	#category : 'GtExploration-GtExtensions',
+	#package : 'GtExploration',
+	#tag : 'GtExtensions'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExplorationHomeSection class >> studentMode [
 	^ studentMode ifNil: [ false ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExplorationHomeSection class >> studentMode: aBoolean [
 	studentMode := aBoolean.
 	self updateGtWorld
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtExplorationHomeSection >> cardPriorities [
 	^ #(explorationCard processingAbstractionCard)
 ]
 
-{ #category : #card }
+{ #category : 'card' }
 GtExplorationHomeSection >> explorationCard [
 	"allow hiding this card in student distributions"
 
@@ -50,7 +52,7 @@ GtExplorationHomeSection >> explorationCard [
 		yourself
 ]
 
-{ #category : #card }
+{ #category : 'card' }
 GtExplorationHomeSection >> processingAbstractionCard [
 	<gtSectionCard>
 	^ GtHomeCard lazy
@@ -69,7 +71,7 @@ GtExplorationHomeSection >> processingAbstractionCard [
 		yourself
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtExplorationHomeSection >> sectionTitle [
 	^ 'Processing Abstractions (zeniko)'
 ]

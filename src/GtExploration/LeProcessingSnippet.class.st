@@ -1,10 +1,12 @@
 Class {
-	#name : #LeProcessingSnippet,
-	#superclass : #LePythonSnippet,
-	#category : #'GtExploration-Snippet'
+	#name : 'LeProcessingSnippet',
+	#superclass : 'LePythonSnippet',
+	#category : 'GtExploration-Snippet',
+	#package : 'GtExploration',
+	#tag : 'Snippet'
 }
 
-{ #category : #'api - accessing menu' }
+{ #category : 'api - accessing menu' }
 LeProcessingSnippet class >> contextMenuItemSpecification [
 	<leSnippetSpecification>
 	^ LeContextMenuItemSpecification new
@@ -12,33 +14,33 @@ LeProcessingSnippet class >> contextMenuItemSpecification [
 		title: self description
 ]
 
-{ #category : #'api - accessing menu' }
+{ #category : 'api - accessing menu' }
 LeProcessingSnippet class >> description [
 	^ 'Processing/Python'
 ]
 
-{ #category : #'lepiter-store' }
+{ #category : 'lepiter-store' }
 LeProcessingSnippet class >> leJsonV3Name [
 	^ 'processingSnippet'
 ]
 
-{ #category : #'lepiter-store' }
+{ #category : 'lepiter-store' }
 LeProcessingSnippet class >> leJsonV4Name [
 	^ 'processingSnippet'
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 LeProcessingSnippet >> acceptVisitor: aVisitor [
 	^ aVisitor visitPythonSnippet: self
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 LeProcessingSnippet >> asSnippetViewModel [
 	<return: #LeSnippetViewModel>
 	^ LeProcessingSnippetViewModel new snippetModel: self
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeProcessingSnippet >> newCoder [
 	^ GtProcessingCoderModel new
 ]

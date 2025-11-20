@@ -2,32 +2,34 @@
 This is a helper class used for extracting individual tokens from a Processing/Python AST produced by {{gtClass:ProcessingParser}}.
 "
 Class {
-	#name : #ProcessingTokenExtractor,
-	#superclass : #Object,
+	#name : 'ProcessingTokenExtractor',
+	#superclass : 'Object',
 	#classTraits : 'TPyRootNodeVisitor classTrait',
-	#category : #'GtExploration-Processing'
+	#category : 'GtExploration-Processing',
+	#package : 'GtExploration',
+	#tag : 'Processing'
 }
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTokenExtractor >> accept: anObject [
 	(anObject isKindOf: SmaCCParseNode) ifTrue: [ ^ self acceptNode: anObject ].
 	(anObject isKindOf: Collection) ifTrue: [ ^ self acceptNodes: anObject ].
 	^ anObject
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTokenExtractor >> acceptNode: aSmaCCParseNode [
 	aSmaCCParseNode isNil ifTrue: [ ^ nil ].
 	^ aSmaCCParseNode acceptVisitor: self
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTokenExtractor >> acceptNodes: aCollection [
 	aCollection do: [ :each | self acceptNode: each ].
 	^ aCollection
 ]
 
-{ #category : #building }
+{ #category : 'building' }
 ProcessingTokenExtractor >> add: values separatedBy: commas to: tokens [
 	1
 		to: values size - 1
@@ -37,7 +39,7 @@ ProcessingTokenExtractor >> add: values separatedBy: commas to: tokens [
 	tokens add: values last
 ]
 
-{ #category : #building }
+{ #category : 'building' }
 ProcessingTokenExtractor >> extractTokens: ast [
 	^ ((ast acceptVisitor: self)
 		collect: [ :item | 
@@ -46,17 +48,17 @@ ProcessingTokenExtractor >> extractTokens: ast [
 				ifFalse: [ item ] ]) deepFlatten
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTokenExtractor >> visitArgument: anArgument [
 	^ self visitRoot: anArgument
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTokenExtractor >> visitAsName: anAsName [
 	^ self visitName: anAsName
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTokenExtractor >> visitAssertStatement: stmt [
 	stmt values size = 1
 		ifTrue: [ ^ {stmt assertToken.
@@ -66,14 +68,14 @@ ProcessingTokenExtractor >> visitAssertStatement: stmt [
 		stmt values second}
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTokenExtractor >> visitAssignmentExpression: expr [
 	^ {expr variable.
 		expr assign.
 		expr value}
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTokenExtractor >> visitAssignmentStatement: stmt [
 	| tokens |
 	tokens := OrderedCollection new.
@@ -86,34 +88,34 @@ ProcessingTokenExtractor >> visitAssignmentStatement: stmt [
 	^ tokens
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTokenExtractor >> visitAwaitExpression: anAwaitExpression [
 	^ self visitExpression: anAwaitExpression
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTokenExtractor >> visitBacktickExpression: aBacktickExpression [
 	^ self visitExpression: aBacktickExpression
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTokenExtractor >> visitBinaryExpression: expr [
 	^ {expr left.
 		expr operator.
 		expr right}
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTokenExtractor >> visitBreakStatement: aBreakStatement [
 	^ self visitStatement: aBreakStatement
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTokenExtractor >> visitClassDefinition: aClassDefinition [
 	^ self visitStatement: aClassDefinition
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTokenExtractor >> visitComparisonExpression: expr [
 	| tokens chain |
 	tokens := OrderedCollection new.
@@ -128,52 +130,52 @@ ProcessingTokenExtractor >> visitComparisonExpression: expr [
 	^ tokens
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTokenExtractor >> visitComprehension: aComprehension [
 	^ self visitRoot: aComprehension
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTokenExtractor >> visitComprehensionDictionaryItem: aComprehensionDictionaryItem [
 	^ self visitRoot: aComprehensionDictionaryItem
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTokenExtractor >> visitComprehensionFor: aComprehensionFor [
 	^ self visitRoot: aComprehensionFor
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTokenExtractor >> visitComprehensionIf: aComprehensionIf [
 	^ self visitRoot: aComprehensionIf
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTokenExtractor >> visitContinueStatement: aContinueStatement [
 	^ self visitStatement: aContinueStatement
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTokenExtractor >> visitDecoratorExpression: aDecoratorExpression [
 	^ self visitFunctionCallExpression: aDecoratorExpression
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTokenExtractor >> visitDelStatement: aDelStatement [
 	^ self visitStatement: aDelStatement
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTokenExtractor >> visitDictionaryExpression: aDictionaryExpression [
 	^ self visitExpression: aDictionaryExpression
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTokenExtractor >> visitDictionaryItem: aDictionaryItem [
 	^ self visitRoot: aDictionaryItem
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTokenExtractor >> visitElif: elif [
 	| tokens |
 	tokens := OrderedCollection new.
@@ -184,12 +186,12 @@ ProcessingTokenExtractor >> visitElif: elif [
 	^ tokens
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTokenExtractor >> visitEllipsis: expr [
 	^ {expr ellipsis}
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTokenExtractor >> visitElse: else [
 	| tokens |
 	tokens := OrderedCollection new.
@@ -199,51 +201,51 @@ ProcessingTokenExtractor >> visitElse: else [
 	^ tokens
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTokenExtractor >> visitEval: anEval [
 	^ self visitRoot: anEval
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTokenExtractor >> visitExceptClause: anExceptClause [
 	^ self visitRoot: anExceptClause
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTokenExtractor >> visitExecStatement: anExecStatement [
 	^ self visitStatement: anExecStatement
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTokenExtractor >> visitExpression: expr [
 	ProcessingNotImplementedException new
 		tag: expr;
 		signal: 'Unsupported expression type ' , expr asString
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTokenExtractor >> visitExpressionStatement: stmt [
 	^ stmt children
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTokenExtractor >> visitFieldAccessExpression: expr [
 	^ {expr receiver.
 		expr periodToken.
 		expr nameToken}
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTokenExtractor >> visitFile: file [
 	^ self visitExpressionStatement: file
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTokenExtractor >> visitFinally: aFinally [
 	^ self visitRoot: aFinally
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTokenExtractor >> visitForStatement: stmt [
 	| tokens |
 	tokens := OrderedCollection new.
@@ -259,7 +261,7 @@ ProcessingTokenExtractor >> visitForStatement: stmt [
 	^ tokens
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTokenExtractor >> visitFunctionCallExpression: fnCall [
 	| tokens |
 	tokens := OrderedCollection new.
@@ -274,7 +276,7 @@ ProcessingTokenExtractor >> visitFunctionCallExpression: fnCall [
 	^ tokens
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTokenExtractor >> visitFunctionDefinition: def [
 	| tokens |
 	tokens := OrderedCollection new.
@@ -292,7 +294,7 @@ ProcessingTokenExtractor >> visitFunctionDefinition: def [
 	^ tokens
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTokenExtractor >> visitGlobalStatement: stmt [
 	| tokens |
 	tokens := OrderedCollection new.
@@ -304,7 +306,7 @@ ProcessingTokenExtractor >> visitGlobalStatement: stmt [
 	^ tokens
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTokenExtractor >> visitIfExpression: expr [
 	^ {expr if.
 		expr ifToken.
@@ -313,7 +315,7 @@ ProcessingTokenExtractor >> visitIfExpression: expr [
 		expr else}
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTokenExtractor >> visitIfStatement: stmt [
 	| tokens |
 	tokens := OrderedCollection new.
@@ -326,27 +328,27 @@ ProcessingTokenExtractor >> visitIfStatement: stmt [
 	^ tokens
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTokenExtractor >> visitImportStatement: anImportStatement [
 	^ self visitStatement: anImportStatement
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTokenExtractor >> visitInit: anInit [
 	^ self visitRoot: anInit
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTokenExtractor >> visitKeywordParameter: aKeywordParameter [
 	^ self visitParameter: aKeywordParameter
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTokenExtractor >> visitLambdaExpression: aLambdaExpression [
 	^ self visitExpression: aLambdaExpression
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTokenExtractor >> visitListExpression: list [
 	| tokens |
 	tokens := OrderedCollection new.
@@ -360,89 +362,89 @@ ProcessingTokenExtractor >> visitListExpression: list [
 	^ tokens
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTokenExtractor >> visitListFor: aListFor [
 	^ self visitRoot: aListFor
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTokenExtractor >> visitListIf: aListIf [
 	^ self visitRoot: aListIf
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTokenExtractor >> visitListParameter: aListParameter [
 	^ self visitParameter: aListParameter
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTokenExtractor >> visitMetaclass: aMetaclass [
 	^ self visitRoot: aMetaclass
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTokenExtractor >> visitName: aName [
 	^ self visitRoot: aName
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTokenExtractor >> visitNumber: expr [
 	^ {expr numberToken}
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTokenExtractor >> visitParameter: param [
 	^ {param name nameToken}
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTokenExtractor >> visitParameterList: aParameterList [
 	^ self visitRoot: aParameterList
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTokenExtractor >> visitPassStatement: stmt [
 	^ {stmt passToken}
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTokenExtractor >> visitPrintStatement: aPrintStatement [
 	^ self visitStatement: aPrintStatement
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTokenExtractor >> visitRaiseStatement: aRaiseStatement [
 	^ self visitStatement: aRaiseStatement
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTokenExtractor >> visitRelativeName: aRelativeName [
 	^ self visitRoot: aRelativeName
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTokenExtractor >> visitReturnStatement: stmt [
 	stmt expressions ifEmpty: [ ^ {stmt returnToken} ].
 	^ {stmt returnToken.
 		stmt expressions first}
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTokenExtractor >> visitReturnTypeAnnotation: aReturnTypeAnnotation [
 	^ self visitRoot: aReturnTypeAnnotation
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTokenExtractor >> visitRoot: aRoot [
 	^ self visitSmaCCParseNode: aRoot
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTokenExtractor >> visitSetExpression: aSetExpression [
 	^ self visitExpression: aSetExpression
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTokenExtractor >> visitSlice: slice [
 	| tokens |
 	tokens := OrderedCollection new.
@@ -455,35 +457,35 @@ ProcessingTokenExtractor >> visitSlice: slice [
 	^ tokens
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTokenExtractor >> visitSmaCCError: aSmaCCError [
 	^ self visitSmaCCParseNode: aSmaCCError
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTokenExtractor >> visitSmaCCParseNode: aSmaCCParseNode [
 	self acceptNodes: aSmaCCParseNode sortedChildren.
 	^ aSmaCCParseNode
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTokenExtractor >> visitSpreadExpression: aSpreadExpression [
 	^ self visitExpression: aSpreadExpression
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTokenExtractor >> visitStatement: stmt [
 	ProcessingNotImplementedException new
 		tag: stmt;
 		signal: 'Unsupported statement type ' , stmt asString
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTokenExtractor >> visitString: expr [
 	^ expr parts
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTokenExtractor >> visitSubscriptExpression: subscript [
 	^ {subscript receiver.
 		subscript lbrackToken.
@@ -491,35 +493,35 @@ ProcessingTokenExtractor >> visitSubscriptExpression: subscript [
 		subscript rbrackToken}
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTokenExtractor >> visitTryStatement: aTryStatement [
 	^ self visitStatement: aTryStatement
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTokenExtractor >> visitTupleExpression: expr [
 	^ {expr lparenToken.
 		expr expressions first.
 		expr rparenToken}
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTokenExtractor >> visitTypedVariableExpression: aTypedVariableExpression [
 	^ self visitVariableExpression: aTypedVariableExpression
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTokenExtractor >> visitUnaryExpression: expr [
 	^ {expr operator.
 		expr expression}
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTokenExtractor >> visitVariableExpression: expr [
 	^ {expr nameToken}
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 ProcessingTokenExtractor >> visitWhileStatement: stmt [
 	| tokens |
 	tokens := OrderedCollection new.
@@ -530,22 +532,22 @@ ProcessingTokenExtractor >> visitWhileStatement: stmt [
 	^ tokens
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTokenExtractor >> visitWithItem: aWithItem [
 	^ self visitRoot: aWithItem
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTokenExtractor >> visitWithStatement: aWithStatement [
 	^ self visitStatement: aWithStatement
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTokenExtractor >> visitYieldExpression: aYieldExpression [
 	^ self visitExpression: aYieldExpression
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 ProcessingTokenExtractor >> visitYieldStatement: aYieldStatement [
 	^ self visitStatement: aYieldStatement
 ]

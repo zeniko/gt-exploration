@@ -1,15 +1,17 @@
 Class {
-	#name : #ProcessingSourceExamples,
-	#superclass : #Object,
-	#category : #'GtExploration-Examples'
+	#name : 'ProcessingSourceExamples',
+	#superclass : 'Object',
+	#category : 'GtExploration-Examples',
+	#package : 'GtExploration',
+	#tag : 'Examples'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ProcessingSourceExamples class >> astFor: aName [
 	^ (ProcessingSourceExamples new perform: #source , aName) program ast
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingSourceExamples >> allViews [
 	<gtExample>
 	| source views |
@@ -30,7 +32,7 @@ ProcessingSourceExamples >> allViews [
 	^ source
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingSourceExamples >> render [
 	<gtExample>
 	| source element |
@@ -40,7 +42,7 @@ ProcessingSourceExamples >> render [
 	^ element
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingSourceExamples >> sourceAlpinerWanderweg [
 	<gtExample>
 	| source |
@@ -50,7 +52,7 @@ ProcessingSourceExamples >> sourceAlpinerWanderweg [
 	^ source
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingSourceExamples >> sourceAnimation [
 	<gtExample>
 	| source |
@@ -60,7 +62,7 @@ ProcessingSourceExamples >> sourceAnimation [
 	^ source
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingSourceExamples >> sourceAnimation2 [
 	<gtExample>
 	| source |
@@ -70,7 +72,7 @@ ProcessingSourceExamples >> sourceAnimation2 [
 	^ source
 ]
 
-{ #category : #source }
+{ #category : 'source' }
 ProcessingSourceExamples >> sourceCodeAlpinerWanderweg [
 	^ 'size(200, 200)
 rect(50, 50, 100, 100)
@@ -78,7 +80,7 @@ fill(255, 0, 0)
 rect(50, 50 + 100 / 3, 100, 100 / 3)'
 ]
 
-{ #category : #source }
+{ #category : 'source' }
 ProcessingSourceExamples >> sourceCodeAnimation [
 	^ 'var = 0
 
@@ -96,7 +98,7 @@ def draw():
 '
 ]
 
-{ #category : #source }
+{ #category : 'source' }
 ProcessingSourceExamples >> sourceCodeAnimation2 [
 	^ 'x = 200
 y = 100
@@ -123,7 +125,7 @@ def draw():
 '
 ]
 
-{ #category : #source }
+{ #category : 'source' }
 ProcessingSourceExamples >> sourceCodeColors [
 	^ 'size(200, 200)
 c = color(224, 224, 224)
@@ -133,12 +135,12 @@ stroke(color(192))
 rect(50, 50, 100, 100)'
 ]
 
-{ #category : #source }
+{ #category : 'source' }
 ProcessingSourceExamples >> sourceCodeEndlessLoop [
 	^ 'while True: pass'
 ]
 
-{ #category : #source }
+{ #category : 'source' }
 ProcessingSourceExamples >> sourceCodeExample02 [
 	^ 'size(200, 200)
 a = 0
@@ -150,7 +152,7 @@ if a >= 200:
 	ellipse(10, 10, 20, 20)'
 ]
 
-{ #category : #source }
+{ #category : 'source' }
 ProcessingSourceExamples >> sourceCodeExample03 [
 	^ 'size(200, 200)
 # Variable für Farbe und Durchmesser
@@ -164,7 +166,7 @@ while x > 0:
 	delay(50)'
 ]
 
-{ #category : #source }
+{ #category : 'source' }
 ProcessingSourceExamples >> sourceCodeExample04 [
 	^ 'size(30, 20)
 x = 0
@@ -177,14 +179,14 @@ setX()
 text(x, 0, 20)'
 ]
 
-{ #category : #source }
+{ #category : 'source' }
 ProcessingSourceExamples >> sourceCodeExample05 [
 	^ 'size(200, 100)
 (gtA := width); (gtB := height)
 print(None, True, False, "String", ["Nested"])'
 ]
 
-{ #category : #source }
+{ #category : 'source' }
 ProcessingSourceExamples >> sourceCodeExample06 [
 	^ 'cond = True and False or not 1 == 2 > 3
 var = 5 if cond else 3
@@ -192,7 +194,7 @@ for x in range(1, var):
 	print(x)'
 ]
 
-{ #category : #source }
+{ #category : 'source' }
 ProcessingSourceExamples >> sourceCodeExample07 [
 	^ 'a = random(3, 7)
 a += 2
@@ -202,7 +204,7 @@ assert a < 4, "Message"
 assert False, "Done!"'
 ]
 
-{ #category : #source }
+{ #category : 'source' }
 ProcessingSourceExamples >> sourceCodeFibonacci [
 	^ 'size(200, 200)
 
@@ -221,7 +223,7 @@ fill(255, 255, 255)
 text(fibonacci(10), 20, 125)'
 ]
 
-{ #category : #source }
+{ #category : 'source' }
 ProcessingSourceExamples >> sourceCodeForLoop [
 	^ 'a = 1
 res = []
@@ -230,7 +232,7 @@ for x in range(a := a + 1, a := a + 15, a := a - 14):
 print(res, a, x)'
 ]
 
-{ #category : #source }
+{ #category : 'source' }
 ProcessingSourceExamples >> sourceCodeImage [
 	^ 'size(200, 200)
 img = loadImage("zeniko/gt-exploration/data/sample/thumbs-up.png")
@@ -239,7 +241,7 @@ fill(0)
 image(img, 150, 150, 50, 50)'
 ]
 
-{ #category : #source }
+{ #category : 'source' }
 ProcessingSourceExamples >> sourceCodeLists [
 	^ 'a = [1, 2]
 a.append(3)    # -> [1, 2, 3]
@@ -258,7 +260,7 @@ l = b[::-2]    # -> [3, 1, 2]
 print(a, b, c, d, e, f, g, h, j, k, l)'
 ]
 
-{ #category : #source }
+{ #category : 'source' }
 ProcessingSourceExamples >> sourceCodeLists2 [
 	^ 'a = [1, 2, 3]
 a += [4, 5, 6]
@@ -267,7 +269,7 @@ a[-2] = 7
 print(a * 2, a[:0], a[-1:], a * 0)'
 ]
 
-{ #category : #source }
+{ #category : 'source' }
 ProcessingSourceExamples >> sourceCodeLists3 [
 	^ 'a = [1]
 a.append(a)
@@ -277,12 +279,12 @@ a.reverse()
 print(a)'
 ]
 
-{ #category : #source }
+{ #category : 'source' }
 ProcessingSourceExamples >> sourceCodeMinimal [
 	^ 'size(200, 200)'
 ]
 
-{ #category : #source }
+{ #category : 'source' }
 ProcessingSourceExamples >> sourceCodeMouseEvents [
 	^ 'def setup():
 	size(200, 200)
@@ -296,7 +298,7 @@ def draw():
 	text("Time: " + str(millis()), 10, 190)'
 ]
 
-{ #category : #source }
+{ #category : 'source' }
 ProcessingSourceExamples >> sourceCodeMouseEvents2 [
 	^ 'def setup():
 	size(200, 200)
@@ -314,7 +316,7 @@ def mouseMoved():
 	background(mouseX, 0, mouseY)'
 ]
 
-{ #category : #source }
+{ #category : 'source' }
 ProcessingSourceExamples >> sourceCodePrecedence [
 	^ '# as of GT v1.0.1991, PythonParser parses these correctly
 assert 2 / 3 * 4 == 8 / 3
@@ -327,7 +329,7 @@ assert True and False or True
 assert not (True and False or False)'
 ]
 
-{ #category : #source }
+{ #category : 'source' }
 ProcessingSourceExamples >> sourceCodePresentationDemo [
 	"cf. https://github.com/zeniko/gyminf-thesis/blob/main/presentation.mpx"
 
@@ -338,21 +340,21 @@ while a < 15:
 print(a)'
 ]
 
-{ #category : #source }
+{ #category : 'source' }
 ProcessingSourceExamples >> sourceCodePrint [
 	^ 'print("Hello," '' world!'')
 var = 2 + 3 / 4
 print("2 + 3 / 4 =", var)'
 ]
 
-{ #category : #source }
+{ #category : 'source' }
 ProcessingSourceExamples >> sourceCodeRandom [
 	^ 'randomSeed(100)
-assert random(10) == 0.007826369259425611
-assert random(3) == 0.46133644294987264'
+assert random(3) == 0.8673620908521116
+assert random(10) == 8.950381418690085'
 ]
 
-{ #category : #source }
+{ #category : 'source' }
 ProcessingSourceExamples >> sourceCodeRecursion [
 	^ 'size(200, 200)
 
@@ -364,12 +366,12 @@ def recursion(n):
 recursion(200)'
 ]
 
-{ #category : #source }
+{ #category : 'source' }
 ProcessingSourceExamples >> sourceCodeRuntimeError [
 	^ '1/0'
 ]
 
-{ #category : #source }
+{ #category : 'source' }
 ProcessingSourceExamples >> sourceCodeShapes [
 	^ 'size(200, 200)
 stroke(255, 255, 255)
@@ -379,7 +381,7 @@ line(25, 150, 75, 125)
 triangle(125, 125, 150, 175, 175, 150)'
 ]
 
-{ #category : #source }
+{ #category : 'source' }
 ProcessingSourceExamples >> sourceCodeSierpinski [
 	^ 'px = 300
 size(px, px * sin(radians(60)) + 2)
@@ -403,7 +405,7 @@ strokeWeight(1)
 sierpinski(4, 2, 2, width - 4)'
 ]
 
-{ #category : #source }
+{ #category : 'source' }
 ProcessingSourceExamples >> sourceCodeSimulation [
 	^ '# Agenten-basierte Epidemiesimulation
 # BÜS
@@ -505,7 +507,7 @@ def personen_anzeigen():
 '
 ]
 
-{ #category : #source }
+{ #category : 'source' }
 ProcessingSourceExamples >> sourceCodeSpiral [
 	^ 'size(600, 600)
 background(255)
@@ -524,7 +526,7 @@ for _ in range(20):
 '
 ]
 
-{ #category : #source }
+{ #category : 'source' }
 ProcessingSourceExamples >> sourceCodeSwitzerland [
 	"This is an example from the introductionary course and thus inaccurate in both color and proportion"
 
@@ -534,7 +536,7 @@ rect(75, 25, 50, 150)
 rect(25, 75, 150, 50)'
 ]
 
-{ #category : #source }
+{ #category : 'source' }
 ProcessingSourceExamples >> sourceCodeTransforms [
 	^ 'size(200, 200)
 fill(0)
@@ -556,7 +558,7 @@ scale(2)
 rect(15, -70, 20, 20)'
 ]
 
-{ #category : #source }
+{ #category : 'source' }
 ProcessingSourceExamples >> sourceCodeTurtleGraphics [
 	^ 'size(400, 400)
 draw_n_eck(5)
@@ -617,7 +619,7 @@ def turn(angle):
 	t_angle = t_angle + angle'
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingSourceExamples >> sourceColors [
 	<gtExample>
 	| source |
@@ -627,7 +629,7 @@ ProcessingSourceExamples >> sourceColors [
 	^ source
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingSourceExamples >> sourceEndlessLoop [
 	<gtExample>
 	| source |
@@ -637,7 +639,7 @@ ProcessingSourceExamples >> sourceEndlessLoop [
 	^ source
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingSourceExamples >> sourceExample02 [
 	<gtExample>
 	| source |
@@ -647,7 +649,7 @@ ProcessingSourceExamples >> sourceExample02 [
 	^ source
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingSourceExamples >> sourceExample03 [
 	<gtExample>
 	| source |
@@ -657,7 +659,7 @@ ProcessingSourceExamples >> sourceExample03 [
 	^ source
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingSourceExamples >> sourceExample04 [
 	<gtExample>
 	| source |
@@ -667,7 +669,7 @@ ProcessingSourceExamples >> sourceExample04 [
 	^ source
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingSourceExamples >> sourceExample05 [
 	<gtExample>
 	| source |
@@ -677,7 +679,7 @@ ProcessingSourceExamples >> sourceExample05 [
 	^ source
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingSourceExamples >> sourceExample06 [
 	<gtExample>
 	| source |
@@ -687,7 +689,7 @@ ProcessingSourceExamples >> sourceExample06 [
 	^ source
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingSourceExamples >> sourceExample07 [
 	<gtExample>
 	| source |
@@ -697,7 +699,7 @@ ProcessingSourceExamples >> sourceExample07 [
 	^ source
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingSourceExamples >> sourceFibonacci [
 	<gtExample>
 	| source |
@@ -707,7 +709,7 @@ ProcessingSourceExamples >> sourceFibonacci [
 	^ source
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingSourceExamples >> sourceForLoop [
 	<gtExample>
 	| source |
@@ -717,7 +719,7 @@ ProcessingSourceExamples >> sourceForLoop [
 	^ source
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingSourceExamples >> sourceImage [
 	<gtExample>
 	| source |
@@ -727,7 +729,7 @@ ProcessingSourceExamples >> sourceImage [
 	^ source
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingSourceExamples >> sourceLists [
 	<gtExample>
 	| source |
@@ -737,7 +739,7 @@ ProcessingSourceExamples >> sourceLists [
 	^ source
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingSourceExamples >> sourceLists2 [
 	<gtExample>
 	| source |
@@ -747,7 +749,7 @@ ProcessingSourceExamples >> sourceLists2 [
 	^ source
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingSourceExamples >> sourceLists3 [
 	<gtExample>
 	| source |
@@ -757,7 +759,7 @@ ProcessingSourceExamples >> sourceLists3 [
 	^ source
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingSourceExamples >> sourceMinimal [
 	<gtExample>
 	| source |
@@ -767,7 +769,7 @@ ProcessingSourceExamples >> sourceMinimal [
 	^ source
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingSourceExamples >> sourceMouseEvents [
 	<gtExample>
 	| source |
@@ -777,7 +779,7 @@ ProcessingSourceExamples >> sourceMouseEvents [
 	^ source
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingSourceExamples >> sourceMouseEvents2 [
 	<gtExample>
 	| source |
@@ -787,7 +789,7 @@ ProcessingSourceExamples >> sourceMouseEvents2 [
 	^ source
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingSourceExamples >> sourceNames [
 	<gtExample>
 	| names |
@@ -800,7 +802,7 @@ ProcessingSourceExamples >> sourceNames [
 	^ names
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingSourceExamples >> sourcePrecedence [
 	<gtExample>
 	| source |
@@ -810,7 +812,7 @@ ProcessingSourceExamples >> sourcePrecedence [
 	^ source
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingSourceExamples >> sourcePresentationDemo [
 	<gtExample>
 	| source |
@@ -820,7 +822,7 @@ ProcessingSourceExamples >> sourcePresentationDemo [
 	^ source
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingSourceExamples >> sourcePrint [
 	<gtExample>
 	| source |
@@ -830,7 +832,7 @@ ProcessingSourceExamples >> sourcePrint [
 	^ source
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingSourceExamples >> sourceRandom [
 	<gtExample>
 	| source |
@@ -840,7 +842,7 @@ ProcessingSourceExamples >> sourceRandom [
 	^ source
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingSourceExamples >> sourceRecursion [
 	<gtExample>
 	| source |
@@ -850,7 +852,7 @@ ProcessingSourceExamples >> sourceRecursion [
 	^ source
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingSourceExamples >> sourceRuntimeError [
 	<gtExample>
 	| source |
@@ -860,7 +862,7 @@ ProcessingSourceExamples >> sourceRuntimeError [
 	^ source
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingSourceExamples >> sourceShapes [
 	<gtExample>
 	| source |
@@ -870,7 +872,7 @@ ProcessingSourceExamples >> sourceShapes [
 	^ source
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingSourceExamples >> sourceSierpinski [
 	<gtExample>
 	| source |
@@ -880,7 +882,7 @@ ProcessingSourceExamples >> sourceSierpinski [
 	^ source
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingSourceExamples >> sourceSimulation [
 	<gtExample>
 	| source |
@@ -890,7 +892,7 @@ ProcessingSourceExamples >> sourceSimulation [
 	^ source
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingSourceExamples >> sourceSpiral [
 	<gtExample>
 	| source |
@@ -900,7 +902,7 @@ ProcessingSourceExamples >> sourceSpiral [
 	^ source
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingSourceExamples >> sourceSwitzerland [
 	<gtExample>
 	| source |
@@ -910,7 +912,7 @@ ProcessingSourceExamples >> sourceSwitzerland [
 	^ source
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingSourceExamples >> sourceTransforms [
 	<gtExample>
 	| source |
@@ -920,7 +922,7 @@ ProcessingSourceExamples >> sourceTransforms [
 	^ source
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingSourceExamples >> sourceTurtleGraphics [
 	<gtExample>
 	| source |

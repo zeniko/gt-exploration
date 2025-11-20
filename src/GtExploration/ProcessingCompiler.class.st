@@ -2,20 +2,22 @@
 This is a discarded, very basic compiler for Processing code, which directly produces an intermediary representation through {{gtClass:IRBuilder}} (see {{gtPage:Compiling Processing|db=5rgxfv9r684digmpw7ph7kbt4}}).
 "
 Class {
-	#name : #ProcessingCompiler,
-	#superclass : #Object,
+	#name : 'ProcessingCompiler',
+	#superclass : 'Object',
 	#instVars : [
 		'builder'
 	],
-	#category : #'GtExploration-Experiments'
+	#category : 'GtExploration-Experiments',
+	#package : 'GtExploration',
+	#tag : 'Experiments'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 ProcessingCompiler >> acceptNodes: nodes [
 	^ nodes collect: [ :each | each acceptVisitor: self ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingCompiler >> compile: ast [
 	builder := IRBuilder new.
 	builder numArgs: 0.
@@ -26,19 +28,19 @@ ProcessingCompiler >> compile: ast [
 	^ builder ir compiledMethod
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 ProcessingCompiler >> emitBinaryOp: op lhs: left rhs: right [
 	left acceptVisitor: self.
 	right acceptVisitor: self.
 	builder send: op asSymbol
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 ProcessingCompiler >> emitNumber: num [
 	builder pushLiteral: num asNumber
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 ProcessingCompiler >> emit_fill: args [
 	builder pushReceiver.
 	(args at: 1) acceptVisitor: self.
@@ -49,7 +51,7 @@ ProcessingCompiler >> emit_fill: args [
 		popTop
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 ProcessingCompiler >> emit_rect: args [
 	builder pushReceiver.
 	(args at: 1) acceptVisitor: self.
@@ -61,7 +63,7 @@ ProcessingCompiler >> emit_rect: args [
 		popTop
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 ProcessingCompiler >> emit_size: args [
 	builder pushReceiver.
 	(args at: 1) acceptVisitor: self.
@@ -71,7 +73,7 @@ ProcessingCompiler >> emit_size: args [
 		popTop
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 ProcessingCompiler >> visitBinaryExpression: expr [
 	self
 		emitBinaryOp: expr operator value
@@ -79,17 +81,17 @@ ProcessingCompiler >> visitBinaryExpression: expr [
 		rhs: expr right
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 ProcessingCompiler >> visitExpressionStatement: stmt [
 	self visitSmaCCParseNode: stmt
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 ProcessingCompiler >> visitFile: file [
 	^ self visitSmaCCParseNode: file
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 ProcessingCompiler >> visitFunctionCallExpression: fnCall [
 	| name |
 	name := fnCall receiver nameToken value.
@@ -98,17 +100,17 @@ ProcessingCompiler >> visitFunctionCallExpression: fnCall [
 	name = 'rect' ifTrue: [ ^ self emit_rect: fnCall arguments ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 ProcessingCompiler >> visitNumber: num [
 	self emitNumber: num numberToken value
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 ProcessingCompiler >> visitSmaCCParseNode: aSmaCCParseNode [
 	^ self acceptNodes: aSmaCCParseNode children
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 ProcessingCompiler >> visitVariableExpression: var [
 	^ self visitSmaCCParseNode: var
 ]

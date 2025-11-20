@@ -17,16 +17,18 @@ ProcessingTranspiler new compile: ast
 
 "
 Class {
-	#name : #ProcessingCodeBase,
-	#superclass : #Object,
+	#name : 'ProcessingCodeBase',
+	#superclass : 'Object',
 	#instVars : [
 		'gtCanvas',
 		'gtAstMaps'
 	],
-	#category : #'GtExploration-Processing'
+	#category : 'GtExploration-Processing',
+	#package : 'GtExploration',
+	#tag : 'Processing'
 }
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingCodeBase >> gtAbstractionsFor: aView [
 	<gtView>
 	^ aView explicit
@@ -46,12 +48,12 @@ ProcessingCodeBase >> gtAbstractionsFor: aView [
 			element ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingCodeBase >> gtAstMaps [
 	^ gtAstMaps
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingCodeBase >> gtBytecodeFor: aView [
 	<gtView>
 	^ aView columnedList
@@ -90,17 +92,17 @@ ProcessingCodeBase >> gtBytecodeFor: aView [
 					ifFalse: [ each description ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingCodeBase >> gtCanvas [
 	^ gtCanvas
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingCodeBase >> gtCanvas: aCanvas [
 	gtCanvas := aCanvas
 ]
 
-{ #category : #meta }
+{ #category : 'meta' }
 ProcessingCodeBase >> gtGenerateIR: aSourceCode [
 	| trans ast |
 	trans := OCASTTranslator new.
@@ -109,7 +111,7 @@ ProcessingCodeBase >> gtGenerateIR: aSourceCode [
 	^ trans privateMethodBuilder instVarNamed: #ir	"calling IRBuilder>>#ir performs some optimizations, so skip around it"
 ]
 
-{ #category : #'views - tools' }
+{ #category : 'views - tools' }
 ProcessingCodeBase >> gtGetViewElement: aViewName [
 	| element |
 	(self perform: aViewName with: GtPhlowView empty)
@@ -123,7 +125,7 @@ ProcessingCodeBase >> gtGetViewElement: aViewName [
 		yourself
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingCodeBase >> gtHexDumpFor: aView [
 	<gtView>
 	^ aView explicit
@@ -148,7 +150,7 @@ ProcessingCodeBase >> gtHexDumpFor: aView [
 				yourself ]
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingCodeBase >> gtIntermediaryRepresentationFor: aView [
 	<gtView>
 	^ aView columnedList
@@ -181,12 +183,12 @@ ProcessingCodeBase >> gtIntermediaryRepresentationFor: aView [
 					ifFalse: [ each gtDisplayText ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingCodeBase >> gtIsAnimation [
 	^ (self class >> #gtRun) sourceCode includesSubstring: 'gtCanvas endFrame.'
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingCodeBase >> gtOutputFor: aView [
 	<gtView>
 	^ aView explicit
@@ -198,14 +200,14 @@ ProcessingCodeBase >> gtOutputFor: aView [
 				canvas) asElement ]
 ]
 
-{ #category : #runtime }
+{ #category : 'runtime' }
 ProcessingCodeBase >> gtRun [
 	"Entry point for executing a Processing program"
 
 	^ self subclassResponsibility
 ]
 
-{ #category : #meta }
+{ #category : 'meta' }
 ProcessingCodeBase >> gtSliceFor: method within: interval [
 	| slices |
 	slices := gtAstMaps
@@ -216,7 +218,7 @@ ProcessingCodeBase >> gtSliceFor: method within: interval [
 	^ slices last
 ]
 
-{ #category : #meta }
+{ #category : 'meta' }
 ProcessingCodeBase >> gtSlicesAround: aPosition [
 	^ gtAstMaps
 		select: [ :slice | 
@@ -224,7 +226,7 @@ ProcessingCodeBase >> gtSlicesAround: aPosition [
 				& (slice astNode sourceInterval last >= aPosition) ]
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingCodeBase >> gtSlicesFor: aView [
 	<gtView>
 	^ ((Stepper for: gtAstMaps view: #gtTranspilationPlusSourceFor:) gtListViewFor: aView)
@@ -232,7 +234,7 @@ ProcessingCodeBase >> gtSlicesFor: aView [
 		priority: 12
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingCodeBase >> gtTranspilationFor: aView [
 	"Adapted from GtPharoMethodsCoderView>>#gtMethodsFor"
 
@@ -252,7 +254,7 @@ ProcessingCodeBase >> gtTranspilationFor: aView [
 				children second removeFromParent	"TODO: Find a better way of removing the filter bar" ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ProcessingCodeBase >> initialize [
 	gtAstMaps := OrderedCollection new
 ]

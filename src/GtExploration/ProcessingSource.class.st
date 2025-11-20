@@ -17,16 +17,18 @@ ProcessingSource fromString: 'print(""Hello, world!"")'
 ```
 "
 Class {
-	#name : #ProcessingSource,
-	#superclass : #Object,
+	#name : 'ProcessingSource',
+	#superclass : 'Object',
 	#instVars : [
 		'source',
 		'announcer'
 	],
-	#category : #'GtExploration-Processing'
+	#category : 'GtExploration-Processing',
+	#package : 'GtExploration',
+	#tag : 'Processing'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ProcessingSource class >> fromFile: locator [
 	| source |
 	source := ProcessingSource new source: locator.
@@ -37,23 +39,23 @@ ProcessingSource class >> fromFile: locator [
 	^ source
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ProcessingSource class >> fromPage: aPage [
 	^ self fromPage: aPage at: 1
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ProcessingSource class >> fromPage: aPage at: anIndex [
 	^ self
 		fromSnippet: ((aPage children select: [ :snip | snip isKindOf: LePythonSnippet ]) at: anIndex)
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ProcessingSource class >> fromSnippet: aSnippet [
 	^ self fromViewModel: aSnippet asSnippetViewModel coderViewModel
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ProcessingSource class >> fromString: code [
 	^ self
 		fromFile: ((FileSystem memory workingDirectory
@@ -63,7 +65,7 @@ ProcessingSource class >> fromString: code [
 				yourself)
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ProcessingSource class >> fromViewModel: aViewModel [
 	| source |
 	source := self fromString: aViewModel coderModel currentSourceString.
@@ -74,7 +76,7 @@ ProcessingSource class >> fromViewModel: aViewModel [
 	^ source
 ]
 
-{ #category : #announcements }
+{ #category : 'announcements' }
 ProcessingSource >> announceSourceChange [
 	| ast |
 	[ ast := ProcessingParser parse: self asString.
@@ -90,17 +92,17 @@ ProcessingSource >> announceSourceChange [
 						sourceError: error) ]
 ]
 
-{ #category : #announcements }
+{ #category : 'announcements' }
 ProcessingSource >> announcer [
 	^ announcer ifNil: [ announcer := Announcer new ]
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingSource >> asString [
 	^ source contents
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingSource >> gtAbstractionsFor: aView [
 	<gtView>
 	^ (self program gtAbstractionsFor: aView)
@@ -108,7 +110,7 @@ ProcessingSource >> gtAbstractionsFor: aView [
 		title: 'Abstractions' translated
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingSource >> gtBytecodeFor: aView [
 	<gtView>
 	^ (self program gtBytecodeFor: aView)
@@ -116,7 +118,7 @@ ProcessingSource >> gtBytecodeFor: aView [
 		priority: 10
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingSource >> gtIntermediaryRepresentationFor: aView [
 	<gtView>
 	^ (self program gtIntermediaryRepresentationFor: aView)
@@ -124,7 +126,7 @@ ProcessingSource >> gtIntermediaryRepresentationFor: aView [
 		priority: 7
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingSource >> gtOutputFor: aView [
 	<gtView>
 	^ (self program gtOutputFor: aView)
@@ -132,7 +134,7 @@ ProcessingSource >> gtOutputFor: aView [
 		priority: 20
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingSource >> gtSourceCodeFor: aView [
 	<gtView>
 	^ (self program gtSourceCodeFor: aView)
@@ -140,7 +142,7 @@ ProcessingSource >> gtSourceCodeFor: aView [
 		priority: 2
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingSource >> gtTranspilationFor: aView [
 	<gtView>
 	^ (self program gtTranspilationFor: aView)
@@ -148,7 +150,7 @@ ProcessingSource >> gtTranspilationFor: aView [
 		priority: 6
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingSource >> gtTreeFor: aView [
 	<gtView>
 	^ (self program gtTreeFor: aView)
@@ -156,35 +158,35 @@ ProcessingSource >> gtTreeFor: aView [
 		priority: 5
 ]
 
-{ #category : #announcements }
+{ #category : 'announcements' }
 ProcessingSource >> onSourceChangedTo: aCode [
 	source writeStreamDo: [ :stream | stream nextPutAll: aCode ].
 	self announceSourceChange
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ProcessingSource >> program [
 	^ ProcessingProgram new source: self
 ]
 
-{ #category : #runtime }
+{ #category : 'runtime' }
 ProcessingSource >> render [
 	^ self program canvas asElement
 ]
 
-{ #category : #runtime }
+{ #category : 'runtime' }
 ProcessingSource >> renderLive [
 	^ self renderLiveView: #gtOutputFor:
 ]
 
-{ #category : #runtime }
+{ #category : 'runtime' }
 ProcessingSource >> renderLiveView: aViewSelector [
 	(self class methodDict includesKey: aViewSelector)
 		ifFalse: [ ^ LiveViewWrapper createFor: self program view: aViewSelector ].
 	^ LiveViewWrapper createFor: self view: aViewSelector
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ProcessingSource >> source: aSource [
 	source := aSource
 ]

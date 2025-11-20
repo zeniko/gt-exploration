@@ -2,12 +2,14 @@
 This text editor mode enables keyboard navigation without enabling editing.
 "
 Class {
-	#name : #BrTextEditorReadonlyWithNavigationMode,
-	#superclass : #BrTextEditorReadonlyWithSelectionMode,
-	#category : #'GtExploration-GtExtensions'
+	#name : 'BrTextEditorReadonlyWithNavigationMode',
+	#superclass : 'BrTextEditorReadonlyWithSelectionMode',
+	#category : 'GtExploration-GtExtensions',
+	#package : 'GtExploration',
+	#tag : 'GtExtensions'
 }
 
-{ #category : #initalization }
+{ #category : 'initalization' }
 BrTextEditorReadonlyWithNavigationMode >> createShortcuts [
 	^ super createShortcuts
 		, {BrEditorShortcut copy.

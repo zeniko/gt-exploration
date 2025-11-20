@@ -10,27 +10,29 @@ It ensures that a program has an assigned {{gtClass:ProcessingCanvas}} runtime a
 ```
 "
 Class {
-	#name : #ProcessingRunner,
-	#superclass : #Object,
+	#name : 'ProcessingRunner',
+	#superclass : 'Object',
 	#instVars : [
 		'canvas',
 		'done',
 		'promise'
 	],
-	#category : #'GtExploration-Processing'
+	#category : 'GtExploration-Processing',
+	#package : 'GtExploration',
+	#tag : 'Processing'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingRunner >> canvas [
 	^ canvas
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ProcessingRunner >> canvas: aCanvas [
 	canvas := aCanvas
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 ProcessingRunner >> debug: compilation [
 	| worker block process session debugger |
 	worker := AsyncFutureThreadPoolWorker new.
@@ -65,12 +67,12 @@ ProcessingRunner >> debug: compilation [
 	^ canvas
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingRunner >> isDone [
 	^ done
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 ProcessingRunner >> limitTo: duration [
 	"Schedule a (hard) interruption, if the program still runs after the given `duration`."
 
@@ -80,7 +82,7 @@ ProcessingRunner >> limitTo: duration [
 		await
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 ProcessingRunner >> run: compilation [
 	| worker |
 	worker := AsyncFutureThreadPoolWorker new.
@@ -104,7 +106,7 @@ ProcessingRunner >> run: compilation [
 	^ promise
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 ProcessingRunner >> runStepwise: compilation [
 	| worker steps block process session |
 	worker := AsyncFutureThreadPoolWorker new.
@@ -156,7 +158,7 @@ ProcessingRunner >> runStepwise: compilation [
 	^ steps
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 ProcessingRunner >> wait [
 	^ promise wait
 ]

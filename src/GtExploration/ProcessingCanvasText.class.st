@@ -2,16 +2,18 @@
 This class represents text rendered onto a {{gtClass:ProcessingCanvas}} (e.g. through {{gtMethod:ProcessingCanvas>>text:x:y:}}).
 "
 Class {
-	#name : #ProcessingCanvasText,
-	#superclass : #ProcessingCanvasShape,
+	#name : 'ProcessingCanvasText',
+	#superclass : 'ProcessingCanvasShape',
 	#instVars : [
 		'text',
 		'textSize'
 	],
-	#category : #'GtExploration-Processing'
+	#category : 'GtExploration-Processing',
+	#package : 'GtExploration',
+	#tag : 'Processing'
 }
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingCanvasText >> asElement [
 	^ BlTextElement new
 		text: (text asRopedText
@@ -19,22 +21,22 @@ ProcessingCanvasText >> asElement [
 				foreground: fillColor)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingCanvasText >> text [
 	^ text
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingCanvasText >> text: aText [
 	text := aText
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingCanvasText >> textSize [
 	^ textSize
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingCanvasText >> textSize: aTextSize [
 	textSize := aTextSize
 ]

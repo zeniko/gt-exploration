@@ -17,16 +17,18 @@ or rather one provided through {{gtClass:ProcessingSource}}:
 This is the view in the model-view-presenter pattern implemented by {{gtClass:ProcessingCanvas}}, {{gtClass:ProcessingCanvasElement}} and {{gtClass:ProcessingCanvasPresenter}}.
 "
 Class {
-	#name : #ProcessingCanvasElement,
-	#superclass : #BlElement,
+	#name : 'ProcessingCanvasElement',
+	#superclass : 'BlElement',
 	#instVars : [
 		'visualContainer',
 		'presenter'
 	],
-	#category : #'GtExploration-Processing'
+	#category : 'GtExploration-Processing',
+	#package : 'GtExploration',
+	#tag : 'Processing'
 }
 
-{ #category : #initalization }
+{ #category : 'initalization' }
 ProcessingCanvasElement class >> explainShape: aShape as: aTag [
 	(aShape children
 		select: [ :child | 
@@ -44,7 +46,7 @@ ProcessingCanvasElement class >> explainShape: aShape as: aTag [
 			aShape addChild: marker ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ProcessingCanvasElement >> addTextCanvas: aTranscript [
 	| textCanvas |
 	textCanvas := aTranscript asElement
@@ -56,7 +58,7 @@ ProcessingCanvasElement >> addTextCanvas: aTranscript [
 	^ textCanvas
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ProcessingCanvasElement >> addVisualCanvas: aSize colored: aColor [
 	| canvasElement |
 	canvasElement := BlElement new
@@ -67,7 +69,7 @@ ProcessingCanvasElement >> addVisualCanvas: aSize colored: aColor [
 	^ canvasElement
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ProcessingCanvasElement >> initialize [
 	super initialize.
 
@@ -86,12 +88,12 @@ ProcessingCanvasElement >> initialize [
 		addChild: visualContainer
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingCanvasElement >> presenter [
 	^ presenter
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingCanvasElement >> presenter: aPresenter [
 	presenter := aPresenter
 ]

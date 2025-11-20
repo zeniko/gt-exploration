@@ -12,35 +12,38 @@ The Processing/Python Lepiter snippet returns a `ProcessingProgram` when running
 In order to hide most complexity, the default view only shows an overview of four views (source, AST, bytecode and output), hiding all other views behind **`i`**. Use this, if you want to find the name for a specific view to embed (hint: `Alt+Click` on a view title to find its name and implementation).
 "
 Class {
-	#name : #ProcessingProgram,
-	#superclass : #Object,
+	#name : 'ProcessingProgram',
+	#superclass : 'Object',
 	#instVars : [
 		'source',
 		'compilation',
 		'ast',
 		'announcer'
 	],
-	#category : #'GtExploration-Processing'
+	#category : 'GtExploration-Processing',
+	#package : 'GtExploration',
+	#tag : 'Processing'
 }
 
-{ #category : #'views - tools' }
+{ #category : 'views - tools' }
 ProcessingProgram >> addHighlightOnError: anElement [
 	self announcer
 		when: ProcessingSourceChangedError
 		do: [ :event | anElement background: BrGlamorousColors paleFailureBackgroundColor ]
+		for: self
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingProgram >> announcer [
 	^ announcer ifNil: [ announcer := Announcer new ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingProgram >> ast [
 	^ ast
 ]
 
-{ #category : #runtime }
+{ #category : 'runtime' }
 ProcessingProgram >> canvas [
 	| runner result |
 	runner := self run.
@@ -54,17 +57,17 @@ ProcessingProgram >> canvas [
 	^ runner canvas
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingProgram >> compilation [
 	^ compilation
 ]
 
-{ #category : #runtime }
+{ #category : 'runtime' }
 ProcessingProgram >> debug [
 	^ ProcessingRunner new debug: compilation clone
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingProgram >> gtAbstractionsFor: aView [
 	<gtView>
 	^ aView explicit
@@ -95,7 +98,7 @@ ProcessingProgram >> gtAbstractionsFor: aView [
 		updateWhen: ProcessingProgramChanged in: self announcer
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingProgram >> gtBytecodeFor: aView [
 	<gtView>
 	^ self
@@ -105,7 +108,7 @@ ProcessingProgram >> gtBytecodeFor: aView [
 		priority: 35
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingProgram >> gtBytecodePlusIRFor: aView [
 	"Match bytecode and intermediary representation at the level of bytecode instructions (instead of using sharedBytecodeViewElement: and sharedIRViewElement: which match at the level of Processing tokens)"
 
@@ -167,7 +170,7 @@ ProcessingProgram >> gtBytecodePlusIRFor: aView [
 		updateWhen: ProcessingProgramChanged in: self announcer
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingProgram >> gtBytecodePlusSourceFor: aView [
 	<gtView>
 	^ aView explicit
@@ -183,7 +186,7 @@ ProcessingProgram >> gtBytecodePlusSourceFor: aView [
 		updateWhen: ProcessingProgramChanged in: self announcer
 ]
 
-{ #category : #'views - tools' }
+{ #category : 'views - tools' }
 ProcessingProgram >> gtCombineWithSource: anElement on: anAnnouncer [
 	^ BlElement new
 		layout: BlLinearLayout horizontal;
@@ -195,7 +198,7 @@ ProcessingProgram >> gtCombineWithSource: anElement on: anAnnouncer [
 		yourself
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingProgram >> gtDefaultInspectorTool [
 	^ GtPhlowCompositeTool new
 		addTool: (GtPhlowExplicitTool new
@@ -213,7 +216,7 @@ ProcessingProgram >> gtDefaultInspectorTool [
 		addTool: super gtDefaultInspectorTool
 ]
 
-{ #category : #'views - tools' }
+{ #category : 'views - tools' }
 ProcessingProgram >> gtEditorHightlight: anEditor from: from to: to [
 	anEditor editor text
 		clearAttributes: [ :each | each isKindOf: BlTextHighlightAttribute ].
@@ -224,7 +227,7 @@ ProcessingProgram >> gtEditorHightlight: anEditor from: from to: to [
 		scrollToPosition: (anEditor text asString lineNumberCorrespondingToIndex: from)
 ]
 
-{ #category : #'views - tools' }
+{ #category : 'views - tools' }
 ProcessingProgram >> gtExplain: aCanvas in: anEditor [
 	| seen |
 	aCanvas
@@ -249,7 +252,7 @@ ProcessingProgram >> gtExplain: aCanvas in: anEditor [
 					seen add: slice ] ]
 ]
 
-{ #category : #'views - tools' }
+{ #category : 'views - tools' }
 ProcessingProgram >> gtGetLiveView: aView for: aBlock title: aTitle priority: aPriority [
 	^ aView explicit
 		title: aTitle;
@@ -265,7 +268,7 @@ ProcessingProgram >> gtGetLiveView: aView for: aBlock title: aTitle priority: aP
 		updateWhen: ProcessingProgramChanged in: self announcer
 ]
 
-{ #category : #'views - tools' }
+{ #category : 'views - tools' }
 ProcessingProgram >> gtGetViewElement: aViewName [
 	^ (self perform: aViewName with: GtPhlowView empty) asElement
 		constraintsDo: [ :c | 
@@ -276,7 +279,7 @@ ProcessingProgram >> gtGetViewElement: aViewName [
 		yourself
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingProgram >> gtHexDumpFor: aView [
 	<gtView>
 	^ (self
@@ -288,7 +291,7 @@ ProcessingProgram >> gtHexDumpFor: aView [
 		yourself
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingProgram >> gtIntermediaryRepresentationFor: aView [
 	<gtView>
 	^ self
@@ -298,7 +301,7 @@ ProcessingProgram >> gtIntermediaryRepresentationFor: aView [
 		priority: 30
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingProgram >> gtIntermediaryRepresentationPlusSourceFor: aView [
 	<gtView>
 	^ aView explicit
@@ -314,7 +317,7 @@ ProcessingProgram >> gtIntermediaryRepresentationPlusSourceFor: aView [
 		updateWhen: ProcessingProgramChanged in: self announcer
 ]
 
-{ #category : #'views - tools' }
+{ #category : 'views - tools' }
 ProcessingProgram >> gtOnEditorChange: anEditor do: aBlock [
 	anEditor editor
 		when: BrTextEditorCursorMovedEvent
@@ -329,7 +332,7 @@ ProcessingProgram >> gtOnEditorChange: anEditor do: aBlock [
 				position notNil ifTrue: [ aBlock cull: position ] ]
 ]
 
-{ #category : #'views - tools' }
+{ #category : 'views - tools' }
 ProcessingProgram >> gtOnListSelect: aList do: aBlock [
 	aList
 		when: BrSelectionChanged
@@ -351,7 +354,7 @@ ProcessingProgram >> gtOnListSelect: aList do: aBlock [
 						ifTrue: [ aBlock cull: item ] ] ]
 ]
 
-{ #category : #'views - tools' }
+{ #category : 'views - tools' }
 ProcessingProgram >> gtOnTreeSelect: aTree do: aBlock [
 	aTree
 		when: BrSelectionChanged
@@ -368,7 +371,7 @@ ProcessingProgram >> gtOnTreeSelect: aTree do: aBlock [
 						ifTrue: [ aBlock cull: item ] ] ]
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingProgram >> gtOutputFor: aView [
 	<gtView>
 	^ (self
@@ -380,7 +383,7 @@ ProcessingProgram >> gtOutputFor: aView [
 		yourself
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingProgram >> gtOutputPlusSourceFor: aView [
 	<gtView>
 	^ aView explicit
@@ -394,7 +397,7 @@ ProcessingProgram >> gtOutputPlusSourceFor: aView [
 		updateWhen: ProcessingProgramChanged in: self announcer
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingProgram >> gtOutputShapesFor: aView [
 	<gtView>
 	compilation gtIsAnimation ifTrue: [ ^ GtPhlowView empty ].
@@ -407,7 +410,7 @@ ProcessingProgram >> gtOutputShapesFor: aView [
 		yourself
 ]
 
-{ #category : #'views - tools' }
+{ #category : 'views - tools' }
 ProcessingProgram >> gtSelectBytecode: aList at: position [
 	| slices |
 	slices := compilation gtSlicesAround: position.
@@ -420,7 +423,7 @@ ProcessingProgram >> gtSelectBytecode: aList at: position [
 						& (slices last interval includesAll: item sourceInterval) ] ]
 ]
 
-{ #category : #'views - tools' }
+{ #category : 'views - tools' }
 ProcessingProgram >> gtSelectIRNode: aList at: position [
 	| slices |
 	slices := compilation gtSlicesAround: position.
@@ -434,7 +437,7 @@ ProcessingProgram >> gtSelectIRNode: aList at: position [
 								& (slices last interval includesAll: item sourceNode sourceInterval) ] ] ]
 ]
 
-{ #category : #'views - tools' }
+{ #category : 'views - tools' }
 ProcessingProgram >> gtSelectListItem: aList with: aBlock [
 	| indices |
 	indices := (1 to: aList items size)
@@ -444,7 +447,7 @@ ProcessingProgram >> gtSelectListItem: aList with: aBlock [
 			aList scrollToSelection ]
 ]
 
-{ #category : #'views - tools' }
+{ #category : 'views - tools' }
 ProcessingProgram >> gtSelectToken: aList at: aPosition [
 	1
 		to: aList items size
@@ -457,7 +460,7 @@ ProcessingProgram >> gtSelectToken: aList at: aPosition [
 					aList scrollToSelection ] ]
 ]
 
-{ #category : #'views - tools' }
+{ #category : 'views - tools' }
 ProcessingProgram >> gtSelectTreeNode: aTree at: aPosition [
 	| treeNode nextNode |
 	nextNode := aTree viewModel itemAt: 1.
@@ -478,7 +481,7 @@ ProcessingProgram >> gtSelectTreeNode: aTree at: aPosition [
 	aTree children first scrollToPosition: treeNode indexInTree
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingProgram >> gtSlicesFor: aView [
 	<gtView>
 	^ self
@@ -488,7 +491,7 @@ ProcessingProgram >> gtSlicesFor: aView [
 		priority: 22
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingProgram >> gtSourceBytesFor: aView [
 	"Bytes are displayed UTF-8 encoded"
 
@@ -506,7 +509,7 @@ ProcessingProgram >> gtSourceBytesFor: aView [
 		updateWhen: ProcessingSourceChanged in: self announcer
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingProgram >> gtSourceBytesPlusCharsFor: aView [
 	<gtView>
 	^ aView explicit
@@ -525,7 +528,7 @@ ProcessingProgram >> gtSourceBytesPlusCharsFor: aView [
 		updateWhen: ProcessingSourceChanged in: self announcer
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingProgram >> gtSourceBytesPlusSourceFor: aView [
 	"Bytes are displayed UTF-8 encoded"
 
@@ -541,7 +544,7 @@ ProcessingProgram >> gtSourceBytesPlusSourceFor: aView [
 		updateWhen: ProcessingSourceChanged in: self announcer
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingProgram >> gtSourceCharsFor: aView [
 	<gtView>
 	^ aView columnedList
@@ -559,7 +562,7 @@ ProcessingProgram >> gtSourceCharsFor: aView [
 		updateWhen: ProcessingSourceChanged in: source announcer
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingProgram >> gtSourceCharsPlusSourceFor: aView [
 	<gtView>
 	^ aView explicit
@@ -573,7 +576,7 @@ ProcessingProgram >> gtSourceCharsPlusSourceFor: aView [
 		updateWhen: ProcessingProgramChanged in: self announcer
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingProgram >> gtSourceCodeFor: aView [
 	<gtView>
 	^ aView explicit
@@ -589,7 +592,7 @@ ProcessingProgram >> gtSourceCodeFor: aView [
 		updateWhen: ProcessingSourceChanged in: self announcer
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingProgram >> gtStepsFor: aView [
 	"The stepper isn't updated when the source changes, as that's too resource intensive for non-trivial programs"
 
@@ -600,7 +603,7 @@ ProcessingProgram >> gtStepsFor: aView [
 		title: 'Steps'
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingProgram >> gtTokensFor: aView [
 	<gtView>
 	^ aView columnedList
@@ -629,7 +632,7 @@ ProcessingProgram >> gtTokensFor: aView [
 		yourself
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingProgram >> gtTokensPlusSourceFor: aView [
 	<gtView>
 	^ aView explicit
@@ -650,7 +653,7 @@ ProcessingProgram >> gtTokensPlusSourceFor: aView [
 		updateWhen: ProcessingASTChanged in: self announcer
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingProgram >> gtTokensPlusTreeFor: aView [
 	<gtView>
 	^ aView explicit
@@ -671,7 +674,7 @@ ProcessingProgram >> gtTokensPlusTreeFor: aView [
 		updateWhen: ProcessingASTChanged in: self announcer
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingProgram >> gtTranspilationFor: aView [
 	<gtView>
 	^ self
@@ -681,7 +684,7 @@ ProcessingProgram >> gtTranspilationFor: aView [
 		priority: 20
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingProgram >> gtTranspilationPlusSourceFor: aView [
 	<gtView>
 	^ aView explicit
@@ -696,7 +699,7 @@ ProcessingProgram >> gtTranspilationPlusSourceFor: aView [
 		updateWhen: ProcessingProgramChanged in: self announcer
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingProgram >> gtTranspilationPostfixFor: aView [
 	<gtView>
 	^ aView explicit
@@ -713,7 +716,7 @@ ProcessingProgram >> gtTranspilationPostfixFor: aView [
 		updateWhen: ProcessingSourceChanged in: self announcer
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingProgram >> gtTranspilationPrefixFor: aView [
 	<gtView>
 	^ aView explicit
@@ -730,7 +733,7 @@ ProcessingProgram >> gtTranspilationPrefixFor: aView [
 		updateWhen: ProcessingSourceChanged in: self announcer
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingProgram >> gtTreeFor: aView [
 	<gtView>
 	^ aView columnedTree
@@ -770,7 +773,7 @@ ProcessingProgram >> gtTreeFor: aView [
 		yourself
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingProgram >> gtTreeMondrianFor: aView [
 	<gtView>
 	^ ((ProcessingTreeMondrianCreator mondrianFor: self ast) gtLiveFor: aView)
@@ -781,7 +784,7 @@ ProcessingProgram >> gtTreeMondrianFor: aView [
 		yourself
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingProgram >> gtTreePlusSourceFor: aView [
 	<gtView>
 	^ aView explicit
@@ -797,7 +800,7 @@ ProcessingProgram >> gtTreePlusSourceFor: aView [
 		updateWhen: ProcessingProgramChanged in: self announcer
 ]
 
-{ #category : #runtime }
+{ #category : 'runtime' }
 ProcessingProgram >> run [
 	"Animations are limited to 30 seconds for now."
 
@@ -805,7 +808,7 @@ ProcessingProgram >> run [
 		runFor: (compilation gtIsAnimation ifTrue: [ 30 ] ifFalse: [ 2 ]) seconds
 ]
 
-{ #category : #runtime }
+{ #category : 'runtime' }
 ProcessingProgram >> runFor: duration [
 	^ ProcessingRunner new
 		limitTo: duration;
@@ -813,14 +816,14 @@ ProcessingProgram >> runFor: duration [
 		yourself
 ]
 
-{ #category : #runtime }
+{ #category : 'runtime' }
 ProcessingProgram >> runSteps [
 	"The default is 2 seconds even for animations in order to prevent an excessive amount of steps"
 
 	^ self runStepsFor: 2 seconds
 ]
 
-{ #category : #runtime }
+{ #category : 'runtime' }
 ProcessingProgram >> runStepsFor: duration [
 	| runner steps |
 	runner := ProcessingRunner new.
@@ -837,7 +840,7 @@ ProcessingProgram >> runStepsFor: duration [
 	^ steps
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingProgram >> sharedBytecodeViewElement: anAnnouncer ignore: anIgnorable [
 	| bytecode |
 	bytecode := self gtGetViewElement: #gtBytecodeFor:.
@@ -854,11 +857,12 @@ ProcessingProgram >> sharedBytecodeViewElement: anAnnouncer ignore: anIgnorable 
 		do: [ :event | 
 			event source = bytecode
 				ifFalse: [ event source = anIgnorable
-						ifFalse: [ self gtSelectBytecode: bytecode children last at: event interval first ] ] ].
+						ifFalse: [ self gtSelectBytecode: bytecode children last at: event interval first ] ] ]
+		for: self.
 	^ bytecode
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingProgram >> sharedIRViewElement: anAnnouncer [
 	| irList |
 	irList := compilation gtGetViewElement: #gtIntermediaryRepresentationFor:.
@@ -874,11 +878,12 @@ ProcessingProgram >> sharedIRViewElement: anAnnouncer [
 		when: ProcessingViewSelectionChanged
 		do: [ :event | 
 			event source = irList
-				ifFalse: [ self gtSelectIRNode: irList children last at: event interval first ] ].
+				ifFalse: [ self gtSelectIRNode: irList children last at: event interval first ] ]
+		for: self.
 	^ irList
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingProgram >> sharedSourceBytesViewElement: anAnnouncer [
 	| bytesList encoder indices |
 	bytesList := self gtGetViewElement: #gtSourceBytesFor:.
@@ -900,11 +905,12 @@ ProcessingProgram >> sharedSourceBytesViewElement: anAnnouncer [
 		do: [ :event | 
 			event source = bytesList
 				ifFalse: [ bytesList children last selectOne: (indices indexOf: event interval first).
-					bytesList children last scrollToSelection ] ].
+					bytesList children last scrollToSelection ] ]
+		for: self.
 	^ bytesList
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingProgram >> sharedSourceCharsViewElement: anAnnouncer [
 	| charsList |
 	charsList := self gtGetViewElement: #gtSourceCharsFor:.
@@ -921,11 +927,12 @@ ProcessingProgram >> sharedSourceCharsViewElement: anAnnouncer [
 		do: [ :event | 
 			event source = charsList
 				ifFalse: [ charsList children last selectOne: event interval first.
-					charsList children last scrollToSelection ] ].
+					charsList children last scrollToSelection ] ]
+		for: self.
 	^ charsList
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingProgram >> sharedSourceCodeViewElement: anAnnouncer [
 	| editor |
 	editor := self gtGetViewElement: #gtSourceCodeFor:.
@@ -945,11 +952,12 @@ ProcessingProgram >> sharedSourceCodeViewElement: anAnnouncer [
 				ifFalse: [ self
 						gtEditorHightlight: editor
 						from: event interval first
-						to: event interval last ] ].
+						to: event interval last ] ]
+		for: self.
 	^ editor
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingProgram >> sharedTokensViewElement: anAnnouncer [
 	| tokens |
 	tokens := self gtGetViewElement: #gtTokensFor:.
@@ -964,11 +972,12 @@ ProcessingProgram >> sharedTokensViewElement: anAnnouncer [
 		when: ProcessingViewSelectionChanged
 		do: [ :event | 
 			event source = tokens
-				ifFalse: [ self gtSelectToken: tokens children last at: event interval first ] ].
+				ifFalse: [ self gtSelectToken: tokens children last at: event interval first ] ]
+		for: self.
 	^ tokens
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingProgram >> sharedTreeViewElement: anAnnouncer [
 	| astTree |
 	astTree := self gtGetViewElement: #gtTreeFor:.
@@ -983,16 +992,17 @@ ProcessingProgram >> sharedTreeViewElement: anAnnouncer [
 		when: ProcessingViewSelectionChanged
 		do: [ :event | 
 			event source = astTree
-				ifFalse: [ self gtSelectTreeNode: astTree children last at: event interval first ] ].
+				ifFalse: [ self gtSelectTreeNode: astTree children last at: event interval first ] ]
+		for: self.
 	^ astTree
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingProgram >> source [
 	^ source
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ProcessingProgram >> source: aSource [
 	source
 		ifNotNil: [ ProcessingCompileTimeException new
@@ -1020,9 +1030,10 @@ ProcessingProgram >> source: aSource [
 	source announcer
 		when: ProcessingSourceChangedError
 		do: [ :event | self announcer announce: event ]
+		for: self
 ]
 
-{ #category : #'views - tools' }
+{ #category : 'views - tools' }
 ProcessingProgram >> textWithUtf8Highlight: aByte [
 	"adapted from UnicodeCharacterData>>asTextWithUtf8EncodedBinary"
 

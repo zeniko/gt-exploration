@@ -2,18 +2,20 @@
 This class connects Processing/Python AST nodes with transpiled Smalltalk source code ranges and is used for mapping between both.
 "
 Class {
-	#name : #ProcessingTranspilationSlice,
-	#superclass : #Object,
+	#name : 'ProcessingTranspilationSlice',
+	#superclass : 'Object',
 	#instVars : [
 		'astNode',
 		'method',
 		'startPos',
 		'size'
 	],
-	#category : #'GtExploration-Processing'
+	#category : 'GtExploration-Processing',
+	#package : 'GtExploration',
+	#tag : 'Processing'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ProcessingTranspilationSlice class >> link: aNode from: from [
 	^ self new
 		link: aNode
@@ -22,7 +24,7 @@ ProcessingTranspilationSlice class >> link: aNode from: from [
 		to: from
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ProcessingTranspilationSlice class >> link: aNode method: aName from: from to: to [
 	^ self new
 		link: aNode
@@ -31,24 +33,24 @@ ProcessingTranspilationSlice class >> link: aNode method: aName from: from to: t
 		to: to
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingTranspilationSlice >> asString [
 	^ astNode topParent completeSource asString
 		sliceFrom: astNode startPosition
 		to: astNode stopPosition	"^ self slice: method sourceCode"
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingTranspilationSlice >> astNode [
 	^ astNode
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingTranspilationSlice >> astNodeInterval [
 	^ astNode startPosition to: astNode stopPosition
 ]
 
-{ #category : #initalization }
+{ #category : 'initalization' }
 ProcessingTranspilationSlice >> cloneFor: aMethod [
 	^ self class
 		link: astNode
@@ -57,7 +59,7 @@ ProcessingTranspilationSlice >> cloneFor: aMethod [
 		to: startPos + size
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingTranspilationSlice >> gtSourceCodeFor: aView [
 	<gtView>
 	^ aView explicit
@@ -68,7 +70,7 @@ ProcessingTranspilationSlice >> gtSourceCodeFor: aView [
 				yourself ]
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingTranspilationSlice >> gtTranspilationFor: aView [
 	<gtView>
 	^ aView explicit
@@ -90,7 +92,7 @@ ProcessingTranspilationSlice >> gtTranspilationFor: aView [
 			element ]
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingTranspilationSlice >> gtTranspilationPlusSourceFor: aView [
 	<gtView>
 	^ ((ViewComparison
@@ -100,12 +102,12 @@ ProcessingTranspilationSlice >> gtTranspilationPlusSourceFor: aView [
 		title: 'Comparison' translated
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingTranspilationSlice >> interval [
 	^ startPos to: startPos + size
 ]
 
-{ #category : #initalization }
+{ #category : 'initalization' }
 ProcessingTranspilationSlice >> link: aNode method: aName from: from to: to [
 	astNode := aNode.
 	method := aName.
@@ -113,37 +115,37 @@ ProcessingTranspilationSlice >> link: aNode method: aName from: from to: to [
 	size := to - from
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingTranspilationSlice >> method [
 	^ method
 ]
 
-{ #category : #changing }
+{ #category : 'changing' }
 ProcessingTranspilationSlice >> move: offset [
 	startPos := startPos + offset
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingTranspilationSlice >> name: name [
 	method := name
 ]
 
-{ #category : #changing }
+{ #category : 'changing' }
 ProcessingTranspilationSlice >> setEnd: endPos [
 	size := endPos - startPos
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingTranspilationSlice >> size [
 	^ size
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingTranspilationSlice >> slice: source [
 	^ source copyFrom: startPos to: startPos + size
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ProcessingTranspilationSlice >> startPos [
 	^ startPos
 ]

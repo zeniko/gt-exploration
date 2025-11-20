@@ -1,30 +1,32 @@
 Class {
-	#name : #GtProcessingCoderModel,
-	#superclass : #GtSourceCoder,
+	#name : 'GtProcessingCoderModel',
+	#superclass : 'GtSourceCoder',
 	#instVars : [
 		'pharoBindings'
 	],
-	#category : #'GtExploration-Snippet'
+	#category : 'GtExploration-Snippet',
+	#package : 'GtExploration',
+	#tag : 'Snippet'
 }
 
-{ #category : #converting }
+{ #category : 'converting' }
 GtProcessingCoderModel >> asCoderViewModel [
 	^ GtProcessingCoderViewModel new coder: self
 ]
 
-{ #category : #'private - execution' }
+{ #category : 'private - execution' }
 GtProcessingCoderModel >> bindAndExecute: sourceString inContext: aGtSourceCoderEvaluationContext [
 	^ (ProcessingSource fromString: sourceString) render
 ]
 
-{ #category : #'api - ast' }
+{ #category : 'api - ast' }
 GtProcessingCoderModel >> computeAst: theSourceString [
 	^ ProcessingParser
 		parseWithErrors: theSourceString
 		startingAt: ProcessingParser startingStateForfile_input
 ]
 
-{ #category : #'private - actions' }
+{ #category : 'private - actions' }
 GtProcessingCoderModel >> doIt: anEvaluationContext [
 	self
 		doItAndPublish: [ (ProcessingSource
@@ -34,7 +36,7 @@ GtProcessingCoderModel >> doIt: anEvaluationContext [
 		with: anEvaluationContext
 ]
 
-{ #category : #'private - actions' }
+{ #category : 'private - actions' }
 GtProcessingCoderModel >> doItAndGo: anEvaluationContext [
 	self
 		doItAndPublish: [ (ProcessingSource
@@ -42,7 +44,7 @@ GtProcessingCoderModel >> doItAndGo: anEvaluationContext [
 		with: anEvaluationContext
 ]
 
-{ #category : #'private - actions' }
+{ #category : 'private - actions' }
 GtProcessingCoderModel >> doItAndGoAsynchronous: anEvaluationContext [
 	self
 		doItAndPublish: [ (ProcessingSource
@@ -51,7 +53,7 @@ GtProcessingCoderModel >> doItAndGoAsynchronous: anEvaluationContext [
 		with: anEvaluationContext
 ]
 
-{ #category : #'private - actions' }
+{ #category : 'private - actions' }
 GtProcessingCoderModel >> doItAndGoSerialized: anEvaluationContext [
 	self
 		doItAndPublish: [ | program loader |
@@ -67,7 +69,7 @@ GtProcessingCoderModel >> doItAndGoSerialized: anEvaluationContext [
 		with: anEvaluationContext
 ]
 
-{ #category : #'private - execution' }
+{ #category : 'private - execution' }
 GtProcessingCoderModel >> doItAndPublish: aBlock with: anEvaluationContext [
 	| result |
 	result := aBlock
@@ -85,7 +87,7 @@ GtProcessingCoderModel >> doItAndPublish: aBlock with: anEvaluationContext [
 		requesterObject: anEvaluationContext requesterObject
 ]
 
-{ #category : #'error handling' }
+{ #category : 'error handling' }
 GtProcessingCoderModel >> handleError: anError for: aContext [
 	| location message |
 	location := aContext requesterObject coderViewModel coderModel
@@ -126,14 +128,14 @@ GtProcessingCoderModel >> handleError: anError for: aContext [
 				requesterObject: aContext requesterObject)
 ]
 
-{ #category : #'api - ast' }
+{ #category : 'api - ast' }
 GtProcessingCoderModel >> implicitVariableReferencesTo: aString do: aBlock [
 	self astSync
 		withAllNodesOfType: PyVariableExpressionNode
 		do: [ :node | node nameToken source = aString ifTrue: [ aBlock value: node ] ]
 ]
 
-{ #category : #initialize }
+{ #category : 'initialize' }
 GtProcessingCoderModel >> initializeAddOns: addOns [
 	super initializeAddOns: addOns.
 
@@ -177,7 +179,7 @@ GtProcessingCoderModel >> initializeAddOns: addOns [
 		id: GtSourceCoderDebugActionId
 ]
 
-{ #category : #initialize }
+{ #category : 'initialize' }
 GtProcessingCoderModel >> initializeShortcuts: addOns [
 	super initializeShortcuts: addOns.
 
@@ -188,7 +190,7 @@ GtProcessingCoderModel >> initializeShortcuts: addOns [
 		addShortcut: GtProcessingCoderDebugShortcut new
 ]
 
-{ #category : #'error handling' }
+{ #category : 'error handling' }
 GtProcessingCoderModel >> lookaheadToken: aParser [
 	| stream |
 	aParser currentToken ifNil: [ ^ nil ].
@@ -199,12 +201,12 @@ GtProcessingCoderModel >> lookaheadToken: aParser [
 	^ stream contents
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtProcessingCoderModel >> newCompletionStrategy [
 	^ GtCompletionStrategy new
 ]
 
-{ #category : #'error handling' }
+{ #category : 'error handling' }
 GtProcessingCoderModel >> parserStack: aParser [
 	| states nodes |
 	states := aParser stateStack.
@@ -215,17 +217,17 @@ GtProcessingCoderModel >> parserStack: aParser [
 				nodes at: i} ]) reversed
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtProcessingCoderModel >> pharoBindings [
 	^ pharoBindings
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtProcessingCoderModel >> pharoBindings: anObject [
 	pharoBindings := anObject
 ]
 
-{ #category : #'error handling' }
+{ #category : 'error handling' }
 GtProcessingCoderModel >> potentialStateActions: aParser [
 	"Adapted from SmaCCParserDebugSession>>#potentialStateActions"
 
@@ -238,12 +240,12 @@ GtProcessingCoderModel >> potentialStateActions: aParser [
 	^ items sorted
 ]
 
-{ #category : #'private - actions' }
+{ #category : 'private - actions' }
 GtProcessingCoderModel >> primitiveDebug: aSourceString inContext: aGtSourceCoderEvaluationContext onFailDo: anEvaluationFailBlock [
 	self flag: #TODO
 ]
 
-{ #category : #'private - actions' }
+{ #category : 'private - actions' }
 GtProcessingCoderModel >> primitiveEvaluate: aSourceString inContext: aGtSourceCoderEvaluationContext onFailDo: anEvaluationFailBlock [
 	^ self bindAndExecute: aSourceString inContext: aGtSourceCoderEvaluationContext
 ]

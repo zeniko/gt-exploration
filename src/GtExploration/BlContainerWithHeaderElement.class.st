@@ -2,25 +2,27 @@
 This class imitates a {{gtClass:GtInspector}}'s object header for when a view is displayed alone but the header is still desired.
 "
 Class {
-	#name : #BlContainerWithHeaderElement,
-	#superclass : #BlElement,
+	#name : 'BlContainerWithHeaderElement',
+	#superclass : 'BlElement',
 	#instVars : [
 		'header'
 	],
-	#category : #'GtExploration-GtExtensions'
+	#category : 'GtExploration-GtExtensions',
+	#package : 'GtExploration',
+	#tag : 'GtExtensions'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BlContainerWithHeaderElement >> headerText [
 	^ header text
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BlContainerWithHeaderElement >> headerText: aText [
 	header text: aText
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 BlContainerWithHeaderElement >> initialize [
 	| textWrapper |
 	super initialize.

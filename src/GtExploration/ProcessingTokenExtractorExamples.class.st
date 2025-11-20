@@ -1,10 +1,12 @@
 Class {
-	#name : #ProcessingTokenExtractorExamples,
-	#superclass : #Object,
-	#category : #'GtExploration-Examples'
+	#name : 'ProcessingTokenExtractorExamples',
+	#superclass : 'Object',
+	#category : 'GtExploration-Examples',
+	#package : 'GtExploration',
+	#tag : 'Examples'
 }
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingTokenExtractorExamples >> allTokens [
 	<gtExample>
 	| allTokens |
@@ -22,13 +24,13 @@ ProcessingTokenExtractorExamples >> allTokens [
 	^ allTokens
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingTokenExtractorExamples >> newExtractor [
 	<gtExample>
 	^ ProcessingTokenExtractor new
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingTokenExtractorExamples >> parseMinimal [
 	<gtExample>
 	| source ast node |
@@ -44,7 +46,7 @@ ProcessingTokenExtractorExamples >> parseMinimal [
 	^ ast
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingTokenExtractorExamples >> testData [
 	"Map source code from ProgramSourceExamples to number of top-level statements and number of tokens"
 
@@ -89,7 +91,7 @@ ProcessingTokenExtractorExamples >> testData [
 	^ testData
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingTokenExtractorExamples >> tokensPresentationDemo [
 	<gtExample>
 	| ast tokens |

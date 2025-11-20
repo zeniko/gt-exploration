@@ -1,10 +1,12 @@
 Class {
-	#name : #ProcessingProgramExamples,
-	#superclass : #Object,
-	#category : #'GtExploration-Examples'
+	#name : 'ProcessingProgramExamples',
+	#superclass : 'Object',
+	#category : 'GtExploration-Examples',
+	#package : 'GtExploration',
+	#tag : 'Examples'
 }
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingProgramExamples >> allPrograms [
 	<gtExample>
 	^ ProcessingSourceExamples new sourceNames
@@ -17,7 +19,7 @@ ProcessingProgramExamples >> allPrograms [
 			program ]
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingProgramExamples >> allProgramsLepiter [
 	"All programs linked from Lepiter pages (for reference, due to https://github.com/feenkcom/gtoolkit/issues/4671)"
 
@@ -32,7 +34,7 @@ ProcessingProgramExamples >> allProgramsLepiter [
 	ProcessingTranspilerExamples new transpileRecursion
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingProgramExamples >> allViews [
 	<gtExample>
 	| program views |
@@ -53,7 +55,7 @@ ProcessingProgramExamples >> allViews [
 	^ program
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingProgramExamples >> programAlpinerWanderweg [
 	<gtExample>
 	| program |
@@ -64,7 +66,7 @@ ProcessingProgramExamples >> programAlpinerWanderweg [
 	^ program
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingProgramExamples >> programExample02 [
 	<gtExample>
 	| program |
@@ -75,7 +77,7 @@ ProcessingProgramExamples >> programExample02 [
 	^ program
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingProgramExamples >> programExample03 [
 	<gtExample>
 	| program |
@@ -86,7 +88,7 @@ ProcessingProgramExamples >> programExample03 [
 	^ program
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingProgramExamples >> programMouseEvents [
 	<gtExample>
 	| program |
@@ -97,7 +99,7 @@ ProcessingProgramExamples >> programMouseEvents [
 	^ program
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingProgramExamples >> programPresentationDemo [
 	<gtExample>
 	| program |
@@ -108,7 +110,7 @@ ProcessingProgramExamples >> programPresentationDemo [
 	^ program
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingProgramExamples >> programPrint [
 	<gtExample>
 	| program |
@@ -119,7 +121,7 @@ ProcessingProgramExamples >> programPrint [
 	^ program
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingProgramExamples >> programRecursion [
 	<gtExample>
 	| program |

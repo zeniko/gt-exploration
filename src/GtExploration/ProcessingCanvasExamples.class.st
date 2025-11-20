@@ -1,10 +1,12 @@
 Class {
-	#name : #ProcessingCanvasExamples,
-	#superclass : #Object,
-	#category : #'GtExploration-Examples'
+	#name : 'ProcessingCanvasExamples',
+	#superclass : 'Object',
+	#category : 'GtExploration-Examples',
+	#package : 'GtExploration',
+	#tag : 'Examples'
 }
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingCanvasExamples >> alpinerWanderweg [
 	<gtExample>
 	| canvas child |
@@ -24,7 +26,7 @@ ProcessingCanvasExamples >> alpinerWanderweg [
 	^ canvas
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingCanvasExamples >> alpinerWanderwegScripter [
 	<gtExample>
 	| canvas |
@@ -53,7 +55,7 @@ ProcessingCanvasExamples >> alpinerWanderwegScripter [
 		play
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingCanvasExamples >> blueBackground [
 	<gtExample>
 	| canvas |
@@ -64,7 +66,7 @@ ProcessingCanvasExamples >> blueBackground [
 	^ canvas
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingCanvasExamples >> container [
 	<gtExample>
 	| canvas |
@@ -102,7 +104,7 @@ ProcessingCanvasExamples >> container [
 	^ canvas
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingCanvasExamples >> createColor [
 	<gtExample>
 	| canvas |
@@ -133,7 +135,7 @@ ProcessingCanvasExamples >> createColor [
 		equals: Color white
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingCanvasExamples >> example02 [
 	<gtExample>
 	| canvas |
@@ -147,7 +149,7 @@ ProcessingCanvasExamples >> example02 [
 	^ canvas
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingCanvasExamples >> example02Scripter [
 	<gtExample>
 	| canvas scripter |
@@ -189,7 +191,7 @@ ProcessingCanvasExamples >> example02Scripter [
 	^ scripter play
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingCanvasExamples >> examplePrint [
 	<gtExample>
 	| canvas |
@@ -209,7 +211,7 @@ ProcessingCanvasExamples >> examplePrint [
 	^ canvas
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingCanvasExamples >> fibonacci [
 	<gtExample>
 	| canvas |
@@ -226,7 +228,7 @@ ProcessingCanvasExamples >> fibonacci [
 	^ canvas
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingCanvasExamples >> fillColor [
 	<gtExample>
 	| canvas |
@@ -244,7 +246,7 @@ ProcessingCanvasExamples >> fillColor [
 	^ canvas
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingCanvasExamples >> image [
 	<gtExample>
 	| canvas |
@@ -259,7 +261,7 @@ ProcessingCanvasExamples >> image [
 	^ canvas
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingCanvasExamples >> loadImage [
 	<gtExample>
 	| canvas image |
@@ -272,7 +274,7 @@ ProcessingCanvasExamples >> loadImage [
 	^ image
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingCanvasExamples >> mouseEvents2Scripter [
 	<gtExample>
 	| canvas |
@@ -315,7 +317,7 @@ ProcessingCanvasExamples >> mouseEvents2Scripter [
 		play
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingCanvasExamples >> mouseEventsScripter [
 	<gtExample>
 	| canvas |
@@ -340,7 +342,7 @@ ProcessingCanvasExamples >> mouseEventsScripter [
 		play
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingCanvasExamples >> presentationDemo [
 	<gtExample>
 	| canvas |
@@ -356,7 +358,7 @@ ProcessingCanvasExamples >> presentationDemo [
 	^ canvas
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingCanvasExamples >> recursion [
 	<gtExample>
 	| canvas |
@@ -370,7 +372,7 @@ ProcessingCanvasExamples >> recursion [
 	^ canvas
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingCanvasExamples >> shapes [
 	<gtExample>
 	| canvas |
@@ -392,7 +394,7 @@ ProcessingCanvasExamples >> shapes [
 	^ canvas
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingCanvasExamples >> sierpinski [
 	<gtExample>
 	| canvas |
@@ -403,7 +405,7 @@ ProcessingCanvasExamples >> sierpinski [
 	^ canvas
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingCanvasExamples >> singleCircle [
 	<gtExample>
 	| canvas child |
@@ -421,7 +423,7 @@ ProcessingCanvasExamples >> singleCircle [
 	^ canvas
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingCanvasExamples >> singleLine [
 	<gtExample>
 	| canvas child |
@@ -434,7 +436,7 @@ ProcessingCanvasExamples >> singleLine [
 	^ canvas
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingCanvasExamples >> singleSquare [
 	<gtExample>
 	| canvas child |
@@ -452,7 +454,7 @@ ProcessingCanvasExamples >> singleSquare [
 	^ canvas
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingCanvasExamples >> singleTriangle [
 	<gtExample>
 	| canvas child |
@@ -469,7 +471,7 @@ ProcessingCanvasExamples >> singleTriangle [
 	^ canvas
 ]
 
-{ #category : #runtime }
+{ #category : 'runtime' }
 ProcessingCanvasExamples >> synchronousCanvas: aProgram [
 	| compilation |
 	compilation := aProgram compilation.
@@ -484,7 +486,7 @@ ProcessingCanvasExamples >> synchronousCanvas: aProgram [
 	^ compilation gtCanvas
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingCanvasExamples >> transforms [
 	<gtExample>
 	| canvas |
@@ -510,7 +512,7 @@ ProcessingCanvasExamples >> transforms [
 	^ canvas
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 ProcessingCanvasExamples >> transformsScripter [
 	<gtExample>
 	| canvas |

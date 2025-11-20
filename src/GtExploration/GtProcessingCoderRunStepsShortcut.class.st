@@ -1,15 +1,17 @@
 Class {
-	#name : #GtProcessingCoderRunStepsShortcut,
-	#superclass : #GtSourceCoderShortcut,
-	#category : #'GtExploration-Snippet'
+	#name : 'GtProcessingCoderRunStepsShortcut',
+	#superclass : 'GtSourceCoderShortcut',
+	#category : 'GtExploration-Snippet',
+	#package : 'GtExploration',
+	#tag : 'Snippet'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtProcessingCoderRunStepsShortcut >> description [
 	^ 'Evaluates the whole source code and show its execution step by step.'
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtProcessingCoderRunStepsShortcut >> initialize [
 	super initialize.
 
@@ -17,7 +19,7 @@ GtProcessingCoderRunStepsShortcut >> initialize [
 	name := 'Run Steps'
 ]
 
-{ #category : #evaluation }
+{ #category : 'evaluation' }
 GtProcessingCoderRunStepsShortcut >> performOnEditor: aBrTextEditor element: aBrEditorElement coderViewModel: aSourceCoderViewModel dueTo: aShortcutEvent [
 	GtCoderExecutionContextVariable
 		element: aBrEditorElement

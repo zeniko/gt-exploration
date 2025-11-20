@@ -7,12 +7,14 @@ ProcessingSource fromString: 'print(...)'
 
 "
 Class {
-	#name : #ProcessingEllipsis,
-	#superclass : #Object,
-	#category : #'GtExploration-Processing'
+	#name : 'ProcessingEllipsis',
+	#superclass : 'Object',
+	#category : 'GtExploration-Processing',
+	#package : 'GtExploration',
+	#tag : 'Processing'
 }
 
-{ #category : #views }
+{ #category : 'views' }
 ProcessingEllipsis class >> asString [
 	^ 'Ellipsis'
 ]
