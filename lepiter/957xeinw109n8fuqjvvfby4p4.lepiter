@@ -60,43 +60,6 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-11-20T23:01:33.112+01:00"
-								}
-							},
-							"editEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"editTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-11-20T23:05:06.819+01:00"
-								}
-							},
-							"uid" : {
-								"__type" : "uid",
-								"uidString" : "Qq1J/h1RuEC3fDcPVm73yg=="
-							},
-							"paragraphStyle" : {
-								"__type" : "textStyle"
-							},
-							"string" : "Adjust documentation for interface changes (such as {{gtMethod:BrGlamorousVectorIcons class>>maximize}} and {{gtMethod:BrGlamorousVectorIcons class>>minimize}})"
-						},
-						{
-							"__type" : "textSnippet",
-							"children" : {
-								"__type" : "snippets",
-								"items" : [ ]
-							},
-							"createEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"createTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
 									"dateAndTimeString" : "2025-04-15T14:15:26.772+02:00"
 								}
 							},
@@ -156,43 +119,6 @@
 								"__type" : "textStyle"
 							},
 							"string" : "Extend optimizing compiler"
-						},
-						{
-							"__type" : "textSnippet",
-							"children" : {
-								"__type" : "snippets",
-								"items" : [ ]
-							},
-							"createEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"createTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-08-23T13:16:28.989+02:00"
-								}
-							},
-							"editEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"editTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-08-23T13:16:31.871+02:00"
-								}
-							},
-							"uid" : {
-								"__type" : "uid",
-								"uidString" : "SLLdMGj5DQCHp04lCnIqQA=="
-							},
-							"paragraphStyle" : {
-								"__type" : "textStyle"
-							},
-							"string" : "Clean up test suite"
 						},
 						{
 							"__type" : "textSnippet",
@@ -496,45 +422,7 @@
 							"__type" : "textSnippet",
 							"children" : {
 								"__type" : "snippets",
-								"items" : [
-									{
-										"__type" : "textSnippet",
-										"children" : {
-											"__type" : "snippets",
-											"items" : [ ]
-										},
-										"createEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"createTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-05-03T14:39:44.451+02:00"
-											}
-										},
-										"editEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"editTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2025-05-07T00:01:09.996+02:00"
-											}
-										},
-										"uid" : {
-											"__type" : "uid",
-											"uidString" : "uGVkTJzwDQCzIpe3CGjzaA=="
-										},
-										"paragraphStyle" : {
-											"__type" : "textStyle"
-										},
-										"string" : " [Model–view–viewmodel](https://en.wikipedia.org/wiki/Model%2Dview%2Dviewmodel) pattern?"
-									}
-								]
+								"items" : [ ]
 							},
 							"createEmail" : {
 								"__type" : "email",
@@ -555,7 +443,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-05-03T14:08:54.86+02:00"
+									"dateAndTimeString" : "2025-12-02T00:14:30.451+01:00"
 								}
 							},
 							"uid" : {
@@ -565,7 +453,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "More GT background information in content"
+							"string" : "More GT background information in content ([Model–view–viewmodel](https://en.wikipedia.org/wiki/Model%2Dview%2Dviewmodel) pattern?)"
 						},
 						{
 							"__type" : "textSnippet",
@@ -629,7 +517,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-04-15T17:55:57.167+02:00"
+									"dateAndTimeString" : "2025-12-02T00:16:17.097+01:00"
 								}
 							},
 							"uid" : {
@@ -639,7 +527,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Further Python functionality: default function arguments, `break`, `continue`"
+							"string" : "Further Python functionality: default function arguments, `break`, `continue` (e.g. [like so](https://www.lukas-renggli.ch/blog/continue-break/))"
 						},
 						{
 							"__type" : "textSnippet",

@@ -476,16 +476,16 @@ ProcessingTranspilerVariantExamples >> transpileRandom [
 	self
 		assert: prefix
 		equals: '(randomSeed 100)
-(assert (== (random 10) 0.007826369259425611))
-(assert (== (random 3) 0.46133644294987264))
+(assert (== (random 3) 0.8673620908521116))
+(assert (== (random 10) 8.950381418690085))
 '.
 
 	postfix := self postfixTranspiler transpile: ast.
 	self
 		assert: postfix
 		equals: '100 randomSeed
-10 random 0.007826369259425611 == assert
-3 random 0.46133644294987264 == assert
+3 random 0.8673620908521116 == assert
+10 random 8.950381418690085 == assert
 '.
 
 	^ prefix

@@ -454,8 +454,8 @@ ProcessingTranspilerExamples >> transpilationPrint [
 ProcessingTranspilerExamples >> transpilationRandom [
 	^ 'gtRun
 	(gtCanvas randomSeed: 100).
-	[ ((gtCanvas random: 10) = 0.007826369259425611) ] assert.
-	[ ((gtCanvas random: 3) = 0.46133644294987264) ] assert.'
+	[ ((gtCanvas random: 3) = 0.8673620908521116) ] assert.
+	[ ((gtCanvas random: 10) = 8.950381418690085) ] assert.'
 ]
 
 { #category : 'transpilation' }
