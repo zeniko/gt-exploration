@@ -87,6 +87,7 @@ ProcessingTranspilerExamples >> testData [
 			#Example07 -> #('a' '').
 			#Fibonacci -> #('' 'fibonacci').
 			#ForLoop -> #('a gt3_from gt4_to gt5_step gt6_ res x' '').
+			#ForLoop2 -> #('gt1_ item' 'getList').
 			#Image -> #('img' '').
 			#Lists -> #('a b c d e f g h j k l' '').
 			#Lists2 -> #('a' '').
@@ -310,6 +311,19 @@ ProcessingTranspilerExamples >> transpilationForLoop [
 		(res append: x).
 	].
 	gtCanvas print: { res. a. x. }.'
+]
+
+{ #category : 'transpilation' }
+ProcessingTranspilerExamples >> transpilationForLoop2 [
+	^ 'gtRun
+	(self getList) do: [ :gt1_loop | item := gt1_loop.
+		gtCanvas print: item.
+	].
+	gtCanvas print: (0 to: (3 - 1)).
+	[ ((0 to: (3 - 1)) size = (self getList) size) ] assert.
+
+getList
+	^ (ProcessingList newFrom: { ''a''. ''b''. ''c''. })'
 ]
 
 { #category : 'transpilation' }

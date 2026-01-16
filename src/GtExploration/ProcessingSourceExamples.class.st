@@ -233,6 +233,16 @@ print(res, a, x)'
 ]
 
 { #category : 'source' }
+ProcessingSourceExamples >> sourceCodeForLoop2 [
+	^ 'def getList():
+	return ["a", "b", "c"]
+for item in getList():
+	print(item)
+print(range(3))
+assert len(range(3)) == len(getList())'
+]
+
+{ #category : 'source' }
 ProcessingSourceExamples >> sourceCodeImage [
 	^ 'size(200, 200)
 img = loadImage("zeniko/gt-exploration/data/sample/thumbs-up.png")
@@ -720,6 +730,16 @@ ProcessingSourceExamples >> sourceForLoop [
 ]
 
 { #category : 'example' }
+ProcessingSourceExamples >> sourceForLoop2 [
+	<gtExample>
+	| source |
+	source := ProcessingSource fromString: self sourceCodeForLoop2.
+	self assert: source asString equals: self sourceCodeForLoop2.
+	self assert: source program isNotNil.
+	^ source
+]
+
+{ #category : 'example' }
 ProcessingSourceExamples >> sourceImage [
 	<gtExample>
 	| source |
@@ -796,7 +816,7 @@ ProcessingSourceExamples >> sourceNames [
 	names := (self class methodDict keys
 			select: [ :key | key beginsWith: #sourceCode ]
 			thenCollect: [ :key | key removePrefix: #sourceCode ]) sorted.
-	self assert: names size equals: 33.
+	self assert: names size equals: 34.
 	names
 		do: [ :name | self assert: (self class methodDict includesKey: #source , name) ].
 	^ names

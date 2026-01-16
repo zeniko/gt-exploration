@@ -283,7 +283,7 @@ ProcessingRunnerExamples >> runExample06Stepwise [
 	program := ProcessingSourceExamples new sourceExample06 program.
 	runner := self newRunner.
 	steps := runner runStepwise: program compilation.
-	self assert: steps size equals: 13.
+	self assert: steps size equals: 14.
 	self assert: runner isDone.
 	^ steps
 ]
@@ -347,6 +347,21 @@ ProcessingRunnerExamples >> runForLoop [
 	self
 		assert: (runner canvas transcript textDo: [ :text | text asString ])
 		equals: '[2, 5, 8, 11, 14] 3 14'.
+	^ runner
+]
+
+{ #category : 'example' }
+ProcessingRunnerExamples >> runForLoop2 [
+	<gtExample>
+	| program runner |
+	program := ProcessingSourceExamples new sourceForLoop2 program.
+	runner := self doRun: program.
+	self
+		assert: (runner canvas transcript textDo: [ :text | text asString ])
+		equals: 'a
+b
+c
+(0 to: 2)'.
 	^ runner
 ]
 

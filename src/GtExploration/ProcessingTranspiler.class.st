@@ -177,6 +177,54 @@ ProcessingTranspiler >> emitNewVar: aExpr [
 ]
 
 { #category : 'emitting' }
+ProcessingTranspiler >> emitRange: args [
+	"Emit a range without parentheses to prevent a to:do: not optimized warning."
+
+	| from to by fromVar toVar byVar |
+	self
+		expect: (args size > 2
+				ifTrue: [ 3 ]
+				ifFalse: [ args size > 1 ifTrue: [ 2 ] ifFalse: [ 1 ] ])
+		argumentsFor: args.
+
+	from := args size > 1 ifTrue: [ args first ].
+	to := args size > 1 ifTrue: [ args second ] ifFalse: [ args first ].
+	by := args size > 2 ifTrue: [ args third ].
+
+	from
+		ifNotNil: [ (from isKindOf: PyNumberNode)
+				ifTrue: [ fromVar := from numberToken value ]
+				ifFalse: [ fromVar := self emitAuxVar: 'from'.
+					self emit: ' := '.
+					from acceptVisitor: self.
+					self
+						emit: '.';
+						cr ] ]
+		ifNil: [ fromVar := '0' ].
+	(to isKindOf: PyNumberNode)
+		ifTrue: [ toVar := to numberToken value ]
+		ifFalse: [ toVar := self emitAuxVar: 'to'.
+			self emit: ' := '.
+			to acceptVisitor: self.
+			self
+				emit: '.';
+				cr ].
+	by
+		ifNotNil: [ (by isKindOf: PyNumberNode)
+				ifTrue: [ byVar := by numberToken value ]
+				ifFalse: [ byVar := self emitAuxVar: 'step'.
+					self emit: ' := '.
+					by acceptVisitor: self.
+					self
+						emit: '.';
+						cr ] ]
+		ifNil: [ byVar := '1' ].
+
+	self emit: fromVar , ' to: (' , toVar , ' - ' , byVar , ')'.
+	by ifNotNil: [ self emit: ' by: ' , byVar ]
+]
+
+{ #category : 'emitting' }
 ProcessingTranspiler >> emit_background: args [
 	args size = 1
 		ifTrue: [ self emit: 'gtCanvas backgroundGray: '.
@@ -387,6 +435,13 @@ ProcessingTranspiler >> emit_randomSeed: args [
 	self expect: 1 argumentsFor: args.
 	self emit: '(gtCanvas randomSeed: '.
 	args first acceptVisitor: self.
+	self emit: ')'
+]
+
+{ #category : 'emitting' }
+ProcessingTranspiler >> emit_range: args [
+	self emit: '('.
+	self emitRange: args.
 	self emit: ')'
 ]
 
@@ -1017,56 +1072,21 @@ ProcessingTranspiler >> visitFinally: aFinally [
 
 { #category : 'visiting' }
 ProcessingTranspiler >> visitForStatement: expr [
-	| from to by name fromVar toVar byVar countVar |
-	"only `for ... in range(...):` is currently supported"
-	self expect: PyFunctionCallExpressionNode for: expr inExpression.
-	self expect: PyVariableExpressionNode for: expr inExpression receiver.
-	expr inExpression receiver nameToken value = 'range'
-		ifFalse: [ self notImplemented: expr ].
+	| name countVar |
+	"destructuring and else: are not supported yet"
 	expr exprs size > 1 ifTrue: [ self notImplemented: expr ].
 	self expect: PyVariableExpressionNode for: expr exprs first.
 	expr else ifNotNil: [ self notImplemented: expr ].
 
-	from := expr inExpression arguments size > 1
-			ifTrue: [ expr inExpression arguments first ].
-	to := expr inExpression arguments size > 1
-			ifTrue: [ expr inExpression arguments second ]
-			ifFalse: [ expr inExpression arguments first ].
-	by := expr inExpression arguments size > 2
-			ifTrue: [ expr inExpression arguments third ].
-
 	self startEmit: expr.
-	from
-		ifNotNil: [ (from isKindOf: PyNumberNode)
-				ifTrue: [ fromVar := from numberToken value ]
-				ifFalse: [ fromVar := self emitAuxVar: 'from'.
-					self emit: ' := '.
-					from acceptVisitor: self.
-					self
-						emit: '.';
-						cr ] ]
-		ifNil: [ fromVar := '0' ].
-	(to isKindOf: PyNumberNode)
-		ifTrue: [ toVar := to numberToken value ]
-		ifFalse: [ toVar := self emitAuxVar: 'to'.
-			self emit: ' := '.
-			to acceptVisitor: self.
-			self
-				emit: '.';
-				cr ].
-	by
-		ifNotNil: [ (by isKindOf: PyNumberNode)
-				ifTrue: [ byVar := by numberToken value ]
-				ifFalse: [ byVar := self emitAuxVar: 'step'.
-					self emit: ' := '.
-					by acceptVisitor: self.
-					self
-						emit: '.';
-						cr ] ]
-		ifNil: [ byVar := '1' ].
+	((expr inExpression isKindOf: PyFunctionCallExpressionNode)
+		and: [ (expr inExpression receiver isKindOf: PyVariableExpressionNode)
+				and: [ expr inExpression receiver nameToken value = 'range' ] ])
+		ifTrue: [ self startEmit: expr inExpression.
+			self emitRange: expr inExpression arguments.
+			self endEmit	"special-case for `for ... in range(...):`" ]
+		ifFalse: [ expr inExpression acceptVisitor: self ].
 
-	self emit: fromVar , ' to: (' , toVar , ' - ' , byVar , ')'.
-	by ifNotNil: [ self emit: ' by: ' , byVar ].
 	self emit: ' do: [ :'.
 	countVar := (self emitAuxVar: '') , 'loop'.
 	self emit: 'loop | '.
@@ -1092,6 +1112,7 @@ ProcessingTranspiler >> visitFunctionCallExpression: fnCall [
 				ifFalse: [ self expect: 0 argumentsFor: fnCall arguments ].
 			self emit: ')'.
 			^ self endEmit ].
+
 	self expect: PyVariableExpressionNode for: fnCall receiver.
 	name := fnCall receiver nameToken value.	"TODO: disallow overriding builtin functions?"
 	(userDefs includesKey: name)
