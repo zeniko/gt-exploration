@@ -375,6 +375,18 @@ ProcessingRunnerExamples >> runImage [
 ]
 
 { #category : 'example' }
+ProcessingRunnerExamples >> runImport [
+	<gtExample>
+	| program runner |
+	program := ProcessingSourceExamples new sourceImport program.
+	runner := self doRun: program.
+	self
+		assert: (runner canvas transcript textDo: [ :text | text asString ])
+		equals: '["t", "e", "s", "t"] t-e-s-t'.
+	^ runner
+]
+
+{ #category : 'example' }
 ProcessingRunnerExamples >> runLists [
 	<gtExample>
 	| program runner |
@@ -589,6 +601,7 @@ ProcessingRunnerExamples >> runPrint [
 	self
 		assert: (runner canvas transcript textDo: [ :text | text asString ])
 		equals: 'Hello, world!
+
 2 + 3 / 4 = 2.75'.
 	^ runner
 ]
@@ -732,7 +745,7 @@ ProcessingRunnerExamples >> runSpiralStepwise [
 	program := ProcessingSourceExamples new sourceSpiral program.
 	runner := self newRunner.
 	steps := runner runStepwise: program compilation.
-	self assert: steps size equals: 488.
+	self assert: steps size equals: 489.
 	self assert: runner isDone.
 	^ steps
 ]

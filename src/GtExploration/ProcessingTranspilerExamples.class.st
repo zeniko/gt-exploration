@@ -89,6 +89,7 @@ ProcessingTranspilerExamples >> testData [
 			#ForLoop -> #('a gt3_from gt4_to gt5_step gt6_ res x' '').
 			#ForLoop2 -> #('gt1_ item' 'getList').
 			#Image -> #('img' '').
+			#Import -> #('chars example' '').
 			#Lists -> #('a b c d e f g h j k l' '').
 			#Lists2 -> #('a' '').
 			#Lists3 -> #('a' '').
@@ -337,6 +338,15 @@ ProcessingTranspilerExamples >> transpilationImage [
 ]
 
 { #category : 'transpilation' }
+ProcessingTranspilerExamples >> transpilationImport [
+	^ 'gtRun
+	example := ProcessingLib_example.
+	chars := (example chars: ''test'').
+	[ (chars = (ProcessingList newFrom: { ''t''. ''e''. ''s''. ''t''. })) ] assert.
+	gtCanvas print: { chars. (example join: chars varargs: { ''-''. }). }.'
+]
+
+{ #category : 'transpilation' }
 ProcessingTranspilerExamples >> transpilationLists [
 	^ 'gtRun
 	a := (ProcessingList newFrom: { 1. 2. }).
@@ -461,6 +471,7 @@ ProcessingTranspilerExamples >> transpilationPrint [
 	^ 'gtRun
 	gtCanvas print: ''Hello, world!''.
 	var := (2 + (3 / 4)).
+	gtCanvas print: { }.
 	gtCanvas print: { ''2 + 3 / 4 =''. var. }.'
 ]
 

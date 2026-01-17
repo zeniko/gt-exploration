@@ -328,9 +328,16 @@ ProcessingTokenExtractor >> visitIfStatement: stmt [
 	^ tokens
 ]
 
-{ #category : 'generated' }
-ProcessingTokenExtractor >> visitImportStatement: anImportStatement [
-	^ self visitStatement: anImportStatement
+{ #category : 'visiting' }
+ProcessingTokenExtractor >> visitImportStatement: stmt [
+	| tokens |
+	tokens := OrderedCollection new.
+	tokens add: stmt importToken.
+	self
+		add: stmt names
+		separatedBy: stmt commaTokens
+		to: tokens.
+	^ tokens
 ]
 
 { #category : 'generated' }

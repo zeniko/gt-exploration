@@ -394,15 +394,15 @@ ProcessingTranspiler >> emit_noStroke: args [
 
 { #category : 'emitting' }
 ProcessingTranspiler >> emit_print: args [
-	args size > 1
-		ifTrue: [ self emit: 'gtCanvas print: { '.
+	args size = 1
+		ifTrue: [ self emit: 'gtCanvas print: '.
+			args first acceptVisitor: self ]
+		ifFalse: [ self emit: 'gtCanvas print: { '.
 			args
 				do: [ :arg | 
 					arg acceptVisitor: self.
 					self emit: '. ' ].
 			self emit: '}' ]
-		ifFalse: [ self emit: 'gtCanvas print: '.
-			args first acceptVisitor: self ]
 ]
 
 { #category : 'emitting' }
@@ -1106,10 +1106,16 @@ ProcessingTranspiler >> visitFunctionCallExpression: fnCall [
 	(fnCall receiver isKindOf: PyFieldAccessExpressionNode)
 		ifTrue: [ self emit: '('.
 			fnCall receiver acceptVisitor: self.
-			fnCall arguments size = 1
-				ifTrue: [ self emit: ': '.
-					fnCall arguments first acceptVisitor: self ]
-				ifFalse: [ self expect: 0 argumentsFor: fnCall arguments ].
+			fnCall arguments
+				ifNotEmpty: [ self emit: ': '.
+					fnCall arguments first acceptVisitor: self.
+					fnCall arguments size > 1
+						ifTrue: [ self emit: ' varargs: { '.
+							fnCall arguments
+								allButFirstDo: [ :arg | 
+									arg acceptVisitor: self.
+									self emit: '. ' ].
+							self emit: '}' ] ].
 			self emit: ')'.
 			^ self endEmit ].
 
@@ -1179,9 +1185,16 @@ ProcessingTranspiler >> visitIfStatement: expr [
 	^ self endEmit
 ]
 
-{ #category : 'generated' }
-ProcessingTranspiler >> visitImportStatement: anImportStatement [
-	^ self visitStatement: anImportStatement
+{ #category : 'visiting' }
+ProcessingTranspiler >> visitImportStatement: stmt [
+	self startEmit: stmt.
+	stmt names
+		do: [ :name | 
+			self expect: PyVariableExpressionNode for: name.
+			self emitNewVar: name.
+			self emit: ' := '.
+			self emit: 'ProcessingLib_' , name nameToken value ].
+	^ self endEmit
 ]
 
 { #category : 'generated' }

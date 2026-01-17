@@ -75,7 +75,7 @@ StepperExamples >> spiralStepper [
 	stepper := Stepper
 			for: ProcessingRunnerExamples new runSpiralStepwise
 			view: #gtAbstractionsFor:.
-	self assert: stepper list size equals: 488.
+	self assert: stepper list size equals: 489.
 	self assert: stepper index equals: 1.
 	stepper stepTo: 74.
 	self assert: stepper index equals: 74.

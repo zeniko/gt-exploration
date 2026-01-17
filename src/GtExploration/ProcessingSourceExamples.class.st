@@ -252,6 +252,14 @@ image(img, 150, 150, 50, 50)'
 ]
 
 { #category : 'source' }
+ProcessingSourceExamples >> sourceCodeImport [
+	^ 'import example
+chars = example.chars("test")
+assert chars == ["t", "e", "s", "t"]
+print(chars, example.join(chars, "-"))'
+]
+
+{ #category : 'source' }
 ProcessingSourceExamples >> sourceCodeLists [
 	^ 'a = [1, 2]
 a.append(3)    # -> [1, 2, 3]
@@ -354,6 +362,7 @@ print(a)'
 ProcessingSourceExamples >> sourceCodePrint [
 	^ 'print("Hello," '' world!'')
 var = 2 + 3 / 4
+print()
 print("2 + 3 / 4 =", var)'
 ]
 
@@ -750,6 +759,16 @@ ProcessingSourceExamples >> sourceImage [
 ]
 
 { #category : 'example' }
+ProcessingSourceExamples >> sourceImport [
+	<gtExample>
+	| source |
+	source := ProcessingSource fromString: self sourceCodeImport.
+	self assert: source asString equals: self sourceCodeImport.
+	self assert: source program isNotNil.
+	^ source
+]
+
+{ #category : 'example' }
 ProcessingSourceExamples >> sourceLists [
 	<gtExample>
 	| source |
@@ -816,7 +835,7 @@ ProcessingSourceExamples >> sourceNames [
 	names := (self class methodDict keys
 			select: [ :key | key beginsWith: #sourceCode ]
 			thenCollect: [ :key | key removePrefix: #sourceCode ]) sorted.
-	self assert: names size equals: 34.
+	self assert: names size equals: 35.
 	names
 		do: [ :name | self assert: (self class methodDict includesKey: #source , name) ].
 	^ names

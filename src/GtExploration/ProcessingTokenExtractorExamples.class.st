@@ -67,6 +67,7 @@ ProcessingTokenExtractorExamples >> testData [
 			#ForLoop -> #(4 45).
 			#ForLoop2 -> #(4 46).
 			#Image -> #(5 36).
+			#Import -> #(4 35).
 			#Lists -> #(15 117).
 			#Lists2 -> #(5 59).
 			#Lists3 -> #(6 34).
@@ -75,7 +76,7 @@ ProcessingTokenExtractorExamples >> testData [
 			#MouseEvents2 -> #(5 52).
 			#Precedence -> #(8 67).
 			#PresentationDemo -> #(3 22).
-			#Print -> #(3 18).
+			#Print -> #(4 21).
 			#Random -> #(3 18).
 			#Recursion -> #(3 37).
 			#RuntimeError -> #(1 3).
