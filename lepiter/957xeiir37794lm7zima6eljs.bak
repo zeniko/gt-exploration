@@ -113,14 +113,14 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2026-01-17T13:35:31.131+01:00"
+												"dateAndTimeString" : "2026-01-17T18:41:23.149+01:00"
 											}
 										},
 										"uid" : {
 											"__type" : "uid",
 											"uidString" : "r8ooeY0H0EKNDvMb3WtwFQ=="
 										},
-										"code" : "import example\r\nchars = example.chars(\"test\")\r\nprint(chars, example.join(chars, \"-\"))"
+										"code" : "import example\r\nchars = example.chars(\"test\")\r\nprint(chars, \"⇒\", example.join(chars, \"-\"))"
 									}
 								]
 							},
@@ -176,7 +176,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2026-01-17T00:14:17.06+01:00"
+						"dateAndTimeString" : "2026-01-17T13:36:56.555+01:00"
 					}
 				},
 				"uid" : {
@@ -186,7 +186,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "# Week 3"
+				"string" : "# Week 3 (2026)"
 			},
 			{
 				"__type" : "textSnippet",
@@ -288,7 +288,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-12-02T00:11:45.61+01:00"
+						"dateAndTimeString" : "2026-01-17T13:36:53.394+01:00"
 					}
 				},
 				"uid" : {
@@ -298,7 +298,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "# Week 49"
+				"string" : "# Week 49 (2025)"
 			},
 			{
 				"__type" : "textSnippet",
@@ -7279,7 +7279,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-04-15T11:03:53.405+02:00"
+						"dateAndTimeString" : "2026-01-17T13:37:07.573+01:00"
 					}
 				},
 				"uid" : {
@@ -7289,7 +7289,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "# Week 6"
+				"string" : "# Week 6 (2025)"
 			},
 			{
 				"__type" : "textSnippet",

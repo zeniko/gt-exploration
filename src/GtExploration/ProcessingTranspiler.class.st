@@ -1187,10 +1187,16 @@ ProcessingTranspiler >> visitIfStatement: expr [
 
 { #category : 'visiting' }
 ProcessingTranspiler >> visitImportStatement: stmt [
+	stmt from ifNotNil: [ self notImplemented: stmt ].
 	self startEmit: stmt.
 	stmt names
 		do: [ :name | 
 			self expect: PyVariableExpressionNode for: name.
+			[ ('ProcessingLib_' , name nameToken value) asClass ]
+				on: Error
+				do: [ ProcessingCompileTimeException
+						signal: 'Can''t import unknown library ' , name nameToken value
+						withTag: stmt ].
 			self emitNewVar: name.
 			self emit: ' := '.
 			self emit: 'ProcessingLib_' , name nameToken value ].

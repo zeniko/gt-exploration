@@ -7,6 +7,10 @@ chars = example.chars(""test"")
 print(example.join(chars, ""-""))
 ```
 
+The calling convention is determined by {{gtMethod:ProcessingTranspiler>>#visitFunctionCallExpression:}}:
+- Methods with more than one argument are implemented by a `NAME:varargs:` message where all but the first argument are wrapped in an Array passed to varargs.
+- Methods must return Processing-compatible types, such as {{gtClass:String}}, {{gtClass:Integer}}, {{gtClass:Boolean}} or {{gtClass:ProcessingList}}.
+
 "
 Class {
 	#name : 'ProcessingLib_example',
