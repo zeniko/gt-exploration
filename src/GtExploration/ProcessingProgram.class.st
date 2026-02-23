@@ -675,6 +675,23 @@ ProcessingProgram >> gtTokensPlusTreeFor: aView [
 ]
 
 { #category : 'views' }
+ProcessingProgram >> gtTranspilationAlgol68For: aView [
+	<gtView>
+	^ aView explicit
+		priority: 26;
+		title: 'Algol68';
+		stencil: [ BrEditor new
+				text: (ProcessingTranspilerVariant algol68 transpile: ast) asRopedText;
+				aptitude: BrGlamorousCodeEditorAptitude + BrGlamorousEditorSearchTextAptitude;
+				constraintsDo: [ :e | 
+					e vertical matchParent.
+					e horizontal matchParent ];
+				beMode: BrTextEditorReadonlyWithNavigationMode new;
+				yourself ];
+		updateWhen: ProcessingSourceChanged in: self announcer
+]
+
+{ #category : 'views' }
 ProcessingProgram >> gtTranspilationFor: aView [
 	<gtView>
 	^ self
