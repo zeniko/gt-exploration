@@ -24,6 +24,11 @@ Class {
 }
 
 { #category : 'initialization' }
+ProcessingTranspilerVariant class >> algol68 [
+	^ ProcessingTranspilerVariant2 new
+]
+
+{ #category : 'initialization' }
 ProcessingTranspilerVariant class >> postfix [
 	^ ProcessingTranspilerVariant new style: 'postfix'
 ]

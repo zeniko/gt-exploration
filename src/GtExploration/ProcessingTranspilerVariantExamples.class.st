@@ -7,6 +7,34 @@ Class {
 }
 
 { #category : 'example' }
+ProcessingTranspilerVariantExamples >> algol68PresentationDemo [
+	<gtExample>
+	| transpiler output |
+	transpiler := self algol68Transpiler.
+	output := transpiler
+			transpile: ProcessingSourceExamples new sourcePresentationDemo program ast.
+	self
+		assert: output
+		equals: 'a = b = 1;
+while (a < 15) {
+	a = a + b;
+	b = a - b;
+}
+print(a);
+'.
+	^ output
+]
+
+{ #category : 'example' }
+ProcessingTranspilerVariantExamples >> algol68Transpiler [
+	<gtExample>
+	| transpiler |
+	transpiler := ProcessingTranspilerVariant algol68.
+	self assert: (transpiler isKindOf: ProcessingTranspilerVariant2).
+	^ transpiler
+]
+
+{ #category : 'example' }
 ProcessingTranspilerVariantExamples >> postfixPresentationDemo [
 	<gtExample>
 	| transpiler output |
@@ -65,7 +93,7 @@ ProcessingTranspilerVariantExamples >> prefixTranspiler [
 { #category : 'example' }
 ProcessingTranspilerVariantExamples >> transpileAnimation [
 	<gtExample>
-	| ast postfix prefix |
+	| ast prefix postfix algol68 |
 	ast := ProcessingSourceExamples new sourceAnimation program ast.
 
 	prefix := self prefixTranspiler transpile: ast.
@@ -106,13 +134,31 @@ $draw () {
 } deffun
 '.
 
+	algol68 := self algol68Transpiler transpile: ast.
+	self
+		assert: algol68
+		equals: 'var = 0;
+fn setup() {
+	size(200, 200);
+	frameRate(2);
+}
+fn draw() {
+	global var;
+	background(192);
+	rect(var, var, 50, 50);
+	var = var + 20;
+	if (var > height - 50) {
+		var = 0;
+	}
+}
+'.
 	^ prefix
 ]
 
 { #category : 'example' }
 ProcessingTranspilerVariantExamples >> transpileAnimation2 [
 	<gtExample>
-	| ast postfix prefix |
+	| ast prefix postfix algol68 |
 	ast := ProcessingSourceExamples new sourceAnimation2 program ast.
 
 	prefix := self prefixTranspiler transpile: ast.
@@ -179,13 +225,45 @@ $draw () {
 } deffun
 '.
 
+	algol68 := self algol68Transpiler transpile: ast.
+	self
+		assert: algol68
+		equals: 'x = 200;
+y = 100;
+dx = 2;
+dy = 0;
+fn setup() {
+	size(400, 300);
+	noStroke();
+}
+fn draw() {
+	global x, y, dx, dy;
+	background(192);
+	ellipse(x, y, 50, 50);
+	x = x + dx;
+	y = y + dy;
+	if (x < 25) {
+		dx = +2;
+	} else {
+		if (x > width - 25) {
+			dx = -2;
+		}
+	}
+	dy = dy + 1;
+	if (y > height - 25) {
+		dy = -0.9 * dy;
+		y = height - 25;
+	}
+}
+'.
+
 	^ prefix
 ]
 
 { #category : 'example' }
 ProcessingTranspilerVariantExamples >> transpileExample03 [
 	<gtExample>
-	| ast postfix prefix |
+	| ast prefix postfix algol68 |
 	ast := ProcessingSourceExamples new sourceExample03 program ast.
 
 	prefix := self prefixTranspiler transpile: ast.
@@ -214,13 +292,26 @@ $x 200 =
 } while
 '.
 
+	algol68 := self algol68Transpiler transpile: ast.
+	self
+		assert: algol68
+		equals: 'size(200, 200);
+x = 200;
+while (x > 0) {
+	fill(200 - x, 128, x);
+	ellipse(100, 100, x, x);
+	x = x - 20;
+	delay(50);
+}
+'.
+
 	^ prefix
 ]
 
 { #category : 'example' }
 ProcessingTranspilerVariantExamples >> transpileExample05 [
 	<gtExample>
-	| ast postfix prefix |
+	| ast prefix postfix algol68 |
 	ast := ProcessingSourceExamples new sourceExample05 program ast.
 
 	prefix := self prefixTranspiler transpile: ast.
@@ -241,13 +332,22 @@ $gtB height =
 None True False "String" "Nested" list_1 print_5
 '.
 
+	algol68 := self algol68Transpiler transpile: ast.
+	self
+		assert: algol68
+		equals: 'size(200, 100);
+gtA = width;
+gtB = height;
+print(None, True, False, "String", new List("Nested"));
+'.
+
 	^ prefix
 ]
 
 { #category : 'example' }
 ProcessingTranspilerVariantExamples >> transpileExample06 [
 	<gtExample>
-	| ast postfix prefix |
+	| ast prefix postfix algol68 |
 	ast := ProcessingSourceExamples new sourceExample06 program ast.
 
 	prefix := self prefixTranspiler transpile: ast.
@@ -270,13 +370,23 @@ $x 1 var range {
 } for_in
 '.
 
+	algol68 := self algol68Transpiler transpile: ast.
+	self
+		assert: algol68
+		equals: 'cond = True and False or not1 == 2 > 3;
+var = if (cond) { 5 } else { 3 } ;
+foreach (x: range(1, var)) {
+	print(x);
+}
+'.
+
 	^ prefix
 ]
 
 { #category : 'example' }
 ProcessingTranspilerVariantExamples >> transpileExample07 [
 	<gtExample>
-	| ast postfix prefix |
+	| ast prefix postfix algol68 |
 	ast := ProcessingSourceExamples new sourceExample07 program ast.
 
 	prefix := self prefixTranspiler transpile: ast.
@@ -301,13 +411,24 @@ a 4 < "Message" assert_2
 False "Done!" assert_2
 '.
 
+	algol68 := self algol68Transpiler transpile: ast.
+	self
+		assert: algol68
+		equals: 'a = random(3, 7);
+a = a + 2;
+assert(5 <= a < 9);
+a = a - 5;
+assert(a < 4, "Message");
+assert(False, "Done!");
+'.
+
 	^ prefix
 ]
 
 { #category : 'example' }
 ProcessingTranspilerVariantExamples >> transpileFibonacci [
 	<gtExample>
-	| ast postfix prefix |
+	| ast prefix postfix algol68 |
 	ast := ProcessingSourceExamples new sourceFibonacci program ast.
 
 	prefix := self prefixTranspiler transpile: ast.
@@ -350,13 +471,33 @@ $fibonacci ($n) {
 10 fibonacci 20 125 text
 '.
 
+	algol68 := self algol68Transpiler transpile: ast.
+	self
+		assert: algol68
+		equals: 'size(200, 200);
+fn fibonacci(n) {
+	if (n > 2) {
+		a = fibonacci(n - 1);
+		return a + fibonacci(n - 2);
+	} else {
+		return 1;
+	}
+}
+textSize(30);
+fill(0, 0, 0);
+text("Fibonacci", 20, 75);
+textSize(50);
+fill(255, 255, 255);
+text(fibonacci(10), 20, 125);
+'.
+
 	^ prefix
 ]
 
 { #category : 'example' }
 ProcessingTranspilerVariantExamples >> transpileLists [
 	<gtExample>
-	| ast postfix prefix |
+	| ast prefix postfix algol68 |
 	ast := ProcessingSourceExamples new sourceLists program ast.
 
 	prefix := self prefixTranspiler transpile: ast.
@@ -399,13 +540,33 @@ $l b None None 2 unary- slice =
 a b c d e f g h j k l print_11
 '.
 
+	algol68 := self algol68Transpiler transpile: ast.
+	self
+		assert: algol68
+		equals: 'a = new List(1, 2);
+a.append(3);
+b = a + a;
+c = b[::-1];
+d = c.pop();
+e = sorted(c);
+f = e[1:4];
+g = len(f);
+h = f[2];
+j = b[:-2];
+k = b[:];
+k.sort();
+k.reverse();
+l = b[::-2];
+print(a, b, c, d, e, f, g, h, j, k, l);
+'.
+
 	^ prefix
 ]
 
 { #category : 'example' }
 ProcessingTranspilerVariantExamples >> transpileLists2 [
 	<gtExample>
-	| ast postfix prefix |
+	| ast prefix postfix algol68 |
 	ast := ProcessingSourceExamples new sourceLists2 program ast.
 
 	prefix := self prefixTranspiler transpile: ast.
@@ -428,13 +589,23 @@ a 2 unary- 7 put_at
 a 2 * a None 0 None slice a 1 unary- None None slice a 0 * print_4
 '.
 
+	algol68 := self algol68Transpiler transpile: ast.
+	self
+		assert: algol68
+		equals: 'a = new List(1, 2, 3);
+a = a + new List(4, 5, 6);
+a[1] = a[5] = 8;
+a[-2] = 7;
+print(a * 2, a[:0], a[-1:], a * 0);
+'.
+
 	^ prefix
 ]
 
 { #category : 'example' }
 ProcessingTranspilerVariantExamples >> transpilePrecedence [
 	<gtExample>
-	| ast postfix prefix |
+	| ast prefix postfix algol68 |
 	ast := ProcessingSourceExamples new sourcePrecedence program ast.
 
 	prefix := self prefixTranspiler transpile: ast.
@@ -463,13 +634,26 @@ True False and True or assert
 True False and False or not assert
 '.
 
+	algol68 := self algol68Transpiler transpile: ast.
+	self
+		assert: algol68
+		equals: 'assert(2 / 3 * 4 == 8 / 3);
+assert(2 - 3 + 4 == 3);
+assert(2 * 3 + 4 == 10);
+assert(2 + 3 * 4 == 14);
+assert(2 + 3 * 4 == 20);
+assert(4 ** 3 ** 2 == 262144);
+assert(True and False or True);
+assert(notTrue and False or False);
+'.
+
 	^ prefix
 ]
 
 { #category : 'example' }
 ProcessingTranspilerVariantExamples >> transpileRandom [
 	<gtExample>
-	| ast postfix prefix |
+	| ast prefix postfix algol68 |
 	ast := ProcessingSourceExamples new sourceRandom program ast.
 
 	prefix := self prefixTranspiler transpile: ast.
@@ -488,13 +672,21 @@ ProcessingTranspilerVariantExamples >> transpileRandom [
 10 random 8.950381418690085 == assert
 '.
 
+	algol68 := self algol68Transpiler transpile: ast.
+	self
+		assert: algol68
+		equals: 'randomSeed(100);
+assert(random(3) == 0.8673620908521116);
+assert(random(10) == 8.950381418690085);
+'.
+
 	^ prefix
 ]
 
 { #category : 'example' }
 ProcessingTranspilerVariantExamples >> transpileSierpinski [
 	<gtExample>
-	| ast postfix prefix |
+	| ast prefix postfix algol68 |
 	ast := ProcessingSourceExamples new sourceSierpinski program ast.
 
 	prefix := self prefixTranspiler transpile: ast.
@@ -547,6 +739,32 @@ $sierpinski ($n $x $y $side) {
 0 0 0 stroke
 1 strokeWeight
 4 2 2 width 4 - sierpinski
+'.
+
+	algol68 := self algol68Transpiler transpile: ast.
+	self
+		assert: algol68
+		equals: 'px = 300;
+size(px, px * sin(radians(60)) + 2);
+fn sierpinski(n, x, y, side) {
+	th = side * sin(radians(60));
+	if (n == 1) {
+		triangle(x, y + th, x + side, y + th, x + side / 2, y);
+	} else {
+		if (n > 1) {
+			side = side / 2;
+			th = th / 2;
+			sierpinski(n - 1, x + side / 2, y, side);
+			sierpinski(n - 1, x, y + th, side);
+			sierpinski(n - 1, x + side, y + th, side);
+		}
+	}
+}
+background(255, 255, 255);
+fill(0, 0, 0);
+stroke(0, 0, 0);
+strokeWeight(1);
+sierpinski(4, 2, 2, width - 4);
 '.
 
 	^ prefix
