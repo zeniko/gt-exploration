@@ -60,6 +60,81 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-03-02T01:07:46.843+01:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-03-02T01:08:00.632+01:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "RJbznZZyAkCYLZdMU3sokg=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Expanded {{gtPage:Programmieren mit Processing|db=dl0rc62x02fk8k57e43hr8acw}}"
+						}
+					]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2026-03-02T01:07:22.87+01:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2026-03-02T01:07:22.87+01:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "zYonZjjoZkaU8iz5R8Z3Lg=="
+				},
+				"paragraphStyle" : {
+					"__type" : "textStyle"
+				},
+				"string" : "# Week 10"
+			},
+			{
+				"__type" : "textSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
 									"dateAndTimeString" : "2026-02-22T23:35:27.294+01:00"
 								}
 							},
@@ -108,7 +183,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-02-23T01:36:10.212+01:00"
+									"dateAndTimeString" : "2026-02-23T01:36:28.492+01:00"
 								}
 							},
 							"uid" : {
@@ -118,7 +193,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Added Algol68"
+							"string" : "Added Algol-68-style transpiler variant ({{gtClass:ProcessingTranspilerVariant2}})"
 						}
 					]
 				},
@@ -4741,7 +4816,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2025-05-06T23:46:43.026+02:00"
+									"dateAndTimeString" : "2026-03-01T23:50:21.94+01:00"
 								}
 							},
 							"uid" : {
@@ -4751,7 +4826,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Some content for students: {{gtPage:Arbeiten mit Glamorous Toolkit|db=dl0rc62x02fk8k57e43hr8acw}}, {{gtPage:Verzweigungen und Schleifen|db=dl0rc62x02fk8k57e43hr8acw}}, {{gtPage:Funktionen|db=dl0rc62x02fk8k57e43hr8acw}}, {{gtPage:Abstrakter Syntax-Baum (AST)|db=dl0rc62x02fk8k57e43hr8acw}}, {{gtPage:Transpiler: AST übersetzen|db=dl0rc62x02fk8k57e43hr8acw}}."
+							"string" : "Some content for students: {{gtPage:Arbeiten mit Glamorous Toolkit|db=dl0rc62x02fk8k57e43hr8acw}}, {{gtPage:Verzweigungen|db=dl0rc62x02fk8k57e43hr8acw}}, {{gtPage:Funktionen|db=dl0rc62x02fk8k57e43hr8acw}}, {{gtPage:Abstrakter Syntax-Baum (AST)|db=dl0rc62x02fk8k57e43hr8acw}}, {{gtPage:Transpiler: AST übersetzen|db=dl0rc62x02fk8k57e43hr8acw}}."
 						},
 						{
 							"__type" : "textSnippet",
