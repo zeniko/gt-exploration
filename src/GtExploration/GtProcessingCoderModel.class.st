@@ -108,7 +108,9 @@ GtProcessingCoderModel >> handleError: anError for: aContext [
 							symbol_token first = '<lparen>'
 								ifTrue: [ location := symbol_token second startPosition.
 									message := 'Open parenthesis' ] ] ]
-				ifFalse: [ message := 'Expected: ' , (' or ' join: expected) ].
+				ifFalse: [ (expected includes: '"await"')
+						ifTrue: [ message := 'Expected indentation with Tab (delete spaces, then press Tab)' ]
+						ifFalse: [ message := 'Expected: ' , (' or ' join: expected) ] ].
 			message = 'Expected: <INDENT>'
 				ifTrue: [ message := 'Expected indentation (press Tab)' ].
 			found = 'E O F'
