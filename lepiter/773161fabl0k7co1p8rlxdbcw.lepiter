@@ -66,14 +66,14 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-05-04T22:56:35.306+02:00"
+						"dateAndTimeString" : "2026-07-22T21:16:25.951+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
 					"uidString" : "2P9pViruDQC9soibBPWPeQ=="
 				},
-				"code" : "GtInspector forObject: (GtExampleGroup withAll: 'GtExploration' asPackage gtExamplesAllContained) runAll viewSelector: #gtExamplesFor:",
+				"code" : "GtInspector forObject: (GtExampleGroup withAll: 'GtExploration' asPackage gtExamplesAllContained) runAll viewSelector: #gtExamplesFor:context:",
 				"elementHeight" : 532,
 				"codeHeight" : 50,
 				"codeVisible" : true
